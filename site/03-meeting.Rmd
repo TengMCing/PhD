@@ -1,3 +1,39 @@
 # Meetings
 
-We describe our methods in this chapter.
+## March 10, 2021 - Week 2
+
+1. Human subject experiment and Monash permission
+    - There is a workshop in May
+2. Use simulated data to set up an experiment
+3. Check out Gallery of graphs (a name yan ... not sure)
+4. The experiment could start from residual plot
+7. Q-Q plot could also be considered
+8. A revelant research - residual calculation by kaiwen - master project
+9. Use Appen survey to collect data
+10. Build a Github to-do list, meeting record and summary of the literature
+11. There may be some development in the theory by Nancy Reid - theoretical statistician (recent work)
+12. Consider using Kears to build a computer vision model
+
+## March 17, 2021 - Week 3
+
+1. Read Susan Vanderplas's personal website to find additional information
+2. Check out NUMBAT residual plot comparision - summer-vis-inf : Aarathy Babu - code examples
+3. Read human subject premission examples (sent by Di)
+4. Check out top-up application
+5. Consider to use `Edibble` to set up the experiment
+6. Build the PhD repo
+7. Consider to use non-shiny framework
+
+## March 21, 2021 - Week 4
+
+1. A short meeting - late for 30 minutes
+2. Aarathy introduces her repo
+
+## March 28, 2021 - Week 5
+
+1. Discuss the options of building a alternative hypothesis in residual plot
+2. AR, heterogeneity of variance, endogeneity, skewness, exp distribution, poisson distribution and missing covariance
+3. Choice of plot design (loess or $y=0$ line), number of lineup (5~15), number of observations
+4. Use flow chart to illustrate the choices
+5. Literature review - check previous designs
+6. Build bookdown to track records

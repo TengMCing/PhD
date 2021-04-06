@@ -1,6 +1,6 @@
 # Introduction
 
-This notebook consists of:
+This note consists of:
 
 1. records of weekly meetings
 2. literature review
