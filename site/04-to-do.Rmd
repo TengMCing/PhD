@@ -1,1 +1,35 @@
 # TODO
+
+## Week 3
+
+- [x] Check human subject experiment and Monash permission materials
+	- https://www.intranet.monash/researchadmin/start/ethics/human
+- [x] Check Kaiwen's project & paper
+- [ ] Check Gallery of graphs - unclear author
+
+## Week 4
+
+- [x] Build prototype of html webpage to collect data
+- [x] Send data to google sheet
+- [x] Check summer-vis-inf 
+- [x] Read examples sent by Di
+- [ ] Build PhD repo
+    - [x] meetings
+    - [ ] paper
+    - [x] TODO 
+- [ ] Check Susan Vanderplas's website
+    - [ ] paper
+    - [ ] talks
+    - [ ] posts
+
+## Week 5
+
+- [x] modify the webpage to be able to select multiple plots
+- [x] Attempt to generate data from one assumed model
+- [ ] draft Human Ethics Application Form
+
+## Week 6
+
+- [ ] Do the literature review of previous design
+- [ ] Draw a flow chart to illustrate the design
+

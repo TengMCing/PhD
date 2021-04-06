@@ -1,3 +1,235 @@
 # Literature
 
-Here is a review of existing methods.
+## Graphical Inference for Infovis - Hadley Wickham, Dianne Cook, Heike Hofmann and Andreas Buja (2010)
+
+### Section 1 - Introduction
+
+In this section, the paper argues that much research in Infovis and most statistical methods are on two extremes. One focuses on finding relationships. Another focuses on checking whether a relationship really exists.  
+
+Some previous attempts of graphical inference are mentioned in this section. The 2009 paper which develops the statistical concepts of graphical inference is also mentioned.
+
+It then summarises the structure of the paper.
+
+### Section 2 - What is inference and why do we need it?
+
+This section starts by stating the two components of statistical inference, which are testing and estimation. It then defines the meaning of inference in graphics. 
+
+It uses the criminal justice system as an example to explain the principles of hypothesis testing, and points out the difference between traditional testing and visual testing, which are the test statistic and the mechanism of computing similarity.
+
+To be able to produce a visual test, null datasets which are samples from the null distribution are required. A null plot is a plot of a null dataset.
+
+It ends the section by making an important argument that the introduction of the visual test is not meant to replace traditional tests. “Traditional statistical tests are well studied, well-formulated and work best when data is well-behaved, following a known distribution in relatively simple scenarios.” However, traditional statistical tests do not cover all of the aspects we want to test. On the other hand, visual tests can be used in complex data analysis setting when traditional tests are unavailable.
+
+### Section 3 - Protocols of graphical inference
+
+This section introduces two protocols for graphical inference: the “Rorshach” and the “line-up”.
+
+The Rorschach protocol is used to calibrate our vision. In most of the imte, it contains only null plots.
+
+The line-up protocol consists of a plot of the true data and n-1 null plots. N is typically set to be 19.
+
+### Section 4 - Examples
+
+
+To use the line-up protocol, we need to:
+- Identify the question the plot is trying to answer
+- Characterize the null-hypothesis
+- Figure out how to generate null datasets
+
+
+It provides a list of questions that we would like to answer in commonly seen data plots.
+
+The null data can be generated in two ways in most cases: resampling and simulation. 
+
+One of the benefits of using permutation is it preserves the marginal distribution of each variable.
+
+### Section 5 - Power
+
+The power of the visual test depends on many factors. An appropriate choice of plot is important to increase the power. For large datasets, aggregation is one of the considerations. It can significantly increase the power of the test.
+
+### Section 6 - Use
+
+One can implement these two protocols using the R package `nullabor`.
+
+### Section 7 - Conclusion
+
+“Graphical inference is important because it helps us to avoid false convictions.”
+
+
+
+```
+@article{Wickham2010,
+abstract = {How do we know if what we see is really there? When visualizing data, how do we avoid falling into the trap of apophenia where we see patterns in random noise? Traditionally, infovis has been concerned with discovering new relationships, and statistics with preventing spurious relationships from being reported. We pull these opposing poles closer with two new techniques for rigorous statistical inference of visual discoveries. The "Rorschach" helps the analyst calibrate their understanding of uncertainty and "line-up" provides a protocol for assessing the significance of visual discoveries, protecting against the discovery of spurious structure. {\textcopyright} 2006 IEEE.},
+author = {Wickham, Hadley and Cook, Dianne and Hofmann, Heike and Buja, Andreas},
+doi = {10.1109/TVCG.2010.161},
+issn = {10772626},
+journal = {IEEE Transactions on Visualization and Computer Graphics},
+keywords = {Statistics,data plot,null hypotheses,permutation tests,visual testing},
+number = {6},
+pages = {973--979},
+pmid = {20975134},
+title = {{Graphical inference for infovis}},
+volume = {16},
+year = {2010}
+}
+```
+
+## Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods - William S. Cleveland and Rovert McGill (1984)
+
+```
+@article{Cleveland1984,
+abstract = {The subject of graphical methods for data analysis and for data presentation needs a scientific foundation. In this article we take a few steps in the direction of establishing such a foundation. Our approach is based on graphical perception-the visual decoding of information encoded on graphs-and it includes both theory and experimentation to test the theory. The theory deals with a small but important piece of the whole process of graphical perception. The first part is an identification of a set of elementary perceptual tasks that are carried out when people extract quantitative information from graphs. The second part is an ordering of the tasks on the basis of how accurately people perform them. Elements of the theory are tested by experimentation in which subjects record their judgments of the quantitative information on graphs. The experiments validate these elements but also suggest that the set of elementary tasks should be expanded. The theory provides a guideline for graph construction: Graphs should employ elementary tasks as high in the ordering as possible. This principle is applied to a variety of graphs, including bar charts, divided bar charts, pie charts, and statistical maps with shading. The conclusion is that radical surgery on these popular graphs is needed, and as replacements we offer alternative graphical forms-dot charts, dot charts with grouping, and framed-rectangle charts.},
+author = {Cleveland, William S. and McGill, Robert},
+doi = {10.2307/2288400},
+issn = {01621459},
+journal = {Journal of the American Statistical Association},
+month = {sep},
+number = {387},
+pages = {531--554},
+publisher = {JSTOR},
+title = {{Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods}},
+volume = {79},
+year = {1984}
+}
+```
+
+## Others
+
+```
+@book{wickham2016ggplot2,
+author = {Wickham, Hadley},
+file = {:Users/patrickli/Desktop/papers/(Use R!) Hadley Wickham - ggplot2_ Elegant Graphics for Data Analysis-Springer (2016).pdf:pdf},
+publisher = {springer},
+title = {ggplot2: elegant graphics for data analysis},
+year = {2016}
+}
+
+@book{Wilkinson2005,
+abstract = {The grammar of graphics (GoG) denotes a system with seven classes embedded in a data flow. This data flow specifies a strict order in which data are transformed from a raw dataset to a statistical graphic. Each class contains multiple methods, each of which is a function executed at the step in the data flow corresponding to that class. The classes are orthogonal, in the sense that the product set of all classes (every possible sequence of class methods) defines a space of graphics which is meaningful at every point. The meaning of a statistical graphic is thus determined by the mapping produced by the function chain linking data and graphic.},
+address = {New York},
+author = {Wilkinson, Leland},
+booktitle = {The Grammar of Graphics},
+doi = {10.1007/0-387-28695-0},
+edition = {2},
+file = {:Users/patrickli/Desktop/papers/(Statistics and Computing) Leland Wilkinson, D. Wills, D. Rope, A. Norton, R. Dubbs - The Grammar of Graphics-Springer (2005).pdf:pdf},
+publisher = {Springer-Verlag},
+title = {{The Grammar of Graphics}},
+year = {2005}
+}
+@article{Zhao2013MindRU,
+abstract = {Graphical statistics plays a very important job in research and industry. As a statistician, it is very useful that if one can see how people make their decision based on the plots, so that plots can be improved for better performance. With the help of eye-tracking equipment, researchers could show people several plots and ask a question on each, then track the person's eyes to see how they going through the plots to come to their answer. In this paper, the process and results of an experiment on watching what people were looking at in statistical plots will be discussed. This experiment is part of a larger experiment studying decision making and signal strength in statistical graphics, that uses Amazon's Mechanical Turk.},
+author = {Zhao, Y and Cook, D and Hofmann, H and Majumder, M and Chowdhury, N R},
+file = {:Users/patrickli/Desktop/papers/Mind Reading Using an Eyetracker to See How People Are Looking at Lineups.pdf:pdf},
+journal = {International Journal of Intelligent Technologies and Applied Statistics},
+number = {4},
+pages = {393--413},
+title = {{Mind Reading: Using an Eye-Tracker to See How People are Looking at Lineups}},
+volume = {6},
+year = {2013}
+}
+@article{Hofmann2012,
+abstract = {Lineups [4, 28] have been established as tools for visual testing similar to standard statistical inference tests, allowing us to evaluate the validity of graphical findings in an objective manner. In simulation studies [12] lineups have been shown as being efficient: the power of visual tests is comparable to classical tests while being much less stringent in terms of distributional assumptions made. This makes lineups versatile, yet powerful, tools in situations where conditions for regular statistical tests are not or cannot be met. In this paper we introduce lineups as a tool for evaluating the power of competing graphical designs. We highlight some of the theoretical properties and then show results from two studies evaluating competing designs: both studies are designed to go to the limits of our perceptual abilities to highlight differences between designs. We use both accuracy and speed of evaluation as measures of a successful design. The first study compares the choice of coordinate system: polar versus cartesian coordinates. The results show strong support in favor of cartesian coordinates in finding fast and accurate answers to spotting patterns. The second study is aimed at finding shift differences between distributions. Both studies are motivated by data problems that we have recently encountered, and explore using simulated data to evaluate the plot designs under controlled conditions. Amazon Mechanical Turk (MTurk) is used to conduct the studies. The lineups provide an effective mechanism for objectively evaluating plot designs. {\textcopyright} 1995-2012 IEEE.},
+author = {Hofmann, Heike and Follett, Lendie and Majumder, Mahbubul and Cook, Dianne},
+doi = {10.1109/TVCG.2012.230},
+file = {:Users/patrickli/Desktop/papers/Graphical Tests for Power Comparison of Competing Designs.pdf:pdf},
+issn = {10772626},
+journal = {IEEE Transactions on Visualization and Computer Graphics},
+keywords = {Efficiency of displays,Lineups,Power comparison,Visual inference},
+number = {12},
+pages = {2441--2448},
+title = {{Graphical tests for power comparison of competing designs}},
+volume = {18},
+year = {2012}
+}
+
+@article{RoyChowdhury2015,
+abstract = {Statistical graphics play an important role in exploratory data analysis, model checking and diagnosis. With high dimensional data, this often means plotting low-dimensional projections, for example, in classification tasks projection pursuit is used to find low-dimensional projections that reveal differences between labelled groups. In many contemporary data sets the number of observations is relatively small compared to the number of variables, which is known as a high dimension low sample size (HDLSS) problem. This paper explores the use of visual inference on understanding low-dimensional pictures of HDLSS data. Visual inference helps to quantify the significance of findings made from graphics. This approach may be helpful to broaden the understanding of issues related to HDLSS data in the data analysis community. Methods are illustrated using data from a published paper, which erroneously found real separation in microarray data, and with a simulation study conducted using Amazon's Mechanical Turk.},
+author = {{Roy Chowdhury}, Niladri and Cook, Dianne and Hofmann, Heike and Majumder, Mahbubul and Lee, Eun Kyung and Toth, Amy L.},
+doi = {10.1007/s00180-014-0534-x},
+file = {:Users/patrickli/Desktop/papers/RoyChowdhury2015_Article_UsingVisualStatisticalInferenc.pdf:pdf},
+issn = {16139658},
+journal = {Computational Statistics},
+keywords = {Data mining,Lineup,Projection pursuit,Statistical graphics,Visualization},
+month = {nov},
+number = {2},
+pages = {293--316},
+publisher = {Springer Verlag},
+title = {{Using visual statistical inference to better understand random class separations in high dimension, low sample size data}},
+url = {https://link.springer.com/article/10.1007/s00180-014-0534-x},
+volume = {30},
+year = {2015}
+}
+@article{Loy2017,
+abstract = {The complexity of linear mixed-effects (LME) models means that traditional diagnostics are rendered less effective. This is due to a breakdown of asymptotic results, boundary issues, and visible patterns in residual plots that are introduced by the model fitting process. Some of these issues are well known and adjustments have been proposed. Working with LME models typically requires that the analyst keeps track of all the special circumstances that may arise. In this article, we illustrate a simpler but generally applicable approach to diagnosing LME models. We explain how to use new visual inference methods for these purposes. The approach provides a unified framework for diagnosing LME fits and for model selection. We illustrate the use of this approach on several commonly available datasets. A large-scale Amazon Turk study was used to validate the methods. R code is provided for the analyses. Supplementary materials for this article are available online.},
+archivePrefix = {arXiv},
+arxivId = {1502.06988},
+author = {Loy, Adam and Hofmann, Heike and Cook, Dianne},
+doi = {10.1080/10618600.2017.1330207},
+eprint = {1502.06988},
+file = {:Users/patrickli/Desktop/papers/Model Choice and Diagnostics for Linear Mixed Effects Models Using Statistics on Street Corners.pdf:pdf},
+issn = {15372715},
+journal = {Journal of Computational and Graphical Statistics},
+keywords = {Lineup protocol,Model diagnostics,Model selection,Statistical graphics,Visual inference},
+month = {jul},
+number = {3},
+pages = {478--492},
+publisher = {American Statistical Association},
+title = {{Model Choice and Diagnostics for Linear Mixed-Effects Models Using Statistics on Street Corners}},
+url = {https://www.tandfonline.com/doi/abs/10.1080/10618600.2017.1330207},
+volume = {26},
+year = {2017}
+}
+@article{Majumder2013,
+abstract = {Statistical graphics play a crucial role in exploratory data analysis, model checking, and diagnosis. The lineup protocol enables statistical significance testing of visual findings, bridging the gulf between exploratory and inferential statistics. In this article, inferential methods for statistical graphics are developed further by refining the terminology of visual inference and framing the lineup protocol in a context that allows direct comparison with conventional tests in scenarios when a conventional test exists. This framework is used to compare the performance of the lineup protocol against conventional statistical testing in the scenario of fitting linear models.Ahuman subjects experiment is conducted using simulated data to provide controlled conditions. Results suggest that the lineup protocol performs comparably with the conventional tests, and expectedly outperforms them when data are contaminated, a scenario where assumptions required for performing a conventional test are violated. Surprisingly, visual tests have higher power than the conventional tests when the effect size is large. And, interestingly, there may be some super-visual individuals who yield better performance and power than the conventional test even in the most difficult tasks. Supplementary materials for this article are available online. {\textcopyright} 2013 American Statistical Association.},
+author = {Majumder, Mahbubul and Hofmann, Heike and Cook, Dianne},
+doi = {10.1080/01621459.2013.808157},
+file = {:Users/patrickli/Desktop/papers/Validation of Visual Statistical Inference Applied to Linear Models.pdf:pdf},
+issn = {01621459},
+journal = {Journal of the American Statistical Association},
+keywords = {Data mining,Effect size,Exploratory data analysis,Lineup,Nonparametric test,Practical significance,Statistical graphics,Visualization},
+number = {503},
+pages = {942--956},
+publisher = {Taylor & Francis Group},
+title = {{Validation of visual statistical inference, applied to linear models}},
+url = {https://www.tandfonline.com/doi/abs/10.1080/01621459.2013.808157},
+volume = {108},
+year = {2013}
+}
+@article{Chowdhury2018,
+abstract = {Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. The lineup protocol provides a formal framework for data plots, making inference possible. The data plot is treated like a test statistic, and lineup protocol acts like a comparison with the sampling distribution of the nulls. This article describes metrics for describing structure in data plots and evaluates them in relation to the choices that human readers made during several large Amazon Turk studies using lineups. The metrics that were more specific to the plot types tended to better match subject choices, than generic metrics. The process that we followed to evaluate metrics will be useful for general development of numerically measuring structure in plots, and also in future experiments on lineups for choosing blocks of pictures. Supplementary materials for this article are available online.},
+author = {Chowdhury, Niladri Roy and Cook, Dianne and Hofmann, Heike and Majumder, Mahbubul},
+doi = {10.1080/10618600.2017.1356323},
+file = {:Users/patrickli/Desktop/papers/Measuring Lineup Difficulty By Matching Distance Metrics With Subject Choices in Crowd Sourced Data.pdf:pdf},
+issn = {15372715},
+journal = {Journal of Computational and Graphical Statistics},
+keywords = {Cognitive perception,Data mining,Data science,Data visualization,Distance metrics,Exploratory data analysis,Information visualization,Statistical graphics,Visual inference},
+month = {jan},
+number = {1},
+pages = {132--145},
+publisher = {American Statistical Association},
+title = {{Measuring Lineup Difficulty By Matching Distance Metrics With Subject Choices in Crowd-Sourced Data}},
+url = {https://www.tandfonline.com/doi/abs/10.1080/10618600.2017.1356323},
+volume = {27},
+year = {2018}
+}
+@article{Buja2009,
+abstract = {We propose to furnish visual statistical methods with an inferential framework and protocol, modelled on confirmatory statistical testing. In this framework, plots take on the role of test statistics, and human cognition the role of statistical tests. Statistical significance of 'discoveries' is measured by having the human viewer compare the plot of the real dataset with collections of plots of simulated datasets. A simple but rigorous protocol that provides inferential validity is modelled after the 'lineup' popular from criminal legal procedures. Another protocol modelled after the 'Rorschach' inkblot test, well known from (pop-)psychology, will help analysts acclimatize to random variability before being exposed to the plot of the real data. The proposed protocols will be useful for exploratory data analysis, with reference datasets simulated by using a null assumption that structure is absent. The framework is also useful for model diagnostics in which case reference datasets are simulated from the model in question. This latter point follows up on previous proposals. Adopting the protocols will mean an adjustment in working procedures for data analysts, adding more rigour, and teachers might find that incorporating these protocols into the curriculum improves their students' statistical thinking. This journal is {\textcopyright} 2009 The Royal Society.},
+author = {Buja, Andreas and Cook, Dianne and Hofmann, Heike and Lawrence, Michael and Lee, Eun Kyung and Swayne, Deborah F. and Wickham, Hadley},
+doi = {10.1098/rsta.2009.0120},
+file = {:Users/patrickli/Desktop/papers/Statistical inference for exploratory data analysis and model diagnostics.pdf:pdf},
+issn = {1364503X},
+journal = {Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences},
+keywords = {Cognitive perception,Permutation tests,Rotation tests,Simulation,Statistical graphics,Visual data mining},
+month = {nov},
+number = {1906},
+pages = {4361--4383},
+pmid = {19805449},
+publisher = {Royal Society},
+title = {{Statistical inference for exploratory data analysis and model diagnostics}},
+url = {https://royalsocietypublishing.org/doi/10.1098/rsta.2009.0120},
+volume = {367},
+year = {2009}
+}
+```
+
+
