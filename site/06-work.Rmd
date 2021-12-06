@@ -1,0 +1,13 @@
+# Works
+
+Visual inference is an alternative to the traditional statical tests. It is particularly useful when there is no suitable numerical tests. However, one of the drawbacks of visual inference is it needs to be conducted by human, which limits its use cases.
+
+The aim of this work is to provide a tool for automating the test procedure of visual inference. In other words, provided a lineup, the agent developed by us would need to be able to, at least, pick up the most different plot. 
+
+## S1 2021
+
+Considering the lineup protocol is a graphical representation of the data, we can define the choice function $f$ for a perfect observer on a collection of nonempty sets $$X = \{\{p_{1,1}, p_{1,2}, ..., p_{1,M}\},\{p_{2,1}, p_{2,2}, ..., p_{2,M}\},...,\{p_{L,1}, p_{L,2}, ..., p_{L,M}\}\}$$ and assigns one element of each set $S$ in this collection to $S$ by $f(S)$, where $p_{l,m}$ is the $i$th plot of the $l$th lineup for $1\leq l \leq L$ and $1\leq m \leq M$, $M$ is the size of the lineup and $L$ is the number of lineups. Thus, $f$ is a perfect selector which always select the visually most different plot.
+
+We could further assume there exists a real-valued function $g$ such that $$f(S) = \sup\{g(s_1; S\setminus\{s_1\}),g(s_2;S\setminus\{s_2\}),...,g(s_M;S\setminus\{s_M\})\},$$ where $s_i$ is the $i$th element of the set $S$ for $1 \leq i \leq M$. Then, there is a natural explanation of $g(s_i;S\setminus\{s_i\})$, which is the visual difference between $s_i$ and the rest of the plots or the strength of the signal of $s_i$. Finding $g$ is not trivial. There are some previous researches that attempt to find such a function with manually defined distance metrics under relatively simple graphical settings and show promising results. However, those distance metrics are case-specific, which means new distance metrics needs to be defined, if they could be defined, for new cases. Obviously, the function $g$ is the linkage between visual test and numerical tests. Unless we can properly define "visual difference" and accurately quantify it, we may never find $g$, not to mention the possibility of $g$ does not exist.
+
+An alternative will be to find the selector $f$ directly. Unfortunately, perfect observer does not exist, but the selector can still be approximated. Given a lineup and $K$ imperfect observers with probability $p_i \geq 1/M$ to pick the most different plot for $1 \leq i \leq K$, the most frequently chosen plot is a reasonable estimator of the output of the selector $f$. 
