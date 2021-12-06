@@ -2,3 +2,5 @@ reading/*.pdf
 .Rproj.user
 
 .DS_Store
+
+.Rhistory
