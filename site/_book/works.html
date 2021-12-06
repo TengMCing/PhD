@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction | PhD Notebook</title>
+  <title>Chapter 7 Works | PhD Notebook</title>
   <meta name="description" content="This is a notebook for recording." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Introduction | PhD Notebook" />
+  <meta property="og:title" content="Chapter 7 Works | PhD Notebook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction | PhD Notebook" />
+  <meta name="twitter:title" content="Chapter 7 Works | PhD Notebook" />
   
   <meta name="twitter:description" content="This is a notebook for recording." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="literature.html"/>
+<link rel="prev" href="milestones.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -128,25 +128,25 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
-<p>This note consists of:</p>
-<ol style="list-style-type: decimal">
-<li>records of weekly meetings</li>
-<li>literature review</li>
-<li>TO-DO list</li>
-<li>milestones</li>
-<li>links to resources</li>
-</ol>
+<div id="works" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Works</h1>
+<p>Visual inference is an alternative to the traditional statical tests. It is particularly useful when there is no suitable numerical tests. However, one of the drawbacks of visual inference is it needs to be conducted by human, which limits its use cases.</p>
+<p>The aim of this work is to provide a tool for automating the test procedure of visual inference. In other words, provided a lineup, the agent developed by us would need to be able to, at least, pick up the most different plot.</p>
+<div id="s1-2021" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> S1 2021</h2>
+<p>Considering the lineup protocol is a graphical representation of the data, we can define the choice function <span class="math inline">\(f\)</span> for a perfect observer on a collection of nonempty sets <span class="math display">\[X = \{\{p_{1,1}, p_{1,2}, ..., p_{1,M}\},\{p_{2,1}, p_{2,2}, ..., p_{2,M}\},...,\{p_{L,1}, p_{L,2}, ..., p_{L,M}\}\}\]</span> and assigns one element of each set <span class="math inline">\(S\)</span> in this collection to <span class="math inline">\(S\)</span> by <span class="math inline">\(f(S)\)</span>, where <span class="math inline">\(p_{l,m}\)</span> is the <span class="math inline">\(i\)</span>th plot of the <span class="math inline">\(l\)</span>th lineup for <span class="math inline">\(1\leq l \leq L\)</span> and <span class="math inline">\(1\leq m \leq M\)</span>, <span class="math inline">\(M\)</span> is the size of the lineup and <span class="math inline">\(L\)</span> is the number of lineups. Thus, <span class="math inline">\(f\)</span> is a perfect selector which always select the visually most different plot.</p>
+<p>We could further assume there exists a real-valued function <span class="math inline">\(g\)</span> such that <span class="math display">\[f(S) = \sup\{g(s_1; S\setminus\{s_1\}),g(s_2;S\setminus\{s_2\}),...,g(s_M;S\setminus\{s_M\})\},\]</span> where <span class="math inline">\(s_i\)</span> is the <span class="math inline">\(i\)</span>th element of the set <span class="math inline">\(S\)</span> for <span class="math inline">\(1 \leq i \leq M\)</span>. Then, there is a natural explanation of <span class="math inline">\(g(s_i;S\setminus\{s_i\})\)</span>, which is the visual difference between <span class="math inline">\(s_i\)</span> and the rest of the plots or the strength of the signal of <span class="math inline">\(s_i\)</span>. Finding <span class="math inline">\(g\)</span> is not trivial. There are some previous researches that attempt to find such a function with manually defined distance metrics under relatively simple graphical settings and show promising results. However, those distance metrics are case-specific, which means new distance metrics needs to be defined, if they could be defined, for new cases. Obviously, the function <span class="math inline">\(g\)</span> is the linkage between visual test and numerical tests. Unless we can properly define “visual difference” and accurately quantify it, we may never find <span class="math inline">\(g\)</span>, not to mention the possibility of <span class="math inline">\(g\)</span> does not exist.</p>
+<p>An alternative will be to find the selector <span class="math inline">\(f\)</span> directly. Unfortunately, perfect observer does not exist, but the selector can still be approximated. Given a lineup and <span class="math inline">\(K\)</span> imperfect observers with probability <span class="math inline">\(p_i \geq 1/M\)</span> to pick the most different plot for <span class="math inline">\(1 \leq i \leq K\)</span>, the most frequently chosen plot is a reasonable estimator of the output of the selector <span class="math inline">\(f\)</span>.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="milestones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
