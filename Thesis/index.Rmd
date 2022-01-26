@@ -1,8 +1,8 @@
 ---
-title: 'Thesis title'
+title: 'Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Predictive Model Diagnostics'
 degreetype: 'Doctor of Philosophy'
-author: 'Joe Bloggs'
-degrees: 'B.Sc. (Hons), University of Tangambalanga'
+author: 'Weihao Li'
+degrees: 'B.Comm. (Hons), Monash University'
 output: bookdown::pdf_book
 site: bookdown::bookdown_site
 link-citations: yes

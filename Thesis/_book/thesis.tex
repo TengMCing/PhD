@@ -9,16 +9,16 @@
 % Add any LaTeX packages and other preamble here if required
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\author{Joe Bloggs}
-\title{Thesis title}
-\degrees{B.Sc. (Hons), University of Tangambalanga}
+\author{Weihao Li}
+\title{Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Predictive Model Diagnostics}
+\degrees{B.Comm. (Hons), Monash University}
 \def\degreetitle{Doctor of Philosophy}
 % Add subject and keywords below
 \hypersetup{
      %pdfsubject={The Subject},
      %pdfkeywords={Some Keywords},
-     pdfauthor={Joe Bloggs},
-     pdftitle={Thesis title},
+     pdfauthor={Weihao Li},
+     pdftitle={Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Predictive Model Diagnostics},
      pdfproducer={Bookdown with LaTeX}
 }
 
@@ -127,114 +127,107 @@ The contribution in Chapter \ref{ch:litreview} of this thesis was presented in t
 \hypertarget{ch:intro}{%
 \chapter{Introduction}\label{ch:intro}}
 
-This is where you introduce the main ideas of your thesis, and an overview of the context and background.
+\hypertarget{ch:paper1}{%
+\chapter{Automatic Visual Statistical Inference, with Application to Linear Regression Diagnostics}\label{ch:paper1}}
 
-In a PhD, Chapter 2 would normally contain a literature review. Typically, Chapters 3--5 would contain your own contributions. Think of each of these as potential papers to be submitted to journals. Finally, Chapter 6 provides some concluding remarks, discussion, ideas for future research, and so on. Appendixes can contain additional material that don't fit into any chapters, but that you want to put on record. For example, additional tables, output, etc.
+\hypertarget{abstract-1}{%
+\section{Abstract}\label{abstract-1}}
 
-\hypertarget{rmarkdown}{%
-\section{Rmarkdown}\label{rmarkdown}}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-In this template, the rest of the chapter shows how to use Rmarkdown. The big advantage of using Rmarkdown is that it allows you to include your R code directly into your thesis, to ensure there are no errors in copying and pasting, and that everything is reproducible. It also helps you stay better organized.
+\hypertarget{model-diagnostics}{%
+\subsection{Model Diagnostics}\label{model-diagnostics}}
 
-For details on using \emph{R Markdown} see \url{http://rmarkdown.rstudio.com}.
+Model diagnostics is the part of data analysis, preceded by the fit of a model, whose primary objectives are to examine the goodness of fit and reveal potential violations of assumptions.
+In these diagnostics, though numeric summaries are available and some are endorsed by finite or asymptotic properties, graphic representation of data is preferred or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries that may be abstract and could not be quantified algorithmically.
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+However, unlike confirmatory data analysis which is built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups \autocite{roy_chowdhury_using_2015}.
 
-Included in this template is a file called \texttt{sales.csv}. This contains quarterly data on Sales and Advertising budget for a small company over the period 1981--2005. It also contains the GDP (gross domestic product) over the same period. All series have been adjusted for inflation. We can load in this data set using the following command:
+\hypertarget{visual-inference}{%
+\subsection{Visual Inference}\label{visual-inference}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sales }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/sales.csv"}\NormalTok{)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }\AttributeTok{start=}\DecValTok{1981}\NormalTok{, }\AttributeTok{frequency=}\DecValTok{4}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Any data you use in your thesis can go into the data directory. The data should be in exactly the format you obtained it. Do no editing or manipulation of the data outside of R. Any data munging should be scripted in R and form part of your thesis files (possibly hidden in the output).
-
-\hypertarget{figures}{%
-\section{Figures}\label{figures}}
-
-Figure \ref{fig:deaths} shows time plots of the data we just loaded. Notice how figure captions and references work. Chunk names can be used as figure labels with \texttt{fig:} prefixed. Never manually type figure numbers, as they can change when you add or delete figures. This way, the figure numbering is always correct.
+Visual inference was first introduced by \textcite{buja_statistical_2009} as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/deaths-1.pdf}
-\caption{\label{fig:deaths}Quarterly sales, advertising and GDP data.}
+\includegraphics[width=4.6875in,height=3.55208in]{figures/rsta2009012001.jpg}
+\caption{Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}. \label{fig:parallelism}}
 \end{figure}
 
-\hypertarget{results-from-analyses}{%
-\section{Results from analyses}\label{results-from-analyses}}
 
-We can fit a dynamic regression model to the sales data.
 
-If \(y_t\) denotes the sales in quarter \(t\), \(x_t\) denotes the corresponding advertising budget and \(z_t\) denotes the GDP, then the resulting model is:
-\begin{equation}
-  y_t - y_{t-4} = \beta (x_t-x_{t-4}) + \gamma (z_t-z_{t-4}) + \theta_1 \varepsilon_{t-1} + \Theta_1 \varepsilon_{t-4} + \varepsilon_t
-\end{equation}
-where
-\(\beta = 2.28\),
-\(\gamma = 0.97\),
-\(\theta_1 = NA\),
-and
-\(\Theta_1 = -0.90\).
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \ref{fig:nonlinearityheter}.
 
-\hypertarget{tables}{%
-\section{Tables}\label{tables}}
+\hypertarget{pre-specification-of-visual-discoverable-features}{%
+\subsection{Pre-specification of Visual Discoverable Features}\label{pre-specification-of-visual-discoverable-features}}
 
-Let's assume future advertising spend and GDP are at the current levels. Then forecasts for the next year are given in Table \ref{tab:salesforecasts}.
+As discussed in \textcite{buja_statistical_2009}, in the practice of model diagnostics, the range of possible visual discoveries is not pre-specified. In other words, people do not explicitly specify which one or more visual features they are looking for before the read of the diagnostic plot. This is concerning since conventional hypothesis testing always requires the pre-specification of the parameter space \(\Theta\) of the parameter of interest \(\theta \in \Theta\) to form a valid inferential procedure. To address this issue, a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) is defined, where \(\boldsymbol{\mathrm{y}}\) is the data and \(\boldsymbol{I}\) is a set of all possible visual features. \textcite{buja_statistical_2009} described each of the test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})\) as a measurement of the degree of presence of a visual feature. Alternatively, \textcite{majumder_validation_2013} avoids the use of visual features and defined the visual statistics \(T(.)\) as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper, the first definition will be used as it covered some details needed by this work.
 
-\begin{verbatim}
-## Warning in sprintf(str, x, ...): one argument not used by format '\toprule
-## Point Forecast & Lo 80 & Hi 80 & Lo 95 & Hi 95 \\
-## \midrule'
+The size of the collection \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) depends on the size of the set \(I\). If one can define \(I\) comprehensively, i.e, pre-specify all the visual discoverable features, the validity issue will be solved. Unfortunately, to our knowledge, there is no such a way to list all visual features. In linear regression diagnostics, possible visual features of a residual plot may be outliers, shapes and clusters. But these are very vague features which does not cover the full list of visual features.
 
-## Warning in sprintf(str, x, ...): one argument not used by format '\toprule
-## Point Forecast & Lo 80 & Hi 80 & Lo 95 & Hi 95 \\
-## \midrule'
-\end{verbatim}
+Similarly, \textcite{wilkinson_graph-theoretic_2005} proposed the work called graph theoretic scagnostics, which adopted the idea of ``scagnostics'' - scatter plot diagnostics from . It includes 9 computable scagnostics measures defined on planar proximity graphs: ``Outlying'', ``Convex'', ``Skinny'', ``Stringy'', ``Straight'', ``Monotonic'', ``Skewed'', ``Clumpy'' and ``Striated'' which attempts to describe outliers, shape, density, trend and coherence of the data. This approach is inspiring but it does not contain the complete list of visual discoverable features. It is possible that such a list will never be complete as suggested in \textcite{buja_statistical_2009}.
 
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{lllll}
-\toprule
-Point Forecast & Lo 80 & Hi 80 & Lo 95 & Hi 95 \\
-\midrule
-1000.2 &  947.7 & 1052.7 & 919.9 & 1080.5 \\
-1013.1 &  959.3 & 1066.8 & 930.9 & 1095.3 \\
-1076.7 & 1022.9 & 1130.6 & 994.4 & 1159.0 \\
-1003.5 &  949.7 & 1057.4 & 921.2 & 1085.8 \\
-\bottomrule
-\end{tabular}
-\caption{Forecasts for the next year assuming Advertising budget and GDP are unchanged.}
-\label{tab:salesforecasts}
-\end{center}
-\end{table}
+Thinking out of the box, \textcite{buja_statistical_2009} argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers not only can point out the fact that visual discoveries have been found, but also can describe the particular features they observed. Those features will correspond to the subset of the collection of visual test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) which resulted in rejection.
 
-Again, notice the use of labels and references to automatically generate Table numbers. In this case, we need to generate the label ourselves.
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/nonlinearityheter-1.pdf}
+\caption{\label{fig:nonlinearityheter}test}
+\end{figure}
 
-The \texttt{knitLatex} package is useful for generating tables from R output. Other packages can do similar things including the \texttt{kable} function in \texttt{knitr} which is somewhat simpler but you have less control over the result. If you use \texttt{knitLatex} to generate tables, don't forget to include \texttt{results="asis"} in the chunk settings.
+\hypertarget{lineup-protocol}{%
+\subsection{Lineup Protocol}\label{lineup-protocol}}
 
-\hypertarget{ch:litreview}{%
-\chapter{Literature Review}\label{ch:litreview}}
+\hypertarget{type-i-error}{%
+\subsubsection{Type-I error}\label{type-i-error}}
 
-This chapter contains a summary of the context in which your research is set.
+\hypertarget{type-ii-error}{%
+\subsubsection{Type-II error}\label{type-ii-error}}
 
-Imagine you are writing for your fellow PhD students. Topics that are well-known to them do not have to be included here. But things that they may not know about should be included.
+\hypertarget{visual-inference-applied-to-linear-regression}{%
+\subsection{Visual Inference Applied to Linear Regression}\label{visual-inference-applied-to-linear-regression}}
 
-Resist the temptation to discuss everything you've read in the last few years. And you are not writing a textbook either. This chapter is meant to provide the background necessary to understand the material in subsequent chapters. Stick to that.
+How people used visual inference in linear regression?
 
-You will need to organize the literature review around themes, and within each theme provide a story explaining the development of ideas to date. In each theme, you should get to the point where your ideas will fit in. But leave your ideas to later chapters. This way it is clear what has been done beforehand, and what new contributions you are making to the research field.
+\hypertarget{limitation-of-the-visual-inference}{%
+\subsection{Limitation of the Visual Inference}\label{limitation-of-the-visual-inference}}
 
-All citations should be done using markdown notation as shown below. This way, your bibliography will be compiled automatically and correctly.
+What are the limitations?
 
-\hypertarget{sec:expsmooth}{%
-\section{Exponential smoothing}\label{sec:expsmooth}}
+\hypertarget{computer-vision-model}{%
+\subsection{Computer Vision Model}\label{computer-vision-model}}
 
-Exponential smoothing was originally developed in the late 1950s \autocite{Brown59,Brown63,Holt57,Winters60}. Because of their computational simplicity and interpretability, they became widely used in practice.
+What is computer vision model?
 
-Empirical studies by \textcite{MH79} and \textcite{Metal82} found little difference in forecast accuracy between exponential smoothing and ARIMA models. This made the family of exponential smoothing procedures an attractive proposition \autocite[see][]{CKOS01}.
+\hypertarget{contribution}{%
+\subsection{Contribution}\label{contribution}}
 
-The methods were less popular in academic circles until \textcite{OKS97} introduced a state space formulation of some of the methods, which was extended in \textcite{HKSG02} to cover the full range of exponential smoothing methods.
+What has been done by this paper?
+
+\hypertarget{structure-of-this-paper}{%
+\subsection{Structure of This Paper}\label{structure-of-this-paper}}
+
+What is the structure of the paper?
+
+Model diagnostics is the part of data analysis whose primary objectives are to examine the goodness of the model fit and reveal potential violations of the assumptions. Graphical approaches
+
+For regression diagnostics, it may includes the needs of
+
+Linear regression is an modelling approach to describe the relationship between an response variable and one or more explanatory variable. It has been widely used for both generative modeling and predictive modelling.
+
+Regression diagnostics is needed
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  to check whether the assumptions has been violated
+\item
+  to check whether the line fit the data
+\end{enumerate}
+
+Model diagnostics for linear regression is well developed
 
 \appendix
 
