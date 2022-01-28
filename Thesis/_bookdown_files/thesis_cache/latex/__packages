@@ -2,3 +2,11 @@ base
 forecast
 ggplot2
 patchwork
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats

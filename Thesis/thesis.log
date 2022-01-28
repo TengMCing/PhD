@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.13)  26 JAN 2022 14:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.13)  29 JAN 2022 05:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -985,7 +985,7 @@ LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 <figures/rsta2009012001.jpg, id=156, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 154.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 155.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -996,11 +996,6 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
 [4 <./figures/rsta2009012001.jpg>]
-Overfull \hbox (2.26955pt too wide) in paragraph at lines 169--170
-\T1/ppl/m/n/10.95 (-20) ``Outlying'', ``Convex'', ``Skinny'', ``Stringy'', ``St
-raight'', ``Monotonic'', ``Skewed'', ``Clumpy''
- []
-
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1016,10 +1011,10 @@ File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
 
 <use thesis_files/figure-latex/nonlinearityheter-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/nonlinearityheter-1.pdf  use
-d on input line 175.
+d on input line 176.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 175--176
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 176--177
  [][] 
  []
 
@@ -1040,29 +1035,20 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[7]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[8]
-Appendix A.
-[9
-
-] [10
+[7] [8
 
 ]
-Underfull \hbox (badness 1077) in paragraph at lines 241--241
+Appendix A.
+[9] [10
+
+]
+Underfull \hbox (badness 1077) in paragraph at lines 242--242
 [][]\T1/ppl/m/n/10.95 (+20) Cleveland, WS and R McGill (1984). Graph-i-cal Per-
 cep-tion: The-ory, Ex-per-i-men-ta-
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 241--241
+Underfull \hbox (badness 1859) in paragraph at lines 242--242
 \T1/ppl/m/n/10.95 (+20) tion, and Ap-pli-ca-tion to the De-vel-op-ment of Graph
 -i-cal Meth-ods. \T1/ppl/m/it/10.95 (+20) Jour-nal of
  []
@@ -1082,13 +1068,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 22941 strings out of 480313
- 403908 string characters out of 5896283
+ 22932 strings out of 480313
+ 403827 string characters out of 5896283
  1150538 words of memory out of 5000000
  40091 multiletter control sequences out of 15000+600000
- 500301 words of font info for 305 fonts, out of 8000000 for 9000
+ 499824 words of font info for 299 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,77p,1546b,18367s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,11n,77p,1546b,18367s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publi
@@ -1101,7 +1087,7 @@ t/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-d
 ist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickli/Library/TinyTeX/texm
 f-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patrickli/Library/TinyTeX/te
 xmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (25 pages, 521338 bytes).
+Output written on thesis.pdf (25 pages, 521093 bytes).
 PDF statistics:
  306 PDF objects out of 1000 (max. 8388607)
  251 compressed objects within 3 object streams
