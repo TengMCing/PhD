@@ -36,7 +36,7 @@ The size of the collection $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ depends 
 
 Similarly, @wilkinson_graph-theoretic_2005 proposed the work called graph theoretic scagnostics, which adopted the idea of "scagnostics" - scatter plot diagnostics from (can't find the 1984 citation). It includes 9 computable scagnostics measures defined on planar proximity graphs: "Outlying", "Convex", "Skinny", "Stringy", "Straight", "Monotonic", "Skewed", "Clumpy" and "Striated" which attempts to describe outliers, shape, density, trend and coherence of the data. This approach is inspiring but it still does not give the complete list of visual discoverable features. In fact, it is possible that such a list will never be complete as suggested in @buja_statistical_2009.
 
-Thinking out of the box, @buja_statistical_2009 argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers not only can point out the fact that visual discoveries have been found, but also can describe the particular features they observed. Those features will correspond to the subset of the collection of visual test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ which resulted in rejection. 
+Thinking out of the box, @buja_statistical_2009 argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ which resulted in rejection. This argument helps justifies the validity of visual inference.
 
 ```{r nonlinearityheter, fig.cap="test"}
 library(tidyverse)
@@ -52,9 +52,25 @@ cm$plot() +
 
 ### Lineup Protocol
 
-#### Type-I error
+With the validity of visual inference being justified, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ needs to pair with a critical value $c^{(i)}$ to form a hypothesis test. When a visual feature $i$ is discovered by the observer from a plot, the corresponding visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that $T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists $i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ [@buja_statistical_2009].
 
-#### Type-II error
+Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values $c^{(i)}~(i \in I)$ such that $P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha$, where $\alpha$ is the significance level. However, since the quantity of $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known, such collection of critical values can not be provided.
+
+@buja_statistical_2009 proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of $c^{(i)}~(i \in I)$. It is inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed data plots, where $1$ plot is the actual data plot, and $m-1$ null plots are produced by plotting data simulate from the null distribution which is consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
+
+Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$ due to randomness. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
+
+This provides us with an mechanism to control the Type I error, because $m$ - the number of plots in a lineup can be chosen. Further, if we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis $X \sim \mathrm{Binom}_{K,1/m}$, and therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as
+
+$$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},$$
+where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
+
+
+
+
+#### Type I error
+
+#### Type II error
 
 
 
