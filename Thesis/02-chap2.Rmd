@@ -31,14 +31,19 @@ Something about model diagnostics with a plot being the common thing to do..]
 
 ### Visual Inference
 
-Visual inference was first introduced by @buja_statistical_2009 as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery. 
+Visual inference was first introduced by @buja_statistical_2009 as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \@ref(fig:fparallelism) outlines the parallelism between conventional tests and visual discovery. 
+
+[ET: note use Rmd syntax for figures references! So it's easy to use it for HTML later if you want to do something like [Earo](https://github.com/earowang/thesis) and have PDF + HTML thesis. ]
+
+
+
 
 ![(ref:parallelism) \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
 
 
 (ref:parallelism) Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009].
 
-In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \ref{fig:nonlinearityheter}. 
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \@ref(fig:nonlinearityheter). 
 
 ### Pre-specification of Visual Discoverable Features
 
