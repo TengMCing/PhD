@@ -11,22 +11,39 @@ knit: "bookdown::render_book"
 
 ### Model Diagnostics
 
+[ET: suggestion: A model can be fitted to data with no guarantee of a meaningful interpretation. Model diagnostics play an important role in assessing the appropriateness of the model. The assessment can involve examining the goodness of fit, checking if there are potential violations of model assumptions and validating models with external information.]
+
 Model diagnostics is the part of data analysis, preceded by the fit of a model, whose primary objectives are to examine the goodness of fit and reveal potential violations of model assumptions. 
-In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphic representation of data is still preferred, or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and
+
+[ET: model fit is more than just goodness of fit and checking model assumptions. It's too reductive to say this because you could have a model with good fit (according to some metric) and no model violation but if the way that the data were collected was flawed then scientific interpretation of the model is rendered useless. Diagnostics involve also the domain knowledge checks as well.]
+
+
+In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and
 unquantifiable. 
+
+[ET: Generally, your sentences are too long. Break it up into smaller sentences. The generally idea is to make sentences that _continue an idea from the preceding sentence_ so it leads from one to the next naturally. E.g. Today is cloudy. Cloudy days are rare. Perhaps today will be different to other days!]
 
 However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human’s ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups [@roy_chowdhury_using_2015].
 
+[ET: Confirmatory data analysis is well characterised by a rigorous procedure to discern particular hypothesis. The most widespread form of confirmatory data analysis are the use of $p$-values in testing hypothesis in a frequentist framework. More specifically, hypothesis testing in a frequentist framework involve stating a well-defined hypotheses; summarising the evidence as a test statistic; and calculating the probability of observing a statistic as extreme as the observed test statistic under the null hypothesis. This rigour, however, is often not present when inferences are drawn from a plot. 
+
+Something about model diagnostics with a plot being the common thing to do..]
+
 ### Visual Inference
 
-Visual inference was first introduced by @buja_statistical_2009 as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery. 
+Visual inference was first introduced by @buja_statistical_2009 as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \@ref(fig:fparallelism) outlines the parallelism between conventional tests and visual discovery. 
+
+[ET: note use Rmd syntax for figures references! So it's easy to use it for HTML later if you want to do something like [Earo](https://github.com/earowang/thesis) and have PDF + HTML thesis. ]
+
+
+
 
 ![(ref:parallelism) \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
 
 
 (ref:parallelism) Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009].
 
-In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \ref{fig:nonlinearityheter}. 
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \@ref(fig:nonlinearityheter). 
 
 ### Pre-specification of Visual Discoverable Features
 
