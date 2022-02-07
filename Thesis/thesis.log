@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.13)  7 FEB 2022 17:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.13)  8 FEB 2022 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -976,28 +976,41 @@ Chapter 1.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 13.49991pt on input line 131.
 [1]
-<thesis_files/figure-latex/twodimai-1.pdf, id=183, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/twodimai-1.pdf, id=184, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/twodimai-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/twodimai-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/twodimai-1.pdf  used on inpu
-t line 148.
+t line 150.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 148--149
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 150--151
  [][] 
  []
 
-[2 <./thesis_files/figure-latex/twodimai-1.pdf>] [3] [4]
+[2] [3 <./thesis_files/figure-latex/twodimai-1.pdf>] [4]
 Chapter 2.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 218.
+(Font)              scaled to size 10.79993pt on input line 220.
 [5
 
 ]
-<figures/rsta2009012001.jpg, id=224, 1806.75pt x 1370.11874pt>
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[6]
+
+LaTeX Warning: Reference `fig:fparallelism' on page 7 undefined on input line 2
+42.
+
+<figures/rsta2009012001.jpg, id=231, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 233.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 248.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1007,7 +1020,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[6 <./figures/rsta2009012001.jpg>]
+[7 <./figures/rsta2009012001.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1016,17 +1029,17 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[7]
-<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=258, 454.69875pt x 274.0
+[8]
+<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=264, 454.69875pt x 274.0
 2374pt>
 File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
 
 <use thesis_files/figure-latex/nonlinearityheter-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/nonlinearityheter-1.pdf  use
-d on input line 254.
+d on input line 269.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 254--255
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 269--270
  [][] 
  []
 
@@ -1038,21 +1051,12 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[8 <./thesis_files/figure-latex/nonlinearityheter-1.pdf>]
+[9 <./thesis_files/figure-latex/nonlinearityheter-1.pdf>]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 271.
+(amsmath)                 on input line 286.
 
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[9]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1062,24 +1066,33 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
 [10]
-Appendix A.
-[11
 
-] [12
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[11] [12
 
 ]
-Underfull \hbox (badness 1077) in paragraph at lines 327--327
+Appendix A.
+[13] [14
+
+]
+Underfull \hbox (badness 1077) in paragraph at lines 342--342
 [][]\T1/ppl/m/n/10.95 (+20) Cleveland, WS and R McGill (1984). Graph-i-cal Per-
 cep-tion: The-ory, Ex-per-i-men-ta-
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 327--327
+Underfull \hbox (badness 1859) in paragraph at lines 342--342
 \T1/ppl/m/n/10.95 (+20) tion, and Ap-pli-ca-tion to the De-vel-op-ment of Graph
 -i-cal Meth-ods. \T1/ppl/m/it/10.95 (+20) Jour-nal of
  []
 
-[13] [14] (./thesis.aux)
+[15] [16] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1094,13 +1107,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23028 strings out of 480313
- 405591 string characters out of 5896283
- 1151174 words of memory out of 5000000
- 40124 multiletter control sequences out of 15000+600000
- 502597 words of font info for 329 fonts, out of 8000000 for 9000
+ 23040 strings out of 480313
+ 405810 string characters out of 5896283
+ 1151252 words of memory out of 5000000
+ 40129 multiletter control sequences out of 15000+600000
+ 502844 words of font info for 332 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,77p,1765b,18416s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,12n,77p,1763b,18417s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publ
@@ -1115,10 +1128,10 @@ inyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/Library
 /TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickli/Libr
 ary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patrickli/Li
 brary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (28 pages, 557848 bytes).
+Output written on thesis.pdf (30 pages, 562542 bytes).
 PDF statistics:
- 390 PDF objects out of 1000 (max. 8388607)
- 325 compressed objects within 4 object streams
- 98 named destinations out of 1000 (max. 500000)
+ 400 PDF objects out of 1000 (max. 8388607)
+ 333 compressed objects within 4 object streams
+ 101 named destinations out of 1000 (max. 500000)
  102565 words of extra memory for PDF output out of 106986 (max. 10000000)
 
