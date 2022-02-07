@@ -4,13 +4,104 @@ knit: "bookdown::render_book"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, cache=TRUE)
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, cache=TRUE)
 # Load any R packages you need here
-library(forecast)
 library(ggplot2)
 ```
 
 # Introduction {#ch:intro}
 
+## Artificial intelligence and predictive modelling
 
+**Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers on the definition of intelligence, which is caused by two critical questions:
+
+1. Should AI act and think humanly or rationally? 
+2. Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
+
+Based on the answer to the above questions, four major approaches to pursue AI have been established. They can be summarized into a two by two table as shown in figure \@ref(fig:twodimai), where the row is "Human" vs "Rational", and the column is "Behaviour" vs "Thought". Positioning at the top right cell, the **rational agent approach** aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the **"laws of thought" approach** focus on understanding the logic behind the rationality. Closely related to **cognitive science**, the **cognitive modelling approach** attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the **Turing test approach** is built upon the famous **Turing test** proposed by @turing_computing_1950. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes **natural language processing**, **knowledge representation**, **automated reasoning** and **machine learning**. Some researchers argued that some degree of physical simulation of a person is still necessary, one such example is the **total Turing test** proposed by @harnad_other_1991. It adds new requirements to the list, including **computer vision**, **speech recognition** and **robotics** [@russell_artificial_2002]. 
+
+Notably, all $6$ required capabilities have become major subfields of AI today.
+
+
+Among The most influential one may be the machine learning, which highly rely on the predictive modelling framework. 
+
+Donoho (2017) in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions.
+
+Behind the success of AI and computer vision, a great proportion of their applications highly rely on the predictive modelling framework.
+
+
+
+
+```{r twodimai, fig.cap="test"}
+ggplot() +
+  geom_hline(aes(yintercept = 1), col = "grey") +
+  geom_vline(aes(xintercept = 1), col = "grey") +
+  geom_text(aes(x = 0.5 , y = 1.5, label = "The Turing test approach")) +
+  geom_text(aes(x = 1.5 , y = 1.5, label = "The rational agent approach")) +
+  geom_text(aes(x = 0.5 , y = 0.5, label = "The cognitive modelling approach")) +
+  geom_text(aes(x = 1.5 , y = 0.5, label = 'The "laws of thought" approach')) +
+  theme_light() +
+  xlab("") +
+  ylab("") +
+  scale_x_continuous(breaks = c(0.5, 1.5), labels = c("Human", "Rational"), limits = c(0, 2)) +
+  scale_y_continuous(breaks = c(0.5, 1.5), labels = c("Thought", "Behaviour"), limits = c(0, 2)) +
+  theme(panel.grid = element_blank(), axis.ticks = element_blank())
+```
+
+
+The rational agent approach 
+
+
+
+which impacts the version of AI pursued by researchers. 
+
+due to the definition of intelligence, 
+
+It has been pursued in many different ways by the researchers. The major separations between different approaches are the 
+
+reasoning and thoughts, focus on the results or the action. Act and think humanly or rationally.
+
+Two dimensions 
+
+
+
+machine think humanly, think rationally, acting humanly, acting rationally
+
+A rational agent is one that acts so as to achieve the best outcome or, when there is uncertainty, the best expected outcome.
+
+versions due to 
+
+human performance
+
+The cognitive modeling approach
+
+The “laws of thought” approach
+
+The rational agent approach
+
+human vs. rational2 and thought vs. behavior
+
+
+Some have defined intelligence in terms of fidelity to human performance, while others prefer an abstract, formal definition of intelligence called rationality—loosely speaking, doing the “right thing.” The subject matter itself also varies: some consider intelligence to be a property of internal thought processes and reasoning, while others focus on intelligent behavior, an external characterization.
+
+
+As required by the Turing 
+
+As defined by Turing test, 
+
+The Turning test is well known 
+
+The field of artificial intelligence, or AI, is concerned with not just understanding but also building intelligent entities—machines that can compute how to act effectively and safely in a wide variety of novel situations.
+
+## AI -> predictive modelling
+
+## Predictive modelling -> Model diagnostics
+
+## Limitation of MD/EDA (before 2009)
+
+## Visual inference
+
+## Limitation of visual inference
+
+## Automatic visual inference -> Computer vision
 

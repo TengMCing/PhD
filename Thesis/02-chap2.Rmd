@@ -68,15 +68,6 @@ where $x$ is the realization of number of observers correctly picking the actual
 
 
 
-#### Type I error
-
-#### Type II error
-
-
-
-
-
-
 
 
 

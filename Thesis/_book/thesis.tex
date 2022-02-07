@@ -127,6 +127,84 @@ The contribution in Chapter \ref{ch:litreview} of this thesis was presented in t
 \hypertarget{ch:intro}{%
 \chapter{Introduction}\label{ch:intro}}
 
+\hypertarget{artificial-intelligence-and-predictive-modelling}{%
+\section{Artificial intelligence and predictive modelling}\label{artificial-intelligence-and-predictive-modelling}}
+
+\textbf{Artificial intelligence} (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in \textcite{russell_artificial_2002}, historically, there are disagreements among researchers on the definition of intelligence, which is caused by two critical questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Should AI act and think humanly or rationally?
+\item
+  Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
+\end{enumerate}
+
+Based on the answer to the above questions, four major approaches to pursue AI have been established. They can be summarized into a two by two table as shown in figure \ref{fig:twodimai}, where the row is ``Human'' vs ``Rational'', and the column is ``Behaviour'' vs ``Thought''. Positioning at the top right cell, the \textbf{rational agent approach} aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the \textbf{``laws of thought'' approach} focus on understanding the logic behind the rationality. Closely related to \textbf{cognitive science}, the \textbf{cognitive modelling approach} attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the \textbf{Turing test approach} is built upon the famous \textbf{Turing test} proposed by \textcite{turing_computing_1950}. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes \textbf{natural language processing}, \textbf{knowledge representation}, \textbf{automated reasoning} and \textbf{machine learning}. Some researchers argued that some degree of physical simulation of a person is still necessary, one such example is the \textbf{total Turing test} proposed by \textcite{harnad_other_1991}. It adds new requirements to the list, including \textbf{computer vision}, \textbf{speech recognition} and \textbf{robotics} \autocite{russell_artificial_2002}. Notably, all \(6\) required capabilities have become major subfields of AI today.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/twodimai-1.pdf}
+\caption{\label{fig:twodimai}test}
+\end{figure}
+
+The rational agent approach
+
+which impacts the version of AI pursued by researchers.
+
+due to the definition of intelligence,
+
+It has been pursued in many different ways by the researchers. The major separations between different approaches are the
+
+reasoning and thoughts, focus on the results or the action. Act and think humanly or rationally.
+
+Two dimensions
+
+machine think humanly, think rationally, acting humanly, acting rationally
+
+A rational agent is one that acts so as to achieve the best outcome or, when there is uncertainty, the best expected outcome.
+
+versions due to
+
+human performance
+
+The cognitive modeling approach
+
+The ``laws of thought'' approach
+
+The rational agent approach
+
+human vs.~rational2 and thought vs.~behavior
+
+Some have defined intelligence in terms of fidelity to human performance, while others prefer an abstract, formal definition of intelligence called rationality---loosely speaking, doing the ``right thing.'' The subject matter itself also varies: some consider intelligence to be a property of internal thought processes and reasoning, while others focus on intelligent behavior, an external characterization.
+
+As required by the Turing
+
+As defined by Turing test,
+
+The Turning test is well known
+
+The field of artificial intelligence, or AI, is concerned with not just understanding but also building intelligent entities---machines that can compute how to act effectively and safely in a wide variety of novel situations.
+
+\hypertarget{ai---predictive-modelling}{%
+\section{AI -\textgreater{} predictive modelling}\label{ai---predictive-modelling}}
+
+\hypertarget{predictive-modelling---model-diagnostics}{%
+\section{Predictive modelling -\textgreater{} Model diagnostics}\label{predictive-modelling---model-diagnostics}}
+
+\hypertarget{limitation-of-mdeda-before-2009}{%
+\section{Limitation of MD/EDA (before 2009)}\label{limitation-of-mdeda-before-2009}}
+
+\hypertarget{visual-inference}{%
+\section{Visual inference}\label{visual-inference}}
+
+\hypertarget{limitation-of-visual-inference}{%
+\section{Limitation of visual inference}\label{limitation-of-visual-inference}}
+
+\hypertarget{automatic-visual-inference---computer-vision}{%
+\section{Automatic visual inference -\textgreater{} Computer vision}\label{automatic-visual-inference---computer-vision}}
+
 \hypertarget{ch:paper1}{%
 \chapter{Automatic Visual Statistical Inference, with Application to Linear Regression Diagnostics}\label{ch:paper1}}
 
@@ -145,8 +223,8 @@ unquantifiable.
 
 However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups \autocite{roy_chowdhury_using_2015}.
 
-\hypertarget{visual-inference}{%
-\subsection{Visual Inference}\label{visual-inference}}
+\hypertarget{visual-inference-1}{%
+\subsection{Visual Inference}\label{visual-inference-1}}
 
 Visual inference was first introduced by \textcite{buja_statistical_2009} as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
@@ -169,7 +247,7 @@ The size of the collection \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) depend
 
 Similarly, \textcite{wilkinson_graph-theoretic_2005} proposed the work called graph theoretic scagnostics, which adopted the idea of ``scagnostics'' - scatter plot diagnostics from (can't find the 1984 citation). It includes 9 computable scagnostics measures defined on planar proximity graphs: ``Outlying'', ``Convex'', ``Skinny'', ``Stringy'', ``Straight'', ``Monotonic'', ``Skewed'', ``Clumpy'' and ``Striated'' which attempts to describe outliers, shape, density, trend and coherence of the data. This approach is inspiring but it still does not give the complete list of visual discoverable features. In fact, it is possible that such a list will never be complete as suggested in \textcite{buja_statistical_2009}.
 
-Thinking out of the box, \textcite{buja_statistical_2009} argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers not only can point out the fact that visual discoveries have been found, but also can describe the particular features they observed. Those features will correspond to the subset of the collection of visual test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) which resulted in rejection.
+Thinking out of the box, \textcite{buja_statistical_2009} argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) which resulted in rejection. This argument helps justifies the validity of visual inference.
 
 \begin{figure}
 \centering
@@ -180,11 +258,18 @@ Thinking out of the box, \textcite{buja_statistical_2009} argued that there is a
 \hypertarget{lineup-protocol}{%
 \subsection{Lineup Protocol}\label{lineup-protocol}}
 
-\hypertarget{type-i-error}{%
-\subsubsection{Type-I error}\label{type-i-error}}
+With the validity of visual inference being justified, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) needs to pair with a critical value \(c^{(i)}\) to form a hypothesis test. When a visual feature \(i\) is discovered by the observer from a plot, the corresponding visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that \(T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists \(i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) \autocite{buja_statistical_2009}.
 
-\hypertarget{type-ii-error}{%
-\subsubsection{Type-II error}\label{type-ii-error}}
+Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values \(c^{(i)}~(i \in I)\) such that \(P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha\), where \(\alpha\) is the significance level. However, since the quantity of \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known, such collection of critical values can not be provided.
+
+\textcite{buja_statistical_2009} proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of \(c^{(i)}~(i \in I)\). It is inspired by the ``police lineup'' or ``identity parade'' which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of \(m\) randomly placed data plots, where \(1\) plot is the actual data plot, and \(m-1\) null plots are produced by plotting data simulate from the null distribution which is consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
+
+Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is \(1/m\) due to randomness. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is \(1/m\).
+
+This provides us with an mechanism to control the Type I error, because \(m\) - the number of plots in a lineup can be chosen. Further, if we involve \(K\) independent observers in a visual test, and let \(X\) be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis \(X \sim \mathrm{Binom}_{K,1/m}\), and therefore, the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is given as
+
+\[P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},\]
+where \(x\) is the realization of number of observers correctly picking the actual data plot \autocite{majumder_validation_2013}.
 
 \hypertarget{visual-inference-applied-to-linear-regression}{%
 \subsection{Visual Inference Applied to Linear Regression}\label{visual-inference-applied-to-linear-regression}}
