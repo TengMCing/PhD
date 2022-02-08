@@ -13,6 +13,8 @@ library(ggplot2)
 
 ## Artificial intelligence and predictive modelling
 
+[ET: don't start with a definition as that makes the narrative dull. A lot of what you are writing definitions - which is relevant - but you want to interweave this as _narrative_. Why are you defining/describing these terms/disciplines? What's relevant and exciting?]
+
 **Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers on the definition of intelligence, which is caused by two critical questions:
 
 1. Should AI act and think humanly or rationally? 
