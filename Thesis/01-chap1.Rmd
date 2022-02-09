@@ -13,16 +13,12 @@ library(ggplot2)
 
 ## Artificial intelligence and predictive modelling
 
-**Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers on the definition of intelligence, which is caused by two critical questions:
+**Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
 
 1. Should AI act and think humanly or rationally? 
 2. Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
 
-Based on the answer to the above questions, four major approaches to pursue AI have been established. They can be summarized into a two by two table as shown in figure \@ref(fig:twodimai), where the row is "Human" vs "Rational", and the column is "Behaviour" vs "Thought". Positioning at the top right cell, the **rational agent approach** aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the **"laws of thought" approach** focus on understanding the logic behind the rationality. Closely related to **cognitive science**, the **cognitive modelling approach** attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the **Turing test approach** is built upon the famous **Turing test** proposed by @turing_computing_1950. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes **natural language processing**, **knowledge representation**, **automated reasoning** and **machine learning**. Some researchers argued that some degree of physical simulation of a person is still necessary, one such example is the **total Turing test** proposed by @harnad_other_1991. It adds new requirements to the list, including **computer vision**, **speech recognition** and **robotics** [@russell_artificial_2002]. As of today, all $7$ required capabilities have become major subfields of AI. 
-
-Notably, machine learning, acts as the core of AI, has been developed rapidly in recent years thanks for the big-data era and the accessible and low-cost computational power [@jordan_machine_2015]. It is a field of study addresses the issues of building computers that can adapt to new circumstances automatically through experience and data. Machine learning applications such as facial recognition, web recommendation system and machine translation have a significant impact on human's daily life. Behind the success of machine learning, a great propotion of its applications rely on the predictive modelling framework. Donoho (2017) in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions.
-
-
+Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in figure \@ref(fig:twodimai), where the row is "Human" vs "Rational", and the column is "Behaviour" vs "Thought". Positioning at the top right cell, the **rational agent approach** aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the **"laws of thought" approach** focus on understanding the logic behind the rationality. Closely related to **cognitive science**, the **cognitive modelling approach** attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the **Turing test approach** is built upon the famous **Turing test** proposed by @turing_computing_1950. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes **natural language processing** for communication with human, **knowledge representation** for encoding knowledge, **automated reasoning** for derivation of conclusions and **machine learning** for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the **total Turing test** proposed by @harnad_other_1991. It adds $3$ new requirements to the list, including **computer vision**, **speech recognition** and **robotics**, which are response for interactions with the physical world. Notably, all $7$ required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century [@russell_artificial_2002].
 
 ```{r twodimai, fig.cap="test"}
 ggplot() +
@@ -40,50 +36,25 @@ ggplot() +
   theme(panel.grid = element_blank(), axis.ticks = element_blank())
 ```
 
+With the development of AI, mature AI technologies, such as facial recognition and web recommendation system, have profoundly affected the way modern society operates and citizen's daily life. This is largely as a consequence of the huge investment in AI industry by the financial market in recent years. Further, the increasingly cheap computing cost and the massive amount of accessible e-commerce data produced in the Internet age provide the possibility for applying data-intensive AI models, which enables AI performance to reach new heights in history [@jordan_machine_2015]. Some AI systems have already been remarkably better than human in certain areas, e.g., game playing. AlphaGo and AlphaZero developed by the Google DeepMind team surpass all human Go players [@silver_general_2018].
 
-The rational agent approach 
-
-
-
-which impacts the version of AI pursued by researchers. 
-
-due to the definition of intelligence, 
-
-It has been pursued in many different ways by the researchers. The major separations between different approaches are the 
-
-reasoning and thoughts, focus on the results or the action. Act and think humanly or rationally.
-
-Two dimensions 
+Behind the success of AI, a great propotion of AI systems rely on the predictive modelling framework. @donoho_50_2017 in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions. Most AI tasks are complex prediction problems where the data mechanism is mysterious, or at least, partly unknowable. @breiman_statistical_2001 suggests that generative models are obviously not applicable in these scenarios.
 
 
 
-machine think humanly, think rationally, acting humanly, acting rationally
-
-A rational agent is one that acts so as to achieve the best outcome or, when there is uncertainty, the best expected outcome.
-
-versions due to 
-
-human performance
-
-The cognitive modeling approach
-
-The “laws of thought” approach
-
-The rational agent approach
-
-human vs. rational2 and thought vs. behavior
 
 
-Some have defined intelligence in terms of fidelity to human performance, while others prefer an abstract, formal definition of intelligence called rationality—loosely speaking, doing the “right thing.” The subject matter itself also varies: some consider intelligence to be a property of internal thought processes and reasoning, while others focus on intelligent behavior, an external characterization.
+Model diagnostics is the part of data analysis, preceded by the fit of a model, whose primary objectives are to examine the goodness of fit and reveal potential violations of model assumptions. 
+
+In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and
+unquantifiable. 
+
+However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human’s ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups [@roy_chowdhury_using_2015].
 
 
-As required by the Turing 
 
-As defined by Turing test, 
 
-The Turning test is well known 
 
-The field of artificial intelligence, or AI, is concerned with not just understanding but also building intelligent entities—machines that can compute how to act effectively and safely in a wide variety of novel situations.
 
 ## AI -> predictive modelling
 
