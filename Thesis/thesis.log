@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.9)  9 FEB 2022 22:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.9)  10 FEB 2022 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -754,7 +754,11 @@ LaTeX Font Info:    Trying to load font information for T1+ppl on input line 28
 .
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-) (./thesis.aux)
+) (./thesis.aux
+
+LaTeX Warning: Label `fig:parallelism' multiply defined.
+
+)
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
@@ -892,7 +896,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<figures/monash-logo.jpg, id=76, 2370.8575pt x 469.755pt>
+<figures/monash-logo.jpg, id=84, 2370.8575pt x 469.755pt>
 File: figures/monash-logo.jpg Graphic file (type jpg)
 <use figures/monash-logo.jpg>
 Package pdftex.def Info: figures/monash-logo.jpg  used on input line 32.
@@ -977,7 +981,7 @@ Chapter 1.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 13.49991pt on input line 131.
 [1]
-<thesis_files/figure-latex/twodimai-1.pdf, id=183, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/twodimai-1.pdf, id=193, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/twodimai-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/twodimai-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/twodimai-1.pdf  used on inpu
@@ -988,11 +992,38 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 148--149
  [][] 
  []
 
-[2 <./thesis_files/figure-latex/twodimai-1.pdf>] [3] [4]
-Chapter 2.
+[2 <./thesis_files/figure-latex/twodimai-1.pdf>] [3]
+<figures/rsta2009012001.jpg, id=227, 1806.75pt x 1370.11874pt>
+File: figures/rsta2009012001.jpg Graphic file (type jpg)
+<use figures/rsta2009012001.jpg>
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 170.
+(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
+[4 <./figures/rsta2009012001.jpg>]
+<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=242, 454.69875pt x 274.0
+2374pt>
+File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
+
+<use thesis_files/figure-latex/nonlinearityheter-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/nonlinearityheter-1.pdf  use
+d on input line 180.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 180--181
+ [][] 
+ []
+
+[5 <./thesis_files/figure-latex/nonlinearityheter-1.pdf>] [6] [7]
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 210.
+
+[8]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 191.
-[5
+(Font)              scaled to size 10.79993pt on input line 260.
+[9] [10]
+Chapter 2.
+[11
 
 ]
 
@@ -1003,15 +1034,14 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[6]
+[12]
 
-LaTeX Warning: Reference `fig:fparallelism' on page 7 undefined on input line 2
-13.
+LaTeX Warning: Reference `fig:fparallelism' on page 13 undefined on input line 
+316.
 
-<figures/rsta2009012001.jpg, id=239, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 219.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 322.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1021,7 +1051,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[7 <./figures/rsta2009012001.jpg>]
+[13]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1030,20 +1060,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[8]
-<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=272, 454.69875pt x 274.0
-2374pt>
-File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
-
-<use thesis_files/figure-latex/nonlinearityheter-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/nonlinearityheter-1.pdf  use
-d on input line 240.
-(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
-
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 240--241
- [][] 
- []
-
+[14]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1052,12 +1069,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[9 <./thesis_files/figure-latex/nonlinearityheter-1.pdf>]
-
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 257.
-
+[15]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1066,7 +1078,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[10]
+[16]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1075,42 +1087,21 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[11] [12
+[17] [18
 
 ]
 Appendix A.
-[13] [14
+[19] [20
 
-]
-Underfull \hbox (badness 1077) in paragraph at lines 313--313
-[][]\T1/ppl/m/n/10.95 (+20) Cleveland, WS and R McGill (1984). Graph-i-cal Per-
-cep-tion: The-ory, Ex-per-i-men-ta-
- []
-
-
-Underfull \hbox (badness 1859) in paragraph at lines 313--313
-\T1/ppl/m/n/10.95 (+20) tion, and Ap-pli-ca-tion to the De-vel-op-ment of Graph
--i-cal Meth-ods. \T1/ppl/m/it/10.95 (+20) Jour-nal of
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 313--313
-[][]\T1/ppl/m/n/10.95 (+20) Donoho, D (2017). 50 Years of Data Sci-ence. \T1/pp
-l/m/it/10.95 (+20) Jour-nal of Com-pu-ta-tional
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 313--313
-\T1/ppl/m/it/10.95 (+20) and Graph-i-cal Statis-tics \T1/ppl/b/n/10.95 (+20) 26
-\T1/ppl/m/n/10.95 (+20) (4). Pub-lisher: Tay-lor & Fran-cis _eprint:
- []
-
-[15] [16] (./thesis.aux)
+] [21] [22] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: EDF3BE2D59D0AD66058127D8CA37286E;3465.
+(rerunfilecheck)             Checksum: C242053F7BABFE1A20369EBEFC4F69EA;3799.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1120,13 +1111,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23234 strings out of 480238
- 410069 string characters out of 5894763
- 1151016 words of memory out of 5000000
- 40387 multiletter control sequences out of 15000+600000
- 569211 words of font info for 340 fonts, out of 8000000 for 9000
+ 23321 strings out of 480238
+ 411701 string characters out of 5894763
+ 1152411 words of memory out of 5000000
+ 40441 multiletter control sequences out of 15000+600000
+ 569913 words of font info for 349 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,82p,2914b,18545s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,12n,82p,2914b,18563s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publ
@@ -1141,10 +1132,10 @@ inyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/Library
 /TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickli/Libr
 ary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patrickli/Li
 brary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (30 pages, 564635 bytes).
+Output written on thesis.pdf (36 pages, 590416 bytes).
 PDF statistics:
- 409 PDF objects out of 1000 (max. 8388607)
- 342 compressed objects within 4 object streams
- 104 named destinations out of 1000 (max. 500000)
- 102565 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 489 PDF objects out of 1000 (max. 8388607)
+ 413 compressed objects within 5 object streams
+ 124 named destinations out of 1000 (max. 500000)
+ 102581 words of extra memory for PDF output out of 106986 (max. 10000000)
 
