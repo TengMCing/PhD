@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.9)  10 FEB 2022 12:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.9)  10 FEB 2022 12:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1037,11 +1037,11 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 [12]
 
 LaTeX Warning: Reference `fig:fparallelism' on page 13 undefined on input line 
-316.
+340.
 
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 322.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 346.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1111,11 +1111,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23321 strings out of 480238
- 411701 string characters out of 5894763
+ 23327 strings out of 480238
+ 411752 string characters out of 5894763
  1152411 words of memory out of 5000000
  40441 multiletter control sequences out of 15000+600000
- 569913 words of font info for 349 fonts, out of 8000000 for 9000
+ 570211 words of font info for 353 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,82p,2914b,18563s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
@@ -1132,7 +1132,7 @@ inyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/Library
 /TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickli/Libr
 ary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patrickli/Li
 brary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (36 pages, 590416 bytes).
+Output written on thesis.pdf (36 pages, 591375 bytes).
 PDF statistics:
  489 PDF objects out of 1000 (max. 8388607)
  413 compressed objects within 5 object streams
