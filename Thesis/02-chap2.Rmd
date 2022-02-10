@@ -55,17 +55,6 @@ Similarly, @wilkinson_graph-theoretic_2005 proposed the work called graph theore
 
 Thinking out of the box, @buja_statistical_2009 argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ which resulted in rejection. This argument helps justifies the validity of visual inference.
 
-```{r nonlinearityheter, fig.cap="test"}
-library(tidyverse)
-
-set.seed(10086)
-cm <- visage::cubic_model(a = 0, b = 100, c = 1)
-
-cm$gen(1000, fit_model = TRUE) %>%
-cm$plot() +
-  ggtitle("Residuals against fitted values plot of a classical linear regression model") +
-  theme_light()
-```
 
 ### Lineup Protocol
 

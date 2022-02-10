@@ -11,17 +11,18 @@ library(ggplot2)
 
 # Introduction {#ch:intro}
 
-## Artificial intelligence and predictive modelling
+## AI: Four Approaches
 
 **Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
-[ET: don't start with a definition as that makes the narrative dull. A lot of what you are writing definitions - which is relevant - but you want to interweave this as _narrative_. Why are you defining/describing these terms/disciplines? What's relevant and exciting?]
+
+<!-- [ET: don't start with a definition as that makes the narrative dull. A lot of what you are writing definitions - which is relevant - but you want to interweave this as _narrative_. Why are you defining/describing these terms/disciplines? What's relevant and exciting?] -->
 
 1. Should AI act and think humanly or rationally? 
 2. Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
 
-Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in figure \@ref(fig:twodimai), where the row is "Human" vs "Rational", and the column is "Behaviour" vs "Thought". Positioning at the top right cell, the **rational agent approach** aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the **"laws of thought" approach** focus on understanding the logic behind the rationality. Closely related to **cognitive science**, the **cognitive modelling approach** attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the **Turing test approach** is built upon the famous **Turing test** proposed by @turing_computing_1950. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes **natural language processing** for communication with human, **knowledge representation** for encoding knowledge, **automated reasoning** for derivation of conclusions and **machine learning** for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the **total Turing test** proposed by @harnad_other_1991. It adds $3$ new requirements to the list, including **computer vision**, **speech recognition** and **robotics**, which are response for interactions with the physical world. Notably, all $7$ required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century [@russell_artificial_2002].
+Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in figure \@ref(fig:twodimai), where the row is "Human" vs. "Rational", and the column is "Behaviour" vs. "Thought". Positioning at the top right cell, the **rational agent approach** aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the **"laws of thought" approach** focus on understanding the logic behind the rationality. Closely related to **cognitive science**, the **cognitive modelling approach** attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the **Turing test approach** is built upon the famous **Turing test** proposed by @turing_computing_1950. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes **natural language processing** for communication with human, **knowledge representation** for encoding knowledge, **automated reasoning** for derivation of conclusions and **machine learning** for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the **total Turing test** proposed by @harnad_other_1991. It adds $3$ new requirements to the list, including **computer vision**, **speech recognition** and **robotics**, which are response for interactions with the physical world. Notably, all $7$ required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century [@russell_artificial_2002].
 
-```{r twodimai, fig.cap="test"}
+```{r twodimai, fig.cap="Four possible approaches to pursue AI based on the two dimensions in AI research - human vs. rational and thought vs. behavior [@russell_artificial_2002]."}
 ggplot() +
   geom_hline(aes(yintercept = 1), col = "grey") +
   geom_vline(aes(xintercept = 1), col = "grey") +
@@ -39,33 +40,103 @@ ggplot() +
 
 With the development of AI, mature AI technologies, such as facial recognition and web recommendation system, have profoundly affected the way modern society operates and citizen's daily life. This is largely as a consequence of the huge investment in AI industry by the financial market in recent years. Further, the increasingly cheap computing cost and the massive amount of accessible e-commerce data produced in the Internet age provide the possibility for applying data-intensive AI models, which enables AI performance to reach new heights in history [@jordan_machine_2015]. Some AI systems have already been remarkably better than human in certain areas, e.g., game playing. AlphaGo and AlphaZero developed by the Google DeepMind team surpass all human Go players [@silver_general_2018].
 
-Behind the success of AI, a great propotion of AI systems rely on the predictive modelling framework. @donoho_50_2017 in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions. Most AI tasks are complex prediction problems where the data mechanism is mysterious, or at least, partly unknowable. @breiman_statistical_2001 suggests that generative models are obviously not applicable in these scenarios.
+## Predictive Modelling and Visual Diagnostics
 
+Behind the success of AI, a great propotion of AI systems rely on the predictive modelling framework. @donoho_50_2017 in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions. Most AI tasks are complex prediction problems where the data mechanism is mysterious, or at least, partly unknowable. @breiman_statistical_2001 suggests that generative models are obviously not applicable in these scenarios, while the predictive modelling seeks only an accurate approximated function $\boldsymbol{f}(\boldsymbol{x})$ to describe the relationship between the features $\boldsymbol{x}$ and the responses $\boldsymbol{y}$.
 
-
-
-
-Model diagnostics is the part of data analysis, preceded by the fit of a model, whose primary objectives are to examine the goodness of fit and reveal potential violations of model assumptions. 
-
-In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and
-unquantifiable. 
+Predictive models are primarily evaluated by predictive accuracy with the use of validation and test data, but in predictive model diagnostics, especially model testing and tuning, data plots play an irreplaceable role. In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed by researchers, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and unquantifiable. 
 
 However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human’s ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups [@roy_chowdhury_using_2015].
 
+## Visual Inference
+
+Visual inference was first introduced by @buja_statistical_2009 as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \@ref(fig:parallelism) outlines the parallelism between conventional tests and visual discovery. 
+
+![(ref:parallelism) \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
+
+(ref:parallelism) Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009]. Visible features in a plot are viewed as a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$, and any visual discoveries are treated as evidence against the null hypothesis.
+
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same assumed model, such as classical linear regression model, can be rejected by many reasons with residual plot, including nonlinearity and heteroskedasticity as shown in figure \@ref(fig:nonlinearityheter). 
+
+```{r nonlinearityheter, fig.cap='Residuals vs. fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, "butterfly shape" can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process.'}
+library(tidyverse)
+
+set.seed(10086)
+cm <- visage::cubic_model(a = 0, b = 100, c = 1)
+
+cm$gen(1000, fit_model = TRUE) %>%
+cm$plot() +
+  theme_light()
+```
 
 
+## Pre-specification of Visual Discoverable Features
 
+As discussed in @buja_statistical_2009, in the practice of model diagnostics, the range of possible visual discoveries is not pre-specified. In other words, people do not explicitly specify which one or more visual features they are looking for before the read of the diagnostic plot. This is concerning since conventional hypothesis testing always requires the pre-specification of the parameter space $\Theta$ of the parameter of interest $\theta \in \Theta$ to form a valid inferential procedure. To address this issue, a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ is defined, where $\boldsymbol{\mathrm{y}}$ is the data and $\boldsymbol{I}$ is a set of all possible visual features. @buja_statistical_2009 described each of the test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})$ as a measurement of the degree of presence of a visual feature. Alternatively, @majumder_validation_2013 avoids the use of visual features and defined the visual statistics $T(.)$ as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion.
 
+The size of the collection $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ depends on the size of the set $I$. Thus, if one can define $I$ comprehensively, i.e, pre-specify all the visual discoverable features, the validity issue will be solved. Unfortunately, to our knowledge, there is no such a way to list all visual features. In linear regression diagnostics, possible visual features of a residual plot may be outliers, shapes and clusters. But this is an incomplete list which does not enumerate all the visual features.
 
-## AI -> predictive modelling
+Similarly, @wilkinson_graph-theoretic_2005 proposed the work called graph theoretic scagnostics, which adopted the idea of "scagnostics" - scatter plot diagnostics from (can't find the 1984 citation). It includes 9 computable scagnostics measures defined on planar proximity graphs: "Outlying", "Convex", "Skinny", "Stringy", "Straight", "Monotonic", "Skewed", "Clumpy" and "Striated" which attempts to describe outliers, shape, density, trend and coherence of the data. This approach is inspiring but it still does not give the complete list of visual discoverable features. In fact, it is possible that such a list will never be complete as suggested in @buja_statistical_2009.
 
-## Predictive modelling -> Model diagnostics
+Thinking out of the box, @buja_statistical_2009 argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ which resulted in rejection. This argument helps justifies the validity of visual inference.
 
-## Limitation of MD/EDA (before 2009)
+## Lineup Protocol
 
-## Visual inference
+With the validity of visual inference being justified, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ needs to pair with a critical value $c^{(i)}$ to form a hypothesis test. When a visual feature $i$ is discovered by the observer from a plot, the corresponding visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that $T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists $i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ [@buja_statistical_2009].
 
-## Limitation of visual inference
+Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values $c^{(i)}~(i \in I)$ such that $P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha$, where $\alpha$ is the significance level. However, since the quantity of $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known, such collection of critical values can not be provided.
+
+@buja_statistical_2009 proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of $c^{(i)}~(i \in I)$. It is inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed data plots, where $1$ plot is the actual data plot, and $m-1$ null plots are produced by plotting data simulate from the null distribution which is consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
+
+Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$ due to randomness. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
+
+This provides us with an mechanism to control the Type I error, because $m$ - the number of plots in a lineup can be chosen. A larger value of $m$ will result in a smaller Type I error, but the limit to the value of $m$ depends on the number of plots a human willing to view [@buja_statistical_2009]. Typically, $m$ will be set to $20$ which is equivalent to set $\alpha = 0.05$, a general choice of significance level for conventional testing among statisticians.
+
+Further, if we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis $X \sim \mathrm{Binom}_{K,1/m}$, and therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as
+
+$$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},$$
+where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
+
+The multiple individuals approach avoids the limit of $m$, while provides visual tests with $\alpha$ much smaller than $0.05$. In fact, $\alpha$ decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. 
+
+Compared to the conventional test, whose power only depends on the parameter of interest $\theta$, several studies [see @hofmann_graphical_2012; @majumder_validation_2013; @majumder_human_2014; @roy_chowdhury_using_2015; @loy_variations_2016] have shown the power of the visual test is subject-specific. Thus, to be able to account for individual's ability, an individual is required to evaluate multiple lineups [@majumder_validation_2013].  
+
+Assumes that individuals have the same ability and a lineup has been evaluated by multiple individuals, under the alternative hypothesis, the estimated power for a lineup can be expressed as $\hat{p} = x/K$, the estimated probability of identifying the actual data plot from the lineup. If the individual skill needs to be taken into account, and $L$ lienups have been evaluated by $K$ individuals, @majumder_validation_2013 suggests that mixed effects logistic regression model can be fit as:
+
+$$g(p_{li}) = W_{li}\delta + Z_{li}\tau_{li},$$
+where $g(.)$ is the logit link function $g(p) = log(p)  - log(1-p)$; $0 \leq p \leq 1$. $W_{li}$, $1 \leq i \leq K$, $1 \leq l \leq L$, is the covariate matrix including lineup-specific elements and demographic information of individuals, and $\delta$ is a vector of parameters. $Z$ is the random effects matrix, and $\tau$ is a vector of variables follow $N(\boldsymbol{0},\sigma_{\tau}\boldsymbol{I}_{KL\times KL})$. 
+
+Then, the estimated power for lineup $l$ and individual $i$ can be calculated as $\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})$ [@majumder_validation_2013].
+
+## Applications of Lineup Protocol
+
+Lineup protocols are 
+
+List applications, fields, significance here.
+
+## Limitations of visual tests
+
+1. infeasible in a large scale
+2. unfriendly to vision-impaired people
+3. high finical cost and human cost
+4. time consuming
+
+similar to Handicraft in pre-industrial society
 
 ## Automatic visual inference -> Computer vision
 
+relieve people’s workload by automating repeating tasks, and provide standard result in a control environment
+
+the use of technology and machinery to enable mass evaluation of visual tests
+
+## Discussion of potential methods
+
+### different approaches of AI
+
+- Not aim for understanding the thought process
+- Not aim for mimicking the human vision mechanism
+- May be able to define distance metrics to measure difference between data plots for making mathematically prefect decisions
+- May be able to use computer vision model to approximate how people evaluate lineups
+  - Use human data to train model with human selection as target -> mimic the human behaviour
+  - Use simulated lineup to train model with actual data plot as target -> assume the actual data plot is the most different one
+  - Use simulated data plot to train model with null or not null as target -> 
