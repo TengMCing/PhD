@@ -97,7 +97,7 @@ Further, if we involve $K$ independent observers in a visual test, and let $X$ b
 $$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},$$
 where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
-The multiple individuals approach avoids the limit of $m$, while provides visual tests with $\alpha$ much smaller than $0.05$. In fact, $\alpha$ decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. 
+The multiple individuals approach avoids the limit of $m$, while provides visual tests with $p$-value much smaller than $0.05$. In fact, the lower bound of $p$-value decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. 
 
 Compared to the conventional test, whose power only depends on the parameter of interest $\theta$, several studies [see @hofmann_graphical_2012; @majumder_validation_2013; @majumder_human_2014; @roy_chowdhury_using_2015; @loy_variations_2016] have shown the power of the visual test is subject-specific. Thus, to be able to account for individual's ability, an individual is required to evaluate multiple lineups [@majumder_validation_2013].  
 
@@ -137,6 +137,17 @@ the use of technology and machinery to enable mass evaluation of visual tests
 - Not aim for mimicking the human vision mechanism
 - May be able to define distance metrics to measure difference between data plots for making mathematically prefect decisions
 - May be able to use computer vision model to approximate how people evaluate lineups
-  - Use human data to train model with human selection as target -> mimic the human behaviour
-  - Use simulated lineup to train model with actual data plot as target -> assume the actual data plot is the most different one
-  - Use simulated data plot to train model with null or not null as target -> 
+
+computer vision model:
+
+- Use human data to train model with human selection as target -> mimic the human behaviour
+- Use simulated lineup to train model with actual data plot as target -> assume the actual data plot is the most different one
+- Use simulated data plot to train model with null or not null as target -> limited to the alternatives given to the model, and Type I error can not be controlled
+- Use simulated data plot to train model, then let the model evaluate each plot of a lineup -> leads to multiple selections in a lineup, and the model does not compare different plots in a lineup
+  - Use a very large $m$ to ensure the null hypothesis can be rejected by a classifier slightly better than a random selector. The problem becomes how large the $m$ should be
+  - Use multiple models as multiple individuals to evaluate lineup -> Which models should be used? How many models should be used?
+- Let the model select multiple plots from a simulated lineup while comparing different plots in a lineup -> how to build such a system? 
+  - The input is $m$ plots, what is the output? The probability of being the most different one? 
+  - Then how many of plots should be selected? Top 5? Or cumulative probability greater than a threshold? 
+  - How to select the threshold? 
+
