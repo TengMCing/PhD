@@ -299,11 +299,329 @@ computer vision model:
   \item
     The input is \(m\) plots, what is the output? The probability of being the most different one?
   \item
-    Then how many of plots should be selected? Top 5? Or cumulative probability greater than a threshold?
+    Then how many plots should be selected? Top 5? Or cumulative probability greater than a threshold?
   \item
     How to select the threshold?
   \end{itemize}
 \end{itemize}
+
+\hypertarget{human-subject-exeriments-toc}{%
+\chapter{Human Subject Exeriments (toc)}\label{human-subject-exeriments-toc}}
+
+What needs to be discussed?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  online recruitment platform (Prolific)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  pre-screen
+\item
+  approve and reject
+\item
+  redirect
+\item
+  payment
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  study web site
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  PythonAnywhere
+\item
+  Flask, Python
+\item
+  jsPsych
+\item
+  survey
+
+  \begin{itemize}
+  \tightlist
+  \item
+    age
+  \item
+    education
+  \item
+    preferred pronoun
+  \item
+    previous experience
+  \end{itemize}
+\item
+  training
+\item
+  20 lineups
+
+  \begin{itemize}
+  \tightlist
+  \item
+    setup depends on the study
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Cubic model
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  data generating process
+\item
+  null model
+\item
+  potential shapes
+\item
+  effect size
+\item
+  conventional test
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Heteroskedasticity model
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  data generating process
+\item
+  null model
+\item
+  potential shapes
+\item
+  effect size
+\item
+  conventional test
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Number of participants needed by the study
+\item
+  Study 1
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  logistic regression
+
+  \begin{itemize}
+  \tightlist
+  \item
+    easy
+  \item
+    medium
+  \item
+    hard
+  \end{itemize}
+\item
+  number of participants
+\item
+  time
+\item
+  countries
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Study 2
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  logistic regression
+
+  \begin{itemize}
+  \tightlist
+  \item
+    easy
+  \item
+    medium
+  \item
+    hard
+  \end{itemize}
+\item
+  number of participants
+\item
+  time
+\item
+  countries
+\end{itemize}
+
+\hypertarget{human-subject-exeriments}{%
+\chapter{Human Subject Exeriments}\label{human-subject-exeriments}}
+
+To collect data of human performance on reading residual plot of linear regression model with nonlinearity and heteroskedasticity defects, two human experiments were conducted. Participants of both experiments were recruited using an online platform called Prolific \autocite{prolific_prolific_2022}.
+
+Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited participants who is fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
+
+In Prolific, researchers can either approve or reject submissions based on the quality of the responses. If a submission is approved by the researcher, the participant will be paid a certain amount of money per hour of time spent on the experiment. To assess the quality of the responses, two attention checks were given to each participant during the experiment, where at least one of them was required to pass for the approval of submission.
+
+Throughout the experiments, participants were requested to complete a short survey and evaluate 20 lineups on a website in an hour. Each lineup each consists of 19 null residual plots and 1 actual residual plot. Among the 20 lineups, there are 2 extremely east lineups used as attention checks which everyone should get correct. The short survey was intended to collect information about participant that might affect their ability in reading data plot including age, highest education, preferred pronoun and previous experience in similar study. For the evaluation of the lineup, participant first needed to select one or multiple most different data plot(s) from the lineup by clicking the corresponding image. Then, the reason for choosing the plots needed to be provided by selecting one of the given options - ``outlier(s)'', ``cluster(s)'', ``shape'' and ``other''. Explanations about these options were provided in the training page and the mouseover text. Table \ref{tab:lineupreason} gives the detailed explanations about these reasons. If the option ``other'' was selected, text input for the specified reason would be collected. Lastly, the degree of difference between their chosen data plot(s) and other data plots needed to be selected among \(5\) levels - ``not at all'', ``slightly'', ``moderately'', ``very'' and ``extremely''.
+
+\begin{table}
+
+\caption{\label{tab:lineupreason}Explanations about reasons for choosing data plots from a lineup}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{ll}
+\toprule
+Reasons & Explanations\\
+\midrule
+outlier(s) & In a data plot, an outlier is a point that differs significantly from other points.\\
+cluster(s) & In a data plot, a cluster is a group of points positioned closely together. 
+And usually, there will be gaps between different clusters.\\
+shape & It could be any common shapes we would see in real life, like triangle shape, U-shape, butterfly shape, etc.\\
+other & Patricipants needs to give their reasons in the text input.\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. The website is built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. The first two pages of the website are the explanatory statement and the consent form. Participants needed to read the documentation and agree with the terms to advance to the short survey. With the completion of the survey, the next page is the training page, which contained instructions on how to evaluate the lineup, give the reason and choose the confidence level. Followed by the training page, there are 20 lineups each on a single page. At the end of the experiment, the participants would be redirected back to Prolific and waited for researchers' responses.
+
+Next we will discuss the simulation setup for this study. The experiment data was simulated by the use of the programming language \texttt{R} \autocite{r_core_team_r_2021}. For the ease of reproducibility, functions to build models, simulate data from models, produce lineup with data, allocate stimulis for subjects and evaluate subject responses from this study are bundled in the package \texttt{visage} with a unique object-oriented programming system built upon the environment feature of \texttt{R}. In the description of the simulation, corresponding functionalities of the package will be introduced.
+
+Two models were used in both experiments, which were linear models with some degree of violations of classical assumptions. Residuals vs.~fitted values plots were used to diagnose the issues.
+
+\hypertarget{cubic-model}{%
+\section{Cubic Model}\label{cubic-model}}
+
+The first model was a cubic linear model with 2 regressors, which can be expressed by: \[\boldsymbol{Y}= 1 + (2-c)\boldsymbol{X} + c\boldsymbol{Z} + a[(2-c)\boldsymbol{X}]^2+a(c\boldsymbol{Z})^2+b[(2-c)\boldsymbol{X}]^3+b(c\boldsymbol{Z})^3+\boldsymbol{\varepsilon},\] where \(c \in (0,2)\), \(a \in (-3,3)\), \(b \in (-3,3)\), \(\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) are \(n\times1\) matrices.
+
+This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Meanwhile, to create nonlinearity defect, the null model fitted by the OLS is: \[\boldsymbol{Y}=\boldsymbol{b}_0+\boldsymbol{b}_1\boldsymbol{X}+\boldsymbol{b}_2\boldsymbol{Z}+\boldsymbol{e}.\]
+
+Clearly, there will be omitted-variable bias since the null model leaves out the quadric and cubic terms.
+
+\hypertarget{distribution-of-the-residuals}{%
+\subsection{Distribution of the Residuals}\label{distribution-of-the-residuals}}
+
+Let \(\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X},\boldsymbol{Z}]\) denotes the set of regressors in matrix form. Using the Frisch--Waugh--Lovell theorem, the residual obtained by the null model is \(\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{Y}=\boldsymbol{R}_a(\boldsymbol{X}_a\boldsymbol{\beta}_a+\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}),\) where \(\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\), \(\boldsymbol{\beta}_a=(1,2-c,c)'\), \(\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]\) and \(\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'\).
+
+Because \(\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}\), we have \(\boldsymbol{e}=\boldsymbol{R}_a(\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}).\) Since \(\boldsymbol{\varepsilon} \sim N(0,\sigma^2\boldsymbol{I})\), it follows that \(\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a)\).
+
+\hypertarget{shape-of-the-residuals}{%
+\subsection{Shape of the Residuals}\label{shape-of-the-residuals}}
+
+The previous result shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals under different parameter settings.
+
+The residuals used in these three figures are simulated from the cubic models built using the \texttt{cubic\_model()} function from the package \texttt{visage}. \texttt{cubic\_model()} is a cubic model class constructor, which takes arguments \texttt{a}, \texttt{b}, \texttt{c}, \texttt{sigma}, \texttt{x} and \texttt{z}, where the first four are numeric values defined above, and \texttt{x} and \texttt{z} are random variable instances created by the random variable abstract base class constructor \texttt{rand\_var()}.
+
+Here, we set \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to be random uniform variables ranged from \(-1\) to \(1\). This can be done by using the random uniform variable class constructor \texttt{rand\_uniform()} inherited from the random variable abstract base class. It only takes two arguments which are the lower bound and the upper bound of the support.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(visage)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cubic\_model}\NormalTok{(}\AttributeTok{a =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{b =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{c =} \DecValTok{1}\NormalTok{, }\AttributeTok{sigma =} \FloatTok{0.5}\NormalTok{, }
+                   \AttributeTok{x =} \FunctionTok{rand\_uniform}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{z =} \FunctionTok{rand\_uniform}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+An instance of cubic model class contains methods of simulating data and making residual plot. Method \texttt{mod\$gen()} returns a data frame containing realizations of \(x\), \(z\), \(y\) and \(\varepsilon\) simulated from the model. The number of realizations depends on the integer argument \texttt{n}. In addition, if argument \texttt{fit\_model\ =\ TRUE}, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{gen}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{, }\AttributeTok{fit\_model =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             y          x          z          e      .resid     .fitted
+## 1  0.72328137  0.8783282 0.17687898  0.1539500  0.37649863  0.34678274
+## 2 -0.01317346  0.9593166 0.30200008 -0.3526064 -0.22899266  0.21581920
+## 3  0.10405716  0.7677855 0.72090641 -0.4481692  0.36279717 -0.25874001
+## 4 -0.53007353  0.9238035 0.55802451 -0.8849474 -0.46221585 -0.06785768
+## 5  0.33947802 -0.7784446 0.02191688  0.2307539 -0.04808729  0.38756531
+\end{verbatim}
+
+Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} object. It takes a data frame containing columns \texttt{.resid} and \texttt{.fitted} as input, along with a character argument \texttt{type} indicating the type of the data plot, and other aesthetic arguments such as \texttt{size} and \texttt{alpha} to control the appearance of the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{plot}\NormalTok{(mod}\SpecialCharTok{$}\FunctionTok{gen}\NormalTok{(}\AttributeTok{n =} \DecValTok{100}\NormalTok{, }\AttributeTok{fit\_model =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{type =} \StringTok{"resid"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{thesis_files/figure-latex/test3-1.pdf}
+
+The cubic model class also provides method to compute the expected values of residuals. Method \texttt{mod\$E()} takes a data frame with columns \texttt{x} and \texttt{z} as input, and returns a vector of expected values of residuals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{E}\NormalTok{(mod}\SpecialCharTok{$}\FunctionTok{gen}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.05836465 -0.03566983 -0.09457480 -0.01126447  0.08314445
+\end{verbatim}
+
+From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). If we move \(c\) toward \(0\) or \(2\), one variable will donminate another, which will mitigate some joint effects and resemble a typical cubic function. In figure \ref{fig:cubic3}, \(a\), \(b\) and \(c\) is held constant, and \(\sigma\) is controlling the noises around the expected values. As \(\sigma\) decreases, the underlying shape shows up.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic1-1.pdf}
+\caption{\label{fig:cubic1}cubic 1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic2-1.pdf}
+\caption{\label{fig:cubic2}cubic 2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic3-1.pdf}
+\caption{\label{fig:cubic3}cubic 3}
+\end{figure}
+
+\hypertarget{effect-size}{%
+\subsection{Effect Size}\label{effect-size}}
+
+Since we know that under the null hypothesis, the residual \(\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)\). Thus, the difference between the expected values \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) represents the direct impact of the parameters \(a\) and \(b\) on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
+
+To obtain a measure of the impact of \(a\) and \(b\) on the residuals, we need to address several properties of the residuals. First, because \(\boldsymbol{R}_a\) is not an identity matrix, the residuals will have different variance and will be correlated with each other. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator \(\boldsymbol{W}\) on the transformed expected residuals to obtain a single numeric value. For simplicity, we set \(\boldsymbol{W}=n^{-1}\boldsymbol{1}\). This gives the effect size: \[ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2.\]
+
+The interpretation of this effect size is the impact of parameter \(a\) and \(b\) on the squared deviation of the standardized expected residual per observation. It is not directly related to the shape, or the pattern observed from the residual plot, but it is a reasonable approximation of the degree of the deviation from the null residuals under our cubic model setting.
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
+
+\hypertarget{heteroskedasticity-model}{%
+\section{Heteroskedasticity Model}\label{heteroskedasticity-model}}
+
+\clearpage
 
 \hypertarget{ch:paper1}{%
 \chapter{Automatic Visual Statistical Inference, with Application to Linear Regression Diagnostics}\label{ch:paper1}}
