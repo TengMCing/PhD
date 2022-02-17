@@ -10,3 +10,5 @@ purrr
 dplyr
 stringr
 forcats
+kableExtra
+visage
