@@ -221,6 +221,8 @@ where \(g(.)\) is the logit link function \(g(p) = log(p) - log(1-p)\); \(0 \leq
 
 Then, the estimated power for lineup \(l\) and individual \(i\) can be calculated as \(\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})\) \autocite{majumder_validation_2013}.
 
+\textbf{null data generate mechanism}
+
 \hypertarget{applications-of-lineup-protocol}{%
 \section{Applications of Lineup Protocol}\label{applications-of-lineup-protocol}}
 
@@ -482,11 +484,11 @@ What needs to be discussed?
 
 To collect data of human performance on reading residual plot of linear regression model with nonlinearity and heteroskedasticity defects, two human experiments were conducted. Participants of both experiments were recruited using an online platform called Prolific \autocite{prolific_prolific_2022}.
 
-Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited participants who is fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
+Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited participants who was fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
 
 In Prolific, researchers can either approve or reject submissions based on the quality of the responses. If a submission is approved by the researcher, the participant will be paid a certain amount of money per hour of time spent on the experiment. To assess the quality of the responses, two attention checks were given to each participant during the experiment, where at least one of them was required to pass for the approval of submission.
 
-Throughout the experiments, participants were requested to complete a short survey and evaluate 20 lineups on a website in an hour. Each lineup each consists of 19 null residual plots and 1 actual residual plot. Among the 20 lineups, there are 2 extremely east lineups used as attention checks which everyone should get correct. The short survey was intended to collect information about participant that might affect their ability in reading data plot including age, highest education, preferred pronoun and previous experience in similar study. For the evaluation of the lineup, participant first needed to select one or multiple most different data plot(s) from the lineup by clicking the corresponding image. Then, the reason for choosing the plots needed to be provided by selecting one of the given options - ``outlier(s)'', ``cluster(s)'', ``shape'' and ``other''. Explanations about these options were provided in the training page and the mouseover text. Table \ref{tab:lineupreason} gives the detailed explanations about these reasons. If the option ``other'' was selected, text input for the specified reason would be collected. Lastly, the degree of difference between their chosen data plot(s) and other data plots needed to be selected among \(5\) levels - ``not at all'', ``slightly'', ``moderately'', ``very'' and ``extremely''.
+Throughout the experiments, participants were requested to complete a short survey and evaluate 20 lineups on a website in an hour. Each lineup consists of one actual residual plot and 19 null residual plots produced by plotting null residuals simulated from the residual rotation distributions. Among the 20 lineups, there are two extremely easy lineups used as attention checks which everyone should get correct. The short survey was intended to collect information about participant that might affect their ability in reading data plot including age, highest level of education, preferred pronoun and previous experience in similar study. For the evaluation of the lineup, participant first needed to select one or multiple most different data plot(s) from the lineup by clicking the corresponding image. Then, the reason for choosing the plots needed to be provided by selecting one of the given options - ``outlier(s)'', ``cluster(s)'', ``shape'' and ``other''. Explanations about these options were provided in the training page and the mouseover text. Table \ref{tab:lineupreason} gives the detailed explanations about these reasons. If the option ``other'' was selected, text input for the specified reason would be collected. Lastly, the degree of difference between their chosen data plot(s) and other data plots needed to be selected among \(5\) levels - ``not at all'', ``slightly'', ``moderately'', ``very'' and ``extremely''. Notably, if participants could not tell the difference between the data plots, there was an option to skip the evaluation of the lineup. However, to prevent participants abusing this option, warnings were given at the beginning of the study that skipping too many lineups might lead to rejection of submission since it demonstrated clear low-effort throughout the experiment.
 
 \begin{table}
 
@@ -506,11 +508,25 @@ other & Patricipants needs to give their reasons in the text input.\\
 \end{tabular}}
 \end{table}
 
-The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. The website is built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. The first two pages of the website are the explanatory statement and the consent form. Participants needed to read the documentation and agree with the terms to advance to the short survey. With the completion of the survey, the next page is the training page, which contained instructions on how to evaluate the lineup, give the reason and choose the confidence level. Followed by the training page, there are 20 lineups each on a single page. At the end of the experiment, the participants would be redirected back to Prolific and waited for researchers' responses.
+The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:DiagramExperiment} summarizes the experiment setup.
+
+\begin{figure}
+\centering
+\includegraphics[width=4.6875in,height=4.6875in]{figures/experiment_tech.pdf}
+\caption{Diagram of online experiment setup. The server-side of the study webiste used Flask as backend hosted on PythonAnywhere. And the client-side used jsPsych to run experiment. \label{fig:DiagramExperiment}}
+\end{figure}
+
+The first two pages of the website are the explanatory statement and the consent form. Participants needed to read the documents and agree with the terms to advance to the short survey. With the completion of the survey, the next page is the training page, which contained instructions on how to evaluate the lineup, give the reason and choose the confidence level. Followed by the training page, there are 20 lineups each on a single page. Figure \ref{fig:WebsiteLayout} illustrates the layout of the website. At the end of the experiment, the participants would be redirected back to Prolific and waited for researchers' responses.
+
+\begin{figure}
+\centering
+\includegraphics[width=5.72917in,height=3.11458in]{figures/website.png}
+\caption{Layout of the study website. Participants needed to choose the most different plots on the right and select their reasons and confidence levels on the left. \label{fig:WebsiteLayout}}
+\end{figure}
 
 Next we will discuss the simulation setup for this study. The experiment data was simulated by the use of the programming language \texttt{R} \autocite{r_core_team_r_2021}. For the ease of reproducibility, functions to build models, simulate data from models, produce lineup with data, allocate stimulis for subjects and evaluate subject responses from this study are bundled in the package \texttt{visage} with a unique object-oriented programming system built upon the environment feature of \texttt{R}. In the description of the simulation, corresponding functionalities of the package will be introduced.
 
-Two models were used in both experiments, which were linear models with some degree of violations of classical assumptions. Residuals vs.~fitted values plots were used to diagnose the issues.
+Two models were used in both experiments, which were linear models with some degree of violations of classical assumptions. Residual vs.~fitted values plot were used to present the model defects.
 
 \hypertarget{cubic-model}{%
 \section{Cubic Model}\label{cubic-model}}
@@ -540,7 +556,7 @@ Here, we set \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to be random uniform vari
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(visage)}
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cubic\_model}\NormalTok{(}\AttributeTok{a =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{b =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{c =} \DecValTok{1}\NormalTok{, }\AttributeTok{sigma =} \FloatTok{0.5}\NormalTok{, }
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cubic\_model}\NormalTok{(}\AttributeTok{a =} \SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{b =} \SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{c =} \DecValTok{1}\NormalTok{, }\AttributeTok{sigma =} \FloatTok{0.5}\NormalTok{, }
                    \AttributeTok{x =} \FunctionTok{rand\_uniform}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{z =} \FunctionTok{rand\_uniform}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -554,12 +570,12 @@ An instance of cubic model class contains methods of simulating data and making 
 \end{Shaded}
 
 \begin{verbatim}
-##             y          x          z          e      .resid     .fitted
-## 1  0.72328137  0.8783282 0.17687898  0.1539500  0.37649863  0.34678274
-## 2 -0.01317346  0.9593166 0.30200008 -0.3526064 -0.22899266  0.21581920
-## 3  0.10405716  0.7677855 0.72090641 -0.4481692  0.36279717 -0.25874001
-## 4 -0.53007353  0.9238035 0.55802451 -0.8849474 -0.46221585 -0.06785768
-## 5  0.33947802 -0.7784446 0.02191688  0.2307539 -0.04808729  0.38756531
+##             y          x          z          e      .resid   .fitted
+## 1 -2.24847020  0.8783282 0.17687898  0.1539500  0.65761568 -2.906086
+## 2 -3.85694079  0.9593166 0.30200008 -0.3526064 -0.45596841 -3.400972
+## 3 -3.76887401  0.7677855 0.72090641 -0.4481692  0.56311185 -4.331986
+## 4 -4.78398171  0.9238035 0.55802451 -0.8849474 -0.68606690 -4.097915
+## 5  0.06998178 -0.7784446 0.02191688  0.2307539 -0.07869221  0.148674
 \end{verbatim}
 
 Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} object. It takes a data frame containing columns \texttt{.resid} and \texttt{.fitted} as input, along with a character argument \texttt{type} indicating the type of the data plot, and other aesthetic arguments such as \texttt{size} and \texttt{alpha} to control the appearance of the plot.
@@ -572,6 +588,16 @@ Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} obj
 
 \includegraphics{thesis_files/figure-latex/test3-1.pdf}
 
+Lineup can be produced by using the methods \texttt{mod\$gen\_lineup()} and \texttt{mod\$plot\_lineup()}. Method \texttt{mod\$gen\_lineup} takes the number of realizations \texttt{n} and the number of plots in a lineup \texttt{k} as inputs. And the method \texttt{mod\$plot\_lineup()} has the same user interface as \texttt{mod\$plot()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{plot\_lineup}\NormalTok{(mod}\SpecialCharTok{$}\FunctionTok{gen\_lineup}\NormalTok{(}\AttributeTok{n =} \DecValTok{50}\NormalTok{, }\AttributeTok{k =} \DecValTok{20}\NormalTok{), }\AttributeTok{type =} \StringTok{"resid"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-1.pdf}
+
 The cubic model class also provides method to compute the expected values of residuals. Method \texttt{mod\$E()} takes a data frame with columns \texttt{x} and \texttt{z} as input, and returns a vector of expected values of residuals.
 
 \begin{Shaded}
@@ -581,7 +607,7 @@ The cubic model class also provides method to compute the expected values of res
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  0.05836465 -0.03566983 -0.09457480 -0.01126447  0.08314445
+## [1]  1.6431906  1.2501862 -1.9594998 -1.4124888  0.4786119
 \end{verbatim}
 
 From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). If we move \(c\) toward \(0\) or \(2\), one variable will donminate another, which will mitigate some joint effects and resemble a typical cubic function. In figure \ref{fig:cubic3}, \(a\), \(b\) and \(c\) is held constant, and \(\sigma\) is controlling the noises around the expected values. As \(\sigma\) decreases, the underlying shape shows up.
@@ -609,11 +635,15 @@ From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) 
 
 Since we know that under the null hypothesis, the residual \(\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)\). Thus, the difference between the expected values \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) represents the direct impact of the parameters \(a\) and \(b\) on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
 
-To obtain a measure of the impact of \(a\) and \(b\) on the residuals, we need to address several properties of the residuals. First, because \(\boldsymbol{R}_a\) is not an identity matrix, the residuals will have different variance and will be correlated with each other. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator \(\boldsymbol{W}\) on the transformed expected residuals to obtain a single numeric value. For simplicity, we set \(\boldsymbol{W}=n^{-1}\boldsymbol{1}\). This gives the effect size: \[ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2.\]
+To obtain a measure of the impact of \(a\) and \(b\) on the residuals adjusted for variance and covariance, we need to address several properties of the residuals. First, the variance of the residuals \(\sigma^2\boldsymbol{R}_a\) is not an identity matrix. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator \(\boldsymbol{W}\) on the transformed expected residuals to obtain a single numeric value. For simplicity, we set \(\boldsymbol{W}=n^{-1}\boldsymbol{1}\). Considering the high time complexity of computing the square root of \(\boldsymbol{R}_a\), off-diagonal elements of \(\boldsymbol{R}_a\) are set to be zeros. This gives the effect size: \[ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2,\] where \(diag(\boldsymbol{R}_a)\) is the diagonal matrix constructed from the diagnoal element of \(\boldsymbol{R}_a\).
 
-The interpretation of this effect size is the impact of parameter \(a\) and \(b\) on the squared deviation of the standardized expected residual per observation. It is not directly related to the shape, or the pattern observed from the residual plot, but it is a reasonable approximation of the degree of the deviation from the null residuals under our cubic model setting.
+The interpretation of this effect size is the impact of parameter \(a\) and \(b\) on the squared deviation of the standardized expected residual per observation. It is not directly related to the shape, or the pattern human observed from the residual plot, but it is a reasonable approximation of the degree of the visual deviation from the null residuals under our cubic model setting. Figure \ref{fig:effectsize} shows four residual plots with different effect sizes. As effect sizes increases, the strength of the signal become stronger.
 
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-5-1.pdf}
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/effectsize-1.pdf}
+\caption{\label{fig:effectsize}Cubic model residual plots under different effect sizes.}
+\end{figure}
 
 \hypertarget{section}{%
 \subsection{}\label{section}}
