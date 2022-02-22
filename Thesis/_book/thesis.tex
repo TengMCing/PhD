@@ -25,6 +25,23 @@
 
 \bibliography{thesisrefs}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 
 \pagenumbering{roman}
@@ -531,23 +548,31 @@ Two models were used in both experiments, which were linear models with some deg
 \hypertarget{cubic-model}{%
 \section{Cubic Model}\label{cubic-model}}
 
-The first model was a cubic linear model with 2 regressors, which can be expressed by: \[\boldsymbol{Y}= 1 + (2-c)\boldsymbol{X} + c\boldsymbol{Z} + a[(2-c)\boldsymbol{X}]^2+a(c\boldsymbol{Z})^2+b[(2-c)\boldsymbol{X}]^3+b(c\boldsymbol{Z})^3+\boldsymbol{\varepsilon},\] where \(c \in (0,2)\), \(a \in (-3,3)\), \(b \in (-3,3)\), \(\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) are \(n\times1\) matrices.
+The first model was a cubic linear model with two regressors, which can be expressed by:
+\begin{equation} \label{eq:cubic}
+\boldsymbol{Y}= 1 + (2-c)\boldsymbol{X} + c\boldsymbol{Z} + a[(2-c)\boldsymbol{X}]^2+a(c\boldsymbol{Z})^2+b[(2-c)\boldsymbol{X}]^3+b(c\boldsymbol{Z})^3+\boldsymbol{\varepsilon},
+\end{equation}
+where \(c \in (0,2)\), \(a \in (-3,3)\), \(b \in (-3,3)\), \(\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})\), \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) are \(n\times1\) matrices.
 
-This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Meanwhile, to create nonlinearity defect, the null model fitted by the OLS is: \[\boldsymbol{Y}=\boldsymbol{b}_0+\boldsymbol{b}_1\boldsymbol{X}+\boldsymbol{b}_2\boldsymbol{Z}+\boldsymbol{e}.\]
+This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Meanwhile, to create nonlinearity defect, the null model followed the assumptions of the classical normal linear regression model (CNLRM), fitted by OLS is:
+\begin{equation} \label{eq:cubic_null}
+\boldsymbol{Y}=\beta_0+\beta_1\boldsymbol{X}+\beta_2\boldsymbol{Z}+\boldsymbol{u},
+\end{equation}
+where \(\boldsymbol{u} \sim N(0,\sigma^2_u\boldsymbol{I})\).
 
 Clearly, there will be omitted-variable bias since the null model leaves out the quadric and cubic terms.
 
-\hypertarget{distribution-of-the-residuals}{%
-\subsection{Distribution of the Residuals}\label{distribution-of-the-residuals}}
+\begin{lemma}[Distribution of residuals produced by the cubic model] \label{lemma:cubic}
+Given the data generating process in Equation (\ref{eq:cubic}), and null model in Equation (\ref{eq:cubic_null}). Let $\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X},\boldsymbol{Z}]$ denotes the set of regressors in matrix form. Then, the residuals obtained from the null model are $$\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a),$$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$, $\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]$ and $\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'$.
+\end{lemma}
 
-Let \(\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X},\boldsymbol{Z}]\) denotes the set of regressors in matrix form. Using the Frisch--Waugh--Lovell theorem, the residual obtained by the null model is \(\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{Y}=\boldsymbol{R}_a(\boldsymbol{X}_a\boldsymbol{\beta}_a+\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}),\) where \(\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\), \(\boldsymbol{\beta}_a=(1,2-c,c)'\), \(\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]\) and \(\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'\).
+\begin{proof}
+Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null model are $$\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{Y}=\boldsymbol{R}_a(\boldsymbol{X}_a\boldsymbol{\beta}_a+\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}),$$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$, $\boldsymbol{\beta}_a=(1,2-c,c)'$, $\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]$ and $\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'$. 
 
-Because \(\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}\), we have \(\boldsymbol{e}=\boldsymbol{R}_a(\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}).\) Since \(\boldsymbol{\varepsilon} \sim N(0,\sigma^2\boldsymbol{I})\), it follows that \(\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a)\).
+Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a(\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}).$ Since $\boldsymbol{\varepsilon} \sim N(0,\sigma^2\boldsymbol{I})$, it follows that $\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a)$. 
+\end{proof}
 
-\hypertarget{shape-of-the-residuals}{%
-\subsection{Shape of the Residuals}\label{shape-of-the-residuals}}
-
-The previous result shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals under different parameter settings.
+Lemma \ref{lemma:cubic} shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals under different parameter settings.
 
 The residuals used in these three figures are simulated from the cubic models built using the \texttt{cubic\_model()} function from the package \texttt{visage}. \texttt{cubic\_model()} is a cubic model class constructor, which takes arguments \texttt{a}, \texttt{b}, \texttt{c}, \texttt{sigma}, \texttt{x} and \texttt{z}, where the first four are numeric values defined above, and \texttt{x} and \texttt{z} are random variable instances created by the random variable abstract base class constructor \texttt{rand\_var()}.
 
@@ -561,7 +586,7 @@ Here, we set \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to be random uniform vari
 \end{Highlighting}
 \end{Shaded}
 
-An instance of cubic model class contains methods of simulating data and making residual plot. Method \texttt{mod\$gen()} returns a data frame containing realizations of \(x\), \(z\), \(y\) and \(\varepsilon\) simulated from the model. The number of realizations depends on the integer argument \texttt{n}. In addition, if argument \texttt{fit\_model\ =\ TRUE}, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.
+An instance of cubic model class contains methods of simulating data and making residual plot. Method \texttt{mod\$gen()} returns a data frame containing realizations of \(X\), \(Z\), \(Y\) and \(\varepsilon\) simulated from the model. The number of realizations depends on the integer argument \texttt{n}. In addition, if argument \texttt{fit\_model\ =\ TRUE}, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -630,26 +655,54 @@ From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) 
 \caption{\label{fig:cubic3}cubic 3}
 \end{figure}
 
-\hypertarget{effect-size}{%
-\subsection{Effect Size}\label{effect-size}}
-
 Since we know that under the null hypothesis, the residual \(\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)\). Thus, the difference between the expected values \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) represents the direct impact of the parameters \(a\) and \(b\) on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
 
-To obtain a measure of the impact of \(a\) and \(b\) on the residuals adjusted for variance and covariance, we need to address several properties of the residuals. First, the variance of the residuals \(\sigma^2\boldsymbol{R}_a\) is not an identity matrix. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator \(\boldsymbol{W}\) on the transformed expected residuals to obtain a single numeric value. For simplicity, we set \(\boldsymbol{W}=n^{-1}\boldsymbol{1}\). Considering the high time complexity of computing the square root of \(\boldsymbol{R}_a\), off-diagonal elements of \(\boldsymbol{R}_a\) are set to be zeros. This gives the effect size: \[ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2,\] where \(diag(\boldsymbol{R}_a)\) is the diagonal matrix constructed from the diagnoal element of \(\boldsymbol{R}_a\).
+To obtain a measure of the impact of \(a\) and \(b\) on the residuals adjusted for variance and covariance, we need to address several properties of the residuals. First, the variance of the residuals \(\sigma^2\boldsymbol{R}_a\) is not an identity matrix. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator \(\boldsymbol{W}\) on the transformed expected residuals to obtain a single numeric value. For simplicity, we set \(\boldsymbol{W}=n^{-1}\boldsymbol{1}\). Considering the high time complexity of computing the square root of \(\boldsymbol{R}_a\), off-diagonal elements of \(\boldsymbol{R}_a\) are set to be zeros. This gives the effect size: \[ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2,\] where \(diag(\boldsymbol{R}_a)\) is the diagonal matrix constructed from the diagonal elements of \(\boldsymbol{R}_a\).
 
 The interpretation of this effect size is the impact of parameter \(a\) and \(b\) on the squared deviation of the standardized expected residual per observation. It is not directly related to the shape, or the pattern human observed from the residual plot, but it is a reasonable approximation of the degree of the visual deviation from the null residuals under our cubic model setting. Figure \ref{fig:effectsize} shows four residual plots with different effect sizes. As effect sizes increases, the strength of the signal become stronger.
 
 \begin{figure}
 \centering
 \includegraphics{thesis_files/figure-latex/effectsize-1.pdf}
-\caption{\label{fig:effectsize}Cubic model residual plots under different effect sizes.}
+\caption{\label{fig:effectsize}Cubic model residual plots under different effect sizes. The larger the effect size, the stronger the signal.}
 \end{figure}
 
-\hypertarget{section}{%
-\subsection{}\label{section}}
+Under the cubic model setting, there is an exact conventional test for testing the nonlinearity defect, which is F-test. For F-test, the null hypothesis is \(H_0:a=b=0\), and the alternative hypothesis is \(H_1:\text{at least one of them} \neq 0\). During the simulation of the lineup data, the F-statistic and the p-value will be recorded for comparison between the power of conventional test and visual test.
 
 \hypertarget{heteroskedasticity-model}{%
 \section{Heteroskedasticity Model}\label{heteroskedasticity-model}}
+
+Another model used in the experiments was a heteroskedasticity model with one regressor, which can be expressed by:
+\begin{equation} \label{eq:heter}
+Y_i = 1 + X_i + \varepsilon_i, ~i = 1,...,n,
+\end{equation}
+where \(a \in \{-1,0,1\}\), \(b\in (0,32)\) and \(\varepsilon_i \overset{iid}{\sim} N(0,1+b(2-|a|)(X_i-a)^2)\).
+
+To create heteroskedasticity defect, OLS was used to fit the null model:
+\begin{equation} \label{eq:heter_null}
+\boldsymbol{Y}=\beta_0+\beta_1\boldsymbol{X}+\boldsymbol{u},
+\end{equation}
+where \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2_u\boldsymbol{I})\).
+
+In this case, estimators of \(\beta_0\) and \(\beta_1\) are unbiased, but the error term has non-constant variance.
+
+\begin{lemma}[Distribution of residuals produced by the heteroskedasticity model] \label{lemma:heter}
+Given the data generating process in Equation (\ref{eq:heter}) and null model in Equation (\ref{eq:heter_null}). Let $\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X}]$ denotes the set of regressors in matrix form. The residuals obtained from the null model are $$\boldsymbol{e} \sim N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V}),$$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$ and $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
+\end{lemma}
+
+\begin{proof}
+Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null model are $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{Y}=\boldsymbol{R}_a(\boldsymbol{X}_a\boldsymbol{\beta}_a+\boldsymbol{\varepsilon}),$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$ and $\boldsymbol{\beta}_a=(1,1)'$.
+
+Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{\varepsilon}$. Hence, the residuals $\boldsymbol{e}$ follow $N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V})$, where $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
+\end{proof}
+
+Lemma \ref{lemma:heter} shows
+
+This shows that the variance of the residuals is clearly a function of X and Z. Hence, we
+would expect to see some patterns in the residual plot.
+
+\hypertarget{distribution-of-regressors}{%
+\section{Distribution of regressors}\label{distribution-of-regressors}}
 
 \clearpage
 
