@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  22 FEB 2022 21:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  23 FEB 2022 01:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1072,73 +1072,73 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[17 <./figures/experiment_tech.pdf>] [18 <./figures/website.png>] [19] [20]
-<thesis_files/figure-latex/test3-1.pdf, id=457, 454.69875pt x 274.02374pt>
+[17 <./figures/experiment_tech.pdf>] [18 <./figures/website.png>] [19]
+<thesis_files/figure-latex/cubic1-1.pdf, id=451, 454.69875pt x 274.02374pt>
+File: thesis_files/figure-latex/cubic1-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic1-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic1-1.pdf  used on input 
+line 581.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 581--582
+ [][] 
+ []
+
+<thesis_files/figure-latex/cubic2-1.pdf, id=452, 454.69875pt x 136.51pt>
+File: thesis_files/figure-latex/cubic2-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic2-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic2-1.pdf  used on input 
+line 587.
+(pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 587--588
+ [][] 
+ []
+
+<thesis_files/figure-latex/cubic3-1.pdf, id=453, 454.69875pt x 136.51pt>
+File: thesis_files/figure-latex/cubic3-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic3-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic3-1.pdf  used on input 
+line 593.
+(pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 593--594
+ [][] 
+ []
+
+[20 <./thesis_files/figure-latex/cubic1-1.pdf>] [21 <./thesis_files/figure-late
+x/cubic2-1.pdf> <./thesis_files/figure-latex/cubic3-1.pdf>]
+<thesis_files/figure-latex/test3-1.pdf, id=502, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/test3-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/test3-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/test3-1.pdf  used on input l
-ine 614.
+ine 634.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 614--615
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 634--635
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 616--617
+Underfull \hbox (badness 10000) in paragraph at lines 636--637
 []\T1/ppl/m/n/10.95 (+20) Lineup can be pro-duced by us-ing the meth-ods \T1/fv
 m/m/n/10.95 mod$gen_lineup() \T1/ppl/m/n/10.95 (+20) and
  []
 
-<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=458, 454.69875pt x 274.023
+[22 <./thesis_files/figure-latex/test3-1.pdf>]
+<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=513, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-4-1.pdf  used 
-on input line 624.
+on input line 644.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 624--625
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 644--645
 [][] 
  []
 
-[21 <./thesis_files/figure-latex/test3-1.pdf>]
-<thesis_files/figure-latex/cubic1-1.pdf, id=471, 454.69875pt x 274.02374pt>
-File: thesis_files/figure-latex/cubic1-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic1-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic1-1.pdf  used on input 
-line 642.
-(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
-
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 642--643
- [][] 
- []
-
-<thesis_files/figure-latex/cubic2-1.pdf, id=472, 454.69875pt x 136.51pt>
-File: thesis_files/figure-latex/cubic2-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic2-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic2-1.pdf  used on input 
-line 648.
-(pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
-
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 648--649
- [][] 
- []
-
-<thesis_files/figure-latex/cubic3-1.pdf, id=473, 454.69875pt x 136.51pt>
-File: thesis_files/figure-latex/cubic3-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic3-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic3-1.pdf  used on input 
-line 654.
-(pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
-
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 654--655
- [][] 
- []
-
-[22 <./thesis_files/figure-latex/unnamed-chunk-4-1.pdf>] [23 <./thesis_files/fi
-gure-latex/cubic1-1.pdf> <./thesis_files/figure-latex/cubic2-1.pdf> <./thesis_f
-iles/figure-latex/cubic3-1.pdf>]
+[23 <./thesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
 <thesis_files/figure-latex/effectsize-1.pdf, id=525, 454.69875pt x 274.02374pt>
 
 File: thesis_files/figure-latex/effectsize-1.pdf Graphic file (type pdf)
@@ -1249,11 +1249,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23788 strings out of 480238
- 420874 string characters out of 5894762
+ 23785 strings out of 480238
+ 420850 string characters out of 5894762
  1160448 words of memory out of 5000000
  40790 multiletter control sequences out of 15000+600000
- 574992 words of font info for 380 fonts, out of 8000000 for 9000
+ 574843 words of font info for 378 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,82p,2914b,18771s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
@@ -1272,7 +1272,7 @@ rary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/L
 ibrary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickl
 i/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patric
 kli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (53 pages, 4075549 bytes).
+Output written on thesis.pdf (53 pages, 4076118 bytes).
 PDF statistics:
  759 PDF objects out of 1000 (max. 8388607)
  633 compressed objects within 7 object streams
