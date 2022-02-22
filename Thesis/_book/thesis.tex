@@ -501,7 +501,7 @@ What needs to be discussed?
 
 To collect data of human performance on reading residual plot of linear regression model with nonlinearity and heteroskedasticity defects, two human experiments were conducted. Participants of both experiments were recruited using an online platform called Prolific \autocite{prolific_prolific_2022}.
 
-Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited participants who was fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
+Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited \(62\) participants who was fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
 
 In Prolific, researchers can either approve or reject submissions based on the quality of the responses. If a submission is approved by the researcher, the participant will be paid a certain amount of money per hour of time spent on the experiment. To assess the quality of the responses, two attention checks were given to each participant during the experiment, where at least one of them was required to pass for the approval of submission.
 
@@ -525,7 +525,7 @@ other & Patricipants needs to give their reasons in the text input.\\
 \end{tabular}}
 \end{table}
 
-The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:DiagramExperiment} summarizes the experiment setup.
+The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:DiagramExperiment} summarizes the online experiment setup.
 
 \begin{figure}
 \centering
@@ -572,7 +572,27 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a(\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}).$ Since $\boldsymbol{\varepsilon} \sim N(0,\sigma^2\boldsymbol{I})$, it follows that $\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a)$. 
 \end{proof}
 
-Lemma \ref{lemma:cubic} shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals under different parameter settings.
+Lemma \ref{lemma:cubic} shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Let \(X_i\) and \(Z_i\), \(i = 1,...,n\), be independent random variables follow uniform distribution \(U(-1,1)\). Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals and their expected values under different parameter settings.
+
+From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). If we move \(c\) toward \(0\) or \(2\), one variable will donminate another, which will mitigate some joint effects and resemble a typical cubic function. In figure \ref{fig:cubic3}, \(a\), \(b\) and \(c\) is held constant, and \(\sigma\) is controlling the noises around the expected values. As \(\sigma\) decreases, the underlying shape shows up.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic1-1.pdf}
+\caption{\label{fig:cubic1}cubic 1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic2-1.pdf}
+\caption{\label{fig:cubic2}cubic 2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/cubic3-1.pdf}
+\caption{\label{fig:cubic3}cubic 3}
+\end{figure}
 
 The residuals used in these three figures are simulated from the cubic models built using the \texttt{cubic\_model()} function from the package \texttt{visage}. \texttt{cubic\_model()} is a cubic model class constructor, which takes arguments \texttt{a}, \texttt{b}, \texttt{c}, \texttt{sigma}, \texttt{x} and \texttt{z}, where the first four are numeric values defined above, and \texttt{x} and \texttt{z} are random variable instances created by the random variable abstract base class constructor \texttt{rand\_var()}.
 
@@ -595,12 +615,12 @@ An instance of cubic model class contains methods of simulating data and making 
 \end{Shaded}
 
 \begin{verbatim}
-##             y          x          z          e      .resid   .fitted
-## 1 -2.24847020  0.8783282 0.17687898  0.1539500  0.65761568 -2.906086
-## 2 -3.85694079  0.9593166 0.30200008 -0.3526064 -0.45596841 -3.400972
-## 3 -3.76887401  0.7677855 0.72090641 -0.4481692  0.56311185 -4.331986
-## 4 -4.78398171  0.9238035 0.55802451 -0.8849474 -0.68606690 -4.097915
-## 5  0.06998178 -0.7784446 0.02191688  0.2307539 -0.07869221  0.148674
+##             y          x          z          e     .resid     .fitted
+## 1  0.44298045  0.1862316 -0.5114228  0.2749620  0.3561304  0.08685009
+## 2 -0.46546366 -0.8542129 -0.3789133  0.3543143  0.2827120 -0.74817570
+## 3  0.07636314  0.0383946 -0.3832281 -0.3024668 -0.2698449  0.34620801
+## 4 -1.04762148 -0.4177674 -0.5876853 -0.3101100 -0.1202573 -0.92736416
+## 5 -0.90198583 -0.5439192 -0.4630171 -0.1448947 -0.2487402 -0.65324563
 \end{verbatim}
 
 Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} object. It takes a data frame containing columns \texttt{.resid} and \texttt{.fitted} as input, along with a character argument \texttt{type} indicating the type of the data plot, and other aesthetic arguments such as \texttt{size} and \texttt{alpha} to control the appearance of the plot.
@@ -632,28 +652,8 @@ The cubic model class also provides method to compute the expected values of res
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  1.6431906  1.2501862 -1.9594998 -1.4124888  0.4786119
+## [1] -0.9369269  0.1945678  0.2816923 -0.3254415  0.7861083
 \end{verbatim}
-
-From the figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). If we move \(c\) toward \(0\) or \(2\), one variable will donminate another, which will mitigate some joint effects and resemble a typical cubic function. In figure \ref{fig:cubic3}, \(a\), \(b\) and \(c\) is held constant, and \(\sigma\) is controlling the noises around the expected values. As \(\sigma\) decreases, the underlying shape shows up.
-
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/cubic1-1.pdf}
-\caption{\label{fig:cubic1}cubic 1}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/cubic2-1.pdf}
-\caption{\label{fig:cubic2}cubic 2}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/cubic3-1.pdf}
-\caption{\label{fig:cubic3}cubic 3}
-\end{figure}
 
 Since we know that under the null hypothesis, the residual \(\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)\). Thus, the difference between the expected values \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) represents the direct impact of the parameters \(a\) and \(b\) on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
 
