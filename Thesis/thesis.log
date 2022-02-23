@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  23 FEB 2022 23:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  24 FEB 2022 01:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -917,7 +917,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<figures/monash-logo.jpg, id=112, 2370.8575pt x 469.755pt>
+<figures/monash-logo.jpg, id=116, 2370.8575pt x 469.755pt>
 File: figures/monash-logo.jpg Graphic file (type jpg)
 <use figures/monash-logo.jpg>
 Package pdftex.def Info: figures/monash-logo.jpg  used on input line 49.
@@ -1002,7 +1002,7 @@ Chapter 1.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 13.49991pt on input line 148.
 [1]
-<thesis_files/figure-latex/twodimai-1.pdf, id=228, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/twodimai-1.pdf, id=233, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/twodimai-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/twodimai-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/twodimai-1.pdf  used on inpu
@@ -1014,13 +1014,13 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 165--166
  []
 
 [2 <./thesis_files/figure-latex/twodimai-1.pdf>] [3]
-<figures/rsta2009012001.jpg, id=262, 1806.75pt x 1370.11874pt>
+<figures/rsta2009012001.jpg, id=267, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
 Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 187.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 [4 <./figures/rsta2009012001.jpg>]
-<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=277, 454.69875pt x 274.0
+<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=282, 454.69875pt x 274.0
 2374pt>
 File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
 
@@ -1051,12 +1051,12 @@ Chapter 2.
 ]
 Chapter 3.
 [15] [16]
-<figures/experiment_tech.pdf, id=402, 839.05469pt x 853.26776pt>
+<figures/experiment_tech.pdf, id=407, 839.05469pt x 853.26776pt>
 File: figures/experiment_tech.pdf Graphic file (type pdf)
 <use figures/experiment_tech.pdf>
 Package pdftex.def Info: figures/experiment_tech.pdf  used on input line 532.
 (pdftex.def)             Requested size: 338.76544pt x 338.76219pt.
-<figures/website.png, id=404, 1606.0pt x 872.25874pt>
+<figures/website.png, id=409, 1606.0pt x 872.25874pt>
 File: figures/website.png Graphic file (type png)
 <use figures/website.png>
 Package pdftex.def Info: figures/website.png  used on input line 540.
@@ -1073,7 +1073,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 [17 <./figures/experiment_tech.pdf>] [18 <./figures/website.png>] [19]
-<thesis_files/figure-latex/cubic1-1.pdf, id=461, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/cubic1-1.pdf, id=466, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/cubic1-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/cubic1-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/cubic1-1.pdf  used on input 
@@ -1084,7 +1084,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 581--582
  [][] 
  []
 
-<thesis_files/figure-latex/cubic2-1.pdf, id=462, 454.69875pt x 136.51pt>
+<thesis_files/figure-latex/cubic2-1.pdf, id=467, 454.69875pt x 136.51pt>
 File: thesis_files/figure-latex/cubic2-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/cubic2-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/cubic2-1.pdf  used on input 
@@ -1095,7 +1095,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 587--588
  [][] 
  []
 
-<thesis_files/figure-latex/cubic3-1.pdf, id=463, 454.69875pt x 136.51pt>
+<thesis_files/figure-latex/cubic3-1.pdf, id=468, 454.69875pt x 136.51pt>
 File: thesis_files/figure-latex/cubic3-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/cubic3-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/cubic3-1.pdf  used on input 
@@ -1108,7 +1108,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 593--594
 
 [20 <./thesis_files/figure-latex/cubic1-1.pdf>] [21 <./thesis_files/figure-late
 x/cubic2-1.pdf> <./thesis_files/figure-latex/cubic3-1.pdf>]
-<thesis_files/figure-latex/test3-1.pdf, id=512, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/test3-1.pdf, id=517, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/test3-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/test3-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/test3-1.pdf  used on input l
@@ -1126,7 +1126,7 @@ m/m/n/10.95 mod$gen_lineup() \T1/ppl/m/n/10.95 (+20) and
  []
 
 [22 <./thesis_files/figure-latex/test3-1.pdf>]
-<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=523, 454.69875pt x 274.023
+<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=528, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-4-1.pdf>
@@ -1139,7 +1139,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 644--645
  []
 
 [23 <./thesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<thesis_files/figure-latex/effectsize-1.pdf, id=535, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/effectsize-1.pdf, id=540, 454.69875pt x 274.02374pt>
 
 File: thesis_files/figure-latex/effectsize-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/effectsize-1.pdf>
@@ -1152,7 +1152,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 666--667
  []
 
 [24] [25 <./thesis_files/figure-latex/effectsize-1.pdf>]
-<thesis_files/figure-latex/hetershape-1.pdf, id=557, 454.69875pt x 379.4175pt>
+<thesis_files/figure-latex/hetershape-1.pdf, id=562, 454.69875pt x 379.4175pt>
 File: thesis_files/figure-latex/hetershape-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetershape-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/hetershape-1.pdf  used on in
@@ -1164,7 +1164,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 703--704
  []
 
 [26] [27 <./thesis_files/figure-latex/hetershape-1.pdf>]
-<thesis_files/figure-latex/unnamed-chunk-8-1.pdf, id=582, 454.69875pt x 274.023
+<thesis_files/figure-latex/unnamed-chunk-8-1.pdf, id=587, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-8-1.pdf>
@@ -1176,7 +1176,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 739--740
 [][] 
  []
 
-<thesis_files/figure-latex/unnamed-chunk-9-1.pdf, id=583, 454.69875pt x 274.023
+<thesis_files/figure-latex/unnamed-chunk-9-1.pdf, id=588, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-9-1.pdf>
@@ -1190,7 +1190,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 747--749
 
 [28 <./thesis_files/figure-latex/unnamed-chunk-8-1.pdf> <./thesis_files/figure-
 latex/unnamed-chunk-9-1.pdf>]
-<thesis_files/figure-latex/hetern-1.pdf, id=601, 454.69875pt x 136.51pt>
+<thesis_files/figure-latex/hetern-1.pdf, id=606, 454.69875pt x 136.51pt>
 File: thesis_files/figure-latex/hetern-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetern-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/hetern-1.pdf  used on input 
@@ -1201,7 +1201,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 752--753
  [][] 
  []
 
-<thesis_files/figure-latex/hetereffectsize-1.pdf, id=602, 454.69875pt x 274.023
+<thesis_files/figure-latex/hetereffectsize-1.pdf, id=607, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/hetereffectsize-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetereffectsize-1.pdf>
@@ -1214,7 +1214,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 758--759
  []
 
 [29 <./thesis_files/figure-latex/hetern-1.pdf>]
-<thesis_files/figure-latex/discreteex-1.pdf, id=620, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/discreteex-1.pdf, id=625, 454.69875pt x 274.02374pt>
 
 File: thesis_files/figure-latex/discreteex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/discreteex-1.pdf>
@@ -1227,12 +1227,12 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 775--776
  []
 
 [30 <./thesis_files/figure-latex/hetereffectsize-1.pdf>] [31 <./thesis_files/fi
-gure-latex/discreteex-1.pdf>] [32
+gure-latex/discreteex-1.pdf>] [32]
+Chapter 4.
+[33
 
 
 ]
-Chapter 4.
-[33]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1244,11 +1244,11 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 [34]
 
 LaTeX Warning: Reference `fig:fparallelism' on page 35 undefined on input line 
-821.
+828.
 
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 827.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 834.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1301,7 +1301,7 @@ Appendix A.
 [41] [42
 
 ] [43] [44]
-Underfull \hbox (badness 5064) in paragraph at lines 915--915
+Underfull \hbox (badness 5064) in paragraph at lines 922--922
 [][]\T1/ppl/m/n/10.95 (+20) Wickham, H (2011). gg-plot2. en. \T1/ppl/m/it/10.95
  (+20) WIREs Com-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 3\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
@@ -1315,7 +1315,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D7010599D2125857A3C2E13B1476D9F3;5035.
+(rerunfilecheck)             Checksum: 493C57762BF91C9078645C3D9190774E;5233.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1325,13 +1325,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23865 strings out of 480238
- 423446 string characters out of 5894762
- 1161305 words of memory out of 5000000
- 40840 multiletter control sequences out of 15000+600000
- 575308 words of font info for 384 fonts, out of 8000000 for 9000
+ 23878 strings out of 480238
+ 423596 string characters out of 5894762
+ 1161356 words of memory out of 5000000
+ 40842 multiletter control sequences out of 15000+600000
+ 575755 words of font info for 390 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,82p,2914b,18783s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,12n,82p,2914b,18789s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publ
@@ -1348,10 +1348,10 @@ rary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/L
 ibrary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickl
 i/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patric
 kli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (59 pages, 6399460 bytes).
+Output written on thesis.pdf (59 pages, 6401527 bytes).
 PDF statistics:
- 859 PDF objects out of 1000 (max. 8388607)
- 714 compressed objects within 8 object streams
- 196 named destinations out of 1000 (max. 500000)
- 109363 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 865 PDF objects out of 1000 (max. 8388607)
+ 720 compressed objects within 8 object streams
+ 198 named destinations out of 1000 (max. 500000)
+ 109371 words of extra memory for PDF output out of 128383 (max. 10000000)
 
