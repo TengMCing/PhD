@@ -696,7 +696,7 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{\varepsilon}$. Hence, the residuals $\boldsymbol{e}$ follow $N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V})$, where $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
 \end{proof}
 
-Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depend on \(\boldsymbol{X}\). We could plot the one standard deviation around the residuals to indicate the region about 68\% of the residuals should landed. Figure \ref{fig:hetershape} illustrates different shapes of residuals with various values of \(a\) and \(b\). From the plot, it can be observed that if \(a = 0\), the residual plot looks like the shape of butterfly. If \(a = \pm 1\), it looks like a triangle, and the sign of \(a\) determines the direction of the shape. Parameter \(b\) is controlling the strength of the signal. As \(b\) increases, the pattern becomes less noisy.
+Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depend on \(\boldsymbol{X}\). We could plot the one standard deviation around the residuals to indicate the region about 68\% of the residuals should landed on. Figure \ref{fig:hetershape} illustrates different shapes of residuals undder various values of \(a\) and \(b\). From the plot, it can be observed that if \(a = 0\), the residual plot looks like the shape of butterfly. If \(a = \pm 1\), it looks like a triangle, and the sign of \(a\) determines the direction of the shape. Parameter \(b\) is controlling the strength of the signal. As \(b\) increases, the pattern becomes less noisy.
 
 \begin{figure}
 \centering
@@ -759,8 +759,16 @@ According to Lemma \ref{lemma:heter}, when \(b = 0\), the matrix \(\boldsymbol{V
 \caption{\label{fig:hetereffectsize}Residuals of heteroskedasticity model with different effect size. As effect size increases, the shape of butterfly becomes less noisy.}
 \end{figure}
 
+For the heteroskedasticity model, the conventional test we used was Breusch--Pagan test \autocite{breusch_simple_1979}, which tested whether the variance of the error terms of the regression is dependent on the regressors. \textcite{majumder_validation_2013} suggested that visual test is not expected to perform equally well as conventional test especially when there exists a exact conventional test. However, in contrast to the F-test used in the cubic model, Breusch--Pagan test is an approximate test. Thus, the power of visual test may exceed the power of Breusch--Pagan test. Throughout the study, Breusch--Pagan test statistic and p-value were recorded for comparison.
+
 \hypertarget{distribution-of-regressors}{%
 \section{Distribution of regressors}\label{distribution-of-regressors}}
+
+The model definitions given in the previous two sections does not include the specification of the regressors. In this sections, distribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) will be discussed.
+
+The cubic model involves the use of both \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). In the simulation, \(X_i\), \(i=1,...,n\), had equal chance to follow one of the following distributions: \(N(0, 0.09)\), \(U(-1, 1)\), \(Lognormal(0,0.36)\) and \(-Lognormal(0,0.36)\).
+
+Normal and uniform distributions are
 
 \clearpage
 
