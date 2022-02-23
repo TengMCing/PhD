@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  23 FEB 2022 01:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  23 FEB 2022 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1151,56 +1151,75 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 666--667
  [][] 
  []
 
-[24] [25 <./thesis_files/figure-latex/effectsize-1.pdf>] [26]
+[24] [25 <./thesis_files/figure-latex/effectsize-1.pdf>]
+<thesis_files/figure-latex/hetershape-1.pdf, id=547, 454.69875pt x 379.4175pt>
+File: thesis_files/figure-latex/hetershape-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/hetershape-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/hetershape-1.pdf  used on in
+put line 703.
+(pdftex.def)             Requested size: 454.69763pt x 379.41656pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 703--704
+ [][] 
+ []
+
+[26] [27 <./thesis_files/figure-latex/hetershape-1.pdf>]
+<thesis_files/figure-latex/unnamed-chunk-8-1.pdf, id=572, 454.69875pt x 274.023
+74pt>
+File: thesis_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-8-1.pdf  used 
+on input line 739.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 739--740
+[][] 
+ []
+
+<thesis_files/figure-latex/unnamed-chunk-9-1.pdf, id=573, 454.69875pt x 274.023
+74pt>
+File: thesis_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-9-1.pdf  used 
+on input line 747.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 747--749
+[][]
+ []
+
+[28 <./thesis_files/figure-latex/unnamed-chunk-8-1.pdf> <./thesis_files/figure-
+latex/unnamed-chunk-9-1.pdf>]
+<thesis_files/figure-latex/hetern-1.pdf, id=591, 454.69875pt x 136.51pt>
+File: thesis_files/figure-latex/hetern-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/hetern-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/hetern-1.pdf  used on input 
+line 752.
+(pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 752--753
+ [][] 
+ []
+
+<thesis_files/figure-latex/hetereffectsize-1.pdf, id=592, 454.69875pt x 274.023
+74pt>
+File: thesis_files/figure-latex/hetereffectsize-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/hetereffectsize-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/hetereffectsize-1.pdf  used 
+on input line 758.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 758--759
+ [][] 
+ []
+
+[29 <./thesis_files/figure-latex/hetern-1.pdf>] [30 <./thesis_files/figure-late
+x/hetereffectsize-1.pdf>]
 Chapter 4.
-[27
+[31
 
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[28]
-
-LaTeX Warning: Reference `fig:fparallelism' on page 29 undefined on input line 
-741.
-
-File: figures/rsta2009012001.jpg Graphic file (type jpg)
-<use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 747.
-(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[29]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[30]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[31]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
@@ -1211,6 +1230,14 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [32]
 
+LaTeX Warning: Reference `fig:fparallelism' on page 33 undefined on input line 
+799.
+
+File: figures/rsta2009012001.jpg Graphic file (type jpg)
+<use figures/rsta2009012001.jpg>
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 805.
+(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
+
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
 (fancyhdr)                \setlength{\headheight}{24.79527pt}.
@@ -1218,20 +1245,56 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[33] [34
+[33]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[34]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[35]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[36]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[37] [38
 
 ]
 Appendix A.
-[35] [36
+[39] [40
 
-] [37]
-Underfull \hbox (badness 5064) in paragraph at lines 835--835
+] [41]
+Underfull \hbox (badness 5064) in paragraph at lines 893--893
 [][]\T1/ppl/m/n/10.95 (+20) Wickham, H (2011). gg-plot2. en. \T1/ppl/m/it/10.95
  (+20) WIREs Com-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 3\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
  []
 
-[38] [39] (./thesis.aux)
+[42] [43] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1239,7 +1302,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: A8E37B6E70091100A7F43365C9FE71B9;4750.
+(rerunfilecheck)             Checksum: 28367C74B9AA24CD1A8A3F3551923C78;4750.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1249,11 +1312,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23785 strings out of 480238
- 420850 string characters out of 5894762
- 1160448 words of memory out of 5000000
- 40790 multiletter control sequences out of 15000+600000
- 574843 words of font info for 378 fonts, out of 8000000 for 9000
+ 23836 strings out of 480238
+ 422727 string characters out of 5894762
+ 1160852 words of memory out of 5000000
+ 40823 multiletter control sequences out of 15000+600000
+ 575153 words of font info for 382 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,82p,2914b,18771s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
@@ -1272,10 +1335,10 @@ rary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/L
 ibrary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickl
 i/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patric
 kli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (53 pages, 4076118 bytes).
+Output written on thesis.pdf (57 pages, 5838500 bytes).
 PDF statistics:
- 759 PDF objects out of 1000 (max. 8388607)
- 633 compressed objects within 7 object streams
- 181 named destinations out of 1000 (max. 500000)
- 109317 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 822 PDF objects out of 1000 (max. 8388607)
+ 682 compressed objects within 7 object streams
+ 188 named destinations out of 1000 (max. 500000)
+ 109342 words of extra memory for PDF output out of 128383 (max. 10000000)
 

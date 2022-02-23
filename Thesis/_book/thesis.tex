@@ -696,10 +696,68 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{\varepsilon}$. Hence, the residuals $\boldsymbol{e}$ follow $N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V})$, where $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
 \end{proof}
 
-Lemma \ref{lemma:heter} shows
+Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depend on \(\boldsymbol{X}\). We could plot the one standard deviation around the residuals to indicate the region about 68\% of the residuals should landed. Figure \ref{fig:hetershape} illustrates different shapes of residuals with various values of \(a\) and \(b\). From the plot, it can be observed that if \(a = 0\), the residual plot looks like the shape of butterfly. If \(a = \pm 1\), it looks like a triangle, and the sign of \(a\) determines the direction of the shape. Parameter \(b\) is controlling the strength of the signal. As \(b\) increases, the pattern becomes less noisy.
 
-This shows that the variance of the residuals is clearly a function of X and Z. Hence, we
-would expect to see some patterns in the residual plot.
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/hetershape-1.pdf}
+\caption{\label{fig:hetershape}test}
+\end{figure}
+
+Similar to the cubic model, the heteroskedasticity model could also be built by the heteroskedasticity model class constructor \texttt{heter\_model()}. This function takes three arguments as inputs, which are \texttt{a}, \texttt{b} and \texttt{x}. \texttt{a} and \texttt{b} are numeric parameters defined in Equation (\ref{eq:heter}). \texttt{x} needs to be a random variable object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(visage)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{heter\_model}\NormalTok{(}\AttributeTok{a =} \DecValTok{0}\NormalTok{, }\AttributeTok{b =} \DecValTok{16}\NormalTok{, }\AttributeTok{x =} \FunctionTok{rand\_uniform}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Since both the cubic model class and the heteroskedasticity class are inherited from the visual inference model class, which has defined methods of simulating data, making residual plot and producing lineup, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{gen}\NormalTok{(}\DecValTok{5}\NormalTok{, }\AttributeTok{fit\_model =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          y          x    sigma         e     .resid  .fitted
+## 1 7.205499  0.9053470 5.218132 5.3001525  0.7420902 6.463409
+## 2 2.560696 -0.8626811 4.981465 2.4233771  1.0441078 1.516588
+## 3 1.121106 -0.6545505 3.835357 0.7756568 -0.9778170 2.098923
+## 4 5.296467  0.7171334 4.178154 3.5793335 -0.6403337 5.936801
+## 5 2.962130 -0.2859733 1.901837 2.2481030 -0.1680473 3.130177
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{plot}\NormalTok{(mod}\SpecialCharTok{$}\FunctionTok{gen}\NormalTok{(}\DecValTok{100}\NormalTok{, }\AttributeTok{fit\_model =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{plot\_lineup}\NormalTok{(mod}\SpecialCharTok{$}\FunctionTok{gen\_lineup}\NormalTok{(}\DecValTok{100}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-9-1.pdf}
+According to Lemma \ref{lemma:heter}, when \(b = 0\), the matrix \(\boldsymbol{V}\) collapses to an identity matrix. Assume the shape of butterfly and triangle have identical visual impacts, the only factor affects human to recognize the pattern is the strength of the signal, where parameter \(a\) has no role to play. In addition, sample size has a huge impact on the chance of human recognizing the pattern. As shown in Figure \ref{fig:hetern}, as sample size increases, the pattern becomes easier to observe. However, this effect is less noticeable with large sample size as the outline of the shape has been drawn and residuals have less probability to land outside of it. Thus, the effect size of this model can be expressed by \(ES = b\sqrt{n}\). The square root operator is used for addressing the large sample issue. Figure \ref{fig:hetereffectsize} shows the effectiveness of the effect size.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/hetern-1.pdf}
+\caption{\label{fig:hetern}Residuals generated from the same heteroskedasticity model but with different sample size. As sample size increases, the shape of butterfly becomes more obvious.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/hetereffectsize-1.pdf}
+\caption{\label{fig:hetereffectsize}Residuals of heteroskedasticity model with different effect size. As effect size increases, the shape of butterfly becomes less noisy.}
+\end{figure}
 
 \hypertarget{distribution-of-regressors}{%
 \section{Distribution of regressors}\label{distribution-of-regressors}}

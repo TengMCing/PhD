@@ -358,10 +358,6 @@ The cubic model class also provides method to compute the expected values of res
 mod$E(mod$gen(n = 5))
 ```
 
-
-
-
-
 Since we know that under the null hypothesis, the residual $\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)$. Thus, the difference between the expected values $\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b$ and $\boldsymbol{0}$ represents the direct impact of the parameters $a$ and $b$ on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
 
 To obtain a measure of the impact of $a$ and $b$ on the residuals adjusted for variance and covariance, we need to address several properties of the residuals. First, the variance of the residuals $\sigma^2\boldsymbol{R}_a$ is not an identity matrix. This can be fixed by standardizing the residuals by their variance-covariance matrix. Second, the difference between $\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b$ and $\boldsymbol{0}$ could be negative, which is not ideal for comparison. Thus, the magnitude needs to be squared. Third, the measure needs to be a scalar. We could apply a weighted average operator $\boldsymbol{W}$ on the transformed expected residuals to obtain a single numeric value. For simplicity, we set $\boldsymbol{W}=n^{-1}\boldsymbol{1}$. Considering the high time complexity of computing the square root of $\boldsymbol{R}_a$, off-diagonal elements of $\boldsymbol{R}_a$ are set to be zeros. This gives the effect size: $$ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2,$$ where $diag(\boldsymbol{R}_a)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$.
@@ -420,10 +416,77 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{\varepsilon}$. Hence, the residuals $\boldsymbol{e}$ follow $N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V})$, where $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
 \end{proof}
 
-Lemma \@ref(lemma:heter) shows 
+Lemma \@ref(lemma:heter) shows that variance and covariance of the residuals depend on $\boldsymbol{X}$. We could plot the one standard deviation around the residuals to indicate the region about 68% of the residuals should landed. Figure \@ref(fig:hetershape) illustrates different shapes of residuals with various values of $a$ and $b$. From the plot, it can be observed that if $a = 0$, the residual plot looks like the shape of butterfly. If $a = \pm 1$, it looks like a triangle, and the sign of $a$ determines the direction of the shape. Parameter $b$ is controlling the strength of the signal. As $b$ increases, the pattern becomes less noisy.
 
-This shows that the variance of the residuals is clearly a function of X and Z. Hence, we
-would expect to see some patterns in the residual plot.
+```{r hetershape, fig.height=5.25, fig.cap="test"}
+make_plot2 <- function(a, b) {
+  mod <- heter_model(a = a, b = b)
+  dat <- mod$gen(1000, fit_model = TRUE)
+  dat$one_sigma <- sqrt(1 + (2 - abs(a)) * (dat$x - a)^2 * b)
+  mod$plot(dat, alpha = 0.3, size = 0.5, add_zero_line = FALSE, theme = theme_light(base_size = 5)) +
+    geom_point(aes(.fitted, one_sigma, col = "red"), alpha = 0.6, size = 0.1) +
+    geom_point(aes(.fitted, -one_sigma, col = "red"), alpha = 0.6, size = 0.1) +
+    xlab("fitted values") +
+    ylab("residuals") +
+    ggtitle(bquote(a:.(a)~','~b:.(b))) +
+    theme(legend.position = "none")
+}
+
+
+expand.grid(a = c(-1,0,1),
+            b = 2^c(0,2,4)) %>%
+  arrange(b,a) %>%
+  rowwise() %>%
+  mutate(plots = list(make_plot2(a = a, b = b))) -> results
+
+results$plots %>% patchwork::wrap_plots(ncol=3)
+```
+
+Similar to the cubic model, the heteroskedasticity model could also be built by the heteroskedasticity model class constructor `heter_model()`. This function takes three arguments as inputs, which are `a`, `b` and `x`. `a` and `b` are numeric parameters defined in Equation (\ref{eq:heter}). `x` needs to be a random variable object.
+
+```{r echo = TRUE}
+library(visage)
+mod <- heter_model(a = 0, b = 16, x = rand_uniform(-1, 1))
+```
+
+Since both the cubic model class and the heteroskedasticity class are inherited from the visual inference model class, which has defined methods of simulating data, making residual plot and producing lineup, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.
+
+```{r echo = TRUE}
+mod$gen(5, fit_model = TRUE)
+```
+
+```{r echo = TRUE}
+mod$plot(mod$gen(100, fit_model = TRUE), size = 1)
+```
+```{r echo = TRUE}
+mod$plot_lineup(mod$gen_lineup(100), size = 1)
+```
+According to Lemma \ref{lemma:heter}, when $b = 0$, the matrix $\boldsymbol{V}$ collapses to an identity matrix. Assume the shape of butterfly and triangle have identical visual impacts, the only factor affects human to recognize the pattern is the strength of the signal, where parameter $a$ has no role to play. In addition, sample size has a huge impact on the chance of human recognizing the pattern. As shown in Figure \@ref(fig:hetern), as sample size increases, the pattern becomes easier to observe. However, this effect is less noticeable with large sample size as the outline of the shape has been drawn and residuals have less probability to land outside of it. Thus, the effect size of this model can be expressed by $ES = b\sqrt{n}$. The square root operator is used for addressing the large sample issue. Figure \@ref(fig:hetereffectsize) shows the effectiveness of the effect size.
+
+
+```{r hetern, fig.height=1.9, fig.cap="Residuals generated from the same heteroskedasticity model but with different sample size. As sample size increases, the shape of butterfly becomes more obvious."}
+mod$plot(mod$gen(10, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle("n: 10") -> p1
+mod$plot(mod$gen(50, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle("n: 50") -> p2
+mod$plot(mod$gen(100, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle("n: 100") -> p3
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle("n: 500") -> p4
+
+list(p1, p2, p3, p4) %>% patchwork::wrap_plots(ncol=4)
+```
+
+```{r hetereffectsize, fig.cap="Residuals of heteroskedasticity model with different effect size. As effect size increases, the shape of butterfly becomes less noisy."}
+set.seed(10086)
+mod <- heter_model(0, 1)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) -> p1
+mod <- heter_model(0, 3)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) -> p2
+mod <- heter_model(0, 9)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) -> p3
+mod <- heter_model(0, 81)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 5)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) -> p4
+
+list(p1, p2, p3, p4) %>% patchwork::wrap_plots(ncol=2)
+```
+
 
 
 ## Distribution of regressors
