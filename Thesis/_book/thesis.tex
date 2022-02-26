@@ -759,7 +759,7 @@ According to Lemma \ref{lemma:heter}, when \(b = 0\), the matrix \(\boldsymbol{V
 \caption{\label{fig:hetereffectsize}Residuals of heteroskedasticity model with different effect size. As effect size increases, the shape of butterfly becomes less noisy.}
 \end{figure}
 
-For the heteroskedasticity model, the conventional test we used was Breusch--Pagan test \autocite{breusch_simple_1979}, which tested whether the variance of the error terms of the regression is dependent on the regressors. \textcite{majumder_validation_2013} suggested that visual test is not expected to perform equally well as conventional test especially when there exists a exact conventional test. However, in contrast to the F-test used in the cubic model, Breusch--Pagan test is an approximate test. Thus, the power of visual test may exceed the power of Breusch--Pagan test. Throughout the study, Breusch--Pagan test statistic and p-value were recorded for comparison.
+For the heteroskedasticity model, the conventional test we used was Breusch--Pagan test \autocite{breusch_simple_1979}, which tested whether the variance of the error terms of the regression is dependent on the regressors with the auxiliary regression equation \[\boldsymbol{e}^2 = \gamma_0 + \gamma_1 \boldsymbol{X} + \gamma_2 \boldsymbol{X}^2 + \boldsymbol{v}.\] \textcite{majumder_validation_2013} suggested that visual test is not expected to perform equally well as conventional test especially when there exists a exact conventional test. However, in contrast to the F-test used in the cubic model, Breusch--Pagan test is an approximate test. Thus, the power of visual test may exceed the power of Breusch--Pagan test. Throughout the study, Breusch--Pagan test statistic and p-value were recorded for comparison.
 
 \hypertarget{distribution-of-regressors}{%
 \section{Distribution of regressors}\label{distribution-of-regressors}}
@@ -778,18 +778,108 @@ The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform 
 
 \(\boldsymbol{X}\) used in the heteroskedasticity model was a combination of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) used in the cubic model. It could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted lognormal distribution, adjusted negative lognormal distribution and discrete uniform distribution.
 
-\hypertarget{sample-size-calculation}{%
-\section{Sample Size Calculation}\label{sample-size-calculation}}
+\hypertarget{experiment-i-and-ii}{%
+\section{Experiment I and II}\label{experiment-i-and-ii}}
 
-In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was \(\alpha = 0.05\) and the number of plots in a lineup was \(20\), a single visual test procedure needed to involve multiple evaluations. Otherwise, there would be a high chance that the \(p\)-value of the test was greater than \(0.05\) in spite of the actual data plot was selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. But according to our pilot study ran in a small group, the number would be generally smaller than \(5\). Hence, a visual test consisted of \(5\) lineups were sufficient to yield \(p\)-value smaller than \(0.004\). Thus, each lineup would be replicated for \(5\) times and evaluated by different participants. However, our study website was designed such that any set of lineups would be shown to only one person only once. A set of lineups consists 20 lineups generated before the start of the study. Further, whether the participant would finish the experiment was unpredictable. Therefore, some lineups only had \(2\) evaluations but some had as large as \(8\) evaluations. This slightly affected the estimate of the power of the visual test, which would be discussed in the (section here).
+In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was \(\alpha = 0.05\) and the number of plots in a lineup was \(20\), a single visual test procedure needed to involve multiple evaluations. Otherwise, the \(p\)-value of the test would be greater than \(0.05\) in spite of the actual data plot being selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. According to the pilot study evaluated by \(10\) faculty members of Department of Econometrics and Business Analytics, Monash University, the number of selections would be generally smaller than \(4\), which suggested a visual test consisted of \(5\) evaluations were sufficient to yield \(p\)-value smaller than \(0.05\) with at least three detections. Thus, each lineup was replicated for five times and evaluated by different participants. However, our study website was designed such that any set of lineups consisting of 20 lineups generated beforehand would be shown to only one person only once. And whether the participant would finish the experiment was unpredictable. Therefore, some lineups had insufficient number of evaluations, but some had more evaluations than expected. This slightly affected the estimate of the power of the visual test, which would be discussed in Section \ref{p-value-for-visual-test-allowed-for-multiple-selections}.
 
-Besides, the sample size calculation was based on the difficulty of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) model was developed to describe the relationship between the effect size and the detection rate.
+We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) models given in Table \ref{tab:pilotglm} and Figure \ref{fig:pilotglm} were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
 
-\hypertarget{experiment-i}{%
-\section{Experiment I}\label{experiment-i}}
+\begin{table}[!htbp] \centering 
+  \caption{GLM result 1} 
+  \label{tab:pilotglm} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{detect} \\ 
+ & Cubic & Heteroskedasticity \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ log(effect\_size) & 0.611$^{***}$ & 0.737$^{***}$ \\ 
+  & (0.098) & (0.137) \\ 
+  & & \\ 
+ Constant & 0.457$^{***}$ & $-$2.402$^{***}$ \\ 
+  & (0.165) & (0.645) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & 246 & 289 \\ 
+Log Likelihood & $-$122.305 & $-$147.971 \\ 
+Akaike Inf. Crit. & 248.610 & 299.943 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
-\hypertarget{experiment-ii}{%
-\section{Experiment II}\label{experiment-ii}}
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/pilotglm-1.pdf}
+\caption{\label{fig:pilotglm}pilot}
+\end{figure}
+
+Lineups were classified into three categories - easy, medium and hard. Easy lineups were those of which predicted detection rates were higher than \(80\)\%, while medium lineups were between \(40\)\% to \(80\)\% and hard lineups were less than \(40\)\%.
+
+For the first experiment, we would like to have at least 20 detection with chance greater than 99.99\% in each category. Thus, we prepared \(34\) easy lineups, \(60\) medium lineups and \(194\) hard lineups with five replications for both cubic and heteroskedasticity model. Every participant would get at least \(12\) easy or medium lineups. Two out of \(10\) extremely lineups with predicted detection rate over \(90\)\% were randomly given to every participant as attention checks. We initially planned to recruit \((34+60+194) \times 2 \times 5 / (20-2) = 160\) participants but eventually decided to only recruit \(20\) participants because it was the first time we launched an experiment on Prolific where factors like procedure of recruiting participants, payment method, and quality of participants were unclear at the moment. As a consequence, most of the lineups had only two evaluations and not all the lineups were used. However, data collected from the first experiment was sufficient for building a more accurate GLM model to predict detection rate for the second experiment.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/e1glmplot-1.pdf}
+\caption{\label{fig:e1glmplot}test}
+\end{figure}
+
+\begin{table}[!htbp] \centering 
+  \caption{GLM result 2} 
+  \label{tab:e1glm} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{detect} \\ 
+ & Cubic & Heteroskedasticity \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ I(log(effect\_size)) & 0.818$^{***}$ & 0.710$^{***}$ \\ 
+  & (0.113) & (0.107) \\ 
+  & & \\ 
+ Constant & $-$1.649$^{***}$ & $-$3.425$^{***}$ \\ 
+  & (0.254) & (0.454) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & 201 & 199 \\ 
+Log Likelihood & $-$68.678 & $-$89.985 \\ 
+Akaike Inf. Crit. & 141.357 & 183.971 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+It was also found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was \(50\). With the new GLM model given in Table \ref{tab:e1glm} and Figure \ref{fig:e1glmplot} fitted with data collected from the first experiment, \(40\) easy lineups, \(25\) medium lineups and \(15\) hard lineups were simulated for both cubic and heteroskedasticity model. \(49\) participants were recruited but \(6\) were withdrew.
+
+\hypertarget{p-value-for-visual-test-allowed-for-multiple-selections}{%
+\section{P-value for Visual Test Allowed for Multiple Selections}\label{p-value-for-visual-test-allowed-for-multiple-selections}}
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+(estimate of visual power)
+
+(power against different parameters)
+
+(power against conventional p-value)
+
+(conventional power)
+
+(visual p-value vs.~conventional p-value)
+
+(response time)
+
+(confidence level)
+
+(relative freq of picks)
 
 \clearpage
 
