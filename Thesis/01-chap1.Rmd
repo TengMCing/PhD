@@ -487,7 +487,7 @@ mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size
 list(p1, p2, p3, p4) %>% patchwork::wrap_plots(ncol=2)
 ```
 
-For the heteroskedasticity model, the conventional test we used was Breusch–Pagan test [@breusch_simple_1979], which tested whether the variance of the error terms of the regression is dependent on the regressors. @majumder_validation_2013 suggested that visual test is not expected to perform equally well as conventional test especially when there exists a exact conventional test. However, in contrast to the F-test used in the cubic model, Breusch–Pagan test is an approximate test. Thus, the power of visual test may exceed the power of Breusch–Pagan test. Throughout the study, Breusch–Pagan test statistic and p-value were recorded for comparison.
+For the heteroskedasticity model, the conventional test we used was Breusch–Pagan test [@breusch_simple_1979], which tested whether the variance of the error terms of the regression is dependent on the regressors with the auxiliary regression equation $$\boldsymbol{e}^2 = \gamma_0 + \gamma_1 \boldsymbol{X} + \gamma_2 \boldsymbol{X}^2 + \boldsymbol{v}.$$ @majumder_validation_2013 suggested that visual test is not expected to perform equally well as conventional test especially when there exists a exact conventional test. However, in contrast to the F-test used in the cubic model, Breusch–Pagan test is an approximate test. Thus, the power of visual test may exceed the power of Breusch–Pagan test. Throughout the study, Breusch–Pagan test statistic and p-value were recorded for comparison.
 
 ## Distribution of regressors
 
@@ -505,20 +505,384 @@ mod$plot_lineup(mod$gen_lineup(500), theme = theme_light(), alpha = 0.3)
 
 $\boldsymbol{X}$ used in the heteroskedasticity model was a combination of $\boldsymbol{X}$ and $\boldsymbol{Z}$ used in the cubic model. It could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted lognormal distribution, adjusted negative lognormal distribution and discrete uniform distribution. 
 
-## Sample Size Calculation
+## Experiment I and II
 
-In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was $\alpha = 0.05$ and the number of plots in a lineup was $20$, a single visual test procedure needed to involve multiple evaluations. Otherwise, there would be a high chance that the $p$-value of the test was greater than $0.05$ in spite of the actual data plot was selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. But according to our pilot study ran in a small group, the number would be generally smaller than $5$. Hence, a visual test consisted of $5$ lineups were sufficient to yield $p$-value smaller than $0.004$. Thus, each lineup would be replicated for $5$ times and evaluated by different participants. However, our study website was designed such that any set of lineups would be shown to only one person only once. A set of lineups consists 20 lineups generated before the start of the study. Further, whether the participant would finish the experiment was unpredictable. Therefore, some lineups only had $2$ evaluations but some had as large as $8$ evaluations. This slightly affected the estimate of the power of the visual test, which would be discussed in the (section here).
+In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was $\alpha = 0.05$ and the number of plots in a lineup was $20$, a single visual test procedure needed to involve multiple evaluations. Otherwise, the $p$-value of the test would be greater than $0.05$ in spite of the actual data plot being selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. According to the pilot study evaluated by  $10$ faculty members of Department of Econometrics and Business Analytics, Monash University, the number of selections would be generally smaller than $4$, which suggested a visual test consisted of $5$ evaluations were sufficient to yield $p$-value smaller than $0.05$ with at least three detections. Thus, each lineup was replicated for five times and evaluated by different participants. However, our study website was designed such that any set of lineups consisting of 20 lineups generated beforehand would be shown to only one person only once. And whether the participant would finish the experiment was unpredictable. Therefore, some lineups had insufficient number of evaluations, but some had more evaluations than expected. This slightly affected the estimate of the power of the visual test, which would be discussed in Section \@ref(p-value-for-visual-test-allowed-for-multiple-selections).
 
-Besides, the sample size calculation was based on the difficulty of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) model was developed to describe the relationship between the effect size and the detection rate. 
-
-
+We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) models given in Table \@ref(tab:pilotglm) and Figure \@ref(fig:pilotglm) were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
 
 
-## Experiment I
+```{r }
+file_names <- list.files(here::here("data/pilot_study"))
+
+library(tidyverse)
+result_high <- NULL
+for (file_name in file_names[grep("oct" , file_names)]) {
+  dat <- read_csv(here::here("data/pilot_study", file_name))
+  if (is.null(result_high)) {
+    result_high <- dat
+  } else {
+    result_high <- bind_rows(result_high, dat)
+  }
+}
+
+result_high %>%
+  mutate(detect = as.numeric(answer)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(log(effect_size),
+                                   detect),
+                               groupOnX = FALSE) +
+  geom_smooth(aes(log(effect_size), detect, group = 1),
+              method = "glm", method.args = list(family = binomial)) +
+  xlab("Log of effect size") +
+  ylab("Detection rate") +
+  ggtitle("Cubic Model") -> p1
+
+mod1 <- glm(detect ~ log(effect_size), data = mutate(result_high, detect = as.numeric(answer), log_effect_size = log(effect_size)), family = binomial)
+
+```
+
+```{r}
+file_names <- list.files(here::here("data/pilot_study"))
+
+library(tidyverse)
+result_heter <- NULL
+for (file_name in file_names[grep("nov" , file_names)]) {
+  dat <- read_csv(here::here("data/pilot_study", file_name))
+  if (is.null(result_heter)) {
+    result_heter <- dat
+  } else {
+    result_heter <- bind_rows(result_heter, dat)
+  }
+}
+
+result_heter %>%
+  mutate(detect = as.numeric(answer)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(log(effect_size),
+                                   detect),
+                               groupOnX = FALSE) +
+  geom_smooth(aes(log(effect_size), detect, group = 1),
+              method = "glm", method.args = list(family = binomial)) +
+  xlab("Log of effect size") +
+  ylab("Detection rate") +
+  ggtitle("Heteroskedasticity Model") -> p2
+```
+
+```{r results='asis'}
+library(stargazer)
+mod2 <- glm(detect ~ log(effect_size), data = mutate(result_heter, detect = as.numeric(answer), log_effect_size = log(effect_size)), family = binomial)
+stargazer(mod1, mod2,
+          header = FALSE,
+          label = "tab:pilotglm",
+          column.labels = c("Cubic", "Heteroskedasticity"),
+          title = "GLM result 1",
+          style = "default")
+
+```
+
+```{r pilotglm, fig.cap="pilot"}
+list(p1, p2) %>% patchwork::wrap_plots(ncol = 2)
+```
+
+Lineups were classified into three categories - easy, medium and hard. Easy lineups were those of which predicted detection rates were higher than $80$%, while medium lineups were between $40$% to $80$% and hard lineups were less than $40$%. 
+
+For the first experiment, we would like to have at least 20 detection with chance greater than 99.99% in each category. Thus, we prepared $34$ easy lineups, $60$ medium lineups and $194$ hard lineups with five replications for both cubic and heteroskedasticity model. Every participant would get at least $12$ easy or medium lineups. Two out of $10$ extremely lineups with predicted detection rate over $90$% were randomly given to every participant as attention checks. We initially planned to recruit $(34+60+194) \times 2 \times 5 / (20-2) = 160$ participants but eventually decided to only recruit $20$ participants because it was the first time we launched an experiment on Prolific where factors like procedure of recruiting participants, payment method, and quality of participants were unclear at the moment. As a consequence, most of the lineups had only two evaluations and not all the lineups were used. However, data collected from the first experiment was sufficient for building a more accurate GLM model to predict detection rate for the second experiment.
+
+```{r}
+process_small_responses <- function(k, lineup_dat, lineup_ord, survey_folder) {
+
+  dat <- tibble(id = 1:length(unlist(lineup_ord)),
+                lineup_dat_id = unlist(lineup_ord)) %>%
+    mutate(set = (id-1) %/% k + 1) %>%
+    mutate(num = (id-1) %% k + 1)
+
+  user_info_dict <- list(c("18-24", "25-39", "40-54", "55-64", "65 or above"),
+                         c("High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree", "Doctoral Degree"),
+                         c("He", "She", "They", "Other"),
+                         c("Yes", "No"))
+
+  get_responses <- function(user_info_dict, uuid) {
+    tmp_survey <- jsonlite::fromJSON(here::here(glue::glue("{survey_folder}/{uuid}.txt")),
+                                     simplifyVector = FALSE)
+    response_time <- map_dbl(tmp_survey, ~.x$rt)
+    user_information <- str_split(tmp_survey[[3]]$response[[1]], ",")[[1]]
+
+    user_information[2:5] <- imap_chr(user_information[-1], ~user_info_dict[[.y]][as.integer(.x)])
+    names(user_information) <- c("prolific_id", "age_group", "education", "pronoun", "previous_experience")
+
+
+    lineup_respone <- str_split(map_chr(tmp_survey[-c(1,2,3,4)], ~.x$response$response), ",")
+    # handle selections
+    selections <- map_chr(lineup_respone, ~.x[1])
+    # handle reasons
+    reasons_dict <- c("Outlier(s)", "Cluster(s)", "Shape")
+
+    reasons <- map_chr(lineup_respone, ~if(.x[2] %in% c("1", "2", "3")) {
+      reasons_dict[as.integer(.x[2])]
+    } else {
+      .x[2]
+    })
+
+    # handle confidence
+    confidence_dict <- c("Not at all", "Slightly", "Moderately", "Very", "Extremely")
+    confidence <- map_chr(lineup_respone, ~if(.x[3] %in% c("1", "2", "3", "4", "5")) {
+      confidence_dict[as.integer(.x[3])]
+    } else {
+      .x[3]
+    })
+
+    tibble(page = 1:length(response_time),
+           response_time = response_time,
+           set = uuid,
+           num = c(rep(NA, 4), 1:k),
+           selection = c(rep(NA, 4), selections),
+           num_selection = c(rep(NA, 4), str_count(selections, "_") + 1),
+           reason = c(rep(NA, 4), reasons),
+           confidence = c(rep(NA, 4), confidence),
+           prolific_id = unname(user_information['prolific_id']),
+           age_group = unname(user_information['age_group']),
+           education = unname(user_information['education']),
+           pronoun = unname(user_information['pronoun']),
+           previous_experience = unname(user_information['previous_experience'])
+    ) %>%
+      mutate(reason = ifelse(selection == "NA", NA, reason)) %>%
+      mutate(confidence = ifelse(selection == "NA", NA, confidence)) %>%
+      mutate(selection = ifelse(selection == "NA", "0", selection)) %>%
+      mutate(num_selection = ifelse(selection == "0", 0, num_selection))
+  }
+
+  response_dat <- NULL
+  file_names <- list.files(here::here(survey_folder))
+
+  for (i in sort(as.integer(str_replace(file_names[grep("*.txt", file_names)], ".txt", "")))) {
+    if (is.null(response_dat)) {
+      response_dat <- get_responses(user_info_dict, i)
+    } else {
+      response_dat <- bind_rows(response_dat, get_responses(user_info_dict, i))
+    }
+  }
+
+  correct_or_not <- function(selection, ans) {
+    tmp <- imap_lgl(selection, ~ans[.y] %in% str_split(.x, "_")[[1]])
+    tmp[is.na(ans)] <- NA
+    tmp
+  }
+
+  extract_p_value <- function(lineup_id, lineup_dat, null = FALSE) {
+    if (is.na(lineup_id)) {
+      return(NA)
+    }
+
+    tmp <- lineup_dat[[lineup_id]]$data %>%
+      group_by(k) %>%
+      summarise(null = first(null), pvalue = first(pvalue)) %>%
+      ungroup()
+
+    data_p <- tmp$pvalue[tmp$null == FALSE]
+    null_min_p <- min(tmp$pvalue[tmp$null == TRUE])
+    if (null) {
+      return(null_min_p)
+    } else {
+      return(data_p)
+    }
+  }
+
+  response_dat %>%
+    rowwise() %>%
+    mutate(lineup_id = dat$lineup_dat_id[dat$set == set & dat$num == num][1]) %>%
+    mutate(metadata = list(lineup_dat[[lineup_id]]$metadata)) %>%
+    ungroup() %>%
+    unnest_wider(metadata) %>%
+    mutate(age_group = factor(age_group,
+                              levels = user_info_dict[[1]])) %>%
+    mutate(education = factor(education,
+                              levels = user_info_dict[[2]])) %>%
+    mutate(confidence = factor(confidence,
+                               levels = c("Not at all", "Slightly", "Moderately", "Very", "Extremely"))) %>%
+    mutate(detected = correct_or_not(selection, ans)) %>%
+    rowwise() %>%
+    mutate(data_p_value = extract_p_value(lineup_id, lineup_dat, null = FALSE)) %>%
+    mutate(null_min_p_value = extract_p_value(lineup_id, lineup_dat, null = TRUE)) %>%
+    ungroup()
+}
+```
+
+
+```{r}
+lineup_dat <- readRDS(here::here("data/small_study/all_data.RDS"))
+lineup_ord <- readRDS(here::here("data/small_study/lineup_order.RDS"))
+
+# Correct the effect size
+for (i in 1:length(lineup_dat)) {
+  if (lineup_dat[[i]]$metadata$type != "higher order") next
+  
+  tmp_eff <- CUBIC_MODEL$effect_size(select(filter(lineup_dat[[i]]$data, null == FALSE), x, z), 
+                          a = lineup_dat[[i]]$metadata$a, 
+                          b = lineup_dat[[i]]$metadata$b,
+                          c = lineup_dat[[i]]$metadata$c,
+                          sigma = lineup_dat[[i]]$metadata$e_sigma)
+  
+  lineup_dat[[i]]$metadata$effect_size <- tmp_eff 
+}
+
+small_survey_dat <- process_small_responses(20, 
+                                            lineup_dat = lineup_dat, 
+                                            lineup_ord = lineup_ord, 
+                                            survey_folder = "data/small_study/survey") %>%
+  filter(page > 4) %>%
+  mutate(difficulty = str_replace_all(name, "(high_|heter_|_\\d+)", "")) %>%
+  mutate(difficulty = factor(difficulty, levels = c("extremely_easy", "easy", "medium", "hard")))
+```
+
+```{r}
+small_survey_dat$detect <- small_survey_dat$detected
+
+e1_high <- glm(detect ~ I(log(effect_size)),
+                data = filter(small_survey_dat, type == "higher order"),
+                family = binomial)
+e1_heter <- glm(detect ~ I(log(effect_size)),
+                 data = filter(small_survey_dat, type == "heteroskedasticity"),
+                 family = binomial)
+```
+
+```{r e1glmplot, fig.cap="test"}
+filter(small_survey_dat, type == "higher order") %>%
+  mutate(detect = as.numeric(detect)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(log(effect_size),
+                                   detect),
+                               groupOnX = FALSE) +
+  geom_smooth(aes(log(effect_size), detect, group = 1),
+              method = "glm", method.args = list(family = binomial)) +
+  xlab("Log of effect size") +
+  ylab("Detection rate") +
+  ggtitle("Cubic Model") -> p1
+
+filter(small_survey_dat, type == "heteroskedasticity") %>%
+  mutate(detect = as.numeric(detect)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(log(effect_size),
+                                   detect),
+                               groupOnX = FALSE) +
+  geom_smooth(aes(log(effect_size), detect, group = 1),
+              method = "glm", method.args = list(family = binomial)) +
+  xlab("Log of effect size") +
+  ylab("Detection rate") +
+  ggtitle("Heteroskedasticity Model") -> p2
+
+list(p1, p2) %>% patchwork::wrap_plots(ncol = 2)
+```
+
+
+```{r results="asis"}
+stargazer(e1_high, e1_heter,
+          header = FALSE,
+          label = "tab:e1glm",
+          column.labels = c("Cubic", "Heteroskedasticity"),
+          title = "GLM result 2",
+          style = "default")
+```
+
+It was also found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was $50$. With the new GLM model given in Table \@ref(tab:e1glm) and Figure \@ref(fig:e1glmplot) fitted with data collected from the first experiment, $40$ easy lineups, $25$ medium lineups and $15$ hard lineups were simulated for both cubic and heteroskedasticity model. $49$ participants were recruited but $6$ were withdrew.
+
+
+## P-value for Visual Test Allowed for Multiple Selections
 
 
 
-## Experiment II
+## Results
+
+
+```{r eval = FALSE}
+lineup_dat_big <- readRDS(here::here("data/big_study/all_data_big.RDS"))
+lineup_ord_big <- readRDS(here::here("data/big_study/lineup_order_big.RDS"))
+
+ori_eff <- c()
+current_eff <- c()
+prm_c <- c()
+
+# Correct the effect size
+for (i in 1:length(lineup_dat_big)) {
+  if (lineup_dat_big[[i]]$metadata$type != "higher order") next
+  
+  tmp_eff <- CUBIC_MODEL$effect_size(select(filter(lineup_dat_big[[i]]$data, null == FALSE), x, z), 
+                          a = lineup_dat_big[[i]]$metadata$a, 
+                          b = lineup_dat_big[[i]]$metadata$b,
+                          c = lineup_dat_big[[i]]$metadata$c,
+                          sigma = lineup_dat_big[[i]]$metadata$e_sigma)
+  
+  ori_eff <- c(ori_eff, lineup_dat_big[[i]]$metadata$effect_size)
+  current_eff <- c(current_eff, tmp_eff)
+  prm_c <- c(prm_c, lineup_dat_big[[i]]$metadata$c)
+  
+  lineup_dat_big[[i]]$metadata$effect_size <- tmp_eff 
+}
+
+big_survey_dat <- process_small_responses(20, 
+                                            lineup_dat = lineup_dat_big, 
+                                            lineup_ord = lineup_ord_big, 
+                                            survey_folder = "data/big_study/survey") %>%
+  filter(page > 4) %>%
+  mutate(difficulty = str_replace_all(name, "(high_|heter_|_\\d+)", "")) %>%
+  mutate(difficulty = factor(difficulty, levels = c("extremely_easy", "easy", "medium", "hard")))
+```
+
+
+
+```{r eval = FALSE}
+small_survey_dat %>%
+  mutate(p_hat = predict(mod1, newdata = small_survey_dat, type = "response")) %>%
+  mutate(new_diff = ifelse(p_hat < 0.4, "hard", ifelse(p_hat > 0.8, "easy", "medium"))) %>%
+  filter(difficulty != "extremely_easy") %>%
+  mutate(me = new_diff == "easy" | new_diff == "medium") %>%
+  count(set, me) %>%
+  filter(me) %>%
+  ggplot() +
+  geom_histogram(aes(n))
+```
+
+```{r eval = FALSE}
+big_survey_dat %>%
+  mutate(p_hat = predict(e1_high, newdata = big_survey_dat, type = "response")) %>%
+  mutate(new_diff = ifelse(p_hat < 0.4, "hard", ifelse(p_hat > 0.8, "easy", "medium"))) %>%
+  filter(difficulty != "extremely_easy") %>%
+  mutate(me = new_diff == "easy" | new_diff == "medium") %>%
+  count(set, me) %>%
+  filter(me) %>%
+  ggplot() +
+  geom_histogram(aes(n))
+```
+
+```{r eval = FALSE}
+big_survey_dat %>%
+  mutate(p_hat = predict(e1_high, newdata = big_survey_dat, type = "response")) %>%
+  mutate(new_diff = ifelse(p_hat < 0.4, "hard", ifelse(p_hat > 0.8, "easy", "medium"))) %>%
+  filter(difficulty != "extremely_easy") %>%
+  group_by(lineup_id) %>%
+  slice_head() %>%
+  ungroup() %>%
+  count(new_diff)
+  
+```
+
+
+(estimate of visual power)
+
+(power against different parameters)
+
+(power against conventional p-value)
+
+(conventional power)
+
+(visual p-value vs. conventional p-value)
+
+(response time)
+
+(confidence level)
+
+(relative freq of picks)
+
 
 
 \clearpage

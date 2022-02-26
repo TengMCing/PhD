@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  24 FEB 2022 01:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  27 FEB 2022 02:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1227,55 +1227,36 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 775--776
  []
 
 [30 <./thesis_files/figure-latex/hetereffectsize-1.pdf>] [31 <./thesis_files/fi
-gure-latex/discreteex-1.pdf>] [32]
-Chapter 4.
-[33
+gure-latex/discreteex-1.pdf>]
+<thesis_files/figure-latex/pilotglm-1.pdf, id=653, 454.69875pt x 274.02374pt>
+File: thesis_files/figure-latex/pilotglm-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/pilotglm-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/pilotglm-1.pdf  used on inpu
+t line 818.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 818--819
+ [][] 
+ []
+
+[32]
+<thesis_files/figure-latex/e1glmplot-1.pdf, id=660, 454.69875pt x 274.02374pt>
+File: thesis_files/figure-latex/e1glmplot-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/e1glmplot-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/e1glmplot-1.pdf  used on inp
+ut line 828.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 828--829
+ [][] 
+ []
+
+[33 <./thesis_files/figure-latex/pilotglm-1.pdf>] [34 <./thesis_files/figure-la
+tex/e1glmplot-1.pdf>] [35] [36
 
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[34]
-
-LaTeX Warning: Reference `fig:fparallelism' on page 35 undefined on input line 
-828.
-
-File: figures/rsta2009012001.jpg Graphic file (type jpg)
-<use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 834.
-(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[35]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[36]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
+Chapter 4.
 [37]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
@@ -1287,6 +1268,14 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [38]
 
+LaTeX Warning: Reference `fig:fparallelism' on page 39 undefined on input line 
+918.
+
+File: figures/rsta2009012001.jpg Graphic file (type jpg)
+<use figures/rsta2009012001.jpg>
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 924.
+(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
+
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.79527pt, for example:
 (fancyhdr)                \setlength{\headheight}{24.79527pt}.
@@ -1294,20 +1283,56 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
 
-[39] [40
+[39]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[40]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[41]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[42]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 24.79527pt, for example:
+(fancyhdr)                \setlength{\headheight}{24.79527pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
+
+[43] [44
 
 ]
 Appendix A.
-[41] [42
+[45] [46
 
-] [43] [44]
-Underfull \hbox (badness 5064) in paragraph at lines 922--922
+] [47] [48]
+Underfull \hbox (badness 5064) in paragraph at lines 1012--1012
 [][]\T1/ppl/m/n/10.95 (+20) Wickham, H (2011). gg-plot2. en. \T1/ppl/m/it/10.95
  (+20) WIREs Com-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 3\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
  []
 
-[45] (./thesis.aux)
+[49] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1315,7 +1340,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 493C57762BF91C9078645C3D9190774E;5233.
+(rerunfilecheck)             Checksum: 05CF66DCE4F68D62DFF7DCF9ABA112ED;5416.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1325,11 +1350,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 23878 strings out of 480238
- 423596 string characters out of 5894762
- 1161356 words of memory out of 5000000
- 40842 multiletter control sequences out of 15000+600000
- 575755 words of font info for 390 fonts, out of 8000000 for 9000
+ 23920 strings out of 480238
+ 424570 string characters out of 5894762
+ 1161562 words of memory out of 5000000
+ 40858 multiletter control sequences out of 15000+600000
+ 576629 words of font info for 401 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,82p,2914b,18789s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
@@ -1348,10 +1373,10 @@ rary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/L
 ibrary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickl
 i/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patric
 kli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (59 pages, 6401527 bytes).
+Output written on thesis.pdf (63 pages, 6477876 bytes).
 PDF statistics:
- 865 PDF objects out of 1000 (max. 8388607)
- 720 compressed objects within 8 object streams
- 198 named destinations out of 1000 (max. 500000)
- 109371 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 911 PDF objects out of 1000 (max. 8388607)
+ 758 compressed objects within 8 object streams
+ 206 named destinations out of 1000 (max. 500000)
+ 109381 words of extra memory for PDF output out of 128383 (max. 10000000)
 
