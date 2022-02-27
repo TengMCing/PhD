@@ -223,8 +223,10 @@ Under the null hypothesis, it is expected that the actual data plot would have n
 This provides us with an mechanism to control the Type I error, because \(m\) - the number of plots in a lineup can be chosen. A larger value of \(m\) will result in a smaller Type I error, but the limit to the value of \(m\) depends on the number of plots a human willing to view \autocite{buja_statistical_2009}. Typically, \(m\) will be set to \(20\) which is equivalent to set \(\alpha = 0.05\), a general choice of significance level for conventional testing among statisticians.
 
 Further, if we involve \(K\) independent observers in a visual test, and let \(X\) be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis \(X \sim \mathrm{Binom}_{K,1/m}\), and therefore, the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is given as
+\begin{equation} \label{eq:pvaluesingle}
+P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
+\end{equation}
 
-\[P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},\]
 where \(x\) is the realization of number of observers correctly picking the actual data plot \autocite{majumder_validation_2013}.
 
 The multiple individuals approach avoids the limit of \(m\), while provides visual tests with \(p\)-value much smaller than \(0.05\). In fact, the lower bound of \(p\)-value decreases exponentially as \(K\) increases. With just \(4\) individuals and \(20\) data plots in a lineup, the \(p\)-value could be as small as \(0.0001\).
@@ -781,7 +783,7 @@ The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform 
 \hypertarget{experiment-i-and-ii}{%
 \section{Experiment I and II}\label{experiment-i-and-ii}}
 
-In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was \(\alpha = 0.05\) and the number of plots in a lineup was \(20\), a single visual test procedure needed to involve multiple evaluations. Otherwise, the \(p\)-value of the test would be greater than \(0.05\) in spite of the actual data plot being selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. According to the pilot study evaluated by \(10\) faculty members of Department of Econometrics and Business Analytics, Monash University, the number of selections would be generally smaller than \(4\), which suggested a visual test consisted of \(5\) evaluations were sufficient to yield \(p\)-value smaller than \(0.05\) with at least three detections. Thus, each lineup was replicated for five times and evaluated by different participants. However, our study website was designed such that any set of lineups consisting of 20 lineups generated beforehand would be shown to only one person only once. And whether the participant would finish the experiment was unpredictable. Therefore, some lineups had insufficient number of evaluations, but some had more evaluations than expected. This slightly affected the estimate of the power of the visual test, which would be discussed in Section \ref{p-value-for-visual-test-allowed-for-multiple-selections}.
+In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was \(\alpha = 0.05\) and the number of plots in a lineup was \(20\), a single visual test procedure needed to involve multiple evaluations. Otherwise, the \(p\)-value of the test would be greater than \(0.05\) in spite of the actual data plot being selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. According to the pilot study evaluated by \(10\) faculty members of Department of Econometrics and Business Analytics, Monash University, the number of selections would be generally smaller than \(4\), which suggested a visual test consisted of \(5\) evaluations were sufficient to yield \(p\)-value smaller than \(0.05\) with at least three detections. Thus, each lineup was replicated for five times and evaluated by different participants. However, our study website was designed such that any set of lineups consisting of 20 lineups generated beforehand would be shown to only one person only once. And whether the participant would finish the experiment was unpredictable. Therefore, some lineups had insufficient number of evaluations, but some had more evaluations than expected. This slightly affected the estimate of the power of the visual test, which will be discussed in Section \ref{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}.
 
 We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) models given in Table \ref{tab:pilotglm} and Figure \ref{fig:pilotglm} were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
 
@@ -857,13 +859,51 @@ Akaike Inf. Crit. & 141.357 & 183.971 \\
 \end{tabular} 
 \end{table}
 
-It was also found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was \(50\). With the new GLM model given in Table \ref{tab:e1glm} and Figure \ref{fig:e1glmplot} fitted with data collected from the first experiment, \(40\) easy lineups, \(25\) medium lineups and \(15\) hard lineups were simulated for both cubic and heteroskedasticity model. \(49\) participants were recruited but \(6\) were withdrew.
+According to the new GLM model given in Table \ref{tab:e1glm} and Figure \ref{fig:e1glmplot}, it was found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we relaxed the sample size requirements and increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was \(50\). With the new GLM model fitted with data collected from the first experiment, \(40\) easy lineups, \(25\) medium lineups and \(15\) hard lineups were simulated for both cubic and heteroskedasticity model in the second experiment. \(49\) participants were recruited but \(6\) were withdrew.
 
-\hypertarget{p-value-for-visual-test-allowed-for-multiple-selections}{%
-\section{P-value for Visual Test Allowed for Multiple Selections}\label{p-value-for-visual-test-allowed-for-multiple-selections}}
+\hypertarget{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}{%
+\section{\texorpdfstring{\(P\)-value and Power Estimation of Visual Test Allowed for Multiple Selections}{P-value and Power Estimation of Visual Test Allowed for Multiple Selections}}\label{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}}
+
+The \(p\)-value calculation for multiple selection is an extension of Equation (\ref{eq:pvaluesingle}). The assumptions about the independence still needed. Let \(K\) be the number of independent evaluations of a visual test, \(s_i\), \(i = 1,...,K\) be the number of selections of the evaluations, and \(X\) be the random variable denoting the number of detections. Then, the \(p\)-value of the visual test is given as:
+\begin{equation} \label{eq:pvaluemulti}
+P(X\geq x) = \sum_{j=x}^{K}Pr(j|s_1,...,s_K).
+\end{equation}
+The distribution of \(X\) given \(s_1,...s_K\) can not be derived trivially, as it is a sampling without replacement problem. In practice, this distribution can be approximated by computer simulation.
+
+Function \texttt{sim\_dist()} from package \texttt{visage} is designed to approximate the distribution of number of detections of a lineup via Monte Carlo method. It takes the number of evaluations \texttt{n\_eval}, the number of selections \texttt{n\_sel}, and the number of plots in a lineup \texttt{n\_plot} as inputs, then outputs a discrete distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sim\_dist}\NormalTok{(}\AttributeTok{n\_eval =} \DecValTok{3}\NormalTok{, }\AttributeTok{n\_sel =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{n\_plot =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       0       1       2       3 
+## 0.70182 0.25202 0.04346 0.00270
+\end{verbatim}
+
+Function \texttt{calc\_p\_value()} from the same package calculates the \(p\)-value using the distribution returned by \texttt{sim\_dist()}. It takes an additional argument \texttt{n\_detect}, which is the number of detections.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{calc\_p\_value}\NormalTok{(}\AttributeTok{n\_detect =} \DecValTok{2}\NormalTok{, }\AttributeTok{n\_eval =} \DecValTok{3}\NormalTok{, }\AttributeTok{n\_sel =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{n\_plot =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04688
+\end{verbatim}
+
+The above example shows that a visual test with two detections and three independent evaluations in which three observers select two, two, and three plots out of \(20\) plots respectively yields a \(p\)-value smaller than \(0.05\).
+
+Assume there is a visual test \(V_K\), where \(K\) denoting the number of evaluations. The corresponding \(p\)-value of \(V_K\) can be computed by using Equation (\ref{eq:pvaluemulti}). Meanwhile, if one evaluation is randomly deleted from \(V_K\), the remaining evaluations can still be used to form another valid visual test \(V_{K-1}\). In fact, considering all the possibilities, \(K\) different outcomes for \(V_{K-1}\) can be obtained. Since all outcomes occur with equal probability, the proportion of outcomes which reject the null hypothesis can be used as an estimate of the power of the visual test \(V_{K-1}\). Similarly, if we would like to estimate the power of the visual test \(V_{K-j}\) given the evaluations of \(V_{K}\), for \(j < K\), we could find all the possible combinations of \(K\) elements, taken \(k-j\) at a time to obtain \(K\choose{K-j}\) different outcomes for \(V_{K-j}\). Then, the estimated power is given as \(R/{K\choose{K-j}}\), where \(R\) is the number of outcomes which reject the null hypothesis.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
+
+\hypertarget{data-cleaning}{%
+\subsection{Data cleaning}\label{data-cleaning}}
 
 (estimate of visual power)
 
