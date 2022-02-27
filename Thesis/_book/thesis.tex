@@ -899,11 +899,39 @@ The above example shows that a visual test with two detections and three indepen
 
 Assume there is a visual test \(V_K\), where \(K\) denoting the number of evaluations. The corresponding \(p\)-value of \(V_K\) can be computed by using Equation (\ref{eq:pvaluemulti}). Meanwhile, if one evaluation is randomly deleted from \(V_K\), the remaining evaluations can still be used to form another valid visual test \(V_{K-1}\). In fact, considering all the possibilities, \(K\) different outcomes for \(V_{K-1}\) can be obtained. Since all outcomes occur with equal probability, the proportion of outcomes which reject the null hypothesis can be used as an estimate of the power of the visual test \(V_{K-1}\). Similarly, if we would like to estimate the power of the visual test \(V_{K-j}\) given the evaluations of \(V_{K}\), for \(j < K\), we could find all the possible combinations of \(K\) elements, taken \(k-j\) at a time to obtain \(K\choose{K-j}\) different outcomes for \(V_{K-j}\). Then, the estimated power is given as \(R/{K\choose{K-j}}\), where \(R\) is the number of outcomes which reject the null hypothesis.
 
+Function \texttt{calc\_p\_value\_comb()} from the package \texttt{visage} can be used to compute \(p\)-values of \(V_{K-j}\). The first argument is \texttt{detected}, which needs to be a vector of Boolean values denoting whether the observer detects the actual data plot. Desired number of evaluations and number of selections need to be provided via argument \texttt{n\_eval} and \texttt{n\_sel}.
+
+For example, given a visual test \(V_3\) where the first observer selects one plot and gets correct, the second observer selects one plot but misses, and the third observer selects two plots and gets correct. The \(p\)-value of all possible outcomes of \(V_2\) can be computed using the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{calc\_p\_value\_comb}\NormalTok{(}\AttributeTok{detected =} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{), }
+                  \AttributeTok{n\_eval =} \DecValTok{2}\NormalTok{, }
+                  \AttributeTok{n\_sel =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.09352 0.00624 0.14454
+## attr(,"combinations")
+##      [,1] [,2] [,3]
+## [1,]    1    1    2
+## [2,]    2    3    3
+\end{verbatim}
+
+\texttt{calc\_p\_value\_comb()} returns a vector of \(p\)-value along with an attribute which is a matrix representing elements being used by the specific outcome. Elements in the first column indicates that the first observer and the second observer are involved in the visual test, and the corresponding \(p\)-value is \(0.09352\).
+
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
 \hypertarget{data-cleaning}{%
 \subsection{Data cleaning}\label{data-cleaning}}
+
+\hypertarget{power-estimation}{%
+\subsection{Power Estimation}\label{power-estimation}}
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
 
 (estimate of visual power)
 
