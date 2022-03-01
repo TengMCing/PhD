@@ -785,7 +785,7 @@ The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform 
 
 In this study, multiple selection was allowed for the evaluation of a lineup. Given our desired significance level was \(\alpha = 0.05\) and the number of plots in a lineup was \(20\), a single visual test procedure needed to involve multiple evaluations. Otherwise, the \(p\)-value of the test would be greater than \(0.05\) in spite of the actual data plot being selected. The number of plots selected by a user depended on the user and the difficulty of the lineup. According to the pilot study evaluated by \(10\) faculty members of Department of Econometrics and Business Analytics, Monash University, the number of selections would be generally smaller than \(4\), which suggested a visual test consisted of \(5\) evaluations were sufficient to yield \(p\)-value smaller than \(0.05\) with at least three detections. Thus, each lineup was replicated for five times and evaluated by different participants. However, our study website was designed such that any set of lineups consisting of 20 lineups generated beforehand would be shown to only one person only once. And whether the participant would finish the experiment was unpredictable. Therefore, some lineups had insufficient number of evaluations, but some had more evaluations than expected. This slightly affected the estimate of the power of the visual test, which will be discussed in Section \ref{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}.
 
-We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two generalized linear model (GLM) models given in Table \ref{tab:pilotglm} and Figure \ref{fig:pilotglm} were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
+We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two logistic regressions given in Table \ref{tab:pilotglm} and Figure \ref{fig:pilotglm} were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
 
 \begin{table}[!htbp] \centering 
   \caption{GLM result 1} 
@@ -823,7 +823,7 @@ Akaike Inf. Crit. & 248.610 & 299.943 \\
 
 Lineups were classified into three categories - easy, medium and hard. Easy lineups were those of which predicted detection rates were higher than \(80\)\%, while medium lineups were between \(40\)\% to \(80\)\% and hard lineups were less than \(40\)\%.
 
-For the first experiment, we would like to have at least 20 detection with chance greater than 99.99\% in each category. Thus, we prepared \(34\) easy lineups, \(60\) medium lineups and \(194\) hard lineups with five replications for both cubic and heteroskedasticity model. Every participant would get at least \(12\) easy or medium lineups. Two out of \(10\) extremely lineups with predicted detection rate over \(90\)\% were randomly given to every participant as attention checks. We initially planned to recruit \((34+60+194) \times 2 \times 5 / (20-2) = 160\) participants but eventually decided to only recruit \(20\) participants because it was the first time we launched an experiment on Prolific where factors like procedure of recruiting participants, payment method, and quality of participants were unclear at the moment. As a consequence, most of the lineups had only two evaluations and not all the lineups were used. However, data collected from the first experiment was sufficient for building a more accurate GLM model to predict detection rate for the second experiment.
+For the first experiment, we would like to have at least 20 detection with chance greater than 99.99\% in each category. Thus, we prepared \(68\) easy lineups, \(120\) medium lineups and \(388\) hard lineups with five replications. Every participant would get at least \(8\) easy or medium lineups. Two out of \(10\) extremely lineups with predicted detection rate over \(90\)\% were randomly given to every participant as attention checks. We initially planned to recruit \((68+120+388) \times 5 / (20-2) = 160\) participants but eventually decided to only recruit \(20\) participants because it was the first time we launched an experiment on Prolific where factors like payment method and quality of participants were unclear at the moment. As a consequence, most of the lineups had only two evaluations and not all the lineups were used. However, data collected from the first experiment was sufficient for building a more accurate logistic regression to predict detection rate for the second experiment.
 
 \begin{figure}
 \centering
@@ -859,7 +859,7 @@ Akaike Inf. Crit. & 141.357 & 183.971 \\
 \end{tabular} 
 \end{table}
 
-According to the new GLM model given in Table \ref{tab:e1glm} and Figure \ref{fig:e1glmplot}, it was found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we relaxed the sample size requirements and increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was \(50\). With the new GLM model fitted with data collected from the first experiment, \(40\) easy lineups, \(25\) medium lineups and \(15\) hard lineups were simulated for both cubic and heteroskedasticity model in the second experiment. \(49\) participants were recruited but \(6\) were withdrew.
+According to the new logistic regression given in Table \ref{tab:e1glm} and Figure \ref{fig:e1glmplot}, it was found that the first experiment might be too difficult for participants as the detection rate was lower than what we estimated from the pilot study, especially for the heteroskedasticity model. Thus, for the second experiments, we relaxed the sample size requirements and increased the proportion of easy lineups. In addition, due to budget constraint, the maximum number of participants was \(50\). With the new logistic regression fitted with data collected from the first experiment, \(28\) easy lineups, \(36\) medium lineups and \(100\) hard lineups were simulated for the second experiment. \(50\) participants were recruited but \(6\) were withdrew.
 
 \hypertarget{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}{%
 \section{\texorpdfstring{\(P\)-value and Power Estimation of Visual Test Allowed for Multiple Selections}{P-value and Power Estimation of Visual Test Allowed for Multiple Selections}}\label{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}}
@@ -924,14 +924,24 @@ For example, given a visual test \(V_3\) where the first observer selects one pl
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\hypertarget{data-cleaning}{%
-\subsection{Data cleaning}\label{data-cleaning}}
+We collected \(400\) lineup evaluations made by \(20\) participants in experiment I and \(880\) lineup evaluations made by \(44\) participants. In total, \(442\) unique lineups were evaluated by \(64\) subjects. In experiment I, one of the participants skipped all \(20\) lineups. Hence, the submission was rejected and removed from the data set. In experiment II, there was a participant failed one of the two attention checks, but there was no further evidence of low-effort throughout the experiment. So, the submission was kept.
 
 \hypertarget{power-estimation}{%
 \subsection{Power Estimation}\label{power-estimation}}
 
-\hypertarget{section}{%
-\subsection{}\label{section}}
+It was expected that with larger effect size, the power of the visual test would be greater for both cubic model and heteroskedasticity model. Using the power calculation method discussed in Section \ref{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}, power of each lineup from one to five evaluations was estimated. The estimated power was further used in fitting a quasibinomial generalized linear model
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-26-1.pdf}
+\caption{\label{fig:unnamed-chunk-26}test}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-27-1.pdf}
+\caption{\label{fig:unnamed-chunk-27}test}
+\end{figure}
 
 (estimate of visual power)
 
