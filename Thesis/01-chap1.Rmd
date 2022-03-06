@@ -133,7 +133,8 @@ Modern computer vision model could be a promising solution to this problem. As a
 
 Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020] and pairwise causality analysis [@singh_deep_2017]. However, evaluating lineups with computer vision model is a new field of study.
 
-(reasons for conducting experiments)
+Therefore, we first tried to automate the visual diagnostics of one of the simplest statistical models - classical normal linear regression model. Two common types of model defects were created and visualized using residuals vs. fitted values plot. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
+
 
 ## Structure of the paper
 
@@ -1139,41 +1140,60 @@ merged_survey %>%
 
 ### Effect of Factors on Power of the Visual Test
 
+The previous section focuses on the change of effect size relative to the power of the visual test. Individual factor embedded in the data simulation also needs be analysed. Two logistic regressions were fitted with decisions made by $V_{K-j}$ as response variable. For the cubic model, regressors were $|a|$, $|b|$, $|c-1|$, $\sigma$, distribution of $\boldsymbol{X}$, distribution of $\boldsymbol{Z}$, number of observations and number of evaluations. For the heteroskedasticity model, regressors were $|a|$, $b$, distribution of $\boldsymbol{X}$, number of observations and number of evaluations.
+
+According to Table \@ref(tab:rejectfactorcubic), for cubic model, both coefficients of $|a|$ and $|b|$ were positive, which suggested increasing the coefficients of quadric and cubic terms would result in higher visual power. The coefficient of $|c-1|$ was also positive indicating joint effect of multiple regressors on the residual plot decreased the visual power. As expected, the coefficient of $\sigma$ was negative as it controlled the noise level. Lineup simulated with uniform distribution of $\boldsymbol{X}$ had the highest power, followed by negative lognormal, normal, and lognormal. Discreteness in $\boldsymbol{Z}$ decreased the visual power. The coefficient of number of observations was positive, which means larger sample size would lead to higher visual power.  
+
+Results of logistic regression for heteroskedasticity is given in Table \@ref(tab:rejectfactorheter). For heteroskedasticity model, the coefficient of $|a|$ was negative, which suggested "butter fly" shape was easier to identify than "triangle" shape. As expected, the coefficient of $b$ was positive. For different distributions of $\boldsymbol{X}$, the one with highest power was uniform distribution, followed by normal, discrete uniform, lognormal and negative lognormal. The coeffient of the number of observations was positive, but it was not significant. 
+
+In overall, we did not have any unexpected findings except the visual power related to different distributions of $\boldsymbol{X}$ in cubic model. We expected lineup simulated with uniform distribution would have the highest power, followed by normal, lognormal and negative lognormal, since we observed similar results in pilot study.  
 
 ```{r results="asis"}
 merged_survey %>%
   mutate(exp_lineup_id = paste0(exp, "_", lineup_id)) %>%
   right_join(comb_pvalue) %>%
   mutate(n_eval = n_eval) %>%
-  mutate(x_dist = factor(x_dist, levels = c("uniform", "normal", "lognormal", "neglognormal"))) %>%
   unnest_longer(col = p_value) %>%
   mutate(reject = eval_p_value(p_value, tol = 1e-2)) -> single_merged
 
-glm(reject ~ a + b + c + e_sigma + x_dist + z_discrete + n + n_eval, data = filter(single_merged, type == "cubic"), family = binomial()) -> mod1_factor
+glm(reject ~ abs(a) + abs(b) + abs(c - 1) + e_sigma + x_dist + z_discrete + n + n_eval, data = filter(single_merged, type == "cubic"), family = binomial()) -> mod1_factor
 
 ```
 
 
 ```{r results="asis"}
-glm(reject ~ a + b + x_dist + z_discrete + n + n_eval, data = filter(single_merged, type == "heteroskedasticity"), family = binomial()) -> mod2_factor
+glm(reject ~ abs(a) + b + x_dist + n + n_eval, data = filter(single_merged, type == "heteroskedasticity"), family = binomial()) -> mod2_factor
 
-stargazer(mod1_factor, mod2_factor,header = FALSE,
-          label = "tab:rejectfactor",
-          title = "Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for both cubic and heteroskedasticity models.",
+stargazer(mod1_factor, header = FALSE,
+          label = "tab:rejectfactorcubic",
+          title = "Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for cubic model.",
           style = "default",
-          covariate.labels = c("a", "b", "c", 
-                               "sigma", 
-                               "Distribution of X: Normal", 
-                               "Distribution of X: Lognormal", 
+          covariate.labels = c("|a|", "|b|", "|c-1|", 
+                               "sigma",
                                "Distribution of X: Negative Lognormal",
+                               "Distribution of X: Normal", 
+                               "Distribution of X: Uniform", 
                                "Distribution of Z: Discrete",
                                "n",
                                "Number of evaluations",
                                "Constant"))
+
 ```
 
-
-
+```{r results="asis"}
+stargazer(mod2_factor, header = FALSE,
+          label = "tab:rejectfactorheter",
+          title = "Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for heteroskedasticity model.",
+          style = "default",
+          covariate.labels = c("|a|", "b",
+                               "Distribution of X: Lognormal", 
+                               "Distribution of X: Negative Lognormal",
+                               "Distribution of X: Normal", 
+                               "Distribution of X: Uniform", 
+                               "n",
+                               "Number of evaluations",
+                               "Constant"))
+```
 
 
 <!-- ### Visual $p$-value -->

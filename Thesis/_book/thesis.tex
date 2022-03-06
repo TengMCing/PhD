@@ -265,7 +265,7 @@ Modern computer vision model could be a promising solution to this problem. As a
 
 Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression \autocite{ojeda_multivariate_2020}, time series classification \autocite{chu_automatic_2019,hailesilassie_financial_2019,hatami_classification_2018,zhang_encoding_2020}, anomaly detection \autocite{chen_convolutional_2020} and pairwise causality analysis \autocite{singh_deep_2017}. However, evaluating lineups with computer vision model is a new field of study.
 
-(reasons for conducting experiments)
+Therefore, we first tried to automate the visual diagnostics of one of the simplest statistical models - classical normal linear regression model. Two common types of model defects were created and visualized using residuals vs.~fitted values plot. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
 
 \hypertarget{structure-of-the-paper}{%
 \section{Structure of the paper}\label{structure-of-the-paper}}
@@ -834,57 +834,111 @@ Akaike Inf. Crit. & 3,054.796 & 7,340.650 & 10,987.830 & 9,661.793 & 5,721.548 \
 \hypertarget{effect-of-factors-on-power-of-the-visual-test}{%
 \subsection{Effect of Factors on Power of the Visual Test}\label{effect-of-factors-on-power-of-the-visual-test}}
 
+The previous section focuses on the change of effect size relative to the power of the visual test. Individual factor embedded in the data simulation also needs be analysed. Two logistic regressions were fitted with decisions made by \(V_{K-j}\) as response variable. For the cubic model, regressors were \(|a|\), \(|b|\), \(|c-1|\), \(\sigma\), distribution of \(\boldsymbol{X}\), distribution of \(\boldsymbol{Z}\), number of observations and number of evaluations. For the heteroskedasticity model, regressors were \(|a|\), \(b\), distribution of \(\boldsymbol{X}\), number of observations and number of evaluations.
+
+According to Table \ref{tab:rejectfactorcubic}, for cubic model, both coefficients of \(|a|\) and \(|b|\) were positive, which suggested increasing the coefficients of quadric and cubic terms would result in higher visual power. The coefficient of \(|c-1|\) was also positive indicating joint effect of multiple regressors on the residual plot decreased the visual power. As expected, the coefficient of \(\sigma\) was negative as it controlled the noise level. Lineup simulated with uniform distribution of \(\boldsymbol{X}\) had the highest power, followed by negative lognormal, normal, and lognormal. Discreteness in \(\boldsymbol{Z}\) decreased the visual power. The coefficient of number of observations was positive, which means larger sample size would lead to higher visual power.
+
+Results of logistic regression for heteroskedasticity is given in Table \ref{tab:rejectfactorheter}. For heteroskedasticity model, the coefficient of \(|a|\) was negative, which suggested ``butter fly'' shape was easier to identify than ``triangle'' shape. As expected, the coefficient of \(b\) was positive. For different distributions of \(\boldsymbol{X}\), the one with highest power was uniform distribution, followed by normal, discrete uniform, lognormal and negative lognormal. The coeffient of the number of observations was positive, but it was not significant.
+
+In overall, we did not have any unexpected findings except the visual power related to different distributions of \(\boldsymbol{X}\) in cubic model. We expected lineup simulated with uniform distribution would have the highest power, followed by normal, lognormal and negative lognormal, since we observed similar results in pilot study.
+
 \begin{table}[!htbp] \centering 
-  \caption{Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for both cubic and heteroskedasticity models.} 
-  \label{tab:rejectfactor} 
-\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+  \caption{Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for cubic model.} 
+  \label{tab:rejectfactorcubic} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-3} 
-\\[-1.8ex] & \multicolumn{2}{c}{reject} \\ 
-\\[-1.8ex] & (1) & (2)\\ 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & reject \\ 
 \hline \\[-1.8ex] 
- a & $-$0.173$^{***}$ & 0.113$^{***}$ \\ 
-  & (0.014) & (0.022) \\ 
-  & & \\ 
- b & $-$0.175$^{***}$ & 0.049$^{***}$ \\ 
-  & (0.014) & (0.002) \\ 
-  & & \\ 
- c & $-$0.626$^{***}$ &  \\ 
-  & (0.033) &  \\ 
-  & & \\ 
- sigma & $-$2.937$^{***}$ &  \\ 
-  & (0.037) &  \\ 
-  & & \\ 
- Distribution of X: Normal & $-$0.870$^{***}$ & $-$2.781$^{***}$ \\ 
-  & (0.057) & (0.057) \\ 
-  & & \\ 
- Distribution of X: Lognormal & $-$0.548$^{***}$ & $-$3.749$^{***}$ \\ 
-  & (0.072) & (0.047) \\ 
-  & & \\ 
- Distribution of X: Negative Lognormal & $-$1.072$^{***}$ & $-$3.873$^{***}$ \\ 
-  & (0.051) & (0.058) \\ 
-  & & \\ 
- Distribution of Z: Discrete & $-$3.219$^{***}$ &  \\ 
-  & (0.052) &  \\ 
-  & & \\ 
- n & 0.002$^{***}$ & 0.001$^{***}$ \\ 
-  & (0.0002) & (0.0002) \\ 
-  & & \\ 
- Number of evaluations & 0.216$^{***}$ & 0.592$^{***}$ \\ 
-  & (0.016) & (0.015) \\ 
-  & & \\ 
- Constant & 5.151$^{***}$ & $-$0.028 \\ 
-  & (0.093) & (0.075) \\ 
-  & & \\ 
+ |a| & 1.064$^{***}$ \\ 
+  & (0.031) \\ 
+  & \\ 
+ |b| & 0.718$^{***}$ \\ 
+  & (0.029) \\ 
+  & \\ 
+ |c-1| & 5.443$^{***}$ \\ 
+  & (0.119) \\ 
+  & \\ 
+ sigma & $-$3.536$^{***}$ \\ 
+  & (0.050) \\ 
+  & \\ 
+ Distribution of X: Negative Lognormal & 0.971$^{***}$ \\ 
+  & (0.073) \\ 
+  & \\ 
+ Distribution of X: Normal & 0.754$^{***}$ \\ 
+  & (0.086) \\ 
+  & \\ 
+ Distribution of X: Uniform & 1.751$^{***}$ \\ 
+  & (0.085) \\ 
+  & \\ 
+ Distribution of Z: Discrete & $-$2.986$^{***}$ \\ 
+  & (0.056) \\ 
+  & \\ 
+ n & 0.005$^{***}$ \\ 
+  & (0.0002) \\ 
+  & \\ 
+ Number of evaluations & 0.291$^{***}$ \\ 
+  & (0.017) \\ 
+  & \\ 
+ Constant & $-$2.453$^{***}$ \\ 
+  & (0.173) \\ 
+  & \\ 
 \hline \\[-1.8ex] 
-Observations & 58,986 & 45,200 \\ 
-Log Likelihood & $-$9,892.382 & $-$11,324.830 \\ 
-Akaike Inf. Crit. & 19,806.760 & 22,665.660 \\ 
+Observations & 58,986 \\ 
+Log Likelihood & $-$8,034.351 \\ 
+Akaike Inf. Crit. & 16,090.700 \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for heteroskedasticity model.} 
+  \label{tab:rejectfactorheter} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & reject \\ 
+\hline \\[-1.8ex] 
+ |a| & $-$0.526$^{***}$ \\ 
+  & (0.037) \\ 
+  & \\ 
+ b & 0.064$^{***}$ \\ 
+  & (0.002) \\ 
+  & \\ 
+ Distribution of X: Lognormal & $-$0.534$^{***}$ \\ 
+  & (0.058) \\ 
+  & \\ 
+ Distribution of X: Negative Lognormal & $-$0.610$^{***}$ \\ 
+  & (0.062) \\ 
+  & \\ 
+ Distribution of X: Normal & 0.187$^{***}$ \\ 
+  & (0.063) \\ 
+  & \\ 
+ Distribution of X: Uniform & 2.980$^{***}$ \\ 
+  & (0.064) \\ 
+  & \\ 
+ n & 0.0003 \\ 
+  & (0.0002) \\ 
+  & \\ 
+ Number of evaluations & 0.496$^{***}$ \\ 
+  & (0.014) \\ 
+  & \\ 
+ Constant & $-$2.711$^{***}$ \\ 
+  & (0.062) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Observations & 48,370 \\ 
+Log Likelihood & $-$13,026.190 \\ 
+Akaike Inf. Crit. & 26,070.390 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table}
 

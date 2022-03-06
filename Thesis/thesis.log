@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.1)  7 MAR 2022 06:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.1)  7 MAR 2022 08:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1279,81 +1279,81 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 830--831
  [][] 
  []
 
-[39 <./thesis_files/figure-latex/powerglm-1.pdf>] [40] [41] [42 <./thesis_files
-/figure-latex/powerglmsecond-1.pdf>]
-Chapter 3.
-[43
+[39 <./thesis_files/figure-latex/powerglm-1.pdf>] [40] [41 <./thesis_files/figu
+re-latex/powerglmsecond-1.pdf>] [42] [43] [44
 
-] [44] [45] [46
+]
+Chapter 3.
+[45] [46] [47] [48
 
 ]
 Appendix A.
-[47] [48
+[49] [50
 
-] [49]
-Underfull \hbox (badness 2452) in paragraph at lines 983--983
+] [51]
+Underfull \hbox (badness 2452) in paragraph at lines 1037--1037
 [][]\T1/ppl/m/n/10.95 (+20) Gelman, A (2003). A Bayesian For-mu-la-tion of Ex-p
 loratory Data Anal-y-sis and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 \T1/ppl/m/n/10.95 (+20) Goodness-of-fit Test-ing*. en. \T1/ppl/m/it/10.95 (+20)
  In-ter-na-tional Sta-tis-ti-cal Re-view \T1/ppl/b/n/10.95 (+20) 71\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 \T1/ppl/m/n/10.95 (+20) https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1751-
 5823.2003.tb00203.x,
  []
 
-[50]
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 [][]\T1/ppl/m/n/10.95 (+20) Loy, A and H Hof-mann (2013). Di-ag-nos-tic tools f
 or hi-er-ar-chi-cal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 \T1/ppl/m/n/10.95 (+20) lin-ear mod-els. en. \T1/ppl/m/it/10.95 (+20) WIREs Com
 -pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 5\T1/ppl/m/n/10.95 (+20) (1).
  _eprint:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 \T1/ppl/m/n/10.95 (+20) https://wires.onlinelibrary.wiley.com/doi/pdf/10.1002/w
 ics.1238, 48^^U61. (Vis-
  []
 
-[51]
-Underfull \hbox (badness 5064) in paragraph at lines 983--983
+[53]
+Underfull \hbox (badness 5064) in paragraph at lines 1037--1037
 [][]\T1/ppl/m/n/10.95 (+20) Wickham, H (2011). gg-plot2. en. \T1/ppl/m/it/10.95
  (+20) WIREs Com-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 3\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 [][]\T1/ppl/m/n/10.95 (+20) Widen, HM, JB El-sner, S Pau, and CK Ue-jio (2016).
  Graph-i-cal In-fer-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1037--1037
 \T1/ppl/m/n/10.95 (+20) ence in Ge-o-graph-i-cal Re-search. en. \T1/ppl/m/it/10
 .95 (+20) Ge-o-graph-i-cal Anal-y-sis \T1/ppl/b/n/10.95 (+20) 48\T1/ppl/m/n/10.
 95 (+20) (2). _eprint:
  []
 
-[52] (./thesis.aux)
+[54] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4D99BD307A5FD6180CC0B2B872E14488;5415.
+(rerunfilecheck)             Checksum: F2081BB3BB59A8FDD9A69FBF33AEC17B;5415.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1363,11 +1363,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 24158 strings out of 480236
- 431636 string characters out of 5894706
- 1182994 words of memory out of 5000000
- 41009 multiletter control sequences out of 15000+600000
- 593730 words of font info for 484 fonts, out of 8000000 for 9000
+ 24165 strings out of 480236
+ 431721 string characters out of 5894706
+ 1178176 words of memory out of 5000000
+ 41010 multiletter control sequences out of 15000+600000
+ 593879 words of font info for 486 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,82p,2914b,18684s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
@@ -1388,10 +1388,10 @@ trickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/
 patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Use
 rs/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></U
 sers/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (66 pages, 6813540 bytes).
+Output written on thesis.pdf (68 pages, 6817269 bytes).
 PDF statistics:
- 974 PDF objects out of 1000 (max. 8388607)
- 810 compressed objects within 9 object streams
- 209 named destinations out of 1000 (max. 500000)
+ 987 PDF objects out of 1000 (max. 8388607)
+ 821 compressed objects within 9 object streams
+ 212 named destinations out of 1000 (max. 500000)
  125263 words of extra memory for PDF output out of 128383 (max. 10000000)
 
