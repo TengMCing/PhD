@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.17)  1 MAR 2022 18:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.1)  7 MAR 2022 06:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **thesis.tex
 (./thesis.tex
 LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2022-02-05> (./monashthesis.cls
+L3 programming layer <2022-02-24> (./monashthesis.cls
 Document Class: monashthesis 2016/09/06 Monash Thesis Class
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
@@ -78,9 +78,9 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@layoutvoffset=\dimen146
 \Gm@dimlist=\toks19
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2022/02/20 v3.6 Customizing captions (AR)
+Package: caption 2022/02/28 v3.6a Customizing captions (AR)
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2022/01/07 v2.3 caption3 kernel (AR)
+Package: caption3 2022/02/28 v2.3a caption3 kernel (AR)
 \caption@tempdima=\dimen147
 \captionmargin=\dimen148
 \caption@leftmargin=\dimen149
@@ -201,24 +201,25 @@ Package: titlesec 2021/07/05 v2.14 Sectioning titles
 Package: setspace 2011/12/19 v6.7a set line spacing
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.st
 y
-Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
+Package: microtype 2022/02/22 v3.0c Micro-typographical refinements (RS)
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count277
 )
 \MT@toks=\toks26
-\MT@count=\count278
 \MT@tempbox=\box53
-LaTeX Info: Redefining \leftprotrusion on input line 1010.
-LaTeX Info: Redefining \rightprotrusion on input line 1018.
-LaTeX Info: Redefining \textls on input line 1173.
+\MT@count=\count278
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1027.
+LaTeX Info: Redefining \leftprotrusion on input line 1028.
+LaTeX Info: Redefining \rightprotrusion on input line 1036.
+LaTeX Info: Redefining \textls on input line 1200.
 \MT@outer@kern=\dimen171
-LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
+LaTeX Info: Redefining \textmicrotypecontext on input line 1786.
 \MT@listname@count=\count279
 
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdft
 ex.def
-File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
+File: microtype-pdftex.def 2022/02/22 v3.0c Definitions specific to pdftex (RS)
 
 LaTeX Info: Redefining \lsstyle on input line 897.
 LaTeX Info: Redefining \lslig on input line 897.
@@ -226,7 +227,7 @@ LaTeX Info: Redefining \lslig on input line 897.
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
-File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
+File: microtype.cfg 2022/02/22 v3.0c microtype main configuration file (RS)
 )) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2021/12/15 v3.1 ragged2e Package
 \CenteringLeftskip=\skip64
@@ -503,7 +504,7 @@ File: biblatex.cfg
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2022-02-05 L3 programming layer (loader) 
+Package: expl3 2022-02-24 L3 programming layer (loader) 
 
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdft
 ex.def
@@ -512,7 +513,7 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box54
 ))
 Package biblatex Info: ... and expl3
-(biblatex)             2022-02-05 L3 programming layer (loader) 
+(biblatex)             2022-02-24 L3 programming layer (loader) 
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
 
@@ -541,7 +542,7 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
+Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
 
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinek
 eys.sty
@@ -563,14 +564,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 \Hy@linkcounter=\count406
 \Hy@pagecounter=\count407
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref-langpa
-tches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
-nguages
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.st
@@ -579,20 +575,20 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count408
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `colorlinks' set `false' on input line 4073.
-Package hyperref Info: Hyper figures OFF on input line 4192.
-Package hyperref Info: Link nesting OFF on input line 4197.
-Package hyperref Info: Hyper index ON on input line 4200.
-Package hyperref Info: Plain pages OFF on input line 4207.
-Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Option `colorlinks' set `false' on input line 4018.
+Package hyperref Info: Hyper figures OFF on input line 4137.
+Package hyperref Info: Link nesting OFF on input line 4142.
+Package hyperref Info: Hyper index ON on input line 4145.
+Package hyperref Info: Plain pages OFF on input line 4152.
+Package hyperref Info: Backreferencing OFF on input line 4157.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4445.
+Package hyperref Info: Bookmarks ON on input line 4390.
 \c@Hy@tempcnt=\count409
-LaTeX Info: Redefining \url on input line 4804.
+LaTeX Info: Redefining \url on input line 4749.
 \XeTeXLinkMargin=\dimen173
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -605,15 +601,15 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 \Fld@menulength=\count410
 \Field@Width=\dimen174
 \Fld@charsize=\dimen175
-Package hyperref Info: Hyper figures OFF on input line 6076.
-Package hyperref Info: Link nesting OFF on input line 6081.
-Package hyperref Info: Hyper index ON on input line 6084.
-Package hyperref Info: backreferencing OFF on input line 6091.
-Package hyperref Info: Link coloring OFF on input line 6096.
-Package hyperref Info: Link coloring with OCG OFF on input line 6101.
-Package hyperref Info: PDF/A mode OFF on input line 6106.
-LaTeX Info: Redefining \ref on input line 6146.
-LaTeX Info: Redefining \pageref on input line 6150.
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+LaTeX Info: Redefining \ref on input line 6097.
+LaTeX Info: Redefining \pageref on input line 6101.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
@@ -624,7 +620,7 @@ package with kernel methods
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
+File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
@@ -775,11 +771,7 @@ LaTeX Font Info:    Trying to load font information for T1+ppl on input line 45
 .
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-) (./thesis.aux
-
-LaTeX Warning: Label `fig:parallelism' multiply defined.
-
-)
+) (./thesis.aux)
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
@@ -970,7 +962,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
-[3] [4]
+[3] [4
+
+]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 18.66588pt on input line 54.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
@@ -979,9 +973,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 6
 1.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-) [5
-
-] [6
+) [5] [6
 
 ] [7] [8
 
@@ -1002,373 +994,366 @@ Chapter 1.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 13.49991pt on input line 148.
 [1]
-<thesis_files/figure-latex/twodimai-1.pdf, id=233, 454.69875pt x 274.02374pt>
-File: thesis_files/figure-latex/twodimai-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/twodimai-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/twodimai-1.pdf  used on inpu
-t line 165.
+<thesis_files/figure-latex/two-dim-ai-1.pdf, id=233, 454.69875pt x 274.02374pt>
+
+File: thesis_files/figure-latex/two-dim-ai-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/two-dim-ai-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/two-dim-ai-1.pdf  used on in
+put line 168.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 165--166
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 168--169
  [][] 
  []
 
-[2 <./thesis_files/figure-latex/twodimai-1.pdf>] [3]
-<figures/rsta2009012001.jpg, id=267, 1806.75pt x 1370.11874pt>
+[2 <./thesis_files/figure-latex/two-dim-ai-1.pdf>] [3]
+<figures/rsta2009012001.jpg, id=271, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 187.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 192.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
-[4 <./figures/rsta2009012001.jpg>]
-<thesis_files/figure-latex/nonlinearityheter-1.pdf, id=282, 454.69875pt x 274.0
-2374pt>
-File: thesis_files/figure-latex/nonlinearityheter-1.pdf Graphic file (type pdf)
-
-<use thesis_files/figure-latex/nonlinearityheter-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/nonlinearityheter-1.pdf  use
-d on input line 197.
+[4]
+<thesis_files/figure-latex/residual-plot-cubic-heter-1.pdf, id=288, 454.69875pt
+ x 274.02374pt>
+File: thesis_files/figure-latex/residual-plot-cubic-heter-1.pdf Graphic file (t
+ype pdf)
+<use thesis_files/figure-latex/residual-plot-cubic-heter-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/residual-plot-cubic-heter-1.
+pdf  used on input line 202.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 197--198
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 202--203
  [][] 
  []
 
-[5 <./thesis_files/figure-latex/nonlinearityheter-1.pdf>] [6] [7]
+[5 <./figures/rsta2009012001.jpg>] [6 <./thesis_files/figure-latex/residual-plo
+t-cubic-heter-1.pdf>] [7] [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 227.
+(amsmath)                 on input line 241.
 
-[8]
-LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 281.
-[9] [10]
+[9] [10] [11] [12]
 Chapter 2.
-[11
+[13
 
-] [12] [13] [14
-
-]
-Chapter 3.
-[15] [16]
-<figures/experiment_tech.pdf, id=408, 839.05469pt x 853.26776pt>
+] [14]
+<figures/experiment_tech.pdf, id=432, 839.05469pt x 853.26776pt>
 File: figures/experiment_tech.pdf Graphic file (type pdf)
 <use figures/experiment_tech.pdf>
-Package pdftex.def Info: figures/experiment_tech.pdf  used on input line 534.
+Package pdftex.def Info: figures/experiment_tech.pdf  used on input line 308.
 (pdftex.def)             Requested size: 338.76544pt x 338.76219pt.
-<figures/website.png, id=410, 1606.0pt x 872.25874pt>
+<figures/website.png, id=434, 1606.0pt x 872.25874pt>
 File: figures/website.png Graphic file (type png)
 <use figures/website.png>
-Package pdftex.def Info: figures/website.png  used on input line 542.
+Package pdftex.def Info: figures/website.png  used on input line 316.
 (pdftex.def)             Requested size: 414.04587pt x 225.0916pt.
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 54
-6.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 32
+0.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 546.
+(Font)              scaled to size 9.85492pt on input line 320.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[17 <./figures/experiment_tech.pdf>] [18 <./figures/website.png>] [19]
-<thesis_files/figure-latex/cubic1-1.pdf, id=467, 454.69875pt x 274.02374pt>
-File: thesis_files/figure-latex/cubic1-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic1-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic1-1.pdf  used on input 
-line 583.
+[15 <./figures/experiment_tech.pdf>] [16 <./figures/website.png>] [17]
+<thesis_files/figure-latex/cubic-shape-1-1.pdf, id=490, 454.69875pt x 274.02374
+pt>
+File: thesis_files/figure-latex/cubic-shape-1-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic-shape-1-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic-shape-1-1.pdf  used on
+ input line 357.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 583--584
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 357--358
  [][] 
  []
 
-<thesis_files/figure-latex/cubic2-1.pdf, id=468, 454.69875pt x 136.51pt>
-File: thesis_files/figure-latex/cubic2-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic2-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic2-1.pdf  used on input 
-line 589.
+<thesis_files/figure-latex/cubic-shape-2-1.pdf, id=491, 454.69875pt x 136.51pt>
+
+File: thesis_files/figure-latex/cubic-shape-2-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic-shape-2-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic-shape-2-1.pdf  used on
+ input line 363.
 (pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 589--590
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 363--364
  [][] 
  []
 
-<thesis_files/figure-latex/cubic3-1.pdf, id=469, 454.69875pt x 136.51pt>
-File: thesis_files/figure-latex/cubic3-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/cubic3-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/cubic3-1.pdf  used on input 
-line 595.
+<thesis_files/figure-latex/cubic-shape-3-1.pdf, id=492, 454.69875pt x 136.51pt>
+
+File: thesis_files/figure-latex/cubic-shape-3-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/cubic-shape-3-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/cubic-shape-3-1.pdf  used on
+ input line 369.
 (pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 595--596
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 369--370
  [][] 
  []
 
-[20 <./thesis_files/figure-latex/cubic1-1.pdf>] [21 <./thesis_files/figure-late
-x/cubic2-1.pdf> <./thesis_files/figure-latex/cubic3-1.pdf>]
-<thesis_files/figure-latex/test3-1.pdf, id=518, 454.69875pt x 274.02374pt>
+[18 <./thesis_files/figure-latex/cubic-shape-1-1.pdf>] [19 <./thesis_files/figu
+re-latex/cubic-shape-2-1.pdf> <./thesis_files/figure-latex/cubic-shape-3-1.pdf>
+]
+<thesis_files/figure-latex/test3-1.pdf, id=541, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/test3-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/test3-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/test3-1.pdf  used on input l
-ine 636.
+ine 410.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 636--637
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 410--411
 [][] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 638--639
-[]\T1/ppl/m/n/10.95 (+20) Lineup can be pro-duced by us-ing the meth-ods \T1/fv
-m/m/n/10.95 mod$gen_lineup() \T1/ppl/m/n/10.95 (+20) and
- []
-
-[22 <./thesis_files/figure-latex/test3-1.pdf>]
-<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=529, 454.69875pt x 274.023
+[20 <./thesis_files/figure-latex/test3-1.pdf>]
+<thesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=552, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-4-1.pdf  used 
-on input line 646.
+on input line 420.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 646--647
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 420--421
 [][] 
  []
 
-[23 <./thesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<thesis_files/figure-latex/effectsize-1.pdf, id=541, 454.69875pt x 274.02374pt>
+[21 <./thesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<thesis_files/figure-latex/effectsize-1.pdf, id=563, 454.69875pt x 274.02374pt>
 
 File: thesis_files/figure-latex/effectsize-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/effectsize-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/effectsize-1.pdf  used on in
-put line 668.
+put line 442.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 668--669
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 442--443
  [][] 
  []
 
-[24] [25 <./thesis_files/figure-latex/effectsize-1.pdf>]
-<thesis_files/figure-latex/hetershape-1.pdf, id=563, 454.69875pt x 379.4175pt>
+[22] [23 <./thesis_files/figure-latex/effectsize-1.pdf>]
+<thesis_files/figure-latex/hetershape-1.pdf, id=587, 454.69875pt x 379.4175pt>
 File: thesis_files/figure-latex/hetershape-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetershape-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/hetershape-1.pdf  used on in
-put line 705.
+put line 479.
 (pdftex.def)             Requested size: 454.69763pt x 379.41656pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 705--706
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 479--480
  [][] 
  []
 
-[26] [27 <./thesis_files/figure-latex/hetershape-1.pdf>]
-<thesis_files/figure-latex/unnamed-chunk-8-1.pdf, id=588, 454.69875pt x 274.023
+[24] [25 <./thesis_files/figure-latex/hetershape-1.pdf>]
+<thesis_files/figure-latex/unnamed-chunk-8-1.pdf, id=611, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-8-1.pdf  used 
-on input line 741.
+on input line 515.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 741--742
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 515--516
 [][] 
  []
 
-<thesis_files/figure-latex/unnamed-chunk-9-1.pdf, id=589, 454.69875pt x 274.023
+<thesis_files/figure-latex/unnamed-chunk-9-1.pdf, id=612, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-9-1.pdf  used 
-on input line 749.
+on input line 523.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 749--751
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 523--525
 [][]
  []
 
-[28 <./thesis_files/figure-latex/unnamed-chunk-8-1.pdf> <./thesis_files/figure-
-latex/unnamed-chunk-9-1.pdf>]
-<thesis_files/figure-latex/hetern-1.pdf, id=607, 454.69875pt x 136.51pt>
+[26 <./thesis_files/figure-latex/unnamed-chunk-8-1.pdf>]
+<thesis_files/figure-latex/hetern-1.pdf, id=625, 454.69875pt x 136.51pt>
 File: thesis_files/figure-latex/hetern-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetern-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/hetern-1.pdf  used on input 
-line 754.
+line 528.
 (pdftex.def)             Requested size: 454.69763pt x 136.50966pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 754--755
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 528--529
  [][] 
  []
 
-<thesis_files/figure-latex/hetereffectsize-1.pdf, id=608, 454.69875pt x 274.023
+<thesis_files/figure-latex/hetereffectsize-1.pdf, id=626, 454.69875pt x 274.023
 74pt>
 File: thesis_files/figure-latex/hetereffectsize-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/hetereffectsize-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/hetereffectsize-1.pdf  used 
-on input line 760.
+on input line 534.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 760--761
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 534--535
  [][] 
  []
 
-[29 <./thesis_files/figure-latex/hetern-1.pdf>]
-<thesis_files/figure-latex/discreteex-1.pdf, id=626, 454.69875pt x 274.02374pt>
+[27 <./thesis_files/figure-latex/unnamed-chunk-9-1.pdf>] [28 <./thesis_files/fi
+gure-latex/hetern-1.pdf> <./thesis_files/figure-latex/hetereffectsize-1.pdf>]
+<thesis_files/figure-latex/discreteex-1.pdf, id=656, 454.69875pt x 274.02374pt>
 
 File: thesis_files/figure-latex/discreteex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/discreteex-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/discreteex-1.pdf  used on in
-put line 777.
+put line 551.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 777--778
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 551--552
  [][] 
  []
 
-[30 <./thesis_files/figure-latex/hetereffectsize-1.pdf>] [31 <./thesis_files/fi
-gure-latex/discreteex-1.pdf>]
-<thesis_files/figure-latex/pilotglm-1.pdf, id=654, 454.69875pt x 274.02374pt>
+[29] [30 <./thesis_files/figure-latex/discreteex-1.pdf>]
+<thesis_files/figure-latex/pilotglm-1.pdf, id=681, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/pilotglm-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/pilotglm-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/pilotglm-1.pdf  used on inpu
-t line 820.
+t line 594.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 820--821
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 594--595
  [][] 
  []
 
-[32]
-<thesis_files/figure-latex/e1glmplot-1.pdf, id=661, 454.69875pt x 274.02374pt>
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 595.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 9.85492pt on input line 595.
+[31]
+<thesis_files/figure-latex/e1glmplot-1.pdf, id=688, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/e1glmplot-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/e1glmplot-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/e1glmplot-1.pdf  used on inp
-ut line 830.
+ut line 604.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 604--605
+ [][] 
+ []
+
+[32 <./thesis_files/figure-latex/pilotglm-1.pdf>] [33 <./thesis_files/figure-la
+tex/e1glmplot-1.pdf>]
+LaTeX Font Info:    Calculating math sizes for size <15> on input line 639.
+[34] [35]
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 704.
+[36]
+<thesis_files/figure-latex/powerglm-1.pdf, id=749, 454.69875pt x 274.02374pt>
+File: thesis_files/figure-latex/powerglm-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/powerglm-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/powerglm-1.pdf  used on inpu
+t line 768.
+(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 768--769
+ [][] 
+ []
+
+
+Overfull \hbox (2.12755pt too wide) in paragraph at lines 777--799
+ [][] 
+ []
+
+[37] [38]
+Overfull \hbox (7.68625pt too wide) in paragraph at lines 804--826
+ [][] 
+ []
+
+<thesis_files/figure-latex/powerglmsecond-1.pdf, id=765, 454.69875pt x 274.0237
+4pt>
+File: thesis_files/figure-latex/powerglmsecond-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/powerglmsecond-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/powerglmsecond-1.pdf  used o
+n input line 830.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
 Overfull \hbox (27.90628pt too wide) in paragraph at lines 830--831
  [][] 
  []
 
-[33 <./thesis_files/figure-latex/pilotglm-1.pdf>] [34 <./thesis_files/figure-la
-tex/e1glmplot-1.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <15> on input line 865.
-[35] [36]
-<thesis_files/figure-latex/unnamed-chunk-26-1.pdf, id=705, 454.69875pt x 274.02
-374pt>
-File: thesis_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/unnamed-chunk-26-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-26-1.pdf  used
- on input line 936.
-(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+[39 <./thesis_files/figure-latex/powerglm-1.pdf>] [40] [41] [42 <./thesis_files
+/figure-latex/powerglmsecond-1.pdf>]
+Chapter 3.
+[43
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 936--937
- [][] 
- []
-
-<thesis_files/figure-latex/unnamed-chunk-27-1.pdf, id=706, 454.69875pt x 274.02
-374pt>
-File: thesis_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/unnamed-chunk-27-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/unnamed-chunk-27-1.pdf  used
- on input line 942.
-(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
-
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 942--943
- [][] 
- []
-
-[37] [38 <./thesis_files/figure-latex/unnamed-chunk-26-1.pdf> <./thesis_files/f
-igure-latex/unnamed-chunk-27-1.pdf>] [39] [40
-
-
-]
-Chapter 4.
-[41]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[42]
-
-LaTeX Warning: Reference `fig:fparallelism' on page 43 undefined on input line 
-996.
-
-File: figures/rsta2009012001.jpg Graphic file (type jpg)
-<use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 1002.
-(pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[43]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[44]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[45]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[46]
-
-Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 24.79527pt, for example:
-(fancyhdr)                \setlength{\headheight}{24.79527pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-9.79527pt}.
-
-[47] [48
+] [44] [45] [46
 
 ]
 Appendix A.
-[49] [50
+[47] [48
 
-] [51] [52]
-Underfull \hbox (badness 5064) in paragraph at lines 1090--1090
+] [49]
+Underfull \hbox (badness 2452) in paragraph at lines 983--983
+[][]\T1/ppl/m/n/10.95 (+20) Gelman, A (2003). A Bayesian For-mu-la-tion of Ex-p
+loratory Data Anal-y-sis and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+\T1/ppl/m/n/10.95 (+20) Goodness-of-fit Test-ing*. en. \T1/ppl/m/it/10.95 (+20)
+ In-ter-na-tional Sta-tis-ti-cal Re-view \T1/ppl/b/n/10.95 (+20) 71\T1/ppl/m/n/
+10.95 (+20) (2). _eprint:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+\T1/ppl/m/n/10.95 (+20) https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1751-
+5823.2003.tb00203.x,
+ []
+
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+[][]\T1/ppl/m/n/10.95 (+20) Loy, A and H Hof-mann (2013). Di-ag-nos-tic tools f
+or hi-er-ar-chi-cal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+\T1/ppl/m/n/10.95 (+20) lin-ear mod-els. en. \T1/ppl/m/it/10.95 (+20) WIREs Com
+-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 5\T1/ppl/m/n/10.95 (+20) (1).
+ _eprint:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+\T1/ppl/m/n/10.95 (+20) https://wires.onlinelibrary.wiley.com/doi/pdf/10.1002/w
+ics.1238, 48^^U61. (Vis-
+ []
+
+[51]
+Underfull \hbox (badness 5064) in paragraph at lines 983--983
 [][]\T1/ppl/m/n/10.95 (+20) Wickham, H (2011). gg-plot2. en. \T1/ppl/m/it/10.95
  (+20) WIREs Com-pu-ta-tional Statis-tics \T1/ppl/b/n/10.95 (+20) 3\T1/ppl/m/n/
 10.95 (+20) (2). _eprint:
  []
 
-[53] (./thesis.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+[][]\T1/ppl/m/n/10.95 (+20) Widen, HM, JB El-sner, S Pau, and CK Ue-jio (2016).
+ Graph-i-cal In-fer-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
+\T1/ppl/m/n/10.95 (+20) ence in Ge-o-graph-i-cal Re-search. en. \T1/ppl/m/it/10
+.95 (+20) Ge-o-graph-i-cal Anal-y-sis \T1/ppl/b/n/10.95 (+20) 48\T1/ppl/m/n/10.
+95 (+20) (2). _eprint:
+ []
+
+[52] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 7D901BB81D0AC913000047F99EC4F3E5;5525.
+(rerunfilecheck)             Checksum: 4D99BD307A5FD6180CC0B2B872E14488;5415.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1378,33 +1363,35 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 24031 strings out of 480238
- 427040 string characters out of 5894762
- 1162024 words of memory out of 5000000
- 40930 multiletter control sequences out of 15000+600000
- 589600 words of font info for 443 fonts, out of 8000000 for 9000
+ 24158 strings out of 480236
+ 431636 string characters out of 5894706
+ 1182994 words of memory out of 5000000
+ 41009 multiletter control sequences out of 15000+600000
+ 593730 words of font info for 484 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,82p,2914b,18795s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 75i,12n,82p,2914b,18684s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texm
-f-dist/fonts/type1/public/mathpazo/fplmbi.pfb></Users/patrickli/Library/TinyTeX
-/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></Users/patrickli/Library/Tin
-yTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></Users/patrickli/Librar
-y/TinyTeX/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></Users/patrickli/Libra
-ry/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></Users/patrickli/Libr
-ary/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></Users/patrickli/Lib
-rary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/patrickli/L
-ibrary/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Users/patrickl
-i/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/patric
-kli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (67 pages, 6804462 bytes).
+nts/cm/cmbsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/Tin
+yTeX/texmf-dist/fonts/type1/public/mathpazo/fplmbi.pfb></Users/patrickli/Librar
+y/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></Users/patrickli/Li
+brary/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></Users/patrick
+li/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></Users/patric
+kli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvmro8a.pfb></Users/patr
+ickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></Users/pat
+rickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></Users/pa
+trickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/
+patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></Use
+rs/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></U
+sers/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on thesis.pdf (66 pages, 6813540 bytes).
 PDF statistics:
- 960 PDF objects out of 1000 (max. 8388607)
- 799 compressed objects within 8 object streams
- 216 named destinations out of 1000 (max. 500000)
- 124751 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 974 PDF objects out of 1000 (max. 8388607)
+ 810 compressed objects within 9 object streams
+ 209 named destinations out of 1000 (max. 500000)
+ 125263 words of extra memory for PDF output out of 128383 (max. 10000000)
 

@@ -144,8 +144,11 @@ The contribution in Chapter \ref{ch:litreview} of this thesis was presented in t
 \hypertarget{ch:intro}{%
 \chapter{Introduction}\label{ch:intro}}
 
-\hypertarget{ai-four-approaches}{%
-\section{AI: Four Approaches}\label{ai-four-approaches}}
+\hypertarget{is-what-we-see-really-there}{%
+\section{Is what we see really there?}\label{is-what-we-see-really-there}}
+
+\hypertarget{artificial-intelligence-four-approaches}{%
+\section{Artificial intelligence: Four Approaches}\label{artificial-intelligence-four-approaches}}
 
 \textbf{Artificial intelligence} (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in \textcite{russell_artificial_2002}, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
 
@@ -158,50 +161,52 @@ The contribution in Chapter \ref{ch:litreview} of this thesis was presented in t
   Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
 \end{enumerate}
 
-Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in Figure \ref{fig:twodimai}, where the row is ``Human'' vs.~``Rational'', and the column is ``Behaviour'' vs.~``Thought''. Positioning at the top right cell, the \textbf{rational agent approach} aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the \textbf{``laws of thought'' approach} focus on understanding the logic behind the rationality. Closely related to \textbf{cognitive science}, the \textbf{cognitive modelling approach} attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the \textbf{Turing test approach} is built upon the famous \textbf{Turing test} proposed by \textcite{turing_computing_1950}. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes \textbf{natural language processing} for communication with human, \textbf{knowledge representation} for encoding knowledge, \textbf{automated reasoning} for derivation of conclusions and \textbf{machine learning} for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the \textbf{total Turing test} proposed by \textcite{harnad_other_1991}. It adds \(3\) new requirements to the list, including \textbf{computer vision}, \textbf{speech recognition} and \textbf{robotics}, which are response for interactions with the physical world. Notably, all \(7\) required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century \autocite{russell_artificial_2002}.
+Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in Figure \ref{fig:two-dim-ai}, where the row is ``Human'' vs.~``Rational'', and the column is ``Behaviour'' vs.~``Thought''. Positioning at the top right cell, the \textbf{rational agent approach} aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the \textbf{``laws of thought'' approach} focus on understanding the logic behind the rationality. Closely related to \textbf{cognitive science}, the \textbf{cognitive modelling approach} attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the \textbf{Turing test approach} is built upon the famous \textbf{Turing test} proposed by \textcite{turing_computing_1950}. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes \textbf{natural language processing} for communication with human, \textbf{knowledge representation} for encoding knowledge, \textbf{automated reasoning} for derivation of conclusions and \textbf{machine learning} for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the \textbf{total Turing test} proposed by \textcite{harnad_other_1991}. It adds three new requirements to the list, including \textbf{computer vision}, \textbf{speech recognition} and \textbf{robotics}, which are response for interactions with the physical world. Notably, all seven required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century \autocite{russell_artificial_2002}.
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/twodimai-1.pdf}
-\caption{\label{fig:twodimai}Four possible approaches to pursue AI based on the two dimensions in AI research - human vs.~rational and thought vs.~behavior \autocite{russell_artificial_2002}.}
+\includegraphics{thesis_files/figure-latex/two-dim-ai-1.pdf}
+\caption{\label{fig:two-dim-ai}Four possible approaches to pursue AI based on the two dimensions in AI research - human vs.~rational and thought vs.~behavior \autocite{russell_artificial_2002}.}
 \end{figure}
 
-With the development of AI, mature AI technologies, such as facial recognition and web recommendation system, have profoundly affected the way modern society operates and citizen's daily life. This is largely as a consequence of the huge investment in AI industry by the financial market in recent years. Further, the increasingly cheap computing cost and the massive amount of accessible e-commerce data produced in the Internet age provide the possibility for applying data-intensive AI models, which enables AI performance to reach new heights in history \autocite{jordan_machine_2015}. Some AI systems have already been remarkably better than human in certain areas, e.g., game playing. AlphaGo and AlphaZero developed by the Google DeepMind team surpass all human Go players \autocite{silver_general_2018}.
+With the development of AI, mature AI technologies, such as facial recognition and web recommendation system, have profoundly affected the way modern society operates and citizen's daily life. This is largely as a consequence of the huge investment in AI industry by the financial market in recent years. Further, the increasingly cheap computing cost and the massive amount of accessible e-commerce data produced in the Internet age provide the possibility for applying data-intensive AI models, which enables AI performance to reach new heights in history \autocite{jordan_machine_2015}. Some AI systems have already been remarkably better than humans in certain areas, e.g., game playing. AlphaGo and AlphaZero developed by the Google DeepMind team surpass professional human Go players \autocite{silver_general_2018}.
 
 \hypertarget{predictive-modelling-and-visual-diagnostics}{%
 \section{Predictive Modelling and Visual Diagnostics}\label{predictive-modelling-and-visual-diagnostics}}
 
 Behind the success of AI, a great propotion of AI systems rely on the predictive modelling framework. \textcite{donoho_50_2017} in its summary of data science stated that the concept of this modelling culture could be traced back to an article written by Breiman (2001). In contrast to the generative modelling culture, which aims to develop stochastic models to make inferences about the data generating process, predictive modelling emphasizes the ability of the model to make accurate predictions. Most AI tasks are complex prediction problems where the data mechanism is mysterious, or at least, partly unknowable. \textcite{breiman_statistical_2001} suggests that generative models are obviously not applicable in these scenarios, while the predictive modelling seeks only an accurate approximated function \(\boldsymbol{f}(\boldsymbol{x})\) to describe the relationship between the features \(\boldsymbol{x}\) and the responses \(\boldsymbol{y}\).
 
-Predictive models are primarily evaluated by predictive accuracy with the use of validation and test data, but in predictive model diagnostics, especially model testing and tuning, data plots play an irreplaceable role. In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed by researchers, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and unquantifiable.
+Predictive models are primarily evaluated by predictive accuracy with the use of validation and test data, but in predictive model diagnostics, especially model testing and tuning, data plots play an irreplaceable role. In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed by researchers, due to its intuitiveness and the possibility for unexpected discoveries which may be abstract and unquantifiable.
 
-However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups \autocite{roy_chowdhury_using_2015}.
+However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurence \autocite{roy_chowdhury_using_2015}.
 
 \hypertarget{visual-inference}{%
 \section{Visual Inference}\label{visual-inference}}
 
-Visual inference was first introduced by \textcite{buja_statistical_2009} as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
+Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title ``Inference for Data Visualizatino'' by \textcite{buja_inference_1999} as an idea to address the issue of valid inference for visual discoveries of data plots \autocite{gelman_exploratory_2004}. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models \autocite{gelman_bayesian_2003,gelman_exploratory_2004}.
+
+It was surprising that the essential components of visual inference had actually been established in \textcite{buja_inference_1999}, but it was not until 10 years later that \textcite{buja_statistical_2009} formalized it as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
 \begin{figure}
 \centering
 \includegraphics[width=4.6875in,height=3.55208in]{figures/rsta2009012001.jpg}
-\caption{Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}. Visible features in a plot are viewed as a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\), and any visual discoveries are treated as evidence against the null hypothesis. \label{fig:parallelism}}
+\caption{Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}. Visible features in a plot are viewed as a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\), and any visual discoveries that are inconsistent with the null hypothesis are treated as evidence against the null. For model diagnostics, the null hypothesis would be the assumed model, and visual discoveries could be any visual features in favour of any alternatives. \label{fig:parallelism}}
 \end{figure}
 
 
 
-In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same assumed model, such as classical linear regression model, can be rejected by many reasons with residual plot, including nonlinearity and heteroskedasticity as shown in Figure \ref{fig:nonlinearityheter}.
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same assumed model, such as classical linear regression model, can be rejected by many reasons with residual plot, including nonlinearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}.
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/nonlinearityheter-1.pdf}
-\caption{\label{fig:nonlinearityheter}Residuals vs.~fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, ``butterfly shape'' can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process.}
+\includegraphics{thesis_files/figure-latex/residual-plot-cubic-heter-1.pdf}
+\caption{\label{fig:residual-plot-cubic-heter}Residuals vs.~fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, ``butterfly shape'' can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process.}
 \end{figure}
 
 \hypertarget{pre-specification-of-visual-discoverable-features}{%
 \section{Pre-specification of Visual Discoverable Features}\label{pre-specification-of-visual-discoverable-features}}
 
-As discussed in \textcite{buja_statistical_2009}, in the practice of model diagnostics, the range of possible visual discoveries is not pre-specified. In other words, people do not explicitly specify which one or more visual features they are looking for before the read of the diagnostic plot. This is concerning since conventional hypothesis testing always requires the pre-specification of the parameter space \(\Theta\) of the parameter of interest \(\theta \in \Theta\) to form a valid inferential procedure. To address this issue, a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) is defined, where \(\boldsymbol{\mathrm{y}}\) is the data and \(\boldsymbol{I}\) is a set of all possible visual features. \textcite{buja_statistical_2009} described each of the test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})\) as a measurement of the degree of presence of a visual feature. Alternatively, \textcite{majumder_validation_2013} avoids the use of visual features and defined the visual statistics \(T(.)\) as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion.
+As discussed in \textcite{buja_statistical_2009}, in the practice of model diagnostics, the range of possible visual discoveries is not pre-specified. In other words, people do not explicitly specify which visual feature(s) they are looking for before the reading the diagnostic plot. In contrary, conventional hypothesis testing always requires the pre-specification of the parameter space \(\Theta\) of the parameter of interest \(\theta \in \Theta\) to form a valid inferential procedure. To address this issue, a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) is defined, where \(\boldsymbol{\mathrm{y}}\) is the data and \(I\) is a set of all possible visual features. \textcite{buja_statistical_2009} described each of the test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})\) as a measurement of the degree of presence of a visual feature. Alternatively, \textcite{majumder_validation_2013} avoids the use of visual features and defined the visual statistics \(T(.)\) as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion.
 
 The size of the collection \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) depends on the size of the set \(I\). Thus, if one can define \(I\) comprehensively, i.e, pre-specify all the visual discoverable features, the validity issue will be solved. Unfortunately, to our knowledge, there is no such a way to list all visual features. In linear regression diagnostics, possible visual features of a residual plot may be outliers, shapes and clusters. But this is an incomplete list which does not enumerate all the visual features.
 
@@ -209,18 +214,27 @@ Similarly, \textcite{wilkinson_graph-theoretic_2005} proposed the work called gr
 
 Thinking out of the box, \textcite{buja_statistical_2009} argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) which resulted in rejection. This argument helps justifies the validity of visual inference.
 
+\hypertarget{sampling-from-the-null-distribution}{%
+\section{Sampling from the Null Distribution}\label{sampling-from-the-null-distribution}}
+
+In visual inference, the null distribution of plots refers to the infinite collection of plots of null datasets sampled from \(H_0\). It is defined as the analogue of the null distribution of test statistics in conventional test \autocite{buja_statistical_2009}. In practice, a finite number of plots of null datasets could be generated, called null plots.
+
+In the context of model diagnostics, sampling data from \(H_0\) is equivalent to sampling data from the assumed model. As \textcite{buja_statistical_2009} suggested, \(H_0\) is usually composited by a collection of distributions controlled by nuisance parameters. Since statistical models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called ``reference distribution'' by applying one of the three methods: (i) sampling from a conditional distribution given a minimimal sufficient statistic under \(H_0\), (ii) parametric bootstrap sampling with nuisance parameters estimated under \(H_0\), and (iii) Bayesian posterior predictive sampling.
+
+The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three \autocite{buja_statistical_2009}. Focus will be put on simulation based on this distribution as it is applicable to classical normal linear regression model. Details of the other two are can be found in the supplementary material of \textcite{buja_statistical_2009}. Suppose there exists a minimal sufficient statistic \(\boldsymbol{S}(\boldsymbol{y})\) under the null hypothesis, any null datasets \(\boldsymbol{y^{*}}\) should fulfil the condition \(\boldsymbol{S}(\boldsymbol{y}) = \boldsymbol{s}\). For classical normal linear regression model, the minimal sufficient statistic is \(\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{\beta}}, \boldsymbol{e}'\boldsymbol{e})\), where \(\hat{\boldsymbol{\beta}}\) are the coefficient estimators and \(\boldsymbol{e}'\boldsymbol{e}\) is the residual sum of square. Alternatively, the minimal sufficient statistic can be constructed as \(\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{y}}, ||\boldsymbol{e}||)\), where \(\hat{\boldsymbol{y}}\) are the fitted values and \(||\boldsymbol{e}||\) is the length of residuals, which is more intuitive as suggested by \textcite{buja_statistical_2009}. Since the fitted values are held fixed, the variation can only occur in the residual space. And because the length of residual is also held fixed, residuals obtained from a null dataset has to be a random rotation of \(\boldsymbol{e}\) in the residual space. With this property, null residuals can be simulated by regressing \(N\) i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
+
 \hypertarget{lineup-protocol}{%
 \section{Lineup Protocol}\label{lineup-protocol}}
 
-With the validity of visual inference being justified, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) needs to pair with a critical value \(c^{(i)}\) to form a hypothesis test. When a visual feature \(i\) is discovered by the observer from a plot, the corresponding visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that \(T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists \(i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) \autocite{buja_statistical_2009}.
+With the validity of visual inference being justified and the simulation of null plots being provided, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) needs to pair with a critical value \(c^{(i)}\) to form a hypothesis test. When a visual feature \(i\) is discovered by the observer from a plot, the corresponding visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that \(T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists \(i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) \autocite{buja_statistical_2009}.
 
 Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values \(c^{(i)}~(i \in I)\) such that \(P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha\), where \(\alpha\) is the significance level. However, since the quantity of \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known, such collection of critical values can not be provided.
 
-\textcite{buja_statistical_2009} proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of \(c^{(i)}~(i \in I)\). It is inspired by the ``police lineup'' or ``identity parade'' which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of \(m\) randomly placed data plots, where \(1\) plot is the actual data plot, and \(m-1\) null plots are produced by plotting data simulate from the null distribution which is consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
+\textcite{buja_statistical_2009} proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of \(c^{(i)}~(i \in I)\). It is inspired by the ``police lineup'' or ``identity parade'' which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of \(m\) randomly placed plots, where one plot is the actual data plot, and the remaining \(m - 1\) plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
 
-Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is \(1/m\) due to randomness. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is \(1/m\).
+Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is \(1/m\). If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is \(1/m\).
 
-This provides us with an mechanism to control the Type I error, because \(m\) - the number of plots in a lineup can be chosen. A larger value of \(m\) will result in a smaller Type I error, but the limit to the value of \(m\) depends on the number of plots a human willing to view \autocite{buja_statistical_2009}. Typically, \(m\) will be set to \(20\) which is equivalent to set \(\alpha = 0.05\), a general choice of significance level for conventional testing among statisticians.
+This provides us with an mechanism to control the Type I error, because \(m\) - the number of plots in a lineup can be chosen. A larger value of \(m\) will result in a smaller Type I error, but the limit to the value of \(m\) depends on the number of plots a human is willing to view \autocite{buja_statistical_2009}. Typically, \(m\) will be set to \(20\) which is equivalent to set \(\alpha = 0.05\), a general choice of significance level for conventional testing among statisticians.
 
 Further, if we involve \(K\) independent observers in a visual test, and let \(X\) be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis \(X \sim \mathrm{Binom}_{K,1/m}\), and therefore, the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is given as
 \begin{equation} \label{eq:pvaluesingle}
@@ -229,274 +243,34 @@ P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac
 
 where \(x\) is the realization of number of observers correctly picking the actual data plot \autocite{majumder_validation_2013}.
 
-The multiple individuals approach avoids the limit of \(m\), while provides visual tests with \(p\)-value much smaller than \(0.05\). In fact, the lower bound of \(p\)-value decreases exponentially as \(K\) increases. With just \(4\) individuals and \(20\) data plots in a lineup, the \(p\)-value could be as small as \(0.0001\).
+The multiple individuals approach avoids the limit of \(m\), while provides visual tests with \(p\)-value much smaller than \(0.05\). In fact, the lower bound of \(p\)-value decreases exponentially as \(K\) increases. With just \(4\) individuals and \(20\) data plots in a lineup, the \(p\)-value could be as small as \(0.0001\). Additionally, by involving multiple observers, variation of individual ability to read plots can be addressed to some degree as different opinions about visual discoveries can be collected.
 
 Compared to the conventional test, whose power only depends on the parameter of interest \(\theta\), several studies \autocites[see][]{hofmann_graphical_2012,majumder_validation_2013,majumder_human_2014,roy_chowdhury_using_2015,loy_variations_2016} have shown the power of the visual test is subject-specific. Thus, to be able to account for individual's ability, an individual is required to evaluate multiple lineups \autocite{majumder_validation_2013}.
 
-Assumes that individuals have the same ability and a lineup has been evaluated by multiple individuals, under the alternative hypothesis, the estimated power for a lineup can be expressed as \(\hat{p} = x/K\), the estimated probability of identifying the actual data plot from the lineup. If the individual skill needs to be taken into account, and \(L\) lienups have been evaluated by \(K\) individuals, \textcite{majumder_validation_2013} suggests that mixed effects logistic regression model can be fit as:
+Suppose individuals have the same ability and a lineup has been evaluated by multiple individuals, under the alternative hypothesis, the estimated power for a lineup can be expressed as \(\hat{p} = x/K\), the estimated probability of identifying the actual data plot from the lineup. If the individual skill needs to be taken into account, and \(L\) lineups have been evaluated by \(K\) individuals, \textcite{majumder_validation_2013} suggests that mixed effects logistic regression model can be fit as:
 
 \[g(p_{li}) = W_{li}\delta + Z_{li}\tau_{li},\]
 where \(g(.)\) is the logit link function \(g(p) = log(p) - log(1-p)\); \(0 \leq p \leq 1\). \(W_{li}\), \(1 \leq i \leq K\), \(1 \leq l \leq L\), is the covariate matrix including lineup-specific elements and demographic information of individuals, and \(\delta\) is a vector of parameters. \(Z\) is the random effects matrix, and \(\tau\) is a vector of variables follow \(N(\boldsymbol{0},\sigma_{\tau}\boldsymbol{I}_{KL\times KL})\).
 
 Then, the estimated power for lineup \(l\) and individual \(i\) can be calculated as \(\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})\) \autocite{majumder_validation_2013}.
 
-\textbf{null data generate mechanism}
+\hypertarget{limitations-of-lineup-protocol-and-automatic-visual-inference}{%
+\section{Limitations of Lineup Protocol and Automatic Visual Inference}\label{limitations-of-lineup-protocol-and-automatic-visual-inference}}
 
-\hypertarget{applications-of-lineup-protocol}{%
-\section{Applications of Lineup Protocol}\label{applications-of-lineup-protocol}}
+Although lineup protocol has already been integrated into data analysis of various topics, such as diagnostics of hierarchical linear models \autocite{loy_diagnostic_2013}, geographical Research \autocite{widen_graphical_2016} and forensic examinations \autocite{krishnan_hierarchical_2021}, the involvement with human judgements limits its popularity. Similar to handicraft in pre-industrial society, lineup protocol conducted by humans is infeasible on a large scale, high in labour cost and time consuming. Moreover, it is strongly unfriendly to vision-impaired people.
 
-Lineup protocols are
+The ``steam engine'' of visual inference needs to developed for relieving people's workload by automating repeating tasks and providing standard result in a control environment. Large-scale evaluation of visual tests is not possible without the use of technology and machines.
 
-List applications, fields, significance here.
+Modern computer vision model could be a promising solution to this problem. As a subfield of AI, computer vision with the modern deep learning architectures solved numerous critical problems in automation. Inspired by the vision processing in living organisms, the convolutional neural network was introduced by \textcite{fukushima_neocognitron_1982}. Soon, this architecture was applied to hand-written number recognition trained with back-propagation by \textcite{lecun_backpropagation_1989}. This was one of the earliest attempts which human successfully extract information from digital images via self-learning algorithms. Modern computer vision model is typically built on the deep neural network with convolutional layers \autocite{fukushima_neocognitron_1982}. Convolutional layers take advantage of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. Numerous studies have shown that it can be used to effectively tackle vision tasks, such as image recognition \autocite{rawat_deep_2017}. With the development of graphics processing units and the spread of high-performance personal computers, researches in computer vision become a new hype in the 21st century. Achievements such as computer-aided diagnosis \autocite{lee_image_2015}, pedestrian detection \autocite{brunetti_computer_2018} and facial recognition \autocite{emami_facial_2012} had a significant impact on our daily life.
 
-\hypertarget{limitations-of-visual-tests}{%
-\section{Limitations of visual tests}\label{limitations-of-visual-tests}}
+Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression \autocite{ojeda_multivariate_2020}, time series classification \autocite{chu_automatic_2019,hailesilassie_financial_2019,hatami_classification_2018,zhang_encoding_2020}, anomaly detection \autocite{chen_convolutional_2020} and pairwise causality analysis \autocite{singh_deep_2017}. However, evaluating lineups with computer vision model is a new field of study.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  infeasible in a large scale
-\item
-  unfriendly to vision-impaired people
-\item
-  high finical cost and human cost
-\item
-  time consuming
-\end{enumerate}
+(reasons for conducting experiments)
 
-similar to Handicraft in pre-industrial society
+\hypertarget{structure-of-the-paper}{%
+\section{Structure of the paper}\label{structure-of-the-paper}}
 
-\hypertarget{automatic-visual-inference---computer-vision}{%
-\section{Automatic visual inference -\textgreater{} Computer vision}\label{automatic-visual-inference---computer-vision}}
-
-relieve people's workload by automating repeating tasks, and provide standard result in a control environment
-
-the use of technology and machinery to enable mass evaluation of visual tests
-
-\hypertarget{discussion-of-potential-methods}{%
-\section{Discussion of potential methods}\label{discussion-of-potential-methods}}
-
-\hypertarget{different-approaches-of-ai}{%
-\subsection{different approaches of AI}\label{different-approaches-of-ai}}
-
-\begin{itemize}
-\tightlist
-\item
-  Not aim for understanding the thought process
-\item
-  Not aim for mimicking the human vision mechanism
-\item
-  May be able to define distance metrics to measure difference between data plots for making mathematically prefect decisions
-\item
-  May be able to use computer vision model to approximate how people evaluate lineups
-\end{itemize}
-
-computer vision model:
-
-\begin{itemize}
-\tightlist
-\item
-  Use human data to train model with human selection as target -\textgreater{} mimic the human behaviour
-\item
-  Use simulated lineup to train model with actual data plot as target -\textgreater{} assume the actual data plot is the most different one
-\item
-  Use simulated data plot to train model with null or not null as target -\textgreater{} limited to the alternatives given to the model, and Type I error can not be controlled
-\item
-  Use simulated data plot to train model, then let the model evaluate each plot of a lineup -\textgreater{} leads to multiple selections in a lineup, and the model does not compare different plots in a lineup
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Use a very large \(m\) to ensure the null hypothesis can be rejected by a classifier slightly better than a random selector. The problem becomes how large the \(m\) should be
-  \item
-    Use multiple models as multiple individuals to evaluate lineup -\textgreater{} Which models should be used? How many models should be used?
-  \end{itemize}
-\item
-  Let the model select multiple plots from a simulated lineup while comparing different plots in a lineup -\textgreater{} how to build such a system?
-
-  \begin{itemize}
-  \tightlist
-  \item
-    The input is \(m\) plots, what is the output? The probability of being the most different one?
-  \item
-    Then how many plots should be selected? Top 5? Or cumulative probability greater than a threshold?
-  \item
-    How to select the threshold?
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{human-subject-exeriments-toc}{%
-\chapter{Human Subject Exeriments (toc)}\label{human-subject-exeriments-toc}}
-
-What needs to be discussed?
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  online recruitment platform (Prolific)
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  pre-screen
-\item
-  approve and reject
-\item
-  redirect
-\item
-  payment
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  study web site
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  PythonAnywhere
-\item
-  Flask, Python
-\item
-  jsPsych
-\item
-  survey
-
-  \begin{itemize}
-  \tightlist
-  \item
-    age
-  \item
-    education
-  \item
-    preferred pronoun
-  \item
-    previous experience
-  \end{itemize}
-\item
-  training
-\item
-  20 lineups
-
-  \begin{itemize}
-  \tightlist
-  \item
-    setup depends on the study
-  \end{itemize}
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Cubic model
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  data generating process
-\item
-  null model
-\item
-  potential shapes
-\item
-  effect size
-\item
-  conventional test
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Heteroskedasticity model
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  data generating process
-\item
-  null model
-\item
-  potential shapes
-\item
-  effect size
-\item
-  conventional test
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Number of participants needed by the study
-\item
-  Study 1
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  logistic regression
-
-  \begin{itemize}
-  \tightlist
-  \item
-    easy
-  \item
-    medium
-  \item
-    hard
-  \end{itemize}
-\item
-  number of participants
-\item
-  time
-\item
-  countries
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Study 2
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  logistic regression
-
-  \begin{itemize}
-  \tightlist
-  \item
-    easy
-  \item
-    medium
-  \item
-    hard
-  \end{itemize}
-\item
-  number of participants
-\item
-  time
-\item
-  countries
-\end{itemize}
+\ldots{}
 
 \hypertarget{human-subject-exeriments}{%
 \chapter{Human Subject Exeriments}\label{human-subject-exeriments}}
@@ -507,11 +281,11 @@ Prolific provides an international participant pool with the option to apply fle
 
 In Prolific, researchers can either approve or reject submissions based on the quality of the responses. If a submission is approved by the researcher, the participant will be paid a certain amount of money per hour of time spent on the experiment. To assess the quality of the responses, two attention checks were given to each participant during the experiment, where at least one of them was required to pass for the approval of submission.
 
-Throughout the experiments, participants were requested to complete a short survey and evaluate 20 lineups on a website in an hour. Each lineup consists of one actual residual plot and 19 null residual plots produced by plotting null residuals simulated from the residual rotation distributions. Among the 20 lineups, there are two extremely easy lineups used as attention checks which everyone should get correct. The short survey was intended to collect information about participant that might affect their ability in reading data plot including age, highest level of education, preferred pronoun and previous experience in similar study. For the evaluation of the lineup, participant first needed to select one or multiple most different data plot(s) from the lineup by clicking the corresponding image. Then, the reason for choosing the plots needed to be provided by selecting one of the given options - ``outlier(s)'', ``cluster(s)'', ``shape'' and ``other''. Explanations about these options were provided in the training page and the mouseover text. Table \ref{tab:lineupreason} gives the detailed explanations about these reasons. If the option ``other'' was selected, text input for the specified reason would be collected. Lastly, the degree of difference between their chosen data plot(s) and other data plots needed to be selected among \(5\) levels - ``not at all'', ``slightly'', ``moderately'', ``very'' and ``extremely''. Notably, if participants could not tell the difference between the data plots, there was an option to skip the evaluation of the lineup. However, to prevent participants abusing this option, warnings were given at the beginning of the study that skipping too many lineups might lead to rejection of submission since it demonstrated clear low-effort throughout the experiment.
+Throughout the experiments, participants were requested to complete a short survey and evaluate 20 lineups on a website in an hour. Each lineup consists of one actual residual plot and 19 null residual plots produced by plotting null residuals simulated from the residual rotation distributions. Among the 20 lineups, there were two extremely easy lineups used as attention checks which everyone should get correct. The short survey was intended to collect information about participant that might affect their ability in reading data plot including age, highest level of education, preferred pronoun and previous experience in similar study. For the evaluation of the lineup, participant first needed to select one or multiple most different data plot(s) from the lineup by clicking the corresponding image. Then, the primary reason for choosing the plots needed to be provided by picking one of the given options - ``outlier(s)'', ``cluster(s)'', ``shape'' and ``other''. Explanations about these options were provided in the training page and the mouseover text. Table \ref{tab:lineup-reason} gives the detailed explanations about these reasons. If the option ``other'' was selected, text input for the specified reason would be collected. Lastly, the degree of difference between their chosen data plot(s) and other data plots needed to be selected among five levels - ``not at all'', ``slightly'', ``moderately'', ``very'' and ``extremely''. Notably, if participants could not tell the difference between the data plots, there was an option to skip the evaluation of the lineup. However, to prevent participants abusing this option, warnings were given at the beginning of the study that skipping too many lineups might lead to rejection of submission since it demonstrated clear low-effort throughout the experiment.
 
 \begin{table}
 
-\caption{\label{tab:lineupreason}Explanations about reasons for choosing data plots from a lineup}
+\caption{\label{tab:lineup-reason}Explanations about reasons for choosing data plots from a lineup}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{ll}
@@ -527,25 +301,25 @@ other & Patricipants needs to give their reasons in the text input.\\
 \end{tabular}}
 \end{table}
 
-The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:DiagramExperiment} summarizes the online experiment setup.
+The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:diagram-experiment} summarizes the online experiment setup.
 
 \begin{figure}
 \centering
 \includegraphics[width=4.6875in,height=4.6875in]{figures/experiment_tech.pdf}
-\caption{Diagram of online experiment setup. The server-side of the study webiste used Flask as backend hosted on PythonAnywhere. And the client-side used jsPsych to run experiment. \label{fig:DiagramExperiment}}
+\caption{Diagram of online experiment setup. The server-side of the study webiste used Flask as backend hosted on PythonAnywhere. And the client-side used jsPsych to run experiment. \label{fig:diagram-experiment}}
 \end{figure}
 
-The first two pages of the website are the explanatory statement and the consent form. Participants needed to read the documents and agree with the terms to advance to the short survey. With the completion of the survey, the next page is the training page, which contained instructions on how to evaluate the lineup, give the reason and choose the confidence level. Followed by the training page, there are 20 lineups each on a single page. Figure \ref{fig:WebsiteLayout} illustrates the layout of the website. At the end of the experiment, the participants would be redirected back to Prolific and waited for researchers' responses.
+The first two pages of the website are the explanatory statement and the consent form. Participants were asked to read the documents and agree with the terms to advance to the short survey. With the completion of the survey, the next page is the training page, which contained instructions on how to interact with the webpage. Followed by the training page, there are 20 lineups each on a single page. Figure \ref{fig:website-layout} illustrates the layout of the website. At the end of the experiment, participants would be redirected back to Prolific and waited for researchers' responses.
 
 \begin{figure}
 \centering
 \includegraphics[width=5.72917in,height=3.11458in]{figures/website.png}
-\caption{Layout of the study website. Participants needed to choose the most different plots on the right and select their reasons and confidence levels on the left. \label{fig:WebsiteLayout}}
+\caption{Layout of the study website. Participants needed to choose the most different plots on the right and select their reasons and confidence levels on the left. \label{fig:website-layout}}
 \end{figure}
 
 Next we will discuss the simulation setup for this study. The experiment data was simulated by the use of the programming language \texttt{R} \autocite{r_core_team_r_2021}. For the ease of reproducibility, functions to build models, simulate data from models, produce lineup with data, allocate stimulis for subjects and evaluate subject responses from this study are bundled in the package \texttt{visage} with a unique object-oriented programming system built upon the environment feature of \texttt{R}. In the description of the simulation, corresponding functionalities of the package will be introduced.
 
-Two models were used in both experiments, which were linear models with some degree of violations of classical assumptions. Residual vs.~fitted values plot were used to present the model defects.
+Two models were used in the study, where both were linear models with some degree of violations of classical assumptions.
 
 \hypertarget{cubic-model}{%
 \section{Cubic Model}\label{cubic-model}}
@@ -562,7 +336,7 @@ This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\)
 \end{equation}
 where \(\boldsymbol{u} \sim N(0,\sigma^2_u\boldsymbol{I})\).
 
-Clearly, there will be omitted-variable bias since the null model leaves out the quadric and cubic terms.
+Clearly, omitted-variable bias will present since the null model leaves out the quadric and cubic terms.
 
 \begin{lemma}[Distribution of residuals produced by the cubic model] \label{lemma:cubic}
 Given the data generating process in Equation (\ref{eq:cubic}), and null model in Equation (\ref{eq:cubic_null}). Let $\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X},\boldsymbol{Z}]$ denotes the set of regressors in matrix form. Then, the residuals obtained from the null model are $$\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a),$$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$, $\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]$ and $\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'$.
@@ -574,31 +348,31 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a(\boldsymbol{X}_b\boldsymbol{\beta}_b+\boldsymbol{\varepsilon}).$ Since $\boldsymbol{\varepsilon} \sim N(0,\sigma^2\boldsymbol{I})$, it follows that $\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a)$. 
 \end{proof}
 
-Lemma \ref{lemma:cubic} shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Hence, we would expect to see some patterns in the residual plot. Let \(X_i\) and \(Z_i\), \(i = 1,...,n\), be independent random variables follow uniform distribution \(U(-1,1)\). Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic1}, \ref{fig:cubic2} and \ref{fig:cubic3} illustrate the shape of residuals and their expected values under different parameter settings.
+Lemma \ref{lemma:cubic} shows that the expectation of the residuals is clearly a function of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\), which indicates the residuals and the fitted values \(\hat{Y} = \boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\boldsymbol{Y}\) are associated. Hence, it is expected that visual discoveries can be found in the residuals vs.~fitted values plot. Let \(X_i\) and \(Z_i\), \(i = 1,...,n\), be independent random variables follow uniform distribution \(U(-1,1)\). Given the expectation of the residuals, we could plot the expected values of residuals against the observed values. Figure \ref{fig:cubic-shape-1}, \ref{fig:cubic-shape-2} and \ref{fig:cubic-shape-3} illustrate the shape of residuals and their expected values under different parameter settings.
 
-From the Figure \ref{fig:cubic1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). If we move \(c\) toward \(0\) or \(2\), one variable will donminate another, which will mitigate some joint effects and resemble a typical cubic function. In Figure \ref{fig:cubic3}, \(a\), \(b\) and \(c\) is held constant, and \(\sigma\) is controlling the noises around the expected values. As \(\sigma\) decreases, the underlying shape shows up.
+From the Figure \ref{fig:cubic-shape-1}, it can be observed that with fixed \(\sigma\) and \(c\), \(a\) and \(b\) are controlling the 2D projection of a hypersurface, and seemingly performing some rotations along different axes. Figure \ref{fig:cubic-shape-2} shows that with fixed \(a\), \(b\) and \(\sigma\), \(c\) is controlling the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\). As \(c\) moves toward \(0\) or \(2\), one regressor will dominate another, which will mitigate some joint effects and resemble a typical cubic function. In Figure \ref{fig:cubic-shape-3}, \(a\), \(b\) and \(c\) are held fixed, and \(\sigma\) is controlling the noises around the expected values. The underlying shape is clearer for smaller \(\sigma\).
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/cubic1-1.pdf}
-\caption{\label{fig:cubic1}cubic 1}
+\includegraphics{thesis_files/figure-latex/cubic-shape-1-1.pdf}
+\caption{\label{fig:cubic-shape-1}A matrix of residuals vs.~fitted values plot under different parameter settings of the cubic model. Resdiauls are drawns in black and the expected values are drawn in red. The plots show that if \(\sigma\) and \(c\) are held fixed, \(a\) and \(b\) rotate a two-dimension projection of a hypersurface.}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/cubic2-1.pdf}
-\caption{\label{fig:cubic2}cubic 2}
+\includegraphics{thesis_files/figure-latex/cubic-shape-2-1.pdf}
+\caption{\label{fig:cubic-shape-2}A matrix of residuals vs.~fitted values plot under different parameter settings of the cubic model. Resdiauls are drawns in black and the expected values are drawn in red. The plots show that if \(a\), \(b\) and \(\sigma\) are held fixed, \(c\) controls the contribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to \(\boldsymbol{Y}\).}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/cubic3-1.pdf}
-\caption{\label{fig:cubic3}cubic 3}
+\includegraphics{thesis_files/figure-latex/cubic-shape-3-1.pdf}
+\caption{\label{fig:cubic-shape-3}A matrix of residuals vs.~fitted values plot under different parameter settings of the cubic model. Resdiauls are drawns in black and the expected values are drawn in red. The plots show that if \(a\), \(b\) and \(c\) are held fixed, \(\sigma\) controls the strength of the signal.}
 \end{figure}
 
 The residuals used in these three figures are simulated from the cubic models built using the \texttt{cubic\_model()} function from the package \texttt{visage}. \texttt{cubic\_model()} is a cubic model class constructor, which takes arguments \texttt{a}, \texttt{b}, \texttt{c}, \texttt{sigma}, \texttt{x} and \texttt{z}, where the first four are numeric values defined above, and \texttt{x} and \texttt{z} are random variable instances created by the random variable abstract base class constructor \texttt{rand\_var()}.
 
-Here, we set \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to be random uniform variables ranged from \(-1\) to \(1\). This can be done by using the random uniform variable class constructor \texttt{rand\_uniform()} inherited from the random variable abstract base class. It only takes two arguments which are the lower bound and the upper bound of the support.
+If we would like \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) to be random uniform variables ranged from \(-1\) to \(1\), it can be achieved by using the random uniform variable class constructor \texttt{rand\_uniform()} inherited from the random variable abstract base class. It only takes two arguments which are the lower bound and the upper bound of the support.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -617,15 +391,15 @@ An instance of cubic model class contains methods of simulating data and making 
 \end{Shaded}
 
 \begin{verbatim}
-##             y          x          z          e     .resid     .fitted
-## 1  0.44298045  0.1862316 -0.5114228  0.2749620  0.3561304  0.08685009
-## 2 -0.46546366 -0.8542129 -0.3789133  0.3543143  0.2827120 -0.74817570
-## 3  0.07636314  0.0383946 -0.3832281 -0.3024668 -0.2698449  0.34620801
-## 4 -1.04762148 -0.4177674 -0.5876853 -0.3101100 -0.1202573 -0.92736416
-## 5 -0.90198583 -0.5439192 -0.4630171 -0.1448947 -0.2487402 -0.65324563
+##            y          x          z           e     .resid    .fitted
+## 1 -0.8263671 -0.4988275  0.5569648 -0.06142887  1.2340651 -2.0604322
+## 2  0.6134661  0.1762335  0.6512424  0.99654342  1.1758970 -0.5624310
+## 3  0.2285071 -0.2814395 -0.1511556 -0.10996690 -0.3757603  0.6042674
+## 4 -4.6320382 -0.5813456  0.9251409 -0.60826338 -1.2664307 -3.3656075
+## 5  0.3148180  0.5647967  0.4406211  0.64596536 -0.7677711  1.0825892
 \end{verbatim}
 
-Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} object. It takes a data frame containing columns \texttt{.resid} and \texttt{.fitted} as input, along with a character argument \texttt{type} indicating the type of the data plot, and other aesthetic arguments such as \texttt{size} and \texttt{alpha} to control the appearance of the plot.
+Method \texttt{mod\$plot()} produce a \texttt{ggplot} \autocite{wickham_ggplot2_2011} object. It takes a data frame containing columns \texttt{.resid} and \texttt{.fitted} as input, along with a character argument \texttt{type} indicating the type of the data plot, and other aesthetic arguments such as \texttt{size} and \texttt{alpha} to control the appearance of the plot.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -635,7 +409,7 @@ Method \texttt{mod\$plot()} produce a ggplot \autocite{wickham_ggplot2_2011} obj
 
 \includegraphics{thesis_files/figure-latex/test3-1.pdf}
 
-Lineup can be produced by using the methods \texttt{mod\$gen\_lineup()} and \texttt{mod\$plot\_lineup()}. Method \texttt{mod\$gen\_lineup} takes the number of realizations \texttt{n} and the number of plots in a lineup \texttt{k} as inputs. And the method \texttt{mod\$plot\_lineup()} has the same user interface as \texttt{mod\$plot()}.
+Lineup is a matrix of residual plots which can be produced by using the methods \texttt{mod\$gen\_lineup()} and \texttt{mod\$plot\_lineup()}. Method \texttt{mod\$gen\_lineup} takes the number of realizations \texttt{n} and the number of plots in a lineup \texttt{k} as inputs. And the method \texttt{mod\$plot\_lineup()} has the same user interface as \texttt{mod\$plot()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -654,7 +428,7 @@ The cubic model class also provides method to compute the expected values of res
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.9369269  0.1945678  0.2816923 -0.3254415  0.7861083
+## [1] -0.092183951 -0.003912092 -0.001531723  0.148353478 -0.050725712
 \end{verbatim}
 
 Since we know that under the null hypothesis, the residual \(\boldsymbol{e}\sim N(\boldsymbol{0},\sigma^2\boldsymbol{R}_a)\). Thus, the difference between the expected values \(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b\) and \(\boldsymbol{0}\) represents the direct impact of the parameters \(a\) and \(b\) on the residuals. It is expected that the larger the magnitude of the expected value relative to the variance and covariance, the easier the human to spot the patterns in the residual plot.
@@ -703,7 +477,7 @@ Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depe
 \begin{figure}
 \centering
 \includegraphics{thesis_files/figure-latex/hetershape-1.pdf}
-\caption{\label{fig:hetershape}test}
+\caption{\label{fig:hetershape}A matrix of residuals vs.~fitted values plot under different parameter settings of the heteroskedasticity model. Resdiauls are drawns in black and the one standard deviation around zero is drawn in red. The plots show that \(a\) controls the shape and direction of the resdiaul plot, while \(b\) controls the strength of the signal.}
 \end{figure}
 
 Similar to the cubic model, the heteroskedasticity model could also be built by the heteroskedasticity model class constructor \texttt{heter\_model()}. This function takes three arguments as inputs, which are \texttt{a}, \texttt{b} and \texttt{x}. \texttt{a} and \texttt{b} are numeric parameters defined in Equation (\ref{eq:heter}). \texttt{x} needs to be a random variable object.
@@ -770,7 +544,7 @@ The model definitions given in the previous two sections does not include the sp
 
 The cubic model involved the use of both \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). In the simulation, \(X_i\), \(i=1,...,n\), had equal chance to follow one of the following distributions: \(N(0, 0.09)\), \(U(-1, 1)\), \(Lognormal(0,0.36)/3 - 1\) and \(-Lognormal(0,0.36)/3 + 1\). Uniform and normal distribution were symmetric and common. Adjusted lognormal distribution and adjusted negative lognormal distribution provided right-skewed and left-skewed density respectively. These distributions were chosen such that most the realizations will fall between \(-1\) and \(1\).
 
-The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform distribution ranged from \(-1\) to \(1\), and \(50\)\% chance to be a discrete uniform distribution with \(z_n\) outcomes simulated from a uniform distribution ranged from \(-1\) to \(1\). \(z_n\) itself was a discrete uniform distribution with outcomes \(\{3,4,5,6,7,8,9,10\}\), which defined the number of possible values \(Z_i\) could take. As shown in Figure \ref{fig:discreteex}, this setup would create discreteness in residual plot, which could enrich the pool of visual patterns.
+The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform distribution ranged from \(-1\) to \(1\), and \(50\)\% chance to be a discrete uniform distribution with \(z_n\) outcomes simulated from a uniform distribution ranged from \(-1\) to \(1\). \(z_n\) itself was a discrete uniform distribution with outcomes \(\{10,11,12,13,14,15,16,17,18,19,20\}\), which defined the number of possible values \(Z_i\) could take. As shown in Figure \ref{fig:discreteex}, this setup would create discreteness in residual plot, which could enrich the pool of visual patterns.
 
 \begin{figure}
 \centering
@@ -788,7 +562,7 @@ In this study, multiple selection was allowed for the evaluation of a lineup. Gi
 We called the lineup being detected if the actual data plot was one of the selections of an evaluation of a lineup. The sample size calculation was based on the detection rate of the lineup, which was closely related to the difficulty level of the lineup. With the data collected from the pilot study, two logistic regressions given in Table \ref{tab:pilotglm} and Figure \ref{fig:pilotglm} were developed to describe the relationship between the natural logarithm of effect size and the detection rate for the cubic model and the heteroskedasticity model.
 
 \begin{table}[!htbp] \centering 
-  \caption{GLM result 1} 
+  \caption{Logistic regressions with detection rate as response variable and natural logarithm of the effect size as regressor fitted on the pilot data for both cubic and heteroskedasticity models.} 
   \label{tab:pilotglm} 
 \begin{tabular}{@{\extracolsep{5pt}}lcc} 
 \\[-1.8ex]\hline 
@@ -818,7 +592,7 @@ Akaike Inf. Crit. & 248.610 & 299.943 \\
 \begin{figure}
 \centering
 \includegraphics{thesis_files/figure-latex/pilotglm-1.pdf}
-\caption{\label{fig:pilotglm}pilot}
+\caption{\label{fig:pilotglm}Logistic regressions with detection rate as response variable and natural logarithm of the effect size as regressor fitted on the pilot data for both cubic and heteroskedasticity models. Points are jittered to reduce overplotting using the \texttt{ggbeeswarm} package. The smooth curves are the fitted regression curves. The ribbons around the curves are the 95\% confidence intervals.}
 \end{figure}
 
 Lineups were classified into three categories - easy, medium and hard. Easy lineups were those of which predicted detection rates were higher than \(80\)\%, while medium lineups were between \(40\)\% to \(80\)\% and hard lineups were less than \(40\)\%.
@@ -828,11 +602,11 @@ For the first experiment, we would like to have at least 20 detection with chanc
 \begin{figure}
 \centering
 \includegraphics{thesis_files/figure-latex/e1glmplot-1.pdf}
-\caption{\label{fig:e1glmplot}test}
+\caption{\label{fig:e1glmplot}Logistic regressions with detection rate as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I for both cubic and heteroskedasticity models. Points are jittered to reduce overplotting using the \texttt{ggbeeswarm} package. The smooth curves are the fitted regression curves. The ribbons around the curves are the 95\% confidence intervals.}
 \end{figure}
 
 \begin{table}[!htbp] \centering 
-  \caption{GLM result 2} 
+  \caption{Logistic regressions with detection rate as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I for both cubic and heteroskedasticity models.} 
   \label{tab:e1glm} 
 \begin{tabular}{@{\extracolsep{5pt}}lcc} 
 \\[-1.8ex]\hline 
@@ -843,16 +617,16 @@ For the first experiment, we would like to have at least 20 detection with chanc
  & Cubic & Heteroskedasticity \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- I(log(effect\_size)) & 0.818$^{***}$ & 0.710$^{***}$ \\ 
-  & (0.113) & (0.107) \\ 
+ log(effect\_size) & 0.857$^{***}$ & 0.746$^{***}$ \\ 
+  & (0.122) & (0.111) \\ 
   & & \\ 
- Constant & $-$1.649$^{***}$ & $-$3.425$^{***}$ \\ 
-  & (0.254) & (0.454) \\ 
+ Constant & $-$1.571$^{***}$ & $-$3.434$^{***}$ \\ 
+  & (0.257) & (0.462) \\ 
   & & \\ 
 \hline \\[-1.8ex] 
-Observations & 201 & 199 \\ 
-Log Likelihood & $-$68.678 & $-$89.985 \\ 
-Akaike Inf. Crit. & 141.357 & 183.971 \\ 
+Observations & 192 & 188 \\ 
+Log Likelihood & $-$64.544 & $-$84.606 \\ 
+Akaike Inf. Crit. & 133.089 & 173.212 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
@@ -924,159 +698,278 @@ For example, given a visual test \(V_3\) where the first observer selects one pl
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-We collected \(400\) lineup evaluations made by \(20\) participants in experiment I and \(880\) lineup evaluations made by \(44\) participants. In total, \(442\) unique lineups were evaluated by \(64\) subjects. In experiment I, one of the participants skipped all \(20\) lineups. Hence, the submission was rejected and removed from the data set. In experiment II, there was a participant failed one of the two attention checks, but there was no further evidence of low-effort throughout the experiment. So, the submission was kept.
+We collected \(400\) lineup evaluations made by \(20\) participants in experiment I and \(880\) lineup evaluations made by \(44\) participants in experiment II. In total, \(442\) unique lineups were evaluated by \(64\) subjects. In experiment I, one of the participants skipped all \(20\) lineups. Hence, the submission was rejected and removed from the dataset. In experiment II, there was a participant failed one of the two attention checks, but there was no further evidence of low-effort throughout the experiment. Therefore, the submission was kept.
 
 \hypertarget{power-estimation}{%
 \subsection{Power Estimation}\label{power-estimation}}
 
-It was expected that with larger effect size, the power of the visual test would be greater for both cubic model and heteroskedasticity model. Using the power calculation method discussed in Section \ref{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}, power of each lineup from one to five evaluations was estimated. The estimated power was further used in fitting a quasibinomial generalized linear model
+It was expected that with larger effect size, the power of the visual test would be greater for both cubic model and heteroskedasticity model. Using the power calculation method discussed in Section \ref{p-value-and-power-estimation-of-visual-test-allowed-for-multiple-selections}, power of each lineup from one to five evaluations was estimated. The estimated power was further used in fitting a quasi-binomial generalized linear model with natural logarithm of effect size as the only regressor. The result of the fitted models are given in Table \ref{tab:powerglmcubic}, Table \ref{tab:powerglmheter}, and Figure \ref{fig:powerglm}.
+
+As expected, coefficients of natural logarithm of effect size of all five models were positive. From Figure \ref{fig:powerglm}, it can be observed that the fitted power of visual test increased as the number of evaluations increased for both cubic and heteroskedasticity model.
+
+For heteroskedasticity model, this phenomenon was more obvious as the curves of visual tests with evaluations greater than two were always above the curves of visual test with evaluations smaller than two. However, this only held for large enough effect size. For small effect size, visual tests with fewer evaluations might have greater power. Note that, the expected power of visual test derived by \textcite{majumder_validation_2013} followed by the assumption that human has the ability to select the plot with the highest t-statistic from a lineup under the classical linear model regression setting showed similar properties, where visual tests with fewer evaluations were expected to perform better when the parameter values close to the null hypothesis.
+
+For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of nonlinearity as a visual task can be completed reliably by human when the effect size is large enough.
+
+As shown in Figure \ref{fig:powerglm}, both F-test and Breusch--Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made.
+
+\begin{table}[!htbp] \centering 
+  \caption{Quasi-binomial logistic regressions with estimated power as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regressions were fitted for different number of evaluations.} 
+  \label{tab:powerglmcubic} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{hat\_power} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\ 
+\hline \\[-1.8ex] 
+ log(effect\_size) & 0.929$^{***}$ & 1.227$^{***}$ & 1.084$^{***}$ & 1.057$^{***}$ & 1.035$^{***}$ \\ 
+  & (0.049) & (0.066) & (0.074) & (0.082) & (0.087) \\ 
+  & & & & & \\ 
+ Constant & $-$1.969$^{***}$ & $-$2.603$^{***}$ & $-$1.570$^{***}$ & $-$1.501$^{***}$ & $-$1.432$^{***}$ \\ 
+  & (0.114) & (0.153) & (0.142) & (0.156) & (0.160) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 630 & 532 & 456 & 423 & 371 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{Quasi-binomial logistic regressions with estimated power as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for heteroskedasticity model. Five regression were fitted for different number of evaluations.} 
+  \label{tab:powerglmheter} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{hat\_power} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\ 
+\hline \\[-1.8ex] 
+ log(effect\_size) & 0.821$^{***}$ & 1.025$^{***}$ & 0.885$^{***}$ & 0.920$^{***}$ & 1.063$^{***}$ \\ 
+  & (0.064) & (0.087) & (0.092) & (0.102) & (0.125) \\ 
+  & & & & & \\ 
+ Constant & $-$4.472$^{***}$ & $-$5.610$^{***}$ & $-$4.285$^{***}$ & $-$4.127$^{***}$ & $-$4.717$^{***}$ \\ 
+  & (0.320) & (0.449) & (0.461) & (0.499) & (0.607) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 630 & 527 & 473 & 443 & 375 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-26-1.pdf}
-\caption{\label{fig:unnamed-chunk-26}test}
+\includegraphics{thesis_files/figure-latex/powerglm-1.pdf}
+\caption{\label{fig:powerglm}Quasi-binomial logistic regressions with estimated power as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for both cubic and heteroskedasticity model. Five regression were fitted for different number of evaluations shown in five different colours. Estimated power are drawn in black. The dashed curvses are the power of F-test and Breusch--Pagan test respectively.}
 \end{figure}
+
+Another method we used to model the power was to collect all decisions made by \(K\choose{K-j}\) different outcomes for \(V_{K-j}\), and directly fit a binomial generalized linear model with natural logarithm of effect size as the regressor. This method skipped the calculation of the estimated power \(R/{K\choose{K-j}}\), and regressed on the binary outcome with larger sample size. Results of the fitted model is given in Figure \ref{fig:powerglmsecond}, Table \ref{tab:powerglmhetersecond} and Table \ref{tab:powerglmcubicsecond}. According to Figure \ref{fig:powerglmsecond}, this method gave clearer separation between curves for heteroskedasticity model. Noticeably, fitted power of visual test with five evaluations matched the power of conventional test at large effect size.
+
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regression were fitted for different number of evaluations.} 
+  \label{tab:powerglmcubicsecond} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{hat\_power} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\ 
+\hline \\[-1.8ex] 
+ log(effect\_size) & 0.872$^{***}$ & 1.292$^{***}$ & 1.125$^{***}$ & 1.164$^{***}$ & 1.315$^{***}$ \\ 
+  & (0.031) & (0.032) & (0.021) & (0.021) & (0.029) \\ 
+  & & & & & \\ 
+ Constant & $-$1.836$^{***}$ & $-$2.529$^{***}$ & $-$1.516$^{***}$ & $-$1.321$^{***}$ & $-$1.419$^{***}$ \\ 
+  & (0.077) & (0.073) & (0.046) & (0.049) & (0.072) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 2,900 & 7,250 & 12,596 & 17,011 & 19,229 \\ 
+Log Likelihood & $-$752.896 & $-$1,312.436 & $-$2,977.445 & $-$2,651.299 & $-$1,463.555 \\ 
+Akaike Inf. Crit. & 1,509.792 & 2,628.873 & 5,958.889 & 5,306.598 & 2,931.109 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for heteroskedasticity model. Five regression were fitted for different number of evaluations.} 
+  \label{tab:powerglmhetersecond} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{hat\_power} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\ 
+\hline \\[-1.8ex] 
+ log(effect\_size) & 0.912$^{***}$ & 1.221$^{***}$ & 1.294$^{***}$ & 1.525$^{***}$ & 1.798$^{***}$ \\ 
+  & (0.044) & (0.033) & (0.027) & (0.030) & (0.042) \\ 
+  & & & & & \\ 
+ Constant & $-$4.846$^{***}$ & $-$6.396$^{***}$ & $-$6.033$^{***}$ & $-$6.771$^{***}$ & $-$7.784$^{***}$ \\ 
+  & (0.229) & (0.175) & (0.141) & (0.159) & (0.230) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 2,906 & 7,064 & 11,436 & 13,728 & 13,236 \\ 
+Log Likelihood & $-$1,525.398 & $-$3,668.325 & $-$5,491.915 & $-$4,828.896 & $-$2,858.774 \\ 
+Akaike Inf. Crit. & 3,054.796 & 7,340.650 & 10,987.830 & 9,661.793 & 5,721.548 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
 \begin{figure}
 \centering
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-27-1.pdf}
-\caption{\label{fig:unnamed-chunk-27}test}
+\includegraphics{thesis_files/figure-latex/powerglmsecond-1.pdf}
+\caption{\label{fig:powerglmsecond}Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for both cubic and heteroskedasticity model. Five regression were fitted for different number of evaluations shown in five different colours. Estimated power are drawn in black. The dashed curvses are the power of F-test and Breusch--Pagan test respectively.}
 \end{figure}
 
-(estimate of visual power)
+\hypertarget{effect-of-factors-on-power-of-the-visual-test}{%
+\subsection{Effect of Factors on Power of the Visual Test}\label{effect-of-factors-on-power-of-the-visual-test}}
 
-(power against different parameters)
-
-(power against conventional p-value)
-
-(conventional power)
-
-(visual p-value vs.~conventional p-value)
-
-(response time)
-
-(confidence level)
-
-(relative freq of picks)
-
-\clearpage
-
-\hypertarget{ch:paper1}{%
-\chapter{Automatic Visual Statistical Inference, with Application to Linear Regression Diagnostics}\label{ch:paper1}}
-
-\hypertarget{abstract-1}{%
-\section{Abstract}\label{abstract-1}}
-
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
-
-\hypertarget{model-diagnostics}{%
-\subsection{Model Diagnostics}\label{model-diagnostics}}
-
-{[}ET: suggestion: A model can be fitted to data with no guarantee of a meaningful interpretation. Model diagnostics play an important role in assessing the appropriateness of the model. The assessment can involve examining the goodness of fit, checking if there are potential violations of model assumptions and validating models with external information.{]}
-
-Model diagnostics is the part of data analysis, preceded by the fit of a model, whose primary objectives are to examine the goodness of fit and reveal potential violations of model assumptions.
-
-{[}ET: model fit is more than just goodness of fit and checking model assumptions. It's too reductive to say this because you could have a model with good fit (according to some metric) and no model violation but if the way that the data were collected was flawed then scientific interpretation of the model is rendered useless. Diagnostics involve also the domain knowledge checks as well.{]}
-
-In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed, due to its intuitiveness and the possibility to provide unexpected discoveries which may be abstract and
-unquantifiable.
-
-{[}ET: Generally, your sentences are too long. Break it up into smaller sentences. The generally idea is to make sentences that \emph{continue an idea from the preceding sentence} so it leads from one to the next naturally. E.g. Today is cloudy. Cloudy days are rare. Perhaps today will be different to other days!{]}
-
-However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding a separation between gene groups in a two-dimensional projection from a linear discriminant analysis where there is no difference in the expression levels between the gene groups \autocite{roy_chowdhury_using_2015}.
-
-{[}ET: Confirmatory data analysis is well characterised by a rigorous procedure to discern particular hypothesis. The most widespread form of confirmatory data analysis are the use of \(p\)-values in testing hypothesis in a frequentist framework. More specifically, hypothesis testing in a frequentist framework involve stating a well-defined hypotheses; summarising the evidence as a test statistic; and calculating the probability of observing a statistic as extreme as the observed test statistic under the null hypothesis. This rigour, however, is often not present when inferences are drawn from a plot.
-
-Something about model diagnostics with a plot being the common thing to do..{]}
-
-\hypertarget{visual-inference-1}{%
-\subsection{Visual Inference}\label{visual-inference-1}}
-
-Visual inference was first introduced by \textcite{buja_statistical_2009} as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:fparallelism} outlines the parallelism between conventional tests and visual discovery.
-
-{[}ET: note use Rmd syntax for figures references! So it's easy to use it for HTML later if you want to do something like \href{https://github.com/earowang/thesis}{Earo} and have PDF + HTML thesis. {]}
-
-\begin{figure}
-\centering
-\includegraphics[width=4.6875in,height=3.55208in]{figures/rsta2009012001.jpg}
-\caption{Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}. Visible features in a plot are viewed as a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\), and any visual discoveries are treated as evidence against the null hypothesis. \label{fig:parallelism}}
-\end{figure}
-
-Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}. Visible features in a plot are viewed as a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\), and any visual discoveries are treated as evidence against the null hypothesis. Parallelism between multiple quantitative testing and visual discovery \autocite{buja_statistical_2009}.
-
-In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the hypothesis. The same assumed model, such as classical linear regression model, can be rejected by both nonlinearity and heteroskedasticity with the residual plot as shown in Figure \ref{fig:nonlinearityheter}.
-
-\hypertarget{pre-specification-of-visual-discoverable-features-1}{%
-\subsection{Pre-specification of Visual Discoverable Features}\label{pre-specification-of-visual-discoverable-features-1}}
-
-As discussed in \textcite{buja_statistical_2009}, in the practice of model diagnostics, the range of possible visual discoveries is not pre-specified. In other words, people do not explicitly specify which one or more visual features they are looking for before the read of the diagnostic plot. This is concerning since conventional hypothesis testing always requires the pre-specification of the parameter space \(\Theta\) of the parameter of interest \(\theta \in \Theta\) to form a valid inferential procedure. To address this issue, a collection of test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) is defined, where \(\boldsymbol{\mathrm{y}}\) is the data and \(\boldsymbol{I}\) is a set of all possible visual features. \textcite{buja_statistical_2009} described each of the test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})\) as a measurement of the degree of presence of a visual feature. Alternatively, \textcite{majumder_validation_2013} avoids the use of visual features and defined the visual statistics \(T(.)\) as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper, the first definition will be used as it covered some details needed by this work.
-
-The size of the collection \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) depends on the size of the set \(I\). Thus, if one can define \(I\) comprehensively, i.e, pre-specify all the visual discoverable features, the validity issue will be solved. Unfortunately, to our knowledge, there is no such a way to list all visual features. In linear regression diagnostics, possible visual features of a residual plot may be outliers, shapes and clusters. But this is an incomplete list which does not enumerate all the visual features.
-
-Similarly, \textcite{wilkinson_graph-theoretic_2005} proposed the work called graph theoretic scagnostics, which adopted the idea of ``scagnostics'' - scatter plot diagnostics from (can't find the 1984 citation). It includes 9 computable scagnostics measures defined on planar proximity graphs: ``Outlying'', ``Convex'', ``Skinny'', ``Stringy'', ``Straight'', ``Monotonic'', ``Skewed'', ``Clumpy'' and ``Striated'' which attempts to describe outliers, shape, density, trend and coherence of the data. This approach is inspiring but it still does not give the complete list of visual discoverable features. In fact, it is possible that such a list will never be complete as suggested in \textcite{buja_statistical_2009}.
-
-Thinking out of the box, \textcite{buja_statistical_2009} argued that there is actually no need for pre-specification of visual discoverable features. In model diagnostics, when the null hypothesis is rejected, the reasons for rejecting the hypothesis will also be known. This is because observers can not only point out the fact that visual discoveries have been found, but also describe the particular visual features they observed. Those features will correspond to the subset of the collection of visual test statistics \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) which resulted in rejection. This argument helps justifies the validity of visual inference.
-
-\hypertarget{lineup-protocol-1}{%
-\subsection{Lineup Protocol}\label{lineup-protocol-1}}
-
-With the validity of visual inference being justified, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) needs to pair with a critical value \(c^{(i)}\) to form a hypothesis test. When a visual feature \(i\) is discovered by the observer from a plot, the corresponding visual statistic \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that \(T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists \(i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}\) \autocite{buja_statistical_2009}.
-
-Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values \(c^{(i)}~(i \in I)\) such that \(P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha\), where \(\alpha\) is the significance level. However, since the quantity of \(T^{(i)}(\boldsymbol{\mathrm{y}})\) may not be known, such collection of critical values can not be provided.
-
-\textcite{buja_statistical_2009} proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of \(c^{(i)}~(i \in I)\). It is inspired by the ``police lineup'' or ``identity parade'' which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of \(m\) randomly placed data plots, where \(1\) plot is the actual data plot, and \(m-1\) null plots are produced by plotting data simulate from the null distribution which is consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
-
-Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is \(1/m\) due to randomness. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is \(1/m\).
-
-This provides us with an mechanism to control the Type I error, because \(m\) - the number of plots in a lineup can be chosen. Further, if we involve \(K\) independent observers in a visual test, and let \(X\) be a random variable denoting the number of observers correctly picking the actual data plot. Then, under the null hypothesis \(X \sim \mathrm{Binom}_{K,1/m}\), and therefore, the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is given as
-
-\[P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},\]
-where \(x\) is the realization of number of observers correctly picking the actual data plot \autocite{majumder_validation_2013}.
-
-\hypertarget{visual-inference-applied-to-linear-regression}{%
-\subsection{Visual Inference Applied to Linear Regression}\label{visual-inference-applied-to-linear-regression}}
-
-How people used visual inference in linear regression?
-
-\hypertarget{limitation-of-the-visual-inference}{%
-\subsection{Limitation of the Visual Inference}\label{limitation-of-the-visual-inference}}
-
-What are the limitations?
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for both cubic and heteroskedasticity models.} 
+  \label{tab:rejectfactor} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{reject} \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ a & $-$0.173$^{***}$ & 0.113$^{***}$ \\ 
+  & (0.014) & (0.022) \\ 
+  & & \\ 
+ b & $-$0.175$^{***}$ & 0.049$^{***}$ \\ 
+  & (0.014) & (0.002) \\ 
+  & & \\ 
+ c & $-$0.626$^{***}$ &  \\ 
+  & (0.033) &  \\ 
+  & & \\ 
+ sigma & $-$2.937$^{***}$ &  \\ 
+  & (0.037) &  \\ 
+  & & \\ 
+ Distribution of X: Normal & $-$0.870$^{***}$ & $-$2.781$^{***}$ \\ 
+  & (0.057) & (0.057) \\ 
+  & & \\ 
+ Distribution of X: Lognormal & $-$0.548$^{***}$ & $-$3.749$^{***}$ \\ 
+  & (0.072) & (0.047) \\ 
+  & & \\ 
+ Distribution of X: Negative Lognormal & $-$1.072$^{***}$ & $-$3.873$^{***}$ \\ 
+  & (0.051) & (0.058) \\ 
+  & & \\ 
+ Distribution of Z: Discrete & $-$3.219$^{***}$ &  \\ 
+  & (0.052) &  \\ 
+  & & \\ 
+ n & 0.002$^{***}$ & 0.001$^{***}$ \\ 
+  & (0.0002) & (0.0002) \\ 
+  & & \\ 
+ Number of evaluations & 0.216$^{***}$ & 0.592$^{***}$ \\ 
+  & (0.016) & (0.015) \\ 
+  & & \\ 
+ Constant & 5.151$^{***}$ & $-$0.028 \\ 
+  & (0.093) & (0.075) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & 58,986 & 45,200 \\ 
+Log Likelihood & $-$9,892.382 & $-$11,324.830 \\ 
+Akaike Inf. Crit. & 19,806.760 & 22,665.660 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
 
 \hypertarget{computer-vision-model}{%
-\subsection{Computer Vision Model}\label{computer-vision-model}}
+\chapter{Computer Vision Model}\label{computer-vision-model}}
 
-What is computer vision model?
+Visual test can be used to make valid inference on visual discoveries and acknowledging people with confidence about the findings. However, the lack of scalability of this method due to relatively high human cost compared to conventional test limits its application in wider fields. To relieve human analysts of the job of diagnosing predictive models in the context of visual inference, AI agents which can read data plot, evaluate lineups, and provide decisions need to be built.
 
-\hypertarget{contribution}{%
-\subsection{Contribution}\label{contribution}}
+Considering there are different approches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, adopting one of the capacities required by the Turing test, namely machine learning, along with
 
-What has been done by this paper?
+Thought process, human visual
 
-\hypertarget{structure-of-this-paper}{%
-\subsection{Structure of This Paper}\label{structure-of-this-paper}}
+\hypertarget{discussion-of-potential-methods}{%
+\section{Discussion of potential methods}\label{discussion-of-potential-methods}}
 
-What is the structure of the paper?
+\hypertarget{different-approaches-of-ai}{%
+\subsection{different approaches of AI}\label{different-approaches-of-ai}}
 
-Model diagnostics is the part of data analysis whose primary objectives are to examine the goodness of the model fit and reveal potential violations of the assumptions. Graphical approaches
-
-For regression diagnostics, it may includes the needs of
-
-Linear regression is an modelling approach to describe the relationship between an response variable and one or more explanatory variable. It has been widely used for both generative modeling and predictive modelling.
-
-Regression diagnostics is needed
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
 \tightlist
 \item
-  to check whether the assumptions has been violated
+  Not aim for understanding the thought process
 \item
-  to check whether the line fit the data
-\end{enumerate}
+  Not aim for mimicking the human vision mechanism
+\item
+  May be able to define distance metrics to measure difference between data plots for making mathematically prefect decisions
+\item
+  May be able to use computer vision model to approximate how people evaluate lineups
+\end{itemize}
 
-Model diagnostics for linear regression is well developed
+computer vision model:
+
+\begin{itemize}
+\tightlist
+\item
+  Use human data to train model with human selection as target -\textgreater{} mimic the human behaviour
+\item
+  Use simulated lineup to train model with actual data plot as target -\textgreater{} assume the actual data plot is the most different one
+\item
+  Use simulated data plot to train model with null or not null as target -\textgreater{} limited to the alternatives given to the model, and Type I error can not be controlled
+\item
+  Use simulated data plot to train model, then let the model evaluate each plot of a lineup -\textgreater{} leads to multiple selections in a lineup, and the model does not compare different plots in a lineup
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use a very large \(m\) to ensure the null hypothesis can be rejected by a classifier slightly better than a random selector. The problem becomes how large the \(m\) should be
+  \item
+    Use multiple models as multiple individuals to evaluate lineup -\textgreater{} Which models should be used? How many models should be used?
+  \end{itemize}
+\item
+  Let the model select multiple plots from a simulated lineup while comparing different plots in a lineup -\textgreater{} how to build such a system?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The input is \(m\) plots, what is the output? The probability of being the most different one?
+  \item
+    Then how many plots should be selected? Top 5? Or cumulative probability greater than a threshold?
+  \item
+    How to select the threshold?
+  \end{itemize}
+\end{itemize}
+
+The primary drawbacks of visual inference are
+
+infeasible in a large scale
+2. unfriendly to vision-impaired people 3. high finical cost and human cost
+4. time consuming
+
+Visual inference is a valid useful in diagnostics of predictive models
+
+To relieve human analysts of the job of diagnosing predictive models in the context of visual inference, computer vision
+
+Hence, to relieve human analysts of the job of diagnosing, automatically improve predictive models and assist vision-impaired people, this research aims to develop computer vision model to automate the reading
+1
+of data plots with application to predictive model diagnostics. The success of this research will enrich the applications of artificial intelligence in data visualization and improve the debugging process of artificial intelligence models.
+
+\hypertarget{model-architecture}{%
+\section{Model Architecture}\label{model-architecture}}
+
+Five computer vision models were trained to predict the probability of the given result plot being a null residual plot.
+
+\hypertarget{performance}{%
+\section{Performance}\label{performance}}
 
 \appendix
 
