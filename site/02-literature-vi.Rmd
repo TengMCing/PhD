@@ -1,4 +1,4 @@
-# Literature
+# Literature - Visual Inference
 
 ## Graphical Inference for Infovis
 
@@ -39,11 +39,6 @@ Rorschach protocol is used to calibrate our vision to the natural variability in
 
 The line up is consisted of $n-1$ decoys and $1$ plot of the true data. If we set $n = 19$, then under the null hypothesis, there is only $5$% chance to pick the plot of the true data. If we recruit $K$ observers, then under the null hypothesis, the p-value is $P(B(K, 0.05) \geq k)$.
 
-[comment]: <> (What is the probability of the true plot be the most different one?)
-
-[comment]: <> (What is the probability of the first plot be the most different one? == What is the probability of the second plot be the most different one?)
-
-
 ### Examples
 
 To use the line-up protocol, we need to:
@@ -71,6 +66,30 @@ The power of a statistical test is the probability of correctly convicting a gui
 ### Use
 
 An R package: nullabor
+
+## Statistical inference for exploratory data analysis and model diagnostics
+
+BibTex: 
+```
+@article{buja2009statistical,
+  title={Statistical inference for exploratory data analysis and model diagnostics},
+  author={Buja, Andreas and Cook, Dianne and Hofmann, Heike and Lawrence, Michael and Lee, Eun-Kyung and Swayne, Deborah F and Wickham, Hadley},
+  journal={Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences},
+  volume={367},
+  number={1906},
+  pages={4361--4383},
+  year={2009},
+  publisher={The Royal Society Publishing}
+}
+```
+
+### Keywords
+
+permutation tests, rotation tests, statistical graphics, visual data mining, simulation, cognitive perception.
+
+# Introduction
+
+
 
 
 
