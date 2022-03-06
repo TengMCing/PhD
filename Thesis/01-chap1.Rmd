@@ -15,7 +15,7 @@ library(ggplot2)
 
 
 
-## Artificial intelligence: Four Approaches
+## Artificial intelligence: Four Approaches {#se:ai}
 
 **Artificial intelligence** (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in @russell_artificial_2002, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
 
@@ -1226,11 +1226,18 @@ stargazer(mod2_factor, header = FALSE,
 
 Visual test can be used to make valid inference on visual discoveries and acknowledging people with confidence about the findings. However, the lack of scalability of this method due to relatively high human cost compared to conventional test limits its application in wider fields. To relieve human analysts of the job of diagnosing predictive models in the context of visual inference, AI agents which can read data plot, evaluate lineups, and provide decisions need to be built. 
 
-Considering there are different approches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, adopting one of the capacities required by the Turing test, namely machine learning, along with 
+Considering there are different approches of AI discussed in \ref{se:ai}, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision will be adopted.
 
-Thought process, human visual 
+Another possible method was to define distance metrics to measure difference between data plots for making mathematically prefect decisions. This method would work if such metrics can be obtained manually or approximated algorithmically. However, we considered it was too complex as a starting point. 
 
-## Discussion of potential methods
+## Automatic visual inference system
+
+For an automatic visual inference system, there are several possibilities of the type of inputs.
+
+
+Depend on the inputs and outputs, computer vision model can be integrated into an automatic visual inference system.  
+
+
 
 ### different approaches of AI
 
@@ -1276,3 +1283,103 @@ Five computer vision models were trained to predict the probability of the given
 
 
 ## Performance
+
+```{r}
+null_true_eval_dat <- data.frame()
+
+model_name <- c("VGG16", "VGG19", "Xception", "ResNet152V2", "InceptionV3")
+
+for (i in 1:5) {
+  mid_dat <- read_csv(here::here(glue::glue("data/cv/prediction/mod_{i}_null_both.csv")))
+  null_true_eval_dat <- bind_rows(null_true_eval_dat, mid_dat)
+  mid_dat <- read_csv(here::here(glue::glue("data/cv/prediction/mod_{i}_true_both.csv")))
+  null_true_eval_dat <- bind_rows(null_true_eval_dat, mid_dat)
+} 
+```
+
+```{r}
+null_true_eval_dat %>%
+  group_by(model, null) %>%
+  summarise(rate = mean(prediction == null)) %>%
+  pivot_wider(names_from = "null", values_from = "rate") %>%
+  ungroup() %>%
+  mutate(model = model_name) %>%
+  mutate(avg_rate = (`FALSE` + `TRUE`)/2) %>%
+  knitr::kable(col.names = c("Model", "Actual data plot correct rate", "Null plot correct rate", "Average correct rate"), 
+             booktabs = TRUE, 
+             caption  = 'Performance of computer vision models on null residual plot and acutal data plot.', 
+             label = "null-true-eval" ) 
+```
+
+```{r}
+lineup_eval_dat <- data.frame()
+
+for (i in 1:5) {
+  mid_dat <- read_csv(here::here(glue::glue("data/cv/prediction/mod_{i}_fixed_both.csv"))) %>%
+    mutate(model = i) 
+  lineup_eval_dat <- bind_rows(lineup_eval_dat, mid_dat)
+}
+
+eval_data_para <- readRDS(here::here("data/cv/eval_data_para.rds"))
+eval_data_para <- reduce(map(eval_data_para, as.data.frame), bind_rows)
+eval_original_data <- readRDS(here::here("data/cv/eval_original_data.rds"))
+```
+
+```{r}
+eval_original_data %>%
+  group_by(id, k) %>%
+  summarise(ans = first(null)) -> eval_lineup_ans
+```
+
+```{r}
+lineup_eval_dat %>%
+  left_join(eval_lineup_ans, by = c("set" = "id", "plot" = "k")) %>%
+  group_by(model, set) %>%
+  summarise(n_sel = sum(!predict), detect = sum(ans == FALSE & predict == FALSE)) -> lineup_eval_summary
+```
+
+```{r}
+cache_env <- new.env()
+lineup_eval_summary %>%
+  calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env) -> cv_results
+```
+```{r}
+cv_results %>%
+  mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
+  left_join(select(eval_original_data, id, effect_size) %>%
+              group_by(id) %>%
+              summarise(effect_size = first(effect_size)),
+            by = c("lineup_id" = "id")) -> cv_results
+
+cv_results %>%
+  mutate(type = ifelse(lineup_id <= 2500, "cubic", "heteroskedasticity")) -> cv_results
+```
+
+```{r}
+merged_survey %>%
+  mutate(exp_lineup_id = paste0(exp, "_", lineup_id)) %>%
+  select(exp_lineup_id, type, exp, effect_size) %>%
+  right_join(comb_pvalue) %>%
+  mutate(n_eval = factor(n_eval)) %>%
+  unnest_longer(col = p_value) %>%
+  mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  ggplot() +
+  geom_point(aes(log(effect_size), reject), alpha = 0.1, size = 1) +
+  geom_smooth(aes(log(effect_size), reject, group = "conventional"),
+              method = "glm", method.args = list(family = binomial), data = conv_result, 
+              se = FALSE, size = 1, linetype = 2, col = "grey80") +
+  geom_smooth(aes(log(effect_size), reject, group = n_eval, col = n_eval),
+              method = "glm", method.args = list(family = binomial), size = 0.5, se = FALSE) +
+  geom_smooth(aes(log(effect_size), as.numeric(reject), group = "cv"), data = cv_results,
+              se = FALSE, size = 1, method = "glm", method.args = list(family = binomial)) +
+  facet_wrap(~type, scales = "free_x") +
+  labs(col = "Number of evaluations") +
+  theme_light(base_size = 5) +
+  theme(legend.position = "bottom") +
+  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
+  guides(col = guide_legend(nrow = 1, byrow=TRUE)) +
+  xlab("Log of effect size") +
+  ylab("Rejected")
+```
+

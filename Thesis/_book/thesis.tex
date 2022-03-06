@@ -147,8 +147,8 @@ The contribution in Chapter \ref{ch:litreview} of this thesis was presented in t
 \hypertarget{is-what-we-see-really-there}{%
 \section{Is what we see really there?}\label{is-what-we-see-really-there}}
 
-\hypertarget{artificial-intelligence-four-approaches}{%
-\section{Artificial intelligence: Four Approaches}\label{artificial-intelligence-four-approaches}}
+\hypertarget{se:ai}{%
+\section{Artificial intelligence: Four Approaches}\label{se:ai}}
 
 \textbf{Artificial intelligence} (AI) is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in \textcite{russell_artificial_2002}, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
 
@@ -947,12 +947,16 @@ Akaike Inf. Crit. & 26,070.390 \\
 
 Visual test can be used to make valid inference on visual discoveries and acknowledging people with confidence about the findings. However, the lack of scalability of this method due to relatively high human cost compared to conventional test limits its application in wider fields. To relieve human analysts of the job of diagnosing predictive models in the context of visual inference, AI agents which can read data plot, evaluate lineups, and provide decisions need to be built.
 
-Considering there are different approches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, adopting one of the capacities required by the Turing test, namely machine learning, along with
+Considering there are different approches of AI discussed in \ref{se:ai}, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision will be adopted.
 
-Thought process, human visual
+Another possible method was to define distance metrics to measure difference between data plots for making mathematically prefect decisions. This method would work if such metrics can be obtained manually or approximated algorithmically. However, we considered it was too complex as a starting point.
 
-\hypertarget{discussion-of-potential-methods}{%
-\section{Discussion of potential methods}\label{discussion-of-potential-methods}}
+\hypertarget{automatic-visual-inference-system}{%
+\section{Automatic visual inference system}\label{automatic-visual-inference-system}}
+
+For an automatic visual inference system, there are several possibilities of the type of inputs.
+
+Depend on the inputs and outputs, computer vision model can be integrated into an automatic visual inference system.
 
 \hypertarget{different-approaches-of-ai}{%
 \subsection{different approaches of AI}\label{different-approaches-of-ai}}
@@ -1024,6 +1028,25 @@ Five computer vision models were trained to predict the probability of the given
 
 \hypertarget{performance}{%
 \section{Performance}\label{performance}}
+
+\begin{table}
+
+\caption{\label{tab:null-true-eval}Performance of computer vision models on null residual plot and acutal data plot.}
+\centering
+\begin{tabular}[t]{lrrr}
+\toprule
+Model & Actual data plot correct rate & Null plot correct rate & Average correct rate\\
+\midrule
+VGG16 & 0.7387 & 0.8850 & 0.81185\\
+VGG19 & 0.8029 & 0.8313 & 0.81710\\
+Xception & 0.7370 & 0.9213 & 0.82915\\
+ResNet152V2 & 0.6932 & 0.9233 & 0.80825\\
+InceptionV3 & 0.6691 & 0.9399 & 0.80450\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \appendix
 
