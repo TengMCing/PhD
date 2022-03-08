@@ -8,3 +8,7 @@ reading/*.pdf
 Milestone_1/data/
 
 Thesis/data/
+
+Milestone_1/_bookdown_files/
+
+Milestone_1/thesis.log
