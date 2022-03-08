@@ -120,20 +120,41 @@ Modern computer vision model could be a promising solution to this problem. As a
 
 Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020] and pairwise causality analysis [@singh_deep_2017]. However, evaluating lineups with computer vision model is a new field of study.
 
+# Research Problem
 
-# Structure of the Thesis (need disscussion)
+<!-- 1. Provide visual diagnostics for projection pursuit optimisation to examine whether the optimisers are able to find the optima, compare optimisation paths, inspect optimisers’ coverage of the space, and detect anomalies in the algorithms. -->
 
-An overview of the thesis, including some brief detail of the proposed content of all chapters. This should encompass a description of the theoretical and conceptual framework that underlies the thesis, and the procedures that are to be used in addressing the research questions 
+<!-- 2. Extend and enhance the visual diagnostic tools developed in the first project to stochastic optimal control problems, which is a multistage optimisation problem with more than two exogenous variables. -->
 
-The 
+<!-- 3. Improve the interpretability and explainability of stochastic optimal control algo- rithms by identifying the most important drivers in the optimal decisions suggested by the optimisers and studying how the decision changes across time. -->
 
 
+The main objective of this research is to build an automatic visual inference system for the purpose of conducting large-scale visual test. The research will focus on three projects as follows:
 
-The first project is 
 
-1. Automatic Visual Statistical Inference, with Application to Linear Regression Diagnostics
-2. ...
-3. ...
+1. Propose a prototype of automatic visual inference system for evaluating lineups of residual plots of the classical normal linear regression model and study factors that affect the performance of the system with comparison to human subjects.
+
+2. Extend and enhance the automatic visual inference system proposed in the first project to general lineup protocol problems by adopting image similarity assessed by computer vision models.
+
+3. Validate and apply the automatic visual inference system to predictive model diagnostics on empirical data.
+
+
+# Overview of the Thesis
+
+1. The first project provides a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The core of the system 
+
+Validation of the automatic system is made by comparing the power of human subject-assessed visual tests with the system-assessed visual tests. 
+
+2. The second project aims to develop an automatic visual inference system based on image comparison. 
+
+This project focused on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
+
+The first project provides visual diagnostics for projection pursuit optimisation, with a focus on the guided tour. A guided tour is constructed by combining the optimisation, for choosing new planes to visit, with a geodesic interpolation between planes to provide a smooth movie of projections for visualisation. The visual diagnostics include static graphics and animations to understand different aspects of the optimisers: its progression on improving the index value, its coverage of the search space and the comparison of different optimisers in different scenarios. What is learned will be used to modify and improve the performance of the optimisers.
+
+The second project aims to develop visual diagnostic tools for stochastic optimal control algorithms. In comparison to projection pursuit, optimisation in stochastic optimal control problems finds a sequence of discrete-valued decisions that are optimal at each time point. Exogenous variables that affect the decisions are also involved in the optimisation. The project will extend and build on the visual diagnostic tools developed in the first project to address stochastic optimal control optimisation.
+
+The third project aims to use visual techniques to understand variable importance in stochastic optimal control problem. The project will study how to interpret the contribution of potentially dozens of variables to the decision at a particular time and how the future decision would change with a change in the exogenous variables.
+
 
 
 
