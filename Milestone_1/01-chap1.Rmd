@@ -14,13 +14,24 @@ library(visage)
 
 # Background and Motivation
 
-
-The introduction of the report is organised as follows. Section \ref{se:predictive-modelling} discusses the predictive modelling culture and the use of data plots in predictive model diagnostics. Section \ref{se:vi} outlines the definition and terminology of visual inference. Section \ref{se:prespecification} presents the justification of the validity of visual inference. Section \ref{se:sampling-from-null} describes the sampling techniques in visual inference with an example of the classical normal linear regression model. Section \ref{se:lineup} introduces the lineup protocol and the estimation of $p$-value and power of a visual test. And lastly, Section \ref{se:limitation} points out the limitation of lineup protocol, which is also the motivation of this research, and the need of building an automatic visual inference system.
-
-
 <!-- ## Motivation -->
 
-<!-- Have you doubted what you found from a data plot was really there? Or have you had reservations about visual discoveries because they might be illusions? Data plots are prevalent in every field of nature and social science as it is one of the most recognized data visualization techniques. Without data plots, trends and patterns embed in the data would not be easy to discover. However, data plots are often over- or under-interpreted by human readers which leads to unsecured findings. This is unsatisfactory as confirmatory research is the foundation of science. -->
+<!-- Have you doubted what you found from a data plot was really there? Or have you had reservations about visual discoveries because they might be illusions? Data plots are prevalent in every field of nature and social science as it is one of the most recognized data visualization techniques. Without data plots, trends and patterns embed in the data will not be easy to discover. However, data plots are often over- or under-interpreted by human readers which leads to unsecured findings. This is unsatisfactory as confirmatory research is the foundation of science. -->
+
+<!-- In this research,  -->
+
+
+<!-- In this report, we focus on predictive model diagnostics -->
+
+<!-- While doing predictive model diagnostics -->
+
+<!-- In the introduction of this report, we will start by discussing the similar issues of the use of data plots in predictive model diagnostics. Then, in section \ref{se:vi}, the definition and terminology of visual inference will be outlined for addressing the issues. Section \ref{se:prespecification} and Section \ref{se:sampling-from-null} provides more details about visual inference, such as its validity and  -->
+
+
+<!-- describes the sampling techniques in visual inference with an example of the classical normal linear regression model. -->
+
+
+<!-- The introduction of the report is organised as follows. Section \ref{se:predictive-modelling} discusses the predictive modelling culture and the use of data plots in predictive model diagnostics. Section \ref{se:vi} outlines the definition and terminology of visual inference. Section \ref{se:prespecification} presents the justification of the validity of visual inference. Section \ref{se:sampling-from-null} describes the sampling techniques in visual inference with an example of the classical normal linear regression model. Section \ref{se:lineup} introduces the lineup protocol and the estimation of $p$-value and power of a visual test. And lastly, Section \ref{se:limitation} points out the limitation of lineup protocol, which is also the motivation of this research, and the need of building an automatic visual inference system. -->
 
 <!-- Visual inference, an inferential framework developed by @buja_statistical_2009, provides an option to test the visual findings, which helps solidify our confidence in using data plots. But one of the drawbacks of this framework is it requires human evaluation of data plots. Such requirement is unattainable when the number of data plots need for testing is large. Even if it can be fulfilled, the cost of labour would be exceedingly high. -->
 
@@ -141,7 +152,7 @@ The main objective of this research is to build an automatic visual inference sy
 
 # Overview of the Thesis
 
-The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Finally, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
+The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
 
 The second project aims to extend the automatic system to lineup protocol with no assumptions on the type of the data plot and the data generating process. It only requires the protocol to asks the evaluators to select the most different plot(s) from the lineup. The automatic system will be built upon image similarity produced by computer vision models. 
 
