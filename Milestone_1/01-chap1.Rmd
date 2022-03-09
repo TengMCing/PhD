@@ -1280,15 +1280,28 @@ Another possible method under the rational agent approach was to define distance
 
 ### Design of the Automatic System
 
-Depending on the desired input(s) and output(s) of the automatic system, the system can be designed in various ways. We considered the most general design would be which took inputs of multiple image files corresponding to data plots of a lineup, and outputted a list of selections made by the system. This was identical to what was provided to and asked of the observer in the human subject experiment.
+Depending on the desired input(s) and output(s) of the automatic system, the system can be designed in various ways. We considered the most general design would be which took inputs of multiple image files corresponding to data plots of a lineup, and outputted a $p$-value of the visual test conducted by the system. The human subject experiment was close to this design except the data plots are combined into a single image.
 
 Decision also needed to be made for the input and output format of the computer vision models. If the model took multiple data plots of a lineup as inputs, and outputted the predicted probabilities of the data plot being the most different one, then the post-processing step of the system would be a mapping from a list of numeric values between zero and one to a list of one-hot encoded binary values denoting the selections. This mapping could be an indicator function, i.e. a threshold for deciding whether to select a data plot or not. It could also be a combination of the indicator function and the order statistic to select the $M$ most likely data plots, where $M$ was a user-defined positive integer. In fact, the choice of the mapping function was flexible. 
 
-This design was reasonable but we found that it was difficult and slow to train the model. Instead, a simpler model design was used. The model took only one data plot as input at a time, and predicted the probability of the data plot being a null plot. In this case, the post-processing step was an indicator function for deciding whether the data plot is a null plot. By evaluating all $m$ plots of a lineup, multiple selections can be made.
+This design was reasonable but we found that it was difficult and slow to train the computer vision model. Instead, a simpler model design was used. The model took only one data plot as input at a time, and predicted the probability of the data plot being a null plot. In this case, the post-processing step was an indicator function for deciding whether the data plot is a null plot. By evaluating all $m$ plots of a lineup, multiple selections can be made. A summary of the system design is given in Figure \ref{fig:system-design}. 
+
+![Design of the automatic visual inference system. Every data plot of a lineup was evaluated by five models to decide whether or not to select the data plot. By combining the selections made by five models, $p$-value can be estimated. \label{fig:system-design}](figures/vi_system.pdf){width=550 height=236}
 
 ### Model Architecture and Model Training
 
-As mentioned in Section \ref{se:limitation}, modern computer vision model is built upon the deep neural network
+As mentioned in Section \ref{se:limitation}, modern computer vision model is built upon the deep neural network with tens of thousands of weights. Due to limited computing resources, we did not have the luxury to train a deep neural network from scratch. A technique called transfer learning was used to leverage features learned from an existing problem on our task. "It is used to improve a learner from one domain by transferring information from a related domain [@weiss_survey_2016]."
+
+The practical workflow was to take weights from a previously trained model to a new model, and froze them in training to prevent the knowledge preserved in the weights from being destroyed. Then, added some trainable layers on top of the frozen layers to solve the new problem.
+
+By using this workflow, we were not only able to reduce the training time, but also able to gain better performance because the pre-trained models we used were trained on a large dataset called ImageNet [@deng_imagenet_2009] with more than 14 million images on 1000 object classes. The famous annual competition ImageNet Large Scale Visual Recognition Challenge (ILSCRV) ran annually by the ImageNet project was a gold standard for evaluating the architecture of computer vision model. Among the leaderboard of ILSCRB, we picked architectures with low top-5 error rate and were also easy to configure. This includes VGG16 [@simonyan_very_2015], VGG19 [@simonyan_very_2015], Xception [@chollet_xception_2017], ResNet152V2 [@he_identity_2016] and InceptionV3 [@szegedy_rethinking_2015]. The Top-5 error rate is the average number the model failed to include the answer among its top five guesses.
+
+
+
+
+
+
+consists of taking features learned on one problem, and leveraging them on a new, similar problem. For instance, features from a model that has learned to identify racoons may be useful to kick-start a model meant to identify tanukis.
 
 
 
