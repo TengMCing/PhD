@@ -127,7 +127,7 @@ Although lineup protocol has already been integrated into data analysis of vario
 
 The "steam engine" of visual inference needs to be developed for relieving people's workload by automating repeating tasks and providing standard result in a control environment. Large-scale evaluation of visual tests is not possible without the use of technology and machines. 
 
-Modern computer vision model could be a promising solution to this problem. As a subfield of AI, computer vision with the modern deep learning architectures solved numerous critical problems in automation. Inspired by the vision processing in living organisms, the convolutional neural network was introduced by @fukushima_neocognitron_1982. Soon, this architecture was applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989. This was one of the earliest attempts which human successfully extract information from digital images via self-learning algorithms. Modern computer vision model is typically built on the deep neural network with convolutional layers [@fukushima_neocognitron_1982]. Convolutional layers take advantage of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. Numerous studies have shown that it can be used to effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. With the development of graphics processing units and the spread of high-performance personal computers, researches in computer vision become a new hype in the 21st century. Achievements such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018] and facial recognition [@emami_facial_2012] had a significant impact on our daily life.
+Modern computer vision model could be a promising solution to this problem. As a subfield of AI, computer vision with the modern deep learning architectures solved numerous critical problems in automation. Inspired by the vision processing in living organisms, the convolutional neural network (CNN) was introduced by @fukushima_neocognitron_1982. Soon, this architecture was applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989. This was one of the earliest attempts which human successfully extract information from digital images via self-learning algorithms. Modern computer vision model is typically built on the deep neural network with convolutional layers [@fukushima_neocognitron_1982]. Convolutional layers take advantage of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. Numerous studies have shown that it can be used to effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. With the development of graphics processing units and the spread of high-performance personal computers, researches in computer vision become a new hype in the 21st century. Achievements such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018] and facial recognition [@emami_facial_2012] had a significant impact on our daily life.
 
 Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020] and pairwise causality analysis [@singh_deep_2017]. However, evaluating lineups with computer vision model is a new field of study.
 
@@ -1284,89 +1284,51 @@ Depending on the desired input(s) and output(s) of the automatic system, the sys
 
 Decision also needed to be made for the input and output format of the computer vision models. If the model took multiple data plots of a lineup as inputs, and outputted the predicted probabilities of the data plot being the most different one, then the post-processing step of the system would be a mapping from a list of numeric values between zero and one to a list of one-hot encoded binary values denoting the selections. This mapping could be an indicator function, i.e. a threshold for deciding whether to select a data plot or not. It could also be a combination of the indicator function and the order statistic to select the $M$ most likely data plots, where $M$ was a user-defined positive integer. In fact, the choice of the mapping function was flexible. 
 
-This design was reasonable but we found that it was difficult and slow to train the computer vision model. Instead, a simpler model design was used. The model took only one data plot as input at a time, and predicted the probability of the data plot being a null plot. In this case, the post-processing step was an indicator function for deciding whether the data plot is a null plot. By evaluating all $m$ plots of a lineup, multiple selections can be made. A summary of the system design is given in Figure \ref{fig:system-design}. 
+This design was reasonable but we found that it was difficult and slow to train the computer vision model. Instead, a simpler model design was used. The model took only one data plot as input at a time, and predicted the probability of the data plot being a null plot. In this case, the post-processing step was an indicator function for deciding whether the data plot is a null plot. By evaluating all $m$ plots of a lineup, multiple selections can be made. Five different models were included in the system to act as five evaluators, such that the relationship between the number of models and the power of automatic visual test can be studied. A summary of the system design is given in Figure \ref{fig:system-design}. 
 
 ![Design of the automatic visual inference system. Every data plot of a lineup was evaluated by five models to decide whether or not to select the data plot. By combining the selections made by five models, $p$-value can be estimated. \label{fig:system-design}](figures/vi_system.pdf){width=550 height=236}
 
 ### Model Architecture and Model Training
 
-As mentioned in Section \ref{se:limitation}, modern computer vision model is built upon the deep neural network with tens of thousands of weights. Due to limited computing resources, we did not have the luxury to train a deep neural network from scratch. A technique called transfer learning was used to leverage features learned from an existing problem on our task. "It is used to improve a learner from one domain by transferring information from a related domain [@weiss_survey_2016]."
+As mentioned in Section \ref{se:limitation}, modern computer vision model is built upon the deep neural network with tens of thousands of parameters. Due to limited computing resources, we did not have the luxury to train a deep neural network from scratch. A technique called transfer learning was used to leverage features learned from an existing problem on our task. It improved the performance of the model by transferring information from one domain to another related domain [@weiss_survey_2016]. The practical workflow was to take parameters from a previously trained model to a new model, and freeze them in training to prevent the knowledge preserved in the parameters from being destroyed. Then, we added some trainable layers on top of the frozen layers to solve the new problem.
 
-The practical workflow was to take weights from a previously trained model to a new model, and froze them in training to prevent the knowledge preserved in the weights from being destroyed. Then, added some trainable layers on top of the frozen layers to solve the new problem.
+By using this workflow, we were not only able to dramatically reduce the training time, but also able to gain better performance because the pre-trained models we used were trained on a large dataset called ImageNet [@deng_imagenet_2009] with more than 14 million images on 1000 object classes. The famous annual competition ImageNet Large Scale Visual Recognition Challenge (ILSCRV) ran annually by the ImageNet project was a gold standard for evaluating the architecture of computer vision model. Among the leaderboard of ILSCRB, we picked architectures that were handy to implement and with low top-5 error rate. This included VGG16 [@simonyan_very_2015], VGG19 [@simonyan_very_2015], Xception [@chollet_xception_2017], ResNet152V2 [@he_identity_2016] and InceptionV3 [@szegedy_rethinking_2015]. The top-5 error rate is the average number the model failed to include the answer among its top five guesses. The overview of all five transer learning models are given in Table \ref{tab:vi-model-summary}. Note that the depth is the number of layers in the model.
 
-By using this workflow, we were not only able to reduce the training time, but also able to gain better performance because the pre-trained models we used were trained on a large dataset called ImageNet [@deng_imagenet_2009] with more than 14 million images on 1000 object classes. The famous annual competition ImageNet Large Scale Visual Recognition Challenge (ILSCRV) ran annually by the ImageNet project was a gold standard for evaluating the architecture of computer vision model. Among the leaderboard of ILSCRB, we picked architectures with low top-5 error rate and were also easy to configure. This includes VGG16 [@simonyan_very_2015], VGG19 [@simonyan_very_2015], Xception [@chollet_xception_2017], ResNet152V2 [@he_identity_2016] and InceptionV3 [@szegedy_rethinking_2015]. The Top-5 error rate is the average number the model failed to include the answer among its top five guesses.
+On top of the pre-trained model, we added a 2D global average pooling layer [@lin_network_2014], followed by a fully-connected dense layer with 256 nodes, a dropout layer [@srivastava_dropout_nodate] with 20% dropout rate, and a output layer with softmax as activation function. A diagram of the model architecture is given in Figure \ref{fig:model-arch}. 
 
+Global average pooling layer was a replacement of traditional fully-connected dense layers in CNN which flattened the feature map into a 1D tensor. Global average pooling layer took the average of the values over all the pixels in a channel, then flattened it into a 1D tensor. This enforced the correspondences between feature maps and categories, which made the feature maps easier to be interpreted as categories confidence maps. Further, unlike the dense layer, there was no parameters that needed to be optimized in global average pooling layer which reduce the risk of overfitting [@lin_network_2014]. 
 
+Dropout was primary used as a regularization technique to address overfitting. In training, the dropout layer would randomly temporaliy remove some nodes from the network with fixed probability $p$, which in our case, we used $p = 20$%. 
 
+Five models were trained on 10000 null plots and 10000 actual data plots simulated using the same parameter settings as the human subject experiments and balanced across cubic model and heteroskedasticity model. 20% training data was used as validation set. Image augmentation was applied to increase the diversity of the dataset during training, with random rotation angle ranged from zero to five degrees and random brightness ranged from 95% to 105%. Optimizer Adam [@kingma_adam_2017] was used with learning rate equal to 0.001. The loss function used in the model was binary cross-entropy, which can be expressed by: $$H = -N^{-1}\sum_{i=1}^{N}y_ilog(\hat{p}_i)+(1-y_i)log(1-\hat{p}_i),$$ where $N$ is the number of observations, $y_i$ is a realization of a binary random variable, and $\hat{p}_i$ is the predicted probability. 
 
+Early stopping was used to reduce training time and to avoid overfitting. If the validation loss did not decrease for five iterations, then the training procedure would stop. 
 
-
-consists of taking features learned on one problem, and leveraging them on a new, similar problem. For instance, features from a model that has learned to identify racoons may be useful to kick-start a model meant to identify tanukis.
-
-
-
-
-
-For an automatic visual inference system, types of inputs can be classified by two decisions: (i) whether to accept multiple image files as inputs, and (ii) whether to accept fitted model.
-
-single image file
-multiple image files
-
-fitted model
+The trained models were evaluated on 10000 null plots and 10000 actual data plots simulated by the same way as the training data. And the system was then evaluated on 2500 cubic lineups and 2500 heteroskedasticity lineups.
 
 
+![Architecture of the computer vision model. \label{fig:model-arch}](figures/vi_model.pdf){width=87 height=491}
 
-
-Depend on the inputs and outputs, computer vision model can be integrated into an automatic visual inference system.  
-
-
-
-
-
-### different approaches of AI
-
-- Not aim for understanding the thought process
-- Not aim for mimicking the human vision mechanism
-- May be able to define distance metrics to measure difference between data plots for making mathematically prefect decisions
-- May be able to use computer vision model to approximate how people evaluate lineups
-
-computer vision model:
-
-- Use human data to train model with human selection as target -> mimic the human behaviour
-- Use simulated lineup to train model with actual data plot as target -> assume the actual data plot is the most different one
-- Use simulated data plot to train model with null or not null as target -> limited to the alternatives given to the model, and Type I error can not be controlled
-- Use simulated data plot to train model, then let the model evaluate each plot of a lineup -> leads to multiple selections in a lineup, and the model does not compare different plots in a lineup
-  - Use a very large $m$ to ensure the null hypothesis can be rejected by a classifier slightly better than a random selector. The problem becomes how large the $m$ should be
-  - Use multiple models as multiple individuals to evaluate lineup -> Which models should be used? How many models should be used?
-- Let the model select multiple plots from a simulated lineup while comparing different plots in a lineup -> how to build such a system? 
-  - The input is $m$ plots, what is the output? The probability of being the most different one? 
-  - Then how many plots should be selected? Top 5? Or cumulative probability greater than a threshold? 
-  - How to select the threshold? 
-
-The primary drawbacks of visual inference are 
-
- infeasible in a large scale
-2. unfriendly to vision-impaired people 3. high finical cost and human cost
-4. time consuming
-
-Visual inference is a valid useful in diagnostics of predictive models 
-
-To relieve human analysts of the job of diagnosing predictive models in the context of visual inference, computer vision 
-
-Hence, to relieve human analysts of the job of diagnosing, automatically improve predictive models and assist vision-impaired people, this research aims to develop computer vision model to automate the reading
-1
-of data plots with application to predictive model diagnostics. The success of this research will enrich the applications of artificial intelligence in data visualization and improve the debugging process of artificial intelligence models.
-
-### Model Architecture
+```{r}
+data.frame(model = c("VGG16", "VGG19", "Xception", "ResNet152V2", "InceptionV3"),
+           depth = c(16, 19, 81, 307, 189) + 4,
+           total_parameters = c(14846530, 20156226, 21386538, 58856706, 22327842),
+           non_trainable = c(14714688, 20024384, 20861480, 58331648, 21802784)) %>%
+  mutate(trainable = total_parameters - non_trainable) %>%
+  mutate(top5 = c(90.1, 90, 94.5, 94.2, 93.7)/100) %>%
+  knitr::kable(col.names = c("Model", "Depth", "Total number of parameters", "Non-trainable parameters", "Trainable parameters", "Top-5 error rate"), 
+             booktabs = TRUE, 
+             caption  = 'Overview of the computer vision models.', 
+             label = "vi-model-summary" )
+```
 
 
 
-Five computer vision models were trained to predict the probability of the given result plot being a null residual plot.  
+### Results
+
+The performance of all five models evaluated on the test set is given in Table \ref{tab:null-true-eval}. From the result, we observed that the average balanced accuracy for all five models were around 80%. Breaking down into null and actual data plot, it was found that
 
 
-
-
-### Performance
 
 ```{r}
 null_true_eval_dat <- data.frame()
@@ -1392,7 +1354,7 @@ null_true_eval_dat %>%
   select(-model) %>%
   knitr::kable(col.names = c("", "Actual data plot detection rate", "Null plot detection rate", "Average detection rate"), 
              booktabs = TRUE, 
-             caption  = 'Performance of computer vision models on null residual plot and acutal data plot.', 
+             caption  = 'Performance of computer vision models on null residual plot and acutal data plot of test data.', 
              label = "null-true-eval" ) %>%
   kableExtra::kable_styling(latex_options = "scale_down") %>%
   kableExtra::pack_rows("VGG16", 1, 2, bold = TRUE, italic = TRUE, underline = TRUE) %>%
@@ -1430,9 +1392,16 @@ lineup_eval_dat %>%
 ```
 
 ```{r}
-cache_env <- new.env()
+if (file.exists(here::here("data/cache_env.rds"))) {
+  cache_env <- readRDS(here::here("data/cache_env.rds"))
+} else {
+  cache_env <- new.env()
+}
+
 lineup_eval_summary %>%
   calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env) -> cv_results
+
+saveRDS(cache_env, file = here::here("data/cache_env.rds"))
 ```
 
 
@@ -1492,8 +1461,16 @@ lineup_eval_dat %>%
   group_by(model, set) %>%
   summarise(n_sel = sum(!predict), detect = sum(ans == FALSE & predict == FALSE))  -> lineup_pseudo_summary
 
+if (file.exists(here::here("data/cache_env.rds"))) {
+  cache_env <- readRDS(here::here("data/cache_env.rds"))
+} else {
+  cache_env <- new.env()
+}
+
 lineup_pseudo_summary %>%
   calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env) -> pseudo_results
+
+saveRDS(cache_env, file = here::here("data/cache_env.rds"))
 
 pseudo_results %>%
   mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
@@ -1509,7 +1486,11 @@ The term content-based image retrieval (CBIR) was first introduced by @kato_data
 
 By adopting the techniques developed in query by example content-based image retrieval, we aims to build automatic general-purpose visual inference system based on image comparison in the second project.  
 
-# Visual Diagnostics for Predictive Models with ... 
+# Automatic Visual Infernce for Predictive Model Diagnostics 
+
+Tools for Visual inference has been applied to 
+
+
 
 # Timeline
 
