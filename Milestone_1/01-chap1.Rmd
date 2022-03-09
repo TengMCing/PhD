@@ -1484,7 +1484,11 @@ pseudo_results %>%
 ```
 
 
-# General Purpose Automatic Visual Statistical Inference System 
+# General-Purpose Automatic Visual Statistical Inference System 
+
+The term content-based image retrieval (CBIR) was first introduced by @kato_database_1992 as a field of study which aimes to retrieve image from large-scale image databases based on information derived from the image itself, such as colour, shape and texture [@rafiee_review_2010]. According to @zhou_recent_2017, reverse image search is one of the CBIR query technique and is sometimes called query by example (QBE), which performs image search based on the image example provide by the user. Since QBE is the most intuitive query formation, it has been widely explored in the research on CBIR and search engines such as Google Image [@google_google_2022] and TinEye [@tineye_tineye_2022] provide accessible search by image services to public. In CBIR, the most common method for comparing images is using image similarity or image distance metrics, which takes into account various features extracted from the image [@zhou_recent_2017].
+
+By adopting the techniques developed in query by example content-based image retrieval, we aims to build automatic general-purpose visual inference system based on image comparison in the second project.  
 
 # Visual Diagnostics for Predictive Models with ... 
 
