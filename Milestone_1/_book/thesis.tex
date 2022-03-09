@@ -178,7 +178,9 @@ The third project aims to apply the automatic system to predictive model diagnos
 \hypertarget{automatic-visual-statistical-inference-for-linear-regression-diagnostics}{%
 \chapter{Automatic Visual Statistical Inference for linear regression diagnostics}\label{automatic-visual-statistical-inference-for-linear-regression-diagnostics}}
 
-This project focused on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
+This project focuses on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
+
+Because the first project is still ongoing, we consider the result we have is not enough to write as a paper at the moment. Hence, the material provided in this section is two main parts of the draft paper that will contain enough details for understanding the project.
 
 \hypertarget{human-subject-exeriments}{%
 \section{Human Subject Exeriments}\label{human-subject-exeriments}}
@@ -853,30 +855,12 @@ Akaike Inf. Crit. & 26,070.390 \\
 \hypertarget{automatic-visual-inference-system}{%
 \section{Automatic Visual Inference System}\label{automatic-visual-inference-system}}
 
-Visual tests can be used to make valid inference for visual discoveries while acknowledging people with confidence about the findings. However, the lack of scalability of this method limits its application in wider fields. The need of automatic visual inference system is auto data analysis and machine learning system.
-
-AI agents which can read data plot and evaluate lineups could
-
-Considering there are different approches of AI discussed in \ref{se:ai}, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision will be adopted.
-
-Another possible method was to define distance metrics to measure difference between data plots for making mathematically prefect decisions. This method would work if such metrics can be obtained manually or approximated algorithmically. However, we considered it was too complex as a starting point.
-
-\hypertarget{automatic-visual-inference-system-1}{%
-\subsection{Automatic visual inference system}\label{automatic-visual-inference-system-1}}
-
-For an automatic visual inference system, types of inputs can be classified by two decisions: (i) whether to accept multiple image files as inputs, and (ii) whether to accept fitted model.
-
-single image file
-multiple image files
-
-fitted model
-
-Depend on the inputs and outputs, computer vision model can be integrated into an automatic visual inference system.
+Lineup protocol can be used to make valid inference for visual discoveries, but one of the drawbacks of this protocol is it requires human evaluation of data plots. Such requirement is unattainable when the number of data plots need for testing is large. Even if it can be fulfilled, the cost of labour would be exceedingly high. Hence, there is a need of building an automatic visual inference system to read data plots, evaluate lineups and provide meaningful decisions. Since this desired automatic system is technically an agent intended to play the role of evaluators as humans in lineup protocol, some degree of intelligence needs to be demonstrated. This brings us to Artificial Intelligence (AI).
 
 \hypertarget{se:ai}{%
 \subsection{Artificial Intelligence: Four Approaches}\label{se:ai}}
 
-Since the automatic visual inference system is intended to play the role of evaluators as humans in visual inference, some degree of intelligence needs to be demonstrated. This brings us to one of the popular filed of study - \textbf{Artificial Intelligence} (AI). AI is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in \textcite{russell_artificial_2002}, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
+AI is the field of research concerned with understanding and building machines who can demonstrate intelligence. As discussed in \textcite{russell_artificial_2002}, historically, there are disagreements among researchers about the definition of intelligence, which is caused by two critical questions:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -887,13 +871,33 @@ Since the automatic visual inference system is intended to play the role of eval
   Without the thought process and reasoning, are behaviours sufficient to demonstrate intelligence?
 \end{enumerate}
 
-Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in Figure \ref{fig:two-dim-ai}, where the row is ``Human'' vs.~``Rational'', and the column is ``Behaviour'' vs.~``Thought''. Positioning at the top right cell, the \textbf{rational agent approach} aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the \textbf{``laws of thought'' approach} focus on understanding the logic behind the rationality. Closely related to \textbf{cognitive science}, the \textbf{cognitive modelling approach} attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the \textbf{Turing test approach} is built upon the famous \textbf{Turing test} proposed by \textcite{turing_computing_1950}. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes \textbf{natural language processing} for communication with human, \textbf{knowledge representation} for encoding knowledge, \textbf{automated reasoning} for derivation of conclusions and \textbf{machine learning} for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the \textbf{total Turing test} proposed by \textcite{harnad_other_1991}. It adds three new requirements to the list, including \textbf{computer vision}, \textbf{speech recognition} and \textbf{robotics}, which are response for interactions with the physical world. Notably, all seven required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century \autocite{russell_artificial_2002}.
+Based on the answer to the above questions, four major approaches to pursue AI have been established. These approaches can be summarized into a two by two table as shown in Figure \ref{fig:two-dim-ai}, where the row is ``Human'' vs.~``Rational'', and the column is ``Behaviour'' vs.~``Thought''. Positioning at the top right cell, the rational agent approach aims to build agent that perform mathematically perfect acts such that the best expected outcome can always be achieved. In contrast, the ``laws of thought'' approach focus on understanding the logic behind the rationality. Closely related to cognitive science, the cognitive modelling approach attempts to express theories of human cognition as computer program to mimic the thought process of human. Lastly, the Turing test approach is built upon the famous Turing test proposed by \textcite{turing_computing_1950}. The test can be roughly described as, whether a human can distinguish another human from a computer with written communications only. To pass the test, several capabilities of computer are required. This includes natural language processing for communication with human, knowledge representation for encoding knowledge, automated reasoning for derivation of conclusions and machine learning for improving AI automatically through experience and data. Some researchers argued that written communication is insufficient to demonstrate intelligence, and some degree of physical simulation of a person is still necessary. One such example is the total Turing test proposed by \textcite{harnad_other_1991}. It adds three new requirements to the list, including computer vision, speech recognition and robotics, which are response for interactions with the physical world. Notably, all seven required capabilities have become major subfields of AI today. And their development has made AI one of the fastest-growing fields in the 21st century \autocite{russell_artificial_2002}.
 
 \begin{figure}
 \centering
 \includegraphics{thesis_files/figure-latex/two-dim-ai-1.pdf}
 \caption{\label{fig:two-dim-ai}Four possible approaches to pursue AI based on the two dimensions in AI research - human vs.~rational and thought vs.~behavior \autocite{russell_artificial_2002}.}
 \end{figure}
+
+Considering there are different approches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision were adopted.
+
+Another possible method under the rational agent approach was to define distance metrics to measure difference between data plots for making mathematically prefect decisions. This method would work if such metrics can be obtained manually or approximated algorithmically. However, we considered it was too complex to fit into our prototype automatic system. But we will revisited this method in our second project.
+
+\hypertarget{design-of-the-automatic-system}{%
+\subsection{Design of the Automatic System}\label{design-of-the-automatic-system}}
+
+Depended on the inputs and outputs of the automatic system, various designs arised.
+
+A system can be summarised
+
+For an automatic visual inference system, types of inputs can be classified by two decisions: (i) whether to accept multiple image files as inputs, and (ii) whether to accept fitted model.
+
+single image file
+multiple image files
+
+fitted model
+
+Depend on the inputs and outputs, computer vision model can be integrated into an automatic visual inference system.
 
 \hypertarget{different-approaches-of-ai}{%
 \subsection{different approaches of AI}\label{different-approaches-of-ai}}
