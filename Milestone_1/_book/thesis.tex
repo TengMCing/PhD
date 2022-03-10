@@ -624,7 +624,7 @@ For heteroskedasticity model, this phenomenon was more obvious as the curves of 
 
 For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of nonlinearity as a visual task can be completed reliably by human when the effect size is large enough.
 
-As shown in Figure \ref{fig:powerglm}, both F-test and Breusch--Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made.
+As shown in Figure \ref{fig:powerglm}, both F-test and Breusch--Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made. It was also found that there was a huge gap between the conventional curves and the visual test curves at the middle of the plot. We further analysed the lineup with the corresponding effect size. Figure \ref{fig:mid-cubic-lineup-example} and \ref{fig:mid-heter-lineup-example} showed that human was indeed hard to identify the pattern at this level of difficulty. However, we as researchers of this project could tell which was the actual data plot by carefully comparing the plots of the lineup since we knew all possible shapes of the residual plot beforehand.
 
 \begin{table}[!htbp] \centering 
   \caption{Quasi-binomial logistic regressions with estimated power as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regressions were fitted for different number of evaluations.} 
@@ -680,6 +680,18 @@ Observations & 630 & 527 & 473 & 443 & 375 \\
 \centering
 \includegraphics{thesis_files/figure-latex/powerglm-1.pdf}
 \caption{\label{fig:powerglm}Quasi-binomial logistic regressions with estimated power as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for both cubic and heteroskedasticity model. Five regression were fitted for different number of evaluations shown in five different colours. Estimated power are drawn in black. The dashed curvses are the power of F-test and Breusch--Pagan test respectively.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/mid-cubic-lineup-example-1.pdf}
+\caption{\label{fig:mid-cubic-lineup-example}An example lineup for the cubic model with effect size equal to 0.18. The answer to this linup is seven. It was not suprised participants could not confidently identify the actual data plot given the pattern was very weak.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/mid-heter-lineup-example-1.pdf}
+\caption{\label{fig:mid-heter-lineup-example}An example lineup for the heteroskedasticity model with effect size equal to 17.5. The answer to this linup is two. The butterfly shape could merely being recognised.}
 \end{figure}
 
 Another method we used to model the power was to collect all decisions made by \(K\choose{K-j}\) different outcomes for \(V_{K-j}\), and directly fit a binomial generalized linear model with natural logarithm of effect size as the regressor. This method skipped the calculation of the estimated power \(R/{K\choose{K-j}}\), and regressed on the binary outcome with larger sample size. Results of the fitted model is given in Figure \ref{fig:powerglmsecond}, Table \ref{tab:powerglmhetersecond} and Table \ref{tab:powerglmcubicsecond}. According to Figure \ref{fig:powerglmsecond}, this method gave clearer separation between curves for heteroskedasticity model. Noticeably, fitted power of visual test with five evaluations matched the power of conventional test at large effect size.

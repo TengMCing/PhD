@@ -908,7 +908,8 @@ For heteroskedasticity model, this phenomenon was more obvious as the curves of 
 
 For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of nonlinearity as a visual task can be completed reliably by human when the effect size is large enough.  
 
-As shown in Figure \@ref(fig:powerglm), both F-test and Breusch–Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made.
+As shown in Figure \@ref(fig:powerglm), both F-test and Breusch–Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made. It was also found that there was a huge gap between the conventional curves and the visual test curves at the middle of the plot. We further analysed the lineup with the corresponding effect size. Figure \ref{fig:mid-cubic-lineup-example} and \ref{fig:mid-heter-lineup-example} showed that human was indeed hard to identify the pattern at this level of difficulty. However, we as researchers of this project could tell which was the actual data plot by carefully comparing the plots of the lineup since we knew all possible shapes of the residual plot beforehand.
+
 
 ```{r}
 env <- new.env()
@@ -1100,6 +1101,29 @@ merged_survey %>%
   scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
   xlab("Log of effect size") +
   ylab("Estimated power")
+```
+
+```{r mid-cubic-lineup-example, fig.cap="An example lineup for the cubic model with effect size equal to 0.18. The answer to this linup is seven. It was not suprised participants could not confidently identify the actual data plot given the pattern was very weak. "}
+# merged_survey %>%
+#   filter(exp == 2 & type == "cubic" & -0.5< log(effect_size) & log(effect_size) < 0.5) %>%
+#   head()
+
+VI_MODEL$plot_lineup(mutate(lineup_dat_big[[59]]$data, .fitted = .pred), 
+                        remove_axis = TRUE, 
+                        remove_grid_line = TRUE,
+                        theme = theme_light())
+```
+
+```{r mid-heter-lineup-example, fig.cap="An example lineup for the heteroskedasticity model with effect size equal to 17.5. The answer to this linup is two. The butterfly shape could merely being recognised. "}
+# merged_survey %>%
+#   filter(exp == 2 & type == "heteroskedasticity" & 2< log(effect_size) & log(effect_size) < 3) %>%
+#   .$lineup_id %>%
+#   factor()
+
+VI_MODEL$plot_lineup(mutate(lineup_dat_big[[136]]$data, .fitted = .pred), 
+                        remove_axis = TRUE, 
+                        remove_grid_line = TRUE,
+                        theme = theme_light())
 ```
 
 Another method we used to model the power was to collect all decisions made by $K\choose{K-j}$ different outcomes for $V_{K-j}$, and directly fit a binomial generalized linear model with natural logarithm of effect size as the regressor. This method skipped the calculation of the estimated power $R/{K\choose{K-j}}$, and regressed on the binary outcome with larger sample size. Results of the fitted model is given in Figure \@ref(fig:powerglmsecond), Table \@ref(tab:powerglmhetersecond) and Table \@ref(tab:powerglmcubicsecond). According to Figure \@ref(fig:powerglmsecond), this method gave clearer separation between curves for heteroskedasticity model. Noticeably, fitted power of visual test with five evaluations matched the power of conventional test at large effect size.   
