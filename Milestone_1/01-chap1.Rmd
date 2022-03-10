@@ -133,7 +133,7 @@ Using computer vision models to read data plots is not a general choice. some fi
 
 ## Structure of the Report
 
-The remainder of the report is organised as follows. Chapter \ref{se:research-problem} outlines the three research problems. Chapter \ref{se:overview} gives an overview of the thesis including descriptions of three projects. Chapter \ref{#se:project-1} presents the human subject experiments conducted in the first project along with the prototype of the automatic visual inference system. Chapter \ref{se:project-2} 
+The remainder of the report is organised as follows. Chapter \ref{se:research-problem} outlines the three research problems. Chapter \ref{se:overview} gives an overview of the thesis including descriptions of three projects. Chapter \ref{se:project-1} presents the human subject experiments conducted in the first project along with the prototype of the automatic visual inference system. Chapter \ref{se:project-2} 
 
 
 <!-- presents an almost finished paper and its associated R package, ferrn, on visual diagnostics of projection pursuit optimisation. Chapter 3 introduces the stochastic optimal control problem and proposes visual diagnostics for its optimisers. Chapter 4 describes the interpretability of stochastic optimal control for decision making. And lastly, Chapter 5 outlines the timeline for future work. -->
@@ -157,7 +157,7 @@ The main objective of this research is to build an automatic visual inference sy
 3. Validate and apply the automatic visual inference system to predictive model diagnostics on empirical data.
 
 
-# Overview of the Thesis {se:overview}
+# Overview of the Thesis {#se:overview}
 
 The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
 
