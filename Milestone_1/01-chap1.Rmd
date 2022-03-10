@@ -1319,15 +1319,17 @@ data.frame(model = c("VGG16", "VGG19", "Xception", "ResNet152V2", "InceptionV3")
   knitr::kable(col.names = c("Model", "Depth", "Total number of parameters", "Non-trainable parameters", "Trainable parameters", "Top-5 error rate"), 
              booktabs = TRUE, 
              caption  = 'Overview of the computer vision models.', 
-             label = "vi-model-summary" )
+             label = "vi-model-summary" ) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
 ```
 
 
 
 ### Results
 
-The performance of all five models evaluated on the test set is given in Table \ref{tab:null-true-eval}. From the result, we observed that the average balanced accuracy for all five models were around 80%. Breaking down into null and actual data plot, it was found that
+The performance of all five models evaluated on the test set is given in Table \ref{tab:null-true-eval}. From the result, we observed that the average balanced accuracy for all five models were around 80%. Breaking down into null and actual data plot, it was found that models had a better performance on null plot detection. Or we could interpret it as our models tended to predict null plot as the answer. Further, models were less likely to predict null plot as the answer when the data was simulated from a cubic model, which resulted in slightly higher detection rate for actual data plot. In overall, these five model were good at detecting null plots but were not excellent in picking up residual plots with model defects especially for heteroskedasticity patterns. 
 
+Combining with the overview of models presented in Table \ref{tab:vi-model-summary}, it was observed that models with large number of layers and parameters did worse in detecting actual data plot. One possible explanation of this phenomenon was the information was highly summarised and features corresponding to patterns might be lost in the depth of the architecture. Other than that, we did not find a strong relationship between detection rate and the meta variables of models. 
 
 
 ```{r}
@@ -1343,6 +1345,7 @@ for (i in 1:5) {
 } 
 ```
 
+
 ```{r}
 null_true_eval_dat %>%
   mutate(type = ifelse(id <= 5000, "Cubic", "Heteroskedasticity")) %>% 
@@ -1354,7 +1357,7 @@ null_true_eval_dat %>%
   select(-model) %>%
   knitr::kable(col.names = c("", "Actual data plot detection rate", "Null plot detection rate", "Average detection rate"), 
              booktabs = TRUE, 
-             caption  = 'Performance of computer vision models on null residual plot and acutal data plot of test data.', 
+             caption  = 'Performance of computer vision models on null residual plot and acutal data plot of test data. Models were tested on 10000 null plots and 10000 actual data plots simulated using the same parameter settings as the human subject experiments and balanced across cubic model and heteroskedasticity model.', 
              label = "null-true-eval" ) %>%
   kableExtra::kable_styling(latex_options = "scale_down") %>%
   kableExtra::pack_rows("VGG16", 1, 2, bold = TRUE, italic = TRUE, underline = TRUE) %>%
@@ -1363,6 +1366,11 @@ null_true_eval_dat %>%
   kableExtra::pack_rows("ResNet152V2", 7, 8, bold = TRUE, italic = TRUE, underline = TRUE) %>%
   kableExtra::pack_rows("InceptionV3", 9, 10, bold = TRUE, italic = TRUE, underline = TRUE)
 ```
+
+
+By integrating all five models into the system, the automatic visual inference system was able to make decision on lineup. The performance of the system was given in Figure \ref{fig:system-performance}. According to the result, the estimated power of the system was close to the power of a visual test evaluated by two human subjects at large effect size. And for small effect size, the estimated power of the system surpassed the power of human visual test by a large margin, but it was still less powerful than the conventional test. Patterns related to the cubic model were easy to be detected by both human and the system, so both power curves reached one at large effect size. But for heteroskedasticity model, the system could not wisely tell the difference between the null plot and an actual data plot. We observed the similar result from the detection rate in Table \ref{tab:null-true-eval}.
+
+
 
 ```{r}
 lineup_eval_dat <- data.frame()
@@ -1401,6 +1409,10 @@ if (file.exists(here::here("data/cache_env.rds"))) {
 lineup_eval_summary %>%
   calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env) -> cv_results
 
+lineup_eval_summary %>%
+  calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env, comb = TRUE,
+                     n_eval = 1:5) -> cv_results2
+
 saveRDS(cache_env, file = here::here("data/cache_env.rds"))
 ```
 
@@ -1417,7 +1429,7 @@ cv_results %>%
   mutate(type = ifelse(lineup_id <= 2500, "cubic", "heteroskedasticity")) -> cv_results
 ```
 
-```{r}
+```{r system-performance, fig.cap="Estimated power of the automatic visual inference system evaluated on 2500 lineups and 2500 lineups simulated using the cubic model and heteroskedasticity model respectively against the natural logarithm of the effect size. The dashed curves are power of conventional tests, the blue curves are the estimated power of the system, and the curves in other colours are the estimated power obtained from the experiments. "}
 merged_survey %>%
   mutate(exp_lineup_id = paste0(exp, "_", lineup_id)) %>%
   select(exp_lineup_id, type, exp, effect_size) %>%
@@ -1427,7 +1439,7 @@ merged_survey %>%
   mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
   mutate(reject = as.numeric(reject)) %>%
   ggplot() +
-  geom_point(aes(log(effect_size), reject), alpha = 0.1, size = 1) +
+  # geom_point(aes(log(effect_size), reject), alpha = 0.1, size = 1) +
   geom_smooth(aes(log(effect_size), reject, group = "conventional"),
               method = "glm", method.args = list(family = binomial), data = conv_result, 
               se = FALSE, size = 1, linetype = 2, col = "grey80") +
@@ -1444,6 +1456,41 @@ merged_survey %>%
   xlab("Log of effect size") +
   ylab("Rejected")
 ```
+
+
+We also verified the type-I error of the system to see whether it was lower than the desired significance level imposed. It was done by evaluating 5000 lineups without any model defects. The results showed that the false positive rate was around $0.003$, which was smaller than 0.05. This suggested that we slightly overestimated the $p$-value of the automatic visual test, which leaded to less rejection of the null hypothesis. A simple way to address this issue was to relax the significance level. It was found that if we set $\alpha = 0.1$, then the false positive rate was around 0.015. And if we set $\alpha = 0.2$, then the rate increased to around 0.4. The reason of the overestimation of the $p$-value was worth to be researched in future studies. 
+
+
+If we reduced the number of models used in the system, the estimated power of the automatic visual test would change. Figure \ref{fig:comb-system-power} showed five power curves corresponding to number of models ranged from one to five. It was found that as the number of models increased, the estimated power of the system increased, but the amount of improvement decreased. In fact, from Figure \ref{fig:comb-system-power}, we would not expect the estimated power increased a lot when the number of models greater than five.
+
+```{r comb-system-power, fig.cap="Estimated power of the automatic visual inference system for number of evaluation ranged from one to five and evaluated on 2500 lineups and 2500 lineups simulated using the cubic model and heteroskedasticity model respectively against the natural logarithm of the effect size. The dashed curves are power of conventional tests, the curves in other colours are the estimated power of the system with different number of evaluations. Decision made the system were drawn with black marker. "}
+cv_results2 %>%
+  left_join(select(eval_original_data, id, effect_size) %>%
+              group_by(id) %>%
+              summarise(effect_size = first(effect_size)),
+            by = c("lineup_id" = "id")) %>%
+  unnest_longer(col = p_value) %>%
+  mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  mutate(n_eval = factor(n_eval)) %>%
+  mutate(type = ifelse(lineup_id <= 2500, "cubic", "heteroskedasticity")) %>%
+  ggplot() +
+  geom_point(aes(log(effect_size), reject), alpha = 0.1, size = 1) +
+  geom_smooth(aes(log(effect_size), reject, group = "conventional"),
+              method = "glm", method.args = list(family = binomial), data = conv_result,
+              se = FALSE, size = 1, linetype = 2, col = "grey80") +
+  geom_smooth(aes(log(effect_size), reject, group = n_eval, col = n_eval),
+              method = "glm", method.args = list(family = binomial), size = 0.5, se = FALSE) +
+  facet_wrap(~type, scales = "free_x") +
+  labs(col = "Number of evaluations") +
+  theme_light(base_size = 5) +
+  theme(legend.position = "bottom") +
+  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
+  guides(col = guide_legend(nrow = 1, byrow=TRUE)) +
+  xlab("Log of effect size") +
+  ylab("Rejected")
+```
+
 
 
 
@@ -1471,12 +1518,6 @@ lineup_pseudo_summary %>%
   calc_p_value_multi(lineup_id = "set", detected = "detect", n_sel = "n_sel", cache_env = cache_env) -> pseudo_results
 
 saveRDS(cache_env, file = here::here("data/cache_env.rds"))
-
-pseudo_results %>%
-  mutate(reject = eval_p_value(p_value, tol = 1e-2)) %>%
-  mutate(type = ifelse(lineup_id <= 2500, "Cubic", "Heteroskedasticity")) %>%
-  group_by(type) %>%
-  summarise(rate = mean(reject))
 ```
 
 
@@ -1488,7 +1529,7 @@ By adopting the techniques developed in query by example content-based image ret
 
 # Automatic Visual Infernce for Predictive Model Diagnostics 
 
-Tools for Visual inference has been applied to 
+...
 
 
 

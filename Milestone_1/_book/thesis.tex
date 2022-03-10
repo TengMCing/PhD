@@ -925,6 +925,7 @@ The trained models were evaluated on 10000 null plots and 10000 actual data plot
 
 \caption{\label{tab:vi-model-summary}Overview of the computer vision models.}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrrrr}
 \toprule
 Model & Depth & Total number of parameters & Non-trainable parameters & Trainable parameters & Top-5 error rate\\
@@ -935,17 +936,19 @@ Xception & 85 & 21386538 & 20861480 & 525058 & 0.945\\
 ResNet152V2 & 311 & 58856706 & 58331648 & 525058 & 0.942\\
 InceptionV3 & 193 & 22327842 & 21802784 & 525058 & 0.937\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \hypertarget{results-1}{%
 \subsection{Results}\label{results-1}}
 
-The performance of all five models evaluated on the test set is given in Table \ref{tab:null-true-eval}. From the result, we observed that the average balanced accuracy for all five models were around 80\%. Breaking down into null and actual data plot, it was found that
+The performance of all five models evaluated on the test set is given in Table \ref{tab:null-true-eval}. From the result, we observed that the average balanced accuracy for all five models were around 80\%. Breaking down into null and actual data plot, it was found that models had a better performance on null plot detection. Or we could interpret it as our models tended to predict null plot as the answer. Further, models were less likely to predict null plot as the answer when the data was simulated from a cubic model, which resulted in slightly higher detection rate for actual data plot. In overall, these five model were good at detecting null plots but were not excellent in picking up residual plots with model defects especially for heteroskedasticity patterns.
+
+Combining with the overview of models presented in Table \ref{tab:vi-model-summary}, it was observed that models with large number of layers and parameters did worse in detecting actual data plot. One possible explanation of this phenomenon was the information was highly summarised and features corresponding to patterns might be lost in the depth of the architecture. Other than that, we did not find a strong relationship between detection rate and the meta variables of models.
 
 \begin{table}
 
-\caption{\label{tab:null-true-eval}Performance of computer vision models on null residual plot and acutal data plot of test data.}
+\caption{\label{tab:null-true-eval}Performance of computer vision models on null residual plot and acutal data plot of test data. Models were tested on 10000 null plots and 10000 actual data plots simulated using the same parameter settings as the human subject experiments and balanced across cubic model and heteroskedasticity model.}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lrrr}
@@ -976,15 +979,23 @@ The performance of all five models evaluated on the test set is given in Table \
 \end{tabular}}
 \end{table}
 
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-45-1.pdf}
+By integrating all five models into the system, the automatic visual inference system was able to make decision on lineup. The performance of the system was given in Figure \ref{fig:system-performance}. According to the result, the estimated power of the system was close to the power of a visual test evaluated by two human subjects at large effect size. And for small effect size, the estimated power of the system surpassed the power of human visual test by a large margin, but it was still less powerful than the conventional test. Patterns related to the cubic model were easy to be detected by both human and the system, so both power curves reached one at large effect size. But for heteroskedasticity model, the system could not wisely tell the difference between the null plot and an actual data plot. We observed the similar result from the detection rate in Table \ref{tab:null-true-eval}.
 
-\begin{verbatim}
-## # A tibble: 2 x 2
-##   type                 rate
-##   <chr>               <dbl>
-## 1 Cubic              0.0056
-## 2 Heteroskedasticity 0.0064
-\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/system-performance-1.pdf}
+\caption{\label{fig:system-performance}Estimated power of the automatic visual inference system evaluated on 2500 lineups and 2500 lineups simulated using the cubic model and heteroskedasticity model respectively against the natural logarithm of the effect size. The dashed curves are power of conventional tests, the blue curves are the estimated power of the system, and the curves in other colours are the estimated power obtained from the experiments.}
+\end{figure}
+
+We also verified the type-I error of the system to see whether it was lower than the desired significance level imposed. It was done by evaluating 5000 lineups without any model defects. The results showed that the false positive rate was around \(0.003\), which was smaller than 0.05. This suggested that we slightly overestimated the \(p\)-value of the automatic visual test, which leaded to less rejection of the null hypothesis. A simple way to address this issue was to relax the significance level. It was found that if we set \(\alpha = 0.1\), then the false positive rate was around 0.015. And if we set \(\alpha = 0.2\), then the rate increased to around 0.4. The reason of the overestimation of the \(p\)-value was worth to be researched in future studies.
+
+If we reduced the number of models used in the system, the estimated power of the automatic visual test would change. Figure \ref{fig:comb-system-power} showed five power curves corresponding to number of models ranged from one to five. It was found that as the number of models increased, the estimated power of the system increased, but the amount of improvement decreased. In fact, from Figure \ref{fig:comb-system-power}, we would not expect the estimated power increased a lot when the number of models greater than five.
+
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/comb-system-power-1.pdf}
+\caption{\label{fig:comb-system-power}Estimated power of the automatic visual inference system for number of evaluation ranged from one to five and evaluated on 2500 lineups and 2500 lineups simulated using the cubic model and heteroskedasticity model respectively against the natural logarithm of the effect size. The dashed curves are power of conventional tests, the curves in other colours are the estimated power of the system with different number of evaluations. Decision made the system were drawn with black marker.}
+\end{figure}
 
 \hypertarget{general-purpose-automatic-visual-statistical-inference-system}{%
 \chapter{General-Purpose Automatic Visual Statistical Inference System}\label{general-purpose-automatic-visual-statistical-inference-system}}
@@ -996,7 +1007,7 @@ By adopting the techniques developed in query by example content-based image ret
 \hypertarget{automatic-visual-infernce-for-predictive-model-diagnostics}{%
 \chapter{Automatic Visual Infernce for Predictive Model Diagnostics}\label{automatic-visual-infernce-for-predictive-model-diagnostics}}
 
-Tools for Visual inference has been applied to
+\ldots{}
 
 \hypertarget{timeline}{%
 \chapter{Timeline}\label{timeline}}
