@@ -149,8 +149,13 @@ Modern computer vision model could be a promising solution to this problem. As a
 
 Using computer vision models to read data plots is not a general choice. some fields have adopted this idea by applying computer vision models to read recurrence plots for time series regression \autocite{ojeda_multivariate_2020}, time series classification \autocite{chu_automatic_2019,hailesilassie_financial_2019,hatami_classification_2018,zhang_encoding_2020}, anomaly detection \autocite{chen_convolutional_2020} and pairwise causality analysis \autocite{singh_deep_2017}. However, evaluating lineups with computer vision model is a new field of study.
 
-\hypertarget{research-problem}{%
-\chapter{Research Problem}\label{research-problem}}
+\hypertarget{structure-of-the-report}{%
+\section{Structure of the Report}\label{structure-of-the-report}}
+
+The remainder of the report is organised as follows. Chapter \ref{se:research-problem} outlines the three research problems. Chapter \ref{se:overview} gives an overview of the thesis including descriptions of three projects. Chapter \ref{#se:project-1} presents the human subject experiments conducted in the first project along with the prototype of the automatic visual inference system. Chapter \ref{se:project-2}
+
+\hypertarget{se:research-problem}{%
+\chapter{Research Problem}\label{se:research-problem}}
 
 The main objective of this research is to build an automatic visual inference system for the purpose of conducting large-scale visual test. The research will focus on three projects as follows:
 
@@ -164,8 +169,8 @@ The main objective of this research is to build an automatic visual inference sy
   Validate and apply the automatic visual inference system to predictive model diagnostics on empirical data.
 \end{enumerate}
 
-\hypertarget{overview-of-the-thesis}{%
-\chapter{Overview of the Thesis}\label{overview-of-the-thesis}}
+\hypertarget{overview-of-the-thesis-seoverview}{%
+\chapter{Overview of the Thesis \{se:overview\}}\label{overview-of-the-thesis-seoverview}}
 
 The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
 
@@ -173,8 +178,8 @@ The second project aims to extend the automatic system to lineup protocol with n
 
 The third project aims to apply the automatic system to predictive model diagnostics on empirical data. Potential predictive models considered by this research are linear model, generalized linear models and non-parametric regression. Multiple human subject experiments will need to be conducted to validate the effectiveness of the automatic system.
 
-\hypertarget{automatic-visual-statistical-inference-for-linear-regression-diagnostics}{%
-\chapter{Automatic Visual Statistical Inference for linear regression diagnostics}\label{automatic-visual-statistical-inference-for-linear-regression-diagnostics}}
+\hypertarget{se:project-1}{%
+\chapter{Automatic Visual Statistical Inference for linear regression diagnostics}\label{se:project-1}}
 
 This project focuses on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots.
 
@@ -997,15 +1002,15 @@ If we reduced the number of models used in the system, the estimated power of th
 \caption{\label{fig:comb-system-power}Estimated power of the automatic visual inference system for number of evaluation ranged from one to five and evaluated on 2500 lineups and 2500 lineups simulated using the cubic model and heteroskedasticity model respectively against the natural logarithm of the effect size. The dashed curves are power of conventional tests, the curves in other colours are the estimated power of the system with different number of evaluations. Decision made the system were drawn with black marker.}
 \end{figure}
 
-\hypertarget{general-purpose-automatic-visual-statistical-inference-system}{%
-\chapter{General-Purpose Automatic Visual Statistical Inference System}\label{general-purpose-automatic-visual-statistical-inference-system}}
+\hypertarget{se:project-2}{%
+\chapter{General-Purpose Automatic Visual Statistical Inference System}\label{se:project-2}}
 
 The term content-based image retrieval (CBIR) was first introduced by \textcite{kato_database_1992} as a field of study which aims to retrieve image from large-scale image databases based on information derived from the image itself, such as colour, shape and texture \autocite{rafiee_review_2010}. According to \textcite{zhou_recent_2017}, reverse image search is one of the CBIR query technique and is sometimes called query by example (QBE), which performs image search based on the image example provide by the user. Since QBE is the most intuitive query formation, it has been widely explored in the research on CBIR and search engines such as Google Image \autocite{google_google_2022} and TinEye \autocite{tineye_tineye_2022} provide accessible search by image services to public. In CBIR, the most common method for comparing images is using image similarity or image distance metrics, which takes into account various features extracted from the image \autocite{zhou_recent_2017}.
 
 By adopting the techniques developed in query by example content-based image retrieval, we aims to build automatic general-purpose visual inference system based on image comparison in the second project.
 
-\hypertarget{automatic-visual-infernce-for-predictive-model-diagnostics}{%
-\chapter{Automatic Visual Infernce for Predictive Model Diagnostics}\label{automatic-visual-infernce-for-predictive-model-diagnostics}}
+\hypertarget{se:project-3}{%
+\chapter{Automatic Visual Infernce for Predictive Model Diagnostics}\label{se:project-3}}
 
 \ldots{}
 
