@@ -62,12 +62,12 @@
 
 Predictive models are primarily evaluated by predictive accuracy with the use of validation and test data, but in predictive model diagnostics, especially model testing and tuning, data plots play an irreplaceable role. In these diagnostics, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed by researchers, due to its intuitiveness and the possibility for unexpected discoveries which may be abstract and unquantifiable.
 
-However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurence \autocite{roy_chowdhury_using_2015}.
+However, unlike confirmatory data analysis built upon rigorous statistical procedures, e.g., hypothesis testing, visual diagnostics relies on graphical perception - human's ability to interpret and decode the information embedded in the graph \autocite{cleveland_graphical_1984}, which is to some extent subjective. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence \autocite{roy_chowdhury_using_2015}.
 
 \hypertarget{se:vi}{%
 \section{Visual Inference}\label{se:vi}}
 
-Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title ``Inference for Data Visualizatino'' by \textcite{buja_inference_1999} as an idea to address the issue of valid inference for visual discoveries of data plots \autocite{gelman_exploratory_2004}. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models \autocite{gelman_bayesian_2003,gelman_exploratory_2004}.
+Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title ``Inference for Data Visualization'' by \textcite{buja_inference_1999} as an idea to address the issue of valid inference for visual discoveries of data plots \autocite{gelman_exploratory_2004}. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models \autocite{gelman_bayesian_2003,gelman_exploratory_2004}.
 
 It was surprising that the essential components of visual inference had actually been established in \textcite{buja_inference_1999}, but it was not until 10 years later that \textcite{buja_statistical_2009} formalized it as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and \(p\)-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
@@ -79,7 +79,7 @@ It was surprising that the essential components of visual inference had actually
 
 
 
-In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same assumed model, such as classical linear regression model, can be rejected by many reasons with residual plot, including nonlinearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}.
+In visual inference, a visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries \autocite{buja_statistical_2009}. For model diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same assumed model, such as classical linear regression model, can be rejected by many reasons with residual plot, including non-linearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}.
 
 \begin{figure}
 \centering
@@ -103,7 +103,7 @@ Thinking out of the box, \textcite{buja_statistical_2009} argued that there is a
 
 In visual inference, the null distribution of plots refers to the infinite collection of plots of null datasets sampled from \(H_0\). It is defined as the analogue of the null distribution of test statistics in conventional test \autocite{buja_statistical_2009}. In practice, a finite number of plots of null datasets could be generated, called null plots.
 
-In the context of model diagnostics, sampling data from \(H_0\) is equivalent to sampling data from the assumed model. As \textcite{buja_statistical_2009} suggested, \(H_0\) is usually composited by a collection of distributions controlled by nuisance parameters. Since statistical models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called ``reference distribution'' by applying one of the three methods: (i) sampling from a conditional distribution given a minimimal sufficient statistic under \(H_0\), (ii) parametric bootstrap sampling with nuisance parameters estimated under \(H_0\), and (iii) Bayesian posterior predictive sampling.
+In the context of model diagnostics, sampling data from \(H_0\) is equivalent to sampling data from the assumed model. As \textcite{buja_statistical_2009} suggested, \(H_0\) is usually composited by a collection of distributions controlled by nuisance parameters. Since statistical models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called ``reference distribution'' by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under \(H_0\), (ii) parametric bootstrap sampling with nuisance parameters estimated under \(H_0\), and (iii) Bayesian posterior predictive sampling.
 
 The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three \autocite{buja_statistical_2009}. Suppose there exists a minimal sufficient statistic \(\boldsymbol{S}(\boldsymbol{y})\) under the null hypothesis, any null datasets \(\boldsymbol{y^{*}}\) should fulfil the condition \(\boldsymbol{S}(\boldsymbol{y}) = \boldsymbol{s}\). Using the classical linear regression model as example, the minimal sufficient statistic is \(\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{\beta}}, \boldsymbol{e}'\boldsymbol{e})\), where \(\hat{\boldsymbol{\beta}}\) are the coefficient estimators and \(\boldsymbol{e}'\boldsymbol{e}\) is the residual sum of square. Alternatively, the minimal sufficient statistic can be constructed as \(\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{y}}, ||\boldsymbol{e}||)\), where \(\hat{\boldsymbol{y}}\) are the fitted values and \(||\boldsymbol{e}||\) is the length of residuals, which is more intuitive as suggested by \textcite{buja_statistical_2009}. Since the fitted values are held fixed, the variation can only occur in the residual space. And because the length of residual is also held fixed, residuals obtained from a null dataset has to be a random rotation of \(\boldsymbol{e}\) in the residual space. With this property, null residuals can be simulated by regressing \(N\) i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
@@ -152,7 +152,7 @@ Using computer vision models to read data plots is not a general choice. some fi
 \hypertarget{structure-of-the-report}{%
 \section{Structure of the Report}\label{structure-of-the-report}}
 
-The remainder of the report is organised as follows. Chapter \ref{se:research-problem} outlines the three research problems. Chapter \ref{se:overview} gives an overview of the thesis including descriptions of three projects. Chapter \ref{se:project-1} presents the human subject experiments conducted in the first project along with the prototype of the automatic visual inference system. Chapter \ref{se:project-2}
+The remainder of the report is organised as follows. Chapter \ref{se:research-problem} outlines the three research problems. Chapter \ref{se:overview} gives an overview of the thesis including descriptions of three projects. Chapter \ref{se:project-1} presents the prototype of the automatic visual inference system along with the results of two human subject experiments. Chapter \ref{se:project-2} introduces the general-purpose automatic visual inference system. Chapter \ref{se:project-3} describes the deployment of the automatic system. Chapter \ref{se:timeline} presents the timeline of the three projects.
 
 \hypertarget{se:research-problem}{%
 \chapter{Research Problem}\label{se:research-problem}}
@@ -166,7 +166,7 @@ The main objective of this research is to build an automatic visual inference sy
 \item
   Extend and enhance the automatic visual inference system developed in the first project to general lineup protocol problems by adopting image similarity assessed by computer vision models.
 \item
-  Validate and apply the automatic visual inference system to predictive model diagnostics on empirical data.
+  Deploy the automatic visual inference system as an adaptive online application by applying online machine learning.
 \end{enumerate}
 
 \hypertarget{se:overview}{%
@@ -176,7 +176,7 @@ The first project develops a prototype of automatic visual inference system for 
 
 The second project aims to extend the automatic system to lineup protocol with no assumptions on the type of the data plot and the data generating process. It only requires the protocol to asks the evaluators to select the most different plot(s) from the lineup. The automatic system will be built upon image similarity produced by computer vision models.
 
-The third project aims to apply the automatic system to predictive model diagnostics on empirical data. Potential predictive models considered by this research are linear model, generalized linear models and non-parametric regression. Multiple human subject experiments will need to be conducted to validate the effectiveness of the automatic system.
+The third projects aims to package and deploy the automatic system as an adaptive online application such that empirical data can be collected and used in improving the system. Online machine learning technique will be used to update the weights of computer vision models dynamically.
 
 \hypertarget{se:project-1}{%
 \chapter{Automatic Visual Statistical Inference for linear regression diagnostics}\label{se:project-1}}
@@ -188,7 +188,7 @@ Because the first project is still ongoing, we consider the result we have is no
 \hypertarget{human-subject-exeriments}{%
 \section{Human Subject Exeriments}\label{human-subject-exeriments}}
 
-To collect data of human performance on reading residual plot of linear regression model with nonlinearity and heteroskedasticity defects, two human experiments were conducted. Participants of both experiments were recruited using an online platform called Prolific \autocite{prolific_prolific_2022}.
+To collect data of human performance on reading residual plot of linear regression model with non-linearity and heteroskedasticity defects, two human experiments were conducted. Participants of both experiments were recruited using an online platform called Prolific \autocite{prolific_prolific_2022}.
 
 Prolific provides an international participant pool with the option to apply flexible pre-screening filters. In this study, we recruited \(62\) participants who was fluent in English with at least \(10\) previous submissions and \(98\)\% approval rate in other Prolific studies for quality control. Further, balance sample across gender was imposed to prevent gender bias.
 
@@ -214,7 +214,7 @@ other & Patricipants needs to give their reasons in the text input.\\
 \end{tabular}}
 \end{table}
 
-The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioral experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:diagram-experiment} summarizes the online experiment setup.
+The study website was powered by Flask \autocite{grinberg_flask_2018}, a web framework written in Python 3 \autocite{van_rossum_python_2009}, hosted on PythonAnywhere \autocite{pythonanywhere_pythonanywhere_2022}, a web hosting service provider. Due to the limit of the storage on PythonAnywhere, lineup images needed for the website were hosted separately on Github Pages \autocite{gtihub_github_2022-1}, a static site hosting service provided by Github \autocite{gtihub_github_2022}, stored in private Github repositories. The uniform resource locator (URL) to lineup images were set to be unique random strings such that images can not be accessed by general approaches without knowing the correct URL. This avoided participants seeing the lineup beforehand. The front-end of the website was built using a JavaScript \autocite{flanagan_javascript_2006} library jsPsych \autocite{de_leeuw_jspsych_2015} which is specialized in creating online behavioural experiments. One of the reasons we chose to use this library was it had a modularized but highly customizable template which could record participant's response time automatically. This is essential for us to confirm the quality of the data by checking exceptionally fast or slow responses. Figure \ref{fig:diagram-experiment} summarizes the online experiment set-up.
 
 \begin{figure}
 \centering
@@ -230,7 +230,7 @@ The first two pages of the website are the explanatory statement and the consent
 \caption{Layout of the study website. Participants needed to choose the most different plots on the right and select their reasons and confidence levels on the left. \label{fig:website-layout}}
 \end{figure}
 
-Next we will discuss the simulation setup for this study. The experiment data was simulated by the use of the programming language \texttt{R} \autocite{r_core_team_r_2021}. For the ease of reproducibility, functions to build models, simulate data from models, produce lineup with data, allocate stimulis for subjects and evaluate subject responses from this study are bundled in the package \texttt{visage} with a unique object-oriented programming system built upon the environment feature of \texttt{R}. In the description of the simulation, corresponding functionalities of the package will be introduced.
+Next we will discuss the simulation set-up for this study. The experiment data was simulated by the use of the programming language \texttt{R} \autocite{r_core_team_r_2021}. For the ease of reproducibility, functions to build models, simulate data from models, produce lineup with data, allocate stimulus for subjects and evaluate subject responses from this study are bundled in the package \texttt{visage} with a unique object-oriented programming system built upon the environment feature of \texttt{R}. In the description of the simulation, corresponding functionalities of the package will be introduced.
 
 Two models were used in the study, where both were linear models with some degree of violations of classical assumptions.
 
@@ -243,7 +243,7 @@ The first model was a cubic linear model with two regressors, which can be expre
 \end{equation}
 where \(c \in (0,2)\), \(a \in (-3,3)\), \(b \in (-3,3)\), \(\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})\), \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) are \(n\times1\) matrices.
 
-This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Meanwhile, to create nonlinearity defect, the null model followed the assumptions of the classical normal linear regression model (CNLRM), fitted by OLS is:
+This defines a cubic relationship between \(\boldsymbol{Y}\), \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). Meanwhile, to create non-linearity defect, the null model followed the assumptions of the classical normal linear regression model (CNLRM), fitted by OLS is:
 \begin{equation} \label{eq:cubic_null}
 \boldsymbol{Y}=\beta_0+\beta_1\boldsymbol{X}+\beta_2\boldsymbol{Z}+\boldsymbol{u},
 \end{equation}
@@ -356,7 +356,7 @@ The interpretation of this effect size is the impact of parameter \(a\) and \(b\
 \caption{\label{fig:effectsize}Cubic model residual plots under different effect sizes. The larger the effect size, the stronger the signal.}
 \end{figure}
 
-Under the cubic model setting, there is an exact conventional test for testing the nonlinearity defect, which is F-test. For F-test, the null hypothesis is \(H_0:a=b=0\), and the alternative hypothesis is \(H_1:\text{at least one of them} \neq 0\). During the simulation of the lineup data, the F-statistic and the p-value will be recorded for comparison between the power of conventional test and visual test.
+Under the cubic model setting, there is an exact conventional test for testing the non-linearity defect, which is F-test. For F-test, the null hypothesis is \(H_0:a=b=0\), and the alternative hypothesis is \(H_1:\text{at least one of them} \neq 0\). During the simulation of the lineup data, the F-statistic and the p-value will be recorded for comparison between the power of conventional test and visual test.
 
 \hypertarget{heteroskedasticity-model}{%
 \subsection{Heteroskedasticity Model}\label{heteroskedasticity-model}}
@@ -385,7 +385,7 @@ Using the Frisch–Waugh–Lovell theorem, the residuals obtained by the null mo
 Because $\boldsymbol{R}_a\boldsymbol{X}_a=\boldsymbol{0}$, we have $\boldsymbol{e}=\boldsymbol{R}_a\boldsymbol{\varepsilon}$. Hence, the residuals $\boldsymbol{e}$ follow $N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V})$, where $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
 \end{proof}
 
-Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depend on \(\boldsymbol{X}\). We could plot the one standard deviation around the residuals to indicate the region about 68\% of the residuals should landed on. Figure \ref{fig:hetershape} illustrates different shapes of residuals undder various values of \(a\) and \(b\). From the plot, it can be observed that if \(a = 0\), the residual plot looks like the shape of butterfly. If \(a = \pm 1\), it looks like a triangle, and the sign of \(a\) determines the direction of the shape. Parameter \(b\) is controlling the strength of the signal. As \(b\) increases, the pattern becomes less noisy.
+Lemma \ref{lemma:heter} shows that variance and covariance of the residuals depend on \(\boldsymbol{X}\). We could plot the one standard deviation around the residuals to indicate the region about 68\% of the residuals should landed on. Figure \ref{fig:hetershape} illustrates different shapes of residuals under various values of \(a\) and \(b\). From the plot, it can be observed that if \(a = 0\), the residual plot looks like the shape of butterfly. If \(a = \pm 1\), it looks like a triangle, and the sign of \(a\) determines the direction of the shape. Parameter \(b\) is controlling the strength of the signal. As \(b\) increases, the pattern becomes less noisy.
 
 \begin{figure}
 \centering
@@ -455,9 +455,9 @@ For the heteroskedasticity model, the conventional test we used was Breusch--Pag
 
 The model definitions given in the previous two sections does not include the specification of the regressors. In this sections, distribution of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) will be discussed.
 
-The cubic model involved the use of both \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). In the simulation, \(X_i\), \(i=1,...,n\), had equal chance to follow one of the following distributions: \(N(0, 0.09)\), \(U(-1, 1)\), \(Lognormal(0,0.36)/3 - 1\) and \(-Lognormal(0,0.36)/3 + 1\). Uniform and normal distribution were symmetric and common. Adjusted lognormal distribution and adjusted negative lognormal distribution provided right-skewed and left-skewed density respectively. These distributions were chosen such that most the realizations will fall between \(-1\) and \(1\).
+The cubic model involved the use of both \(\boldsymbol{X}\) and \(\boldsymbol{Z}\). In the simulation, \(X_i\), \(i=1,...,n\), had equal chance to follow one of the following distributions: \(N(0, 0.09)\), \(U(-1, 1)\), \(Lognormal(0,0.36)/3 - 1\) and \(-Lognormal(0,0.36)/3 + 1\). Uniform and normal distribution were symmetric and common. Adjusted log-normal distribution and adjusted negative log-normal distribution provided right-skewed and left-skewed density respectively. These distributions were chosen such that most the realizations will fall between \(-1\) and \(1\).
 
-The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform distribution ranged from \(-1\) to \(1\), and \(50\)\% chance to be a discrete uniform distribution with \(z_n\) outcomes simulated from a uniform distribution ranged from \(-1\) to \(1\). \(z_n\) itself was a discrete uniform distribution with outcomes \(\{10,11,12,13,14,15,16,17,18,19,20\}\), which defined the number of possible values \(Z_i\) could take. As shown in Figure \ref{fig:discreteex}, this setup would create discreteness in residual plot, which could enrich the pool of visual patterns.
+The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform distribution ranged from \(-1\) to \(1\), and \(50\)\% chance to be a discrete uniform distribution with \(z_n\) outcomes simulated from a uniform distribution ranged from \(-1\) to \(1\). \(z_n\) itself was a discrete uniform distribution with outcomes \(\{10,11,12,13,14,15,16,17,18,19,20\}\), which defined the number of possible values \(Z_i\) could take. As shown in Figure \ref{fig:discreteex}, this set-up would create discreteness in residual plot, which could enrich the pool of visual patterns.
 
 \begin{figure}
 \centering
@@ -465,7 +465,7 @@ The distribution of \(Z_i\), \(i=1,...,n\), had \(50\)\% chance to be a uniform 
 \caption{\label{fig:discreteex}Discreteness in residuals created by using a discrete uniform random variable as one of the regressors in a cubic model. For each residual plot of the lineup, there are three clusters because the number of possible values the regressor can take is three.}
 \end{figure}
 
-\(\boldsymbol{X}\) used in the heteroskedasticity model was a combination of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) used in the cubic model. It could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted lognormal distribution, adjusted negative lognormal distribution and discrete uniform distribution.
+\(\boldsymbol{X}\) used in the heteroskedasticity model was a combination of \(\boldsymbol{X}\) and \(\boldsymbol{Z}\) used in the cubic model. It could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted log-normal distribution, adjusted negative log-normal distribution and discrete uniform distribution.
 
 \hypertarget{experiment-i-and-ii}{%
 \subsection{Experiment I and II}\label{experiment-i-and-ii}}
@@ -622,7 +622,7 @@ As expected, coefficients of natural logarithm of effect size of all five models
 
 For heteroskedasticity model, this phenomenon was more obvious as the curves of visual tests with evaluations greater than two were always above the curves of visual test with evaluations smaller than two. However, this only held for large enough effect size. For small effect size, visual tests with fewer evaluations might have greater power. Note that, the expected power of visual test derived by \textcite{majumder_validation_2013} followed by the assumption that human has the ability to select the plot with the highest t-statistic from a lineup under the classical linear model regression setting showed similar properties, where visual tests with fewer evaluations were expected to perform better when the parameter values close to the null hypothesis.
 
-For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of nonlinearity as a visual task can be completed reliably by human when the effect size is large enough.
+For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of non-linearity as a visual task can be completed reliably by human when the effect size is large enough.
 
 As shown in Figure \ref{fig:powerglm}, both F-test and Breusch--Pagan test generally possessed greater power than visual test. Since the settings we were using were not ideal scenarios for visual inference, it was not expected that the visual test would be as good as the conventional test. Our goal was to quantify the ability of human reading residual plot, such that the comparison between human and computer vision model can be made. It was also found that there was a huge gap between the conventional curves and the visual test curves at the middle of the plot. We further analysed the lineup with the corresponding effect size. Figure \ref{fig:mid-cubic-lineup-example} and \ref{fig:mid-heter-lineup-example} showed that human was indeed hard to identify the pattern at this level of difficulty. However, we as researchers of this project could tell which was the actual data plot by carefully comparing the plots of the lineup since we knew all possible shapes of the residual plot beforehand.
 
@@ -761,11 +761,11 @@ Akaike Inf. Crit. & 3,054.796 & 7,340.650 & 10,987.830 & 9,661.793 & 5,721.548 \
 
 The previous section focuses on the change of effect size relative to the power of the visual test. Individual factor embedded in the data simulation also needs be analysed. Two logistic regressions were fitted with decisions made by \(V_{K-j}\) as response variable. For the cubic model, regressors were \(|a|\), \(|b|\), \(|c-1|\), \(\sigma\), distribution of \(\boldsymbol{X}\), distribution of \(\boldsymbol{Z}\), number of observations and number of evaluations. For the heteroskedasticity model, regressors were \(|a|\), \(b\), distribution of \(\boldsymbol{X}\), number of observations and number of evaluations.
 
-According to Table \ref{tab:rejectfactorcubic}, for cubic model, both coefficients of \(|a|\) and \(|b|\) were positive, which suggested increasing the coefficients of quadric and cubic terms would result in higher visual power. The coefficient of \(|c-1|\) was also positive indicating joint effect of multiple regressors on the residual plot decreased the visual power. As expected, the coefficient of \(\sigma\) was negative as it controlled the noise level. Lineup simulated with uniform distribution of \(\boldsymbol{X}\) had the highest power, followed by negative lognormal, normal, and lognormal. Discreteness in \(\boldsymbol{Z}\) decreased the visual power. The coefficient of number of observations was positive, which means larger sample size would lead to higher visual power.
+According to Table \ref{tab:rejectfactorcubic}, for cubic model, both coefficients of \(|a|\) and \(|b|\) were positive, which suggested increasing the coefficients of quadric and cubic terms would result in higher visual power. The coefficient of \(|c-1|\) was also positive indicating joint effect of multiple regressors on the residual plot decreased the visual power. As expected, the coefficient of \(\sigma\) was negative as it controlled the noise level. Lineup simulated with uniform distribution of \(\boldsymbol{X}\) had the highest power, followed by negative log-normal, normal, and log-normal. Discreteness in \(\boldsymbol{Z}\) decreased the visual power. The coefficient of number of observations was positive, which means larger sample size would lead to higher visual power.
 
-Results of logistic regression for heteroskedasticity is given in Table \ref{tab:rejectfactorheter}. For heteroskedasticity model, the coefficient of \(|a|\) was negative, which suggested ``butter fly'' shape was easier to identify than ``triangle'' shape. As expected, the coefficient of \(b\) was positive. For different distributions of \(\boldsymbol{X}\), the one with highest power was uniform distribution, followed by normal, discrete uniform, lognormal and negative lognormal. The coeffient of the number of observations was positive, but it was not significant.
+Results of logistic regression for heteroskedasticity is given in Table \ref{tab:rejectfactorheter}. For heteroskedasticity model, the coefficient of \(|a|\) was negative, which suggested ``butter fly'' shape was easier to identify than ``triangle'' shape. As expected, the coefficient of \(b\) was positive. For different distributions of \(\boldsymbol{X}\), the one with highest power was uniform distribution, followed by normal, discrete uniform, log-normal and negative log-normal. The coefficient of the number of observations was positive, but it was not significant.
 
-In overall, we did not have any unexpected findings except the visual power related to different distributions of \(\boldsymbol{X}\) in cubic model. We expected lineup simulated with uniform distribution would have the highest power, followed by normal, lognormal and negative lognormal, since we observed similar results in pilot study.
+In overall, we did not have any unexpected findings except the visual power related to different distributions of \(\boldsymbol{X}\) in cubic model. We expected lineup simulated with uniform distribution would have the highest power, followed by normal, log-normal and negative log-normal, since we observed similar results in pilot study.
 
 \begin{table}[!htbp] \centering 
   \caption{Logistic regressions with rejection as response variable and parameter settings as regressors fitted on the data collected from experiment I and II for cubic model.} 
@@ -894,7 +894,7 @@ Based on the answer to the above questions, four major approaches to pursue AI h
 \caption{\label{fig:two-dim-ai}Four possible approaches to pursue AI based on the two dimensions in AI research - human vs.~rational and thought vs.~behavior \autocite{russell_artificial_2002}.}
 \end{figure}
 
-Considering there are different approches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision were adopted.
+Considering there are different approaches of AI, it is necessary to clarify the type of AI we aimed to build. Understanding the human thought process or mimicking the human vision mechanism were not of interest in this research. We believed humanly behaviours was enough for demonstrating AI for the problem we concerned. Hence, two of the capacities required by the total Turing test, namely machine learning and computer vision were adopted.
 
 Another possible method under the rational agent approach was to define distance metrics to measure difference between data plots for making mathematically prefect decisions. This method would work if such metrics can be obtained manually or approximated algorithmically. However, we considered it was too complex to fit into our prototype automatic system. But we will revisited this method in our second project.
 
@@ -918,13 +918,13 @@ This design was reasonable but we found that it was difficult and slow to train 
 
 As mentioned in Section \ref{se:limitation}, modern computer vision model is built upon the deep neural network with tens of thousands of parameters. Due to limited computing resources, we did not have the luxury to train a deep neural network from scratch. A technique called transfer learning was used to leverage features learned from an existing problem on our task. It improved the performance of the model by transferring information from one domain to another related domain \autocite{weiss_survey_2016}. The practical workflow was to take parameters from a previously trained model to a new model, and freeze them in training to prevent the knowledge preserved in the parameters from being destroyed. Then, we added some trainable layers on top of the frozen layers to solve the new problem.
 
-By using this workflow, we were not only able to dramatically reduce the training time, but also able to gain better performance because the pre-trained models we used were trained on a large dataset called ImageNet \autocite{deng_imagenet_2009} with more than 14 million images on 1000 object classes. The famous annual competition ImageNet Large Scale Visual Recognition Challenge (ILSCRV) ran annually by the ImageNet project was a gold standard for evaluating the architecture of computer vision model. Among the leaderboard of ILSCRB, we picked architectures that were handy to implement and with low top-5 error rate. This included VGG16 \autocite{simonyan_very_2015}, VGG19 \autocite{simonyan_very_2015}, Xception \autocite{chollet_xception_2017}, ResNet152V2 \autocite{he_identity_2016} and InceptionV3 \autocite{szegedy_rethinking_2015}. The top-5 error rate is the average number the model failed to include the answer among its top five guesses. The overview of all five transer learning models are given in Table \ref{tab:vi-model-summary}. Note that the depth is the number of layers in the model.
+By using this workflow, we were not only able to dramatically reduce the training time, but also able to gain better performance because the pre-trained models we used were trained on a large dataset called ImageNet \autocite{deng_imagenet_2009} with more than 14 million images on 1000 object classes. The famous annual competition ImageNet Large Scale Visual Recognition Challenge (ILSCRV) ran annually by the ImageNet project was a gold standard for evaluating the architecture of computer vision model. Among the leaderboard of ILSCRB, we picked architectures that were handy to implement and with low top-5 error rate. This included VGG16 \autocite{simonyan_very_2015}, VGG19 \autocite{simonyan_very_2015}, Xception \autocite{chollet_xception_2017}, ResNet152V2 \autocite{he_identity_2016} and InceptionV3 \autocite{szegedy_rethinking_2015}. The top-5 error rate is the average number the model failed to include the answer among its top five guesses. The overview of all five transfer learning models are given in Table \ref{tab:vi-model-summary}. Note that the depth is the number of layers in the model.
 
 On top of the pre-trained model, we added a 2D global average pooling layer \autocite{lin_network_2014}, followed by a fully-connected dense layer with 256 nodes, a dropout layer \autocite{srivastava_dropout_nodate} with 20\% dropout rate, and a output layer with softmax as activation function. A diagram of the model architecture is given in Figure \ref{fig:model-arch}.
 
 Global average pooling layer was a replacement of traditional fully-connected dense layers in CNN which flattened the feature map into a 1D tensor. Global average pooling layer took the average of the values over all the pixels in a channel, then flattened it into a 1D tensor. This enforced the correspondences between feature maps and categories, which made the feature maps easier to be interpreted as categories confidence maps. Further, unlike the dense layer, there was no parameters that needed to be optimized in global average pooling layer which reduce the risk of overfitting \autocite{lin_network_2014}.
 
-Dropout was primary used as a regularization technique to address overfitting. In training, the dropout layer would randomly temporaliy remove some nodes from the network with fixed probability \(p\), which in our case, we used \(p = 20\)\%.
+Dropout was primary used as a regularization technique to address overfitting. In training, the dropout layer would randomly temporarily remove some nodes from the network with fixed probability \(p\), which in our case, we used \(p = 20\)\%.
 
 Five models were trained on 10000 null plots and 10000 actual data plots simulated using the same parameter settings as the human subject experiments and balanced across cubic model and heteroskedasticity model. 20\% training data was used as validation set. Image augmentation was applied to increase the diversity of the dataset during training, with random rotation angle ranged from zero to five degrees and random brightness ranged from 95\% to 105\%. Optimizer Adam \autocite{kingma_adam_2017} was used with learning rate equal to 0.001. The loss function used in the model was binary cross-entropy, which can be expressed by: \[H = -N^{-1}\sum_{i=1}^{N}y_ilog(\hat{p}_i)+(1-y_i)log(1-\hat{p}_i),\] where \(N\) is the number of observations, \(y_i\) is a realization of a binary random variable, and \(\hat{p}_i\) is the predicted probability.
 
@@ -1019,15 +1019,17 @@ If we reduced the number of models used in the system, the estimated power of th
 
 The term content-based image retrieval (CBIR) was first introduced by \textcite{kato_database_1992} as a field of study which aims to retrieve image from large-scale image databases based on information derived from the image itself, such as colour, shape and texture \autocite{rafiee_review_2010}. According to \textcite{zhou_recent_2017}, reverse image search is one of the CBIR query technique and is sometimes called query by example (QBE), which performs image search based on the image example provide by the user. Since QBE is the most intuitive query formation, it has been widely explored in the research on CBIR and search engines such as Google Image \autocite{google_google_2022} and TinEye \autocite{tineye_tineye_2022} provide accessible search by image services to public. In CBIR, the most common method for comparing images is using image similarity or image distance metrics, which takes into account various features extracted from the image \autocite{zhou_recent_2017}.
 
-By adopting the techniques developed in query by example content-based image retrieval, we aims to build automatic general-purpose visual inference system based on image comparison in the second project.
+By adopting the techniques developed in query by example content-based image retrieval, we aims to build automatic general-purpose visual inference system based on image comparison in the second project. General-purpose means that we will not make any assumption about the type of the plot and the data generating process such that the system will be able to evaluate any lineups asking for selecting the most different plot(s).
 
 \hypertarget{se:project-3}{%
-\chapter{Automatic Visual Infernce for Predictive Model Diagnostics}\label{se:project-3}}
+\chapter{OAVIS: An online automatic visual inference system}\label{se:project-3}}
 
-\ldots{}
+Online machine learning is a technique to train machine learning model with data arriving in a sequential order. Models trained with online learning can be updated immediately for any new arrival data, which overcomes the drawbacks of the traditional batch learning where training data required to be available prior to the training. It is suitable for large-scale machine learning tasks in real-world data analytics applications {[}@{]}.
 
-\hypertarget{timeline}{%
-\chapter{Timeline}\label{timeline}}
+The third projects aims to deploy the automatic visual inference system as an online application at a public-accessible website. The web application will evaluate lineups uploaded by users, and return the \(p\)-value with the selections made by the system. Meanwhile, as an option, users will be asked to also evaluate the lineup and give their selections. With the user selection data, the system will use online machine learning theory to update the built-in computer vision models such that the performance of the system can be improved.
+
+\hypertarget{se:timeline}{%
+\chapter{Timeline}\label{se:timeline}}
 
 \begin{table} \label{tab:timeline}
 \centering
@@ -1038,12 +1040,23 @@ Date & Event\\
 \addlinespace[0.5em]
 \midrule
 \addlinespace[0.5em]
+\multicolumn{2}{l}{\textit{\textbf{2021}}}\\
+\hspace{4em}March - August & Design the study website and the experiments\\ 
+\hspace{4em}September & Apply for human research ethics approval\\ 
+\hspace{4em}October & Test the study website\\ 
+\hspace{4em}November & Conduct the first two human subject experiments\\ 
+\hspace{4em}December & Develop the \textit{R} package \textit{visage}\\ 
+\addlinespace[0.5em]
+\hline
+\addlinespace[0.5em]
 \multicolumn{2}{l}{\textit{\textbf{2022}}}\\
+\hspace{4em}January & Develop the computer vision models\\
+\hspace{4em}February & Prepare for the first milestone\\
 \hspace{4em}March & Extend the scope of violations of classical normal linear\\ 
 \addlinespace[0.5em]
 \hspace{4em} & regression considered by the computer vision model\\
 \addlinespace[0.5em]
-\hspace{4em}April & Conduct human subject experiment on the extended model\\ 
+\hspace{4em}April & Conduct human subject experiment for the extended model\\ 
 \addlinespace[0.5em]
 \hspace{4em} & defects\\
 \addlinespace[0.5em]
@@ -1070,9 +1083,9 @@ Date & Event\\
 \addlinespace[0.5em]
 \hspace{4em} & submit the second paper\\
 \addlinespace[0.5em]
-\hspace{4em}April - December & Apply the automatic visual inference system to predictive\\
+\hspace{4em}April - December & Deploy the automatic visual inference system as \\
 \addlinespace[0.5em]
-\hspace{4em} & model diagnostics\\
+\hspace{4em} & a web application\\
 \addlinespace[0.5em]
 \hline
 \addlinespace[0.5em]
