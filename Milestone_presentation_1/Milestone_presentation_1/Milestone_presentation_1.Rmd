@@ -368,6 +368,43 @@ Fig. 9: _Residual plots of cubic model under different effect sizes._
 
 #### Let $\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X}]$ denotes the set of regressors in matrix form. The residuals obtained from the null model are $$\boldsymbol{e} \sim N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V}),$$ where $\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'$ and $\boldsymbol{V}$ is a diagonal matrix with $V_{ii}=1+b(2-|a|)(X_i  -  a)^2$, $i = 1,...,n$. 
 
+#### The **effect size** is derived as $ES = b\sqrt{n}$.
+
+---
+
+.pull-left[
+```{r}
+mod <- heter_model(a = -1, b = 30)
+mod$plot_lineup(mod$gen_lineup(300), remove_grid_line = TRUE, theme = theme_light()) + xlab("Fitted values") + ylab("Residuals")
+```
+
+.caption[
+Fig. 10: _A lineup of residual plots generated with the heteroskedasticity model._ 
+]
+]
+
+.pull-right[
+
+```{r}
+set.seed(10086)
+mod <- heter_model(0, 1)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 10)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) + xlab("Fitted values") + ylab("Residuals") -> p1
+mod <- heter_model(0, 3)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 10)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) + xlab("Fitted values") + ylab("Residuals") -> p2
+mod <- heter_model(0, 9)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 10)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) + xlab("Fitted values") + ylab("Residuals") -> p3
+mod <- heter_model(0, 81)
+mod$plot(mod$gen(500, fit_model = TRUE), size = 1, theme = theme_light(base_size = 10)) + ggtitle(glue::glue("Effect size: {round(mod$effect_size(mod$gen(500)),2)}")) + xlab("Fitted values") + ylab("Residuals") -> p4
+
+list(p1, p2, p3, p4) %>% patchwork::wrap_plots(ncol=2)
+```
+
+.caption[
+Fig. 11: _Residual plots of heteroskedasticity model under different effect sizes._ 
+]
+
+]
+
 ---
 
 # Automatic Visual Inference with Computer Vision Models
