@@ -218,16 +218,60 @@ Fig. 7: _Illustration of a fully-connected layer._
 
 ---
 
-# Simulation Setup
+# Simulation Setup - Cubic Model
 
-&lt;!-- This project focuses on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots. --&gt;
-&lt;!-- Because the first project is still ongoing, we consider the result we have is not enough to write as a paper at the moment. Hence, the materials provided in this chapter are two main parts of the draft paper that will contain enough details for understanding the project. --&gt;
+#### To train computer vision models, we use simulation data generated from two linear regression model with **non-linearity** and **heteroskedasticity** issues.
 
-#### To train computer vision models for evaluating lineups, we need a large amount of data. 
+#### The first model is a **cubic model** which can be expressed by: `$$\boldsymbol{Y}= 1 + (2-c)\boldsymbol{X} + c\boldsymbol{Z} + a[(2-c)\boldsymbol{X}]^2+a(c\boldsymbol{Z})^2+b[(2-c)\boldsymbol{X}]^3+b(c\boldsymbol{Z})^3+\boldsymbol{\varepsilon},$$` where `\(c \in (0,2)\)`, `\(a \in (-3,3)\)`, `\(b \in (-3,3)\)`, `\(\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})\)`, `\(\boldsymbol{Y}\)`, `\(\boldsymbol{X}\)` and `\(\boldsymbol{Z}\)` are `\(n\times1\)` matrices.
 
-#### Meanwhile, we need to set up a comparison between the computer vision models and humans on the ability of reading residual plot for understanding the performance of the models.  
+#### In the simulation, `\(X_i\)`, `\(i=1,...,n\)`, has equal chance to follow one of the following distributions: `\(N(0, 0.09)\)`, `\(U(-1, 1)\)`, `\(Lognormal(0,0.36)/3 - 1\)` and `\(-Lognormal(0,0.36)/3 + 1\)`. These distributions are chosen such that most the realizations will fall between `\(-1\)` and `\(1\)`.
+
+#### The distribution of `\(Z_i\)`, `\(i=1,...,n\)`, has `\(50\)`% chance to be a uniform distribution ranged from `\(-1\)` to `\(1\)`, and `\(50\)`% chance to be a discrete uniform distribution with `\(z_n\)` outcomes simulated from a uniform distribution ranged from `\(-1\)` to `\(1\)`. `\(z_n\)` itself is a discrete uniform distribution with outcomes `\(\{x: 9&lt;x&lt;21 \text{ and } x \in \mathbb{Z} \}\)`, which defines the number of possible values `\(Z_i\)` could take.
+
+---
+
+# Simulation Setup - Cubic Model
+
+#### The simulated data is fitted by OLS with equation: `$$\boldsymbol{Y}= \beta_0 + \beta_1\boldsymbol{X} + \beta_2\boldsymbol{Z} +\boldsymbol{u},$$` where `\(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2_u\boldsymbol{I})\)`.
+
+#### Let `\(\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X},\boldsymbol{Z}]\)` denotes the set of regressors in matrix form. Then, the **residuals** obtained from the null model are `$$\boldsymbol{e} \sim N(\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b, \sigma^2\boldsymbol{R}_a),$$` where `\(\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\)`, `\(\boldsymbol{X}_b=[\boldsymbol{X}^2,\boldsymbol{Z}^2,\boldsymbol{X}^3,\boldsymbol{Z}^3]\)` and `\(\boldsymbol{\beta}_b=(a(2-c)^2,ac^2,b(2-c)^3,bc^3)'\)`.
+
+#### The **effect size** is derived as: `$$ES=n^{-1}||\sigma^{-1}\boldsymbol{R}_a^{-\frac{1}{2}}\boldsymbol{R}_a\boldsymbol{X}_b\boldsymbol{\beta}_b||^2=n^{-1}\sigma^{-2}||\boldsymbol{R}_a^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2\approx n^{-1}\sigma^{-2}||diag(\boldsymbol{R}_a)^{\frac{1}{2}}\boldsymbol{X}_b\boldsymbol{\beta}_b||^2,$$` where `\(diag(\boldsymbol{R}_a)\)` is the diagonal matrix constructed from the diagonal elements of `\(\boldsymbol{R}_a\)`.
+
+---
+
+.pull-left[
+&lt;img src="Milestone_presentation_1_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+.caption[
+Fig. 8: _A lineup of residual plots generated with the cubic model._ 
+]
+]
+
+.pull-right[
+&lt;img src="Milestone_presentation_1_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+.caption[
+Fig. 9: _Residual plots of cubic model under different effect sizes._ 
+]
+]
 
 
+---
+
+# Simulation Setup - Heteroskedasticity Model
+
+#### The second model is a heteroskedasticy model which can be expressed by: `$$Y_i = 1 + X_i + \varepsilon_i, ~i = 1,...,n,$$` where `\(a \in \{-1,0,1\}\)`, `\(b\in (0,32)\)` and `\(\varepsilon_i \overset{iid}{\sim} N(0,1+b(2-|a|)(X_i-a)^2)\)`.
+
+#### `\(\boldsymbol{X}\)` could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted log-normal distribution, adjusted negative log-normal distribution and discrete uniform distribution. 
+
+---
+
+# Simulation Setup - Heteroskedasticity Model
+
+#### The simulated data is fitted by OLS with equation: `$$\boldsymbol{Y}= \beta_0 + \beta_1\boldsymbol{X} +\boldsymbol{u},$$` where `\(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2_u\boldsymbol{I})\)`.
+
+#### Let `\(\boldsymbol{X}_a=[\boldsymbol{1},\boldsymbol{X}]\)` denotes the set of regressors in matrix form. The residuals obtained from the null model are `$$\boldsymbol{e} \sim N(\boldsymbol{0}, \boldsymbol{R}_a\boldsymbol{V}),$$` where `\(\boldsymbol{R}_a=\boldsymbol{I}-\boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\)` and `\(\boldsymbol{V}\)` is a diagonal matrix with `\(V_{ii}=1+b(2-|a|)(X_i  -  a)^2\)`, `\(i = 1,...,n\)`. 
 
 ---
 
