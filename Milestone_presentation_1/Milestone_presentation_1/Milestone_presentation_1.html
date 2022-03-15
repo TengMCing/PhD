@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Automatic Visual Inference for Linear Regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Weihao (Patrick) Li" />
+    <meta name="date" content="2022-03-16" />
+    <script src="Milestone_presentation_1_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="mine.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+count: false
+
+&lt;!-- need a backaground image --&gt;
+
+.pull-left-full[
+&lt;h1 class="myblue"&gt; Automatic Visual Inference for Linear Regression &lt;/h1&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+&lt;h2 class="myblue"&gt; Weihao Li &lt;/h2&gt;
+
+&lt;h2 class="myblue"&gt; March 16, 2022 &lt;/h2&gt;
+]
+
+.pull-right[
+![](images/159.png)
+]
+
+---
+
+.pull-left-center[
+&lt;img src="Milestone_presentation_1_files/figure-html/plot1-1.png" width="100%" /&gt;
+
+.center[
+.caption[
+Fig. 1: *Residual plot of a simple linear regression.*
+]
+]
+]
+
+.pull-right[
+# Visual Discoveries
+
+&lt;br&gt;
+&lt;br&gt;
+
+#### This is a residual plot of a simple linear regression.
+
+#### Can you find the evidence on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+#### However, the residuals are actually simulated from a **correctly specified model**! 
+
+
+#### Unsecured and unconfirmed visual discoveries will lead to **over or under-interpretations of the data**.
+
+]
+ 
+---
+
+.pull-left[
+# Visual Inference &amp; Lineup Protocol
+
+&lt;br&gt;
+&lt;br&gt;
+
+#### **Visual inference** was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries. 
+
+#### A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **actual data plot** and the remaining `\(m-1\)` plots (**null plots**) contain data consistent with the null hypothesis.
+
+#### To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup.
+
+
+]
+
+.pull-right-center[
+&lt;img src="Milestone_presentation_1_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+
+.center[
+.caption[
+Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.20 is Fig.1) **Can you find the most different one?**_ 
+]
+]
+
+]
+
+
+---
+
+# `\(p\)`-value
+
+#### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
+
+#### Suppose observers are allowed to select **only one plot**. The probability of the observer correctly picks the actual data plot is `\(1/m\)`.
+
+#### If we involve `\(K\)` independent observers in a visual test, and let `\(X\)` be a random variable denoting the number of observers correctly picking the actual data plot. Under the null hypothesis `\(X ∼ Binom(K, 1/m)\)`. The p-value of a lineup of size `\(m\)` evaluated by `\(K\)` observer is given as `$$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},$$` where `\(x\)` is the realization of number of observers correctly picking the actual data plot.
+
+#### The null hypothesis will be rejected if `\(P(X \geq x) &lt; \alpha\)`, the desired significance level.
+
+---
+
+.pull-left-center-80[
+
+![:scale 80%](images/Powerloom_weaving_in_1835.jpg)
+
+![:scale 80%](images/Maquina_vapor_Watt_ETSIIM.jpg)
+
+.caption[
+Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._ 
+]
+
+]
+
+.pull-right-120[
+# Limitation of Lineup Protocol
+
+&lt;br&gt;
+
+#### 1. Human can not evaluate lineup consisted of a large number of plots.
+#### 2. Human can not evaluate a large number of lineups.
+#### 3. Lineup protocol is unfriendly to vision-impaired people.
+#### 4. Evaluation of lineup is high in labour cost and time consuming.
+
+&lt;br&gt;
+
+### **We need a "steam engine" for visual test!**
+
+]
+
+---
+
+# Computer Vision Model
+
+#### Large-scale evaluation of visual tests is not possible without the use of technology and machines. 
+
+#### Modern **computer vision model** could be a promising solution to this problem. It is usually built on a **deep neural network** called **convolutional neural network** (CNN) (Fukushima, et al., 1982).
+
+![](images/Typical_cnn.png)
+
+.caption[
+Fig. 4: _A typical CNN with convolutional layers, pooling layers and fully-connected layers._ 
+]
+
+---
+
+# Computer Vision Model - Convolutional Layer
+
+#### **Convolutional layers** take advantages of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. 
+
+.center[![:scale 70%](images/conlayer.png)]
+
+.center[.caption[
+Fig. 5: _Illustration of convolution operation with two filters._ 
+]]
+
+---
+
+# Computer Vision Model - Pooling Layer
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+
+#### **Pooling layers** apply non-linear down-sampling on the feature maps. This helps reducing the number of parameters in the neural network so that the problem of overfiting can be controlled. 
+
+#### One of the most popular pooling operations is **max pooling**. It divides the feature map into several rectangle regions and takes the maximum to form a new feature map.
+]
+
+
+.pull-right-center[
+![](images/Max_pooling.png)
+
+.caption[
+Fig. 6: _Illustration of max pooling operation._ 
+]
+]
+
+
+---
+
+# Computer Vision Model - Fully-connected Layer
+
+.pull-left-center-80[
+![:scale 50%](images/fnn.png)
+
+.caption[
+Fig. 7: _Illustration of a fully-connected layer._ 
+]
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+#### **Fully-connected layer** is building block of neural network. It peformes matrix multiplication on the inputs and the weights.
+
+&lt;br&gt;
+
+#### This layer is primarily used to process information presented in the feature maps before making the prediction. The output of the layer will be passed to a special layer called **loss layer** for computing the loss or error of the prediction.
+
+---
+
+# Simulation Setup
+
+&lt;!-- This project focuses on building a prototype of automatic visual statistical inference system for evaluating residual plots of classical normal linear regression model. To set up a comparison between the computer vision models and humans, human subject experiments were conducted to understand the ability of human reading residual plots. --&gt;
+&lt;!-- Because the first project is still ongoing, we consider the result we have is not enough to write as a paper at the moment. Hence, the materials provided in this chapter are two main parts of the draft paper that will contain enough details for understanding the project. --&gt;
+
+#### To train computer vision models for evaluating lineups, we need a large amount of data. 
+
+#### Meanwhile, we need to set up a comparison between the computer vision models and humans on the ability of reading residual plot for understanding the performance of the models.  
+
+
+
+---
+
+# Automatic Visual Inference with Computer Vision Models
+
+.pull-left[
+
+#### We proposed an **automatic visual inference system** for evaluating lineups of residual plots, with a focus on the specification error of classical normal linear regression.
+
+#### **Non-linearity** and **heteroskedasticity** are two features considered by the system so far. More features will be added to the system in the future however.
+
+#### The system is built upon **computer vision models**. 
+]
+
+
+
+&lt;!-- Modern computer vision model could be a promising solution to this problem. As a subfield of AI, computer vision with the modern deep learning architectures solved numerous critical problems in automation. Inspired by the vision processing in living organisms, the convolutional neural network (CNN) was introduced by @fukushima_neocognitron_1982. Soon, this architecture was applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989. This was one of the earliest attempts which human successfully extract information from digital images via self-learning algorithms. Modern computer vision model is typically built on the deep neural network with convolutional layers [@fukushima_neocognitron_1982]. Convolutional layers take advantage of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. Numerous studies have shown that it can be used to effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. With the development of graphics processing units and the spread of high-performance personal computers, researches in computer vision become a new hype in the 21st century. Achievements such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018] and facial recognition [@emami_facial_2012] had a significant impact on our daily life. --&gt;
+
+
+
+
+&lt;!-- The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models. --&gt;
+
+
+---
+
+
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="scripts/my_macro.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
