@@ -341,7 +341,7 @@ count: false
 ![:scale 80%](images/Maquina_vapor_Watt_ETSIIM.jpg)
 
 .caption[
-Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._ 
+Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine. (https://en.wikipedia.org/wiki/Industrial_Revolution)_ 
 ]
 
 ]
@@ -860,7 +860,7 @@ Fig. 13: _Diagram of automatic visual inference system._
 
 .pull-left-140[
 
-#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+#### Due to limited computing resources, we apply **transfer learning** (Weiss, et al., 2016) to train five computer vision models. 
 
 ]
 
@@ -883,9 +883,9 @@ count: false
 
 .pull-left-140[
 
-#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+#### Due to limited computing resources, we apply **transfer learning** (Weiss, et al., 2016) to train five computer vision models. 
 
-#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+#### Five **pre-trained models** are used, including **VGG16** (Simonyan and Zisserman, 2015), **VGG19** (Simonyan and Zisserman, 2015), **Xception** (Chollet, 2017), **ResNet152V2** (He, et al., 2016) and **InceptionV3** (Szegedy, et al., 2015). 
 
 ]
 
@@ -910,9 +910,9 @@ count: false
 
 .pull-left-140[
 
-#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+#### Due to limited computing resources, we apply **transfer learning** (Weiss, et al., 2016) to train five computer vision models. 
 
-#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+#### Five **pre-trained models** are used, including **VGG16** (Simonyan and Zisserman, 2015), **VGG19** (Simonyan and Zisserman, 2015), **Xception** (Chollet, 2017), **ResNet152V2** (He, et al., 2016) and **InceptionV3** (Szegedy, et al., 2015). 
 
 #### Training: 
 - `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
@@ -940,42 +940,9 @@ count: false
 
 .pull-left-140[
 
-#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+#### Due to limited computing resources, we apply **transfer learning** (Weiss, et al., 2016) to train five computer vision models. 
 
-#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
-
-#### Training: 
-- `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
-- `\(20\)`% are used as validation set
-
-#### **Image augmentation**:
-- **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
-- **random brightness** ranged from `\(95\)`% to `\(105\)`%
-
-]
-
-.pull-right-60[
-.center[
-
-![:scale 23%](images/vi_model.png)
-
-.caption[
-Fig. 14: _Diagram of the transfer learning computer vision model._ 
-]
-]
-]
-
----
-
-count: false
-
-# Model Architecture and Model Training
-
-.pull-left-140[
-
-#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
-
-#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+#### Five **pre-trained models** are used, including **VGG16** (Simonyan and Zisserman, 2015), **VGG19** (Simonyan and Zisserman, 2015), **Xception** (Chollet, 2017), **ResNet152V2** (He, et al., 2016) and **InceptionV3** (Szegedy, et al., 2015). 
 
 #### Training: 
 - `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
@@ -985,7 +952,40 @@ count: false
 - **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
 - **random brightness** ranged from `\(95\)`% to `\(105\)`%
 
-#### Model is trained with **Tensorflow** and **Keras**. 
+]
+
+.pull-right-60[
+.center[
+
+![:scale 23%](images/vi_model.png)
+
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
+
+---
+
+count: false
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** (Weiss, et al., 2016) to train five computer vision models. 
+
+#### Five **pre-trained models** are used, including **VGG16** (Simonyan and Zisserman, 2015), **VGG19** (Simonyan and Zisserman, 2015), **Xception** (Chollet, 2017), **ResNet152V2** (He, et al., 2016) and **InceptionV3** (Szegedy, et al., 2015). 
+
+#### Training: 
+- `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
+- `\(20\)`% are used as validation set
+
+#### **Image augmentation**:
+- **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
+- **random brightness** ranged from `\(95\)`% to `\(105\)`%
+
+#### Models are trained with **Tensorflow** and **Keras**. 
 
 ]
 
@@ -1064,7 +1064,7 @@ Fig. 17: _Power of the automatic visual test with different number of evaluation
 .pull-right[
 ### OAVIS: An online automatic visual inference system
 
-#### Deploy the automatic visual inference as an online aplication
+#### Deploy the automatic visual inference as an online aplication.
 
 
 #### Use online machien learning to improve system performance dynamically.
@@ -1078,7 +1078,7 @@ class: center, middle
 
 ---
 
-# References
+# Bibliography
 
 Buja, A. et al. (2009). “Statistical inference for
 exploratory data analysis and model diagnostics”. In:
@@ -1089,10 +1089,36 @@ Mathematical, Physical and Engineering Sciences_
 URL:
 [https://royalsocietypublishing-org.ezproxy.lib.monash.edu.au/doi/full/10.1098/rsta.2009.0120](https://royalsocietypublishing-org.ezproxy.lib.monash.edu.au/doi/full/10.1098/rsta.2009.0120).
 
+Chollet, F. (2017). “Xception: Deep Learning with
+Depthwise Separable Convolutions”. In:
+_arXiv:1610.02357 [cs]_. arXiv: 1610.02357. URL:
+[http://arxiv.org/abs/1610.02357](http://arxiv.org/abs/1610.02357).
+
 Fukushima, K. et al. (1982). “Neocognitron: A
 self-organizing neural network model for a mechanism of
 visual pattern recognition”. In: _Competition and
 cooperation in neural nets_. Springer, pp. 267-285.
+
+He, K. et al. (2016). “Identity Mappings in Deep
+Residual Networks”. In: _arXiv:1603.05027 [cs]_. URL:
+[http://arxiv.org/abs/1603.05027](http://arxiv.org/abs/1603.05027).
+
+Simonyan, K. et al. (2015). “Very Deep Convolutional
+Networks for Large-Scale Image Recognition”. In:
+_arXiv:1409.1556 [cs]_. URL:
+[http://arxiv.org/abs/1409.1556](http://arxiv.org/abs/1409.1556).
+
+Szegedy, C. et al. (2015). “Rethinking the Inception
+Architecture for Computer Vision”. In:
+_arXiv:1512.00567 [cs]_. URL:
+[http://arxiv.org/abs/1512.00567](http://arxiv.org/abs/1512.00567).
+
+Weiss, K. et al. (2016). “A survey of transfer
+learning”. En. In: _Journal of Big Data_ 3.1, p. 9.
+ISSN: 2196-1115. DOI:
+[10.1186/s40537-016-0043-6](https://doi.org/10.1186%2Fs40537-016-0043-6).
+URL:
+[http://journalofbigdata.springeropen.com/articles/10.1186/s40537-016-0043-6](http://journalofbigdata.springeropen.com/articles/10.1186/s40537-016-0043-6).
 
 
 
