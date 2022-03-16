@@ -27,23 +27,30 @@ count: false
 .pull-left-full[
 &lt;h1 class="myblue"&gt; Automatic Visual Inference for Linear Regression &lt;/h1&gt;
 
-&lt;br&gt;
+&lt;h3 class="myblue"&gt; First Milestone Presentation &lt;/h3&gt;
+
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 
+&lt;h3 class="myblue"&gt; Weihao Li &lt;/h3&gt;
 
-&lt;h2 class="myblue"&gt; Weihao Li &lt;/h2&gt;
+&lt;h3 class="myblue"&gt; Supervised by Di Cook and Emi Tanaka &lt;/h3&gt;
 
-&lt;h2 class="myblue"&gt; March 16, 2022 &lt;/h2&gt;
+&lt;!-- &lt;h3 class="myblue"&gt; March 16, 2022 &lt;/h3&gt; --&gt;
 ]
 
 .pull-right[
+
+&lt;br&gt;
+
 ![](images/159.png)
 ]
 
 ---
+
+
 
 .pull-left-center[
 &lt;img src="Milestone_presentation_1_files/figure-html/plot1-1.png" width="100%" /&gt;
@@ -364,7 +371,9 @@ Fig. 12: _Layout of the study webiste._
 #### The power of each lineup from one to five evaluations is estimated.
 
 
-#### The estimated power is further used in fitting a **quasi-binomial generalized linear model** with natural logarithm of effect size as the only regressor.
+#### The estimated power is further used in fitting **quasi-binomial generalized linear models** with natural logarithm of effect size as the only regressor.
+
+#### Another method we use to model the power is to collect all decisions made by `\(K\choose{K-j}\)` different outcomes for `\(V_{K-j}\)`, and directly fit **binomial generalized linear models** with natural logarithm of effect size as the regressor.
 
 ---
 
@@ -372,10 +381,17 @@ Fig. 12: _Layout of the study webiste._
 .center[![:scale 80%](images/power1.png)
 
 .caption[
-Fig. 13: _Quasibinomial GLM for estimated power for different number of evaluations. The left plot is for the cubic model, the right plot is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+Fig. 13: _Quasibinomial GLM fitted for estimated power for different number of evaluations. The left plot is for the cubic model, the right plot is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
 ]]
 
 
+---
+
+.center[![:scale 80%](images/power2.png)
+
+.caption[
+Fig. 13: _Binomial GLM fitted for rejection for different number of evaluations. The left plot is for the cubic model, the right plot is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+]]
 
 
 ---
