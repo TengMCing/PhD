@@ -90,9 +90,8 @@ count: false
 ---
 
 
-
 .pull-left-center[
-```{r plot1}
+```{r}
 library(visage)
 
 eval_data <- readRDS("data/training_original_data_single.rds")
@@ -118,20 +117,203 @@ Fig. 1: *Residual plot of a simple linear regression.*
 <br>
 <br>
 
-#### This is a residual plot of a simple linear regression.
+
+#### Can you find the evidence on heteroskedasticity?
+
+]
+
+---
+
+count: false
+
+.pull-left-center[
+```{r}
+filter(eval_data, id == 9586, null == TRUE) %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12), size = 1) +
+  ylab("Residuals") +
+  xlab("Fitted values")
+# 68
+
+```
+
+.center[
+.caption[
+Fig. 1: *Residual plot of a simple linear regression.*
+]
+]
+]
+
+.pull-right[
+# Visual Discoveries
+
+<br>
+<br>
+
 
 #### Can you find the evidence on heteroskedasticity?
 
 - Vertical spread of the points varies with the fitted values.
 
-#### However, the residuals are actually simulated from a **correctly specified model**! 
+]
+
+---
+
+count: false
+
+.pull-left-center[
+```{r}
+filter(eval_data, id == 9586, null == TRUE) %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12), size = 1) +
+  ylab("Residuals") +
+  xlab("Fitted values")
+# 68
+
+```
+
+.center[
+.caption[
+Fig. 1: *Residual plot of a simple linear regression.*
+]
+]
+]
+
+.pull-right[
+# Visual Discoveries
+
+<br>
+<br>
+
+
+#### Can you find the evidence on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+#### However, the residuals are actually obtained from a **correctly specified classical normal linear model**! 
+
+]
+
+
+---
+
+count: false
+
+.pull-left-center[
+```{r}
+filter(eval_data, id == 9586, null == TRUE) %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12), size = 1) +
+  ylab("Residuals") +
+  xlab("Fitted values")
+# 68
+
+```
+
+.center[
+.caption[
+Fig. 1: *Residual plot of a simple linear regression.*
+]
+]
+]
+
+.pull-right[
+# Visual Discoveries
+
+<br>
+<br>
+
+
+#### Can you find the evidence on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+#### However, the residuals are actually obtained from a **correctly specified classical normal linear model**! 
 
 
 #### Unsecured and unconfirmed visual discoveries will lead to **over or under-interpretations of the data**.
 
 ]
+
+---
+
+.pull-left[
+# Visual Inference & Lineup Protocol
+
+<br>
+<br>
+
+#### **Visual inference** was introduced by `r BibOptions(max.names = 1);Citet(myBib, "buja_statistical_2009")` as an inferential framework to extend confirmatory statistics to visual discoveries. 
+
+]
+
+.pull-right-center[
+```{r}
+mod <- HETER_MODEL$fit(filter(eval_data, id == 9586, null == FALSE))
+
+manual_lineup <- data.frame()
+
+for (i in 1:19) {
+  tmp_dat <- HETER_MODEL$null_resid(filter(eval_data, id == 9586, null == FALSE), mod)
+  tmp_dat$k <- i
+  manual_lineup <- bind_rows(manual_lineup, tmp_dat)
+}
+
+manual_lineup <- bind_rows(manual_lineup, mutate(filter(eval_data, id == 9586, null == TRUE), k = 20))
+
+VI_MODEL$plot_lineup(manual_lineup, 
+                     theme = theme_light(),
+                     remove_grid_line = TRUE,
+                     size = 0.3
+                     ) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+.center[
+.caption[
+Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.20 is Fig.1) **Can you find the most different one?**_ 
+]
+]
+
+]
+
+---
+
+count: false
+
+.pull-left[
+# Visual Inference & Lineup Protocol
+
+<br>
+<br>
+
+#### **Visual inference** was introduced by `r BibOptions(max.names = 1);Citet(myBib, "buja_statistical_2009")` as an inferential framework to extend confirmatory statistics to visual discoveries. 
+
+#### A **lineup** consists of $m$ randomly placed plots, where one plot is the **actual data plot** and the remaining $m-1$ plots (**null plots**) contain data consistent with the null hypothesis.
+
+
+]
+
+.pull-right-center[
+```{r}
+VI_MODEL$plot_lineup(manual_lineup, 
+                     theme = theme_light(),
+                     remove_grid_line = TRUE,
+                     size = 0.3
+                     ) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+.center[
+.caption[
+Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.20 is Fig.1) **Can you find the most different one?**_ 
+]
+]
+
+]
  
 ---
+
+count: false
 
 .pull-left[
 # Visual Inference & Lineup Protocol
@@ -150,18 +332,6 @@ Fig. 1: *Residual plot of a simple linear regression.*
 
 .pull-right-center[
 ```{r}
-mod <- HETER_MODEL$fit(filter(eval_data, id == 9586, null == FALSE))
-
-manual_lineup <- data.frame()
-
-for (i in 1:19) {
-  tmp_dat <- HETER_MODEL$null_resid(filter(eval_data, id == 9586, null == FALSE), mod)
-  tmp_dat$k <- i
-  manual_lineup <- bind_rows(manual_lineup, tmp_dat)
-}
-
-manual_lineup <- bind_rows(manual_lineup, mutate(filter(eval_data, id == 9586, null == TRUE), k = 20))
-
 VI_MODEL$plot_lineup(manual_lineup, 
                      theme = theme_light(),
                      remove_grid_line = TRUE,
@@ -297,13 +467,32 @@ Fig. 7: _Illustration of a fully-connected layer._
 
 # Simulation Setup - Cubic Model
 
-#### To train computer vision models, we use simulation data generated from two linear regression model with **non-linearity** and **heteroskedasticity** issues.
+#### We simulated data from two linear regression model with **non-linearity** and **heteroskedasticity** issues
 
 #### The first model is a **cubic model** which can be expressed by: $$\boldsymbol{Y}= 1 + (2-c)\boldsymbol{X} + c\boldsymbol{Z} + a[(2-c)\boldsymbol{X}]^2+a(c\boldsymbol{Z})^2+b[(2-c)\boldsymbol{X}]^3+b(c\boldsymbol{Z})^3+\boldsymbol{\varepsilon},$$ where $c \in (0,2)$, $a \in (-3,3)$, $b \in (-3,3)$, $\boldsymbol{\varepsilon}\overset{iid}{\sim} N(\boldsymbol{0},\sigma^2\boldsymbol{I})$, $\boldsymbol{Y}$, $\boldsymbol{X}$ and $\boldsymbol{Z}$ are $n\times1$ matrices.
 
-#### In the simulation, $X_i$, $i=1,...,n$, has equal chance to follow one of the following distributions: $N(0, 0.09)$, $U(-1, 1)$, $Lognormal(0,0.36)/3 - 1$ and $-Lognormal(0,0.36)/3 + 1$. These distributions are chosen such that most the realizations will fall between $-1$ and $1$.
+.pull-left[
+#### $X_i$, $i=1,...,n$ follows one of the four distributions:
+- $N(0, 0.09)$
+- $U(-1, 1)$
+- $Lognormal(0,0.36)/3 - 1$
+- $-Lognormal(0,0.36)/3 + 1$
 
-#### The distribution of $Z_i$, $i=1,...,n$, has $50$% chance to be a uniform distribution ranged from $-1$ to $1$, and $50$% chance to be a discrete uniform distribution with $z_n$ outcomes simulated from a uniform distribution ranged from $-1$ to $1$. $z_n$ itself is a discrete uniform distribution with outcomes $\{x: 9<x<21 \text{ and } x \in \mathbb{Z} \}$, which defines the number of possible values $Z_i$ could take.
+#### Most the realizations will fall between $-1$ and $1$.
+]
+
+.pull-right[
+#### $Z_i$, $i=1,...,n$ follows one of the two distributions:
+- $U(-1, 1)$
+- Discrete uniform distribution with $z_n$ outcomes ranged from $-1$ to $1$
+
+#### $z_n$ is sampled from $\{z_n: 9<z_n<21 \text{ and } z_n \in \mathbb{Z} \}$.
+]
+
+
+
+
+<!-- #### The distribution of $Z_i$, $i=1,...,n$, has $50$% chance to be a uniform distribution ranged from $-1$ to $1$, and $50$% chance to be a discrete uniform distribution with $z_n$ outcomes simulated from a uniform distribution ranged from $-1$ to $1$. $z_n$ itself is a discrete uniform distribution with outcomes $\{x: 9<x<21 \text{ and } x \in \mathbb{Z} \}$, which defines the number of possible values $Z_i$ could take. -->
 
 ---
 
