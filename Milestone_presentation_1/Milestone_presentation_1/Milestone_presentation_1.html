@@ -4,7 +4,7 @@
     <title>Automatic Visual Inference for Linear Regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="Weihao (Patrick) Li" />
-    <meta name="date" content="2022-03-16" />
+    <meta name="date" content="2022-03-17" />
     <script src="Milestone_presentation_1_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="mine.css" type="text/css" />
@@ -38,7 +38,7 @@ count: false
 
 &lt;h3 class="myblue"&gt; Supervised by Di Cook and Emi Tanaka &lt;/h3&gt;
 
-&lt;!-- &lt;h3 class="myblue"&gt; March 16, 2022 &lt;/h3&gt; --&gt;
+&lt;!-- &lt;h3 class="myblue"&gt; March 17, 2022 &lt;/h3&gt; --&gt;
 ]
 
 .pull-right[
@@ -309,7 +309,7 @@ count: false
 ![:scale 80%](images/Maquina_vapor_Watt_ETSIIM.jpg)
 
 .caption[
-Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._ 
+Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine. (https://en.wikipedia.org/wiki/Industrial_Revolution)_ 
 ]
 
 ]
@@ -327,6 +327,8 @@ Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._
 &lt;br&gt;
 
 ]
+
+
 
 ---
 
@@ -371,7 +373,7 @@ Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._
 ![](images/Typical_cnn.png)
 
 .caption[
-Fig. 4: _A typical CNN with convolutional layers, pooling layers and fully-connected layers._ 
+Fig. 4: _A typical CNN with convolutional layers, pooling layers and fully-connected layers. (https://en.wikipedia.org/wiki/Convolutional_neural_network)_ 
 ]
 
 ---
@@ -708,7 +710,7 @@ Fig. 9: _Layout of the study webiste._
 
 # `\(p\)`-value Estimation for Multiple Selections
 
-#### Let `\(K\)` be the number of **independent evaluations** of a visual test, `\(s_i , i = 1, ..., K\)` be the **number of selections of the evaluations**, and `\(X\)` be the random variable denoting the number of detections. Then, the `\(p\)`-value of the visual test is given as: `$$P(X\geq x) = \sum_{j=x}^{K}Pr(j|s_1,...,s_K).$$`
+#### Let `\(s_i , i = 1, ..., K\)` be the **number of plots selected by each observer**. Then, the `\(p\)`-value of the visual test is given as: `$$P(X\geq x) = \sum_{j=x}^{K}Pr(j|s_1,...,s_K).$$`
 
 --
 
@@ -770,26 +772,29 @@ Fig. 9: _Layout of the study webiste._
 # Human Subject Experiment - Results
 
 
+.pull-left[
+#### Experiment I:
+- **400** lineup evaluations
+- **20** participants
+]
+
+.pull-right[
+#### Experiment II:
+- **880** lineup evaluations
+- **44** participants
+]
+
 &lt;br&gt;
-&lt;br&gt;
-
-#### We collect **400** lineup evaluations made by **20** participants in experiment I and **880** lineup evaluations made by **44** participants in experiment II. 
 
 --
 
-#### In total, **442** unique lineups are evaluated by **64** subjects.
-
---
-
-#### The power of each lineup from one to five evaluations is estimated.
-
---
 
 #### The estimated power is further used in fitting **quasi-binomial generalized linear models** with **natural logarithm of effect size** as the only regressor.
 
 --
 
-#### All **decisions** made by `\(K\choose{K-j}\)` different outcomes of `\(V_{K-j}\)` are fitted by **binomial generalized linear models** with **natural logarithm of effect size** as the regressor.
+
+#### **Decisions** made by `\(K\choose{K-j}\)` different outcomes of `\(V_{K-j}, j = 1, ..., 4\)`, are fitted by **binomial generalized linear models**.
 
 ---
 
@@ -797,7 +802,7 @@ Fig. 9: _Layout of the study webiste._
 .center[![:scale 80%](images/power1.png)
 
 .caption[
-Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the F-test and BP-test._ 
 ]]
 
 
@@ -806,7 +811,7 @@ Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of e
 .center[![:scale 80%](images/power2.png)
 
 .caption[
-Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the F-test and BP-test._ 
 ]]
 
 
@@ -814,7 +819,7 @@ Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations.
 
 # Human Subject Experiment - Results
 
-#### There is a huge gap between the conventional curves and the visual test curves when the natural logarithm of effect size is around `\(0\)` for cubic model, and `\(2.5\)` for heteroskedasticity model.
+#### There is a huge gap between the conventional test curves and the visual test curves when the natural logarithm of effect size is around `\(0\)` for cubic model, and `\(2.5\)` for heteroskedasticity model.
 
 #### Human is hard to identify the pattern at this level of difficulty.
 
@@ -839,7 +844,7 @@ Fig. 12: _A cubic lineup with effect size `\(= 0.18\)` and a heteroskedasticity 
 
 # Automatic Visual Inference
 
-#### We propose a prototype **automatic visual inference system** for evaluating lineups of residual plots of classical normal linear regression. It currently only detects nonlinearity and heteroskedasticity.
+#### We propose a prototype **automatic visual inference system** for evaluating lineups of residual plots of classical normal linear regression. It currently only detects non-linearity and heteroskedasticity.
 
 
 .center[
@@ -857,15 +862,130 @@ Fig. 13: _Diagram of automatic visual inference system._
 
 #### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
 
+]
+
+.pull-right-60[
+.center[
+
+![:scale 23%](images/vi_model.png)
+
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
+
+---
+
+count: false
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+
 #### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
 
-#### Models are trained on **10000 null plots** and **10000 actual data plots** simulated from the cubic model and heteroskedasticity model. 20% training data is used as validation set.
+]
+
+.pull-right-60[
+.center[
+
+![:scale 23%](images/vi_model.png)
+
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
+
+---
+
+count: false
+
+
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+
+#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+
+#### Training: 
+- `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
+- `\(20\)`% are used as validation set
+
+]
+
+.pull-right-60[
+.center[
+
+![:scale 23%](images/vi_model.png)
+
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
+
+---
+
+count: false
+
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+
+#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+
+#### Training: 
+- `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
+- `\(20\)`% are used as validation set
 
 #### **Image augmentation**:
 - **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
 - **random brightness** ranged from `\(95\)`% to `\(105\)`%
 
-#### Model training is performed with **Tensorflow** and **Keras**. 
+]
+
+.pull-right-60[
+.center[
+
+![:scale 23%](images/vi_model.png)
+
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
+
+---
+
+count: false
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+
+#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+
+#### Training: 
+- `\(10000\)` null plots and `\(10000\)` actual data plots simulated from the cubic model and the heteroskedasticity model
+- `\(20\)`% are used as validation set
+
+#### **Image augmentation**:
+- **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
+- **random brightness** ranged from `\(95\)`% to `\(105\)`%
+
+#### Model is trained with **Tensorflow** and **Keras**. 
 
 ]
 
@@ -893,7 +1013,7 @@ Fig. 15: _Model performance tested on 10000 null plots and 10000 actual data plo
 .center[![:scale 80%](images/system_pow_1.png)
 
 .caption[
-Fig. 16: _Power of the automatic visual test compared to human visual test. The blue curve is the power of the automatic visual test. The dashed line represents the power of the conventional test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity._ 
+Fig. 16: _Power of the automatic visual test compared to human visual test. The blue curve is the power of the automatic visual test. The dashed line is the power of the F-test and BP-test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity model._ 
 ]]
 
 
@@ -902,20 +1022,81 @@ Fig. 16: _Power of the automatic visual test compared to human visual test. The 
 .center[![:scale 80%](images/system_pow_2.png)
 
 .caption[
-Fig. 17: _Power of the automatic visual test with different number of evaluations. The dashed line represents the power of the conventional test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity._ 
+Fig. 17: _Power of the automatic visual test with different number of evaluations. The dashed line is the power of the F-test and BP-test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity model._ 
 ]]
 
 ---
 
 # Conclusion
 
+&lt;br&gt;
+&lt;br&gt;
+
+#### 1. Visual test is not better than conventional tests in detecting non-linearity and heteroskedasticity from residual plot of classical linear regression model.
+
+&lt;br&gt;
+
+--
+
+#### 2. The idea of automating visual inference with computer vision models is feasible. Improvement of the automatic system still needs to be made to match the human visual test power, however.
+
+&lt;br&gt;
+
+--
+
+#### 3. Increasing the number of computer vision models in an automatic visual inference system will result in greater statistical power. But the amount of improvement will decrease.
+
+
 ---
 
 # Future work
 
+.pull-left[
+### General-Purpose Automatic Visual Statistical Inference System
+
+#### Adopt the techniques developed in query by example content-based image retrieval to build automatic general-purpose visual inference system based on image comparison.
+
+
+#### No assumption about the type of the plot and the data generating process will be made.
+
+]
+
+.pull-right[
+### OAVIS: An online automatic visual inference system
+
+#### Deploy the automatic visual inference as an online aplication
+
+
+#### Use online machien learning to improve system performance dynamically.
+]
+
 ---
 
-Thanks
+class: center, middle
+
+# Thanks!
+
+---
+
+# References
+
+Buja, A. et al. (2009). “Statistical inference for
+exploratory data analysis and model diagnostics”. In:
+_Philosophical Transactions of the Royal Society A:
+Mathematical, Physical and Engineering Sciences_
+367.1906, pp. 4361-4383. DOI:
+[10.1098/rsta.2009.0120](https://doi.org/10.1098%2Frsta.2009.0120).
+URL:
+[https://royalsocietypublishing-org.ezproxy.lib.monash.edu.au/doi/full/10.1098/rsta.2009.0120](https://royalsocietypublishing-org.ezproxy.lib.monash.edu.au/doi/full/10.1098/rsta.2009.0120).
+
+Fukushima, K. et al. (1982). “Neocognitron: A
+self-organizing neural network model for a mechanism of
+visual pattern recognition”. In: _Competition and
+cooperation in neural nets_. Springer, pp. 267-285.
+
+
+
+&lt;!--  --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -992,6 +1173,51 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
+(function(time) {
+  var d2 = function(number) {
+    return ('0' + number).slice(-2); // left-pad 0 to minutes/seconds
+  },
+
+  time_format = function(total) {
+    var secs = Math.abs(total) / 1000;
+    var h = Math.floor(secs / 3600);
+    var m = Math.floor(secs % 3600 / 60);
+    var s = Math.round(secs % 60);
+    var res = d2(m) + ':' + d2(s);
+    if (h > 0) res = h + ':' + res;
+    return res;  // [hh:]mm:ss
+  },
+
+  slide_number_div = function(i) {
+    return document.getElementsByClassName('remark-slide-number').item(i);
+  },
+
+  current_page_number = function(i) {
+    return slide_number_div(i).firstChild.textContent;  // text "i / N"
+  };
+
+  var timer = document.createElement('span'); timer.id = 'slide-time-left';
+  var time_left = time, k = slideshow.getCurrentSlideIndex(),
+      last_page_number = current_page_number(k);
+
+  setInterval(function() {
+    time_left = time_left - 1000;
+    timer.innerHTML = ' ' + time_format(time_left);
+    if (time_left < 0) timer.style.color = 'red';
+  }, 1000);
+
+  slide_number_div(k).appendChild(timer);
+
+  slideshow.on('showSlide', function(slide) {
+    var i = slide.getSlideIndex(), n = current_page_number(i);
+    // reset timer when a new slide is shown and the page number is changed
+    if (last_page_number !== n) {
+      time_left = time; last_page_number = n;
+      timer.innerHTML = ' ' + time_format(time); timer.style.color = null;
+    }
+    slide_number_div(i).appendChild(timer);
+  });
+})(55000);
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
