@@ -351,7 +351,7 @@ Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.2
 
 ---
 
-# $p$-value
+# $p$-value of Lineup Protocol
 
 #### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
@@ -359,7 +359,7 @@ Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.2
 
 count: false
 
-# $p$-value
+# $p$-value of Lineup Protocol
 
 #### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
@@ -369,7 +369,7 @@ count: false
 
 count: false
 
-# $p$-value
+# $p$-value of Lineup Protocol
 
 #### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
@@ -381,7 +381,7 @@ count: false
 
 count: false
 
-# $p$-value
+# $p$-value of Lineup Protocol
 
 #### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
@@ -395,7 +395,7 @@ count: false
 
 count: false
 
-# $p$-value
+# $p$-value of Lineup Protocol
 
 #### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
@@ -944,7 +944,7 @@ Fig. 9: _Layout of the study webiste._
 .center[![:scale 80%](images/power1.png)
 
 .caption[
-Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of evaluations. The left plot is for the cubic model, the right plot is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
 ]]
 
 
@@ -953,7 +953,7 @@ Fig. 10: _Quasibinomial GLM fitted for estimated power for different number of e
 .center[![:scale 80%](images/power2.png)
 
 .caption[
-Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations. The left plot is for the cubic model, the right plot is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
+Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations. The plot on the left is for the cubic model, the plot on the right is for the heteroskedasticity model. Power curves for different number of evaluations are drawn in different colors. The dashed line is the power of the conventional test._ 
 ]]
 
 
@@ -1037,7 +1037,20 @@ Fig. 15: _Model performance tested on 10000 null plots and 10000 actual data plo
 
 ---
 
-# Performance
+.center[![:scale 80%](images/system_pow_1.png)
+
+.caption[
+Fig. 16: _Power of the automatic visual test compared to human visual test. The blue curve is the power of the automatic visual test. The dashed line represents the power of the conventional test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity._ 
+]]
+
+
+---
+
+.center[![:scale 80%](images/system_pow_2.png)
+
+.caption[
+Fig. 17: _Power of the automatic visual test with different number of evaluations. The dashed line represents the power of the conventional test. The plot on the left is for cubic model, and the plot on the right is for heteroskedasticity._ 
+]]
 
 ---
 
