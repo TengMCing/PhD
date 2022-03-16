@@ -349,8 +349,15 @@ Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.2
 
 ]
 
+---
+
+# $p$-value
+
+#### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
 
 ---
+
+count: false
 
 # $p$-value
 
@@ -358,11 +365,79 @@ Fig. 2: _A lineup of 20 residual plots of a simple linear regression. (Plot No.2
 
 #### Suppose observers are allowed to select **only one plot**. The probability of the observer correctly picks the actual data plot is $1/m$.
 
-#### If we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Under the null hypothesis $X ∼ Binom(K, 1/m)$. The p-value of a lineup of size $m$ evaluated by $K$ observer is given as $$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},$$ where $x$ is the realization of number of observers correctly picking the actual data plot.
+---
+
+count: false
+
+# $p$-value
+
+#### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
+
+#### Suppose observers are allowed to select **only one plot**. The probability of the observer correctly picks the actual data plot is $1/m$.
+
+#### If we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Under the null hypothesis $X ∼ Binom(K, 1/m)$. 
+
+---
+
+count: false
+
+# $p$-value
+
+#### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
+
+#### Suppose observers are allowed to select **only one plot**. The probability of the observer correctly picks the actual data plot is $1/m$.
+
+#### If we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Under the null hypothesis $X ∼ Binom(K, 1/m)$. 
+
+#### The p-value is given as $$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i}.$$
+
+---
+
+count: false
+
+# $p$-value
+
+#### Under the null hypothesis, it is expected that the actual data plot would have **no distinguishable difference** with the null plots.
+
+#### Suppose observers are allowed to select **only one plot**. The probability of the observer correctly picks the actual data plot is $1/m$.
+
+#### If we involve $K$ independent observers in a visual test, and let $X$ be a random variable denoting the number of observers correctly picking the actual data plot. Under the null hypothesis $X ∼ Binom(K, 1/m)$. 
+
+#### The p-value is given as $$P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i}.$$
 
 #### The null hypothesis will be rejected if $P(X \geq x) < \alpha$, the desired significance level.
 
 ---
+
+.pull-left-center-80[
+
+![:scale 80%](images/Powerloom_weaving_in_1835.jpg)
+
+![:scale 80%](images/Maquina_vapor_Watt_ETSIIM.jpg)
+
+.caption[
+Fig. 3: _A Roberts loom in a weaving shed in 1835 and a Watt steam engine._ 
+]
+
+]
+
+.pull-right-120[
+# Limitation of Lineup Protocol
+
+<br>
+
+#### 1. Human can not evaluate lineup consisted of a large number of plots.
+#### 2. Human can not evaluate a large number of lineups.
+#### 3. Lineup protocol is unfriendly to vision-impaired people.
+#### 4. Evaluation of lineup is high in labour cost and time consuming.
+
+<br>
+
+]
+
+---
+
+count: false
 
 .pull-left-center-80[
 
@@ -408,6 +483,8 @@ Fig. 4: _A typical CNN with convolutional layers, pooling layers and fully-conne
 
 ---
 
+exclude: true
+
 # Computer Vision Model - Convolutional Layer
 
 #### **Convolutional layers** take advantages of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. 
@@ -419,6 +496,8 @@ Fig. 5: _Illustration of convolution operation with two filters._
 ]]
 
 ---
+
+exclude: true
 
 # Computer Vision Model - Pooling Layer
 
@@ -443,6 +522,8 @@ Fig. 6: _Illustration of max pooling operation._
 
 
 ---
+
+exclude: true
 
 # Computer Vision Model - Fully-connected Layer
 
