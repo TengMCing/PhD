@@ -356,6 +356,9 @@ Fig. 9: _Residual plots of cubic model under different effect sizes._
 
 # Simulation Setup - Heteroskedasticity Model
 
+<br>
+<br>
+
 #### The second model is a heteroskedasticy model which can be expressed by: $$Y_i = 1 + X_i + \varepsilon_i, ~i = 1,...,n,$$ where $a \in \{-1,0,1\}$, $b\in (0,32)$ and $\varepsilon_i \overset{iid}{\sim} N(0,1+b(2-|a|)(X_i-a)^2)$.
 
 #### $\boldsymbol{X}$ could be one of the five distributions mentioned above - normal distribution, uniform distribution, adjusted log-normal distribution, adjusted negative log-normal distribution and discrete uniform distribution. 
@@ -404,6 +407,78 @@ Fig. 11: _Residual plots of heteroskedasticity model under different effect size
 ]
 
 ]
+
+---
+
+# Human Subject Experiments
+
+.pull-left-center[
+
+<br>
+<br>
+
+![](images/website.png)
+
+
+.caption[
+Fig. 12: _Layout of the study webiste._ 
+]
+]
+
+.pull-right[
+
+#### **Two human subject experiments** are conducted to compare humans with computer vision models on the ability of reading data plots.
+
+#### **20** lineups are given to each participant, with **10** cubic lineups and **10** heteroskedasticity lineups across different effect sizes. **2** out of **20** lineups are extremely easy lineup which are used as attention checks. Participants need to pass at least one.
+
+#### The same lineup will not be presented to a participant twice. Most of the lineups have been evaluated by **5** different participants. 
+
+#### Participants are allowed to **select multiple plots** from a lineup. They also need to give the **reason** and the **confidence level**.
+
+
+]
+
+---
+
+# $p$-value and Power Estimation for Multiple Selections
+
+#### The assumptions about the **independence** still needed. Let $K$ be the number of independent evaluations of a visual test, $s_i , i = 1, ..., K$ be the **number of selections of the evaluations**, and $X$ be the random variable denoting the number of detections. Then, the $p$-value of the visual test is given as: $$P(X\geq x) = \sum_{j=x}^{K}Pr(j|s_1,...,s_K).$$
+
+
+#### The distribution of $X$ given $s_1, ...s_K$ can not be **derived trivially**, as it is a **sampling without replacement problem**. In practice, this distribution can be **approximated** by computer simulation.
+
+---
+
+# $p$-value and Power Estimation for Multiple Selections
+
+#### Assume there is a **visual test** $V_K$, where $K$ denoting the number of evaluations. The corresponding  $p$-value of $V_K$ can be computed. 
+
+#### Meanwhile, if one evaluation is **randomly deleted** from $V_K$, the remaining evaluations can still be used to form another valid visual test $V_{K-1}$. 
+
+#### In fact, considering **all the possibilities**, $K$ different outcomes for $V_{K-1}$ can be obtained. 
+
+#### Since all outcomes occur with **equal probability**, the **proportion of outcomes which reject the null hypothesis** can be used as an **estimator of the power of the visual test** $V_{K-1}$. 
+
+#### Similarly, if we would like to estimate the power of the visual test $V_{K-j}$ given the evaluations of $V_{K}$, for $j < K$, we could find all the possible combinations of $K$ elements, taken $k-j$ at a time to obtain $K\choose{K-j}$ different outcomes for $V_{K-j}$. Then, the estimated power is given as $R/{K\choose{K-j}}$, where $R$ is the number of outcomes which reject the null hypothesis.
+
+---
+
+# Human Subject Experiment - Results
+
+
+#### We collect **400** lineup evaluations made by **20** participants in experiment I and **880** lineup evaluations made by **44** participants in experiment II. In total, **442** unique lineups are evaluated by 64 subjects.
+
+---
+
+
+.center[![:scale 80%](images/power1.png)
+
+.caption[
+Fig. 13: _Quasibinomial GLM for estimated power for different number of evaluations._ 
+]]
+
+
+
 
 ---
 
