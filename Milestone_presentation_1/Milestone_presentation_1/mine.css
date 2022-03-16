@@ -39,6 +39,16 @@
   width: 57%;
 }
 
+.pull-right-60 {
+  float: right;
+  width: 28%;
+}
+
+.pull-left-140 {
+  float: left;
+  width: 66%;
+}
+
 .image-50 img {
   width: 50%;
 }

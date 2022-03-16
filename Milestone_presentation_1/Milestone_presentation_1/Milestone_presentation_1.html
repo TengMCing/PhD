@@ -635,7 +635,7 @@ Fig. 9: _Layout of the study webiste._
 
 #### **20** lineups are given to each participant, with **10** cubic lineups and **10** heteroskedasticity lineups across different effect sizes. 
 
-#### **2** out of **20** lineups are extremely easy lineup which are used as attention checks. Participants need to pass at least one.
+#### **2** out of **20** lineups are extremely easy that are used as attention checks. Participants need to pass at least one to be paid.
 
 ]
 
@@ -664,7 +664,7 @@ Fig. 9: _Layout of the study webiste._
 
 #### **20** lineups are given to each participant, with **10** cubic lineups and **10** heteroskedasticity lineups across different effect sizes. 
 
-#### **2** out of **20** lineups are extremely easy lineup which are used as attention checks. Participants need to pass at least one.
+#### **2** out of **20** lineups are extremely easy that are used as attention checks. Participants need to pass at least one to be paid.
 
 #### The same lineup will not be presented to a participant twice. Most of the lineups have **5** replicates.
 
@@ -695,7 +695,7 @@ Fig. 9: _Layout of the study webiste._
 
 #### **20** lineups are given to each participant, with **10** cubic lineups and **10** heteroskedasticity lineups across different effect sizes. 
 
-#### **2** out of **20** lineups are extremely easy lineup which are used as attention checks. Participants need to pass at least one.
+#### **2** out of **20** lineups are extremely easy that are used as attention checks. Participants need to pass at least one to be paid.
 
 #### The same lineup will not be presented to a participant twice. Most of the lineups have **5** replicates.
 
@@ -814,7 +814,7 @@ Fig. 11: _Binomial GLM fitted for rejection for different number of evaluations.
 
 # Human Subject Experiment - Results
 
-#### There is a huge gap between the conventional curves and the visual test curves at the middle of the plot.
+#### There is a huge gap between the conventional curves and the visual test curves when the natural logarithm of effect size is around `\(0\)` for cubic model, and `\(2.5\)` for heteroskedasticity model.
 
 #### Human is hard to identify the pattern at this level of difficulty.
 
@@ -837,32 +837,72 @@ Fig. 12: _A cubic lineup with effect size `\(= 0.18\)` and a heteroskedasticity 
 
 ---
 
-# Automatic Visual Inference with Computer Vision Models
+# Automatic Visual Inference
 
-.pull-left[
+#### We propose a prototype **automatic visual inference system** for evaluating lineups of residual plots of classical normal linear regression. It currently only detects nonlinearity and heteroskedasticity.
 
-#### We proposed an **automatic visual inference system** for evaluating lineups of residual plots of classical normal linear regression.
 
-#### **Non-linearity** and **heteroskedasticity** are two features considered by the system so far. More features will be added to the system in the future however.
+.center[
+![:scale 80%](images/vi_system.png)
 
+.caption[
+Fig. 13: _Diagram of automatic visual inference system._ 
+]]
+
+---
+
+# Model Architecture and Model Training
+
+.pull-left-140[
+
+#### Due to limited computing resources, we apply **transfer learning** to train five computer vision models. 
+
+#### Five **pre-trained models** are used, including **VGG16**, **VGG19**, **Xception**, **ResNet152V2** and **InceptionV3**. 
+
+#### Models are trained on **10000 null plots** and **10000 actual data plots** simulated from the cubic model and heteroskedasticity model. 20% training data is used as validation set.
+
+#### **Image augmentation**:
+- **random rotation angle** ranged from `\(0\)` to `\(5\)` degrees
+- **random brightness** ranged from `\(95\)`% to `\(105\)`%
+
+#### Model training is performed with **Tensorflow** and **Keras**. 
 
 ]
 
+.pull-right-60[
+.center[
 
+![:scale 23%](images/vi_model.png)
 
-&lt;!-- Modern computer vision model could be a promising solution to this problem. As a subfield of AI, computer vision with the modern deep learning architectures solved numerous critical problems in automation. Inspired by the vision processing in living organisms, the convolutional neural network (CNN) was introduced by @fukushima_neocognitron_1982. Soon, this architecture was applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989. This was one of the earliest attempts which human successfully extract information from digital images via self-learning algorithms. Modern computer vision model is typically built on the deep neural network with convolutional layers [@fukushima_neocognitron_1982]. Convolutional layers take advantage of the hierarchical pattern in data and provide regularized versions of fully-connected layers. It downscales and transforms the image by summarising information in a small space. Numerous studies have shown that it can be used to effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. With the development of graphics processing units and the spread of high-performance personal computers, researches in computer vision become a new hype in the 21st century. Achievements such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018] and facial recognition [@emami_facial_2012] had a significant impact on our daily life. --&gt;
+.caption[
+Fig. 14: _Diagram of the transfer learning computer vision model._ 
+]
+]
+]
 
+---
 
+![](images/mod_per.png)
 
-
-&lt;!-- The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models. --&gt;
-
+.center[.caption[
+Fig. 15: _Model performance tested on 10000 null plots and 10000 actual data plots._ 
+]]
 
 ---
 
-
+# Performance
 
 ---
+
+# Conclusion
+
+---
+
+# Future work
+
+---
+
+Thanks
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
