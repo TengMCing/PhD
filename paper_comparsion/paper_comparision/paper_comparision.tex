@@ -126,18 +126,23 @@ summary statistics, hypothesis testing, and data plots are essential for
 a systematic and detailed examination of the regression model
 \citep{mansfield1987diagnostic}.
 
-Graphical summaries in which residuals are plotted against fitted values
-or other functions of the predictor variables that are approximately
-orthogonal to residuals are refereed to as standard residual plots. They
-are commonly used to identify patterns which are indicative of
-nonconstant error variance or nonlinearity \citep{cook1982residuals}.
-Raw residuals and studentized residuals are the two most frequently used
-residuals in standard residual plots. The debt on which type of
-residuals should be used always present. While raw residuals are the
-most common output of computer regression software package, by applying
-a scaling factor, the ability of revealing nonconstant error variance in
-standard residual plots will often be enhanced by studentized residuals
-in small sample size \citep{gunst2018regression}.
+\hypertarget{data-plots}{%
+\subsection{Data plots}\label{data-plots}}
+
+Data plots are one of the most important and preferred methods of
+regression diagnostics. Graphical summaries in which residuals are
+plotted against fitted values or other functions of the predictor
+variables that are approximately orthogonal to residuals are refereed to
+as standard residual plots. They are commonly used to identify patterns
+which are indicative of nonconstant error variance or nonlinearity
+\citep{cook1982residuals}. Raw residuals and studentized residuals are
+the two most frequently used residuals in standard residual plots. The
+debt on which type of residuals should be used always present. While raw
+residuals are the most common output of computer regression software
+package, by applying a scaling factor, the ability of revealing
+nonconstant error variance in standard residual plots will often be
+enhanced by studentized residuals in small sample size
+\citep{gunst2018regression}.
 
 As a two-dimensional representation of a model in a \(p\)-dimensional
 space, standard residual plots project data points onto the variable of
@@ -155,18 +160,19 @@ Overlapping data points is a general issue in scatter plots not limited
 to standard residual plots, which often makes plots difficult to
 interpret because visual patterns are concealed. Thus, for relatively
 large sample size, \citet{cleveland1975graphical} suggests the use of
-robust reference lines to give aids to eye in seeing patterns, which
-nowadays, are usually replaced with a spline or local polynomial
-regression line.
+robust moving statistics as reference lines to give aids to eye in
+seeing patterns, which nowadays, are usually replaced with a spline or
+local polynomial regression line.
 
-One of the useful supplements to standard residual plots is partial
-residual plot. While the standard residual plots indicate deviations of
-each predictor from linearity, the partial residual plots can be used to
-access the extent and the direction of the linearity. These plots can
-therefore be used to determine the importance of each predictor in the
-presence of all the others and assess the extent of nonlinearity in a
-given predictor. This is in addition to providing information on correct
-transformations and extreme data points.
+Other types of data plots that are often used in regression diagnostics
+include partial residual plots and probability plots. Partial residual
+plots are useful supplements to standard residual plots as they provide
+additional information on the direction of linearity as well as the
+nonlinearity of each predictor. Probability plots can be used to compare
+the sampling distribution of the residuals to the normal distribution.
+
+\hypertarget{hypothesis-testing}{%
+\subsection{Hypothesis testing}\label{hypothesis-testing}}
 
 \bibliographystyle{tfcad}
 \bibliography{interactcadsample.bib}
