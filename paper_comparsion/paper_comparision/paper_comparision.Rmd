@@ -1,38 +1,26 @@
 ---
 title: |
-  Taylor & Francis Rmarkdown template for authors (\LaTeX\-based 
-  \textsf{Interact} layout + Chicago author-date reference style)
+  Why shouldn't you use numerical tests to diagnose the linear regression models?
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
     affil: a
     email: weihao.li@monash.edu
-  - name: John Smith
-    affil: b
-    email: john.smith@uni-freiburg.de
-  - name: Dominik Leutnant
-    affil: c, \dagger, \ddagger
-    email: leutnant@fh-muenster.de
+  - name: Dianne Cook
+    affil: a
+    email: dicook@monash.edu
+  - name: Emi Tanaka
+    affil: a
+    email: emi.tanaka@monash.edu
 affiliation:
   - num: a
     address: |
-      Taylor & Francis, 4 Park Square, Milton Park, Abingdon, UK
-  - num: b
-    address: |
-      Institut für Informatik, Albert-Ludwigs-Universität, Freiburg, Germany
-  - num: c
-    address: |
-      Muenster University of Applied Sciences - 
-      Institute for Infrastructure, Water, Resources, Environment,
-      Correnstr. 25, 48149 Münster, Germany
-bibliography: interactcadsample.bib
+      Department of Econometrics and Business Statistics, Monash University, Clayton, VIC, Australia
+bibliography: paper.bib
 abstract: |
-  This template is for authors who are preparing a manuscript for a Taylor & 
-  Francis journal using the \LaTeX\ document preparation system and the 
-  `interact} class file, which is available via selected journals' home 
-  pages on the Taylor & Francis website.
+  Abstract to fill.
 keywords: |
-  Sections; lists; figures; tables; mathematics; fonts; references; appendices
+  visual inference; model diagnostics;
 header-includes: |
   \usepackage{hyperref}
   \usepackage[utf8]{inputenc}
@@ -76,11 +64,6 @@ conclusion:
 1. too sensitive, visual test is needed/preferable
 2. visual test is infeasible in large scale (expensive)
 3. future work (role of computer vision)
-
-
-Title: 
-
-
 
 # Introduction
 
