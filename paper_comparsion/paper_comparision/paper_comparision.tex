@@ -1,0 +1,177 @@
+% interactcadsample.tex
+% v1.03 - April 2017
+
+\documentclass[]{interact}
+
+\usepackage{epstopdf}% To incorporate .eps illustrations using PDFLaTeX, etc.
+\usepackage{subfigure}% Support for small, `sub' figures and tables
+%\usepackage[nolists,tablesfirst]{endfloat}% To `separate' figures and tables from text if required
+
+\usepackage{natbib}% Citation support using natbib.sty
+\bibpunct[, ]{(}{)}{;}{a}{}{,}% Citation support using natbib.sty
+\renewcommand\bibfont{\fontsize{10}{12}\selectfont}% Bibliography support using natbib.sty
+
+\theoremstyle{plain}% Theorem-like structures provided by amsthm.sty
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{notation}{Notation}
+
+% see https://stackoverflow.com/a/47122900
+
+% Pandoc citation processing
+
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\def\tightlist{}
+
+
+\begin{document}
+
+\articletype{ARTICLE TEMPLATE}
+
+\title{Taylor \& Francis Rmarkdown template for authors (\LaTeX-based
+\textsf{Interact} layout + Chicago author-date reference style)}
+
+
+\author{\name{Weihao Li$^{a}$, John Smith$^{b}$, Dominik Leutnant$^{c,
+\dagger, \ddagger}$}
+\affil{$^{a}$Taylor \& Francis, 4 Park Square, Milton Park, Abingdon,
+UK; $^{b}$Institut für Informatik, Albert-Ludwigs-Universität, Freiburg,
+Germany; $^{c}$Muenster University of Applied Sciences - Institute for
+Infrastructure, Water, Resources, Environment, Correnstr. 25, 48149
+Münster, Germany}
+}
+
+\thanks{CONTACT Weihao
+Li. Email: \href{mailto:weihao.li@monash.edu}{\nolinkurl{weihao.li@monash.edu}}, John
+Smith. Email: \href{mailto:john.smith@uni-freiburg.de}{\nolinkurl{john.smith@uni-freiburg.de}}, Dominik
+Leutnant. Email: \href{mailto:leutnant@fh-muenster.de}{\nolinkurl{leutnant@fh-muenster.de}}}
+
+\maketitle
+
+\begin{abstract}
+This template is for authors who are preparing a manuscript for a Taylor
+\& Francis journal using the \LaTeX~document preparation system and the
+`interact\} class file, which is available via selected journals' home
+pages on the Taylor \& Francis website.
+\end{abstract}
+
+\begin{keywords}
+Sections; lists; figures; tables; mathematics; fonts; references;
+appendices
+\end{keywords}
+
+problem: residual plot diagnostics conventional test: too sensitive
+
+background:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  residual plot for model diagnostics
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  residual is widely used
+\item
+  what are the types of residual plots
+\item
+  comparison
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  conventional test: F, BP
+\item
+  visual test: lineup, theory
+\end{enumerate}
+
+desc of experiment: 1. simulation setup 2. experimental design 3. result
+
+comparison of conventional tests: 1. power (visual test vs.~conventional
+test) (visual test most different one (everything test, any departure))
+2. investigate the difference (gap), give examples 3. conventional is
+too sensitive 4. make conventional less sensitive (vary alpha)
+
+conclusion: 1. too sensitive, visual test is needed/preferable 2. visual
+test is infeasible in large scale (expensive) 3. future work (role of
+computer vision)
+
+Title:
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Diagnostics of the classical normal linear regression model
+conventionally involve evaluating the fitness of the proposed model,
+detecting the presence of influential observations and outliers,
+checking the validity of model assumptions and many more. Tools such as
+summary statistics, hypothesis testing, and data plots are essential for
+a systematic and detailed examination of the regression model
+\citep{mansfield1987diagnostic}.
+
+Graphical summaries in which residuals are plotted against fitted values
+or other functions of the predictor variables that are approximately
+orthogonal to residuals are refereed to as standard residual plots. They
+are commonly used to identify patterns which are indicative of
+nonconstant error variance or nonlinearity \citep{cook1982residuals}.
+Raw residuals and studentized residuals are the two most frequently used
+residuals in standard residual plots. The debt on which type of
+residuals should be used always present. While raw residuals are the
+most common output of computer regression software package, by applying
+a scaling factor, the ability of revealing nonconstant error variance in
+standard residual plots will often be enhanced by studentized residuals
+in small sample size \citep{gunst2018regression}.
+
+As a two-dimensional representation of a model in a \(p\)-dimensional
+space, standard residual plots project data points onto the variable of
+the horizontal axis, which is a vector in \(p\)-dimensional space.
+Observations with the same projection will be treated as equivalent as
+they have the same position of the abscissa. Therefore, standard
+residual plots are often useful in revealing model inadequacies in the
+direction of the variable of the horizontal axis, but could be
+inadequate for detecting patterns in other directions, especially in
+those perpendicular to the variable of the horizontal axis. Hence, in
+practice, multiple standard residual plots with different horizontal
+axes will be examined.
+
+Overlapping data points is a general issue in scatter plots not limited
+to standard residual plots, which often makes plots difficult to
+interpret because visual patterns are concealed. Thus, for relatively
+large sample size, \citet{cleveland1975graphical} suggests the use of
+robust reference lines to give aids to eye in seeing patterns, which
+nowadays, are usually replaced with a spline or local polynomial
+regression line.
+
+One of the useful supplements to standard residual plots is partial
+residual plot. While the standard residual plots indicate deviations of
+each predictor from linearity, the partial residual plots can be used to
+access the extent and the direction of the linearity. These plots can
+therefore be used to determine the importance of each predictor in the
+presence of all the others and assess the extent of nonlinearity in a
+given predictor. This is in addition to providing information on correct
+transformations and extreme data points.
+
+\bibliographystyle{tfcad}
+\bibliography{interactcadsample.bib}
+
+
+
+
+\end{document}
