@@ -54,6 +54,7 @@ desc of experiment:
 comparison of conventional tests:
 1. power (visual test vs. conventional test)
 (visual test most different one (everything test, any departure))
+plot figure in a paper, desc, exp
 2. investigate the difference (gap), give examples
 3. conventional is too sensitive
 4. make conventional less sensitive (vary alpha)
