@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.27)  27 APR 2022 06:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.3.27)  5 MAY 2022 13:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -474,71 +474,79 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/Users/patrickli/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-] [2]
+] [2] [3]
 
-Package natbib Warning: Citation `cleveland_graphical_1984' on page 3 undefined
- on input line 213.
-
-
-Package natbib Warning: Citation `roy_chowdhury_using_2015' on page 3 undefined
- on input line 223.
+Package natbib Warning: Citation `majumder_validation_2013' on page 4 undefined
+ on input line 275.
 
 
-Package natbib Warning: Citation `buja_inference_1999' on page 3 undefined on i
-nput line 229.
+Overfull \hbox (32.45757pt too wide) in paragraph at lines 301--323
+ [][] 
+ []
 
 
-Package natbib Warning: Citation `gelman_exploratory_2004' on page 3 undefined 
-on input line 231.
+Overfull \hbox (32.45757pt too wide) in paragraph at lines 328--350
+ [][] 
+ []
 
+[4]
+<paper_comparison_files/figure-latex/power-com-1.pdf, id=150, 469.755pt x 325.2
+15pt>
+File: paper_comparison_files/figure-latex/power-com-1.pdf Graphic file (type pd
+f)
+<use paper_comparison_files/figure-latex/power-com-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-com-1.pdf  u
+sed on input line 354.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Package natbib Warning: Citation `gelman_bayesian_2003' on page 3 undefined on 
-input line 234.
+Overfull \hbox (61.75386pt too wide) in paragraph at lines 354--355
+ [][] 
+ []
 
-
-Package natbib Warning: Citation `gelman_exploratory_2004' on page 3 undefined 
-on input line 234.
-
-(./paper_comparison.bbl [3])
+(./paper_comparison.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-[4] (./paper_comparison.aux)
+[5] [6 <./paper_comparison_files/figure-latex/power-com-1.pdf>] (./paper_compar
+ison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: 2508E4461C8656720827148B25ADE687;533.
+(rerunfilecheck)             Checksum: 8DFFDA68D8A5B010A995385BE72C7CE0;1184.
  ) 
 Here is how much of TeX's memory you used:
- 10755 strings out of 480236
- 168617 string characters out of 5894705
- 459146 words of memory out of 5000000
- 28522 multiletter control sequences out of 15000+600000
- 479454 words of font info for 69 fonts, out of 8000000 for 9000
+ 10801 strings out of 480236
+ 169508 string characters out of 5894705
+ 468933 words of memory out of 5000000
+ 28546 multiletter control sequences out of 15000+600000
+ 480109 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,7n,90p,258b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,10n,90p,412b,347s stack positions out of 5000i,500n,10000p,200000b,80000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/Tin
-yTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Libr
-ary/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrick
-li/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/
-patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></
-Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
-pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (4 pages, 181829 bytes).
+ic/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/Tin
+yTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Libr
+ary/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrick
+li/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/
+patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on paper_comparison.pdf (6 pages, 326579 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 261 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 51 named destinations out of 1000 (max. 500000)
+ 78 words of extra memory for PDF output out of 10000 (max. 10000000)
 

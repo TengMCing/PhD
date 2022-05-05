@@ -75,7 +75,7 @@ preprocessing$survey <- new.env(parent = preprocessing)
 
 # Extract individual survey result ----------------------------------------
 
-preprocessing$survey$get_responses <- function(survey_folder, uuid, user_info_dict) {
+preprocessing$survey$get_responses <- function(survey_folder, uuid, user_info_dict, k = 20) {
 
   survey_result <- jsonlite::fromJSON(here::here(glue::glue("{survey_folder}/{uuid}.txt")),
                                       simplifyVector = FALSE)
@@ -157,6 +157,9 @@ preprocessing$survey$detect_or_not <- function(selection, answer) {
 }
 
 
+
+# process responses in a survey -------------------------------------------
+
 # `survey_folder` is the one contatins all the .txt files
 # `k` is the number of lineups shown to a participant
 # `lineup_dat` is a list. Each item contains a list of metadata, and a dataframe of the observations
@@ -187,9 +190,9 @@ preprocessing$survey$process_responses <- function(survey_folder, k = 20, lineup
 
   for (uuid in uuids) {
     if (is.null(response_dat)) {
-      response_dat <- get_responses(survey_folder, uuid, user_info_dict)
+      response_dat <- get_responses(survey_folder, uuid, user_info_dict, k = 20)
     } else {
-      response_dat <- bind_rows(response_dat, get_responses(survey_folder, uuid, user_info_dict))
+      response_dat <- bind_rows(response_dat, get_responses(survey_folder, uuid, user_info_dict, k = 20))
     }
   }
 
@@ -212,7 +215,7 @@ preprocessing$survey$process_responses <- function(survey_folder, k = 20, lineup
     mutate(detect = detect_or_not(selection, answer)) %>%
 
     # Perform the conventional tests and get the p-values
-    mutate(conventional_p_value = map2_dbl(tmp$lineup_id, tmp$type,
+    mutate(conventional_p_value = map2_dbl(lineup_id, type,
                                            function(lineup_id, type) {
                                              if (is.na(lineup_id)) return(NA)
 
@@ -221,9 +224,195 @@ preprocessing$survey$process_responses <- function(survey_folder, k = 20, lineup
                                              } else {
                                                HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
                                              }
-                                           }))
+                                           })) %>%
+    # Discard non-lineup pages
+    filter(page > 4) %>%
 
-  #
+    # Original difficulty
+    mutate(ori_difficulty = gsub("(high_|heter_|_\\d+)", "", name))
 
 }
 
+
+# Process surveys ---------------------------------------------------------
+preprocessing$survey$process_surveys <- function(write = TRUE) {
+
+  process_responses <- preprocessing$survey$process_responses
+
+  small_lineup_dat <- readRDS(here::here("data/small_study/all_data.RDS"))
+  small_lineup_ord <- readRDS(here::here("data/small_study/lineup_order.RDS"))
+
+  # Correct the effect size
+  for (i in 1:length(small_lineup_dat)) {
+    if (small_lineup_dat[[i]]$metadata$type != "higher order") next
+
+    small_lineup_dat[[i]]$metadata$effect_size <- visage::CUBIC_MODEL$effect_size(
+      select(filter(small_lineup_dat[[i]]$data, null == FALSE), x, z),
+      a = small_lineup_dat[[i]]$metadata$a,
+      b = small_lineup_dat[[i]]$metadata$b,
+      c = small_lineup_dat[[i]]$metadata$c,
+      sigma = small_lineup_dat[[i]]$metadata$e_sigma)
+  }
+
+  small_survey_dat <- process_responses(survey_folder = "data/small_study/survey",
+                                        k = 20,
+                                        lineup_dat = small_lineup_dat,
+                                        lineup_ord = small_lineup_ord)
+
+  # Delete set 18
+  small_survey_dat <- filter(small_survey_dat, set != 18)
+
+  big_lineup_dat <- readRDS(here::here("data/big_study/all_data_big.RDS"))
+  big_lineup_ord <- readRDS(here::here("data/big_study/lineup_order_big.RDS"))
+
+  # Correct the effect size
+  for (i in 1:length(big_lineup_dat)) {
+    if (big_lineup_dat[[i]]$metadata$type != "higher order") next
+
+    big_lineup_dat[[i]]$metadata$effect_size <- visage::CUBIC_MODEL$effect_size(
+      select(filter(big_lineup_dat[[i]]$data, null == FALSE), x, z),
+      a = big_lineup_dat[[i]]$metadata$a,
+      b = big_lineup_dat[[i]]$metadata$b,
+      c = big_lineup_dat[[i]]$metadata$c,
+      sigma = big_lineup_dat[[i]]$metadata$e_sigma)
+  }
+
+  big_survey_dat <- process_responses(survey_folder = "data/big_study/survey",
+                                      k = 20,
+                                      lineup_dat = big_lineup_dat,
+                                      lineup_ord = big_lineup_ord)
+
+  merged_survey <- bind_rows(mutate(small_survey_dat, exp = 1),
+                             mutate(big_survey_dat, exp = 2)) %>%
+    mutate(exp_lineup_id = paste0(exp, "_", lineup_id))
+
+  if (write) write_csv(merged_survey, here::here("data/processed/processed_surveys.csv"))
+
+  return(merged_survey)
+}
+
+
+
+# Conventional test power simulation --------------------------------------
+
+preprocessing$conv_test <- new.env(parent = preprocessing)
+
+
+# F-test ------------------------------------------------------------------
+
+preprocessing$conv_test$conv_test_cubic <- function() {
+  para_list1 <- list(a = runif(1, -3, 3),
+                     b = runif(1, -3, 3),
+                     c = runif(1, 0, 2),
+                     x_dist = sample(c("uniform", "normal", "lognormal", "neglognormal"), 1),
+                     x_mu = 0,
+                     x_n = NA,
+                     x_sigma = sample(c(0.3, 0.6), 1),
+                     z_discrete = sample(c(TRUE, FALSE), 1),
+                     z_discrete_dist = "discrete_uniform",
+                     z_n = sample(3:10, 1),
+                     e_dist = "normal",
+                     e_df = NA,
+                     e_sigma = sample(c(0.25, 0.5, 1, 2), 1),
+                     n = sample(c(50, 100, 300), 1))
+
+  if (para_list1$x_dist == "normal") {para_list1$x_sigma <- 0.3} else {para_list1$x_sigma <- 0.6}
+
+  # Init X and Z based on the parameter list
+  x <- switch (para_list1$x_dist ,
+               "uniform" = rand_uniform(-1, 1),
+               "normal" = rand_normal(0, para_list1$x_sigma),
+               "lognormal" = rand_lognormal(0, para_list1$x_sigma),
+               "neglognormal" = {rl <- rand_lognormal(0, para_list1$x_sigma); closed_form(~-rl)}
+  )
+
+  if (para_list1$z_discrete) {z <- rand_uniform(-1, 1)} else {z <- rand_uniform_d(-1, 1, para_list1$z_n)}
+
+
+  # Build the cubic model
+  mod <- cubic_model(a = para_list1$a, b = para_list1$b, c = para_list1$c,
+                     sigma = para_list1$e_sigma,
+                     x = x, z = z)
+
+  # Generate data from the model
+  dat <- mod$gen(para_list1$n, test = TRUE)
+
+  c(mod$effect_size(dat), dat$p_value[1])
+}
+
+
+
+# BP-test -----------------------------------------------------------------
+
+preprocessing$conv_test$conv_test_heter <- function() {
+  para_list1 <- list(a = sample(c(-1, 0, 1), 1),
+                     b = runif(1, 0, 32),
+                     c = NA,
+                     x_dist = sample(c("uniform", "normal", "lognormal", "neglognormal", "discrete_uniform"), 1),
+                     x_mu = 0,
+                     x_n = sample(10:20, 1),
+                     x_sigma = sample(c(0.3, 0.6), 1),
+                     z_discrete = FALSE,
+                     z_discrete_dist = NA,
+                     z_n = NA,
+                     e_dist = NA,
+                     e_df = NA,
+                     e_sigma = NA,
+                     n = sample(c(50, 100, 300), 1))
+
+  if (para_list1$x_dist == "normal") {para_list1$x_sigma <- 0.3} else {para_list1$x_sigma <- 0.6}
+
+  # Init X and Z based on the parameter list
+  x <- switch (para_list1$x_dist ,
+               "uniform" = rand_uniform(-1, 1),
+               "discrete_uniform" = rand_uniform_d(-1, 1, para_list1$x_n),
+               "normal" = rand_normal(0, para_list1$x_sigma),
+               "lognormal" = rand_lognormal(0, para_list1$x_sigma),
+               "neglognormal" = {rl <- rand_lognormal(0, para_list1$x_sigma); closed_form(~-rl)}
+  )
+
+  # Build the cubic model
+  mod <- heter_model(a = para_list1$a, b = para_list1$b,
+                     x = x)
+
+  # Generate data from the model
+  dat <- mod$gen(para_list1$n, test = TRUE)
+
+  c(mod$effect_size(dat), dat$p_value[1], para_list1$b)
+}
+
+
+# Simulation --------------------------------------------------------------
+
+preprocessing$conv_test$get_sim_conv <- function(sim_cubic_n = 5000, sim_heter_n = 50000, alpha = 0.05, write = TRUE) {
+
+  conv_test_cubic <- preprocessing$conv_test$conv_test_cubic
+  conv_test_heter <- preprocessing$conv_test$conv_test_heter
+
+  conv_result_cubic <- map(1:sim_cubic_n, ~conv_test_cubic())
+
+  conv_result_cubic <- data.frame(effect_size = map_dbl(conv_result_cubic, ~.x[1]),
+                                  p_value = map_dbl(conv_result_cubic, ~.x[2])) %>%
+    mutate(reject = p_value < alpha) %>%
+    mutate(type = "cubic")
+
+  # conv_result_cubic <- conv_result_cubic %>%
+  #   filter(log(effect_size) > -5)
+
+  conv_result_heter <- map(1:sim_heter_n, ~conv_test_heter())
+
+  conv_result_heter <- data.frame(effect_size = map_dbl(conv_result_heter, ~.x[1]),
+                                  p_value = map_dbl(conv_result_heter, ~.x[2]),
+                                  b = map_dbl(conv_result_heter, ~.x[3])) %>%
+    mutate(reject = p_value < 0.05) %>%
+    mutate(type = "heteroskedasticity")
+
+  # conv_result_heter <- conv_result_heter %>%
+  #   filter(log(effect_size) > -3)
+
+  conv_result <- bind_rows(conv_result_cubic, conv_result_heter)
+
+  if (write) write_csv(conv_result, here::here("data/processed/sim_conv_result.csv"))
+
+  return(conv_result)
+}

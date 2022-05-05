@@ -98,8 +98,9 @@ desc of experiment: 1. simulation setup 2. experimental design 3. result
 
 comparison of conventional tests: 1. power (visual test vs.~conventional
 test) (visual test most different one (everything test, any departure))
-2. investigate the difference (gap), give examples 3. conventional is
-too sensitive 4. make conventional less sensitive (vary alpha)
+plot figure in a paper, desc, exp 2. investigate the difference (gap),
+give examples 3. conventional is too sensitive 4. make conventional less
+sensitive (vary alpha)
 
 conclusion: 1. too sensitive, visual test is needed/preferable 2. visual
 test is infeasible in large scale (expensive) 3. future work (role of
@@ -207,31 +208,152 @@ combination of both methods.
 
 Diagnostic plots are
 
-However, unlike confirmatory data analysis built upon rigorous
-statistical procedures, e.g., hypothesis testing, visual diagnostics
-relies on graphical perception - human's ability to interpret and decode
-the information embedded in the graph \citep{cleveland_graphical_1984},
-which is to some extent subjective. Further, visual discovery suffers
-from its unsecured and unconfirmed nature where the degree of the
-presence of the visual features typically can not be measured
-quantitatively and objectively, which may lead to over or
-under-interpretations of the data. One such example is finding an
-over-interpretation of the separation between gene groups in a
-two-dimensional projection from a linear discriminant analysis when in
-fact there are no differences in the expression levels between the gene
-groups and separation is not an uncommon occurrence
-\citep{roy_chowdhury_using_2015}.
+\hypertarget{experimental-design}{%
+\section{Experimental design}\label{experimental-design}}
 
-Recently, a new branch of statical inference
+\hypertarget{data-processing}{%
+\section{Data processing}\label{data-processing}}
 
-Visual inference was first introduced in a 1999 Joint Statistical
-Meetings (JSM) talk with the title ``Inference for Data Visualization''
-by \citet{buja_inference_1999} as an idea to address the issue of valid
-inference for visual discoveries of data plots
-\citep{gelman_exploratory_2004}. Later, in the Bayesian context, data
-plots was systematically considered as model diagnostics by taking
-advantage of the data simulated from the assumed statistical models
-\citep{gelman_bayesian_2003, gelman_exploratory_2004}.
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{overview-of-the-data}{%
+\subsection{Overview of the Data}\label{overview-of-the-data}}
+
+We collected 400 lineup evaluations made by 20 participants in
+experiment I and 880 lineup evaluations made by 44 participants in
+experiment II. In total, 442 unique lineups were evaluated by 64
+subjects. In experiment I, one of the participants skipped all 20
+lineups. Hence, the submission was rejected and removed from the
+dataset. In experiment II, there was a participant failed one of the two
+attention checks, but there was no further evidence of low-effort
+throughout the experiment. Therefore, the submission was kept.
+
+\hypertarget{power-comparision}{%
+\subsection{Power comparision}\label{power-comparision}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  power (visual test vs.~conventional test) (visual test most different
+  one (everything test, any departure)) plot figure in a paper, desc,
+  exp
+\item
+  investigate the difference (gap), give examples
+\item
+  conventional is too sensitive
+\item
+  make conventional less sensitive (vary alpha)
+\end{enumerate}
+
+It was expected that with larger effect size, both conventional test and
+visual test will have higher probability in rejecting the null
+hypothesis when it is not true. To explore the difference in power
+between conventional test and visual test, ten logistic regression
+models are fit to the data, with natural logarithm of the effect size as
+the only fixed effect, and whether the test successfully rejects the
+null hypothesis as the response variable. Table \ref{tab:powerglmheter}
+and \ref{tab:powerglmheter} summarizes the results. The natural
+logarithm of the effect size is positive and significant across all
+models. Figure \ref{fig:power-com} illustrates the fitted models, while
+providing the local constant estimate of the power of F-test and
+Breusch--Pagan test for comparison. Data for the conventional test is
+simulated under the same model setting used in two experiments and
+500000 samples are drawn for both cubic and heteroskedasticity model.
+
+From Figure \ref{fig:power-com}, it can be observed that the fitted
+power of visual test increased as the number of evaluations increased
+for both cubic and heteroskedasticity model.
+
+For heteroskedasticity model, this phenomenon was more obvious as the
+curves of visual tests with evaluations greater than two were always
+above the curves of visual test with evaluations smaller than two.
+However, this only held for large enough effect size. For small effect
+size, visual tests with fewer evaluations might have greater power. Note
+that, the expected power of visual test derived by
+\citet{majumder_validation_2013} followed by the assumption that human
+has the ability to select the plot with the highest t-statistic from a
+lineup under the classical linear model regression setting showed
+similar properties, where visual tests with fewer evaluations were
+expected to perform better when the parameter values close to the null
+hypothesis.
+
+For cubic model, the separation between curves was small. Fitted power
+of visual test with three to five evaluations were almost identical to
+each other in regards of effect size. In addition, all five curves
+peaked at one as effect size increased, suggesting that identification
+of non-linearity as a visual task can be completed reliably by human
+when the effect size is large enough.
+
+As shown in Figure @ref(fig:power-com), both F-test and Breusch--Pagan
+test generally possessed greater power than visual test. It was also
+found that there was a huge gap between the conventional test curves and
+the visual test curves at around \(log(\text{effect size}) = 0\) for the
+cubic model and \(log(\text{effect size}) = 2.5\) for the
+heteroskedasticity model.
+
+We further analysed the lineup with the corresponding effect size.
+
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regression were fitted for different number of evaluations.} 
+  \label{tab:powerglmcubic} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{reject} \\ 
+ & num\_eval: 1 & num\_eval:2 & num\_eval: 3 & num\_eval: 4 & num\_eval:5 \\ 
+\hline \\[-1.8ex] 
+ log\_effect\_size & 0.929$^{***}$ & 1.258$^{***}$ & 1.096$^{***}$ & 1.113$^{***}$ & 1.244$^{***}$ \\ 
+  & (0.073) & (0.076) & (0.054) & (0.056) & (0.077) \\ 
+  & & & & & \\ 
+ Constant & $-$1.969$^{***}$ & $-$2.534$^{***}$ & $-$1.549$^{***}$ & $-$1.334$^{***}$ & $-$1.404$^{***}$ \\ 
+  & (0.169) & (0.173) & (0.113) & (0.122) & (0.185) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 630 & 1,135 & 1,660 & 1,904 & 1,879 \\ 
+Log Likelihood & $-$220.882 & $-$314.394 & $-$471.152 & $-$396.979 & $-$206.296 \\ 
+Akaike Inf. Crit. & 445.764 & 632.788 & 946.305 & 797.958 & 416.592 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for heteroskedasticity model. Five regression were fitted for different number of evaluations.} 
+  \label{tab:powerglmheter} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-6} 
+\\[-1.8ex] & \multicolumn{5}{c}{reject} \\ 
+ & num\_eval: 1 & num\_eval:2 & num\_eval: 3 & num\_eval: 4 & num\_eval:5 \\ 
+\hline \\[-1.8ex] 
+ log\_effect\_size & 0.821$^{***}$ & 1.104$^{***}$ & 1.157$^{***}$ & 1.387$^{***}$ & 1.651$^{***}$ \\ 
+  & (0.086) & (0.079) & (0.066) & (0.076) & (0.110) \\ 
+  & & & & & \\ 
+ Constant & $-$4.472$^{***}$ & $-$5.887$^{***}$ & $-$5.431$^{***}$ & $-$6.154$^{***}$ & $-$7.123$^{***}$ \\ 
+  & (0.434) & (0.415) & (0.344) & (0.400) & (0.591) \\ 
+  & & & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 630 & 1,138 & 1,596 & 1,662 & 1,416 \\ 
+Log Likelihood & $-$333.119 & $-$631.519 & $-$835.317 & $-$650.570 & $-$342.058 \\ 
+Akaike Inf. Crit. & 670.238 & 1,267.038 & 1,674.634 & 1,305.140 & 688.116 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/power-com-1.pdf}
+\caption{\label{fig:power-com}power com}
+\end{figure}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

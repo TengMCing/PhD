@@ -1,4 +1,4 @@
-a,b,c,x_dist,x_mu,x_sigma,z_discrete,z_discrete_dist,z_n,e_dist,e_df,e_sigma,n,model,statistics,pvalue,effect_size,detect,x_n
+a,b,c,x_dist,x_mu,x_sigma,z_discrete,z_discrete_dist,z_n,e_dist,e_df,e_sigma,n,type,statistics,pvalue,effect_size,detect,x_n
 -1.2905334890820086,-2.564710384234786,0.7735617868602276,normal,0,0.3,TRUE,discrete_uniform,5,normal,NA,0.5,100,cubic,21.229715675598957,1.8386946602948023e-12,5.201530583166612,FALSE,NA
 0.3064528643153608,0.26624276395887136,0.615850736387074,lognormal,0,0.6,TRUE,discrete_uniform,3,normal,NA,1,300,cubic,1.9412309831551084,0.12300278110281561,0.008418314237080256,TRUE,NA
 0.11421912861987948,0.8267389079555869,0.9199480004608631,lognormal,0,0.6,FALSE,discrete_uniform,6,normal,NA,0.25,100,cubic,8.612684655985376,5.869392478929039e-6,2.684079465482006,FALSE,NA
