@@ -247,53 +247,68 @@ throughout the experiment. Therefore, the submission was kept.
   make conventional less sensitive (vary alpha)
 \end{enumerate}
 
-It was expected that with larger effect size, both conventional test and
-visual test will have higher probability in rejecting the null
-hypothesis when it is not true. To explore the difference in power
-between conventional test and visual test, ten logistic regression
-models are fit to the data, with natural logarithm of the effect size as
-the only fixed effect, and whether the test successfully rejects the
-null hypothesis as the response variable. Table \ref{tab:powerglmheter}
-and \ref{tab:powerglmheter} summarizes the results. The natural
-logarithm of the effect size is positive and significant across all
-models. Figure \ref{fig:power-com} illustrates the fitted models, while
+To model the power of visual test, 10 logistic regression were fit for
+different number of evaluations ranged from one to five and two
+different types of simulation setting. All 10 models used natural
+logarithm of the effect size as the only fixed effect, and whether the
+test successfully rejects the null hypothesis as the response variable.
+Given the way we define the effect size, it was expected that with
+larger effect size, both conventional test and visual test will have
+higher probability in rejecting the null hypothesis when it is not true.
+The modelling result summarized in \ref{tab:powerglmcubic} and
+\ref{tab:powerglmheter} aligned with the expectation as the coefficients
+of natural logarithm of the effect size are positive and significant
+across all 10 models.
+
+Figure \ref{fig:power-com} illustrates the fitted models, while
 providing the local constant estimate of the power of F-test and
 Breusch--Pagan test for comparison. Data for the conventional test is
-simulated under the same model setting used in two experiments and
-500000 samples are drawn for both cubic and heteroskedasticity model.
-
+simulated under the model setting described in section \ldots{} and
+5000000 samples are drawn for both cubic and heteroskedasticity model.
 From Figure \ref{fig:power-com}, it can be observed that the fitted
 power of visual test increased as the number of evaluations increased
 for both cubic and heteroskedasticity model.
 
 For heteroskedasticity model, this phenomenon was more obvious as the
-curves of visual tests with evaluations greater than two were always
-above the curves of visual test with evaluations smaller than two.
-However, this only held for large enough effect size. For small effect
-size, visual tests with fewer evaluations might have greater power. Note
-that, the expected power of visual test derived by
-\citet{majumder_validation_2013} followed by the assumption that human
-has the ability to select the plot with the highest t-statistic from a
-lineup under the classical linear model regression setting showed
-similar properties, where visual tests with fewer evaluations were
-expected to perform better when the parameter values close to the null
-hypothesis.
+power of visual tests with evaluations greater than two were always
+greater than those with evaluations smaller than two.
 
-For cubic model, the separation between curves was small. Fitted power
-of visual test with three to five evaluations were almost identical to
-each other in regards of effect size. In addition, all five curves
-peaked at one as effect size increased, suggesting that identification
-of non-linearity as a visual task can be completed reliably by human
-when the effect size is large enough.
+For cubic model, the separation between curves was small. The estimated
+power of visual tests with three to five evaluations were almost
+identical to each other in regards of effect size. In addition, all five
+curves peaked at one as effect size increased, suggesting that
+identification of non-linearity as a visual task can be completed
+reliably by human as long as the departure from null hypothesis is large
+enough.
 
-As shown in Figure @ref(fig:power-com), both F-test and Breusch--Pagan
-test generally possessed greater power than visual test. It was also
-found that there was a huge gap between the conventional test curves and
-the visual test curves at around \(log(\text{effect size}) = 0\) for the
-cubic model and \(log(\text{effect size}) = 2.5\) for the
-heteroskedasticity model.
+As shown in Figure \ref{fig:power-com}, both F-test and Breusch--Pagan
+test generally possessed greater power than visual test. A visual tests
+is a collection of test against any alternatives that would create
+visual discoverable features, while a conventional test is usually
+targeting at a pre-specified alternative. Considering the data
+generating process of the model defect was known and controlled in this
+research, where all other alternatives have been eliminated except the
+one we concerned, the result was suggested that conventional tests were
+more sensitive to violations of linearity and homoscedasticity
+assumption than visual tests.
 
-We further analysed the lineup with the corresponding effect size.
+It was also found that there was a noticeable gap between curves of the
+conventional test and the visual test at around
+\(log(\text{effect size}) = 0\) for the cubic model and
+\(log(\text{effect size}) = 2.5\) for the heteroskedasticity model,
+where the differences in power were greater than 0.6. We further
+analysed the lineups with correspoding effect sizes. Figure
+\ref{fig:cubic-hard} and \ref{fig:heter-hard} showed that human was
+indeed hard to identify the patterns at this level of difficulty. The
+visual difference between the true data plot and null plots were almost
+unnoticeable.
+
+\hypertarget{effect-of-parameters-on-power-of-the-visual-test}{%
+\subsection{Effect of parameters on power of the visual
+test}\label{effect-of-parameters-on-power-of-the-visual-test}}
+
+The previous section focuses on the change of effect size relative to
+the power of the visual test.
 
 \begin{table}[!htbp] \centering 
   \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regression were fitted for different number of evaluations.} 
@@ -353,6 +368,36 @@ Akaike Inf. Crit. & 670.238 & 1,267.038 & 1,674.634 & 1,305.140 & 688.116 \\
 \centering
 \includegraphics{paper_comparison_files/figure-latex/power-com-1.pdf}
 \caption{\label{fig:power-com}power com}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/cubic-hard-1.pdf}
+\caption{\label{fig:cubic-hard}cubic-hard ans 11}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/heter-hard-1.pdf}
+\caption{\label{fig:heter-hard}heter-hard ans 2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/power-com-cubic-a-1.pdf}
+\caption{\label{fig:power-com-cubic-a}power com cubic a}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/power-com-cubic-b-1.pdf}
+\caption{\label{fig:power-com-cubic-b}power com cubic b}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/power-com-heter-b-1.pdf}
+\caption{\label{fig:power-com-heter-b}power com heter b}
 \end{figure}
 
 \bibliographystyle{tfcad}

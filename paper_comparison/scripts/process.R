@@ -337,7 +337,7 @@ preprocessing$conv_test$conv_test_cubic <- function() {
   # Generate data from the model
   dat <- mod$gen(para_list1$n, test = TRUE)
 
-  c(mod$effect_size(dat), dat$p_value[1])
+  return(list(effect_size = mod$effect_size(dat), p_value = mod$test(dat)$p_value, para_list = para_list1))
 }
 
 
@@ -378,7 +378,7 @@ preprocessing$conv_test$conv_test_heter <- function() {
   # Generate data from the model
   dat <- mod$gen(para_list1$n, test = TRUE)
 
-  c(mod$effect_size(dat), dat$p_value[1], para_list1$b)
+  return(list(effect_size = mod$effect_size(dat), p_value = mod$test(dat)$p_value, para_list = para_list1))
 }
 
 
@@ -391,21 +391,24 @@ preprocessing$conv_test$get_sim_conv <- function(sim_cubic_n = 5000, sim_heter_n
 
   conv_result_cubic <- map(1:sim_cubic_n, ~conv_test_cubic())
 
-  conv_result_cubic <- data.frame(effect_size = map_dbl(conv_result_cubic, ~.x[1]),
-                                  p_value = map_dbl(conv_result_cubic, ~.x[2])) %>%
+  conv_result_cubic <- tibble(effect_size = map_dbl(conv_result_cubic, ~.x$effect_size),
+                              p_value = map_dbl(conv_result_cubic, ~.x$p_value),
+                              para_list = map(conv_result_cubic, ~.x$para_list)) %>%
     mutate(reject = p_value < alpha) %>%
-    mutate(type = "cubic")
+    mutate(type = "cubic") %>%
+    unnest_wider(para_list)
 
   # conv_result_cubic <- conv_result_cubic %>%
   #   filter(log(effect_size) > -5)
 
   conv_result_heter <- map(1:sim_heter_n, ~conv_test_heter())
 
-  conv_result_heter <- data.frame(effect_size = map_dbl(conv_result_heter, ~.x[1]),
-                                  p_value = map_dbl(conv_result_heter, ~.x[2]),
-                                  b = map_dbl(conv_result_heter, ~.x[3])) %>%
-    mutate(reject = p_value < 0.05) %>%
-    mutate(type = "heteroskedasticity")
+  conv_result_heter <- tibble(effect_size = map_dbl(conv_result_heter, ~.x$effect_size),
+                              p_value = map_dbl(conv_result_heter, ~.x$p_value),
+                              para_list = map(conv_result_heter, ~.x$para_list)) %>%
+    mutate(reject = p_value < alpha) %>%
+    mutate(type = "heteroskedasticity") %>%
+    unnest_wider(para_list)
 
   # conv_result_heter <- conv_result_heter %>%
   #   filter(log(effect_size) > -3)

@@ -124,20 +124,25 @@ plot figure in a paper, desc, exp
 3. conventional is too sensitive
 4. make conventional less sensitive (vary alpha)
 
-It was expected that with larger effect size, both conventional test and visual test will have higher probability in rejecting the null hypothesis when it is not true. To explore the difference in power between conventional test and visual test, ten logistic regression models are fit to the data, with natural logarithm of the effect size as the only fixed effect, and whether the test successfully rejects the null hypothesis as the response variable. Table \ref{tab:powerglmheter} and \ref{tab:powerglmheter} summarizes the results. The natural logarithm of the effect size is positive and significant across all models. Figure \ref{fig:power-com} illustrates the fitted models, while providing the local constant estimate of the power of F-test and Breusch–Pagan test for comparison. Data for the conventional test is simulated under the same model setting used in two experiments and 500000 samples are drawn for both cubic and heteroskedasticity model.
 
-From Figure \ref{fig:power-com}, it can be observed that the fitted power of visual test increased as the number of evaluations increased for both cubic and heteroskedasticity model. 
-
-For heteroskedasticity model, this phenomenon was more obvious as the curves of visual tests with evaluations greater than two were always above the curves of visual test with evaluations smaller than two. However, this only held for large enough effect size. For small effect size, visual tests with fewer evaluations might have greater power. Note that, the expected power of visual test derived by @majumder_validation_2013 followed by the assumption that human has the ability to select the plot with the highest t-statistic from a lineup under the classical linear model regression setting showed similar properties, where visual tests with fewer evaluations were expected to perform better when the parameter values close to the null hypothesis. 
-
-For cubic model, the separation between curves was small. Fitted power of visual test with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of non-linearity as a visual task can be completed reliably by human when the effect size is large enough.  
-
-As shown in Figure \@ref(fig:power-com), both F-test and Breusch–Pagan test generally possessed greater power than visual test. It was also found that there was a huge gap between the conventional test curves and the visual test curves at around $log(\text{effect size}) = 0$ for the cubic model and $log(\text{effect size}) = 2.5$ for the heteroskedasticity model. 
+To model the power of visual test, 10 logistic regression were fit for different number of evaluations ranged from one to five and two different types of simulation setting. All 10 models used natural logarithm of the effect size as the only fixed effect, and whether the test successfully rejects the null hypothesis as the response variable. Given the way we define the effect size, it was expected that with larger effect size, both conventional test and visual test will have higher probability in rejecting the null hypothesis when it is not true. The modelling result summarized in \ref{tab:powerglmcubic} and \ref{tab:powerglmheter} aligned with the expectation as the coefficients of natural logarithm of the effect size are positive and significant across all 10 models.
 
 
+Figure \ref{fig:power-com} illustrates the fitted models, while providing the local constant estimate of the power of F-test and Breusch–Pagan test for comparison. Data for the conventional test is simulated under the model setting described in section ... and 5000000 samples are drawn for both cubic and heteroskedasticity model. From Figure \ref{fig:power-com}, it can be observed that the fitted power of visual test increased as the number of evaluations increased for both cubic and heteroskedasticity model.
+
+For heteroskedasticity model, this phenomenon was more obvious as the power of visual tests with evaluations greater than two were always greater than those with evaluations smaller than two. 
+
+For cubic model, the separation between curves was small. The estimated power of visual tests with three to five evaluations were almost identical to each other in regards of effect size. In addition, all five curves peaked at one as effect size increased, suggesting that identification of non-linearity as a visual task can be completed reliably by human as long as the departure from null hypothesis is large enough.
+
+As shown in Figure \ref{fig:power-com}, both F-test and Breusch–Pagan test generally possessed greater power than visual test. A visual tests is a collection of test against any alternatives that would create visual discoverable features, while a conventional test is usually targeting at a pre-specified alternative. Considering the data generating process of the model defect was known and controlled in this research, where all other alternatives have been eliminated except the one we concerned, the result was suggested that conventional tests were more sensitive to violations of linearity and homoscedasticity assumption than visual tests. 
+
+It was also found that there was a noticeable gap between curves of the conventional test and the visual test at around $log(\text{effect size}) = 0$ for the cubic model and $log(\text{effect size}) = 2.5$ for the heteroskedasticity model, where the differences in power were greater than 0.6. We further analysed the lineups with correspoding effect sizes. Figure \ref{fig:cubic-hard} and \ref{fig:heter-hard} showed that human was indeed hard to identify the patterns at this level of difficulty. The visual difference between the true data plot and null plots were almost unnoticeable. 
+
+## Effect of parameters on power of the visual test
+
+The previous section focuses on the change of effect size relative to the power of the visual test. 
 
 
-We further analysed the lineup with the corresponding effect size.
 
 
 ```{r setup, include=FALSE}
@@ -150,7 +155,7 @@ library(tidyverse)
 library(visage)
 pilot <- read_csv(here::here("data/processed/processed_pilot.csv"))
 survey <- read_csv(here::here("data/processed/processed_surveys.csv"))
-sim_conv <- read_csv(here::here("data/processed/sim_conv_result.csv"), col_types = "dddlc")
+sim_conv <- read_csv(here::here("data/processed/sim_conv_result.csv"), col_types = "dddddcdddlcdcdddlc")
 ```
 
 ```{r}
@@ -169,22 +174,20 @@ write_csv(lineup_info, here::here("data/processed/processed_lineup_info.csv"))
 
 
 # Local constant estimator
-kernel_regression_cubic <- function(h = 0.3) {
+kernel_regression_cubic <- function(sim_conv, h = 0.3, x = quote(log_effect_size)) {
   with(filter(sim_conv, type == "cubic", log_effect_size > -5, log_effect_size < 10),
-     KernSmooth::locpoly(x = log_effect_size, y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
+     KernSmooth::locpoly(x = eval(x), y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
     as_tibble() %>%
     mutate(type = "cubic", h = h) %>%
-    rename(log_effect_size = x) %>%
     rename(reject = y)
 }
 
 # Local constant estimator
-kernel_regression_heter <- function(h = 0.4) {
+kernel_regression_heter <- function(sim_conv, h = 0.4, x = quote(log_effect_size)) {
   with(filter(sim_conv, type != "cubic", log_effect_size > -3),
-     KernSmooth::locpoly(x = log_effect_size, y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
+     KernSmooth::locpoly(x = eval(x), y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
     as_tibble() %>%
     mutate(type = "heteroskedasticity", h = h) %>%
-    rename(log_effect_size = x) %>%
     rename(reject = y)
 }
 ```
@@ -245,20 +248,154 @@ map(1:5, function(x) glm(reject ~ log_effect_size,
 
 
 
-
-
 ```{r power-com, fig.cap="\\label{fig:power-com}power com"}
 survey_pvalue %>%
   mutate(reject = as.numeric(reject)) %>%
   mutate(n_eval = factor(n_eval)) %>%
   ggplot() +
   geom_point(aes(log_effect_size, reject), alpha = 0.01) +
-  geom_line(data = kernel_regression_cubic(), aes(log_effect_size, reject), linetype = 2) +
-  geom_line(data = kernel_regression_heter(), aes(log_effect_size, reject), linetype = 2) +
+  geom_line(data = kernel_regression_cubic(sim_conv, 0.4), aes(x, reject), linetype = 2) +
+  geom_line(data = kernel_regression_heter(sim_conv, 0.75), aes(x, reject), linetype = 2) +
   geom_smooth(aes(log_effect_size, reject, group = n_eval, col = n_eval),
               method = "glm", method.args = list(family = binomial), size = 0.5, se = FALSE) +
   scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
   facet_wrap(~type, scales = "free_x") +
   ylab("Estimated power")
 ```
+
+
+```{r cubic-hard, fig.cap="\\label{fig:cubic-hard}cubic-hard ans 11"}
+big_lineup_dat <- readRDS(here::here("data/big_study/all_data_big.RDS"))
+
+# ans 11, conventional 0.003491033
+CUBIC_MODEL$plot_lineup(mutate(big_lineup_dat[[28]]$data, .fitted = .pred),
+                        remove_axis = TRUE,
+                        theme = theme_light(),
+                        remove_grid_line = TRUE)
+
+```
+
+```{r heter-hard, fig.cap="\\label{fig:heter-hard}heter-hard ans 2"}
+# ans 2, conventional 0.003535915
+HETER_MODEL$plot_lineup(mutate(big_lineup_dat[[136]]$data, .fitted = .pred),
+                        remove_axis = TRUE,
+                        theme = theme_light(),
+                        remove_grid_line = TRUE)
+```
+
+```{r power-com-cubic-a, fig.cap="\\label{fig:power-com-cubic-a}power com cubic a"}
+bind_grid <- expand.grid(n = c(50, 100, 300),
+                         h = 0.4,
+                         x = c(quote(abs(a)/e_sigma)))
+
+bind_list <- list()
+
+for (i in 1:nrow(bind_grid)) {
+  (function(n, h, x) {
+    mutate(kernel_regression_cubic(filter(sim_conv, n == {{n}}), h = h, x = x),
+           n = factor(n, levels = c(50, 100, 300)))
+    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]]) -> bind_list[[i]]
+}
+
+bind_sim <- reduce(bind_list, bind_rows)
+
+
+# cubic break down
+survey_pvalue %>%
+  filter(type == "cubic") %>%
+  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
+  mutate(n_eval = factor(n_eval)) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(abs(a)/e_sigma, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
+  geom_smooth(aes(abs(a)/e_sigma, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
+  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
+  facet_wrap(~n, labeller = label_both) +
+  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
+  theme_light()
+```
+
+
+
+```{r power-com-cubic-b, fig.cap="\\label{fig:power-com-cubic-b}power com cubic b"}
+bind_grid <- expand.grid(n = c(50, 100, 300),
+                         h = 0.4,
+                         x = c(quote(abs(b)/e_sigma)))
+
+bind_list <- list()
+
+for (i in 1:nrow(bind_grid)) {
+  (function(n, h, x) {
+    mutate(kernel_regression_cubic(filter(sim_conv, n == {{n}}), h = h, x = x),
+           n = factor(n, levels = c(50, 100, 300)))
+    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]]) -> bind_list[[i]]
+}
+
+bind_sim <- reduce(bind_list, bind_rows)
+
+# cubic break down
+survey_pvalue %>%
+  filter(type == "cubic") %>%
+  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  mutate(n_eval = factor(n_eval)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(abs(b)/e_sigma, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
+  geom_smooth(aes(abs(b)/e_sigma, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
+  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
+  facet_wrap(~n, labeller = label_both) +
+  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
+  theme_light()
+```
+
+```{r eval = FALSE}
+# cubic break down
+# We do not have enough observations
+survey_pvalue %>%
+  filter(type == "cubic") %>%
+  mutate(n = factor(n)) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  ggplot() +
+  geom_point(aes(abs(a), reject, col = n), alpha = 0.1) +
+  geom_smooth(aes(abs(a), reject, col = n), method = "glm", method.args = list(family = binomial()), se = FALSE) +
+  geom_smooth(data = mutate(filter(sim_conv, type == "cubic"), n = factor(n), reject = as.numeric(reject)),
+              aes(abs(a), reject, group = n), 
+              method = "glm", method.args = list(family = binomial()), se = FALSE, col = "grey", linetype = 2) +
+  facet_grid(e_sigma~n)
+```
+
+
+```{r power-com-heter-b, fig.cap="\\label{fig:power-com-heter-b}power com heter b"}
+bind_grid <- expand.grid(n = c(50, 100, 300),
+                         h = 3,
+                         x = c(quote(b)),
+                         a = c(-1, 0, 1))
+
+bind_list <- list()
+
+for (i in 1:nrow(bind_grid)) {
+  (function(n, h, x, a) {
+    mutate(kernel_regression_heter(filter(sim_conv, n == {{n}}, a == {{a}}), h = h, x = x),
+           n = factor(n, levels = c(50, 100, 300)),
+           a = factor(a, levels = c(-1, 0, 1)))
+    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]], a = bind_grid$a[i]) -> bind_list[[i]]
+}
+
+bind_sim <- reduce(bind_list, bind_rows)
+
+# heter break down
+survey_pvalue %>%
+  filter(type != "cubic") %>%
+  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
+  mutate(reject = as.numeric(reject)) %>%
+  mutate(n_eval = factor(n_eval)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(b, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
+  geom_smooth(aes(b, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
+  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
+  theme_light() +
+  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
+  facet_grid(a~n, labeller = label_both)
+```
+
 
