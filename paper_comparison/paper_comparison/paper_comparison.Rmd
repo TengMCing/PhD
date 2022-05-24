@@ -138,10 +138,13 @@ As shown in Figure \ref{fig:power-com}, both F-test and Breusch–Pagan test gen
 
 It was also found that there was a noticeable gap between curves of the conventional test and the visual test at around $log(\text{effect size}) = 0$ for the cubic model and $log(\text{effect size}) = 2.5$ for the heteroskedasticity model, where the differences in power were greater than 0.6. We further analysed the lineups with correspoding effect sizes. Figure \ref{fig:cubic-hard} and \ref{fig:heter-hard} showed that human was indeed hard to identify the patterns at this level of difficulty. The visual difference between the true data plot and null plots were almost unnoticeable. 
 
+<!-- sample 1, change values of a and b, plot the data  -->
+
 ## Effect of parameters on power of the visual test
 
-The previous section focuses on the change of effect size relative to the power of the visual test. 
+The previous section focuses on the change of effect size relative to the power of the visual test. However, effect size is only a one dimensional summarisation of parameters used in data simulation. Individual factor embedded in the simulation process should also be analysed. 
 
+In cubic model, two major factors that influencing the strength of the signal are $a$ and $b$. Figure \ref{fig:power-com-cubic-a} and \ref{fig:power-com-cubic-a} illustrates 30 different logistic regressions fit for different number of evaluations and different number of observations $n$. The regressor used in these models was $|a|/\sigma$ since the noise level $\sigma$ needed to be taken into account. From the figures, we can observe ...
 
 
 
@@ -168,7 +171,10 @@ sim_conv <- sim_conv %>%
 lineup_info <- select(survey, type:answer, conventional_p_value, ori_difficulty, exp, exp_lineup_id, log_effect_size) %>%
   group_by(exp_lineup_id) %>% 
   filter(row_number() == 1) %>%
-  ungroup()
+  ungroup() %>%
+  left_join(survey %>%
+              count(exp_lineup_id) %>%
+              rename(n_eval = n))
 
 write_csv(lineup_info, here::here("data/processed/processed_lineup_info.csv"))
 
@@ -218,6 +224,137 @@ survey_pvalue <- survey %>%
   mutate(reject = eval_p_value(p_value, tol = 0.01))
 
 save_lineup_env(env)
+```
+
+
+```{r}
+survey_single_pvalue <- survey %>%
+  calc_p_value_multi(lineup_id = "exp_lineup_id", 
+                     detected = "detect", 
+                     n_sel = "num_selection",
+                     comb = FALSE,
+                     n_sim = 100000,
+                     cache_env = env) %>%
+  left_join(lineup_info, by = c("lineup_id" = "exp_lineup_id")) %>%
+  mutate(reject = eval_p_value(p_value, tol = 1e-02))
+
+save_lineup_env(env)
+```
+
+
+```{r fig.height=6, fig.width=8}
+# set.seed(20002)
+# mod <- cubic_model(a = -3, b = 0, c = 1, sigma = 0.5, 
+#                    x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
+
+# fixed_sample <- mod$gen(100)
+plot_list <- list()
+
+for (a in seq(-3, 3, 1)) {
+  for (b in seq(-3, 3, 1)) {
+    
+    set.seed(20002)
+    
+    mod <- cubic_model(a = a, b = b, c = 0, sigma = 0.5, 
+                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
+
+    plot_list[[paste(a, b, sep = "_")]] <- mod$gen(1000, fit_model = TRUE) %>%
+    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = TRUE) +
+    ggtitle(glue::glue("a: {mod$prm$y$sym$a}, b: {mod$prm$y$sym$b}")) +
+    ylim(c(-20, 20))
+  }
+}
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+
+```{r fig.height=1.5, fig.width=8}
+set.seed(20002)
+mod <- cubic_model(a = -3, b = -3, c = 1, sigma = 0.5, 
+                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
+
+fixed_sample <- mod$gen(100)
+plot_list <- list()
+
+for (c in seq(0, 2, 0.5)) {
+    mod$prm$y$sym$c <- c
+    plot_list[[paste(c)]] <- mod$gen(100, fit_model = TRUE, 
+                                     computed = list(e = fixed_sample$e,
+                                                     x = fixed_sample$x,
+                                                     z = fixed_sample$z)) %>%
+    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = FALSE) +
+    ggtitle(glue::glue("c: {mod$prm$y$sym$c}")) 
+}
+
+patchwork::wrap_plots(plot_list, ncol = 5)
+```
+
+
+```{r}
+plot_list <- list()
+
+for (b in c(0, 0.5, 1, 1.5, 2, 2.5, 3, 10)) {
+    
+    set.seed(20002)
+    mod <- heter_model(a = 1, b = b, x = rand_uniform(-1, 1))
+    
+    plot_list[[paste(b)]] <- mod$gen(1000, fit_model = TRUE) %>%
+    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = TRUE) +
+    ggtitle(glue::glue("b: {b}"))
+}
+
+patchwork::wrap_plots(plot_list, ncol = 5)
+```
+
+
+
+```{r}
+survey_single_pvalue %>%
+  mutate(reject = as.numeric(reject)) %>%
+  filter(n_eval >= 1) %>%
+  ggplot() +
+  geom_histogram(aes(log_effect_size, ..count../10), binwidth = 0.1) +
+  geom_point(aes(log_effect_size, reject), alpha = 0.2) +
+  geom_line(data = kernel_regression_cubic(sim_conv, 0.4), aes(x, reject), linetype = 2) +
+  geom_line(data = kernel_regression_heter(sim_conv, 0.75), aes(x, reject), linetype = 2) +
+  geom_smooth(aes(log_effect_size, reject), method = "glm", se = FALSE, method.args = list(family = binomial())) +
+  facet_wrap(~type, scales = "free_x")
+```
+
+
+```{r}
+sim_conv <- sim_conv %>%
+  mutate(dis_b = cut(abs(b), breaks = c(0, 1, 2, 3)))
+
+kernel_layer <- function(dis_b_index) {
+  geom_line(data = kernel_regression_cubic(filter(sim_conv, as.numeric(dis_b) == dis_b_index), 
+                                           0.4, 
+                                           x = quote(abs(a))), 
+            aes(x, reject, col = levels(sim_conv$dis_b)[dis_b_index]), 
+            linetype = 2)
+}
+
+survey_single_pvalue %>%
+  filter(type == "cubic") %>%
+  mutate(reject = as.numeric(reject)) %>%
+  mutate(dis_b = cut(abs(b), breaks = c(0, 1, 2, 3))) %>%
+  filter(n_eval >= 1) %>%
+  ggplot() +
+  # geom_histogram(aes(log_effect_size, ..count../10), binwidth = 0.1) +
+  geom_point(aes(abs(a), reject), alpha = 0.2) +
+  kernel_layer(1) +
+  kernel_layer(2) +
+  kernel_layer(3) +
+  geom_smooth(aes(abs(a), reject, col = dis_b), method = "glm", se = FALSE, method.args = list(family = binomial())) +
+  facet_grid(n~e_sigma, scales = "free_x") +
+  labs(col = "abs(b)")
+```
+
+
+
+```{r}
+
 ```
 
 
