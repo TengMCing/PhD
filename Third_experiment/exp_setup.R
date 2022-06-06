@@ -4,18 +4,8 @@ library(visage)
 library(lhs)
 library(cli)
 
-get_trunc_norm_cdf <- function(sd = 1, ndraws = 10^7) {
-  result <- rnorm(ndraws, mean = 0, sd = sd)
-  result <- result[result >= -1.5 & result <= 1.5]
-  function(p) {
-    quantile(result, probs = p) %>%
-      unname()
-  }
-}
-
-trans_unif_2_norm <- function(x, sd = 1, ndraws = 10^7) {
-  p_trunc_norm <- get_trunc_norm_cdf(sd, ndraws)
-  p_trunc_norm(x)
+trans_unif_2_norm <- function(x, sd = 1) {
+  truncnorm::qtruncnorm(x, sd = sd, a = -1, b = 1)
 }
 
 trans_unif_2_discrete <- function(x, level = NULL) {
@@ -25,45 +15,56 @@ trans_unif_2_discrete <- function(x, level = NULL) {
 
 
 # Shape of the trunc density
-ggplot() +
-  geom_density(aes(trans_unif_2_norm(seq(0, 1, 0.00001))), col = "red")
+# ggplot() +
+#   geom_density(aes(trans_unif_2_norm(seq(0, 1, 0.00001))), col = "red")
 
 
-# V1: a in -1.5 ~ 1.5
-# V2: b in -1.5 ~ 1.5
+# V1: a = 1, 2, 3, 4, 5, 6
 # V3: N: 50, 100, 300
 # V4: x_dist: uniform, normal, lognormal, neglognormal, even_dis, uneven_dis
 # V5: e_sigma: 0.125, 0.25, 0.5, 1
 
-# 9 (a and b combinations) * 3 * 6 * 4 = 720
+# 6 * 3 * 6 * 4 = 432
 
 # rep: 5
 
 set.seed(10086)
 
-num_ab_comb <- 9
-
 # Generate unique lineups
-lineup <- randomLHS(num_ab_comb * 3 * 6 * 4, 2) %>%
-  as.data.frame() %>%
-  mutate(a = trans_unif_2_norm(V1, sd = 0.5),
-         b = trans_unif_2_norm(V2, sd = 0.5)) %>%
-  bind_cols(map(1:num_ab_comb, function(x) {
-    expand.grid(n = c(50, 100, 300),
-                x_dist = c("uniform", "normal", "lognormal", "neglognormal",
-                           "even_discrete", "uneven_discrete"),
-                e_sigma = c(0.125, 0.25, 0.5, 1),
-                ab = x)
-    }) %>%
-    reduce(bind_rows)) %>%
-  select(-V1, -V2, -ab) %>%
-  mutate(lineup_id = 1:n())
+lineup <- expand.grid(a = 1:6,
+                      n = c(50, 100, 300),
+                      x_dist = c("uniform", "normal", "lognormal", "neglognormal",
+                                 "even_discrete", "uneven_discrete"),
+                      e_sigma = c(0.125, 0.25, 0.5, 1)) %>%
+  mutate(lineup_id = sample(1:n()))
 
-# Check a and b distribution
-lineup %>%
-  ggplot() +
-  geom_point(aes(a, b)) +
-  facet_grid(x_dist~e_sigma+n)
+
+check_comb <- function(set_dat, new_dat, n = 1) {
+
+  apply(combn(dim(set_dat)[2], n),
+        MARGIN = 2,
+        function(this_comb) {
+          # browser()
+          for (i in 1:nrow(set_dat)) {
+            if (all(unlist(set_dat[i, this_comb]) == unlist(new_dat[1, this_comb]))) return(TRUE)
+          }
+          return(FALSE)
+        })
+}
+
+# check_comb(lineup %>%
+#              filter(lineup_id %in% c(193, 100, 162, 135, 50)) %>%
+#              select(-lineup_id),
+#            lineup %>%
+#              filter(lineup_id %in% c(147)) %>%
+#              select(-lineup_id),
+#            4)
+#
+# lineup %>%
+#   filter(lineup_id %in% c(193, 100, 162, 135, 50)) %>%
+#   select(-lineup_id)
+#
+# 147
 
 # Caculate distance between a set of allocated lineups and a new lineup
 calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
@@ -74,19 +75,18 @@ calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
   allocated_lineups <- lineup %>%
     filter(lineup_id %in% allocated_lineup_ids)
 
-  # We want these three options to be as differnet as possible
-  3 -
-    new_lineup$x_dist %in% allocated_lineups$x_dist -
-    new_lineup$e_sigma %in% allocated_lineups$e_sigma -
-    new_lineup$n %in% allocated_lineups$n +
-
-  # We want the new lineup has `a` and `b` that are far away from allocated lineups
-  min((allocated_lineups$a - new_lineup$a)^2 + (allocated_lineups$b - new_lineup$b)^2)/18
+  # We want these three options to be as different as possible
+  15 -
+    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 1)) -
+    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 2)) -
+    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 3)) -
+    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 4))
 
 }
 
 find_available_subject <- function(allocate_list) {
   map_dbl(allocate_list, length) %>%
+    rank(ties.method = "random") %>%
     which.min()
 }
 
@@ -97,7 +97,8 @@ find_available_lineups <- function(allocate_list, this_subject, num_rep, num_lin
     unname() %>%
     {. < num_rep} %>%
     which() %>%
-    setdiff(allocate_list[[this_subject]])
+    setdiff(allocate_list[[this_subject]]) %>%
+    sample()
 }
 
 log_allocate <- function(this_subject, best_lineup_id,
@@ -114,13 +115,13 @@ log_allocate <- function(this_subject, best_lineup_id,
 
 log_find_subject <- function(this_subject, verbose) {
   if (verbose > 1) {
-    cli_alert_success("Found empty slots for subject {.val {this_subject}}.")
+    cli_alert_success("Found a random empty slot in subject {.val {this_subject}}.")
   }
 }
 
 log_find_lineup <- function(available_lineup_ids, verbose) {
   if (verbose > 1) {
-    cli_alert_success("Found {.val {length(available_lineup_ids)}} available lineups.")
+    cli_alert_success("Found {.val {length(available_lineup_ids)}} available lineups in random order.")
   }
 }
 
@@ -232,6 +233,12 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
         best_dist <- current_dist
         best_lineup_id <- new_lineup_id
         log_best_dist(best_dist, new_lineup_id, verbose)
+
+        if (best_dist == 15) break
+        if (best_dist == 14 && length(allocated_lineup_ids) >= 3) break
+        if (best_dist == 13 && length(allocated_lineup_ids) >= 4) break
+        if (best_dist == 11 && length(allocated_lineup_ids) >= 6) break
+        if (best_dist == 10 && length(allocated_lineup_ids) >= 12) break
       }
     }
 
@@ -251,10 +258,10 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
 
 
 # If you feel it is a bit laggy. Clear the console or turn off verbose.
-allocate_result <- allocate_lineup_2_subject(lineup, 180, 5, verbose = 2)
+allocate_result <- allocate_lineup_2_subject(lineup, 120, 5, verbose = 2)
 
 
-# All lineups have 5 replicates
+# All lineups have 5 replicates, except 147 and 343
 unlist(allocate_result) %>%
   factor(levels = 1:nrow(lineup)) %>%
   table() %>%
@@ -262,17 +269,30 @@ unlist(allocate_result) %>%
   {. != 5} %>%
   which()
 
+# Manual adjust
+# Find subject that contains 147 but not 343
+which(map_lgl(allocate_result, ~147 %in% .x && !(343 %in% .x) ))
+allocate_result[[7]][allocate_result[[7]] == 147] <- 343
+
+
 # All subjects have 18 different lineups
 map_dbl(allocate_result, ~length(unique(.x))) %>%
   {. != 18} %>%
   which()
 
 allocate_result <- allocate_result %>%
-  `names<-`(paste("subject", 1:180, sep = "_")) %>%
+  `names<-`(paste("subject", 1:120, sep = "_")) %>%
   as_tibble() %>%
-  pivot_longer(subject_1:subject_180) %>%
+  pivot_longer(subject_1:subject_120) %>%
   mutate(subject = gsub(".+_", "", name)) %>%
   select(subject, lineup_id = value)
 
 write_csv(allocate_result, "allocate_result.csv")
 write_csv(lineup, "lineup_info.csv")
+
+
+allocate_result %>%
+  left_join(lineup, by = c("lineup_id")) %>%
+  write_csv("allocate_result_full.csv")
+
+
