@@ -34,6 +34,74 @@ for (a in seq(-1.5, 1.5, 0.25)) {
 patchwork::wrap_plots(plot_list, ncol = 13)
 ```
 
+```{r fig.height=34, fig.width=45, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-0.1, 0.1), sigma = 0.25)
+ori_dat <- mod$gen(1000, computed = list(e = rep(0, 1000)))
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -1, -0.1, -0.01, -0.001, -0.0001, 0, 0.0001, 0.001, 0.01, 0.1, 1, 1.5)) {
+  for (b in c(-1.5, -1, -0.1, -0.01, -0.001, -0.0001, 0, 0.0001, 0.001, 0.01, 0.1, 1, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(1000, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE)} +
+      ggtitle(glue::glue("a:{a}, b:{b}, a/|b|:{a/abs(b)}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 13)
+```
+
+```{r}
+result <- tibble()
+
+for (a in seq(-1.5,1.5,0.25)) {
+  x <- rand_uniform(-1, 1)
+  e <- rand_normal(sigma = 0.25)
+  y <- closed_form(~x+a*x^2 + e)
+  
+  dat <- y$gen(10000, rhs_val = TRUE, computed = list(e = 0)) %>%
+    y$as_dataframe("y")
+  
+  mod <- lm(y ~ x, data = dat)
+  
+  result <- bind_rows(result, tibble(.pred = predict(mod) - mean(predict(mod)),
+                                     .resid = resid(mod),
+                                     a = a))
+} 
+
+result %>%
+  ggplot() +
+    geom_line(aes(.pred, .resid, col = factor(a))) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          # axis.text.x = element_blank(),
+          # axis.text.y = element_blank(),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank()) +
+  theme_bw() +
+  ggtitle(quote("centered fitted values vs. residuals"~of~y~"="~x), subtitle = quote(y~"="~x+ax^2+e)) +
+  xlab("fitted values") +
+  ylab("residuals")
+
+result %>%
+  ggplot() +
+    geom_line(aes(.pred, .resid)) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.line = element_blank(),
+          axis.ticks = element_blank(),
+          # axis.text.x = element_blank(),
+          # axis.text.y = element_blank(),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank()) +
+  facet_wrap(~a, scales = "free")
+```
+
 
 There are 8 basic shapes, (1.5, 1.5), (1.5, -1.5), (1.5, 0), (-1.5, 0), (0, 1.5), (0, -1.5), (-1.5, 1.5), (-1.5, -1.5). Others are transitions between these five shapes.
 

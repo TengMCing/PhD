@@ -197,6 +197,24 @@ for (a in seq(-1.5, 1.5, 0.25)) {
 
 patchwork::wrap_plots(plot_list, ncol = 13)</code></pre>
 <p><img src="check_patterns_files/figure-html/unnamed-chunk-2-1.png" width="4320" /></p>
+<pre class="r"><code>mod &lt;- simple_cubic_model(x = rand_uniform(-0.1, 0.1), sigma = 0.25)
+ori_dat &lt;- mod$gen(1000, computed = list(e = rep(0, 1000)))
+i &lt;- 0
+plot_list &lt;- list()
+
+for (a in c(-1.5, -1, -0.1, -0.01, -0.001, -0.0001, 0, 0.0001, 0.001, 0.01, 0.1, 1, 1.5)) {
+  for (b in c(-1.5, -1, -0.1, -0.01, -0.001, -0.0001, 0, 0.0001, 0.001, 0.01, 0.1, 1, 1.5)) {
+    i &lt;- i + 1
+    mod$set_prm(&quot;a&quot;, a) %&gt;%
+      {.$set_prm(&quot;b&quot;, b)} %&gt;%
+      {.$gen(1000, computed = select(ori_dat, x, e))} %&gt;%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE)} +
+      ggtitle(glue::glue(&quot;a:{a}, b:{b}, a/|b|:{a/abs(b)}&quot;)) -&gt; plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 13)</code></pre>
+<p><img src="check_patterns_files/figure-html/unnamed-chunk-3-1.png" width="4320" /></p>
 <p>There are 8 basic shapes, (1.5, 1.5), (1.5, -1.5), (1.5, 0), (-1.5, 0), (0, 1.5), (0, -1.5), (-1.5, 1.5), (-1.5, -1.5). Others are transitions between these five shapes.</p>
 <pre class="r"><code>plot_list &lt;- list()
 
@@ -244,7 +262,7 @@ mod$set_prm(c(&quot;a&quot;, &quot;b&quot;), c(1.5, 1.5)) %&gt;%
 plot_list[[5]] &lt;- patchwork::plot_spacer()
 
 patchwork::wrap_plots(plot_list, ncol = 3)</code></pre>
-<p><img src="check_patterns_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="check_patterns_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>These five are based on three patterns. Others are products of 180 degrees rotation or flip.</p>
 <pre class="r"><code>mod &lt;- quartic_model(x = rand_uniform(-1, 1), sigma = 0.25)
 ori_dat &lt;- mod$gen(1000)
@@ -284,26 +302,21 @@ for (c in seq(-20, 20, 5)) {
 } 
 
 patchwork::wrap_plots(plot_list, ncol = 5)</code></pre>
-<p><img src="check_patterns_files/figure-html/unnamed-chunk-4-1.png" width="1440" /></p>
+<p><img src="check_patterns_files/figure-html/unnamed-chunk-5-1.png" width="1440" /></p>
 <p>The change of c brings two more shapes. (5,0,-5) and (-5,0,5). Other new shapes are quite similar to the previous. I don’t think they are fundamentally different.</p>
 <pre class="r"><code>mod$set_prm(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(5, 0, -5)) %&gt;%
   {.$gen(1000, computed = select(ori_dat, -y))} %&gt;%
   {mod$plot(.)} +
   ggtitle(glue::glue(&quot;a:{mod$prm$a}, b:{mod$prm$b}, c:{mod$prm$c}&quot;))</code></pre>
-<p><img src="check_patterns_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="check_patterns_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>mod$set_prm(c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), c(-5, 0, 5)) %&gt;%
   {.$gen(1000, computed = select(ori_dat, -y))} %&gt;%
   {mod$plot(.)} +
   ggtitle(glue::glue(&quot;a:{mod$prm$a}, b:{mod$prm$b}, c:{mod$prm$c}&quot;))</code></pre>
-<p><img src="check_patterns_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="check_patterns_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Number count:</p>
 <p>Consider using the simple cubic linear model.</p>
 <p><span class="math display">\[y = 1 + x + ax^2 + bx^3\]</span></p>
-<p>The absolute scale of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> actually doesn’t matter. If there is zero noises, the shape only changes when the ratio of <span class="math inline">\(a\)</span> to <span class="math inline">\(|b|\)</span> changes.</p>
-<p>b:0 a:1 a:-1 b:1 a:-5 a:-4 a:-3 a:-2 a:-1 a:0 a:1 a:2 a:3 a:4 a:5</p>
-<p><span class="math inline">\(2 + 11 = 13\)</span> combinations</p>
-<p>We do need to keep <span class="math inline">\(x\)</span> otherwise F-test can not be conducted.</p>
-<p>We then only need to adjust the sigma level for different noise levels.</p>
 
 
 
