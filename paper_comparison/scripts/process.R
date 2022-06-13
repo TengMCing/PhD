@@ -318,12 +318,16 @@ preprocessing$conv_test$conv_test_cubic <- function() {
 
   if (para_list1$x_dist == "normal") {para_list1$x_sigma <- 0.3} else {para_list1$x_sigma <- 0.6}
 
+  stand_dist <- function(x) {
+    (x - min(x))/max(x - min(x)) * 2 - 1
+  }
+
   # Init X and Z based on the parameter list
-  x <- switch (para_list1$x_dist ,
-               "uniform" = rand_uniform(-1, 1),
-               "normal" = rand_normal(0, para_list1$x_sigma),
-               "lognormal" = rand_lognormal(0, para_list1$x_sigma),
-               "neglognormal" = {rl <- rand_lognormal(0, para_list1$x_sigma); closed_form(~-rl)}
+  x <- switch(para_list1$x_dist,
+              "uniform" = rand_uniform(-1, 1),
+              "normal" = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
+              "lognormal" = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
+              "neglognormal" = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(-raw_x/3 + 1))}
   )
 
   if (para_list1$z_discrete) {z <- rand_uniform(-1, 1)} else {z <- rand_uniform_d(-1, 1, para_list1$z_n)}
@@ -362,13 +366,18 @@ preprocessing$conv_test$conv_test_heter <- function() {
 
   if (para_list1$x_dist == "normal") {para_list1$x_sigma <- 0.3} else {para_list1$x_sigma <- 0.6}
 
+
+  stand_dist <- function(x) {
+    (x - min(x))/max(x - min(x)) * 2 - 1
+  }
+
   # Init X and Z based on the parameter list
-  x <- switch (para_list1$x_dist ,
+  x <-  switch(para_list1$x_dist,
                "uniform" = rand_uniform(-1, 1),
-               "discrete_uniform" = rand_uniform_d(-1, 1, para_list1$x_n),
-               "normal" = rand_normal(0, para_list1$x_sigma),
-               "lognormal" = rand_lognormal(0, para_list1$x_sigma),
-               "neglognormal" = {rl <- rand_lognormal(0, para_list1$x_sigma); closed_form(~-rl)}
+               "normal" = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
+               "lognormal" = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
+               "neglognormal" = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(-raw_x/3 + 1))},
+               "discrete_uniform" = rand_uniform_d(-1, 1, para_list1$x_n)
   )
 
   # Build the cubic model
