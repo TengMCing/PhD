@@ -281,3 +281,277 @@ for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
 
 patchwork::wrap_plots(plot_list, ncol = 7)
 ```
+
+
+
+# New design
+
+# N: 50
+
+Sigma: 1
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 1)
+ori_dat <- mod$gen(50)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(50, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 2
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 2)
+ori_dat <- mod$gen(50)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(50, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 5
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 5)
+ori_dat <- mod$gen(50)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(50, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 10
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 10)
+ori_dat <- mod$gen(50)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(50, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+# N: 100
+
+Sigma: 1
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 1)
+ori_dat <- mod$gen(100)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(100, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 2
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 2)
+ori_dat <- mod$gen(100)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(100, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 5
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 5)
+ori_dat <- mod$gen(100)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(100, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 10
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 10)
+ori_dat <- mod$gen(100)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(100, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+# N: 300
+
+Sigma: 1
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 1)
+ori_dat <- mod$gen(300)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(300, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 2
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 2)
+ori_dat <- mod$gen(300)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(300, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 5
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 5)
+ori_dat <- mod$gen(300)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(300, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
+
+Sigma: 10
+
+```{r fig.height=18, fig.width=24, cache = TRUE}
+mod <- simple_cubic_model(x = rand_uniform(-1, 1), sigma = 10)
+ori_dat <- mod$gen(300)
+i <- 0
+plot_list <- list()
+
+for (a in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+  for (b in c(-1.5, -0.75, -0.25, 0, 0.25, 0.75, 1.5)) {
+    i <- i + 1
+    mod$set_prm("a", a) %>%
+      {.$set_prm("b", b)} %>%
+      {.$gen(300, computed = select(ori_dat, x, e))} %>%
+      {mod$plot(., remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light())} +
+      ggtitle(glue::glue("a:{a}, b:{b}")) -> plot_list[[i]]
+  }
+} 
+
+patchwork::wrap_plots(plot_list, ncol = 7)
+```
