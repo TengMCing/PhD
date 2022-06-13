@@ -19,9 +19,9 @@ trans_unif_2_discrete <- function(x, level = NULL) {
 #   geom_density(aes(trans_unif_2_norm(seq(0, 1, 0.00001))), col = "red")
 
 
-# V1: a = 1, 2, 3, 4, 5, 6
+# V1: shape = 1, 2, 3, 4
 # V3: N: 50, 100, 300
-# V4: x_dist: uniform, normal, lognormal, neglognormal, even_dis, uneven_dis
+# V4: x_dist: uniform, normal, lognormal, even_dis
 # V5: e_sigma: 0.125, 0.25, 0.5, 1
 
 # 6 * 3 * 6 * 4 = 432
@@ -31,11 +31,11 @@ trans_unif_2_discrete <- function(x, level = NULL) {
 set.seed(10086)
 
 # Generate unique lineups
-lineup <- expand.grid(a = 1:6,
+lineup <- expand.grid(shape = 1:4,
                       n = c(50, 100, 300),
-                      x_dist = c("uniform", "normal", "lognormal", "neglognormal",
-                                 "even_discrete", "uneven_discrete"),
-                      e_sigma = c(0.125, 0.25, 0.5, 1)) %>%
+                      x_dist = c("uniform", "normal", "lognormal", "even_discrete"),
+                      e_sigma = c(0.5, 1, 2, 4),
+                      rep = 1:3) %>%
   mutate(lineup_id = sample(1:n()))
 
 
@@ -45,8 +45,9 @@ check_comb <- function(set_dat, new_dat, n = 1) {
         MARGIN = 2,
         function(this_comb) {
           # browser()
+          tmp <- unlist(new_dat[1, this_comb])
           for (i in 1:nrow(set_dat)) {
-            if (all(unlist(set_dat[i, this_comb]) == unlist(new_dat[1, this_comb]))) return(TRUE)
+            if (all(unlist(set_dat[i, this_comb]) == tmp)) return(TRUE)
           }
           return(FALSE)
         })
@@ -75,12 +76,15 @@ calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
   allocated_lineups <- lineup %>%
     filter(lineup_id %in% allocated_lineup_ids)
 
+  tmp1 <- select(allocated_lineups, -rep, -lineup_id)
+  tmp2 <- select(new_lineup, -rep, -lineup_id)
+
   # We want these three options to be as different as possible
   15 -
-    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 1)) -
-    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 2)) -
-    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 3)) -
-    sum(check_comb(select(allocated_lineups, -lineup_id), select(new_lineup, -lineup_id), 4))
+    sum(check_comb(tmp1, tmp2, 1)) -
+    sum(check_comb(tmp1, tmp2, 2)) -
+    sum(check_comb(tmp1, tmp2, 3)) -
+    sum(check_comb(tmp1, tmp2, 4))
 
 }
 
@@ -235,10 +239,6 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
         log_best_dist(best_dist, new_lineup_id, verbose)
 
         if (best_dist == 15) break
-        if (best_dist == 14 && length(allocated_lineup_ids) >= 3) break
-        if (best_dist == 13 && length(allocated_lineup_ids) >= 4) break
-        if (best_dist == 11 && length(allocated_lineup_ids) >= 6) break
-        if (best_dist == 10 && length(allocated_lineup_ids) >= 12) break
       }
     }
 
@@ -258,10 +258,10 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
 
 
 # If you feel it is a bit laggy. Clear the console or turn off verbose.
-allocate_result <- allocate_lineup_2_subject(lineup, 120, 5, verbose = 2)
+allocate_result <- allocate_lineup_2_subject(lineup, 160, 5, verbose = 2)
 
 
-# All lineups have 5 replicates, except 147 and 343
+# All lineups have 5 replicates, except 252 and 297
 unlist(allocate_result) %>%
   factor(levels = 1:nrow(lineup)) %>%
   table() %>%
@@ -270,9 +270,9 @@ unlist(allocate_result) %>%
   which()
 
 # Manual adjust
-# Find subject that contains 147 but not 343
-which(map_lgl(allocate_result, ~147 %in% .x && !(343 %in% .x) ))
-allocate_result[[7]][allocate_result[[7]] == 147] <- 343
+# Find subject (34) that contains 252 but not 297
+which(map_lgl(allocate_result, ~252 %in% .x && !(297 %in% .x) ))
+allocate_result[[34]][allocate_result[[34]] == 252] <- 297
 
 
 # All subjects have 18 different lineups
@@ -281,9 +281,9 @@ map_dbl(allocate_result, ~length(unique(.x))) %>%
   which()
 
 allocate_result <- allocate_result %>%
-  `names<-`(paste("subject", 1:120, sep = "_")) %>%
+  `names<-`(paste("subject", 1:160, sep = "_")) %>%
   as_tibble() %>%
-  pivot_longer(subject_1:subject_120) %>%
+  pivot_longer(subject_1:subject_160) %>%
   mutate(subject = gsub(".+_", "", name)) %>%
   select(subject, lineup_id = value)
 
