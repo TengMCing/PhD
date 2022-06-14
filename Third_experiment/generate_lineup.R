@@ -1,14 +1,10 @@
 library(tidyverse)
 library(visage)
 
-sample_dat <- readRDS("data/all_data_big.RDS")
-
-lineup <- read_csv("lineup_info.csv")
+lineup <- read_csv("data/lineup_info.csv")
 plot_string <- read_csv("data/plot_string.txt", col_names = FALSE) %>%
   .$X1
-allocated <- read_csv("allocate_result.csv") %>%
-  group_by(subject) %>%
-  mutate(current_lineup = 1:n())
+allocated <- read_csv("data/allocate_result.csv")
 dat <- vector(mode = "list", length = nrow(lineup))
 
 set.seed(10086)
@@ -48,12 +44,13 @@ file_path <- "plots"
 
 for (j in 1:nrow(allocated)) {
 
-  ggsave(glue::glue("{file_path}/{plot_string[allocated$subject[j]]}_{allocated$subject[j]}_{allocated$current_lineup[j]}.png"),
+  ggsave(glue::glue("{file_path}/{plot_string[allocated$subject[j]]}_{allocated$subject[j]}_{allocated$order[j]}.png"),
          plot = VI_MODEL$plot_lineup(dat[[allocated$lineup_id[j]]]$data,
                                      remove_axis = TRUE,
                                      remove_legend = TRUE,
                                      remove_grid_line = TRUE,
-                                     theme = theme_light()),
+                                     theme = theme_light()) +
+           ggtitle(glue::glue("lineup:{allocated$lineup_id[j]}, shape:{dat[[allocated$lineup_id[j]]]$metadata$shape}, x_dist:{dat[[allocated$lineup_id[j]]]$metadata$x_dist}, e_sigma:{dat[[allocated$lineup_id[j]]]$metadata$e_sigma}, log effect size:{round(log(dat[[allocated$lineup_id[j]]]$metadata$effect_size), 2)}, ans: {dat[[allocated$lineup_id[j]]]$metadata$ans}")),
          height = 7,
          width = 7)
 }
@@ -67,12 +64,13 @@ for (j in 1:nrow(lineup)) {
                                      remove_legend = TRUE,
                                      remove_grid_line = TRUE,
                                      theme = theme_light()) +
-           ggtitle(glue::glue("shape:{dat[[j]]$metadata$shape}, x_dist:{dat[[j]]$metadata$x_dist}, e_sigma:{dat[[j]]$metadata$e_sigma}, log effect size:{round(log(dat[[j]]$metadata$effect_size), 2)}")),
+           ggtitle(glue::glue("lineup:{j}, shape:{dat[[j]]$metadata$shape}, x_dist:{dat[[j]]$metadata$x_dist}, e_sigma:{dat[[j]]$metadata$e_sigma}, log effect size:{round(log(dat[[j]]$metadata$effect_size), 2)}, ans: {dat[[j]]$metadata$ans}")),
          height = 7,
          width = 7)
 }
 
-p_value <- map_dbl(1:nrow(lineup), ~POLY_MODEL$test(filter(dat[[.x]]$data, null == FALSE))$p_value)
+p_value <- map_dbl(1:576, ~POLY_MODEL$test(filter(dat[[.x]]$data, null == FALSE))$p_value)
 
-sum(p_value > 0.05)
+mean(p_value > 0.05)
+
 

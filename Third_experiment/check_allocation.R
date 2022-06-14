@@ -2,8 +2,15 @@ library(tidyverse)
 library(visage)
 library(UpSetR)
 
-result <- read_csv("allocate_result_full.csv")
-lineup <- read_csv("lineup_info.csv")
+result <- read_csv("data/allocate_result_full.csv")
+lineup <- read_csv("data/lineup_info.csv")
+
+# omit attention checks
+result <- result %>%
+  filter(lineup_id <= 576)
+
+lineup <- lineup %>%
+  filter(lineup_id <= 576)
 
 result %>%
   # filter(subject %in% 1:120) %>%

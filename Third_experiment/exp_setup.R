@@ -287,12 +287,34 @@ allocate_result <- allocate_result %>%
   mutate(subject = gsub(".+_", "", name)) %>%
   select(subject, lineup_id = value)
 
-write_csv(allocate_result, "allocate_result.csv")
-write_csv(lineup, "lineup_info.csv")
+set.seed(10086)
+
+lineup <- lineup %>%
+  bind_rows(expand.grid(shape = 1:4,
+                        n = 300,
+                        x_dist = "uniform",
+                        e_sigma = 0.125,
+                        rep = 1:3) %>%
+              mutate(lineup_id = nrow(lineup) + 1:n()))
+
+
+for (i in 1:160) {
+  allocate_result <- allocate_result %>%
+    bind_rows(tibble(subject = i,
+                     lineup_id = sample(1:12, 2) + 576))
+}
+
+allocate_result <- allocate_result %>%
+  group_by(subject) %>%
+  mutate(order = sample(1:20))
+
+
+write_csv(allocate_result, "data/allocate_result.csv")
+write_csv(lineup, "data/lineup_info.csv")
 
 
 allocate_result %>%
   left_join(lineup, by = c("lineup_id")) %>%
-  write_csv("allocate_result_full.csv")
+  write_csv("data/allocate_result_full.csv")
 
 

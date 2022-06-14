@@ -22,3 +22,7 @@ paper_comparsion/data/cv/
 paper_comparison/data/processed/sim_conv_result.csv
 
 Third_experiment/plots/
+
+Third_experiment/test.html
+
+Third_experiment/test.Rmd
