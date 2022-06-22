@@ -23,21 +23,21 @@ for (i in 1:nrow(lineup)) {
   mod <- poly_model(lineup$shape[i], x = x, sigma = lineup$e_sigma[i])
   lineup_dat <- mod$gen_lineup(lineup$n[i], 20)
 
-  dat[[i]]$metadata <- list(type = "polynomial",
-                            formula = deparse(mod$formula),
-                            shape = lineup$shape[i],
-                            x_dist = lineup$x_dist[i],
-                            include_z = TRUE,
-                            e_dist = "normal",
-                            e_sigma = lineup$e_sigma[i],
-                            name = glue::glue("poly_{i}"),
-                            k = 20,
-                            n = lineup$n[i],
-                            effect_size = mod$effect_size(filter(lineup_dat, null == FALSE)),
-                            ans = filter(lineup_dat, null == FALSE)$k[1]
-                            )
+  dat[[lineup$lineup_id[i]]]$metadata <- list(type = "polynomial",
+                                              formula = deparse(mod$formula),
+                                              shape = lineup$shape[i],
+                                              x_dist = lineup$x_dist[i],
+                                              include_z = TRUE,
+                                              e_dist = "normal",
+                                              e_sigma = lineup$e_sigma[i],
+                                              name = glue::glue("poly_{lineup$lineup_id[i]}"),
+                                              k = 20,
+                                              n = lineup$n[i],
+                                              effect_size = mod$effect_size(filter(lineup_dat, null == FALSE)),
+                                              ans = filter(lineup_dat, null == FALSE)$k[1]
+                                              )
 
-  dat[[i]]$data <- lineup_dat
+  dat[[lineup$lineup_id[i]]]$data <- lineup_dat
 }
 
 file_path <- "plots"
@@ -55,16 +55,29 @@ for (j in 1:nrow(allocated)) {
          width = 7)
 }
 
-file_path <- "lineup_plots"
+file_path <- "lineup_plots_"
 
 for (j in 1:nrow(lineup)) {
-  ggsave(glue::glue("{file_path}/{j}.png"),
-         plot = VI_MODEL$plot_lineup(dat[[j]]$data,
+  ggsave(glue::glue("{file_path}/{lineup$lineup_id[j]}.png"),
+         plot = VI_MODEL$plot_lineup(dat[[lineup$lineup_id[j]]]$data,
                                      remove_axis = TRUE,
                                      remove_legend = TRUE,
                                      remove_grid_line = TRUE,
                                      theme = theme_light()) +
-           ggtitle(glue::glue("lineup:{j}, shape:{dat[[j]]$metadata$shape}, x_dist:{dat[[j]]$metadata$x_dist}, e_sigma:{dat[[j]]$metadata$e_sigma}, log effect size:{round(log(dat[[j]]$metadata$effect_size), 2)}, ans: {dat[[j]]$metadata$ans}")),
+           ggtitle(glue::glue("lineup:{lineup$lineup_id[j]}, shape:{dat[[lineup$lineup_id[j]]]$metadata$shape}, x_dist:{dat[[lineup$lineup_id[j]]]$metadata$x_dist}, e_sigma:{dat[[lineup$lineup_id[j]]]$metadata$e_sigma}, log effect size:{round(log(dat[[lineup$lineup_id[j]]]$metadata$effect_size), 2)}, ans: {dat[[lineup$lineup_id[j]]]$metadata$ans}")),
+         height = 7,
+         width = 7)
+}
+
+file_path <- "lineup_plots"
+
+for (j in 1:nrow(lineup)) {
+  ggsave(glue::glue("{file_path}/{lineup$lineup_id[j]}.png"),
+         plot = VI_MODEL$plot_lineup(dat[[lineup$lineup_id[j]]]$data,
+                                     remove_axis = TRUE,
+                                     remove_legend = TRUE,
+                                     remove_grid_line = TRUE,
+                                     theme = theme_light()),
          height = 7,
          width = 7)
 }
@@ -73,4 +86,16 @@ p_value <- map_dbl(1:576, ~POLY_MODEL$test(filter(dat[[.x]]$data, null == FALSE)
 
 mean(p_value > 0.05)
 
+# check metadata equal
+all(map_lgl(1:588, ~dat[[.x]]$metadata$shape == lineup$shape[lineup$lineup_id == .x]))
+all(map_lgl(1:588, ~dat[[.x]]$metadata$n == lineup$n[lineup$lineup_id == .x]))
+all(map_lgl(1:588, ~dat[[.x]]$metadata$e_sigma == lineup$e_sigma[lineup$lineup_id == .x]))
+all(map_lgl(1:588, ~dat[[.x]]$metadata$x_dist == lineup$x_dist[lineup$lineup_id == .x]))
 
+saveRDS(dat, "data/third_experiment_dat.rds")
+
+allocated %>%
+  arrange(subject, order) %>%
+  pivot_wider(names_from = order, values_from = lineup_id) %>%
+  select(-subject) %>%
+  write_csv(file = "data/third_experiment_order.txt", col_names = FALSE)
