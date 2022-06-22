@@ -1,5 +1,6 @@
 library(ggExtra)
 library(tidyverse)
+library(bandicoot)
 library(visage)
 library(lhs)
 library(cli)
@@ -297,6 +298,8 @@ lineup <- lineup %>%
                         rep = 1:3) %>%
               mutate(lineup_id = nrow(lineup) + 1:n()))
 
+
+allocate_result <- mutate(allocate_result, subject = as.numeric(subject))
 
 for (i in 1:160) {
   allocate_result <- allocate_result %>%
