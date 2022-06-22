@@ -1,4 +1,5 @@
 library(tidyverse)
+library(bandicoot)
 library(visage)
 library(UpSetR)
 
@@ -17,18 +18,30 @@ result %>%
   ggplot() +
   geom_jitter(aes(factor(shape),
                  factor(e_sigma),
-                 shape = x_dist,
                  col = factor(n)),
-             width = 0,
-             height = 0,
+             width = 0.2,
+             height = 0.2,
              alpha = 0.5,
              size = 3) +
   facet_wrap(~subject, ncol = 15) +
   scale_color_brewer(palette = "Dark2") +
   theme_bw() -> p
 
-ggsave("check_allocation_for_subject.png", plot = p,
+ggsave("img/check_allocation_for_subject.png", plot = p,
        width = 20, height = 13)
+
+# tourr
+# library()
+
+# library(tourr)
+#
+# result_tour <- result %>%
+#   mutate(across(c(shape, n, x_dist, e_sigma), function(x) as.numeric(factor(x)))) %>%
+#   mutate(across(c(-subject, -lineup_id, -order), jitter)) %>%
+#   select(-subject, -lineup_id, -order)
+#
+#
+# animate_xy(result_tour[, axes = "bottomleft")
 
 
 # x_dist & shape, upset
@@ -133,7 +146,7 @@ result %>%
   `names<-`(glue::glue("{cb_names}")) %>%
   {upset(fromList(.), order.by = "freq", nsets = 64)} -> p
 
-png("x_dist_shape_e_sigma.png",
+png("img/x_dist_shape_e_sigma.png",
     res = 300,
     units = "in",
     width = ggplot2:::plot_dim(dim = c(20, 20))[1],
@@ -169,4 +182,4 @@ lineup %>%
               width = 0, alpha = 0.6) +
   facet_grid(e_sigma~x_dist) -> p
 
-ggsave("check_allocation_for_group.png", plot = p, width = 8, height = 6)
+ggsave("img/check_allocation_for_group.png", plot = p, width = 8, height = 6)
