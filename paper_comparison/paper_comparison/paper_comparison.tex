@@ -308,97 +308,32 @@ unnoticeable.
 test}\label{effect-of-parameters-on-power-of-the-visual-test}}
 
 The previous section focuses on the change of effect size relative to
-the power of the visual test.
+the power of the visual test. However, effect size is only a one
+dimensional summarisation of parameters used in data simulation.
+Individual factor embedded in the simulation process should also be
+analysed.
 
-\begin{table}[!htbp] \centering 
-  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regression were fitted for different number of evaluations.} 
-  \label{tab:powerglmcubic} 
-\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-6} 
-\\[-1.8ex] & \multicolumn{5}{c}{reject} \\ 
- & num\_eval: 1 & num\_eval:2 & num\_eval: 3 & num\_eval: 4 & num\_eval:5 \\ 
-\hline \\[-1.8ex] 
- log\_effect\_size & 0.929$^{***}$ & 1.258$^{***}$ & 1.096$^{***}$ & 1.113$^{***}$ & 1.244$^{***}$ \\ 
-  & (0.073) & (0.076) & (0.054) & (0.056) & (0.077) \\ 
-  & & & & & \\ 
- Constant & $-$1.969$^{***}$ & $-$2.534$^{***}$ & $-$1.549$^{***}$ & $-$1.334$^{***}$ & $-$1.404$^{***}$ \\ 
-  & (0.169) & (0.173) & (0.113) & (0.122) & (0.185) \\ 
-  & & & & & \\ 
-\hline \\[-1.8ex] 
-Observations & 630 & 1,135 & 1,660 & 1,904 & 1,879 \\ 
-Log Likelihood & $-$220.882 & $-$314.394 & $-$471.152 & $-$396.979 & $-$206.296 \\ 
-Akaike Inf. Crit. & 445.764 & 632.788 & 946.305 & 797.958 & 416.592 \\ 
-\hline 
-\hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-\end{tabular} 
-\end{table}
+In cubic model, two major factors that influencing the strength of the
+signal are \(a\) and \(b\). Figure \ref{fig:power-com-cubic-a} and
+\ref{fig:power-com-cubic-a} illustrates 30 different logistic
+regressions fit for different number of evaluations and different number
+of observations \(n\). The regressor used in these models was
+\(|a|/\sigma\) since the noise level \(\sigma\) needed to be taken into
+account. From the figures, we can observe \ldots{}
 
-\begin{table}[!htbp] \centering 
-  \caption{Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for heteroskedasticity model. Five regression were fitted for different number of evaluations.} 
-  \label{tab:powerglmheter} 
-\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-6} 
-\\[-1.8ex] & \multicolumn{5}{c}{reject} \\ 
- & num\_eval: 1 & num\_eval:2 & num\_eval: 3 & num\_eval: 4 & num\_eval:5 \\ 
-\hline \\[-1.8ex] 
- log\_effect\_size & 0.821$^{***}$ & 1.104$^{***}$ & 1.157$^{***}$ & 1.387$^{***}$ & 1.651$^{***}$ \\ 
-  & (0.086) & (0.079) & (0.066) & (0.076) & (0.110) \\ 
-  & & & & & \\ 
- Constant & $-$4.472$^{***}$ & $-$5.887$^{***}$ & $-$5.431$^{***}$ & $-$6.154$^{***}$ & $-$7.123$^{***}$ \\ 
-  & (0.434) & (0.415) & (0.344) & (0.400) & (0.591) \\ 
-  & & & & & \\ 
-\hline \\[-1.8ex] 
-Observations & 630 & 1,138 & 1,596 & 1,662 & 1,416 \\ 
-Log Likelihood & $-$333.119 & $-$631.519 & $-$835.317 & $-$650.570 & $-$342.058 \\ 
-Akaike Inf. Crit. & 670.238 & 1,267.038 & 1,674.634 & 1,305.140 & 688.116 \\ 
-\hline 
-\hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-\end{tabular} 
-\end{table}
+\includegraphics{paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/power-com-1.pdf}
-\caption{\label{fig:power-com}power com}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/cubic-hard-1.pdf}
-\caption{\label{fig:cubic-hard}cubic-hard ans 11}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/heter-hard-1.pdf}
-\caption{\label{fig:heter-hard}heter-hard ans 2}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/power-com-cubic-a-1.pdf}
-\caption{\label{fig:power-com-cubic-a}power com cubic a}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/power-com-cubic-b-1.pdf}
-\caption{\label{fig:power-com-cubic-b}power com cubic b}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf}
 
-\begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/power-com-heter-b-1.pdf}
-\caption{\label{fig:power-com-heter-b}power com heter b}
-\end{figure}
+\includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

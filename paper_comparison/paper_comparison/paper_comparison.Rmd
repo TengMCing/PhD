@@ -66,6 +66,8 @@ conclusion:
 2. visual test is infeasible in large scale (expensive)
 3. future work (role of computer vision)
 
+
+
 # Introduction
 
 Regression diagnostics conventionally involve evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. Common diagnostic techniques including summary statistics, hypothesis testing, and data plots are essential tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
@@ -152,387 +154,156 @@ In cubic model, two major factors that influencing the strength of the signal ar
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
 ```
 
-
 ```{r}
 library(tidyverse)
 library(visage)
-pilot <- read_csv(here::here("data/processed/processed_pilot.csv"))
-survey <- read_csv(here::here("data/processed/processed_surveys.csv"))
-sim_conv <- read_csv(here::here("data/processed/sim_conv_result.csv"), col_types = "dddddcdddlcdcdddlc")
+
+set.seed(10086)
 ```
 
-```{r}
-survey <- survey %>%
-  mutate(log_effect_size = log(effect_size))
+```{r get-conv-result}
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-sim_conv <- sim_conv %>%
-  mutate(log_effect_size = log(effect_size))
+if (!file.exists(here::here("data/third_study/conv_result.rds"))) {
+  conv_result <- map(1:100000,
+                   function(x) {
+                     shape <- sample(1:4, 1)
+                     e_sigma <- sample(c(0.5, 1, 2, 4), 1)
+                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
+                     x <- switch(x_dist,
+                                 uniform = rand_uniform(-1, 1),
+                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
+                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
+                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
+                     mod <- poly_model(shape, x = x, sigma = e_sigma)
+                     n <- sample(c(50, 100, 300), 1)
+                     tmp_dat <- mod$gen(n)
 
-lineup_info <- select(survey, type:answer, conventional_p_value, ori_difficulty, exp, exp_lineup_id, log_effect_size) %>%
-  group_by(exp_lineup_id) %>% 
-  filter(row_number() == 1) %>%
-  ungroup() %>%
-  left_join(survey %>%
-              count(exp_lineup_id) %>%
-              rename(n_eval = n))
-
-write_csv(lineup_info, here::here("data/processed/processed_lineup_info.csv"))
-
-
-# Local constant estimator
-kernel_regression_cubic <- function(sim_conv, h = 0.3, x = quote(log_effect_size)) {
-  with(filter(sim_conv, type == "cubic", log_effect_size > -5, log_effect_size < 10),
-     KernSmooth::locpoly(x = eval(x), y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
-    as_tibble() %>%
-    mutate(type = "cubic", h = h) %>%
-    rename(reject = y)
-}
-
-# Local constant estimator
-kernel_regression_heter <- function(sim_conv, h = 0.4, x = quote(log_effect_size)) {
-  with(filter(sim_conv, type != "cubic", log_effect_size > -3),
-     KernSmooth::locpoly(x = eval(x), y = reject, bandwidth = h, degree = 0, gridsize = 1000)) %>%
-    as_tibble() %>%
-    mutate(type = "heteroskedasticity", h = h) %>%
-    rename(reject = y)
-}
-```
-
-
-```{r}
-if (file.exists(here::here("data/processed/lineup_env.rds"))) {
-  env <- readRDS(here::here("data/processed/lineup_env.rds"))
+                     tibble(shape = shape,
+                            e_sigma = e_sigma,
+                            x_dist = x_dist,
+                            n = n,
+                            effect_size = mod$effect_size(tmp_dat),
+                            reject = mod$test(tmp_dat)$p_value < 0.05)
+                   }) %>%
+  reduce(bind_rows) %>%
+  mutate(reject = as.numeric(reject))
+  
+  saveRDS(conv_result, here::here("data/third_study/conv_result.rds"))
 } else {
-  env <- new.env()
+  conv_result <- readRDS(here::here("data/third_study/conv_result.rds"))
 }
 
-save_lineup_env <- function(env) {
-  saveRDS(env, here::here("data/processed/lineup_env.rds"))
+
+```
+
+```{r get-third-result}
+if (!file.exists(here::here("data/third_study/polynomials_lineup.rds"))) {
+  polynomials_lineup <- get_polynomials_lineup()
+  saveRDS(polynomials_lineup, here::here("data/third_study/polynomials_lineup.rds"))
+} else {
+  polynomials_lineup <- readRDS(here::here("data/third_study/polynomials_lineup.rds"))
 }
-
-survey_pvalue <- survey %>%
-  calc_p_value_multi(lineup_id = "exp_lineup_id", 
-                     detected = "detect", 
-                     n_sel = "num_selection",
-                     comb = TRUE,
-                     n_eval = 1:5,
-                     n_sim = 100000,
-                     cache_env = env) %>%
-  rename(exp_lineup_id = lineup_id) %>%
-  unnest_longer(col = p_value) %>%
-  left_join(lineup_info) %>%
-  mutate(reject = eval_p_value(p_value, tol = 0.01))
-
-save_lineup_env(env)
 ```
 
 
-```{r}
-survey_single_pvalue <- survey %>%
-  calc_p_value_multi(lineup_id = "exp_lineup_id", 
-                     detected = "detect", 
-                     n_sel = "num_selection",
-                     comb = FALSE,
-                     n_sim = 100000,
-                     cache_env = env) %>%
-  left_join(lineup_info, by = c("lineup_id" = "exp_lineup_id")) %>%
-  mutate(reject = eval_p_value(p_value, tol = 1e-02))
-
-save_lineup_env(env)
-```
-
-
-```{r fig.height=6, fig.width=8}
-# set.seed(20002)
-# mod <- cubic_model(a = -3, b = 0, c = 1, sigma = 0.5, 
-#                    x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
-
-# fixed_sample <- mod$gen(100)
-plot_list <- list()
-
-for (a in seq(-3, 3, 1)) {
-  for (b in seq(-3, 3, 1)) {
-    
-    set.seed(20002)
-    
-    mod <- cubic_model(a = a, b = b, c = 0, sigma = 0.5, 
-                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
-
-    plot_list[[paste(a, b, sep = "_")]] <- mod$gen(1000, fit_model = TRUE) %>%
-    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = TRUE) +
-    ggtitle(glue::glue("a: {mod$prm$y$sym$a}, b: {mod$prm$y$sym$b}")) +
-    ylim(c(-20, 20))
-  }
-}
-
-patchwork::wrap_plots(plot_list, ncol = 7)
-```
-
-
-```{r fig.height=1.5, fig.width=8}
-set.seed(20002)
-mod <- cubic_model(a = -3, b = -3, c = 1, sigma = 0.5, 
-                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
-
-fixed_sample <- mod$gen(100)
-plot_list <- list()
-
-for (c in seq(0, 2, 0.5)) {
-    mod$prm$y$sym$c <- c
-    plot_list[[paste(c)]] <- mod$gen(100, fit_model = TRUE, 
-                                     computed = list(e = fixed_sample$e,
-                                                     x = fixed_sample$x,
-                                                     z = fixed_sample$z)) %>%
-    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = FALSE) +
-    ggtitle(glue::glue("c: {mod$prm$y$sym$c}")) 
-}
-
-patchwork::wrap_plots(plot_list, ncol = 5)
-```
-
-
-```{r}
-plot_list <- list()
-
-for (b in c(0, 0.5, 1, 1.5, 2, 2.5, 3, 10)) {
-    
-    set.seed(20002)
-    mod <- heter_model(a = 1, b = b, x = rand_uniform(-1, 1))
-    
-    plot_list[[paste(b)]] <- mod$gen(1000, fit_model = TRUE) %>%
-    mod$plot("resid", remove_grid_line = TRUE, theme = theme_light(), remove_axis = TRUE) +
-    ggtitle(glue::glue("b: {b}"))
-}
-
-patchwork::wrap_plots(plot_list, ncol = 5)
-```
-
-
-
-```{r}
-survey_single_pvalue %>%
-  mutate(reject = as.numeric(reject)) %>%
-  filter(n_eval >= 1) %>%
+```{r power-vs-log-effect-size}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   ggplot() +
-  geom_histogram(aes(log_effect_size, ..count../10), binwidth = 0.1) +
-  geom_point(aes(log_effect_size, reject), alpha = 0.2) +
-  geom_line(data = kernel_regression_cubic(sim_conv, 0.4), aes(x, reject), linetype = 2) +
-  geom_line(data = kernel_regression_heter(sim_conv, 0.75), aes(x, reject), linetype = 2) +
-  geom_smooth(aes(log_effect_size, reject), method = "glm", se = FALSE, method.args = list(family = binomial())) +
-  facet_wrap(~type, scales = "free_x")
+  geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power")
 ```
 
-
-```{r}
-sim_conv <- sim_conv %>%
-  mutate(dis_b = cut(abs(b), breaks = c(0, 1, 2, 3)))
-
-kernel_layer <- function(dis_b_index) {
-  geom_line(data = kernel_regression_cubic(filter(sim_conv, as.numeric(dis_b) == dis_b_index), 
-                                           0.4, 
-                                           x = quote(abs(a))), 
-            aes(x, reject, col = levels(sim_conv$dis_b)[dis_b_index]), 
-            linetype = 2)
-}
-
-survey_single_pvalue %>%
-  filter(type == "cubic") %>%
-  mutate(reject = as.numeric(reject)) %>%
-  mutate(dis_b = cut(abs(b), breaks = c(0, 1, 2, 3))) %>%
-  filter(n_eval >= 1) %>%
+```{r power-vs-log-effect-size-given-x-dist}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   ggplot() +
-  # geom_histogram(aes(log_effect_size, ..count../10), binwidth = 0.1) +
-  geom_point(aes(abs(a), reject), alpha = 0.2) +
-  kernel_layer(1) +
-  kernel_layer(2) +
-  kernel_layer(3) +
-  geom_smooth(aes(abs(a), reject, col = dis_b), method = "glm", se = FALSE, method.args = list(family = binomial())) +
-  facet_grid(n~e_sigma, scales = "free_x") +
-  labs(col = "abs(b)")
+  geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  facet_wrap(~x_dist) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power comparison conditional on the distribution of X")
 ```
 
-
-
-```{r}
-
-```
-
-
-```{r results='asis'}
-map(1:5, function(x) glm(reject ~ log_effect_size,
-                         family = binomial(),
-                         data = filter(survey_pvalue, n_eval == {{x}}, type == "cubic"))) %>%
-  stargazer::stargazer(header = FALSE,
-            label = "tab:powerglmcubic",
-            title = "Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for cubic model. Five regression were fitted for different number of evaluations.",
-            style = "default",
-            column.labels = c("num\\_eval: 1", "num\\_eval:2", "num\\_eval: 3", "num\\_eval: 4", "num\\_eval:5"),
-            model.numbers = FALSE)
-```
-
-
-```{r results="asis"}
-map(1:5, function(x) glm(reject ~ log_effect_size,
-                         family = binomial(),
-                         data = filter(survey_pvalue, n_eval == {{x}}, type == "heteroskedasticity"))) %>%
-  stargazer::stargazer(header = FALSE,
-            label = "tab:powerglmheter",
-            title = "Logistic regressions with rejection as response variable and natural logarithm of the effect size as regressor fitted on the data collected from experiment I and II for heteroskedasticity model. Five regression were fitted for different number of evaluations.",
-            style = "default",
-            column.labels = c("num\\_eval: 1", "num\\_eval:2", "num\\_eval: 3", "num\\_eval: 4", "num\\_eval:5"),
-            model.numbers = FALSE)
-```
-
-
-
-```{r power-com, fig.cap="\\label{fig:power-com}power com"}
-survey_pvalue %>%
-  mutate(reject = as.numeric(reject)) %>%
-  mutate(n_eval = factor(n_eval)) %>%
+```{r power-of-visual-test-given-x-dist}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   ggplot() +
-  geom_point(aes(log_effect_size, reject), alpha = 0.01) +
-  geom_line(data = kernel_regression_cubic(sim_conv, 0.4), aes(x, reject), linetype = 2) +
-  geom_line(data = kernel_regression_heter(sim_conv, 0.75), aes(x, reject), linetype = 2) +
-  geom_smooth(aes(log_effect_size, reject, group = n_eval, col = n_eval),
-              method = "glm", method.args = list(family = binomial), size = 0.5, se = FALSE) +
-  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
-  facet_wrap(~type, scales = "free_x") +
-  ylab("Estimated power")
+  geom_smooth(aes(log(effect_size), reject, col = x_dist), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test conditional on the distribution of X")
 ```
 
 
-```{r cubic-hard, fig.cap="\\label{fig:cubic-hard}cubic-hard ans 11"}
-big_lineup_dat <- readRDS(here::here("data/big_study/all_data_big.RDS"))
 
-# ans 11, conventional 0.003491033
-CUBIC_MODEL$plot_lineup(mutate(big_lineup_dat[[28]]$data, .fitted = .pred),
-                        remove_axis = TRUE,
-                        theme = theme_light(),
-                        remove_grid_line = TRUE)
-
-```
-
-```{r heter-hard, fig.cap="\\label{fig:heter-hard}heter-hard ans 2"}
-# ans 2, conventional 0.003535915
-HETER_MODEL$plot_lineup(mutate(big_lineup_dat[[136]]$data, .fitted = .pred),
-                        remove_axis = TRUE,
-                        theme = theme_light(),
-                        remove_grid_line = TRUE)
-```
-
-```{r power-com-cubic-a, fig.cap="\\label{fig:power-com-cubic-a}power com cubic a"}
-bind_grid <- expand.grid(n = c(50, 100, 300),
-                         h = 0.4,
-                         x = c(quote(abs(a)/e_sigma)))
-
-bind_list <- list()
-
-for (i in 1:nrow(bind_grid)) {
-  (function(n, h, x) {
-    mutate(kernel_regression_cubic(filter(sim_conv, n == {{n}}), h = h, x = x),
-           n = factor(n, levels = c(50, 100, 300)))
-    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]]) -> bind_list[[i]]
-}
-
-bind_sim <- reduce(bind_list, bind_rows)
-
-
-# cubic break down
-survey_pvalue %>%
-  filter(type == "cubic") %>%
-  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
-  mutate(n_eval = factor(n_eval)) %>%
-  mutate(reject = as.numeric(reject)) %>%
+```{r power-vs-log-effect-size-given-shape}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   ggplot() +
-  ggbeeswarm::geom_quasirandom(aes(abs(a)/e_sigma, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
-  geom_smooth(aes(abs(a)/e_sigma, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
-  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
-  facet_wrap(~n, labeller = label_both) +
-  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
-  theme_light()
+  geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  facet_wrap(~shape) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power comparison conditional on the shape of the Hermite polynomials")
 ```
 
-
-
-```{r power-com-cubic-b, fig.cap="\\label{fig:power-com-cubic-b}power com cubic b"}
-bind_grid <- expand.grid(n = c(50, 100, 300),
-                         h = 0.4,
-                         x = c(quote(abs(b)/e_sigma)))
-
-bind_list <- list()
-
-for (i in 1:nrow(bind_grid)) {
-  (function(n, h, x) {
-    mutate(kernel_regression_cubic(filter(sim_conv, n == {{n}}), h = h, x = x),
-           n = factor(n, levels = c(50, 100, 300)))
-    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]]) -> bind_list[[i]]
-}
-
-bind_sim <- reduce(bind_list, bind_rows)
-
-# cubic break down
-survey_pvalue %>%
-  filter(type == "cubic") %>%
-  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
-  mutate(reject = as.numeric(reject)) %>%
-  mutate(n_eval = factor(n_eval)) %>%
+```{r power-of-visual-test-given-shape}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), shape = factor(shape)) %>%
   ggplot() +
-  ggbeeswarm::geom_quasirandom(aes(abs(b)/e_sigma, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
-  geom_smooth(aes(abs(b)/e_sigma, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
-  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
-  facet_wrap(~n, labeller = label_both) +
-  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
-  theme_light()
+  geom_smooth(aes(log(effect_size), reject, col = shape), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test conditional on the shape of the Hermite polynomials")
 ```
 
-```{r eval = FALSE}
-# cubic break down
-# We do not have enough observations
-survey_pvalue %>%
-  filter(type == "cubic") %>%
-  mutate(n = factor(n)) %>%
-  mutate(reject = as.numeric(reject)) %>%
+
+```{r power-vs-log-effect-size-given-number-of-observations}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   ggplot() +
-  geom_point(aes(abs(a), reject, col = n), alpha = 0.1) +
-  geom_smooth(aes(abs(a), reject, col = n), method = "glm", method.args = list(family = binomial()), se = FALSE) +
-  geom_smooth(data = mutate(filter(sim_conv, type == "cubic"), n = factor(n), reject = as.numeric(reject)),
-              aes(abs(a), reject, group = n), 
-              method = "glm", method.args = list(family = binomial()), se = FALSE, col = "grey", linetype = 2) +
-  facet_grid(e_sigma~n)
+  geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  facet_wrap(~n) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power comparison conditional on the number of observations")
 ```
 
 
-```{r power-com-heter-b, fig.cap="\\label{fig:power-com-heter-b}power com heter b"}
-bind_grid <- expand.grid(n = c(50, 100, 300),
-                         h = 3,
-                         x = c(quote(b)),
-                         a = c(-1, 0, 1))
-
-bind_list <- list()
-
-for (i in 1:nrow(bind_grid)) {
-  (function(n, h, x, a) {
-    mutate(kernel_regression_heter(filter(sim_conv, n == {{n}}, a == {{a}}), h = h, x = x),
-           n = factor(n, levels = c(50, 100, 300)),
-           a = factor(a, levels = c(-1, 0, 1)))
-    })(n = bind_grid$n[i], h = bind_grid$h[i], x = bind_grid$x[[i]], a = bind_grid$a[i]) -> bind_list[[i]]
-}
-
-bind_sim <- reduce(bind_list, bind_rows)
-
-# heter break down
-survey_pvalue %>%
-  filter(type != "cubic") %>%
-  mutate(n = factor(n, levels = c(50, 100, 300))) %>%
-  mutate(reject = as.numeric(reject)) %>%
-  mutate(n_eval = factor(n_eval)) %>%
+```{r power-of-visual-test-given-number-of-observations}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(across(c(type:p_value), first)) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), n = factor(n)) %>%
   ggplot() +
-  ggbeeswarm::geom_quasirandom(aes(b, reject, group = n), groupOnX = FALSE, alpha = 0.01) +
-  geom_smooth(aes(b, reject, col = n_eval), method = "glm", method.args = list(family = binomial()), se = FALSE) +
-  geom_line(data = bind_sim, aes(x, reject), col = "grey", linetype = 2, size = 1) +
-  theme_light() +
-  scale_colour_viridis_d(option = "B", begin = 0.5, end = 0.9) +
-  facet_grid(a~n, labeller = label_both)
+  geom_smooth(aes(log(effect_size), reject, col = n), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test conditional on the number of observations")
 ```
-
-
