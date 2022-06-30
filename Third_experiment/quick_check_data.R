@@ -185,11 +185,10 @@ poly_result %>%
               summarise(button = sum(num_selection < 1))) %>%
   left_join(poly_result %>%
               group_by(set) %>%
-              summarise(many = sum(num_selection > 5))) -> check_dat
-
-
-
-
+              summarise(many_5 = sum(num_selection > 5))) %>%
+  left_join(poly_result %>%
+              group_by(set) %>%
+              summarise(many_10 = sum(num_selection > 10))) -> check_dat
 
 
 cenv <- new.env()
@@ -200,6 +199,51 @@ p_value <- poly_result %>%
               count(lineup_id) %>%
               rename(num_eval = n)) %>%
   left_join(lineup_info)
+
+
+
+conv_result <- map(1:100000,
+                   function(x) {
+                     shape <- sample(1:4, 1)
+                     e_sigma <- sample(c(0.5, 1, 2, 4), 1)
+                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
+                     x <- switch(x_dist,
+                                 uniform = rand_uniform(-1, 1),
+                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
+                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
+                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
+                     mod <- poly_model(shape, x = x, sigma = e_sigma)
+                     n <- sample(c(50, 100, 300), 1)
+                     tmp_dat <- mod$gen(n)
+
+                     tibble(shape = shape,
+                            e_sigma = e_sigma,
+                            x_dist = x_dist,
+                            n = n,
+                            effect_size = mod$effect_size(tmp_dat),
+                            reject = mod$test(tmp_dat)$p_value < 0.05)
+                   }) %>%
+  reduce(bind_rows)
+
+p_value %>%
+  left_join(poly_result %>%
+              group_by(lineup_id) %>%
+              summarise(effect_size = first(effect_size))) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = eval_p_value(p_value, tol = 0.01)) %>%
+  ggplot() +
+  # geom_smooth(data = conv_result, aes(log(effect_size), as.numeric(reject)), col ="red") +
+  geom_smooth(aes(log(effect_size), as.numeric(reject), col = factor(shape)), method = "glm", method.args = list(family = binomial()), se = FALSE) +
+  geom_rug(aes(log(effect_size), col = factor(shape)), alpha = 0.2)
+
+p_value %>%
+  left_join(poly_result %>%
+              group_by(lineup_id) %>%
+              summarise(effect_size = first(effect_size))) %>%
+  filter(lineup_id < 577) %>%
+  mutate(reject = eval_p_value(p_value, tol = 0.01)) %>%
+  group_by(n) %>%
+  summarise(mean(reject))
 
 poly_result %>%
   mutate(detect = as.numeric(detect)) %>%
@@ -212,3 +256,77 @@ poly_result %>%
   ggplot() +
   geom_point(aes(e_sigma, detect)) +
   geom_smooth(aes(e_sigma, detect, col = factor(shape)), se = FALSE)
+
+sim_heter <- function() {
+  stand_dist <- function(x) {
+    (x - min(x))/max(x - min(x)) * 2 - 1
+  }
+
+  a <- sample(c(-1, 0, 1), 1)
+  b <- runif(1, 0, 32)
+  x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
+  x <- switch(x_dist,
+              uniform = rand_uniform(-1, 1),
+              normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
+              lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
+              even_discrete = rand_uniform_d(k = 5, even = TRUE))
+  n <- sample(c(50, 100, 300), 1)
+
+  mod <- heter_model(a = a, b = b, x = x)
+  dat <- mod$gen(n)
+  ori_effect <- mod$effect_size(dat)
+  new_effect <- mod$effect_size(dat, type = "kl")
+  reject <- mod$test(dat)$p_value < 0.05
+
+  return(data.frame(ori_effect = ori_effect, new_effect = new_effect, n = n, a = a, b = b, x_dist = x_dist, reject = reject))
+}
+
+
+sim_heter_res <- map(1:50000, ~sim_heter()) %>%
+  reduce(bind_rows)
+
+sim_heter_res %>%
+  ggplot() +
+  geom_point(aes(log(ori_effect), log(new_effect), col = factor(a))) +
+  facet_wrap(~interaction(x_dist, n))
+
+sim_heter_res %>%
+  ggplot() +
+  geom_point(aes(log(ori_effect), log(new_effect), col = x_dist)) +
+  facet_wrap(~interaction(a, n))
+
+sim_heter_res %>%
+  ggplot() +
+  geom_point(aes(log(ori_effect), log(new_effect), col = factor(n))) +
+  facet_wrap(~interaction(a, x_dist))
+
+sim_heter_res %>%
+  ggplot() +
+  geom_smooth(aes(log(ori_effect), as.numeric(reject)), method = "glm", method.args = list(family = binomial()), col = "red") +
+  geom_smooth(aes(log(new_effect), as.numeric(reject)), method = "glm", method.args = list(family = binomial()))
+
+
+poly_result %>%
+  group_by(set) %>%
+  summarise(age_education = first(interaction(age_group, education))) %>%
+  count(age_education)
+
+poly_result %>%
+  filter(lineup_id < 577) %>%
+  ggplot() +
+  geom_point(aes(log(effect_size), log(response_time))) +
+  geom_smooth(aes(log(effect_size), log(response_time)), method = "lm")
+
+# time taken vs order of the plot
+# accuracy vs order of the plot
+# num of selection vs order of the plot
+# order of the plot?
+# summary of the demographic information
+
+for (file_name in list.files("survey")) {
+  cat(file_name, " ")
+  stringr::str_count(map_chr(map(jsonlite::read_json(glue::glue("survey/{file_name}")), ~.x$response)[-(1:4)], ~.x$response), ",") %>%
+    {which(. != 2)} %>%
+    print()
+}
+
