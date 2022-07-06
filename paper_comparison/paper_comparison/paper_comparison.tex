@@ -62,108 +62,60 @@ Abstract to fill.
 visual inference; model diagnostics;
 \end{keywords}
 
-problem: residual plot diagnostics conventional test: too sensitive
-
-background:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  residual plot for model diagnostics
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\tightlist
-\item
-  residual is widely used
-\item
-  what are the types of residual plots
-\item
-  comparison
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  conventional test: F, BP
-\item
-  visual test: lineup, theory
-\end{enumerate}
-
-desc of experiment: 1. simulation setup 2. experimental design 3. result
-
-comparison of conventional tests: 1. power (visual test vs.~conventional
-test) (visual test most different one (everything test, any departure))
-plot figure in a paper, desc, exp 2. investigate the difference (gap),
-give examples 3. conventional is too sensitive 4. make conventional less
-sensitive (vary alpha)
-
-conclusion: 1. too sensitive, visual test is needed/preferable 2. visual
-test is infeasible in large scale (expensive) 3. future work (role of
-computer vision)
-
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Regression diagnostics conventionally involve evaluating the fitness of
-the proposed model, detecting the presence of influential observations
-and outliers, checking the validity of model assumptions and many more.
-Common diagnostic techniques including summary statistics, hypothesis
-testing, and data plots are essential tools for a systematic and
-detailed examination of the regression model
+Regression analysis is a field of study with at least a hundred years of
+history, and regression diagnostics is one of the essential steps in
+regression analysis. The diagnostic procedure conventionally involves
+evaluating the fitness of the proposed model, detecting the presence of
+influential observations and outliers, checking the validity of model
+assumptions and many more. In terms of diagnostic techniques, data
+plots, hypothesis testing, and summary statistics are vital tools for a
+systematic and detailed examination of the regression model
 \citep{mansfield1987diagnostic}.
 
-\hypertarget{diagnostic-plots}{%
-\subsection{Diagnostic plots}\label{diagnostic-plots}}
-
-Regression analysis is a field of study with at least a hundred years of
-history. Many of those regression diagnostic methods and procedures are
-mature and well-established in books first published in the twentieth
-century, such as \citet{draper_applied_2014},
+Many of those regression diagnostic methods and procedures are mature
+and well-established in books first published in the twentieth century,
+such as \citet{draper_applied_2014},
 \citet{montgomery_introduction_2012}, \citet{belsley_regression_1980},
 \citet{cook_applied_1999} and \citet{cook1982residuals}. Regardless of
-the level of difficulty of the book, one will find the importance and
-usefulness of diagnostic plots being emphasized again and again.
-Checking diagnostic plots is also the recommended starting point for
-validating model assumptions like normality, homoscedasticity and
-linearity \citep{anscombe_examination_1963}.
+the level of difficulty, one will find the importance and usefulness of
+diagnostic plots being emphasized in those books repeatedly. Checking
+diagnostic plots is also the recommended starting point for validating
+model assumptions such as normality, homoscedasticity and linearity
+\citep{anscombe_examination_1963}.
 
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the predictor variables that are approximately
-orthogonal to residuals are refereed to as standard residual plots. They
-are commonly used to identify patterns which are indicative of
-nonconstant error variance or non-linearity \citep{cook1982residuals}.
-Raw residuals and studentized residuals are the two most frequently used
+orthogonal to residuals are referred to as standard residual plots in
+\citet{cook1982residuals}. As suggested by \citet{cook1982residuals},
+these kinds of diagnostic plots are commonly used to identify patterns
+that are indicative of nonconstant error variance or non-linearity. Raw
+residuals and studentized residuals are the two most frequently used
 residuals in standard residual plots. The debt on which type of
-residuals should be used always present. While raw residuals are the
-most common output of computer regression software package, by applying
-a scaling factor, the ability of revealing nonconstant error variance in
+residuals should be used is always present. While raw residuals are the
+most common computer regression software package output, by applying a
+scaling factor, the ability to reveal nonconstant error variance in
 standard residual plots will often be enhanced by studentized residuals
-in small sample size \citep{gunst2018regression}.
-
-As a two-dimensional representation of a model in a \(p\)-dimensional
-space, standard residual plots project data points onto the variable of
-the horizontal axis, which is a vector in \(p\)-dimensional space.
-Observations with the same projection will be treated as equivalent as
-they have the same position of the abscissa. Therefore, standard
-residual plots are often useful in revealing model inadequacies in the
-direction of the variable of the horizontal axis, but could be
-inadequate for detecting patterns in other directions, especially in
-those perpendicular to the variable of the horizontal axis. Hence, in
-practice, multiple standard residual plots with different horizontal
-axes will be examined.
-
-Overlapping data points is a general issue in scatter plots not limited
-to standard residual plots, which often makes plots difficult to
-interpret because visual patterns are concealed. Thus, for relatively
-large sample size, \citet{cleveland1975graphical} suggests the use of
-robust moving statistics as reference lines to give aids to eye in
-seeing patterns, which nowadays, are usually replaced with a spline or
-local polynomial regression line.
+in small sample size \citep{gunst2018regression}. As a two-dimensional
+representation of a model in a \(p\)-dimensional space, standard
+residual plots project data points onto the variable of the horizontal
+axis, which is a vector in \(p\)-dimensional space. Observations with
+the same projection will be treated as equivalent as they have the same
+abscissa. Therefore, standard residual plots are often useful in
+revealing model inadequacies in the direction of the variable of the
+horizontal axis but could be inadequate for detecting patterns in other
+directions, especially in those perpendicular to the variable of the
+horizontal axis. Hence, in practice, multiple standard residual plots
+with different horizontal axes will be examined
+\citep{cook1982residuals}. Overlapping data points is a general issue in
+scatter plots not limited to standard residual plots, which often makes
+plots difficult to interpret because visual patterns are concealed.
+Thus, for a relatively large sample size, \citet{cleveland1975graphical}
+suggests the use of robust moving statistics as reference lines to give
+aid to the eye in seeing patterns, which nowadays, are usually replaced
+with a spline or local polynomial regression line.
 
 Other types of data plots that are often used in regression diagnostics
 include partial residual plots and probability plots. Partial residual
@@ -172,44 +124,59 @@ additional information on the extent of the non-linearity. Probability
 plots can be used to compare the sampling distribution of the residuals
 to the normal distribution for assessing the normality assumptions.
 
-\hypertarget{hypothesis-testing}{%
-\subsection{Hypothesis testing}\label{hypothesis-testing}}
+In addition to diagnostic plots, analysts may perform formal hypothesis
+testing for detecting model defects. Depends on the alternative
+hypothesis that being focused on, variety of tests can be applied. For
+example, the presence of heteroskedasticity can usually be tested by
+applying the White test \citep{white_heteroskedasticity-consistent_1980}
+or the Breusch-Pagan test \citep{breusch_simple_1979}, which both
+derived from the Lagrange multiplier test (ref here) principle and rely
+on the asymptotic properties of the null distribution. For testing
+non-linearity, one may apply the F-test (ref here) to examine the
+significance of certain polynomial and non-linear forms of the
+regressors, or the significance of proxy variables as in the Ramsey
+Regression Equation Specification Error Test (RESET)
+\citep{ramsey_tests_1969}.
 
-In addition to diagnostic plots, researcher may also perform formal
-tests for detecting model defects. Depends on the alternative, variety
-of tests can be applied. For example, for testing heteroskedasticity,
-one may use the White test
-\citep{white_heteroskedasticity-consistent_1980} or the Breusch-Pagan
-test \citep{breusch_simple_1979}. And for testing non-linearity, there
-are RESET test \citep{ramsey_tests_1969} and F-test.
-
-As discussed in \citet{cook1982residuals}, most residual based tests for
+As discussed in \citet{cook1982residuals}, most residual-based tests for
 a particular type of departures from model assumptions are sensitive to
-other types of departures. Especially, outliers will often incorrectly
-trigger the rejection of null hypothesis despite the residuals are
-well-behaved \citep{cook_applied_1999}. This can be largely avoided in
-diagnostic plots as experienced analysts can evaluate the acceptability
-of assumptions flexibly, even in the presence of outliers. Furthermore,
+other types of departures. It is likely the null hypothesis is correctly
+rejected but for the wrong reason, which is also known as the ``Type III
+error''. Additionally, outliers will often incorrectly trigger the
+rejection of null hypothesis despite the residuals are well-behaved
+\citep{cook_applied_1999}. This can be largely avoided in diagnostic
+plots as experienced analysts can evaluate the acceptability of
+assumptions flexibly, even in the presence of outliers.
 \citet{montgomery_introduction_2012} stated that based on their
 experience, statistical tests are not widely used in regression
-diagnostics. Most importantly, the same or even larger amount of
-information can be provided by diagnostic plots than the corresponding
-tests in most empirical studies. But still, the effectiveness of
-statistical tests shall not be disrespected. Statistical tests have
-chance to provide analysts with unique information. There are also
-situations where no suitable diagnostic plots can be found for a
-particular violation of the assumptions, or excessive diagnostic plots
-need to be checked. One will have no choice but to rely on statistical
-tests if there is any. A good regression diagnostic practice should be a
-combination of both methods.
-
-\hypertarget{visual-inference}{%
-\subsection{Visual inference}\label{visual-inference}}
+diagnostics. The same or even larger amount of information can be
+provided by diagnostic plots than the corresponding tests in most
+empirical studies. Not to mention, it is almost impossible to have an
+exactly correctly specified model in reality. There is a well-known
+aphorism in statistic stated by George Box - ``All models are wrong, but
+some are useful''. This indicates proper hypothesis tests will always
+reject the null hypothesis as long as the sample size is large enough.
+The outcome ``Not reject'' can be interpreted as either ``effect size is
+small'' or ``sample size is small''. The outcome ``reject'' still
+doesn't inform us whether and how much the model defects are of actual
+consequence to the inference and prediction. But still, the
+effectiveness of statistical tests shall not be disrespected.
+Statistical tests have chance to provide analysts with unique
+information. There are situations where no suitable diagnostic plots can
+be found for a particular violation of the assumptions, or excessive
+diagnostic plots need to be checked. One will have no choice but to rely
+on statistical tests if there is any. A good regression diagnostic
+practice should be a balanced combination of both methods.
 
 Diagnostic plots are
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
+
+\hypertarget{demographic-summary}{%
+\section{Demographic summary}\label{demographic-summary}}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \hypertarget{data-processing}{%
 \section{Data processing}\label{data-processing}}

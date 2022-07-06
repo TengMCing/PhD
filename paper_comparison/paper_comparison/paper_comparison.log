@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.14)  30 JUN 2022 13:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.14)  7 JUL 2022 02:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -428,107 +428,117 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/Users/patrickli/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-
-LaTeX Warning: Reference `tab:powerglmcubic' on page 3 undefined on input line 258.
-
-
-LaTeX Warning: Reference `tab:powerglmheter' on page 3 undefined on input line 259.
-
-[3]
-
-LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 263.
-
-
-LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 268.
-
-
-LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 284.
-
-
-LaTeX Warning: Reference `fig:cubic-hard' on page 4 undefined on input line 301.
-
-
-LaTeX Warning: Reference `fig:heter-hard' on page 4 undefined on input line 301.
-
-
-LaTeX Warning: Reference `fig:power-com-cubic-a' on page 4 undefined on input line 317.
-
-
-LaTeX Warning: Reference `fig:power-com-cubic-a' on page 4 undefined on input line 318.
-
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf, id=138, 469.755pt x 325.215pt>
-File: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf  used on input line 324.
+<paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf, id=110, 469.755pt x 325.215pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 179.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 324--325
+Overfull \hbox (61.75386pt too wide) in paragraph at lines 179--180
+[] 
+ []
+
+[3 <./paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf>]
+
+LaTeX Warning: Reference `tab:powerglmcubic' on page 4 undefined on input line 225.
+
+
+LaTeX Warning: Reference `tab:powerglmheter' on page 4 undefined on input line 226.
+
+
+LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 230.
+
+
+LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 235.
+
+
+LaTeX Warning: Reference `fig:power-com' on page 4 undefined on input line 251.
+
+
+LaTeX Warning: Reference `fig:cubic-hard' on page 4 undefined on input line 268.
+
+
+LaTeX Warning: Reference `fig:heter-hard' on page 4 undefined on input line 268.
+
+[4]
+
+LaTeX Warning: Reference `fig:power-com-cubic-a' on page 5 undefined on input line 284.
+
+
+LaTeX Warning: Reference `fig:power-com-cubic-a' on page 5 undefined on input line 285.
+
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf, id=136, 469.755pt x 325.215pt>
+File: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf  used on input line 291.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 291--292
 [][] 
  []
 
-[4]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf, id=146, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf, id=137, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf  used on input line 326.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf  used on input line 293.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 326--327
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 293--294
 [][] 
  []
 
 [5 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf, id=156, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf, id=149, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf  used on input line 328.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf  used on input line 295.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 328--329
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 295--296
 [][] 
  []
 
 [6 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf>]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf, id=166, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf, id=159, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf  used on input line 330.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf  used on input line 297.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 330--331
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 297--298
 [][] 
  []
 
 [7 <./paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf, id=177, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf, id=170, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf  used on input line 332.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf  used on input line 299.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 332--333
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 299--300
 [][] 
  []
 
 [8 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf>]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf, id=187, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf, id=180, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf  used on input line 334.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf  used on input line 301.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 334--335
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 301--302
 [][] 
  []
 
 [9 <./paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf, id=197, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf, id=190, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf  used on input line 336.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf  used on input line 303.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 336--337
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 303--304
 [][] 
  []
 
@@ -541,21 +551,21 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: D7A3946E89FB479B694A58AF5C6A10DD;1506.
+(rerunfilecheck)             Checksum: CCF13B00522CB4990E1D5065A92C76AD;1216.
  ) 
 Here is how much of TeX's memory you used:
- 10889 strings out of 480260
- 174612 string characters out of 5893586
- 461759 words of memory out of 5000000
- 28591 multiletter control sequences out of 15000+600000
+ 10882 strings out of 480260
+ 174857 string characters out of 5893586
+ 464661 words of memory out of 5000000
+ 28593 multiletter control sequences out of 15000+600000
  479454 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,7n,90p,378b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 85i,7n,90p,377b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (12 pages, 250817 bytes).
+Output written on paper_comparison.pdf (12 pages, 255681 bytes).
 PDF statistics:
- 308 PDF objects out of 1000 (max. 8388607)
- 247 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 46 named destinations out of 1000 (max. 500000)
+ 105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
