@@ -136,11 +136,11 @@ hypothesis that being focused on, variety of tests can be applied. For
 example, the presence of heteroskedasticity can usually be tested by
 applying the White test \citep{white_heteroskedasticity-consistent_1980}
 or the Breusch-Pagan test \citep{breusch_simple_1979}, which both
-derived from the Lagrange multiplier test (ref here) principle and rely
-on the asymptotic properties of the null distribution. For testing
-non-linearity, one may apply the F-test (ref here) to examine the
-significance of certain polynomial and non-linear forms of the
-regressors, or the significance of proxy variables as in the Ramsey
+derived from the Lagrange multiplier test \citep{silvey1959lagrangian}
+principle and rely on the asymptotic properties of the null
+distribution. For testing non-linearity, one may apply the F-test to
+examine the significance of certain polynomial and non-linear forms of
+the regressors, or the significance of proxy variables as in the Ramsey
 Regression Equation Specification Error Test (RESET)
 \citep{ramsey_tests_1969}.
 
@@ -207,23 +207,22 @@ an inferential framework to extend confirmatory statistics to visual
 discoveries. This framework redefines the test statistics, tests, null
 distribution, significance levels and \(p\)-value for visual discovery
 modelled on the confirmatory statistical testing. Figure
-@ref(fig:parallelism) outlines the parallelism between conventional
+\ref{fig:parallelism} outlines the parallelism between conventional
 tests and visual discovery.
 
 \begin{figure}
 \centering
 \includegraphics[width=4.6875in,height=3.55208in]{figures/rsta2009012001.jpg}
-\caption{(ref:parallelism) \label{fig:parallelism}}
-\end{figure}
-
-(ref:parallelism) Parallelism between multiple quantitative testing and
-visual discovery \citep{buja_statistical_2009}. Visible features in a
-plot are viewed as a collection of test statistics
+\caption{Parallelism between multiple quantitative testing and visual
+discovery \citep{buja_statistical_2009}. Visible features in a plot are
+viewed as a collection of test statistics
 \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\), and any visual
 discoveries that are inconsistent with the null hypothesis are treated
 as evidence against the null. For regression diagnostics, the null
 hypothesis would be the assumed model, and visual discoveries could be
 any visual features in favour of any alternatives.
+\label{fig:parallelism}}
+\end{figure}
 
 In visual inference, a collection of test statistics
 \(T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)\) is defined, where
