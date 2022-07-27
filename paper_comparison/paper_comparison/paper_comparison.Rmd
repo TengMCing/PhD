@@ -204,26 +204,26 @@ Instead, in the experiments that will be described in section \ref{experimental-
 
 The effectiveness of visual inference has already been validated by @majumder_validation_2013 under relatively simple classical normal linear regression model settings with only one or two regressors. Their results suggests visual test is capable of testing the significance of a single regressor with a similar power as a t-test, though they expressed that in general it is unnecessary to use visual inference if there exists a conventional test and they didn't expect the visual test to perform equally well as the conventional test. In their third experiment, where there does not exist a proper conventional test, visual test outperforms the conventional test for a large margin. This is encouraging as it promotes the use of visual inference in border field of data science where there are no existing statistical testing procedures. In fact, lineup protocol has been integrated into some model diagnostic tools such as @loy2013diagnostic.
 
-With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. 
+<!-- refactoring from here -->
 
-Two experiments were conducted to evaluate the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. The first experiment has ideal scenario for conventional testing, where we would not expect the visual test to do better than the conventional test. The second experiment is a scenario where the conventional test is an approximate test, which visual test may have a chance to match the performance of the conventional test. 
+With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. For this purpose, two experiments were conducted. The first experiment has ideal scenario for conventional testing, where we would not expect the visual test to do better than the conventional test. The second experiment is a scenario where the conventional test is an approximate test, which visual test may have a chance to match the performance of the conventional test. 
 
-As suggested by many previous studies [many studies refs here], it is clear some care is needed to set up the human subjects experiments. It is best for an subject to evaluate a block of 20 lineups with varying difficulty, with a reasonable number of "easy" lineups. The explanations about each experiment includes an explantion of how the lineups were sampled and provided to the subjects.
+As suggested by many previous studies [many studies refs here], it is reasonable for an subject to evaluate a block of 20 lineups. Subjects for both two experiments were recruited from Prolific web service [ref here]. They were asked to select one or more plots that are mostly different from others, provide a reason for their selections, and express how different they think the selected plots are from others. Information about gender, age, education, and previous experience in visual experiment were also collected. No subject was shown the same lineup twice.
 
-Participants for all the experiments were recruited through Prolific's online web service [ref here]. A summary of the data obtained for all three eperiments are shown in [table ref here]. Participants were asked to select the plots which are mostly different from others, provide a reason for their selections, and express how different they think the selected plots are from others. Gender, age, education, and previous experience in visual experiment are also collected. For each of the experiments, $12$ of the lineups were used as a attention check which everyone will randomly get two of them and should get at least one correct, so that a measure of the quality of the subjects effort could be made. Note that no participant was shown the same lineup twice.
+For each of the experiments, a pool of 12 lineups with obvious visual patterns were generated. In every block of 20 lineups that presented to subjects, two different lineups sampled from the corresponding pool of lineups were included as attention checks. Every subject should get at least one attention check correct such that the quality of the subject effort could be ensured.
 
 ## Non-linear covariates
 
-The experiment is designed to study the ability of human subjects to detect the effect of a higher order term $Z$ in a two variable statistical model formulated as:
+The first experiment is designed to study the ability of human subjects to detect the effect of a continuous variable $\boldsymbol{Z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another variable $\boldsymbol{X}$ in a two variable statistical model formulated as: 
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{Y} = 1 + \boldsymbol{X} + \boldsymbol{Z} + \boldsymbol{\varepsilon},\\
-\boldsymbol{X} = g(\boldsymbol{X_{raw}}, 1), \\
-\boldsymbol{Z} = g(\boldsymbol{Z_{raw}}, 1), \\
-\boldsymbol{Z_{raw}} = He_j(g(\boldsymbol{X}, 2)),
+\boldsymbol{X} = g(\boldsymbol{X}_{raw}, 1), \\
+\boldsymbol{Z} = g(\boldsymbol{Z}_{raw}, 1), \\
+\boldsymbol{Z}_{raw} = He_j(g(\boldsymbol{X}, 2)),
 \end{align}
 
-where $\boldsymbol{Y}$, $\boldsymbol{X}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{X_{raw}}$, $\boldsymbol{Z_{raw}}$ are $n\times1$ matrices,  $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $j \in \{2, 3, 6, 18\}$, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, $\sigma \in \{0.5, 1, 2, 4\}$, and $g(\boldsymbol{X}, k)$ is a scaling function to enforce the support of the variable to be $\{-k, k\}$ defined as
+where $\boldsymbol{Y}$, $\boldsymbol{X}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{X}_{raw}$, $\boldsymbol{Z}_{raw}$ are $n\times1$ matrices,  $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{X}, k)$ is a scaling function to enforce the support of the variable to be $\{-k, k\}$ defined as
 
 \begin{equation} \label{eq:scaling-function}
 g(\boldsymbol{X}, k) = (\boldsymbol{X} - min(\boldsymbol{X}))/max(\boldsymbol{X} - min(\boldsymbol{X})) \times 2k - k, \quad \text{for} \quad k > 0. 
@@ -237,18 +237,32 @@ The null regression model used to fit the data generated by the above model is f
 
 where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
-Clearly, omitted-variable bias will present since the null model leaves out the high order term. Data were simulated using a range of values of $j$ as shown in [table ref here], three different smaple sizes (n = 50, 100, 300) and four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4). The range of $j$ was chosen so that different shapes of non-linearity are included in the residual plot. 
+Clearly, omitted-variable bias will present since the null model leaves out the higher order term. Data were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$), three different sample sizes (n = 50, 100, 300) , four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4) and four different distribution of $\boldsymbol{X}_{raw}$: (1) $U(a = -1, b = 1)$, (2) $N(\mu = 0, \sigma = 0.3)$, (3) $lognormal(\mu = 0, \sigma = 0.6)/3$ and (4) $u\{a = 1, b = 5\}$. A summary of the parameters used in this experiment is given in [table ref here]
 
-```{r}
-VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform(), e = 0.5)$gen(300)) -> p1
-VI_MODEL$plot(poly_model(shape = 2, x = rand_uniform(), e = 0.5)$gen(300)) -> p2
-VI_MODEL$plot(poly_model(shape = 3, x = rand_uniform(), e = 0.5)$gen(300)) -> p3
-VI_MODEL$plot(poly_model(shape = 4, x = rand_uniform(), e = 0.5)$gen(300)) -> p4
+The values of $j$ was chosen so that visually different shapes of non-linearity are included in the residual plot. These include "U" shape, "S" shape, "M" shape and "Triple-U" shape. 
+
+```{r different-shape-of-herimite}
+VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform(), e = 0.5)$gen(300)) + ggtitle(quote(He[2]:"U shape")) -> p1
+VI_MODEL$plot(poly_model(shape = 2, x = rand_uniform(), e = 0.5)$gen(300)) + ggtitle(quote(He[3]:"S shape")) -> p2
+VI_MODEL$plot(poly_model(shape = 3, x = rand_uniform(), e = 0.5)$gen(300)) + ggtitle(quote(He[6]:"M shape")) -> p3
+VI_MODEL$plot(poly_model(shape = 4, x = rand_uniform(), e = 0.5)$gen(300)) + ggtitle(quote(He[18]:"Triple-U shape")) -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-The range of $\sigma$ was chosen so that estimates of the power would produce reasonably continuous power curves, comparable to that calculated for the conventional test. The values for $\boldsymbol{X_{raw}}$ were generated randomly and independently from one of the following four distributions: (1) $U(a = -1, b = 1)$, (2) $N(\mu = 0, \sigma = 0.3)$, (3) $lognormal(\mu = 0, \sigma = 0.6)/3$ and (4) $u\{a = 1, b = 5\}$. The uniform and the normal distribution are symmetric and commonly assumed. The adjusted log-normal distribution provides skewered density. The discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns. Three replications are made for each of the parameter values shown in [table ref here] and thus, 192 different lineups. For each lineup, the null model was fit to the actual dataset to obtain residuals and parameter estimates. The actual data plot was drawn as standard residual plot with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The actual data plot was randomly placed among these null dadta plots to produce the lineup. [figure ref here] is an example of one of these lineups. It was generated for $n = $, $\sigma = $, $j = $, $X_{raw} \sim$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects
+The range of $\sigma$ was chosen so that estimates of the power would produce reasonably continuous power curves, comparable to that calculated for the conventional test. The values for $\boldsymbol{X}_{raw}$ were generated randomly and independently from one of the following four distributions: (1) $U(a = -1, b = 1)$, (2) $N(\mu = 0, \sigma = 0.3)$, (3) $lognormal(\mu = 0, \sigma = 0.6)/3$ and (4) $u\{a = 1, b = 5\}$. The uniform and the normal distribution are symmetric and commonly assumed. The adjusted log-normal distribution provides skewered density. The discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns. Three replications are made for each of the parameter values shown in [table ref here] and thus, 192 different lineups. For each lineup, the null model was fit to the actual dataset to obtain residuals and parameter estimates. The actual data plot was drawn as standard residual plot with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The actual data plot was randomly placed among these null dadta plots to produce the lineup. [figure ref here] is an example of one of these lineups. It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value.
+
+To satisfy the plan described above, we needed to recruit at least 160 subjects.
+
+# Results
+
+## Data cleaning
+
+Participants recruited from Prolific are paid for their efforts. Some participants will try to maximize their earnings for minimum effort, which can affect the result from the data. For the purpose of identifying these participants and cleaning the data, two attention checks are included in the block of 20 lineups. If the subject failed to identify at least one of the actual data plot in those attention checks, we reject the submission and the subject will not be paid. All attention checks are removed from the final data. [table ref here] tabulates the number of subjects, genders, and lineups evaluated after applying the data screening procedure.
+
+## Model fitting
+
+For each parameter combination, effect $E$ is derived as $E = \frac{1}{2}(\boldsymbol{R}_a\boldsymbol{X}_b)'diag(\sigma^2\boldsymbol{R}_a)\boldsymbol{R}_a\boldsymbol{X}_b$ from the Kullback-Leibler divergence. [KL divergence ref here] (The derivation is provided in [appendix ref here].). The logistic regression is fit using $E$ as the only fixed effect covariate 
 
 
 # Demographic summary
