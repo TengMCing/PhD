@@ -32,14 +32,14 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
 
 
 \begin{document}
 
 \articletype{ARTICLE TEMPLATE}
 
-\title{Why shouldn't you use numerical tests to diagnose the linear
-regression models?}
+\title{Effectiveness of visual test in linear regression diagnositics}
 
 
 \author{\name{Weihao Li$^{a}$, Dianne Cook$^{a}$, Emi Tanaka$^{a}$}
@@ -65,25 +65,24 @@ visual inference; regression diagnostics;
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Regression analysis is a field of study with at least a hundred years of
-history, and regression diagnostics is one of the essential steps in
-regression analysis. The diagnostic procedure conventionally involves
-evaluating the fitness of the proposed model, detecting the presence of
-influential observations and outliers, checking the validity of model
-assumptions and many more. In terms of diagnostic techniques, data
-plots, hypothesis testing, and summary statistics are vital tools for a
-systematic and detailed examination of the regression model
-\citep{mansfield1987diagnostic}.
+Regression diagnostics is an essential step in regression analysis which
+is a field of study with at least a hundred years of history. The
+diagnostic procedure conventionally involves evaluating the fitness of
+the proposed model, detecting the presence of influential observations
+and outliers, checking the validity of model assumptions and many more.
+In terms of diagnostic techniques, data plots, hypothesis testing, and
+summary statistics are vital tools for a systematic and detailed
+examination of the regression model \citep{mansfield1987diagnostic}.
 
 Many of those regression diagnostic methods and procedures are mature
 and well-established in books first published in the twentieth century,
-such as \citet{draper_applied_2014},
-\citet{montgomery_introduction_2012}, \citet{belsley_regression_1980},
-\citet{cook_applied_1999} and \citet{cook1982residuals}. Regardless of
-the level of difficulty, one will find the importance and usefulness of
-diagnostic plots being emphasized in those books repeatedly. Checking
-diagnostic plots is also the recommended starting point for validating
-model assumptions such as normality, homoscedasticity and linearity
+such as \citet{draper1998applied}, \citet{montgomery1982introduction},
+\citet{belsley_regression_1980}, \citet{cook_applied_1999} and
+\citet{cook1982residuals}. Regardless of the level of difficulty, one
+will find the importance and usefulness of diagnostic plots being
+emphasized in those books repeatedly. Checking diagnostic plots is also
+the recommended starting point for validating model assumptions such as
+normality, homoscedasticity and linearity
 \citep{anscombe_examination_1963}.
 
 \hypertarget{diagnostic-plots}{%
@@ -101,24 +100,25 @@ residuals should be used is always present. While raw residuals are the
 most common computer regression software package output, by applying a
 scaling factor, the ability to reveal nonconstant error variance in
 standard residual plots will often be enhanced by studentized residuals
-in small sample size \citep{gunst2018regression}. As a two-dimensional
+in small sample size \citep{gunst1980regression}. As a two-dimensional
 representation of a model in a \(p\)-dimensional space, standard
 residual plots project data points onto the variable of the horizontal
 axis, which is a vector in \(p\)-dimensional space. Observations with
 the same projection will be treated as equivalent as they have the same
-abscissa. Therefore, standard residual plots are often useful in
+abscissa. Consequently, standard residual plots are often useful in
 revealing model inadequacies in the direction of the variable of the
 horizontal axis but could be inadequate for detecting patterns in other
 directions, especially in those perpendicular to the variable of the
 horizontal axis. Hence, in practice, multiple standard residual plots
 with different horizontal axes will be examined
-\citep{cook1982residuals}. Overlapping data points is a general issue in
-scatter plots not limited to standard residual plots, which often makes
-plots difficult to interpret because visual patterns are concealed.
-Thus, for a relatively large sample size, \citet{cleveland1975graphical}
-suggests the use of robust moving statistics as reference lines to give
-aid to the eye in seeing patterns, which nowadays, are usually replaced
-with a spline or local polynomial regression line.
+\citep{cook1982residuals}. Overlapping data points is another general
+issue in scatter plots not limited to standard residual plots, which
+often makes plots difficult to interpret because visual patterns are
+concealed. Thus, for a relatively large sample size,
+\citet{cleveland1975graphical} suggests the use of robust moving
+statistics as reference lines to give aid to the eye in seeing patterns,
+which nowadays, are usually replaced with a spline or local polynomial
+regression line.
 
 Other types of data plots that are often used in regression diagnostics
 include partial residual plots and probability plots. Partial residual
@@ -130,30 +130,31 @@ to the normal distribution for assessing the normality assumptions.
 \hypertarget{hypothesis-testing}{%
 \subsection{Hypothesis testing}\label{hypothesis-testing}}
 
-In addition to diagnostic plots, analysts may perform formal hypothesis
-testing for detecting model defects. Depends on the alternative
-hypothesis that being focused on, variety of tests can be applied. For
-example, the presence of heteroskedasticity can usually be tested by
-applying the White test \citep{white_heteroskedasticity-consistent_1980}
-or the Breusch-Pagan test \citep{breusch_simple_1979}, which both
-derived from the Lagrange multiplier test \citep{silvey1959lagrangian}
-principle and rely on the asymptotic properties of the null
-distribution. For testing non-linearity, one may apply the F-test to
-examine the significance of certain polynomial and non-linear forms of
-the regressors, or the significance of proxy variables as in the Ramsey
+Other than checking diagnostic plots, analysts may perform formal
+hypothesis testing for detecting model defects. Depending on the
+alternative hypothesis that is focused on, a variety of tests can be
+applied. For example, the presence of heteroskedasticity can usually be
+tested by applying the White test
+\citep{white_heteroskedasticity-consistent_1980} or the Breusch-Pagan
+test \citep{breusch_simple_1979}, which are both derived from the
+Lagrange multiplier test \citep{silvey1959lagrangian} principle that
+relies on the asymptotic properties of the null distribution. For
+testing non-linearity, one may apply the F-test to examine the
+significance of specific polynomial and non-linear forms of the
+regressors, or the significance of proxy variables as in the Ramsey
 Regression Equation Specification Error Test (RESET)
 \citep{ramsey_tests_1969}.
 
 As discussed in \citet{cook1982residuals}, most residual-based tests for
 a particular type of departure from model assumptions are sensitive to
 other types of departures. It is likely the null hypothesis is correctly
-rejected but for the wrong reason, which is also known as the ``Type III
+rejected but for the wrong reason, which is known as the ``Type III
 error''. Additionally, outliers will often incorrectly trigger the
-rejection of the null hypothesis despite the residuals being
-well-behaved \citep{cook_applied_1999}. This can be largely avoided in
-diagnostic plots as experienced analysts can evaluate the acceptability
-of assumptions flexibly, even in the presence of outliers.
-\citet{montgomery_introduction_2012} stated that based on their
+rejection of the null hypothesis despite the residuals are well-behaved
+\citep{cook_applied_1999}. This can be largely avoided in diagnostic
+plots as experienced analysts can evaluate the acceptability of
+assumptions flexibly, even in the presence of outliers.
+\citet{montgomery1982introduction} suggested that based on their
 experience, statistical tests are not widely used in regression
 diagnostics. The same or even larger amount of information can be
 provided by diagnostic plots than the corresponding tests in most
@@ -163,16 +164,16 @@ aphorism in statistics stated by George Box - ``All models are wrong,
 but some are useful''. This indicates proper hypothesis tests will
 always reject the null hypothesis as long as the sample size is large
 enough. The outcome ``Not reject'' can be interpreted as either ``effect
-size is small'' or ``sample size is small''. The outcome ``reject''
-still doesn't inform us whether and how much the model defects are of
-actual consequence to the inference and prediction. But still, the
+size is small'' or ``sample size is small''. and the outcome ``reject''
+doesn't inform us whether and how much the model defects are of actual
+consequence to the inference and prediction. But still, the
 effectiveness of statistical tests shall not be disrespected.
 Statistical tests have a chance to provide analysts with unique
-information. There are situations where no suitable diagnostic plots can
-be found for a particular violation of the assumptions, or excessive
-diagnostic plots need to be checked. One will have no choice but to rely
-on statistical tests if there are any. A good regression diagnostic
-practice should be a balanced combination of both methods.
+information. In situations where no suitable diagnostic plots can be
+found for a particular violation of the assumptions, or excessive
+diagnostic plots are needed to be checked, one will have no choice but
+to fall back on statistical tests if there exists any. A good regression
+diagnostic practice should be a balanced combination of both methods.
 
 \hypertarget{visual-inference}{%
 \subsection{Visual inference}\label{visual-inference}}
@@ -181,15 +182,15 @@ However, unlike hypothesis testing built upon rigorous statistical
 procedures, reading diagnostic plots relies on graphical perception -
 human's ability to interpret and decode the information embedded in the
 graph \citep{cleveland_graphical_1984}, which is to some extent
-subjective. Further, visual discovery suffers from its unsecured and
-unconfirmed nature where the degree of the presence of the visual
-features typically can not be measured quantitatively and objectively,
-which may lead to over or under-interpretations of the data. One such
-example is finding an over-interpretation of the separation between gene
-groups in a two-dimensional projection from a linear discriminant
-analysis when in fact there are no differences in the expression levels
-between the gene groups and separation is not an uncommon occurrence
-\citep{roy_chowdhury_using_2015}.
+subjective and indecisive. Further, visual discovery suffers from its
+unsecured and unconfirmed nature where the degree of the presence of the
+visual features typically can not be measured quantitatively and
+objectively, which may lead to over or under-interpretations of the
+data. One such example is finding an over-interpretation of the
+separation between gene groups in a two-dimensional projection from a
+linear discriminant analysis when in fact there are no differences in
+the expression levels between the gene groups and separation is not an
+uncommon occurrence \citep{roy_chowdhury_using_2015}.
 
 Visual inference was first introduced in a 1999 Joint Statistical
 Meetings (JSM) talk with the title ``Inference for Data Visualization''
@@ -233,8 +234,8 @@ measurement of the degree of presence of a visual feature.
 Alternatively, \citet{majumder_validation_2013} avoids the use of visual
 features and defined the visual statistics \(T(.)\) as a mapping from a
 dataset to a data plot. Both definitions of visual test statistics are
-valid, but in the rest of the report the first definition will be used
-as it covers some details needed by the following discussion. A visual
+valid, but in the rest of the paper the first definition will be used as
+it covers some details needed by the following discussion. A visual
 discovery is defined as a rejection of a null hypothesis, and the same
 null hypothesis can be rejected by many different visual discoveries
 \citep{buja_statistical_2009}. For regression diagnostics, the null
@@ -242,7 +243,7 @@ hypothesis would be the assumed model, while the visual discoveries
 would be any findings that are inconsistent with the null hypothesis.
 The same regression model can be rejected by many reasons with residual
 plot, including non-linearity and heteroskedasticity as shown in Figure
-@ref(fig:residual-plot-cubic-heter).
+\ref{fig:residual-plot-cubic-heter}.
 
 \begin{figure}
 \centering
@@ -255,7 +256,7 @@ generally would be interpretd as evidence of heteroskedasticity.
 Further, from the outline of the shape, nonlinear patterns exist. Both
 visual discoveries are evidence against the null hypothesis, though
 heteroskedasticity actually does not exist in the data generating
-process.}
+process. \label{fig:residual-plot-cubic-heter}}
 \end{figure}
 
 \hypertarget{se:sampling-from-null}{%
@@ -306,9 +307,9 @@ residual sum of square in two regressions.
 \hypertarget{se:lineup}{%
 \subsubsection{Lineup protocol}\label{se:lineup}}
 
-With the simulation of null plots being provided, another aspect of
-hypothesis testing that needs to be addressed is the control of false
-positive rate or Type I error. Any visual statistic
+With the simulation mechanism of null plots being provided, another
+aspect of hypothesis testing that needs to be addressed is the control
+of false positive rate or Type I error. Any visual statistic
 \(T^{(i)}(\boldsymbol{\mathrm{y}})\) needs to pair with a critical value
 \(c^{(i)}\) to form a hypothesis test. When a visual feature \(i\) is
 discovered by the observer from a plot, the corresponding visual
@@ -355,12 +356,15 @@ of \(m\) depends on the number of plots a human is willing to view
 which is equivalent to set \(\alpha = 0.05\), a general choice of
 significance level for conventional testing among statisticians.
 
-Further, if we involve \(K\) independent observers in a visual test, and
-let \(X\) be a random variable denoting the number of observers
-correctly picking the actual data plot. Then, under the null hypothesis
-\(X \sim \mathrm{Binom}_{K,1/m}\), and therefore, the \(p\)-value of a
-lineup of size \(m\) evaluated by \(K\) observer is given as
-\begin{equation} \label{eq:pvaluesingle}
+Further, a visual test can involve \(K\) independent observers. Let
+\(D_i = \{0,1\}\) be a binomial random variable denoting whether subject
+\(i\) correctly detecting the actual data plot, and
+\(X = \sum_{i=1}^{K}X_i\) be the number of observers correctly picking
+the actual data plot. Then, by imposing a relatively strong assumption
+on the visual test that all \(K\) evaluations are fully independent,
+under the null hypothesis, \(X \sim \mathrm{Binom}_{K,1/m}\). Therefore,
+the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is
+given as \begin{equation} \label{eq:pvaluesingle}
 P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
 \end{equation}
 
@@ -376,42 +380,189 @@ by involving multiple observers, variation of individual ability to read
 plots can be addressed to some degree as different opinions about visual
 discoveries can be collected.
 
-Compared to the conventional test, whose power only depends on the
-parameter of interest \(\theta\), several studies
-\citep[see][]{hofmann_graphical_2012, majumder_validation_2013, majumder_human_2014, roy_chowdhury_using_2015, loy_variations_2016}
-have shown the power of the visual test is subject-specific. Thus, to be
-able to account for individual's ability, an individual is required to
-evaluate multiple lineups \citep{majumder_validation_2013}.
+As pointed out by \citet{vanderplas2021statistical}, though equation
+(\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the
+possible dependencies in the visual test due to repeated evaluations of
+the same lineup. And it is inapplicable to visual test where subjects
+are asked to select one or more ``most different'' plots from the
+lineup. They summarized three common different scenarios in visual
+inference: (1) \(K\) different lineups are shown to \(K\) subjects, (2)
+\(K\) lineups with different null plots but the same actual data plot
+are shown to \(K\) subjects, and (3) the same lineup is shown to \(K\)
+subjects. Out of these three scenarios, Scenario 3 is the most common in
+previous studies as it puts the least constraints on the experimental
+design. For Scenario 3, \citet{vanderplas2021statistical} modelled the
+probability of a plot \(i\) being selected from a lineup as
+\(\theta_i\), where \(\theta_i \sim Dirichlet(\alpha)\) for
+\(i=1,...,m\) and \(\alpha > 0\). And defined \(c_i\) to be the number
+of times plot \(i\) being selected in \(K\) evaluations. In case subject
+\(j\) makes multiple selections, they decided to add \(1/s_j\) to
+\(c_i\) instead of one, where \(s_j\) is the number of plots subject
+\(j\) selected for \(j=1,...K\). This ensured \(\sum_{i}c_i=K\).
 
-Suppose individuals have the same ability and a lineup has been
-evaluated by multiple individuals, under the alternative hypothesis, the
-estimated power for a lineup can be expressed as \(\hat{p} = x/K\), the
-estimated probability of identifying the actual data plot from the
-lineup. If the individual skill needs to be taken into account, and
-\(L\) lineups have been evaluated by \(K\) individuals,
-\citet{majumder_validation_2013} suggests that mixed effects logistic
-regression model can be fit as:
+The full model was a Dirichlet-multinomial mixture distribution
 
-\[g(p_{li}) = W_{li}\delta + Z_{li}\tau_{li},\] where \(g(.)\) is the
-logit link function \(g(p) = log(p) - log(1-p)\); \(0 \leq p \leq 1\).
-\(W_{li}\), \(1 \leq i \leq K\), \(1 \leq l \leq L\), is the covariate
-matrix including lineup-specific elements and demographic information of
-individuals, and \(\delta\) is a vector of parameters. \(Z\) is the
-random effects matrix, and \(\tau\) is a vector of variables follow
-\(N(\boldsymbol{0},\sigma_{\tau}\boldsymbol{I}_{KL\times KL})\).
+\begin{align} \label{eq:dirichlet-multinomial}\begin{split}
+\boldsymbol{\theta}&|\alpha \sim Dirichlet(\alpha)\\
+(c_i,...,c_m)&|\boldsymbol{\theta} \sim Multinomial(K, \boldsymbol{\theta}).
+\end{split}\end{align}
 
-Then, the estimated power for lineup \(l\) and individual \(i\) can be
-calculated as
-\(\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})\)
-\citep{majumder_validation_2013}.
+Since the p-value calculation only needs to concern the number of times
+the actual data plot being selected denoted by \(C_i\), they showed the
+model can be simplified to a beta-binomial mixture distribution
+
+\begin{align} \label{eq:beta-binomial}\begin{split}
+\theta_i&|\alpha \sim Beta(\alpha, (m-1)\alpha)\\
+C_i&|\theta_i \sim Binomial(K, \theta_i).
+\end{split}\end{align}
+
+Thus, the visual p-value followed by the beta-binomial model is given as
+
+\begin{equation} \label{eq:pvalue-beta-binomial}
+P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
+\end{equation}
+
+where \(B(.)\) is the beta function defined as
+
+\begin{equation} \label{eq:betafunction}
+B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
+\end{equation}
+
+Note that the use of equation (\ref{eq:pvalue-beta-binomial}) requires
+the estimation of \(\hat{\alpha}\), which largely depends on the null
+model, the type of the plot and other aesthetic features. They suggested
+to estimate \(\hat{\alpha}\) visually based on the selections of null
+plots of the experimental data, or to estimate \(\hat{\alpha}\)
+numerically based on several additional Rorschach lineups, which is a
+type of lineup containing only null plots. However, when the number of
+null models are large, it could be expensive to manually estimate each
+\(\alpha\) or include additional Rorschach lineups in the experiment.
+
+Instead, in the experiments that will be described in section
+\ref{experimental-design}, we adopt a simpler model implicitly used by
+the \texttt{pmulti()} function of the \texttt{vinference} \texttt{R}
+package. We assume the attractiveness of the plot \(i\) modelled as
+\(w_i \sim Uniform(0,1)\) for \(i=1,..,m\). Let
+\(\theta_i = w_i/\sum_{i=1}^{m}w_i\) be the probability of plot \(i\)
+being selected by a subject. Then, given the number of selections
+\(s_j\), for \(j=1,...,K\), the distribution of \(C_i\) can be
+approximated by simulating the random selection process with computer.
+The simulated visual test p-value is formulated as
+
+\begin{equation} \label{eq:p-value-multi}
+\text{p-value} = \frac{\#draws~that~the~actual~data~plota~being~selected~more~than~c_i~times}{\#simulation}.
+\end{equation}
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
 
+The effectiveness of visual inference has already been validated by
+\citet{majumder_validation_2013} under relatively simple classical
+normal linear regression model settings with only one or two regressors.
+Their results suggests visual test is capable of testing the
+significance of a single regressor with a similar power as a t-test,
+though they expressed that in general it is unnecessary to use visual
+inference if there exists a conventional test and they didn't expect the
+visual test to perform equally well as the conventional test. In their
+third experiment, where there does not exist a proper conventional test,
+visual test outperforms the conventional test for a large margin. This
+is encouraging as it promotes the use of visual inference in border
+field of data science where there are no existing statistical testing
+procedures. In fact, lineup protocol has been integrated into some model
+diagnostic tools such as \citet{loy2013diagnostic}.
+
+With our knowledge, what haven't been examined so far is the
+effectiveness of visual test relative to the equivalent conventional
+test in regression diagnostics. Particularly, its ability to detect
+non-linearity and heteroskedasticity compared to F-test and BP-test.
+
+Two experiments were conducted to evaluate the effectiveness of visual
+test relative to the equivalent conventional test in regression
+diagnostics. The first experiment has ideal scenario for conventional
+testing, where we would not expect the visual test to do better than the
+conventional test. The second experiment is a scenario where the
+conventional test is an approximate test, which visual test may have a
+chance to match the performance of the conventional test.
+
+As suggested by many previous studies {[}many studies refs here{]}, it
+is clear some care is needed to set up the human subjects experiments.
+It is best for an subject to evaluate a block of 20 lineups with varying
+difficulty, with a reasonable number of ``easy'' lineups. The
+explanations about each experiment includes an explantion of how the
+lineups were sampled and provided to the subjects.
+
+Participants for all the experiments were recruited through Prolific's
+online web service {[}ref here{]}. A summary of the data obtained for
+all three eperiments are shown in {[}table ref here{]}. Participants
+were asked to select the plots which are mostly different from others,
+provide a reason for their selections, and express how different they
+think the selected plots are from others. Gender, age, education, and
+previous experience in visual experiment are also collected. For each of
+the experiments, \(12\) of the lineups were used as a attention check
+which everyone will randomly get two of them and should get at least one
+correct, so that a measure of the quality of the subjects effort could
+be made. Note that no participant was shown the same lineup twice.
+
+\hypertarget{non-linear-covariates}{%
+\subsection{Non-linear covariates}\label{non-linear-covariates}}
+
+The experiment is designed to study the ability of human subjects to
+detect the effect of a higher order term \(Z\) in a two variable
+statistical model formulated as:
+
+\begin{align} \label{eq:nonlinearity-model}
+\boldsymbol{Y} = 1 + \boldsymbol{X} + \boldsymbol{Z} + \boldsymbol{\varepsilon},\\
+\boldsymbol{X} = g(\boldsymbol{X_{raw}}, 1), \\
+\boldsymbol{Z} = g(\boldsymbol{Z_{raw}}, 1), \\
+\boldsymbol{Z_{raw}} = He_j(g(\boldsymbol{X}, 2)),
+\end{align}
+
+where \(\boldsymbol{Y}\), \(\boldsymbol{X}\),
+\(\boldsymbol{\varepsilon}\), \(\boldsymbol{X_{raw}}\),
+\(\boldsymbol{Z_{raw}}\) are \(n\times1\) matrices, \(He_{j}(.)\) is the
+\(j\)th-order probabilist's Hermite polynomials,
+\(j \in \{2, 3, 6, 18\}\),
+\(\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\),
+\(\sigma \in \{0.5, 1, 2, 4\}\), and \(g(\boldsymbol{X}, k)\) is a
+scaling function to enforce the support of the variable to be
+\(\{-k, k\}\) defined as
+
+\begin{equation} \label{eq:scaling-function}
+g(\boldsymbol{X}, k) = (\boldsymbol{X} - min(\boldsymbol{X}))/max(\boldsymbol{X} - min(\boldsymbol{X})) \times 2k - k, \quad \text{for} \quad k > 0. 
+\end{equation}
+
+The null regression model used to fit the data genearted by the above
+model is formulated as:
+
+\begin{equation} \label{eq:scaling-function}
+\boldsymbol{Y} = \beta_0 + \beta_1 \boldsymbol{X} + \boldsymbol{u},
+\end{equation}
+
+where
+\(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
+
+Clearly, omitted-variable bias will present since the null model leaves
+out the high order term. Data were simulated using a range of values of
+\(j\) as shown in {[}table ref here{]}, three different smaple sizes (n
+= 50, 100, 300) and four different standard deviations of the error
+(\(\sigma\) = 0.5, 1, 2, 4). The range of \(j\) was chosen so that
+different shapes of non-linearity are included in the residual plot.
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+The range of \(sigma\) was chosen so that estimates of the power would
+produce reasonably continuous power curves, comparable to that
+calculated for the conventional test. The values for \(X_{raw}\) were
+randomly generated independently from one of the following four
+distributions: (1) \(U(a = -1, b = 1)\), (2)
+\(N(\mu = 0, \sigma = 0.3)\), (3)
+\(lognormal(\mu = 0, \sigma = 0.6)/3 - 1\) and (4)
+\(u\{a = 1, b = 5\}\).
+
 \hypertarget{demographic-summary}{%
 \section{Demographic summary}\label{demographic-summary}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 \hypertarget{data-processing}{%
 \section{Data processing}\label{data-processing}}
@@ -536,6 +687,8 @@ account. From the figures, we can observe \ldots{}
 \includegraphics{paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf}
 
 \includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

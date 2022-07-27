@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.7)  7 JUL 2022 12:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.27)  27 JUL 2022 11:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **paper_comparison.tex
 (./paper_comparison.tex
-LaTeX2e <2022-06-01> patch level 4
-L3 programming layer <2022-07-01> (./interact.cls
+LaTeX2e <2022-06-01> patch level 5
+L3 programming layer <2022-07-15> (./interact.cls
 Document Class: interact 2016/10/17 v1.03 Interact LaTeX document class
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -328,11 +328,11 @@ with kernel methods
 \Fld@listcount=\count298
 \c@bookmark@seq@number=\count299
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip66
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
@@ -343,27 +343,31 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count300
 \l__pdf_internal_box=\box54
-) (./paper_comparison.aux)
+) (./paper_comparison.aux
+
+LaTeX Warning: Label `eq:scaling-function' multiply defined.
+
+)
 \openout1 = `paper_comparison.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -398,7 +402,7 @@ LaTeX Font Info:    ... okay on input line 37.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 37.
+Package hyperref Info: Link coloring OFF on input line 38.
 (./paper_comparison.out) (./paper_comparison.out)
 \@outlinefile=\write3
 \openout3 = `paper_comparison.out'.
@@ -436,163 +440,178 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/Users/patrickli/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<figures/rsta2009012001.jpg, id=152, 1806.75pt x 1370.11874pt>
+<figures/rsta2009012001.jpg, id=157, 1806.75pt x 1370.11874pt>
 File: figures/rsta2009012001.jpg Graphic file (type jpg)
 <use figures/rsta2009012001.jpg>
-Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 215.
+Package pdftex.def Info: figures/rsta2009012001.jpg  used on input line 216.
 (pdftex.def)             Requested size: 338.7648pt x 256.70848pt.
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 228.
+(Font)              size <5> substituted on input line 229.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 228.
+(Font)              size <5> substituted on input line 229.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 228.
+(Font)              size <5> substituted on input line 229.
 
-[3]
-<paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf, id=179, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf, id=169, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf  used on input line 249.
+Package pdftex.def Info: paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf  used on input line 250.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (61.75386pt too wide) in paragraph at lines 249--258
+Overfull \hbox (61.75386pt too wide) in paragraph at lines 250--259
  [][] 
  []
 
-[4 <./figures/rsta2009012001.jpg>] [5 <./paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf>]
+[3] [4 <./figures/rsta2009012001.jpg>] [5 <./paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf>]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 364.
+(amsmath)                 on input line 368.
 
-[6]
-
-Package natbib Warning: Citation `majumder_human_2014' on page 7 undefined on input line 381.
-
-<paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf, id=239, 469.755pt x 325.215pt>
+[6] [7] [8]
+<paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf, id=261, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 414.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 551.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (61.75386pt too wide) in paragraph at lines 414--415
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 551--552
+[][] 
+ []
+
+[9]
+<paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf, id=274, 469.755pt x 325.215pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 565.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (61.75386pt too wide) in paragraph at lines 565--566
 [] 
  []
 
-[7] [8 <./paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf>]
+[10 <./paper_comparison_files/figure-latex/unnamed-chunk-2-1.pdf>]
 
-LaTeX Warning: Reference `tab:powerglmcubic' on page 9 undefined on input line 460.
-
-
-LaTeX Warning: Reference `tab:powerglmheter' on page 9 undefined on input line 461.
+LaTeX Warning: Reference `tab:powerglmcubic' on page 11 undefined on input line 611.
 
 
-LaTeX Warning: Reference `fig:power-com' on page 9 undefined on input line 465.
+LaTeX Warning: Reference `tab:powerglmheter' on page 11 undefined on input line 612.
+
+[11 <./paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf>]
+
+LaTeX Warning: Reference `fig:power-com' on page 12 undefined on input line 616.
 
 
-LaTeX Warning: Reference `fig:power-com' on page 9 undefined on input line 470.
+LaTeX Warning: Reference `fig:power-com' on page 12 undefined on input line 621.
 
 
-LaTeX Warning: Reference `fig:power-com' on page 9 undefined on input line 486.
+LaTeX Warning: Reference `fig:power-com' on page 12 undefined on input line 637.
 
 
-LaTeX Warning: Reference `fig:cubic-hard' on page 9 undefined on input line 503.
+LaTeX Warning: Reference `fig:cubic-hard' on page 12 undefined on input line 654.
 
 
-LaTeX Warning: Reference `fig:heter-hard' on page 9 undefined on input line 503.
+LaTeX Warning: Reference `fig:heter-hard' on page 12 undefined on input line 654.
 
 
-LaTeX Warning: Reference `fig:power-com-cubic-a' on page 9 undefined on input line 519.
+LaTeX Warning: Reference `fig:power-com-cubic-a' on page 12 undefined on input line 670.
 
 
-LaTeX Warning: Reference `fig:power-com-cubic-a' on page 9 undefined on input line 520.
+LaTeX Warning: Reference `fig:power-com-cubic-a' on page 12 undefined on input line 671.
 
-[9]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf, id=272, 469.755pt x 325.215pt>
+[12]
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf, id=308, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf  used on input line 526.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf  used on input line 677.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 526--527
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 677--678
 [][] 
  []
 
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf, id=273, 469.755pt x 325.215pt>
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf, id=309, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf  used on input line 528.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf  used on input line 679.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 528--529
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 679--680
 [][] 
  []
 
-[10 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf, id=284, 469.755pt x 325.215pt>
+[13 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-1.pdf>]
+<paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf, id=320, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf  used on input line 530.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf  used on input line 681.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 530--531
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 681--682
 [][] 
  []
 
-[11 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf>]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf, id=294, 469.755pt x 325.215pt>
+[14 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-x-dist-1.pdf>]
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf, id=330, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf  used on input line 532.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf  used on input line 683.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 532--533
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 683--684
 [][] 
  []
 
-[12 <./paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf, id=304, 469.755pt x 325.215pt>
+[15 <./paper_comparison_files/figure-latex/power-of-visual-test-given-x-dist-1.pdf>]
+<paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf, id=340, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf  used on input line 534.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf  used on input line 685.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 534--535
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 685--686
 [][] 
  []
 
-[13 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf>]
-<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf, id=315, 469.755pt x 325.215pt>
+[16 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-shape-1.pdf>]
+<paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf, id=350, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf  used on input line 536.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf  used on input line 687.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 536--537
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 687--688
 [][] 
  []
 
-[14 <./paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf>]
-<paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf, id=325, 469.755pt x 325.215pt>
+[17 <./paper_comparison_files/figure-latex/power-of-visual-test-given-shape-1.pdf>]
+<paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf, id=360, 469.755pt x 325.215pt>
 File: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf  used on input line 538.
+Package pdftex.def Info: paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf  used on input line 689.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (73.75386pt too wide) in paragraph at lines 538--539
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 689--690
 [][] 
  []
 
-(./paper_comparison.bbl [15 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf>] [16 <./paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf>])
+[18 <./paper_comparison_files/figure-latex/power-vs-log-effect-size-given-number-of-observations-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf, id=370, 469.755pt x 325.215pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 691.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Package natbib Warning: There were undefined citations.
+Overfull \hbox (73.75386pt too wide) in paragraph at lines 691--692
+[][] 
+ []
 
-[17] (./paper_comparison.aux)
+(./paper_comparison.bbl [19 <./paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf>] [20 <./paper_comparison_files/figure-latex/unnamed-chunk-4-1.pdf>]) [21] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -600,22 +619,25 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: FF212C819CED1F7B19CB9A24432125CC;2049.
+(rerunfilecheck)             Checksum: 80067B84E55F622B96E46FEF8EB14A51;2215.
  ) 
 Here is how much of TeX's memory you used:
- 11020 strings out of 479996
- 177748 string characters out of 5887251
- 472804 words of memory out of 5000000
- 28954 multiletter control sequences out of 15000+600000
- 483010 words of font info for 80 fonts, out of 8000000 for 9000
+ 11066 strings out of 479983
+ 179039 string characters out of 5886884
+ 474093 words of memory out of 5000000
+ 28993 multiletter control sequences out of 15000+600000
+ 483178 words of font info for 81 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,8n,90p,723b,569s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (17 pages, 604019 bytes).
+ 85i,18n,90p,724b,569s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on paper_comparison.pdf (21 pages, 726623 bytes).
 PDF statistics:
- 456 PDF objects out of 1000 (max. 8388607)
- 370 compressed objects within 4 object streams
- 74 named destinations out of 1000 (max. 500000)
- 155 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 518 PDF objects out of 1000 (max. 8388607)
+ 417 compressed objects within 5 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 173 words of extra memory for PDF output out of 10000 (max. 10000000)
 
