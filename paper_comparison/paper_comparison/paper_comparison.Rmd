@@ -257,7 +257,7 @@ The effectiveness of visual inference has already been validated by @majumder_va
 
 With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. For this purpose, two experiments were conducted. The first experiment has ideal scenario for conventional testing, where we would not expect the visual test to do better than the conventional test. The second experiment is a scenario where the conventional test is an approximate test, which visual test may have a chance to match the performance of the conventional test. 
 
-As suggested by many previous studies [many studies refs here], it is reasonable for an subject to evaluate a block of 20 lineups. Subjects for both two experiments were recruited from Prolific web service [ref here]. Data screening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate and 10 minimum submissions. During the experiment, they were asked to select one or more plots that are mostly different from others, provide a reason for their selections, and express how different they think the selected plots are from others. If there was no noticeable difference between plots in a lineup, subject could choose to select zero plots without providing the reason. Information about gender, age, education, and previous experience in visual experiment were also collected. No subject was shown the same lineup twice.
+As suggested by many previous studies [many studies refs here], it is reasonable for an subject to evaluate a block of 20 lineups. Subjects for both two experiments were recruited from Prolific web service [ref here]. Data screening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate and 10 minimum submissions. During the experiment, they were asked to select one or more plots that are mostly different from others, provide a reason for their selections, and express how different they think the selected plots are from others. If there was no noticeable difference between plots in a lineup, subject could choose to select zero plots without providing the reason. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. No subject was shown the same lineup twice.
 
 For each of the experiments, a pool of 12 lineups with obvious visual patterns were generated. In every block of 20 lineups that presented to subjects, two different lineups sampled from the corresponding pool of lineups were included as attention checks. Every subject should get at least one attention check correct such that the quality of the subject effort could be ensured.
 
@@ -296,13 +296,21 @@ stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300)
 
-VI_MODEL$plot(ori_dat) + ggtitle(quote(He[2]:"U shape")) -> p1
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(He[2]:"U shape")) + 
+  theme_light() -> p1
+
 VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[3]:"S shape")) -> p2
+  ggtitle(quote(He[3]:"S shape")) + 
+  theme_light() -> p2
+
 VI_MODEL$plot(poly_model(shape = 3, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[6]:"M shape")) -> p3
+  ggtitle(quote(He[6]:"M shape")) + 
+  theme_light() -> p3
+
 VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[18]:"Triple-U shape")) -> p4
+  ggtitle(quote(He[18]:"Triple-U shape")) + 
+  theme_light() -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
@@ -312,13 +320,21 @@ The range of $\sigma$, which is a factor controlling the strength of the signal,
 ```{r different-sigma}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
-VI_MODEL$plot(ori_dat) + ggtitle(quote(sigma~"="~0.5)) -> p1
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(sigma~"="~0.5)) + 
+  theme_light() -> p1
+
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~1)) -> p2
+  ggtitle(quote(sigma~"="~1)) + 
+  theme_light() -> p2
+
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 2)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~2)) -> p3
+  ggtitle(quote(sigma~"="~2)) + 
+  theme_light() -> p3
+
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 4)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~4)) -> p4
+  ggtitle(quote(sigma~"="~4)) + 
+  theme_light() -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
@@ -329,13 +345,21 @@ Four different distribution were used to generate $\boldsymbol{X}_{raw}$. The un
 ```{r different-dist}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
-VI_MODEL$plot(ori_dat) + ggtitle(quote(U(-1,1))) -> p1
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(U(-1,1))) + 
+  theme_light() -> p1
+
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(N(0,0.3^2))) -> p2
+  ggtitle(quote(N(0,0.3^2))) + 
+  theme_light() -> p2
+
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(lognormal(0,0.6^2)/3)) -> p3
+  ggtitle(quote(lognormal(0,0.6^2)/3)) + 
+  theme_light() -> p3
+
 VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(U~"{1,5}")) -> p4
+  ggtitle(quote(U~"{1,5}")) + 
+  theme_light() -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
@@ -387,12 +411,34 @@ Subjects recruited from Prolific received a fixed payment for participating in t
 A subject was allowed to select zero plots for a lineup, which literally means there was no visble difference between plots,
 but the simulated p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly. 
 
+In overall, there were a total of 3200 lineup evaluations made by 160 subjects in experiment I, where 320 lineup evaluations were attention checks and were not used in the following analysis. The collated dataset is provided in `polynomials` of the `visage` `R` package.
+
 ## Demographic summary
 
-[table ref here] tabulates the number of subjects, genders, and lineups evaluated after applying the data screening procedure.
+Table \ref{tab:demographic-table} tabulates the number of subjects, preferred pronouns, education backgrounds, age groups, and previous experience in visual experiment. Figure \ref{fig:demographic-summary-plot} visulizes the marginal distribution of each of the category. The collated data was a balanced sample among male and female. Most of the ages of subject were between 18 to 39, while many of them were between 18 to 24. Very few subjects were awarded degree higher than Bachelor Degree. Around 40% of subjects had previous experience in visual experiment.
+
+```{r results="asis"}
+
+polynomials %>%
+  group_by(set) %>%
+  slice_sample(n = 1) %>%
+  ungroup() %>%
+  count(pronoun, education, age_group, previous_experience) %>%
+  arrange(desc(n)) %>%
+  knitr::kable(col.names = c("Preferred pronoun", "Education", "Age group", "Previous experience", "Subject"),
+               escape = FALSE,
+               format = "latex",
+               linesep = "",
+               booktabs = TRUE, 
+               caption  = 'Summary of demographic information', 
+               label = "demographic-table" ) %>%
+  cat()
+```
 
 
-```{r}
+
+
+```{r demographic-summary-plot, fig.cap="Summary of demographic information. \\label{fig:demographic-summary-plot}"}
 polynomials %>%
   group_by(set) %>%
   summarise(across(age_group:previous_experience, first)) %>%
@@ -424,8 +470,27 @@ patchwork::wrap_plots(education_plot, age_plot, gender_plot, experience_plot)
 
 ## Model fitting
 
-For each parameter combination, effect $E$ is derived as $E = \frac{1}{2}(\boldsymbol{R}_a\boldsymbol{X}_b)'diag(\sigma^2\boldsymbol{R}_a)\boldsymbol{R}_a\boldsymbol{X}_b$ from the Kullback-Leibler divergence. [KL divergence ref here] (The derivation is provided in [appendix ref here].). The logistic regression is fit using $E$ as the only fixed effect covariate 
+For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (the derivation is provided in [appendix ref here]) formulated as 
 
+\begin{equation} \label{eq:effect-size-ex1}
+E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
+\end{equation}
+
+where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$.
+
+The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as
+
+\begin{equation} \label{eq:logistic-regression-1-1}
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
+\end{equation}
+
+where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
+
+Table [table ref here] shows the parameter estimates of the logistic regression. [Discussion about the numeric estimates here]
+
+## Power comparison
+
+Figure [figure ref here] shows an overview of estimated power against natural logarithm
 
 
 <!-- # time taken vs order of the plot -->
@@ -434,10 +499,7 @@ For each parameter combination, effect $E$ is derived as $E = \frac{1}{2}(\bolds
 <!-- # order of the plot? -->
 <!-- # summary of the demographic information -->
 
-# Data processing
-
-
-# Results
+# Old
 
 ## Overview of the Data
 

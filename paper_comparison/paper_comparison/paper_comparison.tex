@@ -506,8 +506,9 @@ others, provide a reason for their selections, and express how different
 they think the selected plots are from others. If there was no
 noticeable difference between plots in a lineup, subject could choose to
 select zero plots without providing the reason. Information about
-gender, age, education, and previous experience in visual experiment
-were also collected. No subject was shown the same lineup twice.
+preferred pronoun, age group, education, and previous experience in
+visual experiment were also collected. No subject was shown the same
+lineup twice.
 
 For each of the experiments, a pool of 12 lineups with obvious visual
 patterns were generated. In every block of 20 lineups that presented to
@@ -650,28 +651,115 @@ estimation of \(p\)-value. Therefore, we treated this case as making one
 selection but failing to identify the actual data plot so that Equation
 (\ref{eq:p-value-multi}) can be applied correctly.
 
+In overall, there were a total of 3200 lineup evaluations made by 160
+subjects in experiment I, where 320 lineup evaluations were attention
+checks and were not used in the following analysis. The collated dataset
+is provided in \texttt{polynomials} of the \texttt{visage} \texttt{R}
+package.
+
 \hypertarget{demographic-summary}{%
 \subsection{Demographic summary}\label{demographic-summary}}
 
-{[}table ref here{]} tabulates the number of subjects, genders, and
-lineups evaluated after applying the data screening procedure.
+Table \ref{tab:demographic-table} tabulates the number of subjects,
+preferred pronouns, education backgrounds, age groups, and previous
+experience in visual experiment. Figure
+\ref{fig:demographic-summary-plot} visulizes the marginal distribution
+of each of the category. The collated data was a balanced sample among
+male and female. Most of the ages of subject were between 18 to 39,
+while many of them were between 18 to 24. Very few subjects were awarded
+degree higher than Bachelor Degree. Around 40\% of subjects had previous
+experience in visual experiment.
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf}
+\begin{table}
+
+\caption{\label{tab:demographic-table}Summary of demographic information}
+\centering
+\begin{tabular}[t]{llllr}
+\toprule
+Preferred pronoun & Education & Age group & Previous experience & Subject\\
+\midrule
+She & Diploma and Bachelor Degree & 18-24 & No & 17\\
+He & Diploma and Bachelor Degree & 18-24 & Yes & 14\\
+She & Diploma and Bachelor Degree & 18-24 & Yes & 12\\
+He & Diploma and Bachelor Degree & 18-24 & No & 11\\
+He & Diploma and Bachelor Degree & 25-39 & No & 10\\
+She & Diploma and Bachelor Degree & 25-39 & No & 10\\
+She & Diploma and Bachelor Degree & 25-39 & Yes & 9\\
+He & High School or below & 18-24 & No & 8\\
+She & High School or below & 18-24 & No & 7\\
+He & High School or below & 18-24 & Yes & 6\\
+He & Diploma and Bachelor Degree & 25-39 & Yes & 5\\
+He & Masters Degree & 25-39 & No & 5\\
+He & Masters Degree & 25-39 & Yes & 5\\
+He & High School or below & 25-39 & No & 4\\
+She & High School or below & 25-39 & No & 4\\
+She & Masters Degree & 25-39 & Yes & 4\\
+He & High School or below & 25-39 & Yes & 3\\
+She & High School or below & 18-24 & Yes & 3\\
+She & Masters Degree & 25-39 & No & 3\\
+He & Honours Degree & 25-39 & No & 2\\
+She & Diploma and Bachelor Degree & 40-54 & No & 2\\
+She & Honours Degree & 18-24 & No & 2\\
+He & High School or below & 40-54 & Yes & 1\\
+He & High School or below & 55-64 & No & 1\\
+He & Masters Degree & 40-54 & Yes & 1\\
+He & Masters Degree & 55-64 & No & 1\\
+Other & High School or below & 25-39 & No & 1\\
+She & High School or below & 40-54 & No & 1\\
+She & Honours Degree & 25-39 & No & 1\\
+She & Honours Degree & 25-39 & Yes & 1\\
+She & Masters Degree & 18-24 & No & 1\\
+She & Masters Degree & 40-54 & No & 1\\
+They & Diploma and Bachelor Degree & 18-24 & No & 1\\
+They & Diploma and Bachelor Degree & 25-39 & No & 1\\
+They & High School or below & 18-24 & No & 1\\
+They & High School or below & 25-39 & No & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf}
+\caption{Summary of demographic information.
+\label{fig:demographic-summary-plot}}
+\end{figure}
 
 \hypertarget{model-fitting}{%
 \subsection{Model fitting}\label{model-fitting}}
 
-For each parameter combination, effect \(E\) is derived as
-\(E = \frac{1}{2}(\boldsymbol{R}_a\boldsymbol{X}_b)'diag(\sigma^2\boldsymbol{R}_a)\boldsymbol{R}_a\boldsymbol{X}_b\)
-from the Kullback-Leibler divergence. {[}KL divergence ref here{]} (The
-derivation is provided in {[}appendix ref here{]}.). The logistic
-regression is fit using \(E\) as the only fixed effect covariate
+For each parameter combination, effect \(E\) is derived from the
+Kullback-Leibler divergence (the derivation is provided in {[}appendix
+ref here{]}) formulated as
 
-\hypertarget{data-processing}{%
-\section{Data processing}\label{data-processing}}
+\begin{equation} \label{eq:effect-size-ex1}
+E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
+\end{equation}
 
-\hypertarget{results-1}{%
-\section{Results}\label{results-1}}
+where \(diag(.)\) is the diagonal matrix constructed from the diagonal
+elements of \(\boldsymbol{R}_a\).
+
+The logistic regression is fit using \(log_e(E)\) as the only fixed
+effect covariate for the power of visual test formulated as
+
+\begin{equation} \label{eq:logistic-regression-1-1}
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
+\end{equation}
+
+where \(\Lambda(.)\) is the standard logistic function given as
+\(\Lambda(z) = exp(z)/(1+exp(z))\).
+
+Table {[}table ref here{]} shows the parameter estimates of the logistic
+regression. {[}Discussion about the numeric estimates here{]}
+
+\hypertarget{power-comparison}{%
+\subsection{Power comparison}\label{power-comparison}}
+
+Figure {[}figure ref here{]} shows an overview of estimated power
+against natural logarithm
+
+\hypertarget{old}{%
+\section{Old}\label{old}}
 
 \hypertarget{overview-of-the-data}{%
 \subsection{Overview of the Data}\label{overview-of-the-data}}
