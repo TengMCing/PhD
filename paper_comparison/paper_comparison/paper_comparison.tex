@@ -393,7 +393,7 @@ by involving multiple observers, variation of individual ability to read
 plots can be addressed to some degree as different opinions about visual
 discoveries can be collected.
 
-As pointed out by \citet{vanderplas2021statistical}, though equation
+As pointed out by \citet{vanderplas2021statistical}, though Equation
 (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the
 possible dependencies in the visual test due to repeated evaluations of
 the same lineup. And it is inapplicable to visual test where subjects
@@ -441,7 +441,7 @@ where \(B(.)\) is the beta function defined as
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
 \end{equation}
 
-Note that the use of equation (\ref{eq:pvalue-beta-binomial}) requires
+Note that the use of Equation (\ref{eq:pvalue-beta-binomial}) requires
 the estimation of \(\hat{\alpha}\), which largely depends on the null
 model, the type of the plot and other aesthetic features. They suggested
 to estimate \(\hat{\alpha}\) visually based on the selections of null
@@ -498,14 +498,16 @@ the conventional test.
 As suggested by many previous studies {[}many studies refs here{]}, it
 is reasonable for an subject to evaluate a block of 20 lineups. Subjects
 for both two experiments were recruited from Prolific web service {[}ref
-here{]}. They were asked to select one or more plots that are mostly
-different from others, provide a reason for their selections, and
-express how different they think the selected plots are from others. If
-there was no noticeable difference between plots in a lineup, subject
-could choose to select zero lineups without providing the reason.
-Information about gender, age, education, and previous experience in
-visual experiment were also collected. No subject was shown the same
-lineup twice.
+here{]}. Data screening procedure was applied during the recruitment,
+subjects were required to be fluent in English, with \(98\%\) minimum
+approval rate and 10 minimum submissions. During the experiment, they
+were asked to select one or more plots that are mostly different from
+others, provide a reason for their selections, and express how different
+they think the selected plots are from others. If there was no
+noticeable difference between plots in a lineup, subject could choose to
+select zero plots without providing the reason. Information about
+gender, age, education, and previous experience in visual experiment
+were also collected. No subject was shown the same lineup twice.
 
 For each of the experiments, a pool of 12 lineups with obvious visual
 patterns were generated. In every block of 20 lineups that presented to
@@ -593,9 +595,8 @@ technique, and plotted in the same way. The lineup consisted of 20
 residual plots with one randomly placed actual data plot. Figure
 \ref{fig:example-lineup} is an example of one of these lineups. It was
 produced by using \(n = 300\), \(j = 6\), \(\sigma = 0.5\) and
-\(N(0.0.3^2)\) as the distribution of \(X_{raw}\). The actual data plot
-location is four. All five subjects correctly identified the actual data
-plot for this lineup.
+\(X_{raw} \sim N(0.0.3^2)\). The actual data plot location is four. All
+five subjects correctly identified the actual data plot for this lineup.
 
 \begin{table}
 
@@ -630,25 +631,30 @@ satisfy the experimental design described above.
 \hypertarget{data-preprocessing}{%
 \subsection{Data preprocessing}\label{data-preprocessing}}
 
-Subjects recruited from Prolific received a fixed payment for submitting
-quality responses. However, some subjects will try to maximize their
-earnings for minimum effort. If a subject objectively demonstrated clear
-low-effort throughout the experiment, i.e., failed both attention
-checks, we rejected the submission and the subject would not be paid.
+Subjects recruited from Prolific received a fixed payment for
+participating in the experiment. However, some subjects will try to
+maximize their earnings for minimum effort. During the review of
+submissions, if we found a subject objectively demonstrated clear
+low-effort throughout the experiment, i.e., failed all attention checks,
+we rejected the submission. The rejected submissions will be removed
+immediately, and Prolific will automatically recruit another subject as
+substitution. Therefore, we only paid for approved submissions and no
+further data screening procedure needed to be applied on the collected
+data.
 
-Participants recruited from Prolific are paid for their efforts. Some
-participants will try to maximize their earnings for minimum effort,
-which can affect the result from the data. For the purpose of
-identifying these participants and cleaning the data, two attention
-checks are included in the block of 20 lineups. If the subject failed to
-identify at least one of the actual data plot in those attention checks,
-we reject the submission and the subject will not be paid. All attention
-checks are removed from the final data. {[}table ref here{]} tabulates
-the number of subjects, genders, and lineups evaluated after applying
-the data screening procedure.
+A subject was allowed to select zero plots for a lineup, which literally
+means there was no visble difference between plots, but the simulated
+p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop
+the subject from the simulation for this case, leading to inaccurate
+estimation of \(p\)-value. Therefore, we treated this case as making one
+selection but failing to identify the actual data plot so that Equation
+(\ref{eq:p-value-multi}) can be applied correctly.
 
 \hypertarget{demographic-summary}{%
 \subsection{Demographic summary}\label{demographic-summary}}
+
+{[}table ref here{]} tabulates the number of subjects, genders, and
+lineups evaluated after applying the data screening procedure.
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-3-1.pdf}
 
