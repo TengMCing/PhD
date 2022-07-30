@@ -466,8 +466,9 @@ The simulated visual test p-value is formulated as
 \text{p-value} = \frac{\#draws~that~the~actual~data~plota~being~selected~more~than~c_i~times}{\#simulation}.
 \end{equation}
 
-\hypertarget{experimental-design}{%
-\section{Experimental design}\label{experimental-design}}
+\hypertarget{effectiveness-of-visual-test-in-regression-diagnostics}{%
+\subsection{Effectiveness of visual test in regression
+diagnostics}\label{effectiveness-of-visual-test-in-regression-diagnostics}}
 
 The effectiveness of visual inference has already been validated by
 \citet{majumder_validation_2013} under relatively simple classical
@@ -487,13 +488,18 @@ diagnostic tools such as \citet{loy2013diagnostic}.
 With our knowledge, what haven't been examined so far is the
 effectiveness of visual test relative to the equivalent conventional
 test in regression diagnostics. Particularly, its ability to detect
-non-linearity and heteroskedasticity compared to F-test and BP-test. For
-this purpose, two experiments were conducted. The first experiment has
-ideal scenario for conventional testing, where we would not expect the
-visual test to do better than the conventional test. The second
-experiment is a scenario where the conventional test is an approximate
-test, which visual test may have a chance to match the performance of
-the conventional test.
+non-linearity and heteroskedasticity compared to F-test and BP-test.
+
+\hypertarget{experimental-design}{%
+\section{Experimental design}\label{experimental-design}}
+
+For the purpose of examining the effectiveness of visual test in
+regression diagnostics, two experiments were conducted. The first
+experiment has ideal scenario for conventional testing, where we would
+not expect the visual test to do better than the conventional test. The
+second experiment is a scenario where the conventional test is an
+approximate test, which visual test may have a chance to match the
+performance of the conventional test.
 
 As suggested by many previous studies {[}many studies refs here{]}, it
 is reasonable for an subject to evaluate a block of 20 lineups. Subjects
@@ -730,7 +736,7 @@ They & High School or below & 25-39 & No & 1\\
 
 For each parameter combination, effect \(E\) is derived from the
 Kullback-Leibler divergence (the derivation is provided in {[}appendix
-ref here{]}) formulated as
+ref here{]}) formulated as:
 
 \begin{equation} \label{eq:effect-size-ex1}
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
@@ -740,7 +746,7 @@ where \(diag(.)\) is the diagonal matrix constructed from the diagonal
 elements of \(\boldsymbol{R}_a\).
 
 The logistic regression is fit using \(log_e(E)\) as the only fixed
-effect covariate for the power of visual test formulated as
+effect covariate for the power of visual test formulated as:
 
 \begin{equation} \label{eq:logistic-regression-1-1}
 Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
@@ -749,24 +755,26 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 where \(\Lambda(.)\) is the standard logistic function given as
 \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
+The same model is fit on different subsets of the collated data to study
+the effect of different factors have on the power of the visual test.
+
 Table {[}table ref here{]} shows the parameter estimates of the logistic
-regression. {[}Discussion about the numeric estimates here{]}
+regressions. {[}Discussion about the numeric estimates here{]}
 
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
 
-Figure {[}figure ref here{]} shows an overview of estimated power
-against natural logarithm
+Figure \ref{fig:power-overview} shows an overview of estimated power of
+visual test against natural logarithm of the effect. Without further
+concenring different component contributing to the effect,
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf}
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/power-overview-1.pdf}
+\caption{Power overview. \label{fig:power-overview}}
+\end{figure}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 \hypertarget{old}{%
 \section{Old}\label{old}}
@@ -889,7 +897,7 @@ account. From the figures, we can observe \ldots{}
 
 \includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

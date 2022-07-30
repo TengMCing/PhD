@@ -339,13 +339,17 @@ Instead, in the experiments that will be described in section \ref{experimental-
 
 <!-- Then, the estimated power for lineup $l$ and individual $i$ can be calculated as $\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})$ [@majumder_validation_2013]. -->
 
-# Experimental design
+## Effectiveness of visual test in regression diagnostics
 
 The effectiveness of visual inference has already been validated by @majumder_validation_2013 under relatively simple classical normal linear regression model settings with only one or two regressors. Their results suggests visual test is capable of testing the significance of a single regressor with a similar power as a t-test, though they expressed that in general it is unnecessary to use visual inference if there exists a conventional test and they didn't expect the visual test to perform equally well as the conventional test. In their third experiment, where there does not exist a proper conventional test, visual test outperforms the conventional test for a large margin. This is encouraging as it promotes the use of visual inference in border field of data science where there are no existing statistical testing procedures. In fact, lineup protocol has been integrated into some model diagnostic tools such as @loy2013diagnostic.
 
 <!-- refactoring from here -->
 
-With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. For this purpose, two experiments were conducted. The first experiment has ideal scenario for conventional testing, where we would not expect the visual test to do better than the conventional test. The second experiment is a scenario where the conventional test is an approximate test, which visual test may have a chance to match the performance of the conventional test. 
+With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. 
+
+# Experimental design
+
+For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The first experiment has ideal scenario for conventional testing, where we would not expect the visual test to do better than the conventional test. The second experiment is a scenario where the conventional test is an approximate test, which visual test may have a chance to match the performance of the conventional test. 
 
 As suggested by many previous studies [many studies refs here], it is reasonable for an subject to evaluate a block of 20 lineups. Subjects for both two experiments were recruited from Prolific web service [ref here]. Data screening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate and 10 minimum submissions. During the experiment, they were asked to select one or more plots that are mostly different from others, provide a reason for their selections, and express how different they think the selected plots are from others. If there was no noticeable difference between plots in a lineup, subject could choose to select zero plots without providing the reason. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. No subject was shown the same lineup twice.
 
@@ -560,7 +564,7 @@ patchwork::wrap_plots(education_plot, age_plot, gender_plot, experience_plot)
 
 ## Model fitting
 
-For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (the derivation is provided in [appendix ref here]) formulated as 
+For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (the derivation is provided in [appendix ref here]) formulated as: 
 
 \begin{equation} \label{eq:effect-size-ex1}
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
@@ -568,7 +572,7 @@ E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a)
 
 where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$.
 
-The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as
+The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as:
 
 \begin{equation} \label{eq:logistic-regression-1-1}
 Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
@@ -576,11 +580,14 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 
 where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
 
-Table [table ref here] shows the parameter estimates of the logistic regression. [Discussion about the numeric estimates here]
+The same model is fit on different subsets of the collated data to study the effect of different factors have on the power of the visual test.
+
+
+Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here]
 
 ## Power comparison
 
-Figure [figure ref here] shows an overview of estimated power against natural logarithm
+Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect. Without further concenring different component contributing to the effect, 
 
 ```{r}
 conv_test_plot <- function() {
@@ -593,16 +600,11 @@ conv_test_plot <- function() {
               aes(log(effect_size), reject, col = "F-test"), 
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) +
   labs(col = "Test") +
-  theme_light() +
+  theme_light(base_size = 5) +
   xlab(quote(log[e](E))) +
   ylab("Power")
 }
 
-conv_test_plot()
-```
-
-
-```{r}
 add_wrong_BP_conv_test_plot_layers <- function(p) {
   p +
   stat_smooth(data = wrong_BP_conv_result, geom = "line", 
@@ -613,11 +615,6 @@ add_wrong_BP_conv_test_plot_layers <- function(p) {
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
 }
 
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers()
-```
-
-```{r}
 add_wrong_WS_conv_test_plot_layers <- function(p) {
   p +
   stat_smooth(data = wrong_WS_conv_result, geom = "line", 
@@ -627,10 +624,6 @@ add_wrong_WS_conv_test_plot_layers <- function(p) {
               aes(log(effect_size), reject, col = "WS-test"), 
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
 }
-
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_WS_conv_test_plot_layers()
 ```
 
 
@@ -646,7 +639,7 @@ boot_dat <- function(dat, times = 100) {
 add_visual_test_plot_layers <- function(p) {
   visual_dat <- polynomials %>%
   group_by(lineup_id) %>%
-  summarise(across(c(type:p_value), first)) %>%
+  summarise(across(c(type:p_value, prop_detect), first)) %>%
   filter(lineup_id < 577) %>%
   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   boot_dat(times = 100)
@@ -657,18 +650,76 @@ add_visual_test_plot_layers <- function(p) {
               method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 1) +
   stat_smooth(data = visual_dat, geom = "line", 
               aes(log(effect_size), reject, group = boot_id, col = "Visual"), 
-              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05)
+              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05) +
+  geom_point(data = filter(visual_dat, boot_id == 1), aes(log(effect_size), prop_detect), alpha = 0.1)
   
 }
 
 control_col <- function(p, ...) {
   p + scale_color_manual(values = unlist(list(...)))
 }
+```
 
+```{r eval = FALSE}
+polynomials %>%
+  group_by(lineup_id) %>%
+  summarise(dd = first(abs(effect_size - exp(2)))) %>%
+  arrange(dd)
+```
+
+
+```{r power-overview, fig.height=7.5, fig.cap="Power overview. \\label{fig:power-overview}"}
 conv_test_plot() %>%
   add_wrong_BP_conv_test_plot_layers() %>%
   add_wrong_WS_conv_test_plot_layers() %>%
-  add_visual_test_plot_layers()
+  add_visual_test_plot_layers() +
+  geom_vline(xintercept = 0) + 
+  geom_vline(xintercept = 2) +
+  geom_vline(xintercept = 4) +
+  geom_vline(xintercept = 6) -> base_plot
+
+
+
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_314$data,
+                     size = 0.1,
+                     stroke = 0.2,
+                     remove_grid_line = TRUE,
+                     theme = theme_light(base_size = 5),
+                     remove_axis = TRUE) +
+  ggtitle(bquote(log[e](E) == 0~", F-test p-value" == .(format(filter(polynomials, lineup_id == 314)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 314)$p_value[1], digits = 3)))) -> bottom_plot_1
+
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data,
+                     size = 0.1,
+                     stroke = 0.2,
+                     remove_grid_line = TRUE,
+                     theme = theme_light(base_size = 5),
+                     remove_axis = TRUE) +
+  ggtitle(bquote(log[e](E) == 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_2
+
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_494$data,
+                     size = 0.1,
+                     stroke = 0.2,
+                     remove_grid_line = TRUE,
+                     theme = theme_light(base_size = 5),
+                     remove_axis = TRUE) +
+  ggtitle(bquote(log[e](E) == 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 494)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 494)$p_value[1], digits = 3)))) -> bottom_plot_3
+
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_101$data,
+                     size = 0.1,
+                     stroke = 0.2,
+                     remove_grid_line = TRUE,
+                     theme = theme_light(base_size = 5),
+                     remove_axis = TRUE) +
+  ggtitle(bquote(log[e](E) == 6~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 101)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 101)$p_value[1], digits = 3)))) -> bottom_plot_4
+
+
+design <- c(patchwork::area(1, 1, 1, 8), 
+            patchwork::area(2, 1, 2, 4), 
+            patchwork::area(2, 5, 2, 8), 
+            patchwork::area(3, 1, 3, 4), 
+            patchwork::area(3, 5, 3, 8))
+
+patchwork::wrap_plots(base_plot, B = bottom_plot_1, C = bottom_plot_2, D = bottom_plot_3, E = bottom_plot_4, design = design)
 ```
 
 
