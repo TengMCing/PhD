@@ -663,8 +663,14 @@ control_col <- function(p, ...) {
 ```{r eval = FALSE}
 polynomials %>%
   group_by(lineup_id) %>%
-  summarise(dd = first(abs(effect_size - exp(2)))) %>%
+  summarise(dd = first(abs(log(effect_size) - 5)), p_value = first(p_value)) %>%
   arrange(dd)
+
+polynomials %>%
+  ggplot() +
+  geom_point(aes(prop_detect, p_value < 0.06))
+
+bottom_plot_2
 ```
 
 
@@ -673,20 +679,20 @@ conv_test_plot() %>%
   add_wrong_BP_conv_test_plot_layers() %>%
   add_wrong_WS_conv_test_plot_layers() %>%
   add_visual_test_plot_layers() +
-  geom_vline(xintercept = 0) + 
-  geom_vline(xintercept = 2) +
-  geom_vline(xintercept = 4) +
-  geom_vline(xintercept = 6) -> base_plot
+  geom_vline(xintercept = 2, linetype = 2) + 
+  geom_vline(xintercept = 3, linetype = 2) +
+  geom_vline(xintercept = 4, linetype = 2) +
+  geom_vline(xintercept = 5, linetype = 2) -> base_plot
 
 
 
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_314$data,
-                     size = 0.1,
-                     stroke = 0.2,
-                     remove_grid_line = TRUE,
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 0~", F-test p-value" == .(format(filter(polynomials, lineup_id == 314)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 314)$p_value[1], digits = 3)))) -> bottom_plot_1
+# VI_MODEL$plot_lineup(polynomials_lineup$lineup_314$data,
+#                      size = 0.1,
+#                      stroke = 0.2,
+#                      remove_grid_line = TRUE,
+#                      theme = theme_light(base_size = 5),
+#                      remove_axis = TRUE) +
+#   ggtitle(bquote(log[e](E) == 0~", F-test p-value" == .(format(filter(polynomials, lineup_id == 314)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 314)$p_value[1], digits = 3)))) -> bottom_plot_1
 
 VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data,
                      size = 0.1,
@@ -694,23 +700,31 @@ VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_2
+  ggtitle(bquote(log[e](E) == 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_1
 
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_494$data,
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_364$data,
                      size = 0.1,
                      stroke = 0.2,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 494)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 494)$p_value[1], digits = 3)))) -> bottom_plot_3
+  ggtitle(bquote(log[e](E) == 3~", F-test p-value" == .(format(filter(polynomials, lineup_id == 364)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 364)$p_value[1], digits = 3)))) -> bottom_plot_2
 
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_101$data,
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_574$data,
                      size = 0.1,
                      stroke = 0.2,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 6~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 101)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 101)$p_value[1], digits = 3)))) -> bottom_plot_4
+  ggtitle(bquote(log[e](E) == 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 574)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 574)$p_value[1], digits = 3)))) -> bottom_plot_3
+
+VI_MODEL$plot_lineup(polynomials_lineup$lineup_179$data,
+                     size = 0.1,
+                     stroke = 0.2,
+                     remove_grid_line = TRUE,
+                     theme = theme_light(base_size = 5),
+                     remove_axis = TRUE) +
+  ggtitle(bquote(log[e](E) == 5~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 179)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 179)$p_value[1], digits = 3)))) -> bottom_plot_4
 
 
 design <- c(patchwork::area(1, 1, 1, 8), 
