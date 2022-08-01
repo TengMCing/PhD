@@ -755,8 +755,10 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 where \(\Lambda(.)\) is the standard logistic function given as
 \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
-The same model is fit on different subsets of the collated data to study
-the effect of different factors have on the power of the visual test.
+To study different factors contributing to the power of the visual test,
+the same logistic regression model is fit on different subsets of the
+collated data grouped by levels of factors. This includes
+{[}expansion{]}.
 
 Table {[}table ref here{]} shows the parameter estimates of the logistic
 regressions. {[}Discussion about the numeric estimates here{]}
@@ -765,16 +767,75 @@ regressions. {[}Discussion about the numeric estimates here{]}
 \subsection{Power comparison}\label{power-comparison}}
 
 Figure \ref{fig:power-overview} shows an overview of estimated power of
-visual test against natural logarithm of the effect. Without further
-concenring different component contributing to the effect,
+visual test against natural logarithm of the effect with comparison to
+the power of an exact test - F-test, and the power of two other
+residual-based conventional tests commonly used in regression
+diagnostics but for testing other departures from the model assumptions.
+In overall, the power of all four tests increases as the effect becomes
+larger. The power curve of F-test climbs aggressively from 25\% to
+around 90\% as \(log_e(E)\) increases from 0 to 2, while others respond
+inactively to the change of effect and remain lower than 25\% throughout
+the period, showing that as an exact test, the F-test is relatively more
+sensitive to the type of model defects that being considered. The power
+of visual test arises steadily and nearly linearly to around 90\% as
+\(log_e(E)\) increases from 2 to 5, suggesting that the effect starts to
+make noticeable impact on the degree of the presence of the designed
+visual features. Other two inappropriate conventional tests shows
+improvement at the same time but at a lower rate. This coincides the
+point made by \citet{cook1982residuals} mentioned in
+\ref{hypothesis-testing} that residual-based tests for a specific type
+of model defect are sensitive to other types of model defects. At
+\(log_e(E) = 6\), the power curve of F-test reaches almost 100\%
+followed by the visual test by a small margin. The power of
+Breusch--Pagan test and Shapiro--Wilk test reach around 75\% and 63\%
+respectively.
+
+What truly impress us is the huge difference between the estimated power
+of visual test and the estimated power of F-test. The margin is largest
+at around \(log_e(E) = 2\). An example lineup is included in Figure
+\ref{fig:power-overview} where none of subjects detect the actual data
+plot positioned at panel 14. It demonstrates that at this level of
+difficulty, the designed visual feature is rarely visible, making the
+actual data plot indistinguishable from residual plots simulated from
+the assumed model. From a communication perspective, given the fact that
+the visual difference is unperceivable, the argument that non-linearity
+present in the fitted model is less convincing to the public even though
+it is true. At around \(log_e(E) = 3\), the margin gets smaller as the
+chance of identifying the actual data plot becomes larger. At this level
+of difficulty, the designed visual features are usually detectable but
+it may not stand out from the lineup as other null plots may happen to
+include outliers or visual patterns that are are considered to be more
+attractive by human, and thus recognized as the most different plot.
+Without knowing the designed visual features beforehand, it is actually
+hard to identify the actual data plot by pure image comparison. The
+corresponding example lineup for \(log_e(E) = 3\) shown in Figure
+\ref{fig:power-overview} has the actual data plot positioned at panel
+20, where two out of five subjects detect it. It can be observed that a
+M-shape is presented in plot 20, but the signal is not strong enough to
+attract all five subjects, resulting in a visual p-value sightly above
+the desired significance level \(\alpha = 0.05\). At \(log_e(E) = 4\)
+and \(log_e(E) = 6\), the designed visual features become much clear and
+attractive, leading to a high percentage of rejection of the null
+hypothesis. Figure \ref{fig:power-overview} give example lineups of such
+cases.
+
+It is also interesting to observe that the power of visual test behaves
+similarly to those inappropriate conventional tests until the designed
+visual features really becomes visible
+
+As of shown in Figure \ref{fig:power-overview}, the example lineup for
+\(log_e(E) = 3\)
+
+it is of low chance detecting the actual data plot
+
+increase steadily when \(2<log_e(E)<4\). the power of visual test almost
+reaches 100\% at \(log_e(E) = 6\).
 
 \begin{figure}
 \centering
 \includegraphics{paper_comparison_files/figure-latex/power-overview-1.pdf}
 \caption{Power overview. \label{fig:power-overview}}
 \end{figure}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf}
 
 \hypertarget{old}{%
 \section{Old}\label{old}}
@@ -897,7 +958,7 @@ account. From the figures, we can observe \ldots{}
 
 \includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

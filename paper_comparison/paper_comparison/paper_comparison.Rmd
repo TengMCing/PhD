@@ -178,11 +178,11 @@ if (!file.exists(here::here("data/third_study/wrong_BP_conv_result.rds"))) {
 
 
 ```{r}
-if (!file.exists(here::here("data/third_study/wrong_WS_conv_result.rds"))) {
-  wrong_WS_conv_result <- list()
+if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
+  wrong_SW_conv_result <- list()
   for (i in 1:100)
   {
-    wrong_WS_conv_result[[i]] <- map(1:2000,
+    wrong_SW_conv_result[[i]] <- map(1:2000,
                             function(x) {
                      shape <- sample(1:4, 1)
                      e_sigma <- sample(c(0.5, 1, 2, 4), 1)
@@ -209,12 +209,12 @@ if (!file.exists(here::here("data/third_study/wrong_WS_conv_result.rds"))) {
   mutate(reject = as.numeric(reject))
   }
   
-  wrong_WS_conv_result <- wrong_WS_conv_result %>%
+  wrong_SW_conv_result <- wrong_SW_conv_result %>%
     reduce(bind_rows)
   
-  saveRDS(wrong_WS_conv_result, here::here("data/third_study/wrong_WS_conv_result.rds"))
+  saveRDS(wrong_SW_conv_result, here::here("data/third_study/wrong_SW_conv_result.rds"))
 } else {
-  wrong_WS_conv_result <- readRDS(here::here("data/third_study/wrong_WS_conv_result.rds"))
+  wrong_SW_conv_result <- readRDS(here::here("data/third_study/wrong_SW_conv_result.rds"))
 }
 
 ```
@@ -580,14 +580,31 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 
 where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
 
-The same model is fit on different subsets of the collated data to study the effect of different factors have on the power of the visual test.
-
+To study different factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. This includes [expansion]. 
 
 Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here]
 
 ## Power comparison
 
-Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect. Without further concenring different component contributing to the effect, 
+Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25\% to around 90\% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25\% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90\% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch–Pagan test and Shapiro–Wilk test reach around 75% and 63% respectively. 
+
+What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:power-overview} has the actual data plot positioned at panel 20, where two out of five subjects detect it. It can be observed that a M-shape is presented in plot 20, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and  $log_e(E) = 6$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:power-overview} give example lineups of such cases.
+
+It is also interesting to observe that the power of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible  
+
+
+
+
+
+As of shown in Figure \ref{fig:power-overview}, the example lineup for $log_e(E) = 3$
+
+
+it is of low chance detecting the actual data plot
+
+
+increase steadily when $2<log_e(E)<4$. the power of visual test almost reaches 100% at $log_e(E) = 6$.  
+
+
 
 ```{r}
 conv_test_plot <- function() {
@@ -615,13 +632,13 @@ add_wrong_BP_conv_test_plot_layers <- function(p) {
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
 }
 
-add_wrong_WS_conv_test_plot_layers <- function(p) {
+add_wrong_SW_conv_test_plot_layers <- function(p) {
   p +
-  stat_smooth(data = wrong_WS_conv_result, geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "WS-test"), 
+  stat_smooth(data = wrong_SW_conv_result, geom = "line", 
+              aes(log(effect_size), reject, group = boot_id, col = "SW-test"), 
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(data = wrong_WS_conv_result, geom = "line", 
-              aes(log(effect_size), reject, col = "WS-test"), 
+  stat_smooth(data = wrong_SW_conv_result, geom = "line", 
+              aes(log(effect_size), reject, col = "SW-test"), 
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
 }
 ```
@@ -671,13 +688,16 @@ polynomials %>%
   geom_point(aes(prop_detect, p_value < 0.06))
 
 bottom_plot_2
+
+polynomials %>%
+  filter(lineup_id == 364)
 ```
 
 
 ```{r power-overview, fig.height=7.5, fig.cap="Power overview. \\label{fig:power-overview}"}
 conv_test_plot() %>%
   add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_WS_conv_test_plot_layers() %>%
+  add_wrong_SW_conv_test_plot_layers() %>%
   add_visual_test_plot_layers() +
   geom_vline(xintercept = 2, linetype = 2) + 
   geom_vline(xintercept = 3, linetype = 2) +
@@ -700,7 +720,7 @@ VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_1
+  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_1
 
 VI_MODEL$plot_lineup(polynomials_lineup$lineup_364$data,
                      size = 0.1,
@@ -708,7 +728,7 @@ VI_MODEL$plot_lineup(polynomials_lineup$lineup_364$data,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 3~", F-test p-value" == .(format(filter(polynomials, lineup_id == 364)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 364)$p_value[1], digits = 3)))) -> bottom_plot_2
+  ggtitle(bquote(log[e](E) %~~% 3~", F-test p-value" == .(format(filter(polynomials, lineup_id == 364)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 364)$p_value[1], digits = 3)))) -> bottom_plot_2
 
 VI_MODEL$plot_lineup(polynomials_lineup$lineup_574$data,
                      size = 0.1,
@@ -716,7 +736,7 @@ VI_MODEL$plot_lineup(polynomials_lineup$lineup_574$data,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 574)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 574)$p_value[1], digits = 3)))) -> bottom_plot_3
+  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 574)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 574)$p_value[1], digits = 3)))) -> bottom_plot_3
 
 VI_MODEL$plot_lineup(polynomials_lineup$lineup_179$data,
                      size = 0.1,
@@ -724,7 +744,7 @@ VI_MODEL$plot_lineup(polynomials_lineup$lineup_179$data,
                      remove_grid_line = TRUE,
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) == 5~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 179)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 179)$p_value[1], digits = 3)))) -> bottom_plot_4
+  ggtitle(bquote(log[e](E) %~~% 5~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 179)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 179)$p_value[1], digits = 3)))) -> bottom_plot_4
 
 
 design <- c(patchwork::area(1, 1, 1, 8), 
@@ -736,20 +756,6 @@ design <- c(patchwork::area(1, 1, 1, 8),
 patchwork::wrap_plots(base_plot, B = bottom_plot_1, C = bottom_plot_2, D = bottom_plot_3, E = bottom_plot_4, design = design)
 ```
 
-
-
-```{r}
-polynomials %>%
-  group_by(lineup_id) %>%
-  summarise(across(c(type:p_value), first)) %>%
-  filter(lineup_id < 577) %>%
-  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
-  ggplot() +
-  geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  xlab("Natural logarithm of effect size") +
-  ylab("Power")
-```
 
 <!-- # time taken vs order of the plot -->
 <!-- # accuracy vs order of the plot -->
