@@ -473,12 +473,12 @@ diagnostics}\label{effectiveness-of-visual-test-in-regression-diagnostics}}
 The effectiveness of visual inference has already been validated by
 \citet{majumder_validation_2013} under relatively simple classical
 normal linear regression model settings with only one or two regressors.
-Their results suggests visual test is capable of testing the
-significance of a single regressor with a similar power as a t-test,
-though they expressed that in general it is unnecessary to use visual
-inference if there exists a conventional test and they didn't expect the
-visual test to perform equally well as the conventional test. In their
-third experiment, where there does not exist a proper conventional test,
+Their results suggest visual test is capable of testing the significance
+of a single regressor with a similar power as a t-test, though they
+expressed that in general it is unnecessary to use visual inference if
+there exists a conventional test and they didn't expect the visual test
+to perform equally well as the conventional test. In their third
+experiment, where there does not exist a proper conventional test,
 visual test outperforms the conventional test for a large margin. This
 is encouraging as it promotes the use of visual inference in border
 field of data science where there are no existing statistical testing
@@ -494,115 +494,119 @@ non-linearity and heteroskedasticity compared to F-test and BP-test.
 \section{Experimental design}\label{experimental-design}}
 
 For the purpose of examining the effectiveness of visual test in
-regression diagnostics, two experiments were conducted. The first
-experiment has ideal scenario for conventional testing, where we would
-not expect the visual test to do better than the conventional test. The
-second experiment is a scenario where the conventional test is an
-approximate test, which visual test may have a chance to match the
-performance of the conventional test.
+regression diagnostics, two experiments were conducted. The experiment I
+has ideal scenario for conventional testing, where the visual test is
+not expected to outperform the conventional test. The experiment II is a
+scenario where the conventional test is an approximate test, in which
+the visual test may have a chance to match the performance of the
+conventional test.
 
-As suggested by many previous studies {[}many studies refs here{]}, it
-is reasonable for an subject to evaluate a block of 20 lineups. Subjects
-for both two experiments were recruited from Prolific web service {[}ref
-here{]}. Data screening procedure was applied during the recruitment,
-subjects were required to be fluent in English, with \(98\%\) minimum
-approval rate and 10 minimum submissions. During the experiment, they
-were asked to select one or more plots that are mostly different from
-others, provide a reason for their selections, and express how different
-they think the selected plots are from others. If there was no
-noticeable difference between plots in a lineup, subject could choose to
-select zero plots without providing the reason. Information about
-preferred pronoun, age group, education, and previous experience in
-visual experiment were also collected. No subject was shown the same
-lineup twice.
+Subjects for both experiments were recruited from an crowdsourcing
+platform called Prolific {[}ref here{]}. Prescreening procedure was
+applied during the recruitment, subjects were required to be fluent in
+English, with \(98\%\) minimum approval rate in other studies and 10
+minimum submissions.
 
-For each of the experiments, a pool of 12 lineups with obvious visual
-patterns were generated. In every block of 20 lineups that presented to
-subjects, two different lineups sampled from the corresponding pool of
-lineups were included as attention checks. Every subject should get at
-least one attention check correct such that the quality of the subject
-effort could be ensured.
+During the experiment, every subject was presented with a block of 20
+lineups. And for every lineup, the subject was asked to select one or
+more plots that are most different from others, provide a reason for
+their selections, and evaluate how different they think the selected
+plots were from others. If there was no noticeable difference between
+plots in a lineup, subjects were permitted to select zero plots without
+providing the reason. No subject was shown the same lineup twice.
+Information about preferred pronoun, age group, education, and previous
+experience in visual experiment were also collected.
 
-\hypertarget{non-linear-covariates}{%
-\subsection{Non-linear covariates}\label{non-linear-covariates}}
+A pool of 12 different lineups with obvious visual patterns were
+generated for experiment I and experiment II respectively. In every
+block of 20 lineups that presented to a subject, two out of 12 lineups
+were included as attention checks. A subject's submission was only
+accepted if the actual data plot was identified for at least one
+attention check. Data of rejected submissions were discarded
+automatically to maintain the overall data quality.
 
-The first experiment is designed to study the ability of human subjects
-to detect the effect of a continuous variable \(\boldsymbol{Z}\) which
-is a probabilist's Hermite polynomial {[}Herimite ref here{]} of another
-variable \(\boldsymbol{X}\) in a two variable statistical model
+\hypertarget{non-linearity}{%
+\subsection{Non-linearity}\label{non-linearity}}
+
+Experiment I is designed to study the ability of human subjects to
+detect the effect of a random vector \(\boldsymbol{z}\) which is a
+probabilist's Hermite polynomial {[}Herimite ref here{]} of another
+random vector \(\boldsymbol{x}\) in a two variable statistical model
 formulated as:
 
 \begin{align} \label{eq:nonlinearity-model}
-\boldsymbol{Y} = 1 + \boldsymbol{X} + \boldsymbol{Z} + \boldsymbol{\varepsilon},\\
-\boldsymbol{X} = g(\boldsymbol{X}_{raw}, 1), \\
-\boldsymbol{Z} = g(\boldsymbol{Z}_{raw}, 1), \\
-\boldsymbol{Z}_{raw} = He_j(g(\boldsymbol{X}, 2)),
+\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1), \\
+\boldsymbol{z} = g(\boldsymbol{z}_{raw}, 1), \\
+\boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)),
 \end{align}
 
-where \(\boldsymbol{Y}\), \(\boldsymbol{X}\),
-\(\boldsymbol{\varepsilon}\), \(\boldsymbol{X}_{raw}\),
-\(\boldsymbol{Z}_{raw}\) are \(n\times1\) matrices, \(He_{j}(.)\) is the
+where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
+\(\boldsymbol{\varepsilon}\), \(\boldsymbol{x}_{raw}\),
+\(\boldsymbol{z}_{raw}\) are vector of size \(n\), \(He_{j}(.)\) is the
 \(j\)th-order probabilist's Hermite polynomials,
 \(\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\), and
-\(g(\boldsymbol{X}, k)\) is a scaling function to enforce the support of
-the variable to be \(\{-k, k\}\) defined as
+\(g(\boldsymbol{x}, k)\) is a scaling function to enforce the support of
+the random vector to be \(\{-k, k\}\) defined as
 
 \begin{equation} \label{eq:scaling-function}
-g(\boldsymbol{X}, k) = (\boldsymbol{X} - min(\boldsymbol{X}))/max(\boldsymbol{X} - min(\boldsymbol{X})) \times 2k - k, \quad \text{for} \quad k > 0. 
+g(\boldsymbol{x}, k) = (\boldsymbol{x} - min(\boldsymbol{x}))/max(\boldsymbol{x} - min(\boldsymbol{x})) \times 2k - k, \quad \text{for} \quad k > 0. 
 \end{equation}
 
-The null regression model used to fit the data generated by the above
-model is formulated as:
+The null regression model used to fit the realizations generated by the
+above model is formulated as:
 
 \begin{equation} \label{eq:scaling-function}
-\boldsymbol{Y} = \beta_0 + \beta_1 \boldsymbol{X} + \boldsymbol{u},
+\boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
 \end{equation}
 
 where
 \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
 
-Clearly, omitted-variable bias will present since the null model leaves
-out the higher order term. Data were simulated using four different
-order of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)), three
-different sample sizes (n = 50, 100, 300) , four different standard
-deviations of the error (\(\sigma\) = 0.5, 1, 2, 4) and four different
-distribution of \(\boldsymbol{X}_{raw}\): (1) \(U(-1, 1)\), (2)
-\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A
-summary of the parameters used in this experiment is given in Table
+Model misspecification presents since the null model leaves out the
+higher order term.
+
+Experiment data were simulated using four different order of
+probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)), three different
+sample sizes (n = 50, 100, 300) , four different standard deviations of
+the error (\(\sigma\) = 0.5, 1, 2, 4) and four different distribution of
+\(X_{raw}\): (1) \(U(-1, 1)\), (2) \(N(0, 0.3^2)\), (3)
+\(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A summary of the
+parameters used in this experiment is given in Table
 \ref{tab:parameter-table}.
 
 The values of \(j\) was chosen so that different shapes of non-linearity
-are included in the residual plot. These include ``U'' shape, ``S''
+were included in the residual plot. These include ``U'' shape, ``S''
 shape, ``M'' shape and ``Triple-U'' shape.
 
 \includegraphics{paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf}
 
 The range of \(\sigma\), which is a factor controlling the strength of
 the signal, was chosen so that different difficulty levels of lineups
-were generated and the estimated power curve would be smooth and
-continuous.
+were generated, and therefore, the estimated power curve would be smooth
+and continuous.
 
 \includegraphics{paper_comparison_files/figure-latex/different-sigma-1.pdf}
 
-Four different distribution were used to generate
-\(\boldsymbol{X}_{raw}\). The uniform and the normal distribution are
-symmetric and commonly assumed in statistical models. The adjusted
-log-normal distribution provides skewed density. And the discrete
-uniform distribution provides discreteness in residual plot, which could
-enrich the pool of visual patterns.
+Four different distribution were used to generate \(X_{raw}\). The
+uniform and the normal distribution are symmetric and commonly assumed
+in statistical models. The adjusted log-normal distribution provides
+skewed density. And the discrete uniform distribution provides
+discreteness in residual plot, which could enrich the pool of visual
+patterns.
 
 \includegraphics{paper_comparison_files/figure-latex/different-dist-1.pdf}
 
 Three replications are made for each of the parameter values shown in
 Table \ref{tab:parameter-table} resulting in 192 different lineups. For
-each lineup, the actual data plot was drawn as standard residual plot of
-the null model with raw residuals on the y-axis and fitted values on the
-x-axis. The 19 null datasets were generated by the residual rotation
+each lineup, the actual data plot was drawn as a standard residual plot
+of the null model with raw residuals on the y-axis and fitted values on
+the x-axis. The 19 null datasets were generated by the residual rotation
 technique, and plotted in the same way. The lineup consisted of 20
 residual plots with one randomly placed actual data plot. Figure
 \ref{fig:example-lineup} is an example of one of these lineups. It was
 produced by using \(n = 300\), \(j = 6\), \(\sigma = 0.5\) and
-\(X_{raw} \sim N(0.0.3^2)\). The actual data plot location is four. All
+\(X_{raw} \sim N(0.0.3^2)\). The actual data plot location was four. All
 five subjects correctly identified the actual data plot for this lineup.
 
 \begin{table}
@@ -627,10 +631,10 @@ five subjects correctly identified the actual data plot for this lineup.
 \caption{Example lineup \label{fig:example-lineup}}
 \end{figure}
 
-In addition, each lineup is evaluated by five different subjects to
-provide reasonable estimates of the visual p-value. Thus,
+In addition, each lineup is designed to be evaluated by five different
+subjects to provide reasonable estimates of the visual p-value. Thus,
 \(192 \times 3 \times 5 / (20 - 2) = 160\) subjects were recruited to
-satisfy the experimental design described above.
+satisfy the design of the experiment I.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -649,12 +653,12 @@ substitution. Therefore, we only paid for approved submissions and no
 further data screening procedure needed to be applied on the collected
 data.
 
-A subject was allowed to select zero plots for a lineup, which literally
-means there was no visble difference between plots, but the simulated
-p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop
-the subject from the simulation for this case, leading to inaccurate
-estimation of \(p\)-value. Therefore, we treated this case as making one
-selection but failing to identify the actual data plot so that Equation
+A subject was allowed to select zero plots for a lineup if there was no
+visible difference between plots, but the simulated visual p-value given
+in Equation (\ref{eq:p-value-multi}) will effectively drop the subject
+from the simulation for this case, leading to inaccurate estimation of
+\(p\)-value. Therefore, we treated this case as making one selection but
+failing to identify the actual data plot so that Equation
 (\ref{eq:p-value-multi}) can be applied correctly.
 
 In overall, there were a total of 3200 lineup evaluations made by 160
@@ -669,7 +673,7 @@ package.
 Table \ref{tab:demographic-table} tabulates the number of subjects,
 preferred pronouns, education backgrounds, age groups, and previous
 experience in visual experiment. Figure
-\ref{fig:demographic-summary-plot} visulizes the marginal distribution
+\ref{fig:demographic-summary-plot} visualizes the marginal distribution
 of each of the category. The collated data was a balanced sample among
 male and female. Most of the ages of subject were between 18 to 39,
 while many of them were between 18 to 24. Very few subjects were awarded
@@ -735,8 +739,7 @@ They & High School or below & 25-39 & No & 1\\
 \subsection{Model fitting}\label{model-fitting}}
 
 For each parameter combination, effect \(E\) is derived from the
-Kullback-Leibler divergence (the derivation is provided in {[}appendix
-ref here{]}) formulated as:
+Kullback-Leibler divergence (see {[}appendix ref here{]}) formulated as:
 
 \begin{equation} \label{eq:effect-size-ex1}
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
@@ -755,7 +758,7 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 where \(\Lambda(.)\) is the standard logistic function given as
 \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
-To study different factors contributing to the power of the visual test,
+To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
 collated data grouped by levels of factors. This includes
 {[}expansion{]}.
@@ -816,20 +819,8 @@ attract all five subjects, resulting in a visual p-value sightly above
 the desired significance level \(\alpha = 0.05\). At \(log_e(E) = 4\)
 and \(log_e(E) = 6\), the designed visual features become much clear and
 attractive, leading to a high percentage of rejection of the null
-hypothesis. Figure \ref{fig:power-overview} give example lineups of such
-cases.
-
-It is also interesting to observe that the power of visual test behaves
-similarly to those inappropriate conventional tests until the designed
-visual features really becomes visible
-
-As of shown in Figure \ref{fig:power-overview}, the example lineup for
-\(log_e(E) = 3\)
-
-it is of low chance detecting the actual data plot
-
-increase steadily when \(2<log_e(E)<4\). the power of visual test almost
-reaches 100\% at \(log_e(E) = 6\).
+hypothesis. Figure \ref{fig:power-overview} gives example lineups of
+such cases.
 
 \begin{figure}
 \centering
@@ -837,9 +828,60 @@ reaches 100\% at \(log_e(E) = 6\).
 \caption{Power overview. \label{fig:power-overview}}
 \end{figure}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf}
+\hypertarget{distributions-of-regressor}{%
+\subsubsection{Distributions of
+regressor}\label{distributions-of-regressor}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf}
+The impact of the distribution of \(X_raw\) on the power is shown in
+Figure \ref{fig:dist-power}. The power curve of F-test is stable across
+different distributions, while the visual test has a steeper power curve
+for normal and uniform distribution. BP-test performs worse for discrete
+uniform distribution and uniform distribution but has relatively high
+power for normal distribution. SW-test outperforms BP-test for discrete
+uniform distribution but remains as the worst test for other
+distributions. The results indicate those inappropriate residual-based
+tests are sensitive to the distribution of the regressor.
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/dist-power-1.pdf}
+\caption{\label{dist-power}}
+\end{figure}
+
+\hypertarget{shpaes-of-non-linearity}{%
+\subsubsection{Shpaes of non-linearity}\label{shpaes-of-non-linearity}}
+
+Figure \ref{fig:shape-power} illustrates the change of power under
+different shape of non-linearity. Similar to the power curves shown in
+\ref{fig:dist-power}, F-test is stable under different shapes. The power
+curve of visual test also behaves similarly across different shapes.
+What vary are the power curve of BP-test and SW-test. For Triple-U
+shape, both BP-test and SW-test are insensitive to the change of the
+effect. And for W shape, both tests have almost identical power curves.
+It can be observed that both tests performs the best for U-shape.
+
+\begin{figure}
+\centering
+\includegraphics{paper_comparison_files/figure-latex/shape-power-1.pdf}
+\caption{\label{shape-power}}
+\end{figure}
+
+\hypertarget{reasons-for-making-selections}{%
+\subsubsection{Reasons for making
+selections}\label{reasons-for-making-selections}}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\hypertarget{heteroskedasticity}{%
+\subsection{Heteroskedasticity}\label{heteroskedasticity}}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \hypertarget{old}{%
 \section{Old}\label{old}}
@@ -962,7 +1004,7 @@ account. From the figures, we can observe \ldots{}
 
 \includegraphics{paper_comparison_files/figure-latex/power-of-visual-test-given-number-of-observations-1.pdf}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
