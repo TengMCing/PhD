@@ -1,6 +1,6 @@
 ---
 title: |
-  Effectiveness of visual test in linear regression diagnositics  
+  Why aren't significance tests commonly used for linear regression diagnostics?
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
@@ -20,7 +20,7 @@ bibliography: paper.bib
 abstract: |
   Abstract to fill.
 keywords: |
-  visual inference; regression diagnostics;
+  data visualization; visual inference; hypothesis testing; residual plots;
 header-includes: |
   \usepackage{hyperref}
   \usepackage[utf8]{inputenc}
@@ -311,10 +311,24 @@ if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
 
 # Introduction
 
+> *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@REF]
 
-Regression diagnostics is an essential step in regression analysis which is a field of study with at least a hundred years of history. The diagnostic procedure conventionally involves evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. In terms of diagnostic techniques, data plots, hypothesis testing, and summary statistics are vital tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
+Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals are assessed. 
+
+Residuals might be plotted, as a histogram or normal probability plot to examine the distribution. Is it symmetric, and unimodal? Then all is good. If the distribution is skewed or bimodal or multimodal, there are outliers, there is cause for concern. It if also possible to conduct a goodness of fit test, such as a Shapiro-Wilk Normality test [@REF]. 
+
+It is also recommended to plot residuals against predicted values, and also each of the explanatory variables. If there is no obvious pattern, then all is good. It is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like nonlinear dependency or heteroskedasticity. It is also possible to conduct a hypothesis test for non-linear dependence [@RESET], and also use a Breusch-Pagan test [@REF] for heteroskedasticity. 
+
+There is an abundance of literature describing appropriate diagnostic methods for linear regression: Cook and Weisberg, ... [@REF]. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits. 
+
+This is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the commonly used diagnostic plots, the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers. Section XXX describes the experimental setup to enable a comparison between decisopns made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section XXX. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
+
+<!--Regression diagnostics is an essential step in regression analysis which is a field of study with at least a hundred years of history. The diagnostic procedure conventionally involves evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. In terms of diagnostic techniques, data plots, hypothesis testing, and summary statistics are vital tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
 
 Many of those regression diagnostic methods and procedures are mature and well-established in books first published in the twentieth century, such as @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. Regardless of the level of difficulty, one will find the importance and usefulness of diagnostic plots being emphasized in those books repeatedly. Checking diagnostic plots is also the recommended starting point for validating model assumptions such as normality, homoscedasticity and linearity [@anscombe_examination_1963]. 
+-->
+
+# Background
 
 ## Diagnostic plots
 
@@ -337,8 +351,8 @@ Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM)
 It was surprising that the essential components of visual inference had actually been established in @buja_inference_1999, but it was not until 10 years later that @buja_statistical_2009 formalized it as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
 
-![Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009]. Visible features in a plot are viewed as a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$, and any visual discoveries that are inconsistent with the null hypothesis are treated as evidence against the null. For regression diagnostics, the null hypothesis would be the assumed model, and visual discoveries could be any visual features in favour of any alternatives. \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
-
+<!-- ![Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009]. Visible features in a plot are viewed as a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$, and any visual discoveries that are inconsistent with the null hypothesis are treated as evidence against the null. For regression diagnostics, the null hypothesis would be the assumed model, and visual discoveries could be any visual features in favour of any alternatives. \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
+-->
 
 In visual inference, a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ is defined, where $\boldsymbol{\mathrm{y}}$ is the data and $I$ is a set of all possible visual features. @buja_statistical_2009 described each of the test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})$ as a measurement of the degree of presence of a visual feature. Alternatively, @majumder_validation_2013 avoids the use of visual features and defined the visual statistics $T(.)$ as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion. A visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For regression diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same regression model can be rejected by many reasons with residual plot, including non-linearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}. 
 
