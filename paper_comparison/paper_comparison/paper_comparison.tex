@@ -25,18 +25,14 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
+% see https://stackoverflow.com/a/47122900
 
-% tightlist command for lists without linebreak
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-
+% Pandoc citation processing
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
-
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -53,7 +49,6 @@
 \usepackage{xcolor}
 
 \begin{document}
-
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -87,53 +82,61 @@ plots;
 
 \begin{quote}
 \emph{``Since all models are wrong the scientist must be alert to what
-is importantly wrong.''} \citep{REF}
+is importantly wrong \citep{box1976science}.''}
 \end{quote}
 
 Diagnosing a model is the key to determining whether there is anything
 importantly wrong. For linear regression analysis, it is typical to
 interrogate the residuals. Residuals summarise what is not captured by
 the model, and thus provide the capacity to identify what might be
-wrong. There are many ways that residuals are assessed.
+wrong. There are many ways that residuals could be assessed.
 
-Residuals might be plotted, as a histogram or normal probability plot to
-examine the distribution. Is it symmetric, and unimodal? Then all is
-good. If the distribution is skewed or bimodal or multimodal, there are
-outliers, there is cause for concern. It if also possible to conduct a
-goodness of fit test, such as a Shapiro-Wilk Normality test \citep{REF}.
+Residuals might be plotted, as a histogram or quantile-quantile plot to
+examine the distribution. Using classical linear regression model as an
+example, if the distribution is symmetric and unimodal, then it is
+well-behaved. But if the distribution is skewed, bimodal, multimodal, or
+even contains outliers, there is cause for concern. It is also possible
+to conduct a goodness of fit test to examine the distribution of
+residuals, such as Shapiro-Wilk Normality test
+\citep{shapiro1965analysis}.
 
-It is also recommended to plot residuals against predicted values, and
-also each of the explanatory variables. If there is no obvious pattern,
-then all is good. It is a very difficult task for a human judge, though
-to make a decision that there's nothing there. It is especially common,
-particularly among new data analysts to report patterns when an
-experienced data analyst might quickly conclude that there are none.
-Generally, one looks for departures from nothingness like nonlinear
-dependency or heteroskedasticity. It is also possible to conduct a
-hypothesis test for non-linear dependence \citep{RESET}, and also use a
-Breusch-Pagan test \citep{REF} for heteroskedasticity.
+To examine the relationship between residuals, predicted values and each
+of the explanatory variables, it is recommend to plot them on a scatter
+plot with residuals on the y-axis. This type of plot is usually called
+residual plot. In general, one will check whether there is any
+noticeable pattern to determine if the model is well-behaved. However,
+it is a very difficult task for a human judge, though to make a decision
+that there's nothing there. It is especially common, particularly among
+new data analysts to report patterns when an experienced data analyst
+might quickly conclude that there are none. Generally, one looks for
+departures from nothingness like nonlinear dependency or
+heteroskedasticity. It is also possible to conduct a hypothesis test for
+non-linear dependence \citep{ramsey_tests_1969}, and also use a
+Breusch-Pagan test \citep{breusch_simple_1979} for heteroskedasticity.
 
 There is an abundance of literature describing appropriate diagnostic
-methods for linear regression: Cook and Weisberg, \ldots{} \citep{REF}.
-The diligent reader of these sage writings will also notice sentences
-that express sentiments like \emph{based on their experience,
-statistical tests are not widely used in regression diagnostics. The
-same or even larger amount of information can be provided by diagnostic
-plots than the corresponding tests in most empirical studies.} There is
-a common guidance by experts that plots are the best for diagnosing
-model fits.
+methods for linear regression: \citet{draper1998applied},
+\citet{montgomery1982introduction}, \citet{belsley_regression_1980},
+\citet{cook_applied_1999} and \citet{cook1982residuals}. The diligent
+reader of these sage writings will also notice sentences that express
+sentiments like \emph{based on their experience, statistical tests are
+not widely used in regression diagnostics. The same or even larger
+amount of information can be provided by diagnostic plots than the
+corresponding tests in most empirical studies.} There is a common
+guidance by experts that plots are the best for diagnosing model fits.
 
 This is curious, and investigating why this might be common advice is
 the subject of this paper. The paper is structured as follows. The next
 background section describes the commonly used diagnostic plots, the
 types of departures that one expects to detect, and describes a formal
 process for reading residual plots, called visual inference, that can
-avoid the concerns about subjectiveness of human readers. Section XXX
-describes the experimental setup to enable a comparison between
-decisopns made by formal hypothesis testing, and how humans would read
-diagnostic plots. The results are reported in Section XXX. We finish
-with a discussion on future work, in particular how the responsibility
-for residual plot reading might be passed on to computer vision.
+avoid the concerns about subjectiveness of human readers. Section
+\ref{experimental-design} describes the experimental setup to enable a
+comparison between decision made by formal hypothesis testing, and how
+humans would read diagnostic plots. The results are reported in Section
+\ref{results}. We finish with a discussion on future work, in particular
+how the responsibility for residual plot reading might be passed on to
+computer vision.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -179,54 +182,6 @@ plots are useful supplements to standard residual plots as they provide
 additional information on the extent of the non-linearity. Probability
 plots can be used to compare the sampling distribution of the residuals
 to the normal distribution for assessing the normality assumptions.
-
-\hypertarget{hypothesis-testing}{%
-\subsection{Hypothesis testing}\label{hypothesis-testing}}
-
-Other than checking diagnostic plots, analysts may perform formal
-hypothesis testing for detecting model defects. Depending on the
-alternative hypothesis that is focused on, a variety of tests can be
-applied. For example, the presence of heteroskedasticity can usually be
-tested by applying the White test
-\citep{white_heteroskedasticity-consistent_1980} or the Breusch-Pagan
-test \citep{breusch_simple_1979}, which are both derived from the
-Lagrange multiplier test \citep{silvey1959lagrangian} principle that
-relies on the asymptotic properties of the null distribution. For
-testing non-linearity, one may apply the F-test to examine the
-significance of specific polynomial and non-linear forms of the
-regressors, or the significance of proxy variables as in the Ramsey
-Regression Equation Specification Error Test (RESET)
-\citep{ramsey_tests_1969}.
-
-As discussed in \citet{cook1982residuals}, most residual-based tests for
-a particular type of departure from model assumptions are sensitive to
-other types of departures. It is likely the null hypothesis is correctly
-rejected but for the wrong reason, which is known as the ``Type III
-error''. Additionally, outliers will often incorrectly trigger the
-rejection of the null hypothesis despite the residuals are well-behaved
-\citep{cook_applied_1999}. This can be largely avoided in diagnostic
-plots as experienced analysts can evaluate the acceptability of
-assumptions flexibly, even in the presence of outliers.
-\citet{montgomery1982introduction} suggested that based on their
-experience, statistical tests are not widely used in regression
-diagnostics. The same or even larger amount of information can be
-provided by diagnostic plots than the corresponding tests in most
-empirical studies. Not to mention, it is almost impossible to have an
-exactly correctly specified model in reality. There is a well-known
-aphorism in statistics stated by George Box - ``All models are wrong,
-but some are useful''. This indicates proper hypothesis tests will
-always reject the null hypothesis as long as the sample size is large
-enough. The outcome ``Not reject'' can be interpreted as either ``effect
-size is small'' or ``sample size is small''. and the outcome ``reject''
-doesn't inform us whether and how much the model defects are of actual
-consequence to the inference and prediction. But still, the
-effectiveness of statistical tests shall not be disrespected.
-Statistical tests have a chance to provide analysts with unique
-information. In situations where no suitable diagnostic plots can be
-found for a particular violation of the assumptions, or excessive
-diagnostic plots are needed to be checked, one will have no choice but
-to fall back on statistical tests if there exists any. A good regression
-diagnostic practice should be a balanced combination of both methods.
 
 \hypertarget{visual-inference}{%
 \subsection{Visual inference}\label{visual-inference}}
@@ -662,6 +617,11 @@ subjects to provide reasonable estimates of the visual p-value. Thus,
 \(192 \times 3 \times 5 / (20 - 2) = 160\) subjects were recruited to
 satisfy the design of the experiment I.
 
+\hypertarget{heteroskedasticity}{%
+\subsection{Heteroskedasticity}\label{heteroskedasticity}}
+
+Heter Experiment design here
+
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
@@ -688,10 +648,12 @@ failing to identify the actual data plot so that Equation
 (\ref{eq:p-value-multi}) can be applied correctly.
 
 In overall, there were a total of 3200 lineup evaluations made by 160
-subjects in experiment I, where 320 lineup evaluations were attention
-checks and were not used in the following analysis. The collated dataset
-is provided in \texttt{polynomials} of the \texttt{visage} \texttt{R}
-package.
+subjects in both experiment I and experiment II respectively, where 320
+lineup evaluations were attention checks and were not used in the
+following analysis.
+
+The collated dataset is provided in \texttt{polynomials} and
+\texttt{heter} of the \texttt{visage} \texttt{R} package.
 
 \hypertarget{demographic-summary}{%
 \subsection{Demographic summary}\label{demographic-summary}}
@@ -714,41 +676,55 @@ experience in visual experiment.
 \toprule
 Preferred pronoun & Education & Age group & Previous experience & Subject\\
 \midrule
-She & Diploma and Bachelor Degree & 18-24 & No & 17\\
-He & Diploma and Bachelor Degree & 18-24 & Yes & 14\\
-She & Diploma and Bachelor Degree & 18-24 & Yes & 12\\
-He & Diploma and Bachelor Degree & 18-24 & No & 11\\
-He & Diploma and Bachelor Degree & 25-39 & No & 10\\
-She & Diploma and Bachelor Degree & 25-39 & No & 10\\
-She & Diploma and Bachelor Degree & 25-39 & Yes & 9\\
-He & High School or below & 18-24 & No & 8\\
-She & High School or below & 18-24 & No & 7\\
-He & High School or below & 18-24 & Yes & 6\\
-He & Diploma and Bachelor Degree & 25-39 & Yes & 5\\
-He & Masters Degree & 25-39 & No & 5\\
-He & Masters Degree & 25-39 & Yes & 5\\
-He & High School or below & 25-39 & No & 4\\
-She & High School or below & 25-39 & No & 4\\
-She & Masters Degree & 25-39 & Yes & 4\\
-He & High School or below & 25-39 & Yes & 3\\
-She & High School or below & 18-24 & Yes & 3\\
-She & Masters Degree & 25-39 & No & 3\\
+She & Diploma and Bachelor Degree & 18-24 & Yes & 26\\
+She & Diploma and Bachelor Degree & 18-24 & No & 24\\
+He & Diploma and Bachelor Degree & 18-24 & No & 22\\
+He & High School or below & 18-24 & No & 22\\
+She & Diploma and Bachelor Degree & 25-39 & No & 21\\
+He & Diploma and Bachelor Degree & 18-24 & Yes & 19\\
+He & Diploma and Bachelor Degree & 25-39 & No & 19\\
+She & High School or below & 18-24 & No & 19\\
+He & High School or below & 18-24 & Yes & 15\\
+She & Diploma and Bachelor Degree & 25-39 & Yes & 15\\
+He & Diploma and Bachelor Degree & 25-39 & Yes & 12\\
+She & High School or below & 18-24 & Yes & 10\\
+He & Masters Degree & 25-39 & No & 8\\
+He & Masters Degree & 25-39 & Yes & 8\\
+He & High School or below & 25-39 & No & 7\\
+She & Masters Degree & 25-39 & Yes & 7\\
+She & High School or below & 25-39 & No & 6\\
+He & High School or below & 25-39 & Yes & 5\\
+She & Honours Degree & 25-39 & No & 5\\
+She & Honours Degree & 25-39 & Yes & 4\\
+She & Masters Degree & 25-39 & No & 4\\
+He & Honours Degree & 25-39 & Yes & 3\\
+She & Honours Degree & 18-24 & No & 3\\
+He & Diploma and Bachelor Degree & 40-54 & Yes & 2\\
+He & Diploma and Bachelor Degree & 55-64 & No & 2\\
 He & Honours Degree & 25-39 & No & 2\\
+He & Masters Degree & 40-54 & No & 2\\
 She & Diploma and Bachelor Degree & 40-54 & No & 2\\
-She & Honours Degree & 18-24 & No & 2\\
+She & High School or below & 25-39 & Yes & 2\\
+She & Masters Degree & 18-24 & No & 2\\
+They & Diploma and Bachelor Degree & 18-24 & No & 2\\
+They & Diploma and Bachelor Degree & 25-39 & No & 2\\
+He & Diploma and Bachelor Degree & 40-54 & No & 1\\
 He & High School or below & 40-54 & Yes & 1\\
 He & High School or below & 55-64 & No & 1\\
+He & Honours Degree & 18-24 & No & 1\\
+He & Honours Degree & 18-24 & Yes & 1\\
+He & Honours Degree & 40-54 & Yes & 1\\
 He & Masters Degree & 40-54 & Yes & 1\\
 He & Masters Degree & 55-64 & No & 1\\
+Other & Diploma and Bachelor Degree & 18-24 & No & 1\\
 Other & High School or below & 25-39 & No & 1\\
+She & Diploma and Bachelor Degree & 40-54 & Yes & 1\\
 She & High School or below & 40-54 & No & 1\\
-She & Honours Degree & 25-39 & No & 1\\
-She & Honours Degree & 25-39 & Yes & 1\\
-She & Masters Degree & 18-24 & No & 1\\
+She & High School or below & 55-64 & Yes & 1\\
+She & Honours Degree & 40-54 & Yes & 1\\
 She & Masters Degree & 40-54 & No & 1\\
-They & Diploma and Bachelor Degree & 18-24 & No & 1\\
-They & Diploma and Bachelor Degree & 25-39 & No & 1\\
 They & High School or below & 18-24 & No & 1\\
+They & High School or below & 18-24 & Yes & 1\\
 They & High School or below & 25-39 & No & 1\\
 \bottomrule
 \end{tabular}
@@ -794,6 +770,9 @@ regressions. {[}Discussion about the numeric estimates here{]}
 
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
+
+\hypertarget{experiment-i}{%
+\subsubsection{Experiment I}\label{experiment-i}}
 
 Figure \ref{fig:power-overview} shows an overview of estimated power of
 visual test against natural logarithm of the effect with comparison to
@@ -875,7 +854,7 @@ tests are sensitive to the distribution of the regressor.
 \end{figure}
 
 \hypertarget{shpaes-of-non-linearity}{%
-\subsubsection{Shpaes of non-linearity}\label{shpaes-of-non-linearity}}
+\paragraph{Shpaes of non-linearity}\label{shpaes-of-non-linearity}}
 
 Figure \ref{fig:shape-power} illustrates the change of power under
 different shape of non-linearity. Similar to the power curves shown in
@@ -893,13 +872,13 @@ It can be observed that both tests performs the best for U-shape.
 \end{figure}
 
 \hypertarget{reasons-for-making-selections}{%
-\subsubsection{Reasons for making
+\paragraph{Reasons for making
 selections}\label{reasons-for-making-selections}}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf}
 
-\hypertarget{heteroskedasticity}{%
-\subsection{Heteroskedasticity}\label{heteroskedasticity}}
+\hypertarget{experiment-ii}{%
+\subsubsection{Experiment II}\label{experiment-ii}}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf}
 
@@ -1034,7 +1013,6 @@ account. From the figures, we can observe \ldots{}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
-
 
 
 

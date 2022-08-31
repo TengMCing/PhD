@@ -29,6 +29,10 @@ header-includes: |
 output: rticles::tf_article
 ---
 
+
+<!-- check the policy -->
+
+
 <!-- problem: residual plot diagnostics -->
 <!-- conventional test: too sensitive -->
 
@@ -137,20 +141,20 @@ if (!file.exists(here::here("data/third_study/conv_result.rds"))) {
 ```{r}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-if (!file.exists(here::here("data/third_study/conv_result_heter.rds"))) {
+if (!file.exists(here::here("data/fourth_study/conv_result_heter.rds"))) {
   conv_result_heter <- list()
   for (i in 1:100)
   {
     conv_result_heter[[i]] <- map(1:2000,
                             function(x) {
                      a <- sample(c(-1, 0, 1), 1)
-                     b <- runif(1, 0, 32)
+                     b <- sample(c(0.25, 1, 4, 16, 64), 1)
                      x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
                      x <- switch(x_dist,
                                  uniform = rand_uniform(-1, 1),
                                  normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
                                  lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
+                                 even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
                      mod <- heter_model(a = a, b = b, x = x)
                      n <- sample(c(50, 100, 300), 1)
                      tmp_dat <- mod$gen(n)
@@ -159,7 +163,7 @@ if (!file.exists(here::here("data/third_study/conv_result_heter.rds"))) {
                             b = b,
                             x_dist = x_dist,
                             n = n,
-                            effect_size = mod$effect_size(tmp_dat),
+                            effect_size = mod$effect_size(tmp_dat, type = "kl"),
                             p_value = mod$test(tmp_dat)$p_value,
                             reject = p_value < 0.05,
                             boot_id = i)
@@ -171,9 +175,9 @@ if (!file.exists(here::here("data/third_study/conv_result_heter.rds"))) {
   conv_result_heter <- conv_result_heter %>%
     reduce(bind_rows)
   
-  saveRDS(conv_result_heter, here::here("data/third_study/conv_result_heter.rds"))
+  saveRDS(conv_result_heter, here::here("data/fourth_study/conv_result_heter.rds"))
 } else {
-  conv_result_heter <- readRDS(here::here("data/third_study/conv_result_heter.rds"))
+  conv_result_heter <- readRDS(here::here("data/fourth_study/conv_result_heter.rds"))
 }
 
 
@@ -182,20 +186,20 @@ if (!file.exists(here::here("data/third_study/conv_result_heter.rds"))) {
 ```{r}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-if (!file.exists(here::here("data/third_study/conv_result_heter_SW.rds"))) {
+if (!file.exists(here::here("data/fourth_study/conv_result_heter_SW.rds"))) {
   conv_result_heter_SW <- list()
   for (i in 1:100)
   {
     conv_result_heter_SW[[i]] <- map(1:2000,
                             function(x) {
                      a <- sample(c(-1, 0, 1), 1)
-                     b <- runif(1, 0, 32)
+                     b <- sample(c(0.25, 1, 4, 16, 64), 1)
                      x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
                      x <- switch(x_dist,
                                  uniform = rand_uniform(-1, 1),
                                  normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
                                  lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
+                                 even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
                      mod <- heter_model(a = a, b = b, x = x)
                      n <- sample(c(50, 100, 300), 1)
                      tmp_dat <- mod$gen(n)
@@ -204,7 +208,7 @@ if (!file.exists(here::here("data/third_study/conv_result_heter_SW.rds"))) {
                             b = b,
                             x_dist = x_dist,
                             n = n,
-                            effect_size = mod$effect_size(tmp_dat),
+                            effect_size = mod$effect_size(tmp_dat, type = "kl"),
                             p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             reject = p_value < 0.05,
                             boot_id = i)
@@ -216,9 +220,9 @@ if (!file.exists(here::here("data/third_study/conv_result_heter_SW.rds"))) {
   conv_result_heter_SW <- conv_result_heter_SW %>%
     reduce(bind_rows)
   
-  saveRDS(conv_result_heter_SW, here::here("data/third_study/conv_result_heter_SW.rds"))
+  saveRDS(conv_result_heter_SW, here::here("data/fourth_study/conv_result_heter_SW.rds"))
 } else {
-  conv_result_heter_SW <- readRDS(here::here("data/third_study/conv_result_heter_SW.rds"))
+  conv_result_heter_SW <- readRDS(here::here("data/fourth_study/conv_result_heter_SW.rds"))
 }
 
 
@@ -311,17 +315,17 @@ if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
 
 # Introduction
 
-> *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@REF]
+> *"Since all models are wrong the scientist must be alert to what is importantly wrong [@box1976science]."* 
 
-Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals are assessed. 
+Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals could be assessed.
 
-Residuals might be plotted, as a histogram or normal probability plot to examine the distribution. Is it symmetric, and unimodal? Then all is good. If the distribution is skewed or bimodal or multimodal, there are outliers, there is cause for concern. It if also possible to conduct a goodness of fit test, such as a Shapiro-Wilk Normality test [@REF]. 
+Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using classical linear regression model as an example, if the distribution is symmetric and unimodal, then it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or even contains outliers, there is cause for concern. It is also possible to conduct a goodness of fit test to examine the distribution of residuals, such as Shapiro-Wilk Normality test [@shapiro1965analysis].  
 
-It is also recommended to plot residuals against predicted values, and also each of the explanatory variables. If there is no obvious pattern, then all is good. It is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like nonlinear dependency or heteroskedasticity. It is also possible to conduct a hypothesis test for non-linear dependence [@RESET], and also use a Breusch-Pagan test [@REF] for heteroskedasticity. 
+To examine the relationship between residuals, predicted values and each of the explanatory variables, it is recommend to plot them on a scatter plot with residuals on the y-axis. This type of plot is usually called residual plot. In general, one will check whether there is any noticeable pattern to determine if the model is well-behaved. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like nonlinear dependency or heteroskedasticity. It is also possible to conduct a hypothesis test for non-linear dependence [@ramsey_tests_1969], and also use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity. 
 
-There is an abundance of literature describing appropriate diagnostic methods for linear regression: Cook and Weisberg, ... [@REF]. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits. 
+There is an abundance of literature describing appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits. 
 
-This is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the commonly used diagnostic plots, the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers. Section XXX describes the experimental setup to enable a comparison between decisopns made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section XXX. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
+This is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the commonly used diagnostic plots, the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers. Section \ref{experimental-design} describes the experimental setup to enable a comparison between decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
 <!--Regression diagnostics is an essential step in regression analysis which is a field of study with at least a hundred years of history. The diagnostic procedure conventionally involves evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. In terms of diagnostic techniques, data plots, hypothesis testing, and summary statistics are vital tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
 
@@ -336,11 +340,11 @@ Graphical summaries in which residuals are plotted against fitted values or othe
 
 Other types of data plots that are often used in regression diagnostics include partial residual plots and probability plots. Partial residual plots are useful supplements to standard residual plots as they provide additional information on the extent of the non-linearity. Probability plots can be used to compare the sampling distribution of the residuals to the normal distribution for assessing the normality assumptions.
 
-## Hypothesis testing
+<!-- ## Hypothesis testing -->
 
-Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969].
+<!-- Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. -->
 
-As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods.
+<!-- As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods. -->
 
 ## Visual inference
 
@@ -604,6 +608,10 @@ VI_MODEL$plot_lineup(polynomials_lineup[[23]]$data,
 
 In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I.
 
+## Heteroskedasticity
+
+Heter Experiment design here
+
 # Results
 
 ## Data preprocessing
@@ -613,7 +621,9 @@ Subjects recruited from Prolific received a fixed payment for participating in t
 A subject was allowed to select zero plots for a lineup if there was no visible difference between plots,
 but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly. 
 
-In overall, there were a total of 3200 lineup evaluations made by 160 subjects in experiment I, where 320 lineup evaluations were attention checks and were not used in the following analysis. The collated dataset is provided in `polynomials` of the `visage` `R` package.
+In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis.
+
+The collated dataset is provided in `polynomials` and `heter` of the `visage` `R` package.
 
 ## Demographic summary
 
@@ -622,7 +632,9 @@ Table \ref{tab:demographic-table} tabulates the number of subjects, preferred pr
 ```{r results="asis"}
 
 polynomials %>%
-  group_by(set) %>%
+  mutate(exp = 1) %>%
+  bind_rows(mutate(heter, exp = 2)) %>%
+  group_by(exp, set) %>%
   slice_sample(n = 1) %>%
   ungroup() %>%
   count(pronoun, education, age_group, previous_experience) %>%
@@ -642,27 +654,35 @@ polynomials %>%
 
 ```{r demographic-summary-plot, fig.cap="Summary of demographic information. \\label{fig:demographic-summary-plot}"}
 polynomials %>%
-  group_by(set) %>%
+  mutate(exp = 1) %>%
+  bind_rows(mutate(heter, exp = 2)) %>%
+  group_by(exp, set) %>%
   summarise(across(age_group:previous_experience, first)) %>%
   mutate(education = fct_relevel(education, "High School or below")) %>%
   ggplot() +
   geom_bar(aes(y = education), orientation = "y") -> education_plot
 
 polynomials %>%
-  group_by(set) %>%
+  mutate(exp = 1) %>%
+  bind_rows(mutate(heter, exp = 2)) %>%
+  group_by(exp, set) %>%
   summarise(across(age_group:previous_experience, first)) %>%
   ggplot() +
   geom_bar(aes(age_group)) -> age_plot
 
 polynomials %>%
-  group_by(set) %>%
+  mutate(exp = 1) %>%
+  bind_rows(mutate(heter, exp = 2)) %>%
+  group_by(exp, set) %>%
   summarise(across(age_group:previous_experience, first)) %>%
   mutate(pronoun = fct_relevel(pronoun, "He", "She", "They")) %>%
   ggplot() +
   geom_bar(aes(pronoun)) -> gender_plot
 
 polynomials %>%
-  group_by(set) %>%
+  mutate(exp = 1) %>%
+  bind_rows(mutate(heter, exp = 2)) %>%
+  group_by(exp, set) %>%
   summarise(across(age_group:previous_experience, first)) %>%
   ggplot() +
   geom_bar(aes(previous_experience)) -> experience_plot
@@ -693,6 +713,8 @@ To study various factors contributing to the power of the visual test, the same 
 Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here]
 
 ## Power comparison
+
+### Experiment I
 
 Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25\% to around 90\% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25\% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90\% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch–Pagan test and Shapiro–Wilk test reach around 75% and 63% respectively. 
 
@@ -790,6 +812,15 @@ bottom_plot_2
 
 polynomials %>%
   filter(lineup_id == 364)
+
+polynomials %>%
+  filter(e_sigma == 4) %>%
+  group_by(lineup_id) %>%
+  summarise(p_value = first(p_value)) %>%
+  mutate(reject = p_value < 0.05) %>%
+  {mean(.$reject)}
+
+4 * 4 * 3 * 5
 ```
 
 
@@ -868,7 +899,7 @@ conv_test_plot() %>%
   facet_wrap(~x_dist)
 ```
 
-### Shpaes of non-linearity
+#### Shpaes of non-linearity
 
 Figure \ref{fig:shape-power} illustrates the change of power under different shape of non-linearity. Similar to the power curves shown in \ref{fig:dist-power}, F-test is stable under different shapes. The power curve of visual test also behaves similarly across different shapes. What vary are the power curve of BP-test and SW-test. For Triple-U shape, both BP-test and SW-test are insensitive to the change of the effect. And for W shape, both tests have almost identical power curves. It can be observed that both tests performs the best for U-shape.  
 
@@ -890,7 +921,7 @@ conv_test_plot() %>%
 ```
 
 
-### Reasons for making selections
+#### Reasons for making selections
 
 
 
@@ -905,25 +936,21 @@ polynomials %>%
 
 
 
-## Heteroskedasticity
+### Experiment II
 
-```{r cache=TRUE}
-heter_result <- read_csv(here::here("data/processed/processed_surveys.csv"))
 
-heter_result <- heter_result %>%
-  filter(type != "cubic")
-
-heter_cache <- new.env()
-
-heter_result <- heter_result %>%
-  left_join(heter_result %>%
-  calc_p_value_multi(detected = "detect", n_sel = "num_selection", cache_env = heter_cache))
-
-heter_result <- heter_result %>%
-  mutate(weigthed_detect = ifelse(detect, detect/num_selection, 0)) %>%
+```{r eval = FALSE}
+heter %>%
+  filter(b < 3) %>%
   group_by(lineup_id) %>%
-  mutate(prop_detect = mean(weigthed_detect))
+  summarise(p_value = first(p_value), n_eval = n()) %>%
+  filter(n_eval > 3) %>%
+  mutate(reject = p_value < 0.05) %>%
+  {mean(.$reject)}
+
+
 ```
+
 
 
 ```{r}
@@ -960,12 +987,11 @@ add_heter_SW_plot_layers <- function(p) {
   
 add_heter_visual_test_plot_layers <- function(p, points = c()) {
   
-  visual_dat <- heter_result %>%
+  visual_dat <- heter %>%
   mutate(x_dist = ifelse(x_dist == "discrete_uniform", "even_discrete", x_dist)) %>%
   mutate(x_dist = ifelse(x_dist == "neglognormal", "lognormal", x_dist)) %>%
   group_by(lineup_id) %>%
   summarise(across(c(type:p_value, prop_detect), first)) %>%
-  filter(ori_difficulty != "extremely_easy") %>%
   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
   boot_dat(times = 100) %>%
   mutate(cat_b = map_to_group(b))
