@@ -25,14 +25,18 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
-% see https://stackoverflow.com/a/47122900
 
-% Pandoc citation processing
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -49,6 +53,7 @@
 \usepackage{xcolor}
 
 \begin{document}
+
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -82,7 +87,7 @@ plots;
 
 \begin{quote}
 \emph{``Since all models are wrong the scientist must be alert to what
-is importantly wrong \citep{box1976science}.''}
+is importantly wrong.''} \citep{box1976science}
 \end{quote}
 
 Diagnosing a model is the key to determining whether there is anything
@@ -141,8 +146,9 @@ computer vision.
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
-\hypertarget{diagnostic-plots}{%
-\subsection{Diagnostic plots}\label{diagnostic-plots}}
+\hypertarget{departures-from-good-residual-plots}{%
+\subsection{Departures from good residual
+plots}\label{departures-from-good-residual-plots}}
 
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the predictor variables that are approximately
@@ -183,8 +189,44 @@ additional information on the extent of the non-linearity. Probability
 plots can be used to compare the sampling distribution of the residuals
 to the normal distribution for assessing the normality assumptions.
 
-\hypertarget{visual-inference}{%
-\subsection{Visual inference}\label{visual-inference}}
+\hypertarget{conventionally-testing-for-departures}{%
+\subsection{Conventionally testing for
+departures}\label{conventionally-testing-for-departures}}
+
+Explain the tests you are showing later
+
+\begin{itemize}
+\tightlist
+\item
+  RESET
+\item
+  BP
+\item
+  SW
+\end{itemize}
+
+and show the results for the residual plots displayed in previous
+section
+
+Briefly mention any others
+
+\hypertarget{visual-testing-for-departures}{%
+\subsection{Visual testing for
+departures}\label{visual-testing-for-departures}}
+
+\begin{itemize}
+\tightlist
+\item
+  Very briefly explain what a lineup test is
+\item
+  Lineup (maybe using your previous residual plot for nonlinearity)
+\item
+  \(p\)-value calulcation, briefly, including how multiple selections
+  are handled
+\item
+  power calculation, briefly, including how multiple selections are
+  handled
+\end{itemize}
 
 However, unlike hypothesis testing built upon rigorous statistical
 procedures, reading diagnostic plots relies on graphical perception -
@@ -474,6 +516,44 @@ non-linearity and heteroskedasticity compared to F-test and BP-test.
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
 
+\hypertarget{motivation-and-overview}{%
+\subsection{Motivation and overview}\label{motivation-and-overview}}
+
+\hypertarget{simulating-departures}{%
+\subsection{Simulating departures}\label{simulating-departures}}
+
+\hypertarget{nonlinearity}{%
+\subsubsection{Nonlinearity}\label{nonlinearity}}
+
+\hypertarget{heteroskedasticity}{%
+\subsubsection{Heteroskedasticity}\label{heteroskedasticity}}
+
+\hypertarget{experimental-setup}{%
+\subsection{Experimental setup}\label{experimental-setup}}
+
+\hypertarget{factors}{%
+\subsubsection{Factors}\label{factors}}
+
+\begin{itemize}
+\tightlist
+\item
+  Treatments for nonlinearity experiment (plots summarising levels)
+\item
+  Treatments for heteroskedasticity experiment (plots summarising
+  levels)
+\end{itemize}
+
+\hypertarget{assigning-subjects}{%
+\subsubsection{Assigning subjects}\label{assigning-subjects}}
+
+\hypertarget{collecting-results}{%
+\subsubsection{Collecting results}\label{collecting-results}}
+
+software/technical
+
+\hypertarget{computing-power-curves}{%
+\subsection{Computing power curves}\label{computing-power-curves}}
+
 For the purpose of examining the effectiveness of visual test in
 regression diagnostics, two experiments were conducted. The experiment I
 has ideal scenario for conventional testing, where the visual test is
@@ -617,8 +697,8 @@ subjects to provide reasonable estimates of the visual p-value. Thus,
 \(192 \times 3 \times 5 / (20 - 2) = 160\) subjects were recruited to
 satisfy the design of the experiment I.
 
-\hypertarget{heteroskedasticity}{%
-\subsection{Heteroskedasticity}\label{heteroskedasticity}}
+\hypertarget{heteroskedasticity-1}{%
+\subsection{Heteroskedasticity}\label{heteroskedasticity-1}}
 
 Experiment II is designed to study the ability of human subjects to
 detect the appearance of a heteroskedasticity pattern under a simple
@@ -665,11 +745,13 @@ signal, was chosen so that different difficulty levels of lineups were
 generated, and therefore, the estimated power curve would be smooth and
 continuous.
 
-\hypertarget{results}{%
-\section{Results}\label{results}}
+\hypertarget{analysis-and-results}{%
+\section{Analysis and results}\label{analysis-and-results}}
 
-\hypertarget{data-preprocessing}{%
-\subsection{Data preprocessing}\label{data-preprocessing}}
+\hypertarget{data-overview}{%
+\subsection{Data overview}\label{data-overview}}
+
+How many people? How many lineups?
 
 Subjects recruited from Prolific received a fixed payment for
 participating in the experiment. However, some subjects will try to
@@ -697,6 +779,37 @@ following analysis.
 
 The collated dataset is provided in \texttt{polynomials} and
 \texttt{heter} of the \texttt{visage} \texttt{R} package.
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
+
+\hypertarget{nonlinearity-1}{%
+\subsection{Nonlinearity}\label{nonlinearity-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Power curve overall
+\item
+  Four lineups also shown, selected from ones close to the visual power
+  curve from the uniform treatment
+\item
+  Compare visual power against different factors
+\end{itemize}
+
+\hypertarget{heteroskedasticity-2}{%
+\subsection{Heteroskedasticity}\label{heteroskedasticity-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Power curve overall
+\item
+  Four lineups also shown, selected from ones close to the visual power
+  curve from the uniform treatment
+\item
+  Compare visual power against different factors
+\end{itemize}
 
 \hypertarget{demographic-summary}{%
 \subsection{Demographic summary}\label{demographic-summary}}
@@ -935,6 +1048,7 @@ selections}\label{reasons-for-making-selections}}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
+
 
 
 

@@ -78,6 +78,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
 
 ```{r}
 library(tidyverse)
+# remotes::install_github("TengMCing/visage")
 library(visage)
 
 set.seed(10086)
@@ -315,7 +316,7 @@ if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
 
 # Introduction
 
-> *"Since all models are wrong the scientist must be alert to what is importantly wrong [@box1976science]."* 
+> *"Since all models are wrong the scientist must be alert to what is importantly wrong."*  [@box1976science]
 
 Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals could be assessed.
 
@@ -334,7 +335,7 @@ Many of those regression diagnostic methods and procedures are mature and well-e
 
 # Background
 
-## Diagnostic plots
+## Departures from good residual plots
 
 Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As suggested by @cook1982residuals, these kinds of diagnostic plots are commonly used to identify patterns that are indicative of nonconstant error variance or non-linearity. Raw residuals and studentized residuals are the two most frequently used residuals in standard residual plots. The debt on which type of residuals should be used is always present. While raw residuals are the most common computer regression software package output, by applying a scaling factor, the ability to reveal nonconstant error variance in standard residual plots will often be enhanced by studentized residuals in small sample size [@gunst1980regression]. As a two-dimensional representation of a model in a $p$-dimensional space, standard residual plots project data points onto the variable of the horizontal axis, which is a vector in $p$-dimensional space. Observations with the same projection will be treated as equivalent as they have the same abscissa. Consequently, standard residual plots are often useful in revealing model inadequacies in the direction of the variable of the horizontal axis but could be inadequate for detecting patterns in other directions, especially in those perpendicular to the variable of the horizontal axis. Hence, in practice, multiple standard residual plots with different horizontal axes will be examined [@cook1982residuals]. Overlapping data points is another general issue in scatter plots not limited to standard residual plots, which often makes plots difficult to interpret because visual patterns are concealed. Thus, for a relatively large sample size, @cleveland1975graphical suggests the use of robust moving statistics as reference lines to give aid to the eye in seeing patterns, which nowadays, are usually replaced with a spline or local polynomial regression line. 
 
@@ -346,9 +347,27 @@ Other types of data plots that are often used in regression diagnostics include 
 
 <!-- As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods. -->
 
-## Visual inference
+## Conventionally testing for departures 
 
-However, unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human’s ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
+Explain the tests you are showing later
+
+- RESET
+- BP
+- SW
+
+and show the results for the residual plots displayed in previous section
+
+Briefly mention any others
+
+## Visual testing for departures
+
+- Very briefly explain what a lineup test is
+- Lineup (maybe using your previous residual plot for nonlinearity)
+- $p$-value calulcation, briefly, including how multiple selections are handled
+- power calculation, briefly, including how multiple selections are handled
+
+
+However, unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models [@gelman_bayesian_2003; @gelman_exploratory_2004]. 
 
@@ -456,6 +475,29 @@ The effectiveness of visual inference has already been validated by @majumder_va
 With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. 
 
 # Experimental design
+
+## Motivation and overview
+
+## Simulating departures
+
+### Nonlinearity
+
+### Heteroskedasticity
+
+## Experimental setup
+
+### Factors
+
+- Treatments for nonlinearity experiment (plots summarising levels)
+- Treatments for heteroskedasticity experiment (plots summarising levels)
+
+### Assigning subjects
+
+### Collecting results
+
+software/technical
+
+## Computing power curves
 
 For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. 
 
@@ -657,9 +699,11 @@ The range of $b$, which is a factor controlling the strength of the signal, was 
 
 
 
-# Results
+# Analysis and results
 
-## Data preprocessing
+## Data overview
+
+How many people? How many lineups?
 
 Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, i.e., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
 
@@ -669,6 +713,22 @@ but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will
 In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis.
 
 The collated dataset is provided in `polynomials` and `heter` of the `visage` `R` package.
+
+## 
+
+## Nonlinearity
+
+- Power curve overall
+- Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
+- Compare visual power against different factors 
+
+
+## Heteroskedasticity
+
+- Power curve overall
+- Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
+- Compare visual power against different factors 
+
 
 ## Demographic summary
 
