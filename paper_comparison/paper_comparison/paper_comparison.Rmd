@@ -85,12 +85,19 @@ set.seed(10086)
 ```
 
 
-```{r get-third-result}
+```{r get-lineup-data}
 if (!file.exists(here::here("data/third_study/polynomials_lineup.rds"))) {
   polynomials_lineup <- get_polynomials_lineup()
   saveRDS(polynomials_lineup, here::here("data/third_study/polynomials_lineup.rds"))
 } else {
   polynomials_lineup <- readRDS(here::here("data/third_study/polynomials_lineup.rds"))
+}
+
+if (!file.exists(here::here("data/fourth_study/heter_lineup.rds"))) {
+  heter_lineup <- get_polynomials_lineup()
+  saveRDS(heter_lineup, here::here("data/fourth_study/heter_lineup.rds"))
+} else {
+  heter_lineup <- readRDS(here::here("data/fourth_study/heter_lineup.rds"))
 }
 ```
 
@@ -320,9 +327,9 @@ if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
 
 Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals could be assessed.
 
-Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using classical linear regression model as an example, if the distribution is symmetric and unimodal, then it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or even contains outliers, there is cause for concern. It is also possible to conduct a goodness of fit test to examine the distribution of residuals, such as Shapiro-Wilk Normality test [@shapiro1965analysis].  
+Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or even contains outliers, there is cause for concern. Conducting a goodness of fit test is an alternative method for inspecting the distribution, such as the Shapiro-Wilk Normality test [@shapiro1965analysis]. 
 
-To examine the relationship between residuals, predicted values and each of the explanatory variables, it is recommend to plot them on a scatter plot with residuals on the y-axis. This type of plot is usually called residual plot. In general, one will check whether there is any noticeable pattern to determine if the model is well-behaved. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like nonlinear dependency or heteroskedasticity. It is also possible to conduct a hypothesis test for non-linear dependence [@ramsey_tests_1969], and also use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity. 
+To scrutinize the relationship between residuals, predicted values and each of the explanatory variables, it is recommend to plot them on a scatter plot. In general, one will check whether there is any noticeable pattern to determine if the model is well-behaved. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like nonlinear dependency or heteroskedasticity. It is also possible to conduct a hypothesis test for non-linear dependence [@ramsey_tests_1969], and also use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity. 
 
 There is an abundance of literature describing appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits. 
 
@@ -1043,6 +1050,8 @@ polynomials %>%
 
 ### Experiment II
 
+<!-- todo: check the two way interaction for x_dist and a -->
+
 
 ```{r eval = FALSE}
 heter %>%
@@ -1127,6 +1136,14 @@ heter_conv_test_plot() %>%
   add_heter_visual_test_plot_layers() +
   facet_wrap(~a)
 ```
+
+```{r}
+heter_conv_test_plot() %>%
+  add_heter_SW_plot_layers() %>%
+  add_heter_visual_test_plot_layers() +
+  facet_grid(x_dist~a)
+```
+
 
 
 ```{r}
