@@ -25,18 +25,14 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
+% see https://stackoverflow.com/a/47122900
 
-% tightlist command for lists without linebreak
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-
+% Pandoc citation processing
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
-
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -53,7 +49,6 @@
 \usepackage{xcolor}
 
 \begin{document}
-
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -97,27 +92,26 @@ the model, and thus provide the capacity to identify what might be
 wrong. There are many ways that residuals could be assessed.
 
 Residuals might be plotted, as a histogram or quantile-quantile plot to
-examine the distribution. Using classical linear regression model as an
-example, if the distribution is symmetric and unimodal, then it is
+examine the distribution. Using the classical linear regression model as
+an example, if the distribution is symmetric and unimodal, it is
 well-behaved. But if the distribution is skewed, bimodal, multimodal, or
-even contains outliers, there is cause for concern. It is also possible
-to conduct a goodness of fit test to examine the distribution of
-residuals, such as Shapiro-Wilk Normality test
+even contains outliers, there is cause for concern. Conducting a
+goodness of fit test is an alternative method for inspecting the
+distribution, such as the Shapiro-Wilk Normality test
 \citep{shapiro1965analysis}.
 
-To examine the relationship between residuals, predicted values and each
-of the explanatory variables, it is recommend to plot them on a scatter
-plot with residuals on the y-axis. This type of plot is usually called
-residual plot. In general, one will check whether there is any
-noticeable pattern to determine if the model is well-behaved. However,
-it is a very difficult task for a human judge, though to make a decision
-that there's nothing there. It is especially common, particularly among
-new data analysts to report patterns when an experienced data analyst
-might quickly conclude that there are none. Generally, one looks for
-departures from nothingness like nonlinear dependency or
-heteroskedasticity. It is also possible to conduct a hypothesis test for
-non-linear dependence \citep{ramsey_tests_1969}, and also use a
-Breusch-Pagan test \citep{breusch_simple_1979} for heteroskedasticity.
+To scrutinize the relationship between residuals, predicted values and
+each of the explanatory variables, it is recommend to plot them on a
+scatter plot. In general, the model is well-behaved if there is any
+visual discoverable pattern. However, it is a very difficult task for a
+human judge, though to make a decision that there's nothing there. It is
+especially common, particularly among new data analysts to report
+patterns when an experienced data analyst might quickly conclude that
+there are none. Generally, one looks for departures from nothingness
+like non-linear dependency or heteroskedasticity. It is also possible to
+conduct hypothesis tests for non-linear dependence
+\citep{ramsey_tests_1969}, and also use a Breusch-Pagan test
+\citep{breusch_simple_1979} for heteroskedasticity.
 
 There is an abundance of literature describing appropriate diagnostic
 methods for linear regression: \citet{draper1998applied},
@@ -150,13 +144,16 @@ computer vision.
 \subsection{Departures from good residual
 plots}\label{departures-from-good-residual-plots}}
 
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf}
+
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the predictor variables that are approximately
 orthogonal to residuals are referred to as standard residual plots in
 \citet{cook1982residuals}. As suggested by \citet{cook1982residuals},
 these kinds of diagnostic plots are commonly used to identify patterns
-that are indicative of nonconstant error variance or non-linearity. Raw
-residuals and studentized residuals are the two most frequently used
+that are indicative of non-linearity or nonconstant error variance.
+
+Raw residuals and studentized residuals are the two most frequently used
 residuals in standard residual plots. The debt on which type of
 residuals should be used is always present. While raw residuals are the
 most common computer regression software package output, by applying a
@@ -1031,12 +1028,10 @@ It can be observed that both tests performs the best for U-shape.
 \paragraph{Reasons for making
 selections}\label{reasons-for-making-selections}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 \hypertarget{experiment-ii}{%
 \subsubsection{Experiment II}\label{experiment-ii}}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf}
 
@@ -1044,11 +1039,14 @@ selections}\label{reasons-for-making-selections}}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf}
 
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf}
+
 --\textgreater{}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
-
 
 
 
