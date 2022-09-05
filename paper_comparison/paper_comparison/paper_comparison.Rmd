@@ -29,48 +29,65 @@ header-includes: |
 output: rticles::tf_article
 ---
 
-
 <!-- check the policy -->
 
-
 <!-- problem: residual plot diagnostics -->
+
 <!-- conventional test: too sensitive -->
 
 <!-- background:  -->
 
 <!-- week 1 -->
+
 <!-- 1. residual plot for model diagnostics -->
 
 <!-- a. residual is widely used -->
+
 <!-- b. what are the types of residual plots -->
+
 <!-- c. comparison -->
 
 <!-- week 2 -->
+
 <!-- 2. conventional test: F, BP -->
+
 <!-- 3. visual test: lineup, theory -->
 
 <!-- week 4 -->
+
 <!-- desc of experiment: -->
+
 <!-- 1. simulation setup -->
+
 <!-- 2. experimental design -->
+
 <!-- 3. result -->
 
 <!-- week 3 -->
+
 <!-- comparison of conventional tests: -->
+
 <!-- 1. power (visual test vs. conventional test) -->
+
 <!-- (visual test most different one (everything test, any departure)) -->
+
 <!-- plot figure in a paper, desc, exp -->
+
 <!-- 2. investigate the difference (gap), give examples -->
+
 <!-- 3. conventional is too sensitive -->
+
 <!-- 4. make conventional less sensitive (vary alpha) -->
 
-
 <!-- last week -->
-<!-- conclusion: -->
-<!-- 1. too sensitive, visual test is needed/preferable -->
-<!-- 2. visual test is infeasible in large scale (expensive) -->
-<!-- 3. future work (role of computer vision) -->
 
+<!-- conclusion: -->
+
+<!-- 1. too sensitive, visual test is needed/preferable -->
+
+<!-- 2. visual test is infeasible in large scale (expensive) -->
+
+<!-- 3. future work (role of computer vision) -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
@@ -83,7 +100,6 @@ library(visage)
 
 set.seed(10086)
 ```
-
 
 ```{r get-lineup-data}
 if (!file.exists(here::here("data/third_study/polynomials_lineup.rds"))) {
@@ -278,7 +294,6 @@ if (!file.exists(here::here("data/third_study/wrong_BP_conv_result.rds"))) {
 
 ```
 
-
 ```{r}
 if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
   wrong_SW_conv_result <- list()
@@ -323,23 +338,24 @@ if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
 
 # Introduction
 
-> *"Since all models are wrong the scientist must be alert to what is importantly wrong."*  [@box1976science]
+> *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@box1976science]
 
 Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals could be assessed.
 
-Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or even contains outliers, there is cause for concern. Conducting a goodness of fit test is an alternative method for inspecting the distribution, such as the Shapiro-Wilk Normality test [@shapiro1965analysis]. 
+Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or even contains outliers, there is cause for concern. Conducting a goodness of fit test is an alternative method for inspecting the distribution, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
 
-To scrutinize the relationship between residuals, predicted values and each of the explanatory variables, it is recommend to plot them on a scatter plot. In general, the model is well-behaved if there is any visual discoverable pattern. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and also use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity. 
+To scrutinize the relationship between residuals, predicted values and each of the explanatory variables, it is recommend to plot them on a scatter plot. In general, the model is well-behaved if there is any visual discoverable pattern. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and also use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
 
-There is an abundance of literature describing appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits. 
+There is an abundance of literature describing appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* There is a common guidance by experts that plots are the best for diagnosing model fits.
 
 This is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the commonly used diagnostic plots, the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers. Section \ref{experimental-design} describes the experimental setup to enable a comparison between decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
+```{=html}
 <!--Regression diagnostics is an essential step in regression analysis which is a field of study with at least a hundred years of history. The diagnostic procedure conventionally involves evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. In terms of diagnostic techniques, data plots, hypothesis testing, and summary statistics are vital tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
 
 Many of those regression diagnostic methods and procedures are mature and well-established in books first published in the twentieth century, such as @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. Regardless of the level of difficulty, one will find the importance and usefulness of diagnostic plots being emphasized in those books repeatedly. Checking diagnostic plots is also the recommended starting point for validating model assumptions such as normality, homoscedasticity and linearity [@anscombe_examination_1963]. 
 -->
-
+```
 # Background
 
 ## Departures from good residual plots
@@ -353,13 +369,9 @@ patchwork::wrap_plots(mod$plot(dat, theme = theme_light()) + ggtitle("Good resid
                       mod$plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$gen(300, computed = select(dat, x)), theme = theme_light()) + ggtitle("Non-normality"))
 ```
 
+Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure [ref here], the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns.
 
-
-Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure [ref here], the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. 
-
-There are many departures from a good residual plot, but we will consider only three types of them in this paper, which are also the most commonly checked departures for a residual plot. The first one is non-linearity. Any unnatural non-linear curve presented in the residual plot could be considered an indicative of non-linearity. At the top-right of Figure [ref here], there is an example residual plot of this type of departure. The second type of departure  we will consider is heterskedasticity. The usual pattern of this type of departure is the inconsistent distribution of the residuals for different x values. Visually, it usually results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure [ref here], or the "triangle" shape where the smallest variance occurs at the edges of the x-axis. The last type of departure is non-normality. This departure is usually harder to be detected from the residuals plot compared to non-linearity and heterskedasticity. In most the case, a quantile-quantile plot can do a better job. Depending on the actual distribution of the residuals, different visual patterns will be discovered. If the distribution is skewed, one will see some outliers presented on only one side of the zero line as shown in the bottom-right of Figure [ref here]. 
-
-
+There are many types of departures from a good residual plot. Three of them will be considered in this paper, which are also the most commonly checked departures for a residual plot. The first one is non-linearity. Any unnatural and non-linear functional form of residuals on fitted values presented in the residual plot could be considered as an indicative of non-linearity. At the top-right of Figure [ref here], there is an example residual plot of this type of departure. The second type of departure that will be considered is heterskedasticity. The usual pattern is the inconsistent distribution of the residuals for different x values. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure [ref here], or the "triangle" shape where the smallest variance occurs at the edges of the x-axis. The last type of departure we will consider is non-normality. This departure is usually harder to be detected from the residuals plot compared to non-linearity and heterskedasticity. In most cases, a quantile-quantile plot can do a better job. Depending on the actual distribution of the residuals, different visual patterns will be discovered. Readers of the residuals plot will notice the data points do not distribute noramlly on the y-axis. For example, if the distribution is skewed, one will see the "tail" of the distribution as some outliers presented on only one side of the zero line as shown in the bottom-right of Figure [ref here].
 
 <!-- Raw residuals and studentized residuals are the two most frequently used residuals in standard residual plots. The debt on which type of residuals should be used is always present. While raw residuals are the most common computer regression software package output, by applying a scaling factor, the ability to reveal nonconstant error variance in standard residual plots will often be enhanced by studentized residuals in small sample size [@gunst1980regression]. As a two-dimensional representation of a model in a $p$-dimensional space, standard residual plots project data points onto the variable of the horizontal axis, which is a vector in $p$-dimensional space. Observations with the same projection will be treated as equivalent as they have the same abscissa. Consequently, standard residual plots are often useful in revealing model inadequacies in the direction of the variable of the horizontal axis but could be inadequate for detecting patterns in other directions, especially in those perpendicular to the variable of the horizontal axis. Hence, in practice, multiple standard residual plots with different horizontal axes will be examined [@cook1982residuals]. Overlapping data points is another general issue in scatter plots not limited to standard residual plots, which often makes plots difficult to interpret because visual patterns are concealed. Thus, for a relatively large sample size, @cleveland1975graphical suggests the use of robust moving statistics as reference lines to give aid to the eye in seeing patterns, which nowadays, are usually replaced with a spline or local polynomial regression line.  -->
 
@@ -371,13 +383,13 @@ There are many departures from a good residual plot, but we will consider only t
 
 <!-- As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods. -->
 
-## Conventionally testing for departures 
+## Conventionally testing for departures
 
 Explain the tests you are showing later
 
-- RESET
-- BP
-- SW
+-   RESET
+-   BP
+-   SW
 
 and show the results for the residual plots displayed in previous section
 
@@ -385,23 +397,22 @@ Briefly mention any others
 
 ## Visual testing for departures
 
-- Very briefly explain what a lineup test is
-- Lineup (maybe using your previous residual plot for nonlinearity)
-- $p$-value calulcation, briefly, including how multiple selections are handled
-- power calculation, briefly, including how multiple selections are handled
-
+-   Very briefly explain what a lineup test is
+-   Lineup (maybe using your previous residual plot for nonlinearity)
+-   $p$-value calulcation, briefly, including how multiple selections are handled
+-   power calculation, briefly, including how multiple selections are handled
 
 However, unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
-Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models [@gelman_bayesian_2003; @gelman_exploratory_2004]. 
+Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models [@gelman_bayesian_2003; @gelman_exploratory_2004].
 
 It was surprising that the essential components of visual inference had actually been established in @buja_inference_1999, but it was not until 10 years later that @buja_statistical_2009 formalized it as an inferential framework to extend confirmatory statistics to visual discoveries. This framework redefines the test statistics, tests, null distribution, significance levels and $p$-value for visual discovery modelled on the confirmatory statistical testing. Figure \ref{fig:parallelism} outlines the parallelism between conventional tests and visual discovery.
 
-
+```{=html}
 <!-- ![Parallelism between multiple quantitative testing and visual discovery [@buja_statistical_2009]. Visible features in a plot are viewed as a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$, and any visual discoveries that are inconsistent with the null hypothesis are treated as evidence against the null. For regression diagnostics, the null hypothesis would be the assumed model, and visual discoveries could be any visual features in favour of any alternatives. \label{fig:parallelism}](figures/rsta2009012001.jpg){width=450 height=341}
 -->
-
-In visual inference, a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ is defined, where $\boldsymbol{\mathrm{y}}$ is the data and $I$ is a set of all possible visual features. @buja_statistical_2009 described each of the test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})$ as a measurement of the degree of presence of a visual feature. Alternatively, @majumder_validation_2013 avoids the use of visual features and defined the visual statistics $T(.)$ as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion. A visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For regression diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same regression model can be rejected by many reasons with residual plot, including non-linearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}. 
+```
+In visual inference, a collection of test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})~(i \in I)$ is defined, where $\boldsymbol{\mathrm{y}}$ is the data and $I$ is a set of all possible visual features. @buja_statistical_2009 described each of the test statistics $T^{(i)}(\boldsymbol{\mathrm{y}})$ as a measurement of the degree of presence of a visual feature. Alternatively, @majumder_validation_2013 avoids the use of visual features and defined the visual statistics $T(.)$ as a mapping from a dataset to a data plot. Both definitions of visual test statistics are valid, but in the rest of the paper the first definition will be used as it covers some details needed by the following discussion. A visual discovery is defined as a rejection of a null hypothesis, and the same null hypothesis can be rejected by many different visual discoveries [@buja_statistical_2009]. For regression diagnostics, the null hypothesis would be the assumed model, while the visual discoveries would be any findings that are inconsistent with the null hypothesis. The same regression model can be rejected by many reasons with residual plot, including non-linearity and heteroskedasticity as shown in Figure \ref{fig:residual-plot-cubic-heter}.
 
 ```{r residual-plot-cubic-heter, fig.cap='Residuals vs. fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, "butterfly shape" can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process. \\label{fig:residual-plot-cubic-heter}'}
 
@@ -412,14 +423,11 @@ cm$plot() +
   theme_light()
 ```
 
-
-
 ### Sampling from the null distribution {#se:sampling-from-null}
 
-The null distribution of plots refers to the infinite collection of plots of null datasets sampled from $H_0$. It is defined as the analogue of the null distribution of test statistics in conventional test [@buja_statistical_2009]. In practice, a finite number of plots of null datasets could be generated, called null plots. 
-In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters.  Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling.
+The null distribution of plots refers to the infinite collection of plots of null datasets sampled from $H_0$. It is defined as the analogue of the null distribution of test statistics in conventional test [@buja_statistical_2009]. In practice, a finite number of plots of null datasets could be generated, called null plots. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling.
 
-The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Suppose there exists a minimal sufficient statistic $\boldsymbol{S}(\boldsymbol{y})$ under the null hypothesis, any null datasets $\boldsymbol{y^{*}}$ should fulfil the condition $\boldsymbol{S}(\boldsymbol{y}) = \boldsymbol{s}$. Using the classical normal linear regression model as example, the minimal sufficient statistic is $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{\beta}}, \boldsymbol{e}'\boldsymbol{e})$, where $\hat{\boldsymbol{\beta}}$ are the coefficient estimators and $\boldsymbol{e}'\boldsymbol{e}$ is the residual sum of square. Alternatively, the minimal sufficient statistic can be constructed as $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{y}}, ||\boldsymbol{e}||)$, where $\hat{\boldsymbol{y}}$ are the fitted values and $||\boldsymbol{e}||$ is the length of residuals, which is more intuitive as suggested by @buja_statistical_2009. Since the fitted values are held fixed, the variation can only occur in the residual space. And because the length of residual is also held fixed, residuals obtained from a null dataset has to be a random rotation of $\boldsymbol{e}$ in the residual space. With this property, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions. 
+The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Suppose there exists a minimal sufficient statistic $\boldsymbol{S}(\boldsymbol{y})$ under the null hypothesis, any null datasets $\boldsymbol{y^{*}}$ should fulfil the condition $\boldsymbol{S}(\boldsymbol{y}) = \boldsymbol{s}$. Using the classical normal linear regression model as example, the minimal sufficient statistic is $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{\beta}}, \boldsymbol{e}'\boldsymbol{e})$, where $\hat{\boldsymbol{\beta}}$ are the coefficient estimators and $\boldsymbol{e}'\boldsymbol{e}$ is the residual sum of square. Alternatively, the minimal sufficient statistic can be constructed as $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{y}}, ||\boldsymbol{e}||)$, where $\hat{\boldsymbol{y}}$ are the fitted values and $||\boldsymbol{e}||$ is the length of residuals, which is more intuitive as suggested by @buja_statistical_2009. Since the fitted values are held fixed, the variation can only occur in the residual space. And because the length of residual is also held fixed, residuals obtained from a null dataset has to be a random rotation of $\boldsymbol{e}$ in the residual space. With this property, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
 ### Lineup protocol {#se:lineup}
 
@@ -433,59 +441,63 @@ Under the null hypothesis, it is expected that the actual data plot would have n
 
 This provides us with an mechanism to control the Type I error, because $m$ - the number of plots in a lineup can be chosen. A larger value of $m$ will result in a smaller Type I error, but the limit to the value of $m$ depends on the number of plots a human is willing to view [@buja_statistical_2009]. Typically, $m$ will be set to $20$ which is equivalent to set $\alpha = 0.05$, a general choice of significance level for conventional testing among statisticians.
 
-Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as
-\begin{equation} \label{eq:pvaluesingle}
+Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as \begin{equation} \label{eq:pvaluesingle}
 P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
 \end{equation}
 
 where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
-The multiple individuals approach avoids the limit of $m$, while provides visual tests with $p$-value much smaller than $0.05$. In fact, the lower bound of $p$-value decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. Additionally, by involving multiple observers, variation of individual ability to read plots can be addressed to some degree as different opinions about visual discoveries can be collected.  
+The multiple individuals approach avoids the limit of $m$, while provides visual tests with $p$-value much smaller than $0.05$. In fact, the lower bound of $p$-value decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. Additionally, by involving multiple observers, variation of individual ability to read plots can be addressed to some degree as different opinions about visual discoveries can be collected.
 
-As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. 
+As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$.
 
 The full model was a Dirichlet-multinomial mixture distribution
 
+```{=tex}
 \begin{align} \label{eq:dirichlet-multinomial}\begin{split}
 \boldsymbol{\theta}&|\alpha \sim Dirichlet(\alpha)\\
 (c_i,...,c_m)&|\boldsymbol{\theta} \sim Multinomial(K, \boldsymbol{\theta}).
 \end{split}\end{align}
-
+```
 Since the p-value calculation only needs to concern the number of times the actual data plot being selected denoted by $C_i$, they showed the model can be simplified to a beta-binomial mixture distribution
 
+```{=tex}
 \begin{align} \label{eq:beta-binomial}\begin{split}
 \theta_i&|\alpha \sim Beta(\alpha, (m-1)\alpha)\\
 C_i&|\theta_i \sim Binomial(K, \theta_i).
 \end{split}\end{align}
-
+```
 Thus, the visual p-value followed by the beta-binomial model is given as
 
+```{=tex}
 \begin{equation} \label{eq:pvalue-beta-binomial}
 P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
 \end{equation}
-
+```
 where $B(.)$ is the beta function defined as
 
+```{=tex}
 \begin{equation} \label{eq:betafunction}
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
 \end{equation}
-
+```
 Note that the use of Equation (\ref{eq:pvalue-beta-binomial}) requires the estimation of $\hat{\alpha}$, which largely depends on the null model, the type of the plot and other aesthetic features. They suggested to estimate $\hat{\alpha}$ visually based on the selections of null plots of the experimental data, or to estimate $\hat{\alpha}$ numerically based on several additional Rorschach lineups, which is a type of lineup containing only null plots. However, when the number of null models are large, it could be expensive to manually estimate each $\alpha$ or include additional Rorschach lineups in the experiment.
 
 Instead, in the experiments that will be described in section \ref{experimental-design}, we adopt a simpler model implicitly used by the `pmulti()` function of the `vinference` `R` package. We assume the attractiveness of the plot $i$ modelled as $w_i \sim Uniform(0,1)$ for $i=1,..,m$. Let $\theta_i = w_i/\sum_{i=1}^{m}w_i$ be the probability of plot $i$ being selected by a subject. Then, given the number of selections $s_j$, for $j=1,...,K$, the distribution of $C_i$ can be approximated by simulating the random selection process with computer. The simulated visual test p-value is formulated as
 
+```{=tex}
 \begin{equation} \label{eq:p-value-multi}
 \text{p-value} = \frac{\#draws~that~the~actual~data~plota~being~selected~more~than~c_i~times}{\#simulation}.
 \end{equation}
-
+```
 <!-- ### Effectiveness of visual inference in regression diagnostics -->
-
 
 <!-- Compared to the conventional test, whose power only depends on the parameter of interest $\theta$, several studies [see @hofmann_graphical_2012; @majumder_validation_2013; @majumder2014human; @roy_chowdhury_using_2015; @loy2016variations] have shown the power of the visual test is subject-specific. Thus, to be able to account for individual's ability, an individual is required to evaluate multiple lineups [@majumder_validation_2013].   -->
 
 <!-- Suppose individuals have the same ability and a lineup has been evaluated by multiple individuals, under the alternative hypothesis, the estimated power for a lineup can be expressed as $\hat{p} = x/K$, the estimated probability of identifying the actual data plot from the lineup. If the individual skill needs to be taken into account, and $L$ lineups have been evaluated by $K$ individuals, @majumder_validation_2013 suggests that mixed effects logistic regression model can be fit as: -->
 
 <!-- $$g(p_{li}) = W_{li}\delta + Z_{li}\tau_{li},$$ -->
+
 <!-- where $g(.)$ is the logit link function $g(p) = log(p)  - log(1-p)$; $0 \leq p \leq 1$. $W_{li}$, $1 \leq i \leq K$, $1 \leq l \leq L$, is the covariate matrix including lineup-specific elements and demographic information of individuals, and $\delta$ is a vector of parameters. $Z$ is the random effects matrix, and $\tau$ is a vector of variables follow $N(\boldsymbol{0},\sigma_{\tau}\boldsymbol{I}_{KL\times KL})$.  -->
 
 <!-- Then, the estimated power for lineup $l$ and individual $i$ can be calculated as $\hat{p}_{li} = g^{-1}(W_{li}\hat{\delta} + Z_{li}\hat{\tau}_{li})$ [@majumder_validation_2013]. -->
@@ -496,7 +508,7 @@ The effectiveness of visual inference has already been validated by @majumder_va
 
 <!-- refactoring from here -->
 
-With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test. 
+With our knowledge, what haven't been examined so far is the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics. Particularly, its ability to detect non-linearity and heteroskedasticity compared to F-test and BP-test.
 
 # Experimental design
 
@@ -512,8 +524,8 @@ With our knowledge, what haven't been examined so far is the effectiveness of vi
 
 ### Factors
 
-- Treatments for nonlinearity experiment (plots summarising levels)
-- Treatments for heteroskedasticity experiment (plots summarising levels)
+-   Treatments for nonlinearity experiment (plots summarising levels)
+-   Treatments for heteroskedasticity experiment (plots summarising levels)
 
 ### Assigning subjects
 
@@ -523,45 +535,47 @@ software/technical
 
 ## Computing power curves
 
-For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. 
+For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test.
 
 Subjects for both experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions.
 
 During the experiment, every subject was presented with a block of 20 lineups. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected.
 
-A pool of 12 different lineups with obvious visual patterns were generated for experiment I and experiment II respectively. In every block of 20 lineups that presented to a subject, two out of 12 lineups were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.  
+A pool of 12 different lineups with obvious visual patterns were generated for experiment I and experiment II respectively. In every block of 20 lineups that presented to a subject, two out of 12 lineups were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
 
 ## Non-linearity
 
-Experiment I is designed to study the ability of human subjects to detect the effect of a random vector $\boldsymbol{z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another random vector $\boldsymbol{x}$ in a two variable statistical model formulated as: 
+Experiment I is designed to study the ability of human subjects to detect the effect of a random vector $\boldsymbol{z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another random vector $\boldsymbol{x}$ in a two variable statistical model formulated as:
 
+```{=tex}
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
 \boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1), \\
 \boldsymbol{z} = g(\boldsymbol{z}_{raw}, 1), \\
 \boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)),
 \end{align}
+```
+where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vector of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as
 
-where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vector of size $n$,  $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as
-
+```{=tex}
 \begin{equation} \label{eq:scaling-function}
 g(\boldsymbol{x}, k) = (\boldsymbol{x} - min(\boldsymbol{x}))/max(\boldsymbol{x} - min(\boldsymbol{x})) \times 2k - k, \quad \text{for} \quad k > 0. 
 \end{equation}
-
+```
 The null regression model used to fit the realizations generated by the above model is formulated as:
 
+```{=tex}
 \begin{equation} \label{eq:scaling-function}
 \boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
 \end{equation}
-
+```
 where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
-Model misspecification presents since the null model leaves out the higher order term. 
+Model misspecification presents since the null model leaves out the higher order term.
 
 Experiment data were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$), three different sample sizes (n = 50, 100, 300) , four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
 
-The values of $j$ was chosen so that different shapes of non-linearity were included in the residual plot. These include "U" shape, "S" shape, "M" shape and "Triple-U" shape. 
-
+The values of $j$ was chosen so that different shapes of non-linearity were included in the residual plot. These include "U" shape, "S" shape, "M" shape and "Triple-U" shape.
 
 ```{r different-shape-of-herimite}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
@@ -587,7 +601,7 @@ VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. 
+The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous.
 
 ```{r different-sigma}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
@@ -611,8 +625,7 @@ VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-
-Four different distribution were used to generate $X_{raw}$. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns. 
+Four different distribution were used to generate $X_{raw}$. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
 
 ```{r different-dist}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
@@ -667,10 +680,7 @@ VI_MODEL$plot_lineup(polynomials_lineup[[23]]$data,
                      remove_axis = TRUE)
 ```
 
-
-
 <!-- It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value. -->
-
 
 In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I.
 
@@ -678,26 +688,28 @@ In addition, each lineup is designed to be evaluated by five different subjects 
 
 Experiment II is designed to study the ability of human subjects to detect the appearance of a heteroskedasticity pattern under a simple linear regression model setting:
 
+```{=tex}
 \begin{align} \label{eq:heter-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
 \boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
 \end{align}
-
+```
 where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vector of size $n$.
 
 The null regression model used to fit the realizations generated by the above model is formulated exactly the same as the model used in the first experiment:
 
+```{=tex}
 \begin{equation} 
 \boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
 \end{equation}
-
+```
 where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
-Model misspecification presents since the assumption about the constant error variance is violated. 
+Model misspecification presents since the assumption about the constant error variance is violated.
 
-Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. 
+Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
 
-The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include triangle shape, butterfly shape and inverse triangle shape. 
+The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include triangle shape, butterfly shape and inverse triangle shape.
 
 ```{r different-shape-of-heter}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
@@ -719,9 +731,7 @@ VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(
 patchwork::wrap_plots(p1, p2, p3, ncol = 3)
 ```
 
-The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. 
-
-
+The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous.
 
 # Analysis and results
 
@@ -731,8 +741,7 @@ How many people? How many lineups?
 
 Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, i.e., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
 
-A subject was allowed to select zero plots for a lineup if there was no visible difference between plots,
-but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly. 
+A subject was allowed to select zero plots for a lineup if there was no visible difference between plots, but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly.
 
 In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis.
 
@@ -742,17 +751,15 @@ The collated dataset is provided in `polynomials` and `heter` of the `visage` `R
 
 ## Nonlinearity
 
-- Power curve overall
-- Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
-- Compare visual power against different factors 
-
+-   Power curve overall
+-   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
+-   Compare visual power against different factors
 
 ## Heteroskedasticity
 
-- Power curve overall
-- Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
-- Compare visual power against different factors 
-
+-   Power curve overall
+-   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
+-   Compare visual power against different factors
 
 ## Demographic summary
 
@@ -777,9 +784,6 @@ polynomials %>%
                label = "demographic-table" ) %>%
   cat()
 ```
-
-
-
 
 ```{r demographic-summary-plot, fig.cap="Summary of demographic information. \\label{fig:demographic-summary-plot}"}
 polynomials %>%
@@ -821,23 +825,25 @@ patchwork::wrap_plots(education_plot, age_plot, gender_plot, experience_plot)
 
 ## Model fitting
 
-For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (see [appendix ref here]) formulated as: 
+For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (see [appendix ref here]) formulated as:
 
+```{=tex}
 \begin{equation} \label{eq:effect-size-ex1}
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
 \end{equation}
-
+```
 where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$.
 
 The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as:
 
+```{=tex}
 \begin{equation} \label{eq:logistic-regression-1-1}
 Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 \end{equation}
-
+```
 where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
 
-To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. This includes [expansion]. 
+To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. This includes [expansion].
 
 Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here]
 
@@ -845,12 +851,11 @@ Table [table ref here] shows the parameter estimates of the logistic regressions
 
 ### Experiment I
 
-Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25\% to around 90\% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25\% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90\% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch–Pagan test and Shapiro–Wilk test reach around 75% and 63% respectively. 
+Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 63% respectively.
 
-What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:power-overview} has the actual data plot positioned at panel 20, where two out of five subjects detect it. It can be observed that a M-shape is presented in plot 20, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and  $log_e(E) = 6$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:power-overview} gives example lineups of such cases.
+What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:power-overview} has the actual data plot positioned at panel 20, where two out of five subjects detect it. It can be observed that a M-shape is presented in plot 20, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and $log_e(E) = 6$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:power-overview} gives example lineups of such cases.
 
 <!-- It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible   -->
-
 
 ```{r}
 conv_test_plot <- function() {
@@ -888,7 +893,6 @@ add_wrong_SW_conv_test_plot_layers <- function(p) {
               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
 }
 ```
-
 
 ```{r}
 boot_dat <- function(dat, times = 100) {
@@ -952,7 +956,6 @@ polynomials %>%
 4 * 4 * 3 * 5
 ```
 
-
 ```{r power-overview, fig.height=7.5, fig.cap="Power overview. \\label{fig:power-overview}"}
 conv_test_plot() %>%
   add_wrong_BP_conv_test_plot_layers() %>%
@@ -1015,10 +1018,9 @@ design <- c(patchwork::area(1, 1, 1, 8),
 patchwork::wrap_plots(base_plot, B = bottom_plot_1, C = bottom_plot_2, D = bottom_plot_3, E = bottom_plot_4, design = design)
 ```
 
-
 ### Distributions of regressor
 
-The impact of the distribution of $X_raw$ on the power is shown in Figure \ref{fig:dist-power}. The power curve of F-test is stable across different distributions, while the visual test has a steeper power curve for normal and uniform distribution. BP-test performs worse for discrete uniform distribution and uniform distribution but has relatively high power for normal distribution. SW-test outperforms BP-test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor. 
+The impact of the distribution of $X_raw$ on the power is shown in Figure \ref{fig:dist-power}. The power curve of F-test is stable across different distributions, while the visual test has a steeper power curve for normal and uniform distribution. BP-test performs worse for discrete uniform distribution and uniform distribution but has relatively high power for normal distribution. SW-test outperforms BP-test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor.
 
 ```{r dist-power, fig.cap="\\label{dist-power}"}
 conv_test_plot() %>%
@@ -1030,7 +1032,7 @@ conv_test_plot() %>%
 
 #### Shpaes of non-linearity
 
-Figure \ref{fig:shape-power} illustrates the change of power under different shape of non-linearity. Similar to the power curves shown in \ref{fig:dist-power}, F-test is stable under different shapes. The power curve of visual test also behaves similarly across different shapes. What vary are the power curve of BP-test and SW-test. For Triple-U shape, both BP-test and SW-test are insensitive to the change of the effect. And for W shape, both tests have almost identical power curves. It can be observed that both tests performs the best for U-shape.  
+Figure \ref{fig:shape-power} illustrates the change of power under different shape of non-linearity. Similar to the power curves shown in \ref{fig:dist-power}, F-test is stable under different shapes. The power curve of visual test also behaves similarly across different shapes. What vary are the power curve of BP-test and SW-test. For Triple-U shape, both BP-test and SW-test are insensitive to the change of the effect. And for W shape, both tests have almost identical power curves. It can be observed that both tests performs the best for U-shape.
 
 ```{r shape-power, fig.cap="\\label{shape-power}"}
 conv_test_plot() %>%
@@ -1040,7 +1042,6 @@ conv_test_plot() %>%
   facet_wrap(~shape)
 ```
 
-
 ```{r eval = FALSE}
 conv_test_plot() %>%
   add_wrong_BP_conv_test_plot_layers() %>%
@@ -1049,10 +1050,7 @@ conv_test_plot() %>%
   facet_wrap(~e_sigma)
 ```
 
-
 #### Reasons for making selections
-
-
 
 ```{r}
 polynomials %>%
@@ -1062,13 +1060,9 @@ polynomials %>%
   facet_grid(x_dist~detect) 
 ```
 
-
-
-
 ### Experiment II
 
 <!-- todo: check the two way interaction for x_dist and a -->
-
 
 ```{r eval = FALSE}
 heter %>%
@@ -1081,8 +1075,6 @@ heter %>%
 
 
 ```
-
-
 
 ```{r}
 map_to_group <- function(b) {
@@ -1139,13 +1131,11 @@ add_heter_visual_test_plot_layers <- function(p, points = c()) {
 }
 ```
 
-
 ```{r}
 heter_conv_test_plot() %>%
   add_heter_SW_plot_layers() %>%
   add_heter_visual_test_plot_layers()
 ```
-
 
 ```{r}
 heter_conv_test_plot() %>%
@@ -1160,8 +1150,6 @@ heter_conv_test_plot() %>%
   add_heter_visual_test_plot_layers() +
   facet_grid(x_dist~a)
 ```
-
-
 
 ```{r}
 heter_conv_test_plot() %>%
@@ -1178,9 +1166,13 @@ heter_conv_test_plot() %>%
 ```
 
 <!-- # time taken vs order of the plot -->
+
 <!-- # accuracy vs order of the plot -->
+
 <!-- # num of selection vs order of the plot -->
+
 <!-- # order of the plot? -->
+
 <!-- # summary of the demographic information -->
 
 <!-- # Old -->
@@ -1189,20 +1181,21 @@ heter_conv_test_plot() %>%
 
 <!-- We collected 400 lineup evaluations made by 20 participants in experiment I and 880 lineup evaluations made by 44 participants in experiment II. In total, 442 unique lineups were evaluated by 64 subjects. In experiment I, one of the participants skipped all 20 lineups. Hence, the submission was rejected and removed from the dataset. In experiment II, there was a participant failed one of the two attention checks, but there was no further evidence of low-effort throughout the experiment. Therefore, the submission was kept. -->
 
-
-
 <!-- ## Power comparision -->
 
 <!-- 1. power (visual test vs. conventional test) -->
+
 <!-- (visual test most different one (everything test, any departure)) -->
+
 <!-- plot figure in a paper, desc, exp -->
+
 <!-- 2. investigate the difference (gap), give examples -->
+
 <!-- 3. conventional is too sensitive -->
+
 <!-- 4. make conventional less sensitive (vary alpha) -->
 
-
 <!-- To model the power of visual test, 10 logistic regression were fit for different number of evaluations ranged from one to five and two different types of simulation setting. All 10 models used natural logarithm of the effect size as the only fixed effect, and whether the test successfully rejects the null hypothesis as the response variable. Given the way we define the effect size, it was expected that with larger effect size, both conventional test and visual test will have higher probability in rejecting the null hypothesis when it is not true. The modelling result summarized in \ref{tab:powerglmcubic} and \ref{tab:powerglmheter} aligned with the expectation as the coefficients of natural logarithm of the effect size are positive and significant across all 10 models. -->
-
 
 <!-- Figure \ref{fig:power-com} illustrates the fitted models, while providing the local constant estimate of the power of F-test and Breusch–Pagan test for comparison. Data for the conventional test is simulated under the model setting described in section ... and 5000000 samples are drawn for both cubic and heteroskedasticity model. From Figure \ref{fig:power-com}, it can be observed that the fitted power of visual test increased as the number of evaluations increased for both cubic and heteroskedasticity model. -->
 
@@ -1214,7 +1207,9 @@ heter_conv_test_plot() %>%
 
 <!-- It was also found that there was a noticeable gap between curves of the conventional test and the visual test at around $log(\text{effect size}) = 0$ for the cubic model and $log(\text{effect size}) = 2.5$ for the heteroskedasticity model, where the differences in power were greater than 0.6. We further analysed the lineups with correspoding effect sizes. Figure \ref{fig:cubic-hard} and \ref{fig:heter-hard} showed that human was indeed hard to identify the patterns at this level of difficulty. The visual difference between the true data plot and null plots were almost unnoticeable.  -->
 
-<!-- <!-- sample 1, change values of a and b, plot the data  --> -->
+<!-- <!-- sample 1, change values of a and b, plot the data  -->
+
+--\>
 
 <!-- ## Effect of parameters on power of the visual test -->
 
@@ -1222,131 +1217,214 @@ heter_conv_test_plot() %>%
 
 <!-- In cubic model, two major factors that influencing the strength of the signal are $a$ and $b$. Figure \ref{fig:power-com-cubic-a} and \ref{fig:power-com-cubic-a} illustrates 30 different logistic regressions fit for different number of evaluations and different number of observations $n$. The regressor used in these models was $|a|/\sigma$ since the noise level $\sigma$ needed to be taken into account. From the figures, we can observe ... -->
 
-
-
-
-
-
-
-
-
-
 <!-- ```{r power-vs-log-effect-size} -->
+
 <!-- polynomials %>% -->
+
 <!--   group_by(lineup_id) %>% -->
+
 <!--   summarise(across(c(type:p_value), first)) %>% -->
+
 <!--   filter(lineup_id < 577) %>% -->
+
 <!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
 <!--   ggplot() + -->
+
 <!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   xlab("Natural logarithm of effect size") + -->
+
 <!--   ylab("Power") -->
+
 <!-- ``` -->
 
 <!-- ```{r power-vs-log-effect-size-given-x-dist} -->
+
 <!-- polynomials %>% -->
+
 <!--   group_by(lineup_id) %>% -->
+
 <!--   summarise(across(c(type:p_value), first)) %>% -->
+
 <!--   filter(lineup_id < 577) %>% -->
+
 <!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
 <!--   ggplot() + -->
+
 <!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   facet_wrap(~x_dist) + -->
+
 <!--   xlab("Natural logarithm of effect size") + -->
+
 <!--   ylab("Power") + -->
+
 <!--   ggtitle("Power comparison conditional on the distribution of X") -->
+
 <!-- ``` -->
 
 <!-- ```{r power-of-visual-test-given-x-dist} -->
+
 <!-- polynomials %>% -->
+
 <!--   group_by(lineup_id) %>% -->
+
 <!--   summarise(across(c(type:p_value), first)) %>% -->
+
 <!--   filter(lineup_id < 577) %>% -->
+
 <!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
 <!--   ggplot() + -->
+
 <!--   geom_smooth(aes(log(effect_size), reject, col = x_dist), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   xlab("Natural logarithm of effect size") + -->
+
 <!--   ylab("Power") + -->
+
 <!--   ggtitle("Power of visual test conditional on the distribution of X") -->
+
 <!-- ``` -->
 
-
-
 <!-- ```{r power-vs-log-effect-size-given-shape} -->
+
 <!-- polynomials %>% -->
+
 <!--   group_by(lineup_id) %>% -->
+
 <!--   summarise(across(c(type:p_value), first)) %>% -->
+
 <!--   filter(lineup_id < 577) %>% -->
+
 <!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
 <!--   ggplot() + -->
+
 <!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
 <!--   facet_wrap(~shape) + -->
+
 <!--   xlab("Natural logarithm of effect size") + -->
+
 <!--   ylab("Power") + -->
+
 <!--   ggtitle("Power comparison conditional on the shape of the Hermite polynomials") -->
+
 <!-- ``` -->
 
 <!-- ```{r power-of-visual-test-given-shape} -->
-<!-- polynomials %>% -->
-<!--   group_by(lineup_id) %>% -->
-<!--   summarise(across(c(type:p_value), first)) %>% -->
-<!--   filter(lineup_id < 577) %>% -->
-<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), shape = factor(shape)) %>% -->
-<!--   ggplot() + -->
-<!--   geom_smooth(aes(log(effect_size), reject, col = shape), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   xlab("Natural logarithm of effect size") + -->
-<!--   ylab("Power") + -->
-<!--   ggtitle("Power of visual test conditional on the shape of the Hermite polynomials") -->
-<!-- ``` -->
 
+<!-- polynomials %>% -->
+
+<!--   group_by(lineup_id) %>% -->
+
+<!--   summarise(across(c(type:p_value), first)) %>% -->
+
+<!--   filter(lineup_id < 577) %>% -->
+
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), shape = factor(shape)) %>% -->
+
+<!--   ggplot() + -->
+
+<!--   geom_smooth(aes(log(effect_size), reject, col = shape), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   xlab("Natural logarithm of effect size") + -->
+
+<!--   ylab("Power") + -->
+
+<!--   ggtitle("Power of visual test conditional on the shape of the Hermite polynomials") -->
+
+<!-- ``` -->
 
 <!-- ```{r power-vs-log-effect-size-given-number-of-observations} -->
-<!-- polynomials %>% -->
-<!--   group_by(lineup_id) %>% -->
-<!--   summarise(across(c(type:p_value), first)) %>% -->
-<!--   filter(lineup_id < 577) %>% -->
-<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
-<!--   ggplot() + -->
-<!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   facet_wrap(~n) + -->
-<!--   xlab("Natural logarithm of effect size") + -->
-<!--   ylab("Power") + -->
-<!--   ggtitle("Power comparison conditional on the number of observations") -->
-<!-- ``` -->
 
+<!-- polynomials %>% -->
+
+<!--   group_by(lineup_id) %>% -->
+
+<!--   summarise(across(c(type:p_value), first)) %>% -->
+
+<!--   filter(lineup_id < 577) %>% -->
+
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
+<!--   ggplot() + -->
+
+<!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = conv_result, aes(log(effect_size), reject, col = "Conventional test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   facet_wrap(~n) + -->
+
+<!--   xlab("Natural logarithm of effect size") + -->
+
+<!--   ylab("Power") + -->
+
+<!--   ggtitle("Power comparison conditional on the number of observations") -->
+
+<!-- ``` -->
 
 <!-- ```{r power-of-visual-test-given-number-of-observations} -->
-<!-- polynomials %>% -->
-<!--   group_by(lineup_id) %>% -->
-<!--   summarise(across(c(type:p_value), first)) %>% -->
-<!--   filter(lineup_id < 577) %>% -->
-<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), n = factor(n)) %>% -->
-<!--   ggplot() + -->
-<!--   geom_smooth(aes(log(effect_size), reject, col = n), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   xlab("Natural logarithm of effect size") + -->
-<!--   ylab("Power") + -->
-<!--   ggtitle("Power of visual test conditional on the number of observations") -->
-<!-- ``` -->
 
+<!-- polynomials %>% -->
+
+<!--   group_by(lineup_id) %>% -->
+
+<!--   summarise(across(c(type:p_value), first)) %>% -->
+
+<!--   filter(lineup_id < 577) %>% -->
+
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01)), n = factor(n)) %>% -->
+
+<!--   ggplot() + -->
+
+<!--   geom_smooth(aes(log(effect_size), reject, col = n), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   xlab("Natural logarithm of effect size") + -->
+
+<!--   ylab("Power") + -->
+
+<!--   ggtitle("Power of visual test conditional on the number of observations") -->
+
+<!-- ``` -->
 
 <!-- ```{r} -->
-<!-- polynomials %>% -->
-<!--   group_by(lineup_id) %>% -->
-<!--   summarise(across(c(type:p_value), first)) %>% -->
-<!--   filter(lineup_id < 577) %>% -->
-<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
-<!--   ggplot() + -->
-<!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.05)), aes(log(effect_size), reject, col = "Conventional test:0.05"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.01)), aes(log(effect_size), reject, col = "Conventional test:0.01"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.005)), aes(log(effect_size), reject, col = "Conventional test:0.005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.0005)), aes(log(effect_size), reject, col = "Conventional test:0.0005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.0000005)), aes(log(effect_size), reject, col = "Conventional test:0.0000005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
-<!--   xlab("Natural logarithm of effect size") + -->
-<!--   ylab("Power") -->
-<!-- ``` -->
 
+<!-- polynomials %>% -->
+
+<!--   group_by(lineup_id) %>% -->
+
+<!--   summarise(across(c(type:p_value), first)) %>% -->
+
+<!--   filter(lineup_id < 577) %>% -->
+
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+
+<!--   ggplot() + -->
+
+<!--   geom_smooth(aes(log(effect_size), reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.05)), aes(log(effect_size), reject, col = "Conventional test:0.05"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.01)), aes(log(effect_size), reject, col = "Conventional test:0.01"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.005)), aes(log(effect_size), reject, col = "Conventional test:0.005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.0005)), aes(log(effect_size), reject, col = "Conventional test:0.0005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   geom_smooth(data = mutate(conv_result, reject = as.numeric(p_value < 0.0000005)), aes(log(effect_size), reject, col = "Conventional test:0.0000005"), method = "glm", method.args = list(family = binomial), se = FALSE) + -->
+
+<!--   xlab("Natural logarithm of effect size") + -->
+
+<!--   ylab("Power") -->
+
+<!-- ``` -->
