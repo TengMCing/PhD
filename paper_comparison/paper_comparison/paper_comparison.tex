@@ -162,8 +162,8 @@ non-linearity. At the top-right of Figure {[}ref here{]}, there is a
 residual plot giving an example of the visual pattern of non-linearity
 when a cubic term is not captured by the regression model.
 
-Heterskedasticity refers to the existence of nonconst error variance in
-a regression model. It is mostly due to the strict but false assumptions
+Heterskedasticity refers to the presence of nonconst error variance in a
+regression model. It is mostly due to the strict but false assumptions
 on the variance-covariance matrix of the error term. The usual pattern
 of heterskedasticity on a residual plot is the inconsistent spread of
 the residuals at different x values. Visually, it sometimes results in
@@ -184,6 +184,27 @@ in the bottom-right of Figure {[}ref here{]}.
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
 departures}\label{conventionally-testing-for-departures}}
+
+Other than checking diagnostic plots, analysts may perform formal
+hypothesis testing for detecting model defects. Depending on the
+alternative hypothesis that is focused on, a variety of tests can be
+applied. For example, the presence of heteroskedasticity can usually be
+tested by applying the White test
+{[}@white\_heteroskedasticity-consistent\_1980{]} or the Breusch-Pagan
+test {[}@breusch\_simple\_1979{]}, which are both derived from the
+Lagrange multiplier test {[}@silvey1959lagrangian{]} principle that
+relies on the asymptotic properties of the null distribution. For
+testing non-linearity, one may apply the F-test to examine the
+significance of specific polynomial and non-linear forms of the
+regressors, or the significance of proxy variables as in the Ramsey
+Regression Equation Specification Error Test (RESET)
+{[}@ramsey\_tests\_1969{]}. And for testing normality, the shapiro--Wilk
+test {[}ref here{]} is perhaps the most widely used test reported by
+many of the statistical softwares. Another choice will be the
+Jarque--Bera test {[}ref here{]} which directly checks if the sample
+skewness and kurtosis match a normal distribution.
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 Explain the tests you are showing later
 
@@ -206,8 +227,21 @@ Briefly mention any others
 \subsection{Visual testing for
 departures}\label{visual-testing-for-departures}}
 
+Unlike hypothesis testing built upon rigorous statistical procedures,
+reading diagnostic plots relies on graphical perception - human's
+ability to interpret and decode the information embedded in the graph
+{[}@cleveland\_graphical\_1984{]}, which is to some extent subjective
+and indecisive. Further, visual discovery suffers from its unsecured and
+unconfirmed nature where the degree of the presence of the visual
+features typically can not be measured quantitatively and objectively,
+which may lead to over or under-interpretations of the data. One such
+example is finding an over-interpretation of the separation between gene
+groups in a two-dimensional projection from a linear discriminant
+analysis when in fact there are no differences in the expression levels
+between the gene groups and separation is not an uncommon occurrence
+{[}@roy\_chowdhury\_using\_2015{]}.
+
 \begin{itemize}
-\tightlist
 \item
   Very briefly explain what a lineup test is
 \item
@@ -219,20 +253,6 @@ departures}\label{visual-testing-for-departures}}
   power calculation, briefly, including how multiple selections are
   handled
 \end{itemize}
-
-However, unlike hypothesis testing built upon rigorous statistical
-procedures, reading diagnostic plots relies on graphical perception -
-human's ability to interpret and decode the information embedded in the
-graph \citep{cleveland_graphical_1984}, which is to some extent
-subjective and indecisive. Further, visual discovery suffers from its
-unsecured and unconfirmed nature where the degree of the presence of the
-visual features typically can not be measured quantitatively and
-objectively, which may lead to over or under-interpretations of the
-data. One such example is finding an over-interpretation of the
-separation between gene groups in a two-dimensional projection from a
-linear discriminant analysis when in fact there are no differences in
-the expression levels between the gene groups and separation is not an
-uncommon occurrence \citep{roy_chowdhury_using_2015}.
 
 Visual inference was first introduced in a 1999 Joint Statistical
 Meetings (JSM) talk with the title ``Inference for Data Visualization''
@@ -1023,12 +1043,10 @@ It can be observed that both tests performs the best for U-shape.
 \paragraph{Reasons for making
 selections}\label{reasons-for-making-selections}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \hypertarget{experiment-ii}{%
 \subsubsection{Experiment II}\label{experiment-ii}}
-
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf}
 
@@ -1037,6 +1055,8 @@ selections}\label{reasons-for-making-selections}}
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 \includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 --\textgreater{}
 

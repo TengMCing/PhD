@@ -361,6 +361,9 @@ Many of those regression diagnostic methods and procedures are mature and well-e
 ## Departures from good residual plots
 
 ```{r}
+
+set.seed(10086)
+
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
 dat <- mod$gen(300)
 patchwork::wrap_plots(mod$plot(dat, theme = theme_light()) + ggtitle("Good residuals"),
@@ -373,7 +376,7 @@ Graphical summaries in which residuals are plotted against fitted values or othe
 
 Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values presented in the residual plot could be considered as an indicative of non-linearity. At the top-right of Figure [ref here], there is a residual plot giving an example of the visual pattern of non-linearity when a cubic term is not captured by the regression model.
 
-Heterskedasticity refers to the existence of nonconst error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heterskedasticity on a residual plot is the inconsistent spread of the residuals at different x values. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure [ref here], or the "left-triangle" and "right-triganle" shape where the smallest variance occurs at the edges of the x-axis.
+Heterskedasticity refers to the presence of nonconst error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heterskedasticity on a residual plot is the inconsistent spread of the residuals at different x values. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure [ref here], or the "left-triangle" and "right-triganle" shape where the smallest variance occurs at the edges of the x-axis.
 
 Non-normality is usually harder to be detected from a residual plot compared to non-linearity and heterskedasticity. Besides, a quantile-quantile plot can often do a better job for this task. Note that not all regression models assume normality of the error term, but a certain amount of them does. If this assumption happens to be false, then it is expected to see data points do not distribute noramlly on the y-axis. For example, given a skewed error distribution, one will see fewer data points and more outliers on one side of the zeroline as shown in the bottom-right of Figure [ref here].
 
@@ -383,11 +386,47 @@ Non-normality is usually harder to be detected from a residual plot compared to 
 
 <!-- ## Hypothesis testing -->
 
-<!-- Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. -->
+<!-- Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969].  -->
 
 <!-- As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods. -->
 
 ## Conventionally testing for departures
+
+Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [\@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [\@breusch_simple_1979], which are both derived from the Lagrange multiplier test [\@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [\@ramsey_tests_1969]. And for testing normality, the shapiro--Wilk test [ref here] is perhaps the most widely used test reported by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
+
+```{r}
+
+set.seed(10086)
+
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+dat <- mod$gen(300)
+patchwork::wrap_plots(mod$plot(dat, theme = theme_light()) + ggtitle("Good residuals"),
+                      mod$plot(mod$
+                                 set_prm("include_z", TRUE)$
+                                 gen(300, computed = select(dat, x, e)), theme = theme_light()) + 
+                        ggtitle(paste("F-test p-value =", 
+                                      mod$
+                                        test(mod$
+                                               gen(300, computed = select(dat, x, e)))$p_value %>% 
+                                        format(digits = 2))),
+                      mod$
+                        plot(heter_model(b = 64)$
+                               gen(300, computed = select(dat, x, e)), theme = theme_light()) + 
+                        ggtitle(paste("BP test p-value =", 
+                                      HETER_MODEL$
+                                        test(heter_model(b = 64)$
+                                               gen(300, computed = select(dat, x, e)))$p_value %>% 
+                                        format(digits = 2))),
+                      mod$
+                        plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+                               gen(300, computed = select(dat, x)), theme = theme_light()) + 
+                        ggtitle(paste("Non-normality", 
+                                      shapiro.test(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+                                                     gen(300, computed = select(dat, x))$.resid)[[2]] %>% 
+                                        format(digits = 2))))
+
+
+```
 
 Explain the tests you are showing later
 
@@ -401,12 +440,15 @@ Briefly mention any others
 
 ## Visual testing for departures
 
--   Very briefly explain what a lineup test is
--   Lineup (maybe using your previous residual plot for nonlinearity)
--   $p$-value calulcation, briefly, including how multiple selections are handled
--   power calculation, briefly, including how multiple selections are handled
+Unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [\@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [\@roy_chowdhury_using_2015].
 
-However, unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
+-   Very briefly explain what a lineup test is
+
+-   Lineup (maybe using your previous residual plot for nonlinearity)
+
+-   $p$-value calulcation, briefly, including how multiple selections are handled
+
+-   power calculation, briefly, including how multiple selections are handled
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, in the Bayesian context, data plots was systematically considered as model diagnostics by taking advantage of the data simulated from the assumed statistical models [@gelman_bayesian_2003; @gelman_exploratory_2004].
 
