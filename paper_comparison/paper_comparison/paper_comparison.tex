@@ -95,22 +95,21 @@ Residuals might be plotted, as a histogram or quantile-quantile plot to
 examine the distribution. Using the classical linear regression model as
 an example, if the distribution is symmetric and unimodal, it is
 well-behaved. But if the distribution is skewed, bimodal, multimodal, or
-even contains outliers, there is cause for concern. Conducting a
-goodness of fit test is an alternative method for inspecting the
-distribution, such as the Shapiro-Wilk Normality test
-\citep{shapiro1965analysis}.
+contains outliers, there is cause for concern. The distribution could
+also be inspected by conducting a goodness of fit test, such as the
+Shapiro-Wilk Normality test \citep{shapiro1965analysis}.
 
-To scrutinize the relationship between residuals, predicted values and
-each of the explanatory variables, it is recommend to plot them on a
-scatter plot. In general, the model is well-behaved if there is any
-visual discoverable pattern. However, it is a very difficult task for a
-human judge, though to make a decision that there's nothing there. It is
-especially common, particularly among new data analysts to report
+Plotting the residuals against predicted values and each of the
+explanatory variables on a scatter plot is a recommend way to scrutinize
+their relationships. If there is any visually discoverable patterns, the
+model is potentially misspecified. However, it is a very difficult task
+for a human judge, though to make a decision that there's nothing there.
+It is especially common, particularly among new data analysts to report
 patterns when an experienced data analyst might quickly conclude that
 there are none. Generally, one looks for departures from nothingness
 like non-linear dependency or heteroskedasticity. It is also possible to
 conduct hypothesis tests for non-linear dependence
-\citep{ramsey_tests_1969}, and also use a Breusch-Pagan test
+\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
 \citep{breusch_simple_1979} for heteroskedasticity.
 
 There is an abundance of literature describing appropriate diagnostic
@@ -126,16 +125,15 @@ guidance by experts that plots are the best for diagnosing model fits.
 
 This is curious, and investigating why this might be common advice is
 the subject of this paper. The paper is structured as follows. The next
-background section describes the commonly used diagnostic plots, the
-types of departures that one expects to detect, and describes a formal
-process for reading residual plots, called visual inference, that can
-avoid the concerns about subjectiveness of human readers. Section
-\ref{experimental-design} describes the experimental setup to enable a
-comparison between decision made by formal hypothesis testing, and how
-humans would read diagnostic plots. The results are reported in Section
-\ref{results}. We finish with a discussion on future work, in particular
-how the responsibility for residual plot reading might be passed on to
-computer vision.
+background section describes the the types of departures that one
+expects to detect, and describes a formal process for reading residual
+plots, called visual inference, that can avoid the concerns about
+subjectiveness of human readers. Section \ref{experimental-design}
+describes the experimental setup to enable a comparison between decision
+made by formal hypothesis testing, and how humans would read diagnostic
+plots. The results are reported in Section \ref{results}. We finish with
+a discussion on future work, in particular how the responsibility for
+residual plot reading might be passed on to computer vision.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -152,30 +150,36 @@ orthogonal to residuals are referred to as standard residual plots in
 \citet{cook1982residuals}. As shown in Figure {[}ref here{]}, the
 top-left panel is a good residual plot with residuals evenly distributed
 at both sides of the horizontal zero line showing no noticeable
-patterns.
+patterns. There are various types of departures from a good residual
+plot. We will only discuss three most commonly checked departures in
+this paper. Namely, non-linearity, heterskedasticity and non-normality.
 
-There are many types of departures from a good residual plot. Three of
-them will be considered in this paper, which are also the most commonly
-checked departures for a residual plot. The first one is non-linearity.
-Any unnatural and non-linear functional form of residuals on fitted
-values presented in the residual plot could be considered as an
-indicative of non-linearity. At the top-right of Figure {[}ref here{]},
-there is an example residual plot of this type of departure. The second
-type of departure that will be considered is heterskedasticity. The
-usual pattern is the inconsistent distribution of the residuals for
-different x values. Visually, it sometimes results in the so-called
-``butterfly'' shape as shown in the bottom-left panel of Figure {[}ref
-here{]}, or the ``triangle'' shape where the smallest variance occurs at
-the edges of the x-axis. The last type of departure we will consider is
-non-normality. This departure is usually harder to be detected from the
-residuals plot compared to non-linearity and heterskedasticity. In most
-cases, a quantile-quantile plot can do a better job. Depending on the
-actual distribution of the residuals, different visual patterns will be
-discovered. Readers of the residuals plot will notice the data points do
-not distribute noramlly on the y-axis. For example, if the distribution
-is skewed, one will see the ``tail'' of the distribution as some
-outliers presented on only one side of the zero line as shown in the
-bottom-right of Figure {[}ref here{]}.
+Non-linearity is a type of model misspecification caused by failing to
+include higher order terms of the regressors in the regression equation.
+Any non-linear functional form of residuals on fitted values presented
+in the residual plot could be considered as an indicative of
+non-linearity. At the top-right of Figure {[}ref here{]}, there is a
+residual plot giving an example of the visual pattern of non-linearity
+when a cubic term is not captured by the regression model.
+
+Heterskedasticity refers to the existence of nonconst error variance in
+a regression model. It is mostly due to the strict but false assumptions
+on the variance-covariance matrix of the error term. The usual pattern
+of heterskedasticity on a residual plot is the inconsistent spread of
+the residuals at different x values. Visually, it sometimes results in
+the so-called ``butterfly'' shape as shown in the bottom-left panel of
+Figure {[}ref here{]}, or the ``left-triangle'' and ``right-triganle''
+shape where the smallest variance occurs at the edges of the x-axis.
+
+Non-normality is usually harder to be detected from a residual plot
+compared to non-linearity and heterskedasticity. Besides, a
+quantile-quantile plot can often do a better job for this task. Note
+that not all regression models assume normality of the error term, but a
+certain amount of them does. If this assumption happens to be false,
+then it is expected to see data points do not distribute noramlly on the
+y-axis. For example, given a skewed error distribution, one will see
+fewer data points and more outliers on one side of the zeroline as shown
+in the bottom-right of Figure {[}ref here{]}.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
