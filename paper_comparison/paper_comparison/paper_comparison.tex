@@ -25,14 +25,18 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
-% see https://stackoverflow.com/a/47122900
 
-% Pandoc citation processing
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -49,6 +53,7 @@
 \usepackage{xcolor}
 
 \begin{document}
+
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -142,7 +147,9 @@ residual plot reading might be passed on to computer vision.
 \subsection{Departures from good residual
 plots}\label{departures-from-good-residual-plots}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf}
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/commondepartures-1} \caption{Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:commondepartures}
+\end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the predictor variables that are approximately
@@ -204,7 +211,7 @@ many of the statistical softwares. Another choice will be the
 Jarque--Bera test {[}ref here{]} which directly checks if the sample
 skewness and kurtosis match a normal distribution.
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1}
 
 Explain the tests you are showing later
 
@@ -294,17 +301,7 @@ plot, including non-linearity and heteroskedasticity as shown in Figure
 \ref{fig:residual-plot-cubic-heter}.
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/residual-plot-cubic-heter-1.pdf}
-\caption{Residuals vs.~fitted values plot for a classical linear
-regression model. The residuals are produced by fitting a two-predictor
-multiple linear regression model with data generated from a cubic linear
-model. From the residual plot, ``butterfly shape'' can be observed which
-generally would be interpretd as evidence of heteroskedasticity.
-Further, from the outline of the shape, nonlinear patterns exist. Both
-visual discoveries are evidence against the null hypothesis, though
-heteroskedasticity actually does not exist in the data generating
-process. \label{fig:residual-plot-cubic-heter}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/residual-plot-cubic-heter-1} \caption{Residuals vs. fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, "butterfly shape" can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process. \label{fig:residual-plot-cubic-heter}}\label{fig:residual-plot-cubic-heter}
 \end{figure}
 
 \hypertarget{se:sampling-from-null}{%
@@ -652,14 +649,14 @@ The values of \(j\) was chosen so that different shapes of non-linearity
 were included in the residual plot. These include ``U'' shape, ``S''
 shape, ``M'' shape and ``Triple-U'' shape.
 
-\includegraphics{paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-herimite-1}
 
 The range of \(\sigma\), which is a factor controlling the strength of
 the signal, was chosen so that different difficulty levels of lineups
 were generated, and therefore, the estimated power curve would be smooth
 and continuous.
 
-\includegraphics{paper_comparison_files/figure-latex/different-sigma-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-sigma-1}
 
 Four different distribution were used to generate \(X_{raw}\). The
 uniform and the normal distribution are symmetric and commonly assumed
@@ -668,7 +665,7 @@ skewed density. And the discrete uniform distribution provides
 discreteness in residual plot, which could enrich the pool of visual
 patterns.
 
-\includegraphics{paper_comparison_files/figure-latex/different-dist-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-dist-1}
 
 Three replications are made for each of the parameter values shown in
 Table \ref{tab:parameter-table} resulting in 192 different lineups. For
@@ -699,9 +696,7 @@ five subjects correctly identified the actual data plot for this lineup.
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/example-lineup-1.pdf}
-\caption{Example lineup \label{fig:example-lineup}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-lineup-1} \caption{Example lineup \label{fig:example-lineup}}\label{fig:example-lineup}
 \end{figure}
 
 In addition, each lineup is designed to be evaluated by five different
@@ -750,7 +745,7 @@ The values of \(a\) was chosen so that different shapes of
 heteroskedasticity were included in the residual plot. These include
 triangle shape, butterfly shape and inverse triangle shape.
 
-\includegraphics{paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-heter-1}
 
 The range of \(b\), which is a factor controlling the strength of the
 signal, was chosen so that different difficulty levels of lineups were
@@ -899,10 +894,7 @@ They & High School or below & 25-39 & No & 1\\
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf}
-\caption{Summary of demographic information.
-\label{fig:demographic-summary-plot}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/demographic-summary-plot-1} \caption{Summary of demographic information. \label{fig:demographic-summary-plot}}\label{fig:demographic-summary-plot}
 \end{figure}
 
 \hypertarget{model-fitting}{%
@@ -996,9 +988,7 @@ hypothesis. Figure \ref{fig:power-overview} gives example lineups of
 such cases.
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/power-overview-1.pdf}
-\caption{Power overview. \label{fig:power-overview}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/power-overview-1} \caption{Power overview. \label{fig:power-overview}}\label{fig:power-overview}
 \end{figure}
 
 \hypertarget{distributions-of-regressor}{%
@@ -1016,9 +1006,7 @@ distributions. The results indicate those inappropriate residual-based
 tests are sensitive to the distribution of the regressor.
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/dist-power-1.pdf}
-\caption{\label{dist-power}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} \caption{\label{dist-power}}\label{fig:dist-power}
 \end{figure}
 
 \hypertarget{shpaes-of-non-linearity}{%
@@ -1034,34 +1022,33 @@ effect. And for W shape, both tests have almost identical power curves.
 It can be observed that both tests performs the best for U-shape.
 
 \begin{figure}
-\centering
-\includegraphics{paper_comparison_files/figure-latex/shape-power-1.pdf}
-\caption{\label{shape-power}}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/shape-power-1} \caption{\label{shape-power}}\label{fig:shape-power}
 \end{figure}
 
 \hypertarget{reasons-for-making-selections}{%
 \paragraph{Reasons for making
 selections}\label{reasons-for-making-selections}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-1}
 
 \hypertarget{experiment-ii}{%
 \subsubsection{Experiment II}\label{experiment-ii}}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-16-1}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-17-1}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-18-1}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-19-1}
 
-\includegraphics{paper_comparison_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-20-1}
 
 --\textgreater{}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
+
 
 
 

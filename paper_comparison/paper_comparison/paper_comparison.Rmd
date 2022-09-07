@@ -90,7 +90,13 @@ output: rticles::tf_article
 <!-- 3. future work (role of computer vision) -->
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  echo = FALSE,
+  fig.width = 8,
+  fig.height = 6,
+  out.width = "100%")
 ```
 
 ```{r}
@@ -360,16 +366,33 @@ Many of those regression diagnostic methods and procedures are mature and well-e
 
 ## Departures from good residual plots
 
-```{r}
+```{r commondepartures, fig.cap = "Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot."}
 
 set.seed(10086)
 
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
 dat <- mod$gen(300)
-patchwork::wrap_plots(mod$plot(dat, theme = theme_light()) + ggtitle("Good residuals"),
-                      mod$plot(mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat, x, e)), theme = theme_light()) + ggtitle("Non-linearity"),
-                      mod$plot(heter_model(b = 64)$gen(300, computed = select(dat, x, e)), theme = theme_light()) + ggtitle("Heteroskedasticity"),
-                      mod$plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$gen(300, computed = select(dat, x)), theme = theme_light()) + ggtitle("Non-normality"))
+patchwork::wrap_plots(
+  mod$plot(dat, theme = theme_light()) +
+    ggtitle("A. Good residuals") + 
+    xlab("fitted values") + ylab("residuals"),
+  mod$plot(mod$set_prm("include_z", TRUE)$gen(300, 
+    computed = select(dat, x, e)), 
+    theme = theme_light()) + 
+    ggtitle("B. Non-linearity") +
+    xlab("fitted values") + ylab("residuals"),
+  mod$plot(heter_model(b = 64)$gen(300, 
+    computed = select(dat, x, e)), 
+    theme = theme_light()) + 
+    ggtitle("C. Heteroskedasticity") +
+    xlab("fitted values") + ylab("residuals"),
+  mod$plot(heter_model(b = 0, 
+    e = rand_lognormal(sigma = 0.5))$gen(300, 
+    computed = select(dat, x)), 
+    theme = theme_light()) + 
+    ggtitle("D. Non-normality") +
+    xlab("fitted values") + ylab("residuals")
+)
 ```
 
 Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure [ref here], the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. There are various types of departures from a good residual plot. We will only discuss three most commonly checked departures in this paper. Namely, non-linearity, heterskedasticity and non-normality.
