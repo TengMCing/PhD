@@ -38,13 +38,19 @@ lineup <- polynomials %>%
   mutate(exp = "poly") %>%
   bind_rows(heter %>% mutate(exp = "heter")) %>%
   filter((x_dist == "uniform" | b == 0), is.na(b) | b <= 64, e_sigma > 0.25) %>%
-  mutate(lineup_id = ifelse(exp == "poly", lineup_id, lineup_id + 576)) %>%
-  group_by(lineup_id) %>%
-  summarise(across(c(a, b, n, x_dist, shape, e_sigma), first))
+  mutate(real_lineup_id = paste0(exp, "_", lineup_id)) %>%
+  group_by(real_lineup_id) %>%
+  summarise(across(c(a, b, n, x_dist, shape, e_sigma), first)) %>%
+  mutate(lineup_id = 1:n()) %>%
+  mutate(limit_num = ifelse(b != 0 | is.na(b), 6, 15)) %>%
+  mutate(across(everything(), function(x) ifelse(is.na(x), "NA", x)))
+
+sorted_lineup <- lineup %>%
+  arrange(lineup_id) %>%
+  select(-lineup_id, -real_lineup_id, -limit_num)
 
 
 set.seed(10086)
-
 
 check_comb <- function(set_dat, new_dat, n = 1) {
 
@@ -54,15 +60,13 @@ check_comb <- function(set_dat, new_dat, n = 1) {
           # browser()
           tmp <- as.numeric(new_dat[1, this_comb])
           for (i in 1:nrow(set_dat)) {
-            if (all(as.numeric(set_dat[i, this_comb]) == tmp)) return(TRUE)
+            tmp_x <- all(as.numeric(set_dat[i, this_comb]) == tmp)
+            if (is.na(tmp_x)) return(FALSE)
+            if (tmp_x) return(TRUE)
           }
           return(FALSE)
         })
 }
-
-sorted_lineup <- lineup %>%
-  arrange(lineup_id) %>%
-  select(-rep, -lineup_id)
 
 # Caculate distance between a set of allocated lineups and a new lineup
 calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
@@ -71,12 +75,13 @@ calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
   allocated_lineups <- sorted_lineup[allocated_lineup_ids, ]
 
   # We want these three options to be as different as possible
-  15 -
+  63 -
     sum(check_comb(allocated_lineups, new_lineup, 1)) -
     sum(check_comb(allocated_lineups, new_lineup, 2)) -
     sum(check_comb(allocated_lineups, new_lineup, 3)) -
-    sum(check_comb(allocated_lineups, new_lineup, 4))
-
+    sum(check_comb(allocated_lineups, new_lineup, 4)) -
+    sum(check_comb(allocated_lineups, new_lineup, 5)) -
+    sum(check_comb(allocated_lineups, new_lineup, 6))
 }
 
 find_available_subject <- function(allocate_list) {
@@ -85,24 +90,27 @@ find_available_subject <- function(allocate_list) {
     which.min()
 }
 
-find_available_lineups <- function(allocate_list, this_subject, num_rep, num_lineup) {
+
+find_available_lineups <- function(allocate_list, this_subject, num_lineup) {
   unlist(allocate_list) %>%
     factor(levels = 1:num_lineup) %>%
     table() %>%
-    unname() %>%
-    {. < num_rep} %>%
-    which() %>%
-    setdiff(allocate_list[[this_subject]]) %>%
+    as_tibble() %>%
+    rename(lineup_id = ".") %>%
+    mutate(lineup_id = as.integer(lineup_id)) %>%
+    left_join(select(lineup, lineup_id, limit_num), by = c("lineup_id")) %>%
+    filter(n < limit_num) %>%
+    {setdiff(.$lineup_id, allocate_list[[this_subject]])} %>%
     sample()
 }
 
 log_allocate <- function(this_subject, best_lineup_id,
-                         lineup_rep, num_rep,
+                         lineup_rep,
                          subject_pool,
                          verbose) {
   if (verbose == 0) return(invisible(NULL))
 
-  cli_alert_success("Allocate lineup {.val {best_lineup_id}} ({lineup_rep}/{num_rep}) {symbol$arrow_right} {.val {this_subject}}.")
+  cli_alert_success("Allocate lineup {.val {best_lineup_id}} ({lineup_rep}/?) {symbol$arrow_right} {.val {this_subject}}.")
   if (verbose >= 1) {
     cli_alert_info("Subject {.val {this_subject}} pool ({length(subject_pool)}/18): {paste(subject_pool, collapse = ' ')}")
   }
@@ -144,7 +152,7 @@ log_progress_bar <- function(total = NULL,
 }
 
 
-allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0) {
+allocate_lineup_2_subject <- function(lineup, num_subject, verbose = 0) {
 
   # Init allocate list with length = number of subjects
   allocate_list <- vector(mode = "list", length = num_subject)
@@ -177,10 +185,10 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
     allocated_lineup_ids <- allocate_list[[available_subject]]
 
     # Get the set of lineup that have less than 5 replicates
-    available_lineup_ids <- find_available_lineups(allocate_list, available_subject, num_rep, num_lineup)
+    available_lineup_ids <- find_available_lineups(allocate_list, available_subject, num_lineup)
     log_find_lineup(available_lineup_ids, verbose)
 
-    # No available lineups (all lineups >= 5). Randomly pick one.
+    # No available lineups (all lineups >= limit). Randomly pick one.
     if (length(available_lineup_ids) == 0) {
       best_lineup_id <- setdiff(1:num_lineup, allocated_lineup_ids) %>%
         sample(1)
@@ -189,7 +197,7 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
                                               best_lineup_id)
 
       log_allocate(available_subject, best_lineup_id,
-                   sum(unlist(allocate_list) == best_lineup_id), num_rep,
+                   sum(unlist(allocate_list) == best_lineup_id),
                    allocate_list[[available_subject]],
                    verbose)
 
@@ -211,7 +219,7 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
                                               best_lineup_id)
 
       log_allocate(available_subject, best_lineup_id,
-                   sum(unlist(allocate_list) == best_lineup_id), num_rep,
+                   sum(unlist(allocate_list) == best_lineup_id),
                    allocate_list[[available_subject]],
                    verbose)
 
@@ -230,7 +238,7 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
         best_lineup_id <- new_lineup_id
         log_best_dist(best_dist, new_lineup_id, verbose)
 
-        if (best_dist == 15) break
+        if (best_dist == 63) break
       }
     }
 
@@ -238,7 +246,7 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
                                             best_lineup_id)
 
     log_allocate(available_subject, best_lineup_id,
-                 sum(unlist(allocate_list) == best_lineup_id), num_rep,
+                 sum(unlist(allocate_list) == best_lineup_id),
                  allocate_list[[available_subject]],
                  verbose)
   }
@@ -249,40 +257,36 @@ allocate_lineup_2_subject <- function(lineup, num_subject, num_rep, verbose = 0)
 }
 
 # If you feel it is a bit laggy. Clear the console or turn off verbose.
-allocate_result <- allocate_lineup_2_subject(lineup, 160, 5, verbose = 2)
+allocate_result <- allocate_lineup_2_subject(lineup, 123, verbose = 2)
 
-# All lineups have 5 replicates, except 93, 262 and 576
+# All lineups have 5 replicates, except 33 and 83
 unlist(allocate_result) %>%
   factor(levels = 1:nrow(lineup)) %>%
   table() %>%
   unname() %>%
-  {. != 5} %>%
+  {. != 6 & . != 15} %>%
   which()
 
-# 93 and 262 have 6 evaluations
+# 33 has 7 evaluations
 unlist(allocate_result) %>%
   factor(levels = 1:nrow(lineup)) %>%
   table() %>%
   unname() %>%
-  {. == 6} %>%
+  {. == 7} %>%
   which()
 
-# 576 has 3 evaluations
+# 83 has 14 evaluations
 unlist(allocate_result) %>%
   factor(levels = 1:nrow(lineup)) %>%
   table() %>%
   unname() %>%
-  {. == 3} %>%
+  {. == 14} %>%
   which()
 
 # Manual adjustment
-# Find subject (7) that contains 93 but not 576
-which(map_lgl(allocate_result, ~93 %in% .x && !(576 %in% .x) ))
-allocate_result[[7]][allocate_result[[7]] == 93] <- 576
-
-# Find subject (45) that contains 262 but not 576
-which(map_lgl(allocate_result, ~262 %in% .x && !(576 %in% .x) ))
-allocate_result[[45]][allocate_result[[45]] == 262] <- 576
+# Find subject (20) that contains 33 but not 83
+which(map_lgl(allocate_result, ~33 %in% .x && !(83 %in% .x) ))
+allocate_result[[20]][allocate_result[[20]] == 33] <- 83
 
 # All subjects have 18 different lineups
 map_dbl(allocate_result, ~length(unique(.x))) %>%
@@ -290,11 +294,13 @@ map_dbl(allocate_result, ~length(unique(.x))) %>%
   which()
 
 allocate_result <- allocate_result %>%
-  `names<-`(paste("subject", 1:160, sep = "_")) %>%
+  `names<-`(paste("subject", 1:123, sep = "_")) %>%
   as_tibble() %>%
-  pivot_longer(subject_1:subject_160) %>%
+  pivot_longer(subject_1:subject_123) %>%
   mutate(subject = gsub(".+_", "", name)) %>%
   select(subject, lineup_id = value)
+
+saveRDS(allocate_result, "tmp_alloc.rds")
 
 set.seed(10086)
 
