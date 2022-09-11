@@ -301,33 +301,31 @@ allocate_result <- allocate_result %>%
   select(subject, lineup_id = value)
 
 saveRDS(allocate_result, "tmp_alloc.rds")
+# allocate_result <- readRDS("tmp_alloc.rds")
+
+allocate_result <- allocate_result %>%
+  left_join(select(lineup, lineup_id, real_lineup_id), by = "lineup_id") %>%
+  select(-lineup_id) %>%
+  mutate(subject = as.integer(subject))
 
 set.seed(10086)
 
-lineup <- lineup %>%
-  bind_rows(expand.grid(a = c(0, 1),
-                        n = 300,
-                        x_dist = "uniform",
-                        b = c(128, 256),
-                        rep = 1:3) %>%
-              mutate(lineup_id = nrow(lineup) + 1:n()))
-
-allocate_result <- mutate(allocate_result, subject = as.numeric(subject))
-
-for (i in 1:160) {
+for (i in 1:123) {
   allocate_result <- allocate_result %>%
     bind_rows(tibble(subject = i,
-                     lineup_id = sample(1:12, 2) + 576))
+                     real_lineup_id = paste0("heter_", sample(1:12, 2) + 576)))
 }
 
 allocate_result <- allocate_result %>%
   group_by(subject) %>%
   mutate(order = sample(1:20))
 
+lineup <- select(lineup, -lineup_id)
+
 write_csv(allocate_result, "data/allocate_result.csv")
 write_csv(lineup, "data/lineup_info.csv")
 
 
 allocate_result %>%
-  left_join(lineup, by = c("lineup_id")) %>%
+  left_join(lineup, by = c("real_lineup_id")) %>%
   write_csv("data/allocate_result_full.csv")
