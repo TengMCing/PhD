@@ -25,18 +25,14 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
+% see https://stackoverflow.com/a/47122900
 
-% tightlist command for lists without linebreak
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-
+% Pandoc citation processing
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
-
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -53,7 +49,6 @@
 \usepackage{xcolor}
 
 \begin{document}
-
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -197,38 +192,49 @@ hypothesis testing for detecting model defects. Depending on the
 alternative hypothesis that is focused on, a variety of tests can be
 applied. For example, the presence of heteroskedasticity can usually be
 tested by applying the White test
-{[}@white\_heteroskedasticity-consistent\_1980{]} or the Breusch-Pagan
-test {[}@breusch\_simple\_1979{]}, which are both derived from the
-Lagrange multiplier test {[}@silvey1959lagrangian{]} principle that
+\citep{white_heteroskedasticity-consistent_1980} or the Breusch-Pagan
+test \citep{breusch_simple_1979}, which are both derived from the
+Lagrange multiplier test \citep{silvey1959lagrangian} principle that
 relies on the asymptotic properties of the null distribution. For
 testing non-linearity, one may apply the F-test to examine the
 significance of specific polynomial and non-linear forms of the
 regressors, or the significance of proxy variables as in the Ramsey
 Regression Equation Specification Error Test (RESET)
-{[}@ramsey\_tests\_1969{]}. And for testing normality, the shapiro--Wilk
-test {[}ref here{]} is perhaps the most widely used test reported by
+\citep{ramsey_tests_1969}. And for testing normality, the Shapiro--Wilk
+test {[}ref here{]} is perhaps the most widely used test included by
 many of the statistical softwares. Another choice will be the
 Jarque--Bera test {[}ref here{]} which directly checks if the sample
 skewness and kurtosis match a normal distribution.
 
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1}
+Example residual plots given in \ref{fig:commondepartures} are examined
+by the corresponding F-test, Breusch-Pagan test and Shapiro--Wilk test
+as shown in \ref{tab:example-residual-plot-table}. In the example, both
+the Breusch-Pagan test and the Shapiro--Wilk test rejects the null
+hypothesis for departures they do not intend to examine. As discussed in
+\citet{cook1982residuals}, most residual-based tests for a particular
+type of departure from model assumptions are sensitive to other types of
+departures. It is likely the null hypothesis is correctly rejected but
+for the wrong reason, which is known as the ``Type III error''.
+Additionally, outliers will often incorrectly trigger the rejection of
+the null hypothesis despite the residuals are well-behaved
+\citep{cook_applied_1999}. This can be largely avoided in diagnostic
+plots as experienced analysts can evaluate the acceptability of
+assumptions flexibly, even in the presence of outliers.
 
-Explain the tests you are showing later
+\begin{table}
 
-\begin{itemize}
-\tightlist
-\item
-  RESET
-\item
-  BP
-\item
-  SW
-\end{itemize}
-
-and show the results for the residual plots displayed in previous
-section
-
-Briefly mention any others
+\caption{\label{tab:example-residual-plot-table}Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are colored in red.}
+\centering
+\begin{tabular}[t]{lllll}
+\toprule
+Residual plots & Departures & F-test  & Breusch-Pagan test & Shapiro–Wilk test\\
+\midrule
+B & Non-linearity & \textcolor{red}{7.3e-117} & \textcolor{red}{1.8e-14} & \textcolor{red}{3.9e-02}\\
+C & Heteroskedasticity & \textcolor{black}{ 3.8e-01} & \textcolor{red}{6.1e-16} & \textcolor{red}{1.1e-09}\\
+D & Non-normality & \textcolor{black}{ 6.7e-01} & \textcolor{black}{7.4e-01} & \textcolor{red}{2.9e-18}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \hypertarget{visual-testing-for-departures}{%
 \subsection{Visual testing for
@@ -1048,7 +1054,6 @@ selections}\label{reasons-for-making-selections}}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
-
 
 
 

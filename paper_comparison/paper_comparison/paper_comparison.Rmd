@@ -415,7 +415,9 @@ Non-normality is usually harder to be detected from a residual plot compared to 
 
 ## Conventionally testing for departures
 
-Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [\@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [\@breusch_simple_1979], which are both derived from the Lagrange multiplier test [\@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [\@ramsey_tests_1969]. And for testing normality, the shapiro--Wilk test [ref here] is perhaps the most widely used test reported by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
+Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
+
+Example residual plots given in \ref{fig:commondepartures} are examined by the corresponding F-test, Breusch-Pagan test and Shapiro--Wilk test as shown in \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
 
 ```{r}
 
@@ -423,47 +425,57 @@ set.seed(10086)
 
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
 dat <- mod$gen(300)
-patchwork::wrap_plots(mod$plot(dat, theme = theme_light()) + ggtitle("Good residuals"),
-                      mod$plot(mod$
-                                 set_prm("include_z", TRUE)$
-                                 gen(300, computed = select(dat, x, e)), theme = theme_light()) + 
-                        ggtitle(paste("F-test p-value =", 
-                                      mod$
-                                        test(mod$
-                                               gen(300, computed = select(dat, x, e)))$p_value %>% 
-                                        format(digits = 2))),
-                      mod$
-                        plot(heter_model(b = 64)$
-                               gen(300, computed = select(dat, x, e)), theme = theme_light()) + 
-                        ggtitle(paste("BP test p-value =", 
-                                      HETER_MODEL$
-                                        test(heter_model(b = 64)$
-                                               gen(300, computed = select(dat, x, e)))$p_value %>% 
-                                        format(digits = 2))),
-                      mod$
-                        plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-                               gen(300, computed = select(dat, x)), theme = theme_light()) + 
-                        ggtitle(paste("Non-normality", 
-                                      shapiro.test(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-                                                     gen(300, computed = select(dat, x))$.resid)[[2]] %>% 
-                                        format(digits = 2))))
 
+dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat, x, e))
+dat2 <- heter_model(b = 64)$gen(300, computed = select(dat, x, e))
+dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+               gen(300, computed = select(dat, x))
+
+
+
+data.frame(plot = c("B", "C", "D"), 
+           model = c("Non-linearity", "Heteroskedasticity", "Non-normality"),
+           f = c(POLY_MODEL$test(dat1)$p_value,
+                 POLY_MODEL$test(mutate(dat2, z = poly_model()$gen(300, computed = select(dat2, x))$z))$p_value,
+                 POLY_MODEL$test(mutate(dat3, z = poly_model()$gen(300, computed = select(dat3, x))$z))$p_value),
+           b = c(HETER_MODEL$test(dat1)$p_value,
+                 HETER_MODEL$test(dat2)$p_value,
+                 HETER_MODEL$test(dat3)$p_value),
+           s = c(shapiro.test(dat1$.resid)$p.value,
+                 shapiro.test(dat2$.resid)$p.value,
+                 shapiro.test(dat3$.resid)$p.value)) %>%
+  mutate(f = format(f, digits = 2), b = format(b, digits = 2), s = format(s, digits = 2)) -> table_dat
+
+
+  table_dat$f <- kableExtra::cell_spec(table_dat$f, color = ifelse(as.numeric(table_dat$f) < 0.05, "red", "black"))
+  table_dat$b <- kableExtra::cell_spec(table_dat$b, color = ifelse(as.numeric(table_dat$b) < 0.05, "red", "black"))
+  table_dat$s <- kableExtra::cell_spec(table_dat$s, color = ifelse(as.numeric(table_dat$s) < 0.05, "red", "black"))
+
+  table_dat %>%
+  knitr::kable(col.names = c("Residual plots", "Departures", "F-test ", "Breusch-Pagan test", "Shapiro–Wilk test"),
+               escape = FALSE,
+               format = "latex",
+               booktabs = TRUE, 
+               caption  = 'Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are colored in red.', 
+               label = "example-residual-plot-table" ) 
 
 ```
 
-Explain the tests you are showing later
+<!-- Explain the tests you are showing later -->
 
--   RESET
--   BP
--   SW
+<!-- -   RESET -->
 
-and show the results for the residual plots displayed in previous section
+<!-- -   BP -->
 
-Briefly mention any others
+<!-- -   SW -->
+
+<!-- and show the results for the residual plots displayed in previous section -->
+
+<!-- Briefly mention any others  -->
 
 ## Visual testing for departures
 
-Unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [\@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [\@roy_chowdhury_using_2015].
+Unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
 -   Very briefly explain what a lineup test is
 
