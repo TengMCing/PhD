@@ -1,4 +1,4 @@
-real_lineup_id,a,b,n,x_dist,shape,e_sigma,limit_num
+unique_lineup_id,a,b,n,x_dist,shape,e_sigma,limit_num
 heter_101,1,16,300,uniform,"NA",1,6
 heter_105,1,0.25,100,uniform,"NA",1,6
 heter_106,0,0,50,lognormal,"NA",1,15

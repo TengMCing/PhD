@@ -1,4 +1,4 @@
-subject,real_lineup_id,order,a,b,n,x_dist,shape,e_sigma,limit_num
+subject,unique_lineup_id,order,a,b,n,x_dist,shape,e_sigma,limit_num
 1,heter_389,16,1,64,300,uniform,"NA",1,6
 2,heter_494,16,-1,0.25,100,uniform,"NA",1,6
 3,poly_52,20,"NA","NA",100,uniform,4,0.5,6

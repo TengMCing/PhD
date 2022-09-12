@@ -38,8 +38,8 @@ lineup <- polynomials %>%
   mutate(exp = "poly") %>%
   bind_rows(heter %>% mutate(exp = "heter")) %>%
   filter((x_dist == "uniform" | b == 0), is.na(b) | b <= 64, e_sigma > 0.25) %>%
-  mutate(real_lineup_id = paste0(exp, "_", lineup_id)) %>%
-  group_by(real_lineup_id) %>%
+  mutate(unique_lineup_id = paste0(exp, "_", lineup_id)) %>%
+  group_by(unique_lineup_id) %>%
   summarise(across(c(a, b, n, x_dist, shape, e_sigma), first)) %>%
   mutate(lineup_id = 1:n()) %>%
   mutate(limit_num = ifelse(b != 0 | is.na(b), 6, 15)) %>%
@@ -47,7 +47,7 @@ lineup <- polynomials %>%
 
 sorted_lineup <- lineup %>%
   arrange(lineup_id) %>%
-  select(-lineup_id, -real_lineup_id, -limit_num)
+  select(-lineup_id, -unique_lineup_id, -limit_num)
 
 
 set.seed(10086)
@@ -301,10 +301,11 @@ allocate_result <- allocate_result %>%
   select(subject, lineup_id = value)
 
 saveRDS(allocate_result, "tmp_alloc.rds")
+saveRDS(lineup, "lineup.rds")
 # allocate_result <- readRDS("tmp_alloc.rds")
 
 allocate_result <- allocate_result %>%
-  left_join(select(lineup, lineup_id, real_lineup_id), by = "lineup_id") %>%
+  left_join(select(lineup, lineup_id, unique_lineup_id), by = "lineup_id") %>%
   select(-lineup_id) %>%
   mutate(subject = as.integer(subject))
 
@@ -313,12 +314,13 @@ set.seed(10086)
 for (i in 1:123) {
   allocate_result <- allocate_result %>%
     bind_rows(tibble(subject = i,
-                     real_lineup_id = paste0("heter_", sample(1:12, 2) + 576)))
+                     unique_lineup_id = paste0("heter_", sample(1:12, 2) + 576)))
 }
 
 allocate_result <- allocate_result %>%
   group_by(subject) %>%
-  mutate(order = sample(1:20))
+  mutate(order = sample(1:20)) %>%
+  ungroup()
 
 lineup <- select(lineup, -lineup_id)
 
@@ -327,5 +329,29 @@ write_csv(lineup, "data/lineup_info.csv")
 
 
 allocate_result %>%
-  left_join(lineup, by = c("real_lineup_id")) %>%
+  left_join(lineup, by = c("unique_lineup_id")) %>%
   write_csv("data/allocate_result_full.csv")
+
+
+allocate_result %>%
+  arrange(subject, order) %>%
+  pivot_wider(names_from = order, values_from = unique_lineup_id) %>%
+  ungroup() %>%
+  select(-subject) %>%
+  write_csv(file = "data/fifth_experiment_order.txt", col_names = FALSE)
+
+
+dir.create("lineup_plots")
+
+
+for (unique_lineup_id in unique(allocate_result$unique_lineup_id)) {
+  lineup_type <- gsub("_.*", "", unique_lineup_id)
+  lineup_id <- gsub(".*_", "", unique_lineup_id)
+  file.copy(glue::glue("lineup_plots_{lineup_type}/{lineup_id}.png"),
+            glue::glue("lineup_plots/{unique_lineup_id}.png"))
+}
+
+for (i in 1:nrow(allocate_result)) {
+
+}
+
