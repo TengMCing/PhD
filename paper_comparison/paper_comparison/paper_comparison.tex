@@ -183,8 +183,7 @@ certain amount of them does. If this assumption happens to be false,
 then it is expected to see data points do not distribute noramlly on the
 y-axis. For example, given a skewed error distribution, one will see
 fewer data points and more outliers on one side of the zeroline as shown
-in the bottom-right of Figure
-\textbackslash ref\{fig:commondepartures\}.
+in the bottom-right of Figure \ref{fig:commondepartures}.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
@@ -275,11 +274,26 @@ out the most different plot from the lineup. Figure
 \ref{fig:first-example-lineup} is an example of a lineup protocol. If
 the actual data plot at position 11 is identifiable, then it is evidence
 for the rejection of the null hypothesis that the regression model is
-correctly specified. In fact, the example lineup is generated from a
-misspecified regression model with non-linearity issue. So one may
-notice the cubic curve in the actual residual plot.
+correctly specified. In fact, the actual residual plot is obtained from
+a misspecified regression model with non-linearity issue.
 
-Simulation of the null data used in the 19 null plots are
+Data used in the \(m - 1\) null plots needs to be simulated. In the
+context of regression diagnostics, sampling data from \(H_0\) is
+equivalent to sampling data from the assumed model. As
+\citet{buja_statistical_2009} suggested, \(H_0\) is usually composited
+by a collection of distributions controlled by nuisance parameters.
+Since regression models can have various forms, there is no general
+solution to this problem, but it sometimes can be reduced to so called
+``reference distribution'' by applying one of the three methods: (i)
+sampling from a conditional distribution given a minimal sufficient
+statistic under \(H_0\), (ii) parametric bootstrap sampling with
+nuisance parameters estimated under \(H_0\), and (iii) Bayesian
+posterior predictive sampling. The conditional distribution given a
+minimal sufficient statistic is the best justified reference
+distribution among the three \citep{buja_statistical_2009}. Essentially,
+null residuals can be simulated by regressing \(N\) i.i.d standard
+normal random draws on the regressors, then rescaling it by the ratio of
+residual sum of square in two regressions.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{Example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?}\label{fig:first-example-lineup}
