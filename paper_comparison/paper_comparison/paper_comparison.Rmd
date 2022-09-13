@@ -395,7 +395,7 @@ patchwork::wrap_plots(
 )
 ```
 
-Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure \\ref{fig:commondepartures}, the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. There are various types of departures from a good residual plot. We will only discuss three most commonly checked departures in this paper. Namely, non-linearity, heterskedasticity and non-normality.
+Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure \ref{fig:commondepartures}, the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. There are various types of departures from a good residual plot. We will only discuss three most commonly checked departures in this paper. Namely, non-linearity, heterskedasticity and non-normality.
 
 Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values presented in the residual plot could be considered as an indicative of non-linearity. At the top-right of Figure [ref here], there is a residual plot giving an example of the visual pattern of non-linearity when a cubic term is not captured by the regression model.
 
@@ -481,7 +481,7 @@ Unlike hypothesis testing built upon rigorous statistical procedures, reading di
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the actual data plot, and the remaining $m - 1$ plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup. Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
 
-```{r first-example-lineup, fig.cap="Example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?"}
+```{r first-example-lineup, fig.cap="An example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?"}
 mod <- poly_model(include_z = TRUE, sigma = 1)
 POLY_MODEL$plot_lineup(mod$gen_lineup(300, pos = 11), theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
 ```
@@ -500,7 +500,21 @@ P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac
 
 where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
+As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Thus, the visual p-value followed by the above model is given as
 
+```{=tex}
+\begin{equation} \label{eq:pvalue-beta-binomial}
+P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
+\end{equation}
+```
+
+where $B(.)$ is the beta function defined as
+
+```{=tex}
+\begin{equation} \label{eq:betafunction}
+B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
+\end{equation}
+```
 
 
 
@@ -539,67 +553,68 @@ cm$plot() +
 
 <!-- The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Suppose there exists a minimal sufficient statistic $\boldsymbol{S}(\boldsymbol{y})$ under the null hypothesis, any null datasets $\boldsymbol{y^{*}}$ should fulfil the condition $\boldsymbol{S}(\boldsymbol{y}) = \boldsymbol{s}$. Using the classical normal linear regression model as example, the minimal sufficient statistic is $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{\beta}}, \boldsymbol{e}'\boldsymbol{e})$, where $\hat{\boldsymbol{\beta}}$ are the coefficient estimators and $\boldsymbol{e}'\boldsymbol{e}$ is the residual sum of square. Alternatively, the minimal sufficient statistic can be constructed as $\boldsymbol{S}(\boldsymbol{y}) = (\hat{\boldsymbol{y}}, ||\boldsymbol{e}||)$, where $\hat{\boldsymbol{y}}$ are the fitted values and $||\boldsymbol{e}||$ is the length of residuals, which is more intuitive as suggested by @buja_statistical_2009. Since the fitted values are held fixed, the variation can only occur in the residual space. And because the length of residual is also held fixed, residuals obtained from a null dataset has to be a random rotation of $\boldsymbol{e}$ in the residual space. With this property, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions. -->
 
-### Lineup protocol {#se:lineup}
+<!-- ### Lineup protocol {#se:lineup} -->
 
-With the simulation mechanism of null plots being provided, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ needs to pair with a critical value $c^{(i)}$ to form a hypothesis test. When a visual feature $i$ is discovered by the observer from a plot, the corresponding visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that $T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists $i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ [@buja_statistical_2009].
+<!-- With the simulation mechanism of null plots being provided, another aspect of hypothesis testing that needs to be addressed is the control of false positive rate or Type I error. Any visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ needs to pair with a critical value $c^{(i)}$ to form a hypothesis test. When a visual feature $i$ is discovered by the observer from a plot, the corresponding visual statistic $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known as there is no general agreement on the measurement of the degree of presence of a visual feature. It is only the event that $T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ is confirmed. Similarly, if any visual discovery is found by the observer, we say, there exists $i \in I:~T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}$ [@buja_statistical_2009]. -->
 
-Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values $c^{(i)}~(i \in I)$ such that $P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha$, where $\alpha$ is the significance level. However, since the quantity of $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known, such collection of critical values can not be provided.
+<!-- Using the above definition, the family-wise Type I error can be controlled if one can provide the collection of critical values $c^{(i)}~(i \in I)$ such that $P(\mathrm{there~exists~} i \in I: T^{(i)}(\boldsymbol{\mathrm{y}}) > c^{(i)}|\boldsymbol{\mathrm{y}}) \leq \alpha$, where $\alpha$ is the significance level. However, since the quantity of $T^{(i)}(\boldsymbol{\mathrm{y}})$ may not be known, such collection of critical values can not be provided. -->
 
-@buja_statistical_2009 proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of $c^{(i)}~(i \in I)$. It is inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the actual data plot, and the remaining $m - 1$ plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup.
+<!-- @buja_statistical_2009 proposed the lineup protocol as a visual test to calibrate the Type I error issue without the specification of $c^{(i)}~(i \in I)$. It is inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the actual data plot, and the remaining $m - 1$ plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup. -->
 
-Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
+<!-- Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$. -->
 
-This provides us with an mechanism to control the Type I error, because $m$ - the number of plots in a lineup can be chosen. A larger value of $m$ will result in a smaller Type I error, but the limit to the value of $m$ depends on the number of plots a human is willing to view [@buja_statistical_2009]. Typically, $m$ will be set to $20$ which is equivalent to set $\alpha = 0.05$, a general choice of significance level for conventional testing among statisticians.
+<!-- This provides us with an mechanism to control the Type I error, because $m$ - the number of plots in a lineup can be chosen. A larger value of $m$ will result in a smaller Type I error, but the limit to the value of $m$ depends on the number of plots a human is willing to view [@buja_statistical_2009]. Typically, $m$ will be set to $20$ which is equivalent to set $\alpha = 0.05$, a general choice of significance level for conventional testing among statisticians. -->
 
-Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as \begin{equation} \label{eq:pvaluesingle}
-P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
-\end{equation}
+<!-- Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as \begin{equation} \label{eq:pvaluesingle} -->
+<!-- P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i}, -->
+<!-- \end{equation} -->
 
-where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
+<!-- where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013]. -->
 
-The multiple individuals approach avoids the limit of $m$, while provides visual tests with $p$-value much smaller than $0.05$. In fact, the lower bound of $p$-value decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. Additionally, by involving multiple observers, variation of individual ability to read plots can be addressed to some degree as different opinions about visual discoveries can be collected.
+<!-- The multiple individuals approach avoids the limit of $m$, while provides visual tests with $p$-value much smaller than $0.05$. In fact, the lower bound of $p$-value decreases exponentially as $K$ increases. With just $4$ individuals and $20$ data plots in a lineup, the $p$-value could be as small as $0.0001$. Additionally, by involving multiple observers, variation of individual ability to read plots can be addressed to some degree as different opinions about visual discoveries can be collected. -->
 
-As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$.
+<!-- As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. -->
 
-The full model was a Dirichlet-multinomial mixture distribution
+<!-- The full model was a Dirichlet-multinomial mixture distribution -->
 
-```{=tex}
-\begin{align} \label{eq:dirichlet-multinomial}\begin{split}
-\boldsymbol{\theta}&|\alpha \sim Dirichlet(\alpha)\\
-(c_i,...,c_m)&|\boldsymbol{\theta} \sim Multinomial(K, \boldsymbol{\theta}).
-\end{split}\end{align}
-```
-Since the p-value calculation only needs to concern the number of times the actual data plot being selected denoted by $C_i$, they showed the model can be simplified to a beta-binomial mixture distribution
+<!-- ```{=tex} -->
+<!-- \begin{align} \label{eq:dirichlet-multinomial}\begin{split} -->
+<!-- \boldsymbol{\theta}&|\alpha \sim Dirichlet(\alpha)\\ -->
+<!-- (c_i,...,c_m)&|\boldsymbol{\theta} \sim Multinomial(K, \boldsymbol{\theta}). -->
+<!-- \end{split}\end{align} -->
+<!-- ``` -->
+<!-- Since the p-value calculation only needs to concern the number of times the actual data plot being selected denoted by $C_i$, they showed the model can be simplified to a beta-binomial mixture distribution -->
 
-```{=tex}
-\begin{align} \label{eq:beta-binomial}\begin{split}
-\theta_i&|\alpha \sim Beta(\alpha, (m-1)\alpha)\\
-C_i&|\theta_i \sim Binomial(K, \theta_i).
-\end{split}\end{align}
-```
-Thus, the visual p-value followed by the beta-binomial model is given as
+<!-- ```{=tex} -->
+<!-- \begin{align} \label{eq:beta-binomial}\begin{split} -->
+<!-- \theta_i&|\alpha \sim Beta(\alpha, (m-1)\alpha)\\ -->
+<!-- C_i&|\theta_i \sim Binomial(K, \theta_i). -->
+<!-- \end{split}\end{align} -->
+<!-- ``` -->
+<!-- Thus, the visual p-value followed by the beta-binomial model is given as -->
 
-```{=tex}
-\begin{equation} \label{eq:pvalue-beta-binomial}
-P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
-\end{equation}
-```
-where $B(.)$ is the beta function defined as
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:pvalue-beta-binomial} -->
+<!-- P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha), -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- where $B(.)$ is the beta function defined as -->
 
-```{=tex}
-\begin{equation} \label{eq:betafunction}
-B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
-\end{equation}
-```
-Note that the use of Equation (\ref{eq:pvalue-beta-binomial}) requires the estimation of $\hat{\alpha}$, which largely depends on the null model, the type of the plot and other aesthetic features. They suggested to estimate $\hat{\alpha}$ visually based on the selections of null plots of the experimental data, or to estimate $\hat{\alpha}$ numerically based on several additional Rorschach lineups, which is a type of lineup containing only null plots. However, when the number of null models are large, it could be expensive to manually estimate each $\alpha$ or include additional Rorschach lineups in the experiment.
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:betafunction} -->
+<!-- B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.  -->
+<!-- \end{equation} -->
+<!-- ``` -->
 
-Instead, in the experiments that will be described in section \ref{experimental-design}, we adopt a simpler model implicitly used by the `pmulti()` function of the `vinference` `R` package. We assume the attractiveness of the plot $i$ modelled as $w_i \sim Uniform(0,1)$ for $i=1,..,m$. Let $\theta_i = w_i/\sum_{i=1}^{m}w_i$ be the probability of plot $i$ being selected by a subject. Then, given the number of selections $s_j$, for $j=1,...,K$, the distribution of $C_i$ can be approximated by simulating the random selection process with computer. The simulated visual test p-value is formulated as
+<!-- Note that the use of Equation (\ref{eq:pvalue-beta-binomial}) requires the estimation of $\hat{\alpha}$, which largely depends on the null model, the type of the plot and other aesthetic features. They suggested to estimate $\hat{\alpha}$ visually based on the selections of null plots of the experimental data, or to estimate $\hat{\alpha}$ numerically based on several additional Rorschach lineups, which is a type of lineup containing only null plots. However, when the number of null models are large, it could be expensive to manually estimate each $\alpha$ or include additional Rorschach lineups in the experiment. -->
 
-```{=tex}
-\begin{equation} \label{eq:p-value-multi}
-\text{p-value} = \frac{\#draws~that~the~actual~data~plota~being~selected~more~than~c_i~times}{\#simulation}.
-\end{equation}
-```
+<!-- Instead, in the experiments that will be described in section \ref{experimental-design}, we adopt a simpler model implicitly used by the `pmulti()` function of the `vinference` `R` package. We assume the attractiveness of the plot $i$ modelled as $w_i \sim Uniform(0,1)$ for $i=1,..,m$. Let $\theta_i = w_i/\sum_{i=1}^{m}w_i$ be the probability of plot $i$ being selected by a subject. Then, given the number of selections $s_j$, for $j=1,...,K$, the distribution of $C_i$ can be approximated by simulating the random selection process with computer. The simulated visual test p-value is formulated as -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:p-value-multi} -->
+<!-- \text{p-value} = \frac{\#draws~that~the~actual~data~plota~being~selected~more~than~c_i~times}{\#simulation}. -->
+<!-- \end{equation} -->
+<!-- ``` -->
 <!-- ### Effectiveness of visual inference in regression diagnostics -->
 
 <!-- Compared to the conventional test, whose power only depends on the parameter of interest $\theta$, several studies [see @hofmann_graphical_2012; @majumder_validation_2013; @majumder2014human; @roy_chowdhury_using_2015; @loy2016variations] have shown the power of the visual test is subject-specific. Thus, to be able to account for individual's ability, an individual is required to evaluate multiple lineups [@majumder_validation_2013].   -->
