@@ -243,6 +243,9 @@ D & Non-normality & \textcolor{black}{ 6.7e-01} & \textcolor{black}{7.4e-01} & \
 \subsection{Visual testing for
 departures}\label{visual-testing-for-departures}}
 
+\hypertarget{lineup-protocol}{%
+\subsubsection{Lineup protocol}\label{lineup-protocol}}
+
 Unlike hypothesis testing built upon rigorous statistical procedures,
 reading diagnostic plots relies on graphical perception - human's
 ability to interpret and decode the information embedded in the graph
@@ -270,14 +273,29 @@ plot is the actual data plot, and the remaining \(m - 1\) plots have the
 identical graphical production as the data plot except the data has been
 replaced with data consistent with the null hypothesis. Then, an
 observer who have not seen the actual data plot will be asked to point
-out the most different plot from the lineup. Figure
-\ref{fig:first-example-lineup} is an example of a lineup protocol. If
-the actual data plot at position 11 is identifiable, then it is evidence
-for the rejection of the null hypothesis that the regression model is
-correctly specified. In fact, the actual residual plot is obtained from
-a misspecified regression model with non-linearity issue.
+out the most different plot from the lineup. Under the null hypothesis,
+it is expected that the actual data plot would have no distinguishable
+difference with the null plots, and the probability of the observer
+correctly picks the actual data plot is \(1/m\). If we reject the null
+hypothesis as the observer correctly picks the actual data plot, then
+the Type I error of this test is \(1/m\).
 
-Data used in the \(m - 1\) null plots needs to be simulated. In the
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{Example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?}\label{fig:first-example-lineup}
+\end{figure}
+
+Figure \ref{fig:first-example-lineup} is an example of a lineup
+protocol. If the actual data plot at position 11 is identifiable, then
+it is evidence for the rejection of the null hypothesis that the
+regression model is correctly specified. In fact, the actual residual
+plot is obtained from a misspecified regression model with non-linearity
+issue.
+
+\hypertarget{sampling-from-the-null-distribution}{%
+\subsubsection{Sampling from the null
+distribution}\label{sampling-from-the-null-distribution}}
+
+Data used in the \(m - 1\) null plots need to be simulated. In the
 context of regression diagnostics, sampling data from \(H_0\) is
 equivalent to sampling data from the assumed model. As
 \citet{buja_statistical_2009} suggested, \(H_0\) is usually composited
@@ -295,9 +313,23 @@ null residuals can be simulated by regressing \(N\) i.i.d standard
 normal random draws on the regressors, then rescaling it by the ratio of
 residual sum of square in two regressions.
 
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{Example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?}\label{fig:first-example-lineup}
-\end{figure}
+\hypertarget{p-value-calculation}{%
+\subsubsection{p-value calculation}\label{p-value-calculation}}
+
+Further, a visual test can involve \(K\) independent observers. Let
+\(D_i = \{0,1\}\) be a binomial random variable denoting whether subject
+\(i\) correctly detecting the actual data plot, and
+\(X = \sum_{i=1}^{K}X_i\) be the number of observers correctly picking
+the actual data plot. Then, by imposing a relatively strong assumption
+on the visual test that all \(K\) evaluations are fully independent,
+under the null hypothesis, \(X \sim \mathrm{Binom}_{K,1/m}\). Therefore,
+the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is
+given as \begin{equation} \label{eq:pvaluesingle}
+P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
+\end{equation}
+
+where \(x\) is the realization of number of observers correctly picking
+the actual data plot \citep{majumder_validation_2013}.
 
 \hypertarget{se:lineup}{%
 \subsubsection{Lineup protocol}\label{se:lineup}}
