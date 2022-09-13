@@ -341,9 +341,6 @@ allocate_result %>%
   write_csv(file = "data/fifth_experiment_order.txt", col_names = FALSE)
 
 
-dir.create("lineup_plots")
-
-
 for (unique_lineup_id in unique(allocate_result$unique_lineup_id)) {
   lineup_type <- gsub("_.*", "", unique_lineup_id)
   lineup_id <- gsub(".*_", "", unique_lineup_id)
@@ -352,6 +349,11 @@ for (unique_lineup_id in unique(allocate_result$unique_lineup_id)) {
 }
 
 for (i in 1:nrow(allocate_result)) {
-
+  lineup_type <- gsub("_.*", "", allocate_result$unique_lineup_id[i])
+  lineup_id <- gsub(".*_", "", allocate_result$unique_lineup_id[i])
+  subject <- allocate_result$subject[i]
+  order <- allocate_result$order[i]
+  file.copy(glue::glue("lineup_plots__{lineup_type}/{lineup_id}.png"),
+            glue::glue("plots/{subject}_{order}_{lineup_type}.png"))
 }
 
