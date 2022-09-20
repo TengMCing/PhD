@@ -233,7 +233,7 @@ assumptions flexibly, even in the presence of outliers.
 
 \begin{table}
 
-\caption{\label{tab:example-residual-plot-table}Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are colored in red.}
+\caption{\label{tab:example-residual-plot-table}Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are showed in bold.}
 \centering
 \begin{tabular}[t]{llrrr}
 \toprule
@@ -301,6 +301,21 @@ it is evidence for the rejection of the null hypothesis that the
 regression model is correctly specified. In fact, the actual residual
 plot is obtained from a misspecified regression model with non-linearity
 issue.
+
+The effectiveness of lineup protocol has already been validated by
+\citet{majumder_validation_2013} under relatively simple classical
+normal linear regression model settings with only one or two regressors.
+Their results suggest visual test is capable of testing the significance
+of a single regressor with a similar power as a t-test, though they
+expressed that in general it is unnecessary to use visual inference if
+there exists a conventional test and they didn't expect the visual test
+to perform equally well as the conventional test. In their third
+experiment, where there does not exist a proper conventional test,
+visual test outperforms the conventional test for a large margin. This
+is encouraging as it promotes the use of visual inference in border
+field of data science where there are no existing statistical testing
+procedures. In fact, lineup protocol has been integrated into some model
+diagnostic tools such as \citet{loy2013diagnostic}.
 
 \hypertarget{sampling-from-the-null-distribution}{%
 \subsubsection{Sampling from the null
@@ -383,20 +398,61 @@ attractive, MLE could fail to provide accurate estimates.
 \hypertarget{power-calculation}{%
 \subsubsection{Power calculation}\label{power-calculation}}
 
-\hypertarget{unknown}{%
-\subsection{Unknown}\label{unknown}}
+\hypertarget{experimental-design}{%
+\section{Experimental design}\label{experimental-design}}
+
+(This section discusses the experimental design including the motivation
+of the experiment, an overview of the experiment, the simulation setting
+of the depatures from good residual plots, parameter choices, allocation
+of the lineups and other technical details.)
+
+\hypertarget{motivation-and-overview}{%
+\subsection{Motivation and overview}\label{motivation-and-overview}}
+
+With our knowledge, the effectiveness of visual test relative to the
+equivalent conventional test in regression diagnostics has not been
+validated. Particularly, its ability to detect non-linearity and
+heteroskedasticity compared to model structural test and Breusch--Pagan
+test. Meanwhile, as mentioned in the \ref{introduction}
+\protect\hyperlink{introduction}{introduction} section
+
+For the purpose of investigating the differences between conventional
+hypothesis testing and graphical diagnostics in the application of
+linear regression diagnostics, three experiments were conducted.
+
+The experiment I has ideal scenario for conventional testing, where the
+visual test is not expected to outperform the conventional test. The
+experiment II is a scenario where the conventional test is an
+approximate test, in which the visual test may have a chance to match
+the performance of the conventional test.
+
+Subjects for both experiments were recruited from an crowdsourcing
+platform called Prolific {[}ref here{]}. Prescreening procedure was
+applied during the recruitment, subjects were required to be fluent in
+English, with \(98\%\) minimum approval rate in other studies and 10
+minimum submissions.
+
+During the experiment, every subject was presented with a block of 20
+lineups. And for every lineup, the subject was asked to select one or
+more plots that are most different from others, provide a reason for
+their selections, and evaluate how different they think the selected
+plots were from others. If there was no noticeable difference between
+plots in a lineup, subjects were permitted to select zero plots without
+providing the reason. No subject was shown the same lineup twice.
+Information about preferred pronoun, age group, education, and previous
+experience in visual experiment were also collected.
+
+A pool of 12 different lineups with obvious visual patterns were
+generated for experiment I and experiment II respectively. In every
+block of 20 lineups that presented to a subject, two out of 12 lineups
+were included as attention checks. A subject's submission was only
+accepted if the actual data plot was identified for at least one
+attention check. Data of rejected submissions were discarded
+automatically to maintain the overall data quality.
 
 This should be a section that summarizes the background, gives the
 motivation to the experiments, and most importantly reflects on the
 title.
-
-\hypertarget{experimental-design}{%
-\section{Experimental design}\label{experimental-design}}
-
-(This section discu)
-
-\hypertarget{motivation-and-overview}{%
-\subsection{Motivation and overview}\label{motivation-and-overview}}
 
 \hypertarget{simulating-departures}{%
 \subsection{Simulating departures}\label{simulating-departures}}
@@ -429,6 +485,9 @@ title.
 \subsubsection{Collecting results}\label{collecting-results}}
 
 software/technical
+
+\hypertarget{old-stuff}{%
+\section{Old stuff}\label{old-stuff}}
 
 \hypertarget{computing-power-curves}{%
 \subsection{Computing power curves}\label{computing-power-curves}}
