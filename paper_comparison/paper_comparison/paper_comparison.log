@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  21 SEP 2022 09:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  21 SEP 2022 09:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -623,76 +623,85 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 379.
 
-[7]
+[7] [8]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 465.
+(Font)              size <5> substituted on input line 468.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 465.
+(Font)              size <5> substituted on input line 468.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 465.
+(Font)              size <5> substituted on input line 468.
 
-[8]
-<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=252, 578.16pt x 433.62pt>
+[9]
+<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=269, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 533.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 563.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 533--534
+Overfull \hbox (12.0pt too wide) in paragraph at lines 563--564
 [][] 
  []
 
-[9]
-<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=269, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=270, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-sigma-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 540.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 570.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 540--541
+Overfull \hbox (12.0pt too wide) in paragraph at lines 570--571
 [][] 
  []
 
 [10 <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>]
-<paper_comparison_files/figure-latex/different-dist-1.pdf, id=280, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/different-dist-1.pdf, id=285, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 549.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 579.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 549--550
+Overfull \hbox (12.0pt too wide) in paragraph at lines 579--580
 [][] 
  []
 
 [11 <./paper_comparison_files/figure-latex/different-sigma-1.pdf>]
-<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=294, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=298, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/example-lineup-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 580.
+Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 610.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 [12
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.596 -
-       -\textgreater{} <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [13
+l.625 
+       <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.596 -
-       -\textgreater{} <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 596.
+l.625 
+       <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
+<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=322, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 630.
+(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 630--631
+[][] 
+ []
+
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 645.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <11> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 596.
-(./paper_comparison.bbl [14]) [15] (./paper_comparison.aux)
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 645.
+(./paper_comparison.bbl [14 <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>]) [15] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -707,18 +716,18 @@ Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
 (rerunfilecheck)             Checksum: AEDA84F5865FC3E1DBF17BB31A29A2F6;2975.
  ) 
 Here is how much of TeX's memory you used:
- 13195 strings out of 477035
- 211625 string characters out of 5827218
- 556624 words of memory out of 5000000
- 34006 multiletter control sequences out of 15000+600000
+ 13209 strings out of 477035
+ 212309 string characters out of 5827218
+ 557668 words of memory out of 5000000
+ 34015 multiletter control sequences out of 15000+600000
  482191 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,19n,90p,718b,588s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 85i,19n,90p,718b,558s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (15 pages, 1253036 bytes).
+Output written on paper_comparison.pdf (15 pages, 1311926 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 360 compressed objects within 4 object streams
- 85 named destinations out of 1000 (max. 500000)
- 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 444 PDF objects out of 1000 (max. 8388607)
+ 369 compressed objects within 4 object streams
+ 89 named destinations out of 1000 (max. 500000)
+ 180 words of extra memory for PDF output out of 10000 (max. 10000000)
 
