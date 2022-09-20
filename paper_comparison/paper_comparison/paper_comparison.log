@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  21 SEP 2022 08:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  21 SEP 2022 09:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -490,12 +490,6 @@ LaTeX Warning: Label `eq:scaling-function' multiply defined.
 
 LaTeX Warning: Label `fig:example-lineup' multiply defined.
 
-
-LaTeX Warning: Label `fig:demographic-summary-plot' multiply defined.
-
-
-LaTeX Warning: Label `fig:power-overview' multiply defined.
-
 )
 \openout1 = `paper_comparison.aux'.
 
@@ -592,7 +586,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: Reference `results' on page 2 undefined on input line 134.
 
-<paper_comparison_files/figure-latex/commondepartures-1.pdf, id=179, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/commondepartures-1.pdf, id=119, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/commondepartures-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/commondepartures-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/commondepartures-1.pdf  used on input line 149.
@@ -613,7 +607,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has 
                                                   \__shipout_drop_firstpage_...
 l.273 
       ]
-<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=245, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=185, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/first-example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/first-example-lineup-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/first-example-lineup-1.pdf  used on input line 295.
@@ -629,210 +623,76 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 379.
 
-[7] [8]
+[7]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 531.
+(Font)              size <5> substituted on input line 465.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 531.
+(Font)              size <5> substituted on input line 465.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 531.
+(Font)              size <5> substituted on input line 465.
 
-[9]
-<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=327, 578.16pt x 433.62pt>
+[8]
+<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=252, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 581.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 533.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 581--582
+Overfull \hbox (12.0pt too wide) in paragraph at lines 533--534
 [][] 
  []
 
-[10]
-<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=339, 578.16pt x 433.62pt>
+[9]
+<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=269, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-sigma-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 588.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 540.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 588--589
+Overfull \hbox (12.0pt too wide) in paragraph at lines 540--541
 [][] 
  []
 
-[11 <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>]
-<paper_comparison_files/figure-latex/different-dist-1.pdf, id=350, 578.16pt x 433.62pt>
+[10 <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>]
+<paper_comparison_files/figure-latex/different-dist-1.pdf, id=280, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 597.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 549.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 597--598
+Overfull \hbox (12.0pt too wide) in paragraph at lines 549--550
 [][] 
  []
 
-[12 <./paper_comparison_files/figure-latex/different-sigma-1.pdf>]
-<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=363, 578.16pt x 433.62pt>
+[11 <./paper_comparison_files/figure-latex/different-sigma-1.pdf>]
+<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=294, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/example-lineup-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 628.
+Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 580.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[13
+[12
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.643 \begin{align}
-                    \label{eq:heter-model} <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [14
+l.596 -
+       -\textgreater{} <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.643 \begin{align}
-                    \label{eq:heter-model} <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
-<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=388, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 677.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 677--678
-[][] 
- []
-
-[15]
-
-LaTeX Warning: Reference `eq:p-value-multi' on page 16 undefined on input line 705.
-
-
-LaTeX Warning: Reference `eq:p-value-multi' on page 16 undefined on input line 709.
-
-[16 <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>]
-Overfull \hbox (63.72046pt too wide) in paragraph at lines 767--823
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 63.15558pt on input line 823.
-
-<paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf, id=412, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf  used on input line 826.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-LaTeX Warning: Reference `hypothesis-testing' on page 17 undefined on input line 883.
-
-[17] [18
-pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.889 
-      ] [19
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.889 
-       <./paper_comparison_files/figure-latex/demographic-summary-plot-1.pdf>]
-<paper_comparison_files/figure-latex/power-overview-1.pdf, id=447, 578.16pt x 542.025pt>
-File: paper_comparison_files/figure-latex/power-overview-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/power-overview-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/power-overview-1.pdf  used on input line 920.
-(pdftex.def)             Requested size: 408.0pt x 382.49985pt.
-[20] [21
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.936 
-       <./paper_comparison_files/figure-latex/power-overview-1.pdf>]
-<paper_comparison_files/figure-latex/dist-power-1.pdf, id=472, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/dist-power-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/dist-power-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/dist-power-1.pdf  used on input line 938.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/shape-power-1.pdf, id=475, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/shape-power-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/shape-power-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/shape-power-1.pdf  used on input line 954.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf, id=476, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 961.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (226.99922pt too wide) in paragraph at lines 961--962
- \OT1/cmr/bx/it/10.95 5.7.2.2. Rea-sons for mak-ing se-lec-tions.[] [] 
- []
-
-[22
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.964 ...tion{Experiment II}\label{experiment-ii}}
-                                                   <./paper_comparison_files/figure-latex/dist-power-1.pdf>] [23
-pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.964 ...tion{Experiment II}\label{experiment-ii}}
-                                                   <./paper_comparison_files/figure-latex/shape-power-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf, id=511, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf  used on input line 966.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[24 <./paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf, id=523, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf  used on input line 968.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 968--969
-[][] 
- []
-
-<paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf, id=524, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf  used on input line 970.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 970--971
-[][] 
- []
-
-[25 <./paper_comparison_files/figure-latex/unnamed-chunk-16-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-17-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf, id=553, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf  used on input line 972.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 972--973
-[][] 
- []
-
-<paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf, id=554, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf  used on input line 974.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 974--975
-[][] 
- []
-
-[26 <./paper_comparison_files/figure-latex/unnamed-chunk-18-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-19-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 976.
+l.596 -
+       -\textgreater{} <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 596.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <11> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 976.
-(./paper_comparison.bbl [27 <./paper_comparison_files/figure-latex/unnamed-chunk-20-1.pdf>]) [28] (./paper_comparison.aux)
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 596.
+(./paper_comparison.bbl [14]) [15] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -844,21 +704,21 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: AF88C6BBF285E0E2AE3C087630ED22B3;4993.
+(rerunfilecheck)             Checksum: AEDA84F5865FC3E1DBF17BB31A29A2F6;2975.
  ) 
 Here is how much of TeX's memory you used:
- 13399 strings out of 477035
- 219230 string characters out of 5827218
- 572822 words of memory out of 5000000
- 34140 multiletter control sequences out of 15000+600000
- 482359 words of font info for 79 fonts, out of 8000000 for 9000
+ 13195 strings out of 477035
+ 211625 string characters out of 5827218
+ 556624 words of memory out of 5000000
+ 34006 multiletter control sequences out of 15000+600000
+ 482191 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,19n,90p,718b,572s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (28 pages, 6933406 bytes).
+ 85i,19n,90p,718b,588s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on paper_comparison.pdf (15 pages, 1253036 bytes).
 PDF statistics:
- 721 PDF objects out of 1000 (max. 8388607)
- 608 compressed objects within 7 object streams
- 143 named destinations out of 1000 (max. 500000)
- 350 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 433 PDF objects out of 1000 (max. 8388607)
+ 360 compressed objects within 4 object streams
+ 85 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

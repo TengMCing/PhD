@@ -413,20 +413,23 @@ With our knowledge, the effectiveness of visual test relative to the
 equivalent conventional test in regression diagnostics has not been
 validated. Particularly, its ability to detect non-linearity and
 heteroskedasticity compared to model structural test and Breusch--Pagan
-test. Meanwhile, as mentioned in the \ref{introduction}
-\protect\hyperlink{introduction}{introduction} section
-
-For the purpose of investigating the differences between conventional
-hypothesis testing and graphical diagnostics in the application of
-linear regression diagnostics, three experiments were conducted.
+test. Meanwhile, as mentioned in Section \ref{introduction} section, we
+keen to understand the differences between conventional hypothesis
+testing and graphical diagnostics in the application of linear
+regression diagnostics and why conventional tests are not preferred by
+data analysts in linear regression diagnostics. Attempting to find the
+answer to these questions, three experiments were conducted.
 
 The experiment I has ideal scenario for conventional testing, where the
 visual test is not expected to outperform the conventional test. The
 experiment II is a scenario where the conventional test is an
 approximate test, in which the visual test may have a chance to match
-the performance of the conventional test.
+the performance of the conventional test. The experiment III is designed
+for collecting human responses to lineup with only good residual plots
+such that the parameter \(\alpha\) in Equation
+\ref{eq:pvalue-beta-binomial} can be estimated.
 
-Subjects for both experiments were recruited from an crowdsourcing
+Subjects for all three experiments were recruited from an crowdsourcing
 platform called Prolific {[}ref here{]}. Prescreening procedure was
 applied during the recruitment, subjects were required to be fluent in
 English, with \(98\%\) minimum approval rate in other studies and 10
@@ -442,90 +445,21 @@ providing the reason. No subject was shown the same lineup twice.
 Information about preferred pronoun, age group, education, and previous
 experience in visual experiment were also collected.
 
-A pool of 12 different lineups with obvious visual patterns were
-generated for experiment I and experiment II respectively. In every
-block of 20 lineups that presented to a subject, two out of 12 lineups
-were included as attention checks. A subject's submission was only
-accepted if the actual data plot was identified for at least one
-attention check. Data of rejected submissions were discarded
-automatically to maintain the overall data quality.
+In every block of 20 lineups that presented to a subject, two lineups
+with obvious visual patterns were included as attention checks. A
+subject's submission was only accepted if the actual data plot was
+identified for at least one attention check. Data of rejected
+submissions were discarded automatically to maintain the overall data
+quality.
 
-This should be a section that summarizes the background, gives the
-motivation to the experiments, and most importantly reflects on the
-title.
+Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups
+performed by 443 subjects.
 
 \hypertarget{simulating-departures}{%
 \subsection{Simulating departures}\label{simulating-departures}}
 
-\hypertarget{nonlinearity}{%
-\subsubsection{Nonlinearity}\label{nonlinearity}}
-
-\hypertarget{heteroskedasticity}{%
-\subsubsection{Heteroskedasticity}\label{heteroskedasticity}}
-
-\hypertarget{experimental-setup}{%
-\subsection{Experimental setup}\label{experimental-setup}}
-
-\hypertarget{factors}{%
-\subsubsection{Factors}\label{factors}}
-
-\begin{itemize}
-\tightlist
-\item
-  Treatments for nonlinearity experiment (plots summarising levels)
-\item
-  Treatments for heteroskedasticity experiment (plots summarising
-  levels)
-\end{itemize}
-
-\hypertarget{assigning-subjects}{%
-\subsubsection{Assigning subjects}\label{assigning-subjects}}
-
-\hypertarget{collecting-results}{%
-\subsubsection{Collecting results}\label{collecting-results}}
-
-software/technical
-
-\hypertarget{old-stuff}{%
-\section{Old stuff}\label{old-stuff}}
-
-\hypertarget{computing-power-curves}{%
-\subsection{Computing power curves}\label{computing-power-curves}}
-
-For the purpose of examining the effectiveness of visual test in
-regression diagnostics, two experiments were conducted. The experiment I
-has ideal scenario for conventional testing, where the visual test is
-not expected to outperform the conventional test. The experiment II is a
-scenario where the conventional test is an approximate test, in which
-the visual test may have a chance to match the performance of the
-conventional test.
-
-Subjects for both experiments were recruited from an crowdsourcing
-platform called Prolific {[}ref here{]}. Prescreening procedure was
-applied during the recruitment, subjects were required to be fluent in
-English, with \(98\%\) minimum approval rate in other studies and 10
-minimum submissions.
-
-During the experiment, every subject was presented with a block of 20
-lineups. And for every lineup, the subject was asked to select one or
-more plots that are most different from others, provide a reason for
-their selections, and evaluate how different they think the selected
-plots were from others. If there was no noticeable difference between
-plots in a lineup, subjects were permitted to select zero plots without
-providing the reason. No subject was shown the same lineup twice.
-Information about preferred pronoun, age group, education, and previous
-experience in visual experiment were also collected.
-
-A pool of 12 different lineups with obvious visual patterns were
-generated for experiment I and experiment II respectively. In every
-block of 20 lineups that presented to a subject, two out of 12 lineups
-were included as attention checks. A subject's submission was only
-accepted if the actual data plot was identified for at least one
-attention check. Data of rejected submissions were discarded
-automatically to maintain the overall data quality.
-
 \hypertarget{non-linearity}{%
-\subsection{Non-linearity}\label{non-linearity}}
+\subsubsection{Non-linearity}\label{non-linearity}}
 
 Experiment I is designed to study the ability of human subjects to
 detect the effect of a random vector \(\boldsymbol{z}\) which is a
@@ -562,8 +496,26 @@ above model is formulated as:
 where
 \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
 
-Model misspecification presents since the null model leaves out the
-higher order term.
+Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
+out by the null regression causing model misspecification.
+
+\hypertarget{heteroskedasticity}{%
+\subsubsection{Heteroskedasticity}\label{heteroskedasticity}}
+
+\hypertarget{experimental-setup}{%
+\subsection{Experimental setup}\label{experimental-setup}}
+
+\hypertarget{factors}{%
+\subsubsection{Factors}\label{factors}}
+
+\begin{itemize}
+\tightlist
+\item
+  Treatments for nonlinearity experiment (plots summarising levels)
+\item
+  Treatments for heteroskedasticity experiment (plots summarising
+  levels)
+\end{itemize}
 
 Experiment data were simulated using four different order of
 probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)), three different
@@ -633,345 +585,17 @@ subjects to provide reasonable estimates of the visual p-value. Thus,
 \(192 \times 3 \times 5 / (20 - 2) = 160\) subjects were recruited to
 satisfy the design of the experiment I.
 
-\hypertarget{heteroskedasticity-1}{%
-\subsection{Heteroskedasticity}\label{heteroskedasticity-1}}
+\hypertarget{assigning-subjects}{%
+\subsubsection{Assigning subjects}\label{assigning-subjects}}
 
-Experiment II is designed to study the ability of human subjects to
-detect the appearance of a heteroskedasticity pattern under a simple
-linear regression model setting:
+\hypertarget{collecting-results}{%
+\subsubsection{Collecting results}\label{collecting-results}}
 
-\begin{align} \label{eq:heter-model}
-\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
-\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
-\end{align}
+software/technical
 
-where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
-\(\boldsymbol{\varepsilon}\) are vector of size \(n\).
+--\textgreater{}
 
-The null regression model used to fit the realizations generated by the
-above model is formulated exactly the same as the model used in the
-first experiment:
-
-\begin{equation} 
-\boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
-\end{equation}
-
-where
-\(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
-
-Model misspecification presents since the assumption about the constant
-error variance is violated.
-
-Experiment data were simulated using three different shapes (\(a\) = -1,
-0, 1), five different values of \(b\) (b = 0.25, 1, 4, 16, 64), three
-different sample sizes (n = 50, 100, 300) and four different
-distribution of \(X_{raw}\): (1) \(U(-1, 1)\), (2) \(N(0, 0.3^2)\), (3)
-\(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A summary of the
-parameters used in this experiment is given in Table
-\ref{tab:parameter-table}.
-
-The values of \(a\) was chosen so that different shapes of
-heteroskedasticity were included in the residual plot. These include
-triangle shape, butterfly shape and inverse triangle shape.
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-heter-1}
-
-The range of \(b\), which is a factor controlling the strength of the
-signal, was chosen so that different difficulty levels of lineups were
-generated, and therefore, the estimated power curve would be smooth and
-continuous.
-
-\hypertarget{analysis-and-results}{%
-\section{Analysis and results}\label{analysis-and-results}}
-
-\hypertarget{data-overview}{%
-\subsection{Data overview}\label{data-overview}}
-
-How many people? How many lineups?
-
-Subjects recruited from Prolific received a fixed payment for
-participating in the experiment. However, some subjects will try to
-maximize their earnings for minimum effort. During the review of
-submissions, if we found a subject objectively demonstrated clear
-low-effort throughout the experiment, i.e., failed all attention checks,
-we rejected the submission. The rejected submissions will be removed
-immediately, and Prolific will automatically recruit another subject as
-substitution. Therefore, we only paid for approved submissions and no
-further data screening procedure needed to be applied on the collected
-data.
-
-A subject was allowed to select zero plots for a lineup if there was no
-visible difference between plots, but the simulated visual p-value given
-in Equation (\ref{eq:p-value-multi}) will effectively drop the subject
-from the simulation for this case, leading to inaccurate estimation of
-\(p\)-value. Therefore, we treated this case as making one selection but
-failing to identify the actual data plot so that Equation
-(\ref{eq:p-value-multi}) can be applied correctly.
-
-In overall, there were a total of 3200 lineup evaluations made by 160
-subjects in both experiment I and experiment II respectively, where 320
-lineup evaluations were attention checks and were not used in the
-following analysis.
-
-The collated dataset is provided in \texttt{polynomials} and
-\texttt{heter} of the \texttt{visage} \texttt{R} package.
-
-\hypertarget{section}{%
-\subsection{}\label{section}}
-
-\hypertarget{nonlinearity-1}{%
-\subsection{Nonlinearity}\label{nonlinearity-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  Power curve overall
-\item
-  Four lineups also shown, selected from ones close to the visual power
-  curve from the uniform treatment
-\item
-  Compare visual power against different factors
-\end{itemize}
-
-\hypertarget{heteroskedasticity-2}{%
-\subsection{Heteroskedasticity}\label{heteroskedasticity-2}}
-
-\begin{itemize}
-\tightlist
-\item
-  Power curve overall
-\item
-  Four lineups also shown, selected from ones close to the visual power
-  curve from the uniform treatment
-\item
-  Compare visual power against different factors
-\end{itemize}
-
-\hypertarget{demographic-summary}{%
-\subsection{Demographic summary}\label{demographic-summary}}
-
-Table \ref{tab:demographic-table} tabulates the number of subjects,
-preferred pronouns, education backgrounds, age groups, and previous
-experience in visual experiment. Figure
-\ref{fig:demographic-summary-plot} visualizes the marginal distribution
-of each of the category. The collated data was a balanced sample among
-male and female. Most of the ages of subject were between 18 to 39,
-while many of them were between 18 to 24. Very few subjects were awarded
-degree higher than Bachelor Degree. Around 40\% of subjects had previous
-experience in visual experiment.
-
-\begin{table}
-
-\caption{\label{tab:demographic-table}Summary of demographic information}
-\centering
-\begin{tabular}[t]{llllr}
-\toprule
-Preferred pronoun & Education & Age group & Previous experience & Subject\\
-\midrule
-She & Diploma and Bachelor Degree & 18-24 & Yes & 26\\
-She & Diploma and Bachelor Degree & 18-24 & No & 24\\
-He & Diploma and Bachelor Degree & 18-24 & No & 22\\
-He & High School or below & 18-24 & No & 22\\
-She & Diploma and Bachelor Degree & 25-39 & No & 21\\
-He & Diploma and Bachelor Degree & 18-24 & Yes & 19\\
-He & Diploma and Bachelor Degree & 25-39 & No & 19\\
-She & High School or below & 18-24 & No & 19\\
-He & High School or below & 18-24 & Yes & 15\\
-She & Diploma and Bachelor Degree & 25-39 & Yes & 15\\
-He & Diploma and Bachelor Degree & 25-39 & Yes & 12\\
-She & High School or below & 18-24 & Yes & 10\\
-He & Masters Degree & 25-39 & No & 8\\
-He & Masters Degree & 25-39 & Yes & 8\\
-He & High School or below & 25-39 & No & 7\\
-She & Masters Degree & 25-39 & Yes & 7\\
-She & High School or below & 25-39 & No & 6\\
-He & High School or below & 25-39 & Yes & 5\\
-She & Honours Degree & 25-39 & No & 5\\
-She & Honours Degree & 25-39 & Yes & 4\\
-She & Masters Degree & 25-39 & No & 4\\
-He & Honours Degree & 25-39 & Yes & 3\\
-She & Honours Degree & 18-24 & No & 3\\
-He & Diploma and Bachelor Degree & 40-54 & Yes & 2\\
-He & Diploma and Bachelor Degree & 55-64 & No & 2\\
-He & Honours Degree & 25-39 & No & 2\\
-He & Masters Degree & 40-54 & No & 2\\
-She & Diploma and Bachelor Degree & 40-54 & No & 2\\
-She & High School or below & 25-39 & Yes & 2\\
-She & Masters Degree & 18-24 & No & 2\\
-They & Diploma and Bachelor Degree & 18-24 & No & 2\\
-They & Diploma and Bachelor Degree & 25-39 & No & 2\\
-He & Diploma and Bachelor Degree & 40-54 & No & 1\\
-He & High School or below & 40-54 & Yes & 1\\
-He & High School or below & 55-64 & No & 1\\
-He & Honours Degree & 18-24 & No & 1\\
-He & Honours Degree & 18-24 & Yes & 1\\
-He & Honours Degree & 40-54 & Yes & 1\\
-He & Masters Degree & 40-54 & Yes & 1\\
-He & Masters Degree & 55-64 & No & 1\\
-Other & Diploma and Bachelor Degree & 18-24 & No & 1\\
-Other & High School or below & 25-39 & No & 1\\
-She & Diploma and Bachelor Degree & 40-54 & Yes & 1\\
-She & High School or below & 40-54 & No & 1\\
-She & High School or below & 55-64 & Yes & 1\\
-She & Honours Degree & 40-54 & Yes & 1\\
-She & Masters Degree & 40-54 & No & 1\\
-They & High School or below & 18-24 & No & 1\\
-They & High School or below & 18-24 & Yes & 1\\
-They & High School or below & 25-39 & No & 1\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/demographic-summary-plot-1} \caption{Summary of demographic information. \label{fig:demographic-summary-plot}}\label{fig:demographic-summary-plot}
-\end{figure}
-
-\hypertarget{model-fitting}{%
-\subsection{Model fitting}\label{model-fitting}}
-
-For each parameter combination, effect \(E\) is derived from the
-Kullback-Leibler divergence (see {[}appendix ref here{]}) formulated as:
-
-\begin{equation} \label{eq:effect-size-ex1}
-E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
-\end{equation}
-
-where \(diag(.)\) is the diagonal matrix constructed from the diagonal
-elements of \(\boldsymbol{R}_a\).
-
-The logistic regression is fit using \(log_e(E)\) as the only fixed
-effect covariate for the power of visual test formulated as:
-
-\begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
-\end{equation}
-
-where \(\Lambda(.)\) is the standard logistic function given as
-\(\Lambda(z) = exp(z)/(1+exp(z))\).
-
-To study various factors contributing to the power of the visual test,
-the same logistic regression model is fit on different subsets of the
-collated data grouped by levels of factors. This includes
-{[}expansion{]}.
-
-Table {[}table ref here{]} shows the parameter estimates of the logistic
-regressions. {[}Discussion about the numeric estimates here{]}
-
-\hypertarget{power-comparison}{%
-\subsection{Power comparison}\label{power-comparison}}
-
-\hypertarget{experiment-i}{%
-\subsubsection{Experiment I}\label{experiment-i}}
-
-Figure \ref{fig:power-overview} shows an overview of estimated power of
-visual test against natural logarithm of the effect with comparison to
-the power of an exact test - F-test, and the power of two other
-residual-based conventional tests commonly used in regression
-diagnostics but for testing other departures from the model assumptions.
-In overall, the power of all four tests increases as the effect becomes
-larger. The power curve of F-test climbs aggressively from 25\% to
-around 90\% as \(log_e(E)\) increases from 0 to 2, while others respond
-inactively to the change of effect and remain lower than 25\% throughout
-the period, showing that as an exact test, the F-test is relatively more
-sensitive to the type of model defects that being considered. The power
-of visual test arises steadily and nearly linearly to around 90\% as
-\(log_e(E)\) increases from 2 to 5, suggesting that the effect starts to
-make noticeable impact on the degree of the presence of the designed
-visual features. Other two inappropriate conventional tests shows
-improvement at the same time but at a lower rate. This coincides the
-point made by \citet{cook1982residuals} mentioned in
-\ref{hypothesis-testing} that residual-based tests for a specific type
-of model defect are sensitive to other types of model defects. At
-\(log_e(E) = 6\), the power curve of F-test reaches almost 100\%
-followed by the visual test by a small margin. The power of
-Breusch--Pagan test and Shapiro--Wilk test reach around 75\% and 63\%
-respectively.
-
-What truly impress us is the huge difference between the estimated power
-of visual test and the estimated power of F-test. The margin is largest
-at around \(log_e(E) = 2\). An example lineup is included in Figure
-\ref{fig:power-overview} where none of subjects detect the actual data
-plot positioned at panel 14. It demonstrates that at this level of
-difficulty, the designed visual feature is rarely visible, making the
-actual data plot indistinguishable from residual plots simulated from
-the assumed model. From a communication perspective, given the fact that
-the visual difference is unperceivable, the argument that non-linearity
-present in the fitted model is less convincing to the public even though
-it is true. At around \(log_e(E) = 3\), the margin gets smaller as the
-chance of identifying the actual data plot becomes larger. At this level
-of difficulty, the designed visual features are usually detectable but
-it may not stand out from the lineup as other null plots may happen to
-include outliers or visual patterns that are are considered to be more
-attractive by human, and thus recognized as the most different plot.
-Without knowing the designed visual features beforehand, it is actually
-hard to identify the actual data plot by pure image comparison. The
-corresponding example lineup for \(log_e(E) = 3\) shown in Figure
-\ref{fig:power-overview} has the actual data plot positioned at panel
-20, where two out of five subjects detect it. It can be observed that a
-M-shape is presented in plot 20, but the signal is not strong enough to
-attract all five subjects, resulting in a visual p-value sightly above
-the desired significance level \(\alpha = 0.05\). At \(log_e(E) = 4\)
-and \(log_e(E) = 6\), the designed visual features become much clear and
-attractive, leading to a high percentage of rejection of the null
-hypothesis. Figure \ref{fig:power-overview} gives example lineups of
-such cases.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/power-overview-1} \caption{Power overview. \label{fig:power-overview}}\label{fig:power-overview}
-\end{figure}
-
-\hypertarget{distributions-of-regressor}{%
-\subsubsection{Distributions of
-regressor}\label{distributions-of-regressor}}
-
-The impact of the distribution of \(X_raw\) on the power is shown in
-Figure \ref{fig:dist-power}. The power curve of F-test is stable across
-different distributions, while the visual test has a steeper power curve
-for normal and uniform distribution. BP-test performs worse for discrete
-uniform distribution and uniform distribution but has relatively high
-power for normal distribution. SW-test outperforms BP-test for discrete
-uniform distribution but remains as the worst test for other
-distributions. The results indicate those inappropriate residual-based
-tests are sensitive to the distribution of the regressor.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} \caption{\label{dist-power}}\label{fig:dist-power}
-\end{figure}
-
-\hypertarget{shpaes-of-non-linearity}{%
-\paragraph{Shpaes of non-linearity}\label{shpaes-of-non-linearity}}
-
-Figure \ref{fig:shape-power} illustrates the change of power under
-different shape of non-linearity. Similar to the power curves shown in
-\ref{fig:dist-power}, F-test is stable under different shapes. The power
-curve of visual test also behaves similarly across different shapes.
-What vary are the power curve of BP-test and SW-test. For Triple-U
-shape, both BP-test and SW-test are insensitive to the change of the
-effect. And for W shape, both tests have almost identical power curves.
-It can be observed that both tests performs the best for U-shape.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/shape-power-1} \caption{\label{shape-power}}\label{fig:shape-power}
-\end{figure}
-
-\hypertarget{reasons-for-making-selections}{%
-\paragraph{Reasons for making
-selections}\label{reasons-for-making-selections}}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-1}
-
-\hypertarget{experiment-ii}{%
-\subsubsection{Experiment II}\label{experiment-ii}}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-16-1}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-17-1}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-18-1}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-19-1}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-20-1}
+--\textgreater{}
 
 --\textgreater{}
 

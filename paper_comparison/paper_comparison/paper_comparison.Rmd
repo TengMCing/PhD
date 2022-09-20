@@ -485,61 +485,31 @@ cm$plot() +
 
 ## Motivation and overview
 
-With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} [introduction] section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. 
+With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. 
 
-The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test.
+The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to lineup with only good residual plots such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated.  
 
-Subjects for both experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions.
+Subjects for all three experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions.
 
 During the experiment, every subject was presented with a block of 20 lineups. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected.
 
-A pool of 12 different lineups with obvious visual patterns were generated for experiment I and experiment II respectively. In every block of 20 lineups that presented to a subject, two out of 12 lineups were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
+In every block of 20 lineups that presented to a subject, two lineups with obvious visual patterns were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
 
-This should be a section that summarizes the background, gives the motivation to the experiments, and most importantly reflects on the title.
+Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups performed by 443 subjects. 
 
 ## Simulating departures
 
-### Nonlinearity
-
-### Heteroskedasticity
-
-## Experimental setup
-
-### Factors
-
--   Treatments for nonlinearity experiment (plots summarising levels)
--   Treatments for heteroskedasticity experiment (plots summarising levels)
-
-### Assigning subjects
-
-### Collecting results
-
-software/technical
-
-# Old stuff
-
-## Computing power curves
-
-For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test.
-
-Subjects for both experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions.
-
-During the experiment, every subject was presented with a block of 20 lineups. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected.
-
-A pool of 12 different lineups with obvious visual patterns were generated for experiment I and experiment II respectively. In every block of 20 lineups that presented to a subject, two out of 12 lineups were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
-
-## Non-linearity
+### Non-linearity
 
 Experiment I is designed to study the ability of human subjects to detect the effect of a random vector $\boldsymbol{z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another random vector $\boldsymbol{x}$ in a two variable statistical model formulated as:
 
-```{=tex}
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
 \boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1), \\
 \boldsymbol{z} = g(\boldsymbol{z}_{raw}, 1), \\
 \boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)),
 \end{align}
-```
+
 where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vector of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as
 
 ```{=tex}
@@ -547,6 +517,7 @@ where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymb
 g(\boldsymbol{x}, k) = (\boldsymbol{x} - min(\boldsymbol{x}))/max(\boldsymbol{x} - min(\boldsymbol{x})) \times 2k - k, \quad \text{for} \quad k > 0. 
 \end{equation}
 ```
+
 The null regression model used to fit the realizations generated by the above model is formulated as:
 
 ```{=tex}
@@ -556,7 +527,17 @@ The null regression model used to fit the realizations generated by the above mo
 ```
 where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
-Model misspecification presents since the null model leaves out the higher order term.
+Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the null regression causing model misspecification.
+
+
+### Heteroskedasticity
+
+## Experimental setup
+
+### Factors
+
+-   Treatments for nonlinearity experiment (plots summarising levels)
+-   Treatments for heteroskedasticity experiment (plots summarising levels)
 
 Experiment data were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$), three different sample sizes (n = 50, 100, 300) , four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
 
@@ -669,486 +650,647 @@ VI_MODEL$plot_lineup(polynomials_lineup[[23]]$data,
 
 In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I.
 
-## Heteroskedasticity
 
-Experiment II is designed to study the ability of human subjects to detect the appearance of a heteroskedasticity pattern under a simple linear regression model setting:
 
-```{=tex}
-\begin{align} \label{eq:heter-model}
-\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
-\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
-\end{align}
-```
-where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vector of size $n$.
+### Assigning subjects
 
-The null regression model used to fit the realizations generated by the above model is formulated exactly the same as the model used in the first experiment:
+### Collecting results
 
-```{=tex}
-\begin{equation} 
-\boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
-\end{equation}
-```
-where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
+software/technical
 
-Model misspecification presents since the assumption about the constant error variance is violated.
+<!-- # Old stuff -->
 
-Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
+<!-- ## Computing power curves -->
 
-The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include triangle shape, butterfly shape and inverse triangle shape.
+<!-- For the purpose of examining the effectiveness of visual test in regression diagnostics, two experiments were conducted. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. -->
 
-```{r different-shape-of-heter}
-stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+<!-- Subjects for both experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions. -->
 
-ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300)
+<!-- During the experiment, every subject was presented with a block of 20 lineups. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. -->
 
-VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote("Triangle shape")) + 
-  theme_light() -> p1
+<!-- A pool of 12 different lineups with obvious visual patterns were generated for experiment I and experiment II respectively. In every block of 20 lineups that presented to a subject, two out of 12 lineups were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality. -->
 
-VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("Butterfly shape")) + 
-  theme_light() -> p2
+<!-- ## Non-linearity -->
 
-VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("Inverse triangle shape")) + 
-  theme_light() -> p3
+<!-- Experiment I is designed to study the ability of human subjects to detect the effect of a random vector $\boldsymbol{z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another random vector $\boldsymbol{x}$ in a two variable statistical model formulated as: -->
 
-patchwork::wrap_plots(p1, p2, p3, ncol = 3)
-```
+<!-- ```{=tex} -->
+<!-- \begin{align} \label{eq:nonlinearity-model} -->
+<!-- \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\ -->
+<!-- \boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1), \\ -->
+<!-- \boldsymbol{z} = g(\boldsymbol{z}_{raw}, 1), \\ -->
+<!-- \boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)), -->
+<!-- \end{align} -->
+<!-- ``` -->
+<!-- where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vector of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as -->
 
-The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous.
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:scaling-function} -->
+<!-- g(\boldsymbol{x}, k) = (\boldsymbol{x} - min(\boldsymbol{x}))/max(\boldsymbol{x} - min(\boldsymbol{x})) \times 2k - k, \quad \text{for} \quad k > 0.  -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- The null regression model used to fit the realizations generated by the above model is formulated as: -->
 
-# Analysis and results
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:scaling-function} -->
+<!-- \boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u}, -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$. -->
 
-## Data overview
+<!-- Model misspecification presents since the null model leaves out the higher order term. -->
 
-How many people? How many lineups?
+<!-- Experiment data were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$), three different sample sizes (n = 50, 100, 300) , four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
 
-Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, i.e., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
+<!-- The values of $j$ was chosen so that different shapes of non-linearity were included in the residual plot. These include "U" shape, "S" shape, "M" shape and "Triple-U" shape. -->
 
-A subject was allowed to select zero plots for a lineup if there was no visible difference between plots, but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly.
+<!-- ```{r different-shape-of-herimite} -->
+<!-- stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1 -->
 
-In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis.
+<!-- ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300) -->
 
-The collated dataset is provided in `polynomials` and `heter` of the `visage` `R` package.
+<!-- VI_MODEL$plot(ori_dat) +  -->
+<!--   ggtitle(quote(He[2]:"U shape")) +  -->
+<!--   theme_light() -> p1 -->
 
-## 
+<!-- VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) + -->
+<!--   ggtitle(quote(He[3]:"S shape")) +  -->
+<!--   theme_light() -> p2 -->
 
-## Nonlinearity
+<!-- VI_MODEL$plot(poly_model(shape = 3, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) + -->
+<!--   ggtitle(quote(He[6]:"M shape")) +  -->
+<!--   theme_light() -> p3 -->
 
--   Power curve overall
--   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
--   Compare visual power against different factors
+<!-- VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) + -->
+<!--   ggtitle(quote(He[18]:"Triple-U shape")) +  -->
+<!--   theme_light() -> p4 -->
 
-## Heteroskedasticity
+<!-- patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2) -->
+<!-- ``` -->
 
--   Power curve overall
--   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment
--   Compare visual power against different factors
+<!-- The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. -->
 
-## Demographic summary
+<!-- ```{r different-sigma} -->
+<!-- ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300) -->
 
-Table \ref{tab:demographic-table} tabulates the number of subjects, preferred pronouns, education backgrounds, age groups, and previous experience in visual experiment. Figure \ref{fig:demographic-summary-plot} visualizes the marginal distribution of each of the category. The collated data was a balanced sample among male and female. Most of the ages of subject were between 18 to 39, while many of them were between 18 to 24. Very few subjects were awarded degree higher than Bachelor Degree. Around 40% of subjects had previous experience in visual experiment.
+<!-- VI_MODEL$plot(ori_dat) +  -->
+<!--   ggtitle(quote(sigma~"="~0.5)) +  -->
+<!--   theme_light() -> p1 -->
 
-```{r results="asis"}
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1)$gen(300, computed = select(ori_dat, x))) + -->
+<!--   ggtitle(quote(sigma~"="~1)) +  -->
+<!--   theme_light() -> p2 -->
 
-polynomials %>%
-  mutate(exp = 1) %>%
-  bind_rows(mutate(heter, exp = 2)) %>%
-  group_by(exp, set) %>%
-  slice_sample(n = 1) %>%
-  ungroup() %>%
-  count(pronoun, education, age_group, previous_experience) %>%
-  arrange(desc(n)) %>%
-  knitr::kable(col.names = c("Preferred pronoun", "Education", "Age group", "Previous experience", "Subject"),
-               escape = FALSE,
-               format = "latex",
-               linesep = "",
-               booktabs = TRUE, 
-               caption  = 'Summary of demographic information', 
-               label = "demographic-table" ) %>%
-  cat()
-```
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 2)$gen(300, computed = select(ori_dat, x))) + -->
+<!--   ggtitle(quote(sigma~"="~2)) +  -->
+<!--   theme_light() -> p3 -->
 
-```{r demographic-summary-plot, fig.cap="Summary of demographic information. \\label{fig:demographic-summary-plot}"}
-polynomials %>%
-  mutate(exp = 1) %>%
-  bind_rows(mutate(heter, exp = 2)) %>%
-  group_by(exp, set) %>%
-  summarise(across(age_group:previous_experience, first)) %>%
-  mutate(education = fct_relevel(education, "High School or below")) %>%
-  ggplot() +
-  geom_bar(aes(y = education), orientation = "y") -> education_plot
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 4)$gen(300, computed = select(ori_dat, x))) + -->
+<!--   ggtitle(quote(sigma~"="~4)) +  -->
+<!--   theme_light() -> p4 -->
 
-polynomials %>%
-  mutate(exp = 1) %>%
-  bind_rows(mutate(heter, exp = 2)) %>%
-  group_by(exp, set) %>%
-  summarise(across(age_group:previous_experience, first)) %>%
-  ggplot() +
-  geom_bar(aes(age_group)) -> age_plot
+<!-- patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2) -->
+<!-- ``` -->
 
-polynomials %>%
-  mutate(exp = 1) %>%
-  bind_rows(mutate(heter, exp = 2)) %>%
-  group_by(exp, set) %>%
-  summarise(across(age_group:previous_experience, first)) %>%
-  mutate(pronoun = fct_relevel(pronoun, "He", "She", "They")) %>%
-  ggplot() +
-  geom_bar(aes(pronoun)) -> gender_plot
+<!-- Four different distribution were used to generate $X_{raw}$. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns. -->
 
-polynomials %>%
-  mutate(exp = 1) %>%
-  bind_rows(mutate(heter, exp = 2)) %>%
-  group_by(exp, set) %>%
-  summarise(across(age_group:previous_experience, first)) %>%
-  ggplot() +
-  geom_bar(aes(previous_experience)) -> experience_plot
+<!-- ```{r different-dist} -->
+<!-- ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300) -->
 
-patchwork::wrap_plots(education_plot, age_plot, gender_plot, experience_plot)
-```
+<!-- VI_MODEL$plot(ori_dat) +  -->
+<!--   ggtitle(quote(U(-1,1))) +  -->
+<!--   theme_light() -> p1 -->
 
-## Model fitting
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) + -->
+<!--   ggtitle(quote(N(0,0.3^2))) +  -->
+<!--   theme_light() -> p2 -->
 
-For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (see [appendix ref here]) formulated as:
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) + -->
+<!--   ggtitle(quote(lognormal(0,0.6^2)/3)) +  -->
+<!--   theme_light() -> p3 -->
 
-```{=tex}
-\begin{equation} \label{eq:effect-size-ex1}
-E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
-\end{equation}
-```
-where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$.
+<!-- VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigma = 0.5)$gen(300, computed = select(ori_dat, e))) + -->
+<!--   ggtitle(quote(U~"{1,5}")) +  -->
+<!--   theme_light() -> p4 -->
 
-The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as:
+<!-- patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2) -->
+<!-- ``` -->
 
-```{=tex}
-\begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
-\end{equation}
-```
-where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
+<!-- Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in 192 different lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. Figure \ref{fig:example-lineup} is an example of one of these lineups. It was produced by using $n = 300$, $j = 6$, $\sigma = 0.5$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup. -->
 
-To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. This includes [expansion].
+<!-- ```{r results='asis'} -->
+<!-- data.frame(n = c(50, 100, 300, ""), -->
+<!--            j = c(2, 3, 6, 18), -->
+<!--            sigma = c(0.5, 1, 2, 4), -->
+<!--            x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$")) %>% -->
+<!--   knitr::kable(col.names = NULL, -->
+<!--                escape = FALSE, -->
+<!--                format = "latex", -->
+<!--                booktabs = TRUE,  -->
+<!--                caption  = 'Parameter values for $n$, $j$ $\\sigma$, $X_{raw}$',  -->
+<!--                label = "parameter-table" ) %>% -->
+<!--   kableExtra::add_header_above(c("Sample size\n(sym3)", "Order of Hermite polynomial\n(sym1)", "Error SD\n(sym2)", "Distribution of sym4\n")) %>% -->
+<!--   as.character() %>% -->
+<!--   gsub("sym1", "$j$", .) %>% -->
+<!--   gsub("sym2", "$\\\\sigma$", .) %>% -->
+<!--   gsub("sym3", "$n$", .) %>% -->
+<!--   gsub("sym4", "$X_{raw}$", .) %>% -->
+<!--   cat() -->
+<!--   # gsub("\\\\\\$", "$", .) %>% -->
+<!--   # cat() -->
+<!-- ``` -->
 
-Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here]
+<!-- ```{r example-lineup, fig.cap="Example lineup \\label{fig:example-lineup}"} -->
+<!-- VI_MODEL$plot_lineup(polynomials_lineup[[23]]$data,  -->
+<!--                      remove_grid_line = TRUE,  -->
+<!--                      theme = theme_light(), -->
+<!--                      remove_axis = TRUE) -->
+<!-- ``` -->
 
-## Power comparison
+<!-- <!-- It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value. --> -->
 
-### Experiment I
+<!-- In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I. -->
 
-Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 63% respectively.
+<!-- ## Heteroskedasticity -->
 
-What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:power-overview} has the actual data plot positioned at panel 20, where two out of five subjects detect it. It can be observed that a M-shape is presented in plot 20, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and $log_e(E) = 6$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:power-overview} gives example lineups of such cases.
+<!-- Experiment II is designed to study the ability of human subjects to detect the appearance of a heteroskedasticity pattern under a simple linear regression model setting: -->
+
+<!-- ```{=tex} -->
+<!-- \begin{align} \label{eq:heter-model} -->
+<!-- \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\ -->
+<!-- \boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\ -->
+<!-- \end{align} -->
+<!-- ``` -->
+<!-- where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vector of size $n$. -->
+
+<!-- The null regression model used to fit the realizations generated by the above model is formulated exactly the same as the model used in the first experiment: -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation}  -->
+<!-- \boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u}, -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$. -->
+
+<!-- Model misspecification presents since the assumption about the constant error variance is violated. -->
+
+<!-- Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
+
+<!-- The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include triangle shape, butterfly shape and inverse triangle shape. -->
+
+<!-- ```{r different-shape-of-heter} -->
+<!-- stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1 -->
+
+<!-- ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300) -->
+
+<!-- VI_MODEL$plot(ori_dat) +  -->
+<!--   ggtitle(quote("Triangle shape")) +  -->
+<!--   theme_light() -> p1 -->
+
+<!-- VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) + -->
+<!--   ggtitle(quote("Butterfly shape")) +  -->
+<!--   theme_light() -> p2 -->
+
+<!-- VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) + -->
+<!--   ggtitle(quote("Inverse triangle shape")) +  -->
+<!--   theme_light() -> p3 -->
+
+<!-- patchwork::wrap_plots(p1, p2, p3, ncol = 3) -->
+<!-- ``` -->
+
+<!-- The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. -->
+
+<!-- # Analysis and results -->
+
+<!-- ## Data overview -->
+
+<!-- How many people? How many lineups? -->
+
+<!-- Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, i.e., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data. -->
+
+<!-- A subject was allowed to select zero plots for a lineup if there was no visible difference between plots, but the simulated visual p-value given in Equation (\ref{eq:p-value-multi}) will effectively drop the subject from the simulation for this case, leading to inaccurate estimation of $p$-value. Therefore, we treated this case as making one selection but failing to identify the actual data plot so that Equation (\ref{eq:p-value-multi}) can be applied correctly. -->
+
+<!-- In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis. -->
+
+<!-- The collated dataset is provided in `polynomials` and `heter` of the `visage` `R` package. -->
+
+<!-- ##  -->
+
+<!-- ## Nonlinearity -->
+
+<!-- -   Power curve overall -->
+<!-- -   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment -->
+<!-- -   Compare visual power against different factors -->
+
+<!-- ## Heteroskedasticity -->
+
+<!-- -   Power curve overall -->
+<!-- -   Four lineups also shown, selected from ones close to the visual power curve from the uniform treatment -->
+<!-- -   Compare visual power against different factors -->
+
+<!-- ## Demographic summary -->
+
+<!-- Table \ref{tab:demographic-table} tabulates the number of subjects, preferred pronouns, education backgrounds, age groups, and previous experience in visual experiment. Figure \ref{fig:demographic-summary-plot} visualizes the marginal distribution of each of the category. The collated data was a balanced sample among male and female. Most of the ages of subject were between 18 to 39, while many of them were between 18 to 24. Very few subjects were awarded degree higher than Bachelor Degree. Around 40% of subjects had previous experience in visual experiment. -->
+
+<!-- ```{r results="asis"} -->
+
+<!-- polynomials %>% -->
+<!--   mutate(exp = 1) %>% -->
+<!--   bind_rows(mutate(heter, exp = 2)) %>% -->
+<!--   group_by(exp, set) %>% -->
+<!--   slice_sample(n = 1) %>% -->
+<!--   ungroup() %>% -->
+<!--   count(pronoun, education, age_group, previous_experience) %>% -->
+<!--   arrange(desc(n)) %>% -->
+<!--   knitr::kable(col.names = c("Preferred pronoun", "Education", "Age group", "Previous experience", "Subject"), -->
+<!--                escape = FALSE, -->
+<!--                format = "latex", -->
+<!--                linesep = "", -->
+<!--                booktabs = TRUE,  -->
+<!--                caption  = 'Summary of demographic information',  -->
+<!--                label = "demographic-table" ) %>% -->
+<!--   cat() -->
+<!-- ``` -->
+
+<!-- ```{r demographic-summary-plot, fig.cap="Summary of demographic information. \\label{fig:demographic-summary-plot}"} -->
+<!-- polynomials %>% -->
+<!--   mutate(exp = 1) %>% -->
+<!--   bind_rows(mutate(heter, exp = 2)) %>% -->
+<!--   group_by(exp, set) %>% -->
+<!--   summarise(across(age_group:previous_experience, first)) %>% -->
+<!--   mutate(education = fct_relevel(education, "High School or below")) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(y = education), orientation = "y") -> education_plot -->
+
+<!-- polynomials %>% -->
+<!--   mutate(exp = 1) %>% -->
+<!--   bind_rows(mutate(heter, exp = 2)) %>% -->
+<!--   group_by(exp, set) %>% -->
+<!--   summarise(across(age_group:previous_experience, first)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(age_group)) -> age_plot -->
+
+<!-- polynomials %>% -->
+<!--   mutate(exp = 1) %>% -->
+<!--   bind_rows(mutate(heter, exp = 2)) %>% -->
+<!--   group_by(exp, set) %>% -->
+<!--   summarise(across(age_group:previous_experience, first)) %>% -->
+<!--   mutate(pronoun = fct_relevel(pronoun, "He", "She", "They")) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(pronoun)) -> gender_plot -->
+
+<!-- polynomials %>% -->
+<!--   mutate(exp = 1) %>% -->
+<!--   bind_rows(mutate(heter, exp = 2)) %>% -->
+<!--   group_by(exp, set) %>% -->
+<!--   summarise(across(age_group:previous_experience, first)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(previous_experience)) -> experience_plot -->
+
+<!-- patchwork::wrap_plots(education_plot, age_plot, gender_plot, experience_plot) -->
+<!-- ``` -->
+
+<!-- ## Model fitting -->
+
+<!-- For each parameter combination, effect $E$ is derived from the Kullback-Leibler divergence (see [appendix ref here]) formulated as: -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:effect-size-ex1} -->
+<!-- E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b, -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of $\boldsymbol{R}_a$. -->
+
+<!-- The logistic regression is fit using $log_e(E)$ as the only fixed effect covariate for the power of visual test formulated as: -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:logistic-regression-1-1} -->
+<!-- Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})), -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. -->
+
+<!-- To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. This includes [expansion]. -->
+
+<!-- Table [table ref here] shows the parameter estimates of the logistic regressions. [Discussion about the numeric estimates here] -->
+
+<!-- ## Power comparison -->
+
+<!-- ### Experiment I -->
+
+<!-- Figure \ref{fig:power-overview} shows an overview of estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 63% respectively. -->
+
+<!-- What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:power-overview} has the actual data plot positioned at panel 20, where two out of five subjects detect it. It can be observed that a M-shape is presented in plot 20, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and $log_e(E) = 6$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:power-overview} gives example lineups of such cases. -->
 
 <!-- It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible   -->
 
-```{r}
-conv_test_plot <- function() {
-  conv_result %>%
-  ggplot() +
-  stat_smooth(geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "F-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(geom = "line", 
-              aes(log(effect_size), reject, col = "F-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) +
-  labs(col = "Test") +
-  theme_light(base_size = 5) +
-  xlab(quote(log[e](E))) +
-  ylab("Power")
-}
+<!-- ```{r} -->
+<!-- conv_test_plot <- function() { -->
+<!--   conv_result %>% -->
+<!--   ggplot() + -->
+<!--   stat_smooth(geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "F-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) + -->
+<!--   stat_smooth(geom = "line",  -->
+<!--               aes(log(effect_size), reject, col = "F-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) + -->
+<!--   labs(col = "Test") + -->
+<!--   theme_light(base_size = 5) + -->
+<!--   xlab(quote(log[e](E))) + -->
+<!--   ylab("Power") -->
+<!-- } -->
 
-add_wrong_BP_conv_test_plot_layers <- function(p) {
-  p +
-  stat_smooth(data = wrong_BP_conv_result, geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "BP-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(data = wrong_BP_conv_result, geom = "line", 
-              aes(log(effect_size), reject, col = "BP-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
-}
+<!-- add_wrong_BP_conv_test_plot_layers <- function(p) { -->
+<!--   p + -->
+<!--   stat_smooth(data = wrong_BP_conv_result, geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "BP-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) + -->
+<!--   stat_smooth(data = wrong_BP_conv_result, geom = "line",  -->
+<!--               aes(log(effect_size), reject, col = "BP-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) -->
+<!-- } -->
 
-add_wrong_SW_conv_test_plot_layers <- function(p) {
-  p +
-  stat_smooth(data = wrong_SW_conv_result, geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "SW-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(data = wrong_SW_conv_result, geom = "line", 
-              aes(log(effect_size), reject, col = "SW-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
-}
-```
+<!-- add_wrong_SW_conv_test_plot_layers <- function(p) { -->
+<!--   p + -->
+<!--   stat_smooth(data = wrong_SW_conv_result, geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "SW-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) + -->
+<!--   stat_smooth(data = wrong_SW_conv_result, geom = "line",  -->
+<!--               aes(log(effect_size), reject, col = "SW-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) -->
+<!-- } -->
+<!-- ``` -->
 
-```{r}
-boot_dat <- function(dat, times = 100) {
-  result <- mutate(dat, boot_id = 1)
-  for (i in 2:times) {
-    result <- bind_rows(result, mutate(dat[sample(1:nrow(dat), replace = TRUE), ], boot_id = i)) 
-  }
-  result
-}
+<!-- ```{r} -->
+<!-- boot_dat <- function(dat, times = 100) { -->
+<!--   result <- mutate(dat, boot_id = 1) -->
+<!--   for (i in 2:times) { -->
+<!--     result <- bind_rows(result, mutate(dat[sample(1:nrow(dat), replace = TRUE), ], boot_id = i))  -->
+<!--   } -->
+<!--   result -->
+<!-- } -->
 
-add_visual_test_plot_layers <- function(p, points = c()) {
-  visual_dat <- polynomials %>%
-  group_by(lineup_id) %>%
-  summarise(across(c(type:p_value, prop_detect), first)) %>%
-  filter(lineup_id < 577) %>%
-  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
-  boot_dat(times = 100)
-  
-  p +
-  stat_smooth(data = filter(visual_dat, boot_id == 1), geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "Visual"), 
-              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 1) +
-  stat_smooth(data = visual_dat, geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "Visual"), 
-              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05) +
-  geom_point(data = filter(visual_dat, boot_id == 1), aes(log(effect_size), prop_detect), alpha = 0.1) + 
-  geom_point(data = filter(visual_dat, boot_id == 1, lineup_id %in% points), aes(log(effect_size), prop_detect), alpha = 1, col = "red", size = 2)
-}
+<!-- add_visual_test_plot_layers <- function(p, points = c()) { -->
+<!--   visual_dat <- polynomials %>% -->
+<!--   group_by(lineup_id) %>% -->
+<!--   summarise(across(c(type:p_value, prop_detect), first)) %>% -->
+<!--   filter(lineup_id < 577) %>% -->
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+<!--   boot_dat(times = 100) -->
 
-control_col <- function(p, ...) {
-  p + scale_color_manual(values = unlist(list(...)))
-}
-```
+<!--   p + -->
+<!--   stat_smooth(data = filter(visual_dat, boot_id == 1), geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "Visual"),  -->
+<!--               method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 1) + -->
+<!--   stat_smooth(data = visual_dat, geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "Visual"),  -->
+<!--               method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05) + -->
+<!--   geom_point(data = filter(visual_dat, boot_id == 1), aes(log(effect_size), prop_detect), alpha = 0.1) +  -->
+<!--   geom_point(data = filter(visual_dat, boot_id == 1, lineup_id %in% points), aes(log(effect_size), prop_detect), alpha = 1, col = "red", size = 2) -->
+<!-- } -->
 
-```{r eval = FALSE}
-filter(polynomials, lineup_id == 131)
+<!-- control_col <- function(p, ...) { -->
+<!--   p + scale_color_manual(values = unlist(list(...))) -->
+<!-- } -->
+<!-- ``` -->
 
-polynomials %>%
-  group_by(lineup_id) %>%
-  summarise(dd = first(abs(log(effect_size) - 5)), p_value = first(p_value), prop_detect = first(prop_detect)) %>%
-  arrange(dd) %>%
-  head(30) %>%
-  summarise(tt = median(prop_detect))
+<!-- ```{r eval = FALSE} -->
+<!-- filter(polynomials, lineup_id == 131) -->
 
-polynomials %>%
-  ggplot() +
-  geom_point(aes(prop_detect, p_value < 0.06))
+<!-- polynomials %>% -->
+<!--   group_by(lineup_id) %>% -->
+<!--   summarise(dd = first(abs(log(effect_size) - 5)), p_value = first(p_value), prop_detect = first(prop_detect)) %>% -->
+<!--   arrange(dd) %>% -->
+<!--   head(30) %>% -->
+<!--   summarise(tt = median(prop_detect)) -->
 
-bottom_plot_2
+<!-- polynomials %>% -->
+<!--   ggplot() + -->
+<!--   geom_point(aes(prop_detect, p_value < 0.06)) -->
 
-polynomials %>%
-  filter(lineup_id == 364)
+<!-- bottom_plot_2 -->
 
-polynomials %>%
-  filter(e_sigma == 4) %>%
-  group_by(lineup_id) %>%
-  summarise(p_value = first(p_value)) %>%
-  mutate(reject = p_value < 0.05) %>%
-  {mean(.$reject)}
+<!-- polynomials %>% -->
+<!--   filter(lineup_id == 364) -->
 
-4 * 4 * 3 * 5
-```
+<!-- polynomials %>% -->
+<!--   filter(e_sigma == 4) %>% -->
+<!--   group_by(lineup_id) %>% -->
+<!--   summarise(p_value = first(p_value)) %>% -->
+<!--   mutate(reject = p_value < 0.05) %>% -->
+<!--   {mean(.$reject)} -->
 
-```{r power-overview, fig.height=7.5, fig.cap="Power overview. \\label{fig:power-overview}"}
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_SW_conv_test_plot_layers() %>%
-  add_visual_test_plot_layers(points = c(415, 131, 322, 378)) +
-  geom_vline(xintercept = 2, linetype = 2) + 
-  geom_vline(xintercept = 3, linetype = 2) +
-  geom_vline(xintercept = 4, linetype = 2) +
-  geom_vline(xintercept = 5, linetype = 2) -> base_plot
+<!-- 4 * 4 * 3 * 5 -->
+<!-- ``` -->
 
-
-
-# VI_MODEL$plot_lineup(polynomials_lineup$lineup_314$data,
-#                      size = 0.1,
-#                      stroke = 0.2,
-#                      remove_grid_line = TRUE,
-#                      theme = theme_light(base_size = 5),
-#                      remove_axis = TRUE) +
-#   ggtitle(bquote(log[e](E) == 0~", F-test p-value" == .(format(filter(polynomials, lineup_id == 314)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 314)$p_value[1], digits = 3)))) -> bottom_plot_1
-
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data,
-                     size = 0.1,
-                     stroke = 0.2,
-                     remove_grid_line = TRUE,
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_1
-
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_131$data,
-                     size = 0.1,
-                     stroke = 0.2,
-                     remove_grid_line = TRUE,
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) %~~% 3~", F-test p-value" == .(format(filter(polynomials, lineup_id == 131)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 131)$p_value[1], digits = 3)))) -> bottom_plot_2
-
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_322$data,
-                     size = 0.1,
-                     stroke = 0.2,
-                     remove_grid_line = TRUE,
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 322)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 322)$p_value[1], digits = 3)))) -> bottom_plot_3
-
-VI_MODEL$plot_lineup(polynomials_lineup$lineup_378$data,
-                     size = 0.1,
-                     stroke = 0.2,
-                     remove_grid_line = TRUE,
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) +
-  ggtitle(bquote(log[e](E) %~~% 5~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 378)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 378)$p_value[1], digits = 3)))) -> bottom_plot_4
+<!-- ```{r power-overview, fig.height=7.5, fig.cap="Power overview. \\label{fig:power-overview}"} -->
+<!-- conv_test_plot() %>% -->
+<!--   add_wrong_BP_conv_test_plot_layers() %>% -->
+<!--   add_wrong_SW_conv_test_plot_layers() %>% -->
+<!--   add_visual_test_plot_layers(points = c(415, 131, 322, 378)) + -->
+<!--   geom_vline(xintercept = 2, linetype = 2) +  -->
+<!--   geom_vline(xintercept = 3, linetype = 2) + -->
+<!--   geom_vline(xintercept = 4, linetype = 2) + -->
+<!--   geom_vline(xintercept = 5, linetype = 2) -> base_plot -->
 
 
-design <- c(patchwork::area(1, 1, 1, 8), 
-            patchwork::area(2, 1, 2, 4), 
-            patchwork::area(2, 5, 2, 8), 
-            patchwork::area(3, 1, 3, 4), 
-            patchwork::area(3, 5, 3, 8))
 
-patchwork::wrap_plots(base_plot, B = bottom_plot_1, C = bottom_plot_2, D = bottom_plot_3, E = bottom_plot_4, design = design)
-```
+<!-- # VI_MODEL$plot_lineup(polynomials_lineup$lineup_314$data, -->
+<!-- #                      size = 0.1, -->
+<!-- #                      stroke = 0.2, -->
+<!-- #                      remove_grid_line = TRUE, -->
+<!-- #                      theme = theme_light(base_size = 5), -->
+<!-- #                      remove_axis = TRUE) + -->
+<!-- #   ggtitle(bquote(log[e](E) == 0~", F-test p-value" == .(format(filter(polynomials, lineup_id == 314)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 314)$p_value[1], digits = 3)))) -> bottom_plot_1 -->
 
-### Distributions of regressor
+<!-- VI_MODEL$plot_lineup(polynomials_lineup$lineup_415$data, -->
+<!--                      size = 0.1, -->
+<!--                      stroke = 0.2, -->
+<!--                      remove_grid_line = TRUE, -->
+<!--                      theme = theme_light(base_size = 5), -->
+<!--                      remove_axis = TRUE) + -->
+<!--   ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 415)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 415)$p_value[1], digits = 3)))) -> bottom_plot_1 -->
 
-The impact of the distribution of $X_raw$ on the power is shown in Figure \ref{fig:dist-power}. The power curve of F-test is stable across different distributions, while the visual test has a steeper power curve for normal and uniform distribution. BP-test performs worse for discrete uniform distribution and uniform distribution but has relatively high power for normal distribution. SW-test outperforms BP-test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor.
+<!-- VI_MODEL$plot_lineup(polynomials_lineup$lineup_131$data, -->
+<!--                      size = 0.1, -->
+<!--                      stroke = 0.2, -->
+<!--                      remove_grid_line = TRUE, -->
+<!--                      theme = theme_light(base_size = 5), -->
+<!--                      remove_axis = TRUE) + -->
+<!--   ggtitle(bquote(log[e](E) %~~% 3~", F-test p-value" == .(format(filter(polynomials, lineup_id == 131)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 131)$p_value[1], digits = 3)))) -> bottom_plot_2 -->
 
-```{r dist-power, fig.cap="\\label{dist-power}"}
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_SW_conv_test_plot_layers() %>%
-  add_visual_test_plot_layers() +
-  facet_wrap(~x_dist)
-```
+<!-- VI_MODEL$plot_lineup(polynomials_lineup$lineup_322$data, -->
+<!--                      size = 0.1, -->
+<!--                      stroke = 0.2, -->
+<!--                      remove_grid_line = TRUE, -->
+<!--                      theme = theme_light(base_size = 5), -->
+<!--                      remove_axis = TRUE) + -->
+<!--   ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 322)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 322)$p_value[1], digits = 3)))) -> bottom_plot_3 -->
 
-#### Shpaes of non-linearity
-
-Figure \ref{fig:shape-power} illustrates the change of power under different shape of non-linearity. Similar to the power curves shown in \ref{fig:dist-power}, F-test is stable under different shapes. The power curve of visual test also behaves similarly across different shapes. What vary are the power curve of BP-test and SW-test. For Triple-U shape, both BP-test and SW-test are insensitive to the change of the effect. And for W shape, both tests have almost identical power curves. It can be observed that both tests performs the best for U-shape.
-
-```{r shape-power, fig.cap="\\label{shape-power}"}
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_SW_conv_test_plot_layers() %>%
-  add_visual_test_plot_layers() +
-  facet_wrap(~shape)
-```
-
-```{r eval = FALSE}
-conv_test_plot() %>%
-  add_wrong_BP_conv_test_plot_layers() %>%
-  add_wrong_SW_conv_test_plot_layers() %>%
-  add_visual_test_plot_layers() +
-  facet_wrap(~e_sigma)
-```
-
-#### Reasons for making selections
-
-```{r}
-polynomials %>%
-  mutate(reason_tmp = ifelse(reason %in% c("Cluster(s)", "Shape", "Outlier(s)"), reason, "Other")) %>%
-  ggplot() +
-  geom_bar(aes(reason_tmp)) +
-  facet_grid(x_dist~detect) 
-```
-
-### Experiment II
-
-<!-- todo: check the two way interaction for x_dist and a -->
-
-```{r eval = FALSE}
-heter %>%
-  filter(b < 3) %>%
-  group_by(lineup_id) %>%
-  summarise(p_value = first(p_value), n_eval = n()) %>%
-  filter(n_eval > 3) %>%
-  mutate(reject = p_value < 0.05) %>%
-  {mean(.$reject)}
+<!-- VI_MODEL$plot_lineup(polynomials_lineup$lineup_378$data, -->
+<!--                      size = 0.1, -->
+<!--                      stroke = 0.2, -->
+<!--                      remove_grid_line = TRUE, -->
+<!--                      theme = theme_light(base_size = 5), -->
+<!--                      remove_axis = TRUE) + -->
+<!--   ggtitle(bquote(log[e](E) %~~% 5~","~"F-test p-value" == .(format(filter(polynomials, lineup_id == 378)$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(polynomials, lineup_id == 378)$p_value[1], digits = 3)))) -> bottom_plot_4 -->
 
 
-```
+<!-- design <- c(patchwork::area(1, 1, 1, 8),  -->
+<!--             patchwork::area(2, 1, 2, 4),  -->
+<!--             patchwork::area(2, 5, 2, 8),  -->
+<!--             patchwork::area(3, 1, 3, 4),  -->
+<!--             patchwork::area(3, 5, 3, 8)) -->
 
-```{r}
-map_to_group <- function(b) {
-  round(b / 4) + 1
-}
+<!-- patchwork::wrap_plots(base_plot, B = bottom_plot_1, C = bottom_plot_2, D = bottom_plot_3, E = bottom_plot_4, design = design) -->
+<!-- ``` -->
+
+<!-- ### Distributions of regressor -->
+
+<!-- The impact of the distribution of $X_raw$ on the power is shown in Figure \ref{fig:dist-power}. The power curve of F-test is stable across different distributions, while the visual test has a steeper power curve for normal and uniform distribution. BP-test performs worse for discrete uniform distribution and uniform distribution but has relatively high power for normal distribution. SW-test outperforms BP-test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor. -->
+
+<!-- ```{r dist-power, fig.cap="\\label{dist-power}"} -->
+<!-- conv_test_plot() %>% -->
+<!--   add_wrong_BP_conv_test_plot_layers() %>% -->
+<!--   add_wrong_SW_conv_test_plot_layers() %>% -->
+<!--   add_visual_test_plot_layers() + -->
+<!--   facet_wrap(~x_dist) -->
+<!-- ``` -->
+
+<!-- #### Shpaes of non-linearity -->
+
+<!-- Figure \ref{fig:shape-power} illustrates the change of power under different shape of non-linearity. Similar to the power curves shown in \ref{fig:dist-power}, F-test is stable under different shapes. The power curve of visual test also behaves similarly across different shapes. What vary are the power curve of BP-test and SW-test. For Triple-U shape, both BP-test and SW-test are insensitive to the change of the effect. And for W shape, both tests have almost identical power curves. It can be observed that both tests performs the best for U-shape. -->
+
+<!-- ```{r shape-power, fig.cap="\\label{shape-power}"} -->
+<!-- conv_test_plot() %>% -->
+<!--   add_wrong_BP_conv_test_plot_layers() %>% -->
+<!--   add_wrong_SW_conv_test_plot_layers() %>% -->
+<!--   add_visual_test_plot_layers() + -->
+<!--   facet_wrap(~shape) -->
+<!-- ``` -->
+
+<!-- ```{r eval = FALSE} -->
+<!-- conv_test_plot() %>% -->
+<!--   add_wrong_BP_conv_test_plot_layers() %>% -->
+<!--   add_wrong_SW_conv_test_plot_layers() %>% -->
+<!--   add_visual_test_plot_layers() + -->
+<!--   facet_wrap(~e_sigma) -->
+<!-- ``` -->
+
+<!-- #### Reasons for making selections -->
+
+<!-- ```{r} -->
+<!-- polynomials %>% -->
+<!--   mutate(reason_tmp = ifelse(reason %in% c("Cluster(s)", "Shape", "Outlier(s)"), reason, "Other")) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(reason_tmp)) + -->
+<!--   facet_grid(x_dist~detect)  -->
+<!-- ``` -->
+
+<!-- ### Experiment II -->
+
+<!-- <!-- todo: check the two way interaction for x_dist and a --> -->
+
+<!-- ```{r eval = FALSE} -->
+<!-- heter %>% -->
+<!--   filter(b < 3) %>% -->
+<!--   group_by(lineup_id) %>% -->
+<!--   summarise(p_value = first(p_value), n_eval = n()) %>% -->
+<!--   filter(n_eval > 3) %>% -->
+<!--   mutate(reject = p_value < 0.05) %>% -->
+<!--   {mean(.$reject)} -->
 
 
-heter_conv_test_plot <- function() {
-  conv_result_heter %>%
-  mutate(cat_b = map_to_group(b)) %>%
-  ggplot() +
-  stat_smooth(geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "BP-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(geom = "line", 
-              aes(log(effect_size), reject, col = "BP-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) +
-  labs(col = "Test") +
-  theme_light(base_size = 5) +
-  xlab(quote(log[e](E))) +
-  ylab("Power")
-}
+<!-- ``` -->
 
-add_heter_SW_plot_layers <- function(p) {
-  p +
-  stat_smooth(data = mutate(conv_result_heter_SW, cat_b = map_to_group(b)), geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "SW-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) +
-  stat_smooth(data = mutate(conv_result_heter_SW, cat_b = map_to_group(b)), geom = "line", 
-              aes(log(effect_size), reject, col = "SW-test"), 
-              se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1)
-}
-  
-add_heter_visual_test_plot_layers <- function(p, points = c()) {
-  
-  visual_dat <- heter %>%
-  mutate(x_dist = ifelse(x_dist == "discrete_uniform", "even_discrete", x_dist)) %>%
-  mutate(x_dist = ifelse(x_dist == "neglognormal", "lognormal", x_dist)) %>%
-  group_by(lineup_id) %>%
-  summarise(across(c(type:p_value, prop_detect), first)) %>%
-  mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>%
-  boot_dat(times = 100) %>%
-  mutate(cat_b = map_to_group(b))
-  
-  p +
-  stat_smooth(data = filter(visual_dat, boot_id == 1), geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "Visual"), 
-              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 1) +
-  stat_smooth(data = visual_dat, geom = "line", 
-              aes(log(effect_size), reject, group = boot_id, col = "Visual"), 
-              method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05) +
-  geom_point(data = filter(visual_dat, boot_id == 1), aes(log(effect_size), prop_detect), alpha = 0.1) + 
-  geom_point(data = filter(visual_dat, boot_id == 1, lineup_id %in% points), aes(log(effect_size), prop_detect), alpha = 1, col = "red", size = 2)
-}
-```
+<!-- ```{r} -->
+<!-- map_to_group <- function(b) { -->
+<!--   round(b / 4) + 1 -->
+<!-- } -->
 
-```{r}
-heter_conv_test_plot() %>%
-  add_heter_SW_plot_layers() %>%
-  add_heter_visual_test_plot_layers()
-```
 
-```{r}
-heter_conv_test_plot() %>%
-  add_heter_SW_plot_layers() %>%
-  add_heter_visual_test_plot_layers() +
-  facet_wrap(~a)
-```
+<!-- heter_conv_test_plot <- function() { -->
+<!--   conv_result_heter %>% -->
+<!--   mutate(cat_b = map_to_group(b)) %>% -->
+<!--   ggplot() + -->
+<!--   stat_smooth(geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "BP-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) + -->
+<!--   stat_smooth(geom = "line",  -->
+<!--               aes(log(effect_size), reject, col = "BP-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) + -->
+<!--   labs(col = "Test") + -->
+<!--   theme_light(base_size = 5) + -->
+<!--   xlab(quote(log[e](E))) + -->
+<!--   ylab("Power") -->
+<!-- } -->
 
-```{r}
-heter_conv_test_plot() %>%
-  add_heter_SW_plot_layers() %>%
-  add_heter_visual_test_plot_layers() +
-  facet_grid(x_dist~a)
-```
+<!-- add_heter_SW_plot_layers <- function(p) { -->
+<!--   p + -->
+<!--   stat_smooth(data = mutate(conv_result_heter_SW, cat_b = map_to_group(b)), geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "SW-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 0.05) + -->
+<!--   stat_smooth(data = mutate(conv_result_heter_SW, cat_b = map_to_group(b)), geom = "line",  -->
+<!--               aes(log(effect_size), reject, col = "SW-test"),  -->
+<!--               se = FALSE, method = "glm", method.args = list(family = binomial()), alpha = 1) -->
+<!-- } -->
 
-```{r}
-heter_conv_test_plot() %>%
-  add_heter_SW_plot_layers() %>%
-  add_heter_visual_test_plot_layers() +
-  facet_wrap(~x_dist)
-```
+<!-- add_heter_visual_test_plot_layers <- function(p, points = c()) { -->
 
-```{r}
-heter_conv_test_plot() %>%
-  add_heter_SW_plot_layers() %>%
-  add_heter_visual_test_plot_layers() +
-  facet_wrap(~cat_b)
-```
+<!--   visual_dat <- heter %>% -->
+<!--   mutate(x_dist = ifelse(x_dist == "discrete_uniform", "even_discrete", x_dist)) %>% -->
+<!--   mutate(x_dist = ifelse(x_dist == "neglognormal", "lognormal", x_dist)) %>% -->
+<!--   group_by(lineup_id) %>% -->
+<!--   summarise(across(c(type:p_value, prop_detect), first)) %>% -->
+<!--   mutate(reject = as.numeric(eval_p_value(p_value, tol = 0.01))) %>% -->
+<!--   boot_dat(times = 100) %>% -->
+<!--   mutate(cat_b = map_to_group(b)) -->
+
+<!--   p + -->
+<!--   stat_smooth(data = filter(visual_dat, boot_id == 1), geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "Visual"),  -->
+<!--               method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 1) + -->
+<!--   stat_smooth(data = visual_dat, geom = "line",  -->
+<!--               aes(log(effect_size), reject, group = boot_id, col = "Visual"),  -->
+<!--               method = "glm", method.args = list(family = binomial), se = FALSE, alpha = 0.05) + -->
+<!--   geom_point(data = filter(visual_dat, boot_id == 1), aes(log(effect_size), prop_detect), alpha = 0.1) +  -->
+<!--   geom_point(data = filter(visual_dat, boot_id == 1, lineup_id %in% points), aes(log(effect_size), prop_detect), alpha = 1, col = "red", size = 2) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- heter_conv_test_plot() %>% -->
+<!--   add_heter_SW_plot_layers() %>% -->
+<!--   add_heter_visual_test_plot_layers() -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- heter_conv_test_plot() %>% -->
+<!--   add_heter_SW_plot_layers() %>% -->
+<!--   add_heter_visual_test_plot_layers() + -->
+<!--   facet_wrap(~a) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- heter_conv_test_plot() %>% -->
+<!--   add_heter_SW_plot_layers() %>% -->
+<!--   add_heter_visual_test_plot_layers() + -->
+<!--   facet_grid(x_dist~a) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- heter_conv_test_plot() %>% -->
+<!--   add_heter_SW_plot_layers() %>% -->
+<!--   add_heter_visual_test_plot_layers() + -->
+<!--   facet_wrap(~x_dist) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- heter_conv_test_plot() %>% -->
+<!--   add_heter_SW_plot_layers() %>% -->
+<!--   add_heter_visual_test_plot_layers() + -->
+<!--   facet_wrap(~cat_b) -->
+<!-- ``` -->
 
 <!-- # time taken vs order of the plot -->
 
