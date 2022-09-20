@@ -1,0 +1,73 @@
+<!-- check the policy -->
+
+<!-- problem: residual plot diagnostics -->
+
+<!-- conventional test: too sensitive -->
+
+<!-- background:  -->
+
+<!-- week 1 -->
+
+<!-- 1. residual plot for model diagnostics -->
+
+<!-- a. residual is widely used -->
+
+<!-- b. what are the types of residual plots -->
+
+<!-- c. comparison -->
+
+<!-- week 2 -->
+
+<!-- 2. conventional test: F, BP -->
+
+<!-- 3. visual test: lineup, theory -->
+
+<!-- week 4 -->
+
+<!-- desc of experiment: -->
+
+<!-- 1. simulation setup -->
+
+<!-- 2. experimental design -->
+
+<!-- 3. result -->
+
+<!-- week 3 -->
+
+<!-- comparison of conventional tests: -->
+
+<!-- 1. power (visual test vs. conventional test) -->
+
+<!-- (visual test most different one (everything test, any departure)) -->
+
+<!-- plot figure in a paper, desc, exp -->
+
+<!-- 2. investigate the difference (gap), give examples -->
+
+<!-- 3. conventional is too sensitive -->
+
+<!-- 4. make conventional less sensitive (vary alpha) -->
+
+<!-- last week -->
+
+<!-- conclusion: -->
+
+<!-- 1. too sensitive, visual test is needed/preferable -->
+
+<!-- 2. visual test is infeasible in large scale (expensive) -->
+
+<!-- 3. future work (role of computer vision) -->
+
+
+
+<!-- Raw residuals and studentized residuals are the two most frequently used residuals in standard residual plots. The debt on which type of residuals should be used is always present. While raw residuals are the most common computer regression software package output, by applying a scaling factor, the ability to reveal nonconstant error variance in standard residual plots will often be enhanced by studentized residuals in small sample size [@gunst1980regression]. As a two-dimensional representation of a model in a $p$-dimensional space, standard residual plots project data points onto the variable of the horizontal axis, which is a vector in $p$-dimensional space. Observations with the same projection will be treated as equivalent as they have the same abscissa. Consequently, standard residual plots are often useful in revealing model inadequacies in the direction of the variable of the horizontal axis but could be inadequate for detecting patterns in other directions, especially in those perpendicular to the variable of the horizontal axis. Hence, in practice, multiple standard residual plots with different horizontal axes will be examined [@cook1982residuals]. Overlapping data points is another general issue in scatter plots not limited to standard residual plots, which often makes plots difficult to interpret because visual patterns are concealed. Thus, for a relatively large sample size, @cleveland1975graphical suggests the use of robust moving statistics as reference lines to give aid to the eye in seeing patterns, which nowadays, are usually replaced with a spline or local polynomial regression line.  -->
+
+<!-- Other types of data plots that are often used in regression diagnostics include partial residual plots and probability plots. Partial residual plots are useful supplements to standard residual plots as they provide additional information on the extent of the non-linearity. Probability plots can be used to compare the sampling distribution of the residuals to the normal distribution for assessing the normality assumptions. -->
+
+<!-- ## Hypothesis testing -->
+
+<!-- Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969].  -->
+
+<!-- As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers. @montgomery1982introduction suggested that based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies. Not to mention, it is almost impossible to have an exactly correctly specified model in reality. There is a well-known aphorism in statistics stated by George Box - "All models are wrong, but some are useful". This indicates proper hypothesis tests will always reject the null hypothesis as long as the sample size is large enough. The outcome "Not reject" can be interpreted as either "effect size is small" or "sample size is small". and the outcome "reject" doesn't inform us whether and how much the model defects are of actual consequence to the inference and prediction. But still, the effectiveness of statistical tests shall not be disrespected. Statistical tests have a chance to provide analysts with unique information. In situations where no suitable diagnostic plots can be found for a particular violation of the assumptions, or excessive diagnostic plots are needed to be checked, one will have no choice but to fall back on statistical tests if there exists any. A good regression diagnostic practice should be a balanced combination of both methods. -->
+
+

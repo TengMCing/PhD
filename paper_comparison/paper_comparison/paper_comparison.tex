@@ -171,9 +171,9 @@ on the variance-covariance matrix of the error term. The usual pattern
 of heterskedasticity on a residual plot is the inconsistent spread of
 the residuals at different x values. Visually, it sometimes results in
 the so-called ``butterfly'' shape as shown in the bottom-left panel of
-Figure \textbackslash ref\{fig:commondepartures\}, or the
-``left-triangle'' and ``right-triganle'' shape where the smallest
-variance occurs at the edges of the x-axis.
+Figure \ref{fig:commondepartures}, or the ``left-triangle'' and
+``right-triganle'' shape where the smallest variance occurs at the edges
+of the x-axis.
 
 Non-normality is usually harder to be detected from a residual plot
 compared to non-linearity and heterskedasticity. Besides, a
@@ -350,7 +350,7 @@ of times plot \(i\) being selected in \(K\) evaluations. In case subject
 \(j\) makes multiple selections, they decided to add \(1/s_j\) to
 \(c_i\) instead of one, where \(s_j\) is the number of plots subject
 \(j\) selected for \(j=1,...K\). This ensured \(\sum_{i}c_i=K\). Thus,
-the visual p-value followed by the beta-binomial model is given as
+the visual p-value followed by the above model is given as
 
 \begin{equation} \label{eq:pvalue-beta-binomial}
 P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
@@ -361,6 +361,9 @@ where \(B(.)\) is the beta function defined as
 \begin{equation} \label{eq:betafunction}
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
 \end{equation}
+
+\hypertarget{power-calculation}{%
+\subsubsection{Power calculation}\label{power-calculation}}
 
 \hypertarget{effectiveness-of-visual-test-in-regression-diagnostics}{%
 \subsection{Effectiveness of visual test in regression
