@@ -419,6 +419,19 @@ Other than checking diagnostic plots, analysts may perform formal hypothesis tes
 
 Example residual plots given in Figure \ref{fig:commondepartures} are examined by the corresponding F-test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
 
+
+<!-- report 0 when the value is small -->
+
+<!-- F-test -> model structrual test -->
+
+<!-- F-test -> F -->
+
+<!-- right justified  -->
+
+<!-- test formula -> appendix -->
+
+<!-- red col -> bold -->
+
 ```{r}
 
 set.seed(10086)
@@ -477,9 +490,13 @@ data.frame(plot = c("B", "C", "D"),
 
 ### Lineup protocol
 
+<!-- improve the first sentence -->
+
 Unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the actual data plot, and the remaining $m - 1$ plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup. Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
+
+<!-- use true exp lineup as example lineup -->
 
 ```{r first-example-lineup, fig.cap="An example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?"}
 mod <- poly_model(include_z = TRUE, sigma = 1)
@@ -500,6 +517,8 @@ P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac
 
 where $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
+<!-- remove the binomial one -->
+
 As pointed out by @vanderplas2021statistical, though Equation (\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common different scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Thus, the visual p-value followed by the above model is given as
 
 ```{=tex}
@@ -516,6 +535,12 @@ B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.
 \end{equation}
 ```
 
+
+
+<!-- a sentence to discuss alpha  -->
+
+
+### Power calculation
 
 
 
