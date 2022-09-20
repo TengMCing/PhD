@@ -306,6 +306,8 @@ Many of those regression diagnostic methods and procedures are mature and well-e
 
 ## Departures from good residual plots
 
+(This section discusses the visual patterns data analysts expect to see and their implications.)
+
 ```{r commondepartures, fig.cap = "Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot."}
 
 set.seed(10086)
@@ -345,22 +347,14 @@ Non-normality is usually harder to be detected from a residual plot compared to 
 
 ## Conventionally testing for departures
 
-Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
+(This section discusses the tests that will be used in the analysis and shows the results for the residual plots displayed in the previous section.)
 
-Example residual plots given in Figure \ref{fig:commondepartures} are examined by the corresponding F-test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
+Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
 
-
-<!-- report 0 when the value is small -->
-
-<!-- F-test -> model structrual test -->
-
-<!-- F-test -> F -->
-
-<!-- right justified  -->
+Example residual plots given in Figure \ref{fig:commondepartures} are examined by the corresponding model structural test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
 
 <!-- test formula -> appendix -->
 
-<!-- red col -> bold -->
 
 ```{r}
 
@@ -387,15 +381,16 @@ data.frame(plot = c("B", "C", "D"),
            s = c(shapiro.test(dat1$.resid)$p.value,
                  shapiro.test(dat2$.resid)$p.value,
                  shapiro.test(dat3$.resid)$p.value)) %>%
-  mutate(f = format(f, digits = 2), b = format(b, digits = 2), s = format(s, digits = 2)) -> table_dat
+  mutate(f = format(round(f, digits = 3), nsmall = 3), b = format(round(b, digits = 3), nsmall = 3), s = format(round(s, digits = 3), nsmall = 3)) -> table_dat
 
 
-  table_dat$f <- kableExtra::cell_spec(table_dat$f, color = ifelse(as.numeric(table_dat$f) < 0.05, "red", "black"))
-  table_dat$b <- kableExtra::cell_spec(table_dat$b, color = ifelse(as.numeric(table_dat$b) < 0.05, "red", "black"))
-  table_dat$s <- kableExtra::cell_spec(table_dat$s, color = ifelse(as.numeric(table_dat$s) < 0.05, "red", "black"))
+  table_dat$f <- kableExtra::cell_spec(table_dat$f, bold = as.numeric(table_dat$f) < 0.05)
+  table_dat$b <- kableExtra::cell_spec(table_dat$b, bold = as.numeric(table_dat$b) < 0.05)
+  table_dat$s <- kableExtra::cell_spec(table_dat$s, bold = as.numeric(table_dat$s) < 0.05)
 
   table_dat %>%
-  knitr::kable(col.names = c("Residual plots", "Departures", "F-test ", "Breusch-Pagan test", "Shapiro–Wilk test"),
+  knitr::kable(col.names = c("Residual plots", "Departures", "Model structural", "Breusch-Pagan", "Shapiro–Wilk"),
+               align = "llrrr",
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
@@ -404,19 +399,9 @@ data.frame(plot = c("B", "C", "D"),
 
 ```
 
-<!-- Explain the tests you are showing later -->
-
-<!-- -   RESET -->
-
-<!-- -   BP -->
-
-<!-- -   SW -->
-
-<!-- and show the results for the residual plots displayed in previous section -->
-
-<!-- Briefly mention any others  -->
-
 ## Visual testing for departures
+
+(This sec)
 
 ### Lineup protocol
 

@@ -142,6 +142,9 @@ residual plot reading might be passed on to computer vision.
 \subsection{Departures from good residual
 plots}\label{departures-from-good-residual-plots}}
 
+(This section discusses the visual patterns data analysts expect to see
+and their implications.)
+
 \begin{figure}
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/commondepartures-1} \caption{Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:commondepartures}
 \end{figure}
@@ -189,6 +192,10 @@ in the bottom-right of Figure \ref{fig:commondepartures}.
 \subsection{Conventionally testing for
 departures}\label{conventionally-testing-for-departures}}
 
+(This section discusses the tests that will be used in the analysis and
+shows the results for the residual plots displayed in the previous
+section.)
+
 Other than checking diagnostic plots, analysts may perform formal
 hypothesis testing for detecting model defects. Depending on the
 alternative hypothesis that is focused on, a variety of tests can be
@@ -198,10 +205,10 @@ tested by applying the White test
 test \citep{breusch_simple_1979}, which are both derived from the
 Lagrange multiplier test \citep{silvey1959lagrangian} principle that
 relies on the asymptotic properties of the null distribution. For
-testing non-linearity, one may apply the F-test to examine the
-significance of specific polynomial and non-linear forms of the
-regressors, or the significance of proxy variables as in the Ramsey
-Regression Equation Specification Error Test (RESET)
+testing non-linearity, one may apply the F-test as a model structural
+test to examine the significance of specific polynomial and non-linear
+forms of the regressors, or the significance of proxy variables as in
+the Ramsey Regression Equation Specification Error Test (RESET)
 \citep{ramsey_tests_1969}. And for testing normality, the Shapiro--Wilk
 test {[}ref here{]} is perhaps the most widely used test included by
 many of the statistical softwares. Another choice will be the
@@ -209,17 +216,17 @@ Jarque--Bera test {[}ref here{]} which directly checks if the sample
 skewness and kurtosis match a normal distribution.
 
 Example residual plots given in Figure \ref{fig:commondepartures} are
-examined by the corresponding F-test, Breusch-Pagan test and
-Shapiro--Wilk test as shown in Table
+examined by the corresponding model structural test, Breusch-Pagan test
+and Shapiro--Wilk test as shown in Table
 \ref{tab:example-residual-plot-table}. In the example, both the
 Breusch-Pagan test and the Shapiro--Wilk test rejects the null
-hypothesis for departures they do not intend to examine. As discussed in
-\citet{cook1982residuals}, most residual-based tests for a particular
-type of departure from model assumptions are sensitive to other types of
-departures. It is likely the null hypothesis is correctly rejected but
-for the wrong reason, which is known as the ``Type III error''.
-Additionally, outliers will often incorrectly trigger the rejection of
-the null hypothesis despite the residuals are well-behaved
+hypothesis for departures that they do not intend to examine. As
+discussed in \citet{cook1982residuals}, most residual-based tests for a
+particular type of departure from model assumptions are sensitive to
+other types of departures. It is likely the null hypothesis is correctly
+rejected but for the wrong reason, which is known as the ``Type III
+error''. Additionally, outliers will often incorrectly trigger the
+rejection of the null hypothesis despite the residuals are well-behaved
 \citep{cook_applied_1999}. This can be largely avoided in diagnostic
 plots as experienced analysts can evaluate the acceptability of
 assumptions flexibly, even in the presence of outliers.
@@ -228,13 +235,13 @@ assumptions flexibly, even in the presence of outliers.
 
 \caption{\label{tab:example-residual-plot-table}Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are colored in red.}
 \centering
-\begin{tabular}[t]{lllll}
+\begin{tabular}[t]{llrrr}
 \toprule
-Residual plots & Departures & F-test  & Breusch-Pagan test & Shapiro–Wilk test\\
+Residual plots & Departures & Model structural & Breusch-Pagan & Shapiro–Wilk\\
 \midrule
-B & Non-linearity & \textcolor{red}{7.3e-117} & \textcolor{red}{1.8e-14} & \textcolor{red}{3.9e-02}\\
-C & Heteroskedasticity & \textcolor{black}{ 3.8e-01} & \textcolor{red}{6.1e-16} & \textcolor{red}{1.1e-09}\\
-D & Non-normality & \textcolor{black}{ 6.7e-01} & \textcolor{black}{7.4e-01} & \textcolor{red}{2.9e-18}\\
+B & Non-linearity & \textbf{0.000} & \textbf{0.000} & \textbf{0.039}\\
+C & Heteroskedasticity & 0.378 & \textbf{0.000} & \textbf{0.000}\\
+D & Non-normality & 0.667 & 0.736 & \textbf{0.000}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -242,6 +249,8 @@ D & Non-normality & \textcolor{black}{ 6.7e-01} & \textcolor{black}{7.4e-01} & \
 \hypertarget{visual-testing-for-departures}{%
 \subsection{Visual testing for
 departures}\label{visual-testing-for-departures}}
+
+(This sec)
 
 \hypertarget{lineup-protocol}{%
 \subsubsection{Lineup protocol}\label{lineup-protocol}}
