@@ -250,7 +250,9 @@ D & Non-normality & 0.667 & 0.736 & \textbf{0.000}\\
 \subsection{Visual testing for
 departures}\label{visual-testing-for-departures}}
 
-(This sec)
+(This section introduces the lineup protocol, and briefly discusses the
+method for sampling null data, calculating the p-value and estimating
+power.)
 
 \hypertarget{lineup-protocol}{%
 \subsubsection{Lineup protocol}\label{lineup-protocol}}
@@ -323,7 +325,7 @@ normal random draws on the regressors, then rescaling it by the ratio of
 residual sum of square in two regressions.
 
 \hypertarget{p-value-calculation}{%
-\subsubsection{p-value calculation}\label{p-value-calculation}}
+\subsubsection{P-value calculation}\label{p-value-calculation}}
 
 Further, a visual test can involve \(K\) independent observers. Let
 \(D_i = \{0,1\}\) be a binomial random variable denoting whether subject
@@ -333,26 +335,23 @@ the actual data plot. Then, by imposing a relatively strong assumption
 on the visual test that all \(K\) evaluations are fully independent,
 under the null hypothesis, \(X \sim \mathrm{Binom}_{K,1/m}\). Therefore,
 the \(p\)-value of a lineup of size \(m\) evaluated by \(K\) observer is
-given as \begin{equation} \label{eq:pvaluesingle}
-P(X \geq x) = \sum_{i=x}^{K}{{K}\choose{i}}\left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{k-i},
-\end{equation}
+given as \(P(X \geq x) = 1 - F(x) + f(x)\), where \(F(.)\) is the
+cumulative distribution function, \(f(.)\) is the probability mass
+function and \(x\) is the realization of number of observers correctly
+picking the actual data plot \citep{majumder_validation_2013}.
 
-where \(x\) is the realization of number of observers correctly picking
-the actual data plot \citep{majumder_validation_2013}.
-
-As pointed out by \citet{vanderplas2021statistical}, though Equation
-(\ref{eq:pvaluesingle}) is trivial, but it doesn't take into account the
-possible dependencies in the visual test due to repeated evaluations of
-the same lineup. And it is inapplicable to visual test where subjects
-are asked to select one or more ``most different'' plots from the
-lineup. They summarized three common different scenarios in visual
-inference: (1) \(K\) different lineups are shown to \(K\) subjects, (2)
-\(K\) lineups with different null plots but the same actual data plot
-are shown to \(K\) subjects, and (3) the same lineup is shown to \(K\)
-subjects. Out of these three scenarios, Scenario 3 is the most common in
-previous studies as it puts the least constraints on the experimental
-design. For Scenario 3, \citet{vanderplas2021statistical} modelled the
-probability of a plot \(i\) being selected from a lineup as
+As pointed out by \citet{vanderplas2021statistical}, the binomial model
+doesn't take into account the possible dependencies in the visual test
+due to repeated evaluations of the same lineup. And it is inapplicable
+to visual test where subjects are asked to select one or more ``most
+different'' plots from the lineup. They summarized three common
+scenarios in visual inference: (1) \(K\) different lineups are shown to
+\(K\) subjects, (2) \(K\) lineups with different null plots but the same
+actual data plot are shown to \(K\) subjects, and (3) the same lineup is
+shown to \(K\) subjects. Out of these three scenarios, Scenario 3 is the
+most common in previous studies as it puts the least constraints on the
+experimental design. For Scenario 3, \citet{vanderplas2021statistical}
+modelled the probability of a plot \(i\) being selected from a lineup as
 \(\theta_i\), where \(\theta_i \sim Dirichlet(\alpha)\) for
 \(i=1,...,m\) and \(\alpha > 0\). And defined \(c_i\) to be the number
 of times plot \(i\) being selected in \(K\) evaluations. In case subject
@@ -371,35 +370,30 @@ where \(B(.)\) is the beta function defined as
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
 \end{equation}
 
+The parameter \(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial}
+is usually unknown and hence needs to be estimated from the survey data.
+For low values of \(\alpha\), only a few plots are attractive to the
+observers and tend to be selected. For higher values of \(\alpha\), the
+distribution of the probability of each plot being selected is more
+evenly. \citet{vanderplas2021statistical} suggested that \(\alpha\) can
+be estimated using maximum likelihood estimation or visual estimation.
+But if \(\alpha\) is small and only a few null plots in a lineup are
+attractive, MLE could fail to provide accurate estimates.
+
 \hypertarget{power-calculation}{%
 \subsubsection{Power calculation}\label{power-calculation}}
 
-\hypertarget{effectiveness-of-visual-test-in-regression-diagnostics}{%
-\subsection{Effectiveness of visual test in regression
-diagnostics}\label{effectiveness-of-visual-test-in-regression-diagnostics}}
+\hypertarget{unknown}{%
+\subsection{Unknown}\label{unknown}}
 
-The effectiveness of visual inference has already been validated by
-\citet{majumder_validation_2013} under relatively simple classical
-normal linear regression model settings with only one or two regressors.
-Their results suggest visual test is capable of testing the significance
-of a single regressor with a similar power as a t-test, though they
-expressed that in general it is unnecessary to use visual inference if
-there exists a conventional test and they didn't expect the visual test
-to perform equally well as the conventional test. In their third
-experiment, where there does not exist a proper conventional test,
-visual test outperforms the conventional test for a large margin. This
-is encouraging as it promotes the use of visual inference in border
-field of data science where there are no existing statistical testing
-procedures. In fact, lineup protocol has been integrated into some model
-diagnostic tools such as \citet{loy2013diagnostic}.
-
-With our knowledge, what haven't been examined so far is the
-effectiveness of visual test relative to the equivalent conventional
-test in regression diagnostics. Particularly, its ability to detect
-non-linearity and heteroskedasticity compared to F-test and BP-test.
+This should be a section that summarizes the background, gives the
+motivation to the experiments, and most importantly reflects on the
+title.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
+
+(This section discu)
 
 \hypertarget{motivation-and-overview}{%
 \subsection{Motivation and overview}\label{motivation-and-overview}}
