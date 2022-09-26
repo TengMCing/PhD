@@ -50,29 +50,22 @@ set.seed(10086)
 ```
 
 ```{r get-lineup-data}
-if (!file.exists(here::here("data/third_study/polynomials_lineup.rds"))) {
-  polynomials_lineup <- get_polynomials_lineup()
-  saveRDS(polynomials_lineup, here::here("data/third_study/polynomials_lineup.rds"))
+if (!file.exists(here::here("data/vi_lineup.rds"))) {
+  vi_lineup <- get_vi_lineup()
+  saveRDS(vi_lineup, here::here("data/vi_lineup.rds"))
 } else {
-  polynomials_lineup <- readRDS(here::here("data/third_study/polynomials_lineup.rds"))
-}
-
-if (!file.exists(here::here("data/fourth_study/heter_lineup.rds"))) {
-  heter_lineup <- get_polynomials_lineup()
-  saveRDS(heter_lineup, here::here("data/fourth_study/heter_lineup.rds"))
-} else {
-  heter_lineup <- readRDS(here::here("data/fourth_study/heter_lineup.rds"))
+  vi_lineup <- readRDS(here::here("data/vi_lineup.rds"))
 }
 ```
 
-```{r get-conv-result}
+```{r}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-if (!file.exists(here::here("data/third_study/conv_result.rds"))) {
-  conv_result <- list()
+if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
+  poly_conv_sim <- list()
   for (i in 1:100)
   {
-    conv_result[[i]] <- map(1:2000,
+    poly_conv_sim[[i]] <- map(1:2000,
                             function(x) {
                      shape <- sample(1:4, 1)
                      e_sigma <- sample(c(0.5, 1, 2, 4), 1)
@@ -91,33 +84,33 @@ if (!file.exists(here::here("data/third_study/conv_result.rds"))) {
                             x_dist = x_dist,
                             n = n,
                             effect_size = mod$effect_size(tmp_dat),
-                            p_value = mod$test(tmp_dat)$p_value,
-                            reject = p_value < 0.05,
+                            F_p_value = mod$test(tmp_dat)$p_value,
+                            BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
+                            SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
                    }) %>%
-  reduce(bind_rows) %>%
-  mutate(reject = as.numeric(reject))
+  reduce(bind_rows)
   }
   
-  conv_result <- conv_result %>%
+  poly_conv_sim <- poly_conv_sim %>%
     reduce(bind_rows)
   
-  saveRDS(conv_result, here::here("data/third_study/conv_result.rds"))
+  saveRDS(poly_conv_sim, here::here("data/poly_conventional_simulation.rds"))
 } else {
-  conv_result <- readRDS(here::here("data/third_study/conv_result.rds"))
+  poly_conv_sim <- readRDS(here::here("data/poly_conventional_simulation.rds"))
 }
-
-
 ```
+
+
 
 ```{r}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-if (!file.exists(here::here("data/fourth_study/conv_result_heter.rds"))) {
-  conv_result_heter <- list()
+if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
+  heter_conv_sim <- list()
   for (i in 1:100)
   {
-    conv_result_heter[[i]] <- map(1:2000,
+    heter_conv_sim[[i]] <- map(1:2000,
                             function(x) {
                      a <- sample(c(-1, 0, 1), 1)
                      b <- sample(c(0.25, 1, 4, 16, 64), 1)
@@ -136,153 +129,24 @@ if (!file.exists(here::here("data/fourth_study/conv_result_heter.rds"))) {
                             x_dist = x_dist,
                             n = n,
                             effect_size = mod$effect_size(tmp_dat, type = "kl"),
-                            p_value = mod$test(tmp_dat)$p_value,
-                            reject = p_value < 0.05,
+                            F_p_value = POLY_MODEL$test(mutate(tmp_dat, z = poly_model()$gen(n, computed = select(tmp_dat, x))$z))$p_value,
+                            BP_p_value = mod$test(tmp_dat)$p_value,
+                            SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
                    }) %>%
-  reduce(bind_rows) %>%
-  mutate(reject = as.numeric(reject))
+  reduce(bind_rows)
   }
   
-  conv_result_heter <- conv_result_heter %>%
+  heter_conv_sim <- heter_conv_sim %>%
     reduce(bind_rows)
   
-  saveRDS(conv_result_heter, here::here("data/fourth_study/conv_result_heter.rds"))
+  saveRDS(heter_conv_sim, here::here("data/heter_conventional_simulation.rds"))
 } else {
-  conv_result_heter <- readRDS(here::here("data/fourth_study/conv_result_heter.rds"))
+  heter_conv_sim <- readRDS(here::here("data/heter_conventional_simulation.rds"))
 }
-
-
 ```
 
-```{r}
-stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-if (!file.exists(here::here("data/fourth_study/conv_result_heter_SW.rds"))) {
-  conv_result_heter_SW <- list()
-  for (i in 1:100)
-  {
-    conv_result_heter_SW[[i]] <- map(1:2000,
-                            function(x) {
-                     a <- sample(c(-1, 0, 1), 1)
-                     b <- sample(c(0.25, 1, 4, 16, 64), 1)
-                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
-                     x <- switch(x_dist,
-                                 uniform = rand_uniform(-1, 1),
-                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
-                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
-                     mod <- heter_model(a = a, b = b, x = x)
-                     n <- sample(c(50, 100, 300), 1)
-                     tmp_dat <- mod$gen(n)
-
-                     tibble(a = a,
-                            b = b,
-                            x_dist = x_dist,
-                            n = n,
-                            effect_size = mod$effect_size(tmp_dat, type = "kl"),
-                            p_value = shapiro.test(tmp_dat$.resid)$p.value,
-                            reject = p_value < 0.05,
-                            boot_id = i)
-                   }) %>%
-  reduce(bind_rows) %>%
-  mutate(reject = as.numeric(reject))
-  }
-  
-  conv_result_heter_SW <- conv_result_heter_SW %>%
-    reduce(bind_rows)
-  
-  saveRDS(conv_result_heter_SW, here::here("data/fourth_study/conv_result_heter_SW.rds"))
-} else {
-  conv_result_heter_SW <- readRDS(here::here("data/fourth_study/conv_result_heter_SW.rds"))
-}
-
-
-```
-
-```{r}
-if (!file.exists(here::here("data/third_study/wrong_BP_conv_result.rds"))) {
-  wrong_BP_conv_result <- list()
-  for (i in 1:100)
-  {
-    wrong_BP_conv_result[[i]] <- map(1:2000,
-                            function(x) {
-                     shape <- sample(1:4, 1)
-                     e_sigma <- sample(c(0.5, 1, 2, 4), 1)
-                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
-                     x <- switch(x_dist,
-                                 uniform = rand_uniform(-1, 1),
-                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
-                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
-                     mod <- poly_model(shape, x = x, sigma = e_sigma)
-                     n <- sample(c(50, 100, 300), 1)
-                     tmp_dat <- mod$gen(n)
-
-                     tibble(shape = shape,
-                            e_sigma = e_sigma,
-                            x_dist = x_dist,
-                            n = n,
-                            effect_size = mod$effect_size(tmp_dat),
-                            p_value = HETER_MODEL$test(tmp_dat)$p_value,
-                            reject = p_value < 0.05,
-                            boot_id = i)
-                   }) %>%
-  reduce(bind_rows) %>%
-  mutate(reject = as.numeric(reject))
-  }
-  
-  wrong_BP_conv_result <- wrong_BP_conv_result %>%
-    reduce(bind_rows)
-  
-  saveRDS(wrong_BP_conv_result, here::here("data/third_study/wrong_BP_conv_result.rds"))
-} else {
-  wrong_BP_conv_result <- readRDS(here::here("data/third_study/wrong_BP_conv_result.rds"))
-}
-
-```
-
-```{r}
-if (!file.exists(here::here("data/third_study/wrong_SW_conv_result.rds"))) {
-  wrong_SW_conv_result <- list()
-  for (i in 1:100)
-  {
-    wrong_SW_conv_result[[i]] <- map(1:2000,
-                            function(x) {
-                     shape <- sample(1:4, 1)
-                     e_sigma <- sample(c(0.5, 1, 2, 4), 1)
-                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
-                     x <- switch(x_dist,
-                                 uniform = rand_uniform(-1, 1),
-                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
-                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
-                     mod <- poly_model(shape, x = x, sigma = e_sigma)
-                     n <- sample(c(50, 100, 300), 1)
-                     tmp_dat <- mod$gen(n)
-
-                     tibble(shape = shape,
-                            e_sigma = e_sigma,
-                            x_dist = x_dist,
-                            n = n,
-                            effect_size = mod$effect_size(tmp_dat),
-                            p_value = shapiro.test(tmp_dat$.resid)$p.value,
-                            reject = p_value < 0.05,
-                            boot_id = i)
-                   }) %>%
-  reduce(bind_rows) %>%
-  mutate(reject = as.numeric(reject))
-  }
-  
-  wrong_SW_conv_result <- wrong_SW_conv_result %>%
-    reduce(bind_rows)
-  
-  saveRDS(wrong_SW_conv_result, here::here("data/third_study/wrong_SW_conv_result.rds"))
-} else {
-  wrong_SW_conv_result <- readRDS(here::here("data/third_study/wrong_SW_conv_result.rds"))
-}
-
-```
 
 # Introduction
 
@@ -357,6 +221,10 @@ Example residual plots given in Figure \ref{fig:commondepartures} are examined b
 
 <!-- test formula -> appendix -->
 
+<!-- residual plot -> plot -->
+
+<!-- plot a included -->
+
 
 ```{r}
 
@@ -423,6 +291,8 @@ POLY_MODEL$plot_lineup(mod$gen_lineup(300, pos = 11), theme = theme_light(), rem
 Figure \ref{fig:first-example-lineup} is an example of a lineup protocol. If the actual data plot at position 11 is identifiable, then it is evidence for the rejection of the null hypothesis that the regression model is correctly specified. In fact, the actual residual plot is obtained from a misspecified regression model with non-linearity issue. 
 
 The effectiveness of lineup protocol has already been validated by @majumder_validation_2013 under relatively simple classical normal linear regression model settings with only one or two regressors. Their results suggest visual test is capable of testing the significance of a single regressor with a similar power as a t-test, though they expressed that in general it is unnecessary to use visual inference if there exists a conventional test and they didn't expect the visual test to perform equally well as the conventional test. In their third experiment, where there does not exist a proper conventional test, visual test outperforms the conventional test for a large margin. This is encouraging as it promotes the use of visual inference in border field of data science where there are no existing statistical testing procedures. In fact, lineup protocol has been integrated into some model diagnostic tools such as @loy2013diagnostic.
+
+<!-- adam work -->
 
 ### Sampling from the null distribution
 
