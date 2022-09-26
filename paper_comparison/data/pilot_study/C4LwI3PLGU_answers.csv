@@ -1,2 +1,0 @@
-a,b,c,x_dist,x_mu,x_sigma,z_discrete,z_discrete_dist,z_n,e_dist,e_df,e_sigma,n,model,statistics,pvalue,answer
-1.6441604434512556,-0.9456617119722068,0.28001903090626,normal,0,0.3,TRUE,discrete_uniform,7,normal,NA,0.25,100,higher order,30.733030611768086,2.6767567012956605e-16,TRUE

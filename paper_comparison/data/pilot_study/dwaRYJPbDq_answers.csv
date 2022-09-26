@@ -1,3 +1,0 @@
-a,b,c,x_dist,x_mu,x_sigma,z_discrete,z_discrete_dist,z_n,e_dist,e_df,e_sigma,n,model,statistics,pvalue,answer
--2.3384471721947193,1.3718102127313614,1.2542100390419364,neglognormal,0,0.6,FALSE,discrete_uniform,4,normal,NA,0.25,100,higher order,734.6642071522117,1.9942838655323785e-69,TRUE
-0.30518475780263543,-1.2964432812295854,2.6039505016524345,normal,0,0.3,TRUE,discrete_uniform,6,normal,NA,0.5,100,higher order,1074.2993045698083,6.70721759201442e-77,TRUE
