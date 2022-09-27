@@ -412,6 +412,24 @@ attractive, MLE could fail to provide accurate estimates.
 \hypertarget{power-calculation}{%
 \subsubsection{Power calculation}\label{power-calculation}}
 
+As discussed in \citet{majumder_validation_2013}, individual's skill
+will affect the number of observers who identify the actual data plot
+from the lineup. Thus, the power of a visual test depends on the
+subject-specific abilities. Previously, it was addressed by modelling
+the probability of a subject \(i\) correctly picking the actual data
+plot from a lineup \(l\) using a mixed-effect logistic regression with
+the subject being treated as a random effect
+\citep{majumder_validation_2013}. However, knowing this probability is
+insufficient to determine the power of a visual test allowed for
+multiple selections as it doesn't provide information about the number
+of selections made by the subject, and hence, the p-value can't be
+computed.
+
+Instead, we modelled the probability of a lineup being rejected directly
+using a logistic regression with the natural logarithm of the effect
+size as the only regressor. The same model was applied to different
+subsets of the survey data to make comparison of the power.
+
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
 

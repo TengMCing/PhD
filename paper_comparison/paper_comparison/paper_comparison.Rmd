@@ -334,7 +334,9 @@ The parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} is usually
 
 ### Power calculation
 
+As discussed in @majumder_validation_2013, individual's skill will affect the number of observers who identify the actual data plot from the lineup. Thus, the power of a visual test depends on the subject-specific abilities. Previously, it was addressed by modelling the probability of a subject $i$ correctly picking the actual data plot from a lineup $l$ using a mixed-effect logistic regression with the subject being treated as a random effect [@majumder_validation_2013]. However, knowing this probability is insufficient to determine the power of a visual test allowed for multiple selections as it doesn't provide information about the number of selections made by the subject, and hence, the p-value can't be computed.
 
+Instead, we modelled the probability of a lineup being rejected directly using a logistic regression with the natural logarithm of the effect size as the only regressor. The same model was applied to different subsets of the survey data to make comparison of the power. 
 
 
 
@@ -600,6 +602,8 @@ software/technical
 ```{r}
 vi_survey_processed <- readRDS(here::here("data/vi_survey_processed.rds")) 
 ```
+
+
 
 ```{r}
 boot_y <- function(dat, y, times = 100) {
@@ -908,6 +912,49 @@ p2 <- vi_survey_processed %>%
 
 patchwork::wrap_plots(p1, p2)
 
+```
+
+
+```{r eval = FALSE}
+vi_survey_processed %>%
+  filter(exp == 3) %>%
+  filter(e_sigma != 0.125) %>%
+  mutate()
+
+vi_survey_processed %>%
+  filter(exp == 3) %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(set = factor(set), lineup_id = factor(lineup_id)) %>%
+  {lme4::glmer(weighted_detect ~ effect_size + ( 0 + effect_size | set) + ( 0 + effect_size | lineup_id), family = binomial ,data = .)} %>%
+  predict(type = "response")
+  
+  
+  
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) 
+
+
+
+
+
++
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                pivot_longer(F_p_value:SW_p_value), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  facet_wrap(~x_dist) +
+  ggtitle("poly")
+  
+  ?glm
 ```
 
 
