@@ -187,7 +187,7 @@ consistent comparison in the later part of this paper, residual plot
 will be the focus. Besides, it is important to note that not all
 regression models assume normality for the error term, but a certain
 amount do including the classical normal linear regression model. In the
-case that the normality assumption doesn't hold, it is expected to
+case that the normality assumption is violated, it is expected to
 observe data points that do not centralize around the horizontal zero
 line and unevenly distribute at both sides of the zero line. For
 example, given a skewed error distribution, fewer data points and more
@@ -384,13 +384,19 @@ of times plot \(i\) being selected in \(K\) evaluations. In case subject
 the visual p-value followed by the above model is given as
 
 \begin{equation} \label{eq:pvalue-beta-binomial}
-P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
+P(C \geq c_i) = \int_{x=c_i}^{K}\frac{\Gamma(K + 1)}{\Gamma(x + 1)\Gamma(K - x + 1)}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)}dx,
 \end{equation}
 
 where \(B(.)\) is the beta function defined as
 
 \begin{equation} \label{eq:betafunction}
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
+\end{equation}
+
+and \(\Gamma(.)\) is the gamma function defined as
+
+\begin{equation} \label{eq:gammafunction}
+\Gamma(z) = \int_{0}^{\infty}t^{z - 1}e^{-t}dt,\quad \text{where}\quad z>0. 
 \end{equation}
 
 The parameter \(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial}
@@ -676,6 +682,25 @@ satisfy the design of the experiment I.
 \subsubsection{Collecting results}\label{collecting-results}}
 
 software/technical
+
+\hypertarget{power-comparison}{%
+\subsection{Power comparison}\label{power-comparison}}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-8-1}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-9-1}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-10-1}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-11-1}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-12-1}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-1}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-2}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-14-1}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-14-2}
 
 --\textgreater{}
 

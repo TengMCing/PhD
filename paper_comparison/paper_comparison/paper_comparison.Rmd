@@ -209,7 +209,7 @@ Non-linearity is a type of model misspecification caused by failing to include h
 
 Heterskedasticity refers to the presence of nonconst error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heterskedasticity on a residual plot is the inconsistent spread of the residuals at different x values. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure \ref{fig:commondepartures}, or the "left-triangle" and "right-triganle" shape where the smallest variance occurs at the edges of the x-axis.
 
-Compared to non-linearity and heterskedasticity, non-normality is usually harder to be detected from a residual plot since scatter plot is not excel in revealing marginal distribution. A favourable graphical summarise for this task is the quantile-quantile plot. However, for a consistent comparison in the later part of this paper, residual plot will be the focus. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption doesn't hold, it is expected to observe data points that do not centralize around the horizontal zero line and unevenly distribute at both sides of the zero line. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the zero line as shown at the bottom-right of Figure \ref{fig:commondepartures}.
+Compared to non-linearity and heterskedasticity, non-normality is usually harder to be detected from a residual plot since scatter plot is not excel in revealing marginal distribution. A favourable graphical summarise for this task is the quantile-quantile plot. However, for a consistent comparison in the later part of this paper, residual plot will be the focus. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption is violated, it is expected to observe data points that do not centralize around the horizontal zero line and unevenly distribute at both sides of the zero line. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the zero line as shown at the bottom-right of Figure \ref{fig:commondepartures}.
 
 ## Conventionally testing for departures
 
@@ -309,7 +309,7 @@ As pointed out by @vanderplas2021statistical, the binomial model doesn't take in
 
 ```{=tex}
 \begin{equation} \label{eq:pvalue-beta-binomial}
-P(C \geq c_i) = \sum_{x=c_i}^{K}{{K}\choose{x}}\frac{1}{B(\alpha, (m-1)\alpha)}B(x + \alpha, K - x + (m - 1)\alpha),
+P(C \geq c_i) = \int_{x=c_i}^{K}\frac{\Gamma(K + 1)}{\Gamma(x + 1)\Gamma(K - x + 1)}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)}dx,
 \end{equation}
 ```
 
@@ -321,10 +321,20 @@ B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.
 \end{equation}
 ```
 
+and $\Gamma(.)$ is the gamma function defined as
+
+```{=tex}
+\begin{equation} \label{eq:gammafunction}
+\Gamma(z) = \int_{0}^{\infty}t^{z - 1}e^{-t}dt,\quad \text{where}\quad z>0. 
+\end{equation}
+```
+
 The parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} is usually unknown and hence needs to be estimated from the survey data. For low values of $\alpha$, only a few plots are attractive to the observers and tend to be selected. For higher values of $\alpha$, the distribution of the probability of each plot being selected is more evenly. @vanderplas2021statistical suggested that $\alpha$ can be estimated using maximum likelihood estimation or visual estimation. But if $\alpha$ is small and only a few null plots in a lineup are attractive, MLE could fail to provide accurate estimates.
 
 
 ### Power calculation
+
+
 
 
 
@@ -584,6 +594,322 @@ In addition, each lineup is designed to be evaluated by five different subjects 
 ### Collecting results
 
 software/technical
+
+## Power comparison
+
+```{r}
+vi_survey_processed <- readRDS(here::here("data/vi_survey_processed.rds")) 
+```
+
+```{r}
+boot_y <- function(dat, y, times = 100) {
+  map_df(1:times, function(i) slice_sample(dat, n = nrow(dat), replace = TRUE) %>% mutate(boot_id = i))
+}
+```
+
+
+```{r}
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  rename(p_value_dirichlet = p_value_select_all_plots) %>%
+  ggplot() +
+  geom_point(aes(p_value_uniform, p_value_dirichlet)) +
+  geom_abline() +
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+
+```{r}
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                pivot_longer(F_p_value:SW_p_value), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  facet_wrap(~x_dist) +
+  ggtitle("poly")
+```
+
+
+```{r}
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_uniform = as.numeric(p_value_uniform <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value_dirichlet"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value_dirichlet"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject_uniform, col = "VI_p_value_uniform"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_uniform, times = 500), 
+              aes(log_effect_size, reject_uniform, group = boot_id, col = "VI_p_value_uniform"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  facet_wrap(~x_dist) +
+  ggtitle("poly")
+```
+
+```{r}
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(b != 0) %>%
+  filter(b < 128) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
+                pivot_longer(F_p_value:SW_p_value), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  facet_wrap(~x_dist) +
+  ggtitle("heter")
+```
+
+
+```{r}
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_uniform = as.numeric(p_value_uniform <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value_dirichlet"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value_dirichlet"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject_uniform, col = "VI_p_value_uniform"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_uniform, times = 500), 
+              aes(log_effect_size, reject_uniform, group = boot_id, col = "VI_p_value_uniform"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  facet_wrap(~x_dist) +
+  ggtitle("heter")
+```
+
+```{r}
+p_value_cache_env <- new.env()
+
+if (file.exists(here::here("data/p_value_only_5_eval.rds"))) {
+  p_value_only_5_eval <- readRDS(here::here("data/p_value_only_5_eval.rds"))
+} else {
+  p_value_only_5_eval <- vi_survey_processed %>%
+  filter(x_dist == "uniform") %>%
+  filter((is.na(b) & e_sigma != 0.125 ) | (b != 0 & b < 128)) %>%
+  filter(exp != 5) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value_only_5_eval = calc_p_value(n_detect = sum(detect), 
+                                               n_eval = n(), 
+                                               n_sel = num_selection, 
+                                               dist = "dirichlet",
+                                               alpha = numeric_alpha[1],
+                                               cache_env = p_value_cache_env))
+  
+  saveRDS(p_value_only_5_eval, here::here("data/p_value_only_5_eval.rds"))
+}
+
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(x_dist == "uniform") %>%
+  filter(b != 0) %>%
+  filter(b < 128) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject_only_5_eval, col = "VI_p_value_only_5_eval"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_only_5_eval, times = 500), 
+              aes(log_effect_size, reject_only_5_eval, group = boot_id, col = "VI_p_value_only_5_eval"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  ggtitle("heter")
+
+p1 <- vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(x_dist == "uniform") %>%
+  filter(b != 0) %>%
+  filter(b < 128) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03)
+
+p2 <- vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(x_dist == "uniform") %>%
+  filter(b != 0) %>%
+  filter(b < 128) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_only_5_eval, col = "VI_p_value_only_5_eval"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_only_5_eval, times = 500), 
+              aes(log_effect_size, reject_only_5_eval, group = boot_id, col = "VI_p_value_only_5_eval"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03)
+
+patchwork::wrap_plots(p1, p2)
+```
+
+
+```{r}
+
+vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(x_dist == "uniform") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject_only_5_eval, col = "VI_p_value_only_5_eval"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_only_5_eval, times = 500), 
+              aes(log_effect_size, reject_only_5_eval, group = boot_id, col = "VI_p_value_only_5_eval"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  ggtitle("poly")
+
+p1 <- vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(x_dist == "uniform") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03)
+
+p2 <- vi_survey_processed %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(x_dist == "uniform") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  left_join(p_value_only_5_eval) %>%
+  mutate(reject_only_5_eval = as.numeric(p_value_only_5_eval <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_only_5_eval, col = "VI_p_value_only_5_eval"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_only_5_eval, times = 500), 
+              aes(log_effect_size, reject_only_5_eval, group = boot_id, col = "VI_p_value_only_5_eval"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03)
+
+patchwork::wrap_plots(p1, p2)
+
+```
+
 
 <!-- # Old stuff -->
 
