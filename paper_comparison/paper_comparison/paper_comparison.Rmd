@@ -154,7 +154,7 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
 
 Diagnosing a model is the key to determining whether there is anything importantly wrong. For linear regression analysis, it is typical to interrogate the residuals. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. There are many ways that residuals could be assessed.
 
-Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or contains outliers, there is cause for concern. The distribution could also be inspected by conducting a goodness of fit test, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
+Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical normal linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or contains outliers, there is cause for concern. The distribution could also be inspected by conducting a goodness of fit test, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
 
 Plotting the residuals against predicted values and each of the explanatory variables on a scatter plot is a recommend way to scrutinize their relationships. If there is any visually discoverable patterns, the model is potentially misspecified. However, it is a very difficult task for a human judge, though to make a decision that there's nothing there. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for departures from nothingness like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
 
@@ -203,13 +203,13 @@ patchwork::wrap_plots(
 )
 ```
 
-Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure \ref{fig:commondepartures}, the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. There are various types of departures from a good residual plot. We will only discuss three most commonly checked departures in this paper. Namely, non-linearity, heterskedasticity and non-normality.
+Graphical summaries in which residuals are plotted against fitted values or other functions of the predictor variables that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. As shown in Figure \ref{fig:commondepartures}, the top-left panel is a good residual plot with residuals evenly distributed at both sides of the horizontal zero line showing no noticeable patterns. There are various types of departures from a good residual plot. Two most commonly checked departures - non-linearity, heterskedasticity and non-normality will be discussed in this paper.
 
-Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values presented in the residual plot could be considered as an indicative of non-linearity. At the top-right of Figure [ref here], there is a residual plot giving an example of the visual pattern of non-linearity when a cubic term is not captured by the regression model.
+Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values presented in the residual plot could be considered as an indicative of non-linearity. An example residual plot containing visual pattern of non-linearity is given at the top-right of Figure [ref here]. One can clearly observe the "S-shape" from the residual plot as the cubic term is not captured by the misspecified model.
 
 Heterskedasticity refers to the presence of nonconst error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heterskedasticity on a residual plot is the inconsistent spread of the residuals at different x values. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure \ref{fig:commondepartures}, or the "left-triangle" and "right-triganle" shape where the smallest variance occurs at the edges of the x-axis.
 
-Non-normality is usually harder to be detected from a residual plot compared to non-linearity and heterskedasticity. Besides, a quantile-quantile plot can often do a better job for this task. Note that not all regression models assume normality of the error term, but a certain amount of them does. If this assumption happens to be false, then it is expected to see data points do not distribute noramlly on the y-axis. For example, given a skewed error distribution, one will see fewer data points and more outliers on one side of the zeroline as shown in the bottom-right of Figure \ref{fig:commondepartures}.
+Compared to non-linearity and heterskedasticity, non-normality is usually harder to be detected from a residual plot since scatter plot is not excel in revealing marginal distribution. A favourable graphical summarise for this task is the quantile-quantile plot. However, for a consistent comparison in the later part of this paper, residual plot will be the focus. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption doesn't hold, it is expected to observe data points that do not centralize around the horizontal zero line and unevenly distribute at both sides of the zero line. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the zero line as shown at the bottom-right of Figure \ref{fig:commondepartures}.
 
 ## Conventionally testing for departures
 
@@ -240,15 +240,18 @@ dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
 
 
 
-data.frame(plot = c("B", "C", "D"), 
-           model = c("Non-linearity", "Heteroskedasticity", "Non-normality"),
-           f = c(POLY_MODEL$test(dat1)$p_value,
+data.frame(plot = c("A", "B", "C", "D"), 
+           model = c("None", "Non-linearity", "Heteroskedasticity", "Non-normality"),
+           f = c(POLY_MODEL$test(dat)$p_value, 
+                 POLY_MODEL$test(dat1)$p_value,
                  POLY_MODEL$test(mutate(dat2, z = poly_model()$gen(300, computed = select(dat2, x))$z))$p_value,
                  POLY_MODEL$test(mutate(dat3, z = poly_model()$gen(300, computed = select(dat3, x))$z))$p_value),
-           b = c(HETER_MODEL$test(dat1)$p_value,
+           b = c(HETER_MODEL$test(dat)$p_value, 
+                 HETER_MODEL$test(dat1)$p_value,
                  HETER_MODEL$test(dat2)$p_value,
                  HETER_MODEL$test(dat3)$p_value),
-           s = c(shapiro.test(dat1$.resid)$p.value,
+           s = c(shapiro.test(dat$.resid)$p.value, 
+                 shapiro.test(dat1$.resid)$p.value,
                  shapiro.test(dat2$.resid)$p.value,
                  shapiro.test(dat3$.resid)$p.value)) %>%
   mutate(f = format(round(f, digits = 3), nsmall = 3), b = format(round(b, digits = 3), nsmall = 3), s = format(round(s, digits = 3), nsmall = 3)) -> table_dat
@@ -259,12 +262,12 @@ data.frame(plot = c("B", "C", "D"),
   table_dat$s <- kableExtra::cell_spec(table_dat$s, bold = as.numeric(table_dat$s) < 0.05)
 
   table_dat %>%
-  knitr::kable(col.names = c("Residual plots", "Departures", "Model structural", "Breusch-Pagan", "Shapiro–Wilk"),
+  knitr::kable(col.names = c("Plot", "Departures", "Model structural", "Breusch-Pagan", "Shapiro–Wilk"),
                align = "llrrr",
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
-               caption  = 'Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are showed in bold.', 
+               caption  = 'Results of example residual plots given in Figure \\ref{fig:commondepartures} examined by the Model structural test (F-test), the Breusch-Pagan test and the Shapiro–Wilk test. P-values smaller than 0.05 are showed in bold.', 
                label = "example-residual-plot-table" ) 
 
 ```
@@ -290,7 +293,7 @@ POLY_MODEL$plot_lineup(mod$gen_lineup(300, pos = 11), theme = theme_light(), rem
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup protocol. If the actual data plot at position 11 is identifiable, then it is evidence for the rejection of the null hypothesis that the regression model is correctly specified. In fact, the actual residual plot is obtained from a misspecified regression model with non-linearity issue. 
 
-The effectiveness of lineup protocol has already been validated by @majumder_validation_2013 under relatively simple classical normal linear regression model settings with only one or two regressors. Their results suggest visual test is capable of testing the significance of a single regressor with a similar power as a t-test, though they expressed that in general it is unnecessary to use visual inference if there exists a conventional test and they didn't expect the visual test to perform equally well as the conventional test. In their third experiment, where there does not exist a proper conventional test, visual test outperforms the conventional test for a large margin. This is encouraging as it promotes the use of visual inference in border field of data science where there are no existing statistical testing procedures. In fact, lineup protocol has been integrated into some model diagnostic tools such as @loy2013diagnostic.
+The effectiveness of lineup protocol has already been validated by @majumder_validation_2013 under relatively simple classical normal linear regression model settings with only one or two regressors. Their results suggest visual test is capable of testing the significance of a single regressor with a similar power as a t-test, though they expressed that in general it is unnecessary to use visual inference if there exists a conventional test and they didn't expect the visual test to perform equally well as the conventional test. In their third experiment, where there does not exist a proper conventional test, visual test outperforms the conventional test for a large margin. This is encouraging as it promotes the use of visual inference in border field of data science where there are no existing statistical testing procedures. In fact, lineup protocol has been integrated successfully into diagnostic tools of hierarchical linear models [@loy2013diagnostic].
 
 <!-- adam work -->
 
@@ -325,6 +328,8 @@ The parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} is usually
 
 
 
+
+
 <!-- -   Very briefly explain what a lineup test is -->
 
 <!-- -   Lineup (maybe using your previous residual plot for nonlinearity) -->
@@ -341,7 +346,7 @@ The parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} is usually
 
 
 
-```{r residual-plot-cubic-heter, fig.cap='Residuals vs. fitted values plot for a classical linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, "butterfly shape" can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process. \\label{fig:residual-plot-cubic-heter}', eval = FALSE}
+```{r residual-plot-cubic-heter, fig.cap='Residuals vs. fitted values plot for a classical normal linear regression model. The residuals are produced by fitting a two-predictor multiple linear regression model with data generated from a cubic linear model. From the residual plot, "butterfly shape" can be observed which generally would be interpretd as evidence of heteroskedasticity. Further, from the outline of the shape, nonlinear patterns exist. Both visual discoveries are evidence against the null hypothesis, though heteroskedasticity actually does not exist in the data generating process. \\label{fig:residual-plot-cubic-heter}', eval = FALSE}
 
 cm <- cubic_model(a = 0, b = 100, c = 1)
 
@@ -531,7 +536,7 @@ patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 Figure \ref{fig:example-lineup} shows one of the lineups used in experiment I. This lineup was produced under $n = 300$, $j = 6$, $\sigma = 1$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
 
 ```{r example-lineup, fig.cap="Lineup 24 in experiment I. Can you spot the most different plot? \\label{fig:example-lineup}"}
-VI_MODEL$plot_lineup(polynomials_lineup[[24]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
                      remove_axis = TRUE)

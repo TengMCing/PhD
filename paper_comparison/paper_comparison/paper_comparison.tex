@@ -92,10 +92,10 @@ the model, and thus provide the capacity to identify what might be
 wrong. There are many ways that residuals could be assessed.
 
 Residuals might be plotted, as a histogram or quantile-quantile plot to
-examine the distribution. Using the classical linear regression model as
-an example, if the distribution is symmetric and unimodal, it is
-well-behaved. But if the distribution is skewed, bimodal, multimodal, or
-contains outliers, there is cause for concern. The distribution could
+examine the distribution. Using the classical normal linear regression
+model as an example, if the distribution is symmetric and unimodal, it
+is well-behaved. But if the distribution is skewed, bimodal, multimodal,
+or contains outliers, there is cause for concern. The distribution could
 also be inspected by conducting a goodness of fit test, such as the
 Shapiro-Wilk Normality test \citep{shapiro1965analysis}.
 
@@ -156,17 +156,18 @@ orthogonal to residuals are referred to as standard residual plots in
 \ref{fig:commondepartures}, the top-left panel is a good residual plot
 with residuals evenly distributed at both sides of the horizontal zero
 line showing no noticeable patterns. There are various types of
-departures from a good residual plot. We will only discuss three most
-commonly checked departures in this paper. Namely, non-linearity,
-heterskedasticity and non-normality.
+departures from a good residual plot. Two most commonly checked
+departures - non-linearity, heterskedasticity and non-normality will be
+discussed in this paper.
 
 Non-linearity is a type of model misspecification caused by failing to
 include higher order terms of the regressors in the regression equation.
 Any non-linear functional form of residuals on fitted values presented
 in the residual plot could be considered as an indicative of
-non-linearity. At the top-right of Figure {[}ref here{]}, there is a
-residual plot giving an example of the visual pattern of non-linearity
-when a cubic term is not captured by the regression model.
+non-linearity. An example residual plot containing visual pattern of
+non-linearity is given at the top-right of Figure {[}ref here{]}. One
+can clearly observe the ``S-shape'' from the residual plot as the cubic
+term is not captured by the misspecified model.
 
 Heterskedasticity refers to the presence of nonconst error variance in a
 regression model. It is mostly due to the strict but false assumptions
@@ -178,15 +179,20 @@ Figure \ref{fig:commondepartures}, or the ``left-triangle'' and
 ``right-triganle'' shape where the smallest variance occurs at the edges
 of the x-axis.
 
-Non-normality is usually harder to be detected from a residual plot
-compared to non-linearity and heterskedasticity. Besides, a
-quantile-quantile plot can often do a better job for this task. Note
-that not all regression models assume normality of the error term, but a
-certain amount of them does. If this assumption happens to be false,
-then it is expected to see data points do not distribute noramlly on the
-y-axis. For example, given a skewed error distribution, one will see
-fewer data points and more outliers on one side of the zeroline as shown
-in the bottom-right of Figure \ref{fig:commondepartures}.
+Compared to non-linearity and heterskedasticity, non-normality is
+usually harder to be detected from a residual plot since scatter plot is
+not excel in revealing marginal distribution. A favourable graphical
+summarise for this task is the quantile-quantile plot. However, for a
+consistent comparison in the later part of this paper, residual plot
+will be the focus. Besides, it is important to note that not all
+regression models assume normality for the error term, but a certain
+amount do including the classical normal linear regression model. In the
+case that the normality assumption doesn't hold, it is expected to
+observe data points that do not centralize around the horizontal zero
+line and unevenly distribute at both sides of the zero line. For
+example, given a skewed error distribution, fewer data points and more
+outliers are on one side of the zero line as shown at the bottom-right
+of Figure \ref{fig:commondepartures}.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
@@ -233,12 +239,13 @@ assumptions flexibly, even in the presence of outliers.
 
 \begin{table}
 
-\caption{\label{tab:example-residual-plot-table}Example residual plots examined by the corresponding conventional tests. P-values smaller than 0.05 are showed in bold.}
+\caption{\label{tab:example-residual-plot-table}Results of example residual plots given in Figure \ref{fig:commondepartures} examined by the Model structural test (F-test), the Breusch-Pagan test and the Shapiro–Wilk test. P-values smaller than 0.05 are showed in bold.}
 \centering
 \begin{tabular}[t]{llrrr}
 \toprule
-Residual plots & Departures & Model structural & Breusch-Pagan & Shapiro–Wilk\\
+Plot & Departures & Model structural & Breusch-Pagan & Shapiro–Wilk\\
 \midrule
+A & None & 0.434 & 0.133 & 0.728\\
 B & Non-linearity & \textbf{0.000} & \textbf{0.000} & \textbf{0.039}\\
 C & Heteroskedasticity & 0.378 & \textbf{0.000} & \textbf{0.000}\\
 D & Non-normality & 0.667 & 0.736 & \textbf{0.000}\\
@@ -314,8 +321,9 @@ experiment, where there does not exist a proper conventional test,
 visual test outperforms the conventional test for a large margin. This
 is encouraging as it promotes the use of visual inference in border
 field of data science where there are no existing statistical testing
-procedures. In fact, lineup protocol has been integrated into some model
-diagnostic tools such as \citet{loy2013diagnostic}.
+procedures. In fact, lineup protocol has been integrated successfully
+into diagnostic tools of hierarchical linear models
+\citep{loy2013diagnostic}.
 
 \hypertarget{sampling-from-the-null-distribution}{%
 \subsubsection{Sampling from the null
