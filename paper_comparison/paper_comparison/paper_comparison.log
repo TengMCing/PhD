@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  28 SEP 2022 00:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.28)  28 SEP 2022 10:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -141,13 +141,15 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+\stockwidth=\dimen161
+\stockheight=\dimen162
 ))
-\Gin@req@height=\dimen161
-\Gin@req@width=\dimen162
+\Gin@req@height=\dimen163
+\Gin@req@width=\dimen164
 )
-\epsfxsize=\dimen163
-\epsfysize=\dimen164
+\epsfxsize=\dimen165
+\epsfysize=\dimen166
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
@@ -168,14 +170,14 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@cnth=\count276
 \Gm@cntv=\count277
 \c@Gm@tempcnt=\count278
-\Gm@bindingoffset=\dimen165
-\Gm@wd@mp=\dimen166
-\Gm@odd@mp=\dimen167
-\Gm@even@mp=\dimen168
-\Gm@layoutwidth=\dimen169
-\Gm@layoutheight=\dimen170
-\Gm@layouthoffset=\dimen171
-\Gm@layoutvoffset=\dimen172
+\Gm@bindingoffset=\dimen167
+\Gm@wd@mp=\dimen168
+\Gm@odd@mp=\dimen169
+\Gm@even@mp=\dimen170
+\Gm@layoutwidth=\dimen171
+\Gm@layoutheight=\dimen172
+\Gm@layouthoffset=\dimen173
+\Gm@layoutvoffset=\dimen174
 \Gm@dimlist=\toks29
 )
 \c@mv@upright=\count279
@@ -184,10 +186,10 @@ LaTeX Font Info:    Overwriting symbol font `letters' in version `upright'
 (Font)                  OML/cmm/m/it --> OML/eur/m/n on input line 163.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `boldupright'
 (Font)                  OML/cmm/m/it --> OML/eur/b/n on input line 164.
-\figheight=\dimen173
-\figwidth=\dimen174
-\tabledim=\dimen175
-\LabelSep=\dimen176
+\figheight=\dimen175
+\figwidth=\dimen176
+\tabledim=\dimen177
+\LabelSep=\dimen178
 \TopSep=\skip57
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
 Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
@@ -220,9 +222,9 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip58
 \subfigcapskip=\skip59
-\subfigcaptopadj=\dimen177
+\subfigcaptopadj=\dimen179
 \subfigbottomskip=\skip60
-\subfigcapmargin=\dimen178
+\subfigcapmargin=\dimen180
 \subfiglabelskip=\skip61
 \c@subfigure=\count281
 \c@lofdepth=\count282
@@ -245,7 +247,7 @@ LaTeX Info: Redefining \cite on input line 694.
 \c@remark=\count287
 \c@notation=\count288
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2022-06-20 v7.00s Hypertext links for LaTeX
+Package: hyperref 2022-09-22 v7.00t Hypertext links for LaTeX
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
@@ -263,11 +265,11 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count289
 )
-\@linkdim=\dimen179
+\@linkdim=\dimen181
 \Hy@linkcounter=\count290
 \Hy@pagecounter=\count291
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2022-06-20 v7.00s Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2022-09-22 v7.00t Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
@@ -277,7 +279,7 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count292
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2022-06-20 v7.00s Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2022-09-22 v7.00t Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
@@ -287,29 +289,29 @@ Package hyperref Info: Hyper index ON on input line 4170.
 Package hyperref Info: Plain pages OFF on input line 4177.
 Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4408.
+Package hyperref Info: Bookmarks ON on input line 4410.
 \c@Hy@tempcnt=\count293
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4746.
-\XeTeXLinkMargin=\dimen180
+LaTeX Info: Redefining \url on input line 4748.
+\XeTeXLinkMargin=\dimen182
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count294
-\Field@Width=\dimen181
-\Fld@charsize=\dimen182
-Package hyperref Info: Hyper figures OFF on input line 6024.
-Package hyperref Info: Link nesting OFF on input line 6029.
-Package hyperref Info: Hyper index ON on input line 6032.
-Package hyperref Info: backreferencing OFF on input line 6039.
-Package hyperref Info: Link coloring OFF on input line 6044.
-Package hyperref Info: Link coloring with OCG OFF on input line 6049.
-Package hyperref Info: PDF/A mode OFF on input line 6054.
+\Field@Width=\dimen183
+\Fld@charsize=\dimen184
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
@@ -320,7 +322,7 @@ package with kernel methods
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2022-06-20 v7.00s Hyperref driver for pdfTeX
+File: hpdftex.def 2022-09-22 v7.00t Hyperref driver for pdfTeX
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
@@ -346,7 +348,7 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LTpre=\skip69
 \LTpost=\skip70
 \LTchunksize=\count300
-\LTcapwidth=\dimen183
+\LTcapwidth=\dimen185
 \LT@head=\box54
 \LT@firsthead=\box55
 \LT@foot=\box56
@@ -359,9 +361,9 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LT@p@ftn=\toks32
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen184
+\col@sep=\dimen186
 \ar@mcellbox=\box59
-\extrarowheight=\dimen185
+\extrarowheight=\dimen187
 \NC@list=\toks33
 \extratabsurround=\skip71
 \backup@length=\skip72
@@ -371,10 +373,10 @@ Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip73
 \multirow@cntb=\count305
 \multirow@dima=\skip74
-\bigstrutjot=\dimen186
+\bigstrutjot=\dimen188
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen187
-\WF@size=\dimen188
+\wrapoverhang=\dimen189
+\WF@size=\dimen190
 \c@WF@wrappedlines=\count306
 \WF@box=\box61
 \WF@everypar=\toks34
@@ -410,8 +412,8 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box64
 \sift@deathcycles=\count309
-\@vwid@loff=\dimen189
-\@vwid@roff=\dimen190
+\@vwid@loff=\dimen191
+\@vwid@roff=\dimen192
 )
 \c@taburow=\count310
 \tabu@nbcols=\count311
@@ -419,15 +421,15 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@Xcol=\count313
 \tabu@alloc=\count314
 \tabu@nested=\count315
-\tabu@target=\dimen191
-\tabu@spreadtarget=\dimen192
-\tabu@naturalX=\dimen193
-\tabucolX=\dimen194
-\tabu@Xsum=\dimen195
-\extrarowdepth=\dimen196
-\abovetabulinesep=\dimen197
-\belowtabulinesep=\dimen198
-\tabustrutrule=\dimen199
+\tabu@target=\dimen193
+\tabu@spreadtarget=\dimen194
+\tabu@naturalX=\dimen195
+\tabucolX=\dimen196
+\tabu@Xsum=\dimen197
+\extrarowdepth=\dimen198
+\abovetabulinesep=\dimen199
+\belowtabulinesep=\dimen256
+\tabustrutrule=\dimen257
 \tabu@thebody=\toks38
 \tabu@footnotes=\toks39
 \tabu@box=\box65
@@ -451,15 +453,15 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \UL@hyphenbox=\box71
 \UL@skip=\skip78
 \UL@hook=\toks40
-\UL@height=\dimen256
+\UL@height=\dimen258
 \UL@pe=\count316
-\UL@pixel=\dimen257
+\UL@pixel=\dimen259
 \ULC@box=\box72
 Package: ulem 2019/11/18
-\ULdepth=\dimen258
+\ULdepth=\dimen260
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen259
+\rotheadsize=\dimen261
 \c@nlinenum=\count317
 \TeXr@lab=\toks41
 ) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
@@ -612,161 +614,145 @@ l.349
        <./paper_comparison_files/figure-latex/first-example-lineup-1.pdf>] [7] [8]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 506.
+(Font)              size <5> substituted on input line 477.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 506.
+(Font)              size <5> substituted on input line 477.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 506.
+(Font)              size <5> substituted on input line 477.
 
-[9]
-<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=276, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=263, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 615.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 524.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[10] [11
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.623 
-      
+[9] [10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.623 
+l.533 
        <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>]
-<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=305, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-sigma-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 625.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/different-dist-1.pdf, id=307, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/different-dist-1.pdf, id=291, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/different-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-dist-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 636.
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 535.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=309, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/example-lineup-1.pdf, id=293, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/example-lineup-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 646.
+Package pdftex.def Info: paper_comparison_files/figure-latex/example-lineup-1.pdf  used on input line 544.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[12
+[11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.671 
-       <./paper_comparison_files/figure-latex/different-sigma-1.pdf>] [13
+l.573 
+       <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.671 
-       <./paper_comparison_files/figure-latex/different-dist-1.pdf>] [14
+l.573 
+       <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
+<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=323, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 580.
+(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
+[13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.671 
-       <./paper_comparison_files/figure-latex/example-lineup-1.pdf>]
-<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=344, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 672.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 672--673
-[][] 
- []
-
-<paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf, id=347, 578.16pt x 433.62pt>
+l.623 
+       <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf, id=339, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 707.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 629.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[15 <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf, id=360, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf, id=340, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 709.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 631.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 709--710
+Overfull \hbox (12.0pt too wide) in paragraph at lines 631--632
 [][] 
  []
 
-<paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf, id=361, 578.16pt x 433.62pt>
+[14 <./paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf, id=351, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 711.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 633.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 711--712
+Overfull \hbox (12.0pt too wide) in paragraph at lines 633--634
 [][] 
  []
 
-[16 <./paper_comparison_files/figure-latex/unnamed-chunk-8-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf, id=379, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf, id=352, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 713.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 635.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 713--714
+Overfull \hbox (12.0pt too wide) in paragraph at lines 635--636
 [][] 
  []
 
-<paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf, id=380, 578.16pt x 433.62pt>
+[15 <./paper_comparison_files/figure-latex/unnamed-chunk-9-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf, id=373, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 715.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 637.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 715--716
+Overfull \hbox (12.0pt too wide) in paragraph at lines 637--638
 [][] 
  []
 
-[17 <./paper_comparison_files/figure-latex/unnamed-chunk-10-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf, id=401, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf, id=374, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 717.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 639.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf, id=402, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf, id=375, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf  used on input line 718.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf  used on input line 640.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 717--719
+Overfull \hbox (12.0pt too wide) in paragraph at lines 639--641
 [][]
  []
 
-[18 <./paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf, id=424, 578.16pt x 433.62pt>
+[16 <./paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf, id=396, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf  used on input line 720.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf  used on input line 642.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf, id=425, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf, id=397, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf  used on input line 721.
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf  used on input line 643.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 720--722
+Overfull \hbox (12.0pt too wide) in paragraph at lines 642--644
 [][]
  []
 
-[19 <./paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 723.
+[17 <./paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-13-2.pdf>]
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 645.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <11> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 723.
-(./paper_comparison.bbl [20 <./paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf>]) [21] (./paper_comparison.aux)
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 645.
+(./paper_comparison.bbl [18 <./paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-14-2.pdf>]) [19] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -778,21 +764,21 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: 0267D341C3FC330BEA5F449C479FADE2;3131.
+(rerunfilecheck)             Checksum: A3117534396D6D1DD3E368041919405E;3050.
  ) 
 Here is how much of TeX's memory you used:
- 13309 strings out of 477035
- 217452 string characters out of 5827218
- 560556 words of memory out of 5000000
- 34094 multiletter control sequences out of 15000+600000
+ 13304 strings out of 477035
+ 217091 string characters out of 5827218
+ 557878 words of memory out of 5000000
+ 34091 multiletter control sequences out of 15000+600000
  482191 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,19n,90p,718b,570s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 85i,12n,90p,718b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on paper_comparison.pdf (21 pages, 7251799 bytes).
+Output written on paper_comparison.pdf (19 pages, 7169952 bytes).
 PDF statistics:
- 571 PDF objects out of 1000 (max. 8388607)
- 471 compressed objects within 5 object streams
- 101 named destinations out of 1000 (max. 500000)
- 233 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 552 PDF objects out of 1000 (max. 8388607)
+ 456 compressed objects within 5 object streams
+ 100 named destinations out of 1000 (max. 500000)
+ 228 words of extra memory for PDF output out of 10000 (max. 10000000)
 

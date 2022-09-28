@@ -305,7 +305,7 @@ Data used in the $m - 1$ null plots need to be simulated. In the context of regr
 
 Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
-As pointed out by @vanderplas2021statistical, the binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, they decided to add $1/s_j$ to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Thus, the visual p-value followed by the above model is given as
+As pointed out by @vanderplas2021statistical, the binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. They summarized three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experimental design. For Scenario 3, @vanderplas2021statistical modelled the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Since we are only interested in the selections of the actual data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual p-value is given as
 
 ```{=tex}
 \begin{equation} \label{eq:pvalue-beta-binomial}
@@ -336,9 +336,9 @@ The parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} is usually
 
 As discussed in @majumder_validation_2013, individual's skill will affect the number of observers who identify the actual data plot from the lineup. Thus, the power of a visual test depends on the subject-specific abilities. Previously, it was addressed by modelling the probability of a subject $i$ correctly picking the actual data plot from a lineup $l$ using a mixed-effect logistic regression with the subject being treated as a random effect [@majumder_validation_2013]. However, knowing this probability is insufficient to determine the power of a visual test allowed for multiple selections as it doesn't provide information about the number of selections made by the subject, and hence, the p-value can't be computed.
 
-Instead, we modelled the probability of a lineup being rejected directly using a logistic regression with the natural logarithm of the effect size as the only regressor. The same model was applied to different subsets of the survey data to make comparison of the power. 
+(1) Instead, we modelled the probability of a lineup being rejected directly using a logistic regression with the natural logarithm of the effect size as the only regressor. The same model was applied to different subsets of the survey data for making comparison of the power. 
 
-
+(2) Instead, we modelled the plot selection $c_i$ for the actual data plot $i$.  
 
 
 
@@ -372,20 +372,11 @@ cm$plot() +
 
 (This section discusses the experimental design including the motivation of the experiment, an overview of the experiment, the simulation setting of the depatures from good residual plots, parameter choices, allocation of the lineups and other technical details.)
 
-## Motivation and overview
+## Overview
 
-With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted.
+<!-- With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. -->
 
-
-The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to lineup with only good residual plots such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated.  
-
-Subjects for all three experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions.
-
-During the experiment, every subject was presented with a block of 20 lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. An additional horizontal red line was added at $y = 0$ as a helping line. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected.
-
-In every block of 20 lineups that presented to a subject, two lineups with obvious visual patterns were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
-
-Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups performed by 443 subjects. 
+Three experiments were conducted to investigate the difference between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. The experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to lineup with only good residual plots such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups performed by 443 subjects throughout three experiment. 
 
 ## Simulating departures
 
@@ -402,7 +393,7 @@ Experiment I is designed to study the ability of human subjects to detect the ef
 \boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)),
 \end{align}
 
-where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vector of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as
+where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vectors of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $\{-k, k\}$ defined as
 
 ```{=tex}
 \begin{equation} \label{eq:scaling-function}
@@ -419,52 +410,23 @@ The null regression model used to fit the realizations generated by the above mo
 ```
 where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
-Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the null regression, which will result in model misspecification.
+Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the null regression, which will result in model misspecification. Visual patterns of non-linearity were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$.
 
-### Heteroskedasticity
+<!-- A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
 
-Experiment II is designed to study the ability of human subjects to detect the appearance of a heteroskedasticity pattern under a simple linear regression model setting:
-
-```{=tex}
-\begin{align} \label{eq:heter-model}
-\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
-\boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1)\\
-\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
-\end{align}
-```
-where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vector of size $n$ and $g(.)$ is the scaling function defined in \ref{eq:scaling-function}.
-
-The null regression model used to fit the realizations generated by the above model is formulated exactly the same as Equation \ref{eq:null-model}.
-
-For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the regressor $x$, which will lead to the presence of heteroskedasticity.
-
-## Experimental setup
-
-### Treatments
-
-> Experiment I
-
--   Treatments for nonlinearity experiment (plots summarising levels)
-
-Data of experiment I were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$), three different sample sizes (n = 50, 100, 300), four different standard deviations of the error ($\sigma$ = 0.5, 1, 2, 4) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
-
-```{r results='asis'}
-data.frame(n = c(50, 100, 300, ""),
-           j = c(2, 3, 6, 18),
-           sigma = c(0.5, 1, 2, 4),
+```{r results='asis', eval = FALSE}
+data.frame(j = c(2, 3, 6, 18),
            x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$")) %>%
   knitr::kable(col.names = NULL,
-               align = "rrrl",
+               align = "rl",
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
-               caption  = 'Parameter values for $n$, $j$ $\\sigma$, $X_{raw}$', 
+               caption  = 'Parameter values for $j$ and $X_{raw}$', 
                label = "parameter-table" ) %>%
-  kableExtra::add_header_above(c("Sample size\n(sym3)", "Order of Hermite polynomial\n(sym1)", "Error SD\n(sym2)", "Distribution of sym4\n")) %>%
+  kableExtra::add_header_above(c("Order of Hermite polynomial\n(sym1)", "Distribution of sym4\n")) %>%
   as.character() %>%
   gsub("sym1", "$j$", .) %>%
-  gsub("sym2", "$\\\\sigma$", .) %>%
-  gsub("sym3", "$n$", .) %>%
   gsub("sym4", "$X_{raw}$", .) %>%
   cat()
   # gsub("\\\\\\$", "$", .) %>%
@@ -497,9 +459,9 @@ VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. The example residual plots are given in Figure \ref{fig:different-sigma}.
+<!-- The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. The example residual plots are given in Figure \ref{fig:different-sigma}. -->
 
-```{r different-sigma, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
+```{r different-sigma, eval = FALSE, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
 VI_MODEL$plot(ori_dat) + 
@@ -521,7 +483,7 @@ VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-Four different distribution were used to generate $X_{raw}$ shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
+Four different distribution were used to generate $X_{raw}$ as shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
 
 ```{r different-dist, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
@@ -545,7 +507,7 @@ VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigm
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-Figure \ref{fig:example-lineup} shows one of the lineups used in experiment I. This lineup was produced under $n = 300$, $j = 6$, $\sigma = 1$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
+Figure \ref{fig:example-lineup} shows one of the lineups used in experiment I. This lineup was produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
 
 ```{r example-lineup, fig.cap="Lineup 24 in experiment I. Can you spot the most different plot? \\label{fig:example-lineup}"}
 VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
@@ -554,23 +516,34 @@ VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data,
                      remove_axis = TRUE)
 ```
 
-<!-- It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value. -->
 
-> Experiment II
+### Heteroskedasticity
 
--   Treatments for heteroskedasticity experiment (plots summarising levels)
+Experiment II is designed to study the ability of human subjects to detect the appearance of a heteroskedasticity pattern under a simple linear regression model setting:
 
-Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}.
+```{=tex}
+\begin{align} \label{eq:heter-model}
+\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1)\\
+\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
+\end{align}
+```
 
-The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include triangle shape, butterfly shape and inverse triangle shape.
+where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vectors of size $n$ and $g(.)$ is the scaling function defined in \ref{eq:scaling-function}.
 
-```{r different-shape-of-heter}
+The null regression model used to fit the realizations generated by the above model is formulated exactly the same as Equation \ref{eq:null-model}.
+
+For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the regressor $x$, which will lead to the presence of heteroskedasticity. Visual patterns were simulated using three different shapes ($a$ = -1, 0, 1) and the same four different distribution of $X_{raw}$ used in experiment I.
+
+The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include left-triangle shape, butterfly shape and right-triangle shape as displayed in Figure \ref{fig:different-shape-of-heter}.
+
+```{r different-shape-of-heter, fig.cap="Example residual plots of the linear regression model used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle shape, butterfly shape and right-triangle shape."}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
 ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300)
 
 VI_MODEL$plot(ori_dat) +
-  ggtitle(quote("Triangle shape")) +
+  ggtitle(quote("Left-triangle shape")) +
   theme_light() -> p1
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
@@ -578,22 +551,44 @@ VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(
   theme_light() -> p2
 
 VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("Inverse triangle shape")) +
+  ggtitle(quote("Right-triangle shape")) +
   theme_light() -> p3
 
 patchwork::wrap_plots(p1, p2, p3, ncol = 3)
 ```
 
-The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous.
+
+## Experimental setup
+
+### Treatments
+
+To control the strength of the signal, two parameters were used including $\sigma$ and $b$ for controlling the standard deviation of the error term in experiment I and II respectively.
+
+<!-- > Experiment I -->
+
+<!-- -   Treatments for nonlinearity experiment (plots summarising levels) -->
+
+<!-- It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value. -->
+
+<!-- > Experiment II -->
+
+<!-- -   Treatments for heteroskedasticity experiment (plots summarising levels) -->
+
+<!-- Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
+
+
+<!-- The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. -->
 
 
 ### Assigning subjects
 
-Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in 192 different lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. Figure \ref{fig:example-lineup} is an example of one of these lineups. It was produced by using $n = 300$, $j = 6$, $\sigma = 0.5$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
+<!-- Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in 192 different lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. Figure \ref{fig:example-lineup} is an example of one of these lineups. It was produced by using $n = 300$, $j = 6$, $\sigma = 0.5$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup. -->
 
-In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I.
+<!-- In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I. -->
 
 ### Collecting results
+
+Subjects for all three experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions. During the experiment, every subject was presented with a block of 20 lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. An additional horizontal red line was added at $y = 0$ as a helping line. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. In every block of 20 lineups that presented to a subject, two lineups with obvious visual patterns were included as attention checks. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
 
 software/technical
 
