@@ -25,14 +25,18 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
-% see https://stackoverflow.com/a/47122900
 
-% Pandoc citation processing
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -50,21 +54,25 @@
 
 \begin{document}
 
+
 \articletype{ARTICLE TEMPLATE}
 
 \title{Why aren't significance tests commonly used for linear regression
 diagnostics?}
 
 
-\author{\name{Weihao Li$^{a}$, Dianne Cook$^{a}$, Emi Tanaka$^{a}$}
+\author{\name{Weihao Li$^{a}$, Dianne Cook$^{a}$, Emi
+Tanaka$^{a}$, Susan VanderPlas$^{b}$}
 \affil{$^{a}$Department of Econometrics and Business Statistics, Monash
-University, Clayton, VIC, Australia}
+University, Clayton, VIC, Australia; $^{b}$Department of Statistics,
+University of Nebraska, Lincoln, Nebraska, USA}
 }
 
 \thanks{CONTACT Weihao
 Li. Email: \href{mailto:weihao.li@monash.edu}{\nolinkurl{weihao.li@monash.edu}}, Dianne
 Cook. Email: \href{mailto:dicook@monash.edu}{\nolinkurl{dicook@monash.edu}}, Emi
-Tanaka. Email: \href{mailto:emi.tanaka@monash.edu}{\nolinkurl{emi.tanaka@monash.edu}}}
+Tanaka. Email: \href{mailto:emi.tanaka@monash.edu}{\nolinkurl{emi.tanaka@monash.edu}}, Susan
+VanderPlas. Email: \href{mailto:susan.vanderplas@unl.edu}{\nolinkurl{susan.vanderplas@unl.edu}}}
 
 \maketitle
 
@@ -239,16 +247,16 @@ assumptions flexibly, even in the presence of outliers.
 
 \begin{table}
 
-\caption{\label{tab:example-residual-plot-table}Results of example residual plots given in Figure \ref{fig:commondepartures} examined by the Model structural test (F-test), the Breusch-Pagan test and the Shapiro–Wilk test. P-values smaller than 0.05 are showed in bold.}
+\caption{\label{tab:example-residual-plot-table}Statistical significance testing for departures from good residuals for plots in Figure \ref{fig:commondepartures}. Shown are the $p$-values calculated for the conventional Model structural, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.}
 \centering
 \begin{tabular}[t]{llrrr}
 \toprule
 Plot & Departures & Model structural & Breusch-Pagan & Shapiro–Wilk\\
 \midrule
 A & None & 0.434 & 0.133 & 0.728\\
-B & Non-linearity & \textbf{0.000} & \textbf{0.000} & \textbf{0.039}\\
-C & Heteroskedasticity & 0.378 & \textbf{0.000} & \textbf{0.000}\\
-D & Non-normality & 0.667 & 0.736 & \textbf{0.000}\\
+B & Non-linearity & \em{0.000} & \em{0.000} & \em{0.039}\\
+C & Heteroskedasticity & 0.378 & \em{0.000} & \em{0.000}\\
+D & Non-normality & 0.667 & 0.736 & \em{0.000}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -299,7 +307,7 @@ hypothesis as the observer correctly picks the actual data plot, then
 the Type I error of this test is \(1/m\).
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{An example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?}\label{fig:first-example-lineup}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 11, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 11.}\label{fig:first-example-lineup}
 \end{figure}
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup
@@ -347,8 +355,9 @@ null residuals can be simulated by regressing \(N\) i.i.d standard
 normal random draws on the regressors, then rescaling it by the ratio of
 residual sum of square in two regressions.
 
-\hypertarget{p-value-calculation}{%
-\subsubsection{P-value calculation}\label{p-value-calculation}}
+\hypertarget{calculating-p-values}{%
+\subsubsection{\texorpdfstring{Calculating
+\(p\)-values}{Calculating p-values}}\label{calculating-p-values}}
 
 Further, a visual test can involve \(K\) independent observers. Let
 \(D_i = \{0,1\}\) be a binomial random variable denoting whether subject
@@ -650,6 +659,7 @@ software/technical
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
+
 
 
 

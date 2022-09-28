@@ -12,10 +12,16 @@ author:
   - name: Emi Tanaka
     affil: a
     email: emi.tanaka@monash.edu
+  - name: Susan VanderPlas
+    affil: b
+    email: susan.vanderplas@unl.edu
 affiliation:
   - num: a
     address: |
       Department of Econometrics and Business Statistics, Monash University, Clayton, VIC, Australia
+  - num: b
+    address: |
+      Department of Statistics, University of Nebraska, Lincoln, Nebraska, USA
 bibliography: paper.bib
 abstract: |
   Abstract to fill.
@@ -257,9 +263,9 @@ data.frame(plot = c("A", "B", "C", "D"),
   mutate(f = format(round(f, digits = 3), nsmall = 3), b = format(round(b, digits = 3), nsmall = 3), s = format(round(s, digits = 3), nsmall = 3)) -> table_dat
 
 
-  table_dat$f <- kableExtra::cell_spec(table_dat$f, bold = as.numeric(table_dat$f) < 0.05)
-  table_dat$b <- kableExtra::cell_spec(table_dat$b, bold = as.numeric(table_dat$b) < 0.05)
-  table_dat$s <- kableExtra::cell_spec(table_dat$s, bold = as.numeric(table_dat$s) < 0.05)
+  table_dat$f <- kableExtra::cell_spec(table_dat$f, italic = as.numeric(table_dat$f) < 0.05)
+  table_dat$b <- kableExtra::cell_spec(table_dat$b, italic = as.numeric(table_dat$b) < 0.05)
+  table_dat$s <- kableExtra::cell_spec(table_dat$s, italic = as.numeric(table_dat$s) < 0.05)
 
   table_dat %>%
   knitr::kable(col.names = c("Plot", "Departures", "Model structural", "Breusch-Pagan", "Shapiro–Wilk"),
@@ -267,7 +273,7 @@ data.frame(plot = c("A", "B", "C", "D"),
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
-               caption  = 'Results of example residual plots given in Figure \\ref{fig:commondepartures} examined by the Model structural test (F-test), the Breusch-Pagan test and the Shapiro–Wilk test. P-values smaller than 0.05 are showed in bold.', 
+               caption  = 'Statistical significance testing for departures from good residuals for plots in Figure \\ref{fig:commondepartures}. Shown are the $p$-values calculated for the conventional Model structural, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.', 
                label = "example-residual-plot-table" ) 
 
 ```
@@ -286,7 +292,7 @@ Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM)
 
 <!-- use true exp lineup as example lineup -->
 
-```{r first-example-lineup, fig.cap="An example lineup consists of 20 randomly placed residual plots, where 19 are null plots with data consistent with the null hypothesis, and one is the actual residual plot. Can you find the most different plot?"}
+```{r first-example-lineup, fig.cap="Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 11, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 11."}
 mod <- poly_model(include_z = TRUE, sigma = 1)
 POLY_MODEL$plot_lineup(mod$gen_lineup(300, pos = 11), theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
 ```
@@ -301,7 +307,7 @@ The effectiveness of lineup protocol has already been validated by @majumder_val
 
 Data used in the $m - 1$ null plots need to be simulated. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
-### P-value calculation 
+### Calculating $p$-values 
 
 Further, a visual test can involve $K$ independent observers. Let $D_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under the null hypothesis, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
