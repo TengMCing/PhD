@@ -439,8 +439,8 @@ of the experiment, an overview of the experiment, the simulation setting
 of the depatures from good residual plots, parameter choices, allocation
 of the lineups and other technical details.)
 
-\hypertarget{overview}{%
-\subsection{Overview}\label{overview}}
+\hypertarget{experiment-overview}{%
+\subsection{Experiment overview}\label{experiment-overview}}
 
 Three experiments were conducted to investigate the difference between
 conventional hypothesis testing and visual inference in the application
@@ -507,10 +507,29 @@ order of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)) and
 four different distribution of \(X_{raw}\): (1) \(U(-1, 1)\), (2)
 \(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\).
 
-The values of \(j\) was chosen so that different shapes of non-linearity
-were included in the residual plot. As shown in Figure
-\ref{fig:different-shape-of-herimite}, these include ``U'' shape, ``S''
-shape, ``M'' shape and ``Triple-U'' shape.
+\begin{table}
+
+\caption{\label{tab:model-parameter-table}Parameter values for $j$ and $X_{raw}$}
+\centering
+\begin{tabular}[t]{rl}
+\toprule
+\multicolumn{1}{c}{\makecell[c]{Order of Hermite polynomial\\($j$)}} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} \\
+\cmidrule(l{3pt}r{3pt}){1-1} \cmidrule(l{3pt}r{3pt}){2-2}
+2 & $U(-1, 1)$\\
+3 & $N(0, 0.3^2)$\\
+6 & $lognormal(0, 0.6^2)/3$\\
+18 & $U\{1, 5\}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The values of \(j\) was chosen so that distinct shapes of non-linearity
+were included in the residual plot. A greater value of \(j\) will result
+in a curve with more turning points. As shown in Figure
+\ref{fig:different-shape-of-herimite}, it includes ``U'' shape, ``S''
+shape, ``M'' shape and ``Triple-U'' shape. It is expected that the ``U''
+shape will be the easiest one to detect because complex shape tends to
+be concealed by cluster of data points.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-herimite-1} \caption{Example residual plots of the linear regression model used in experiment I. Four different values of $j$ are included in the experiment results in four different shapes of residuals.}\label{fig:different-shape-of-herimite}
@@ -519,7 +538,7 @@ shape, ``M'' shape and ``Triple-U'' shape.
 Four different distribution were used to generate \(X_{raw}\) as shown
 in Figure \ref{fig:different-dist}. The uniform and the normal
 distribution are symmetric and commonly assumed in statistical models.
-The adjusted log-normal distribution provides skewed density. And the
+The adjusted log-normal distribution provides skewed density, while the
 discrete uniform distribution provides discreteness in residual plot,
 which could enrich the pool of visual patterns.
 
@@ -527,13 +546,13 @@ which could enrich the pool of visual patterns.
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-dist-1} \caption{Example residual plots of the linear regression model used in experiment I. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns.}\label{fig:different-dist}
 \end{figure}
 
-Figure \ref{fig:example-lineup} shows one of the lineups used in
+Figure \ref{fig:example-poly-lineup} shows one of the lineups used in
 experiment I. This lineup was produced under \(j = 6\) and
 \(X_{raw} \sim N(0.0.3^2)\). The actual data plot location was four. All
 five subjects correctly identified the actual data plot for this lineup.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-lineup-1} \caption{Lineup 24 in experiment I. Can you spot the most different plot? \label{fig:example-lineup}}\label{fig:example-lineup}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-poly-lineup-1} \caption{Lineup poly-24 in experiment I. Can you spot the most different plot? \label{fig:example-poly-lineup}}\label{fig:example-poly-lineup}
 \end{figure}
 
 \hypertarget{heteroskedasticity}{%
@@ -572,15 +591,40 @@ displayed in Figure \ref{fig:different-shape-of-heter}.
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-heter-1} \caption{Example residual plots of the linear regression model used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle shape, butterfly shape and right-triangle shape.}\label{fig:different-shape-of-heter}
 \end{figure}
 
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-heter-lineup-1} \caption{Lineup heter-169 in experiment II. Can you spot the most different plot? \label{fig:example-heter-lineup}}\label{fig:example-heter-lineup}
+\end{figure}
+
+\begin{verbatim}
+##  [1]  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+\end{verbatim}
+
+An example lineup of this model is shown in Figure
+\ref{fig:example-heter-lineup} with \(a = -1\) and
+\(X_{raw} \sim U(-1, 1)\). The actual data plot location was 15. 8 out
+of 11 subjects correctly identified the actual data plot for this
+lineup.
+
 \hypertarget{experimental-setup}{%
 \subsection{Experimental setup}\label{experimental-setup}}
 
-\hypertarget{treatments}{%
-\subsubsection{Treatments}\label{treatments}}
+\hypertarget{controlling-the-strength-of-the-signal}{%
+\subsubsection{Controlling the strength of the
+signal}\label{controlling-the-strength-of-the-signal}}
 
-To control the strength of the signal, two parameters were used
-including \(\sigma\) and \(b\) for controlling the standard deviation of
-the error term in experiment I and II respectively.
+Other than the parameters summarised in Table
+\ref{tab:model-parameter-table}, three additional parameters \(n\),
+\(\sigma\) and \(b\) were used to control the strength of the signal in
+experiment I and II so that different difficulty levels of lineups were
+generated, and therefore, the estimated power curve would be smooth and
+continuous. Three different sample sizes were selected (n = 50, 100,
+300). In general, with fewer data points shown in a residual plot, the
+chance of detecting the visual pattern will decrease. This can be
+observed from Figure
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-n-1} \caption{Example residual plots of the linear regression model used in experiment I. Three different values of $n$ are included in the experiment to control the strength of the signal.}\label{fig:different-n}
+\end{figure}
 
 \hypertarget{assigning-subjects}{%
 \subsubsection{Assigning subjects}\label{assigning-subjects}}

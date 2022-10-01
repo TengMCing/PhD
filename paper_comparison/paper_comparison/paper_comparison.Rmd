@@ -357,7 +357,7 @@ cm$plot() +
 
 (This section discusses the experimental design including the motivation of the experiment, an overview of the experiment, the simulation setting of the depatures from good residual plots, parameter choices, allocation of the lineups and other technical details.)
 
-## Overview
+## Experiment overview
 
 <!-- With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. -->
 
@@ -399,7 +399,7 @@ Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the nu
 
 <!-- A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
 
-```{r results='asis', eval = FALSE}
+```{r results='asis'}
 data.frame(j = c(2, 3, 6, 18),
            x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$")) %>%
   knitr::kable(col.names = NULL,
@@ -408,7 +408,7 @@ data.frame(j = c(2, 3, 6, 18),
                format = "latex",
                booktabs = TRUE, 
                caption  = 'Parameter values for $j$ and $X_{raw}$', 
-               label = "parameter-table" ) %>%
+               label = "model-parameter-table" ) %>%
   kableExtra::add_header_above(c("Order of Hermite polynomial\n(sym1)", "Distribution of sym4\n")) %>%
   as.character() %>%
   gsub("sym1", "$j$", .) %>%
@@ -418,7 +418,7 @@ data.frame(j = c(2, 3, 6, 18),
   # cat()
 ```
 
-The values of $j$ was chosen so that different shapes of non-linearity were included in the residual plot. As shown in Figure \ref{fig:different-shape-of-herimite}, these include "U" shape, "S" shape, "M" shape and "Triple-U" shape.
+The values of $j$ was chosen so that distinct shapes of non-linearity were included in the residual plot. A greater value of $j$ will result in a curve with more turning points. As shown in Figure \ref{fig:different-shape-of-herimite}, it includes "U" shape, "S" shape, "M" shape and "Triple-U" shape. It is expected that the "U" shape will be the easiest one to detect because complex shape tends to be concealed by cluster of data points.
 
 ```{r different-shape-of-herimite, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $j$ are included in the experiment results in four different shapes of residuals."}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
@@ -444,31 +444,7 @@ VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-<!-- The range of $\sigma$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. The example residual plots are given in Figure \ref{fig:different-sigma}. -->
-
-```{r different-sigma, eval = FALSE, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
-ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
-
-VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote(sigma~"="~0.5)) + 
-  theme_light() -> p1
-
-VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~1)) + 
-  theme_light() -> p2
-
-VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 2)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~2)) + 
-  theme_light() -> p3
-
-VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 4)$gen(300, computed = select(ori_dat, x))) +
-  ggtitle(quote(sigma~"="~4)) + 
-  theme_light() -> p4
-
-patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
-```
-
-Four different distribution were used to generate $X_{raw}$ as shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density. And the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
+Four different distribution were used to generate $X_{raw}$ as shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density, while the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
 
 ```{r different-dist, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
@@ -492,9 +468,9 @@ VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigm
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
-Figure \ref{fig:example-lineup} shows one of the lineups used in experiment I. This lineup was produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
+Figure \ref{fig:example-poly-lineup} shows one of the lineups used in experiment I. This lineup was produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
 
-```{r example-lineup, fig.cap="Lineup 24 in experiment I. Can you spot the most different plot? \\label{fig:example-lineup}"}
+```{r example-poly-lineup, fig.cap="Lineup poly-24 in experiment I. Can you spot the most different plot? \\label{fig:example-poly-lineup}"}
 VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
@@ -528,32 +504,82 @@ stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300)
 
 VI_MODEL$plot(ori_dat) +
-  ggtitle(quote("Left-triangle shape")) +
+  ggtitle(quote("a = -1: Left-triangle shape")) +
   theme_light() -> p1
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("Butterfly shape")) +
+  ggtitle(quote("a = 0: Butterfly shape")) +
   theme_light() -> p2
 
 VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("Right-triangle shape")) +
+  ggtitle(quote("a = 1: Right-triangle shape")) +
   theme_light() -> p3
 
-patchwork::wrap_plots(p1, p2, p3, ncol = 3)
+patchwork::wrap_plots(p1, p2, p3, ncol = 2)
+```
+
+```{r example-heter-lineup, fig.cap="Lineup heter-169 in experiment II. Can you spot the most different plot? \\label{fig:example-heter-lineup}"}
+VI_MODEL$plot_lineup(vi_lineup[["heter_169"]]$data, 
+                     remove_grid_line = TRUE, 
+                     theme = theme_light(),
+                     remove_axis = TRUE)
 ```
 
 
+An example lineup of this model is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The actual data plot location was 15. 8 out of 11 subjects correctly identified the actual data plot for this lineup. 
+
 ## Experimental setup
 
-### Treatments
+### Controlling the strength of the signal
 
-To control the strength of the signal, two parameters were used including $\sigma$ and $b$ for controlling the standard deviation of the error term in experiment I and II respectively.
+Except for the parameters summarised in Table \ref{tab:model-parameter-table}, three additional parameters $n$, $\sigma$ and $b$ were used to control the strength of the signal so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. 
 
-<!-- > Experiment I -->
+In experiment I, II and III, three different sample sizes were selected (n = 50, 100, 300). In general, with fewer data points drawn in a residual plot, the chance of detecting the visual pattern will decrease. This can be observed from Figure \ref{fig:different-n}.
 
-<!-- -   Treatments for nonlinearity experiment (plots summarising levels) -->
 
-<!-- It was generated for $n = 1$, $\sigma = 1$, $j = 1$, $X_{raw} \sim N$. For this lineup, x out of k observers picked the actual data plot. Each lineup is evaluated by 5 different subjects to provide reasonable estimates of the p-value. -->
+```{r different-n, fig.cap="Three different values of $n$ are used in experiment I, II and III to control the strength of the signal."}
+ori_dat <- poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(300)
+
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(n~"="~300)) + 
+  theme_light() -> p1
+
+VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(50, computed = select(ori_dat[1:50,], x, e))) +
+  ggtitle(quote(n~"="~50)) + 
+  theme_light() -> p2
+
+VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(50, computed = select(ori_dat[1:100,], x, e))) +
+  ggtitle(quote(n~"="~100)) + 
+  theme_light() -> p3
+
+patchwork::wrap_plots(p2, p3, p1, ncol = 2)
+```
+
+Four different levels of $sigma$ 
+
+
+```{r different-sigma, eval = FALSE, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
+ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
+
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(sigma~"="~0.5)) + 
+  theme_light() -> p1
+
+VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1)$gen(300, computed = select(ori_dat, x))) +
+  ggtitle(quote(sigma~"="~1)) + 
+  theme_light() -> p2
+
+VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 2)$gen(300, computed = select(ori_dat, x))) +
+  ggtitle(quote(sigma~"="~2)) + 
+  theme_light() -> p3
+
+VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 4)$gen(300, computed = select(ori_dat, x))) +
+  ggtitle(quote(sigma~"="~4)) + 
+  theme_light() -> p4
+
+patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
+```
+
 
 <!-- > Experiment II -->
 
