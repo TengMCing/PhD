@@ -1,33 +1,17 @@
 library(ggExtra)
 library(tidyverse)
-library(bandicoot)
 library(visage)
-library(lhs)
 library(cli)
-
-trans_unif_2_norm <- function(x, sd = 1) {
-  truncnorm::qtruncnorm(x, sd = sd, a = -1, b = 1)
-}
-
-trans_unif_2_discrete <- function(x, level = NULL) {
-  level[trunc(x * length(level)) + 1]
-}
-
-
-
-# Shape of the trunc density
-# ggplot() +
-#   geom_density(aes(trans_unif_2_norm(seq(0, 1, 0.00001))), col = "red")
 
 
 # V1: shape = 1, 2, 3, 4
 # V3: N: 50, 100, 300
 # V4: x_dist: uniform, normal, lognormal, even_dis
 # V5: e_sigma: 0.125, 0.25, 0.5, 1
+# V6: rep: 3
 
-# 6 * 3 * 6 * 4 = 432
-
-# rep: 5
+# 4 * 3 * 4 * 4 * 3 = 576 lineups
+# 576 * 5 / 18 = 160 subjects
 
 set.seed(10086)
 
@@ -53,20 +37,6 @@ check_comb <- function(set_dat, new_dat, n = 1) {
           return(FALSE)
         })
 }
-
-# check_comb(lineup %>%
-#              filter(lineup_id %in% c(193, 100, 162, 135, 50)) %>%
-#              select(-lineup_id),
-#            lineup %>%
-#              filter(lineup_id %in% c(147)) %>%
-#              select(-lineup_id),
-#            4)
-#
-# lineup %>%
-#   filter(lineup_id %in% c(193, 100, 162, 135, 50)) %>%
-#   select(-lineup_id)
-#
-# 147
 
 # Caculate distance between a set of allocated lineups and a new lineup
 calc_dist <- function(lineup, allocated_lineup_ids, new_lineup_id) {
