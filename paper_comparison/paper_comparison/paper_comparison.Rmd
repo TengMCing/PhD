@@ -532,10 +532,9 @@ An example lineup of this model is shown in Figure \ref{fig:example-heter-lineup
 
 ### Controlling the strength of the signal
 
-Except for the parameters summarised in Table \ref{tab:model-parameter-table}, three additional parameters $n$, $\sigma$ and $b$ were used to control the strength of the signal so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. 
+As summarised by Table \ref{tab:model-parameter-table}, three additional parameters $n$, $\sigma$ and $b$ were used to control the strength of the signal so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. Parameter $\sigma \in \{0.5, 1, 2, 4\}$ and $b \in \{0.25, 1, 4, 16, 64\}$ were used in experiment I and II respectively. Figure \ref{fig:different-sigma} and \ref{fig:different-b} demonstrate the impact of these two parameters.
 
-In experiment I, II and III, three different sample sizes were selected (n = 50, 100, 300). In general, with fewer data points drawn in a residual plot, the chance of detecting the visual pattern will decrease. This can be observed from Figure \ref{fig:different-n}.
-
+Three different sample sizes were used (n = 50, 100, 300) in all three experiments. It can be observed from Figure \ref{fig:different-n} that with fewer data points drawn in a residual plot, the visual pattern is more difficult to be detected.
 
 ```{r different-n, fig.cap="Three different values of $n$ are used in experiment I, II and III to control the strength of the signal."}
 ori_dat <- poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(300)
@@ -555,10 +554,8 @@ VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p2, p3, p1, ncol = 2)
 ```
 
-Four different levels of $sigma$ 
 
-
-```{r different-sigma, eval = FALSE, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
+```{r different-sigma, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $\\sigma$ are included in the experiment to control the strength of the signal."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
 VI_MODEL$plot(ori_dat) + 
@@ -580,22 +577,44 @@ VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
 ```
 
+```{r different-b, fig.cap="Example residual plots of the linear regression model used in experiment II. Five different values of $b$ are included in the experiment to control the strength of the signal."}
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
-<!-- > Experiment II -->
+ori_dat <- heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 0.25)$gen(300)
 
-<!-- -   Treatments for heteroskedasticity experiment (plots summarising levels) -->
+VI_MODEL$plot(ori_dat) +
+  ggtitle(quote("b = 0.25")) +
+  theme_light() -> p1
 
-<!-- Experiment data were simulated using three different shapes ($a$ = -1, 0, 1), five different values of $b$ (b = 0.25, 1, 4, 16, 64), three different sample sizes (n = 50, 100, 300) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
+VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 1)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote("b = 1")) +
+  theme_light() -> p2
 
+VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 4)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote("b = 4")) +
+  theme_light() -> p3
 
-<!-- The range of $b$, which is a factor controlling the strength of the signal, was chosen so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. -->
+VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 16)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote("b = 16")) +
+  theme_light() -> p4
+
+VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 64)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote("b = 64")) +
+  theme_light() -> p5
+
+patchwork::wrap_plots(p1, p2, p3, p4, p5, ncol = 3)
+```
 
 
 ### Assigning subjects
 
-<!-- Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in 192 different lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. Figure \ref{fig:example-lineup} is an example of one of these lineups. It was produced by using $n = 300$, $j = 6$, $\sigma = 0.5$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup. -->
+Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in 443 different lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. 
 
-<!-- In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value. Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I. -->
+In addition, each lineup is designed to be evaluated by five different subjects to provide reasonable estimates of the visual p-value.
+
+
+
+Thus, $192 \times 3 \times 5 / (20 - 2) = 160$ subjects were recruited to satisfy the design of the experiment I.
 
 ### Collecting results
 
