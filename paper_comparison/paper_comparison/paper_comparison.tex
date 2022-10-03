@@ -425,11 +425,33 @@ the subject being treated as a random effect
 \citep{majumder_validation_2013}. However, having this probability is
 insufficient to determine the power of a visual test allowed for
 multiple selections as it doesn't provide information about the number
-of selections made by the subject for p-value calculation. Instead, we
-directly estimated the probability of a lineup being rejected using a
-logistic regression with the natural logarithm of the effect size as the
-only regressor. The same model was applied to different subsets of the
-survey data for making comparison of the power.
+of selections made by the subject for p-value calculation.
+
+Instead, we directly estimated the probability of a lineup being
+rejected using a logistic regression with the natural logarithm of the
+effect size as the only regressor formulated as:
+
+\begin{equation} \label{eq:logistic-regression-1-1}
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
+\end{equation}
+
+where \(\Lambda(.)\) is the standard logistic function given as
+\(\Lambda(z) = exp(z)/(1+exp(z))\).
+
+Effect \(E\) is derived from the Kullback-Leibler divergence (see
+{[}appendix ref here{]}) formulated as:
+
+\begin{equation} \label{eq:effect-size-ex1}
+E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
+\end{equation}
+
+where \(diag(.)\) is the diagonal matrix constructed from the diagonal
+elements of \(\boldsymbol{R}_a\).
+
+To study various factors contributing to the power of the visual test,
+the same logistic regression model is fit on different subsets of the
+collated data grouped by levels of factors. This includes
+{[}expansion{]}.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
@@ -676,17 +698,10 @@ at least one attention check. Data of rejected submissions were
 discarded automatically to maintain the overall data quality.
 
 \hypertarget{results}{%
-\subsection{Results}\label{results}}
-
-\hypertarget{power-comparison}{%
-\subsubsection{Power comparison}\label{power-comparison}}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1}
-
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1}
+\section{Results}\label{results}}
 
 \hypertarget{data-overview}{%
-\subsubsection{Data overview}\label{data-overview}}
+\subsection{Data overview}\label{data-overview}}
 
 Subjects recruited from Prolific received a fixed payment for
 participating in the experiment. However, some subjects will try to
@@ -706,6 +721,91 @@ following analysis.
 
 The collated dataset is provided in \texttt{vi\_survey} of the
 \texttt{visage} \texttt{R} package.
+
+\hypertarget{power-comparison}{%
+\subsection{Power comparison}\label{power-comparison}}
+
+Figure \ref{fig:power-poly-uniform} shows the estimated power of visual
+test against natural logarithm of the effect with comparison to the
+power of an exact test - F-test, and the power of two other
+residual-based conventional tests commonly used in regression
+diagnostics but for testing other departures from the model assumptions.
+In overall, the power of all four tests increases as the effect becomes
+larger. The power curve of F-test climbs aggressively from 25\% to
+around 90\% as \(log_e(E)\) increases from 0 to 2, while others respond
+inactively to the change of effect and remain lower than 25\% throughout
+the period, showing that as an exact test, the F-test is relatively more
+sensitive to the type of model defects that being considered. The power
+of visual test arises steadily and nearly linearly to around 90\% as
+\(log_e(E)\) increases from 2 to 5, suggesting that the effect starts to
+make noticeable impact on the degree of the presence of the designed
+visual features. Other two inappropriate conventional tests shows
+improvement at the same time but at a lower rate. This coincides the
+point made by \citet{cook1982residuals} mentioned in
+\ref{hypothesis-testing} that residual-based tests for a specific type
+of model defect are sensitive to other types of model defects. At
+\(log_e(E) = 6\), the power curve of F-test reaches almost 100\%
+followed by the visual test by a small margin. The power of
+Breusch--Pagan test and Shapiro--Wilk test reach around 75\% and 30\%
+respectively.
+
+What truly impress us is the huge difference between the estimated power
+of visual test and the estimated power of F-test. The margin is largest
+at around \(log_e(E) = 2\). An example lineup is included in Figure
+\ref{fig:power-overview} where none of subjects detect the actual data
+plot positioned at panel 14. It demonstrates that at this level of
+difficulty, the designed visual feature is rarely visible, making the
+actual data plot indistinguishable from residual plots simulated from
+the assumed model. From a communication perspective, given the fact that
+the visual difference is unperceivable, the argument that non-linearity
+present in the fitted model is less convincing to the public even though
+it is true. At around \(log_e(E) = 3\), the margin gets smaller as the
+chance of identifying the actual data plot becomes larger. At this level
+of difficulty, the designed visual features are usually detectable but
+it may not stand out from the lineup as other null plots may happen to
+include outliers or visual patterns that are are considered to be more
+attractive by human, and thus recognized as the most different plot.
+Without knowing the designed visual features beforehand, it is actually
+hard to identify the actual data plot by pure image comparison. The
+corresponding example lineup for \(log_e(E) = 3\) shown in Figure
+\ref{fig:fig:power-poly-uniform} has the actual data plot positioned at
+panel 20, where two out of five subjects detect it. It can be observed
+that a M-shape is presented in plot 20, but the signal is not strong
+enough to attract all five subjects, resulting in a visual p-value
+sightly above the desired significance level \(\alpha = 0.05\). At
+\(log_e(E) = 4\) and \(log_e(E) = 6\), the designed visual features
+become much clear and attractive, leading to a high percentage of
+rejection of the null hypothesis. Figure
+\ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It
+is also interesting to observe that the power curve of visual test
+behaves similarly to those inappropriate conventional tests until the
+designed visual features really becomes visible.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-1} \caption{...}\label{fig:fig:power-poly-uniform-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-2} \caption{...}\label{fig:fig:power-poly-uniform-2}
+\end{figure}
+
+\hypertarget{distribution-of-regressor}{%
+\subsection{Distribution of regressor}\label{distribution-of-regressor}}
+
+The impact of the distribution of \(X_raw\) on the power is shown in
+Figure \ref{fig:dist-power}. The power curve of F-test is stable across
+different distributions, while the visual test has a steeper power curve
+for normal and uniform distribution. BP-test performs worse for discrete
+uniform distribution and uniform distribution but has relatively high
+power for normal distribution. SW-test outperforms BP-test for discrete
+uniform distribution but remains as the worst test for other
+distributions. The results indicate those inappropriate residual-based
+tests are sensitive to the distribution of the regressor.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} \caption{...}\label{fig:dist-power}
+\end{figure}
+
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1}
 
 --\textgreater{}
 
