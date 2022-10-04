@@ -44,7 +44,8 @@ knitr::opts_chunk$set(
   echo = FALSE,
   fig.width = 8,
   fig.height = 6,
-  out.width = "100%")
+  out.width = "100%",
+  fig.align = "center")
 ```
 
 ```{r}
@@ -216,7 +217,7 @@ Non-linearity is a type of model misspecification caused by failing to include h
 
 Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in the bottom-left panel of Figure \ref{fig:commondepartures}, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
 
-Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. However, for a consistent comparison, residual plot will be the focus of this paper. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption is violated, it is expected to observe data points do not center around the horizontal axis and there is an uneven distribution of the number points at both below and above the horizontal axis. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the horizontal axis as shown at the bottom-right of Figure \ref{fig:commondepartures}.
+Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. However, for a consistent comparison, residual plot will be the focus of this paper. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption is violated, it is expected to observe data points do not center around the horizontal axis and there is an uneven distribution of the number points at both below and above the horizontal axis. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the horizontal axis as shown in plot D of Figure \ref{fig:residual-plot-common-departures}.
 
 ## Conventionally testing for departures
 
@@ -224,7 +225,7 @@ Compared to non-linearity and heteroskedasticity, non-normality is usually harde
 
 Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
 
-Example residual plots given in Figure \ref{fig:commondepartures} are examined by the corresponding model structural test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite when majority of the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
+Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding model structural test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite when majority of the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
 
 <!-- test formula -> appendix -->
 
@@ -383,7 +384,7 @@ cm$plot() +
 
 (This section discusses the experimental design including the motivation of the experiment, an overview of the experiment, the simulation setting of the depatures from good residual plots, parameter choices, allocation of the lineups and other technical details.)
 
-## Experiment overview
+<!-- ## Experiment overview-->
 
 <!-- With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. -->
 
@@ -395,7 +396,31 @@ Two types of departures, namely non-linearity and heteroskedasticity, were consi
 
 ### Non-linearity
 
-Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ which is a probabilist's Hermite polynomial [Herimite ref here] of another random vector $\boldsymbol{x}$ in a two variable statistical model formulated as:
+```{r different-shape-of-herimite, fig.height = 2, fig.cap="Polynomial forms generated for the residual plots used in experiment I. The four shapes are generated by varying the order of polynomial given by $j$ in $He_j(.)$."}
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+
+ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300)
+
+VI_MODEL$plot(ori_dat) + 
+  ggtitle(quote(He[2]:"U")) + 
+  theme_light() -> p1
+
+VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote(He[3]:"S")) + 
+  theme_light() -> p2
+
+VI_MODEL$plot(poly_model(shape = 3, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote(He[6]:"M")) + 
+  theme_light() -> p3
+
+VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
+  ggtitle(quote(He[18]:"Triple-U")) + 
+  theme_light() -> p4
+
+patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
+```
+
+Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials [Hermite ref here] on random vector $\boldsymbol{x}$ formulated as:
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
@@ -446,52 +471,28 @@ data.frame(j = c(2, 3, 6, 18),
 
 The values of $j$ was chosen so that distinct shapes of non-linearity were included in the residual plot. A greater value of $j$ will result in a curve with more turning points. As shown in Figure \ref{fig:different-shape-of-herimite}, it includes "U" shape, "S" shape, "M" shape and "Triple-U" shape. It is expected that the "U" shape will be the easiest one to detect because complex shape tends to be concealed by cluster of data points.
 
-```{r different-shape-of-herimite, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different values of $j$ are included in the experiment results in four different shapes of residuals."}
-stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
-
-ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300)
-
-VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote(He[2]:"U shape")) + 
-  theme_light() -> p1
-
-VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[3]:"S shape")) + 
-  theme_light() -> p2
-
-VI_MODEL$plot(poly_model(shape = 3, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[6]:"M shape")) + 
-  theme_light() -> p3
-
-VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote(He[18]:"Triple-U shape")) + 
-  theme_light() -> p4
-
-patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
-```
-
 Four different distribution were used to generate $X_{raw}$ as shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density, while the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
 
-```{r different-dist, fig.cap="Example residual plots of the linear regression model used in experiment I. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns."}
+```{r different-dist, fig.height = 2, fig.cap="Variations in fitted values, that might affect perception of residual plots. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
 VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote(U(-1,1))) + 
+  ggtitle("A. Uniform") + #quote(U(-1,1))) + 
   theme_light() -> p1
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(N(0,0.3^2))) + 
+  ggtitle("B. Normal") + #quote(N(0,0.3^2))) + 
   theme_light() -> p2
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(lognormal(0,0.6^2)/3)) + 
+  ggtitle("C. Skewed") + #quote(lognormal(0,0.6^2)/3)) + 
   theme_light() -> p3
 
 VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
-  ggtitle(quote(U~"{1,5}")) + 
+  ggtitle("D. Discrete") + #quote(U~"{1,5}")) + 
   theme_light() -> p4
 
-patchwork::wrap_plots(p1, p2, p3, p4, ncol = 2)
+patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 ```
 
 Figure \ref{fig:example-poly-lineup} shows one of the lineups used in experiment I. This lineup was produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
@@ -547,24 +548,24 @@ For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\v
 
 The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include left-triangle shape, butterfly shape and right-triangle shape as displayed in Figure \ref{fig:different-shape-of-heter}.
 
-```{r different-shape-of-heter, fig.cap="Example residual plots of the linear regression model used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle shape, butterfly shape and right-triangle shape."}
+```{r different-shape-of-heter, fig.height=3, fig.cap="Heteroskedasticity forms used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle, butterfly and right-triangle shapes."}
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
 ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300)
 
 VI_MODEL$plot(ori_dat) +
-  ggtitle(quote("a = -1: Left-triangle shape")) +
+  ggtitle(quote("A. a = -1: Left-triangle")) +
   theme_light() -> p1
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("a = 0: Butterfly shape")) +
+  ggtitle(quote("B. a = 0: Butterfly")) +
   theme_light() -> p2
 
 VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
-  ggtitle(quote("a = 1: Right-triangle shape")) +
+  ggtitle(quote("C. a = 1: Right-triangle")) +
   theme_light() -> p3
 
-patchwork::wrap_plots(p1, p2, p3, ncol = 2)
+patchwork::wrap_plots(p1, p2, p3, ncol = 3)
 ```
 
 ```{r example-heter-lineup, fig.cap="Lineup heter-169 in experiment II. Can you spot the most different plot? \\label{fig:example-heter-lineup}"}

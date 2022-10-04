@@ -25,14 +25,18 @@
 \newtheorem{remark}{Remark}
 \newtheorem{notation}{Notation}
 
-% see https://stackoverflow.com/a/47122900
 
-% Pandoc citation processing
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
 
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
 \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -49,6 +53,7 @@
 \usepackage{xcolor}
 
 \begin{document}
+
 
 \articletype{ARTICLE TEMPLATE}
 
@@ -153,7 +158,12 @@ plots}\label{departures-from-good-residual-plots}}
 and their implications.)
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/residual-plot-common-departures-1} \caption{Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:residual-plot-common-departures}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/residual-plot-common-departures-1} 
+
+}
+
+\caption{Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:residual-plot-common-departures}
 \end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
@@ -198,8 +208,8 @@ violated, it is expected to observe data points do not center around the
 horizontal axis and there is an uneven distribution of the number points
 at both below and above the horizontal axis. For example, given a skewed
 error distribution, fewer data points and more outliers are on one side
-of the horizontal axis as shown at the bottom-right of Figure
-\ref{fig:commondepartures}.
+of the horizontal axis as shown in plot D of Figure
+\ref{fig:residual-plot-common-departures}.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
@@ -228,9 +238,10 @@ many of the statistical softwares. Another choice will be the
 Jarque--Bera test {[}ref here{]} which directly checks if the sample
 skewness and kurtosis match a normal distribution.
 
-Example residual plots given in Figure \ref{fig:commondepartures} are
-examined by the corresponding model structural test, Breusch-Pagan test
-and Shapiro--Wilk test as shown in Table
+Example residual plots given in Figure
+\ref{fig:residual-plot-common-departures} are examined by the
+corresponding model structural test, Breusch-Pagan test and
+Shapiro--Wilk test as shown in Table
 \ref{tab:example-residual-plot-table}. In the example, both the
 Breusch-Pagan test and the Shapiro--Wilk test rejects the null
 hypothesis for departures that they do not intend to examine. As
@@ -306,7 +317,12 @@ hypothesis as the observer correctly picks the actual data plot, then
 the Type I error of this test is \(1/m\).
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} \caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 11, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 11.}\label{fig:first-example-lineup}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/first-example-lineup-1} 
+
+}
+
+\caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 11, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 11.}\label{fig:first-example-lineup}
 \end{figure}
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup
@@ -468,9 +484,6 @@ of the experiment, an overview of the experiment, the simulation setting
 of the depatures from good residual plots, parameter choices, allocation
 of the lineups and other technical details.)
 
-\hypertarget{experiment-overview}{%
-\subsection{Experiment overview}\label{experiment-overview}}
-
 Three experiments were conducted to investigate the difference between
 conventional hypothesis testing and visual inference in the application
 of linear regression diagnostics. The experiment I has ideal scenario
@@ -494,11 +507,19 @@ designed for experiment I and II.
 \hypertarget{non-linearity}{%
 \subsubsection{Non-linearity}\label{non-linearity}}
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-herimite-1} 
+
+}
+
+\caption{Polynomial forms generated for the residual plots used in experiment I. The four shapes are generated by varying the order of polynomial given by $j$ in $He_j(.)$.}\label{fig:different-shape-of-herimite}
+\end{figure}
+
 Experiment I is designed to study the ability of human subjects to
-detect the effect of a non-linear term \(\boldsymbol{z}\) which is a
-probabilist's Hermite polynomial {[}Herimite ref here{]} of another
-random vector \(\boldsymbol{x}\) in a two variable statistical model
-formulated as:
+detect the effect of a non-linear term \(\boldsymbol{z}\) constructed
+using Hermite polynomials {[}Hermite ref here{]} on random vector
+\(\boldsymbol{x}\) formulated as:
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
@@ -560,10 +581,6 @@ shape, ``M'' shape and ``Triple-U'' shape. It is expected that the ``U''
 shape will be the easiest one to detect because complex shape tends to
 be concealed by cluster of data points.
 
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-herimite-1} \caption{Example residual plots of the linear regression model used in experiment I. Four different values of $j$ are included in the experiment results in four different shapes of residuals.}\label{fig:different-shape-of-herimite}
-\end{figure}
-
 Four different distribution were used to generate \(X_{raw}\) as shown
 in Figure \ref{fig:different-dist}. The uniform and the normal
 distribution are symmetric and commonly assumed in statistical models.
@@ -572,7 +589,12 @@ discrete uniform distribution provides discreteness in residual plot,
 which could enrich the pool of visual patterns.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-dist-1} \caption{Example residual plots of the linear regression model used in experiment I. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns.}\label{fig:different-dist}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-dist-1} 
+
+}
+
+\caption{Variations in fitted values, that might affect perception of residual plots. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns.}\label{fig:different-dist}
 \end{figure}
 
 Figure \ref{fig:example-poly-lineup} shows one of the lineups used in
@@ -581,7 +603,12 @@ experiment I. This lineup was produced under \(j = 6\) and
 five subjects correctly identified the actual data plot for this lineup.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-poly-lineup-1} \caption{Lineup poly-24 in experiment I. Can you spot the most different plot? \label{fig:example-poly-lineup}}\label{fig:example-poly-lineup}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-poly-lineup-1} 
+
+}
+
+\caption{Lineup poly-24 in experiment I. Can you spot the most different plot? \label{fig:example-poly-lineup}}\label{fig:example-poly-lineup}
 \end{figure}
 
 \hypertarget{heteroskedasticity}{%
@@ -617,11 +644,21 @@ left-triangle shape, butterfly shape and right-triangle shape as
 displayed in Figure \ref{fig:different-shape-of-heter}.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-heter-1} \caption{Example residual plots of the linear regression model used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle shape, butterfly shape and right-triangle shape.}\label{fig:different-shape-of-heter}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-shape-of-heter-1} 
+
+}
+
+\caption{Heteroskedasticity forms used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle, butterfly and right-triangle shapes.}\label{fig:different-shape-of-heter}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-heter-lineup-1} \caption{Lineup heter-169 in experiment II. Can you spot the most different plot? \label{fig:example-heter-lineup}}\label{fig:example-heter-lineup}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-heter-lineup-1} 
+
+}
+
+\caption{Lineup heter-169 in experiment II. Can you spot the most different plot? \label{fig:example-heter-lineup}}\label{fig:example-heter-lineup}
 \end{figure}
 
 An example lineup of this model is shown in Figure
@@ -652,15 +689,30 @@ with fewer data points drawn in a residual plot, the visual pattern is
 more difficult to be detected.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-n-1} \caption{Three different values of $n$ are used in experiment I, II and III to control the strength of the signal.}\label{fig:different-n}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-n-1} 
+
+}
+
+\caption{Three different values of $n$ are used in experiment I, II and III to control the strength of the signal.}\label{fig:different-n}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-sigma-1} \caption{Example residual plots of the linear regression model used in experiment I. Four different values of $\sigma$ are included in the experiment to control the strength of the signal.}\label{fig:different-sigma}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-sigma-1} 
+
+}
+
+\caption{Example residual plots of the linear regression model used in experiment I. Four different values of $\sigma$ are included in the experiment to control the strength of the signal.}\label{fig:different-sigma}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-b-1} \caption{Example residual plots of the linear regression model used in experiment II. Five different values of $b$ are included in the experiment to control the strength of the signal.}\label{fig:different-b}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-b-1} 
+
+}
+
+\caption{Example residual plots of the linear regression model used in experiment II. Five different values of $b$ are included in the experiment to control the strength of the signal.}\label{fig:different-b}
 \end{figure}
 
 \hypertarget{subject-allocation}{%
@@ -789,7 +841,12 @@ behaves similarly to those inappropriate conventional tests until the
 designed visual features really becomes visible.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-1} \caption{...}\label{fig:fig:power-poly-uniform}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-1} 
+
+}
+
+\caption{...}\label{fig:fig:power-poly-uniform}
 \end{figure}
 
 \hypertarget{distribution-of-regressor}{%
@@ -806,10 +863,15 @@ distributions. The results indicate those inappropriate residual-based
 tests are sensitive to the distribution of the regressor.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} \caption{...}\label{fig:dist-power}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} 
+
+}
+
+\caption{...}\label{fig:dist-power}
 \end{figure}
 
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1}
+\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 --\textgreater{}
 
@@ -817,6 +879,7 @@ tests are sensitive to the distribution of the regressor.
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
+
 
 
 
