@@ -89,53 +89,57 @@ is importantly wrong.''} \citep{box1976science}
 \end{quote}
 
 Diagnosing a model is the key to determining whether there is anything
-importantly wrong. For linear regression analysis, it is typical to
-interrogate the residuals. Residuals summarise what is not captured by
-the model, and thus provide the capacity to identify what might be
-wrong. There are many ways that residuals could be assessed.
+importantly wrong. For linear regression analysis, we typically
+interrogate the residuals for model diagnostics. Residuals summarise
+what is not captured by the model, and thus provide the capacity to
+identify what might be wrong.
 
-Residuals might be plotted, as a histogram or quantile-quantile plot to
-examine the distribution. Using the classical normal linear regression
-model as an example, if the distribution is symmetric and unimodal, it
-is well-behaved. But if the distribution is skewed, bimodal, multimodal,
-or contains outliers, there is cause for concern. The distribution could
-also be inspected by conducting a goodness of fit test, such as the
-Shapiro-Wilk Normality test \citep{shapiro1965analysis}.
+We can assess residuals in multiple ways. Residuals might be plotted, as
+a histogram or quantile-quantile plot to examine the distribution. Using
+the classical normal linear regression model as an example, if the
+distribution is symmetric and unimodal, it is well-behaved. But if the
+distribution is skewed, bimodal, multimodal, or contains outliers, there
+is cause for concern. The distribution could also be inspected by
+conducting a goodness of fit test, such as the Shapiro-Wilk Normality
+test \citep{shapiro1965analysis}.
 
 Plotting the residuals against predicted values and each of the
 explanatory variables on a scatter plot is a recommend way to scrutinize
 their relationships. If there is any visually discoverable patterns, the
-model is potentially misspecified. However, it is a very difficult task
-for a human judge, though to make a decision that there's nothing there.
-It is especially common, particularly among new data analysts to report
-patterns when an experienced data analyst might quickly conclude that
-there are none. Generally, one looks for departures from nothingness
+model is potentially misspecified. However, correctly judging a residual
+plot where no pattern exists is a painstakingly difficult task for
+humans. It is especially common, particularly among new data analysts to
+report patterns when an experienced data analyst might quickly conclude
+that there are none. {[}ET: I don't know if the former statement is
+true?{]} Generally, one looks for noticeable departures from the model
 like non-linear dependency or heteroskedasticity. It is also possible to
 conduct hypothesis tests for non-linear dependence
 \citep{ramsey_tests_1969}, and use a Breusch-Pagan test
 \citep{breusch_simple_1979} for heteroskedasticity.
 
-There is an abundance of literature describing appropriate diagnostic
-methods for linear regression: \citet{draper1998applied},
+Abundance of literature describe appropriate diagnostic methods for
+linear regression: \citet{draper1998applied},
 \citet{montgomery1982introduction}, \citet{belsley_regression_1980},
 \citet{cook_applied_1999} and \citet{cook1982residuals}. The diligent
 reader of these sage writings will also notice sentences that express
 sentiments like \emph{based on their experience, statistical tests are
 not widely used in regression diagnostics. The same or even larger
 amount of information can be provided by diagnostic plots than the
-corresponding tests in most empirical studies.} There is a common
-guidance by experts that plots are the best for diagnosing model fits.
+corresponding tests in most empirical studies.} A common guidance by
+experts is that optimal method for diagnosing model fits is by plotting
+the data.
 
-This is curious, and investigating why this might be common advice is
-the subject of this paper. The paper is structured as follows. The next
-background section describes the the types of departures that one
-expects to detect, and describes a formal process for reading residual
-plots, called visual inference, that can avoid the concerns about
-subjectiveness of human readers. Section \ref{experimental-design}
-describes the experimental setup to enable a comparison between decision
-made by formal hypothesis testing, and how humans would read diagnostic
-plots. The results are reported in Section \ref{results}. We finish with
-a discussion on future work, in particular how the responsibility for
+The persistence of this advice to check the plots is curious, and
+investigating why this might be common advice is the subject of this
+paper. The paper is structured as follows. The next background section
+describes the types of departures that one expects to detect, and
+describes a formal process for reading residual plots, called visual
+inference, that can avoid the concerns about subjectiveness of human
+readers {[}ET: CITATION HERE?{]}. Section \ref{experimental-design}
+describes the experimental setup to compare the decision made by formal
+hypothesis testing, and how humans would read diagnostic plots. The
+results are reported in Section \ref{results}. We finish with a
+discussion on future work, in particular how the responsibility for
 residual plot reading might be passed on to computer vision.
 
 \hypertarget{background}{%
@@ -162,36 +166,40 @@ horizontal zero line showing no noticeable patterns. There are various
 types of departures from a good residual plot.
 
 Non-linearity, heterskedasticity and non-normality are perhaps the three
-mostly commonly checked departures. Non-linearity is a type of model
+mostly checked departures. Non-linearity is a type of model
 misspecification caused by failing to include higher order terms of the
 regressors in the regression equation. Any non-linear functional form of
 residuals on fitted values presented in the residual plot could be
 considered as an indicative of non-linearity. An example residual plot
 containing visual pattern of non-linearity is given at the top-right of
-Figure {[}ref here{]}. One can clearly observe the ``S-shape'' from the
-residual plot as the cubic term is not captured by the misspecified
-model. Heterskedasticity refers to the presence of nonconst error
-variance in a regression model. It is mostly due to the strict but false
+Figure \ref{fig:commondepartures}. One can clearly observe the
+``S-shape'' from the residual plot as the cubic term is not captured by
+the misspecified model.
+
+Heteroskedasticity refers to the presence of nonconstant error variance
+in a regression model. It is mostly due to the strict but false
 assumptions on the variance-covariance matrix of the error term. The
-usual pattern of heterskedasticity on a residual plot is the
-inconsistent spread of the residuals at different x values. Visually, it
-sometimes results in the so-called ``butterfly'' shape as shown in the
-bottom-left panel of Figure \ref{fig:residual-plot-common-departures},
-or the ``left-triangle'' and ``right-triganle'' shape where the smallest
-variance occurs at the edges of the x-axis. Compared to non-linearity
-and heterskedasticity, non-normality is usually harder to be detected
-from a residual plot since scatter plot is not excel in revealing
-marginal distribution. A favourable graphical summarise for this task is
-the quantile-quantile plot. However, for a consistent comparison in the
-later part of this paper, residual plot will be the focus. Besides, it
+usual pattern of heteroskedasticity on a residual plot is the
+inconsistent spread of the residuals across the horizontal axis.
+Visually, it sometimes results in the so-called ``butterfly'' shape as
+shown in the bottom-left panel of Figure \ref{fig:commondepartures}, or
+the ``left-triangle'' and ``right-triangle'' shape where the smallest
+variance occurs at one side of the horizontal axis.
+
+Compared to non-linearity and heteroskedasticity, non-normality is
+usually harder to detect from a residual plot since scatter plot do not
+readily reveal the marginal distribution. A favourable graphical summary
+for this task is the quantile-quantile plot. However, for a consistent
+comparison, residual plot will be the focus of this paper. Besides, it
 is important to note that not all regression models assume normality for
 the error term, but a certain amount do including the classical normal
 linear regression model. In the case that the normality assumption is
-violated, it is expected to observe data points that do not centralize
-around the horizontal zero line and unevenly distribute at both sides of
-the zero line. For example, given a skewed error distribution, fewer
-data points and more outliers are on one side of the zero line as shown
-at the bottom-right of Figure \ref{fig:residual-plot-common-departures}.
+violated, it is expected to observe data points do not center around the
+horizontal axis and there is an uneven distribution of the number points
+at both below and above the horizontal axis. For example, given a skewed
+error distribution, fewer data points and more outliers are on one side
+of the horizontal axis as shown at the bottom-right of Figure
+\ref{fig:commondepartures}.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
@@ -220,10 +228,9 @@ many of the statistical softwares. Another choice will be the
 Jarque--Bera test {[}ref here{]} which directly checks if the sample
 skewness and kurtosis match a normal distribution.
 
-Example residual plots given in Figure
-\ref{fig:residual-plot-common-departures} are examined by the
-corresponding model structural test, Breusch-Pagan test and
-Shapiro--Wilk test as shown in Table
+Example residual plots given in Figure \ref{fig:commondepartures} are
+examined by the corresponding model structural test, Breusch-Pagan test
+and Shapiro--Wilk test as shown in Table
 \ref{tab:example-residual-plot-table}. In the example, both the
 Breusch-Pagan test and the Shapiro--Wilk test rejects the null
 hypothesis for departures that they do not intend to examine. As
@@ -232,10 +239,10 @@ particular type of departure from model assumptions are sensitive to
 other types of departures. It is likely the null hypothesis is correctly
 rejected but for the wrong reason, which is known as the ``Type III
 error''. Additionally, outliers will often incorrectly trigger the
-rejection of the null hypothesis despite the residuals are well-behaved
-\citep{cook_applied_1999}. This can be largely avoided in diagnostic
-plots as experienced analysts can evaluate the acceptability of
-assumptions flexibly, even in the presence of outliers.
+rejection of the null hypothesis despite when majority of the residuals
+are well-behaved \citep{cook_applied_1999}. This can be largely avoided
+in diagnostic plots as experienced analysts can evaluate the
+acceptability of assumptions flexibly, even in the presence of outliers.
 
 \begin{table}
 
@@ -769,11 +776,11 @@ Without knowing the designed visual features beforehand, it is actually
 hard to identify the actual data plot by pure image comparison. The
 corresponding example lineup for \(log_e(E) = 3\) shown in Figure
 \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at
-panel 20, where two out of five subjects detect it. It can be observed
-that a M-shape is presented in plot 20, but the signal is not strong
+panel 17, where two out of five subjects detect it. It can be observed
+that a ``U-shape'' is presented in plot 17, but the signal is not strong
 enough to attract all five subjects, resulting in a visual p-value
 sightly above the desired significance level \(\alpha = 0.05\). At
-\(log_e(E) = 4\) and \(log_e(E) = 6\), the designed visual features
+\(log_e(E) = 4\) and \(log_e(E) = 5\), the designed visual features
 become much clear and attractive, leading to a high percentage of
 rejection of the null hypothesis. Figure
 \ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It
@@ -782,10 +789,7 @@ behaves similarly to those inappropriate conventional tests until the
 designed visual features really becomes visible.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-1} \caption{...}\label{fig:fig:power-poly-uniform-1}
-\end{figure}
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-2} \caption{...}\label{fig:fig:power-poly-uniform-2}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/fig:power-poly-uniform-1} \caption{...}\label{fig:fig:power-poly-uniform}
 \end{figure}
 
 \hypertarget{distribution-of-regressor}{%
@@ -805,7 +809,7 @@ tests are sensitive to the distribution of the regressor.
 \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/dist-power-1} \caption{...}\label{fig:dist-power}
 \end{figure}
 
-\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1}
+\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1}
 
 --\textgreater{}
 
