@@ -692,9 +692,8 @@ Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test aga
 
 What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-overview} where none of subjects detect the actual data plot positioned at panel 14. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at panel 17, where two out of five subjects detect it. It can be observed that a "U-shape" is presented in plot 17, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$ and $log_e(E) = 5$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible.
 
-```{r}
-vi_survey_processed <- readRDS(here::here("data/vi_survey_processed.rds")) 
-```
+
+<!-- TODO:difference between the simple formula and the simulation approach -->
 
 ```{r}
 boot_y <- function(dat, y, times = 100) {
@@ -704,20 +703,20 @@ boot_y <- function(dat, y, times = 100) {
 
 
 ```{r fig:power-poly-uniform, fig.cap = "..."}
-vi_survey_processed %>%
+vi_survey %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   filter(type == "polynomial") %>%
   filter(e_sigma != 0.125) %>%
-  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
   geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3) + geom_point(data = ~filter(.x, unique_lineup_id %in% c("poly_42", "poly_562", "poly_217", "poly_120")), aes(log_effect_size, prop_detect), alpha = 1, col = "red", size = 2) +
+  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3) + geom_point(data = ~filter(.x, unique_lineup_id %in% c("poly_502", "poly_78", "poly_6", "poly_447")), aes(log_effect_size, prop_detect), alpha = 1, col = "red", size = 2) +
   stat_smooth(geom = "line", 
               data = ~boot_y(.x, reject_dirichlet, times = 500), 
-              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "VI_p_value"), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual p-value"), 
               method = "glm", 
               method.args = list(family = binomial), 
               se = FALSE, 
@@ -731,29 +730,29 @@ vi_survey_processed %>%
               se = FALSE) +
   theme_light(base_size = 5) -> p
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_42"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_502"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_42")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_42")$p_value_select_all_plots[1], digits = 3)))) -> p1
+  ggtitle(bquote(log[e](E) %~~% 1~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_502")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_502")$p_value[1], digits = 3)))) -> p1
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_562"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_78"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 3~","~"F-test p-value" == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_562")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_562")$p_value_select_all_plots[1], digits = 3)))) -> p2
+  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_78")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_78")$p_value[1], digits = 3)))) -> p2
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_217"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_6"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_217")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_217")$p_value_select_all_plots[1], digits = 3)))) -> p3
+  ggtitle(bquote(log[e](E) %~~% 3~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_6")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_6")$p_value[1], digits = 3)))) -> p3
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_120"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_447"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
                      remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_120")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey_processed, unique_lineup_id == "poly_120")$p_value_select_all_plots[1], digits = 3)))) -> p4
+  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_447")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_447")$p_value[1], digits = 3)))) -> p4
 
 
 
@@ -767,27 +766,28 @@ patchwork::wrap_plots(p, B = p1, C = p2, D = p3, E = p4, design = design)
 ```
 
 ```{r eval = FALSE}
-vi_survey_processed %>%
+vi_survey %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   filter(type == "polynomial") %>%
   filter(e_sigma != 0.125) %>%
-  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
-filter(abs(log(effect_size) - 3) < 0.2)
+  filter(abs(log(effect_size) - 1) < 0.5) %>%
+  filter(n == 100)
 
-vi_survey_processed %>%
+vi_survey %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   filter(type == "polynomial") %>%
   filter(e_sigma != 0.125) %>%
-  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
   geom_abline() +
-  geom_point(aes(p_value_uniform, p_value_select_all_plots)) +
+  geom_point(aes(p_value_uniform, p_value)) +
   scale_x_log10() +
   scale_y_log10()
 ```
@@ -797,12 +797,12 @@ vi_survey_processed %>%
 The impact of the distribution of $X_raw$ on the power is shown in Figure \ref{fig:dist-power}. The power curve of F-test is stable across different distributions, while the visual test has a steeper power curve for normal and uniform distribution. BP-test performs worse for discrete uniform distribution and uniform distribution but has relatively high power for normal distribution. SW-test outperforms BP-test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor.
 
 ```{r dist-power, fig.cap="..."}
-vi_survey_processed %>%
+vi_survey %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   filter(type == "polynomial") %>%
   filter(e_sigma != 0.125) %>%
-  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
   geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
@@ -827,13 +827,13 @@ vi_survey_processed %>%
 
 
 ```{r}
-vi_survey_processed %>%
+vi_survey %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   filter(type == "heteroskedasticity") %>%
   filter(b != 0) %>%
   filter(b < 128) %>%
-  mutate(reject_dirichlet = as.numeric(p_value_select_all_plots <= 0.05)) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
   geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
