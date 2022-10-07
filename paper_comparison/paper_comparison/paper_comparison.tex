@@ -405,7 +405,7 @@ marginal model can be simplified to a beta-binomial model and thus the
 visual p-value is given as
 
 \begin{equation} \label{eq:pvalue-beta-binomial}
-P(C \geq c_i) = \sum_{x=c_i}^{K}\frac{\Gamma(K + 1)}{\Gamma(x + 1)\Gamma(K - x + 1)}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},
+P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},
 \end{equation}
 
 where \(B(.)\) is the beta function defined as
@@ -414,21 +414,33 @@ where \(B(.)\) is the beta function defined as
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
 \end{equation}
 
-and \(\Gamma(.)\) is the gamma function defined as
+Note that Equation \ref{eq:pvalue-beta-binomial} only works with integer
+\(c_i\). For non-integer \(c_i\), linear approximation will be applied
+to calculate the p-value
 
-\begin{equation} \label{eq:gammafunction}
-\Gamma(z) = \int_{0}^{\infty}t^{z - 1}e^{-t}dt,\quad \text{where}\quad z>0. 
+\begin{equation} \label{eq:pvalue-beta-binomial-approx}
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \notin \mathbb{Z}.
 \end{equation}
 
-The parameter \(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial}
-is usually unknown and hence needs to be estimated from the survey data.
-For low values of \(\alpha\), only a few plots are attractive to the
-observers and tend to be selected. For higher values of \(\alpha\), the
-distribution of the probability of each plot being selected is more
-evenly. \citet{vanderplas2021statistical} suggested that \(\alpha\) can
-be estimated using maximum likelihood estimation or visual estimation.
-But if \(\alpha\) is small and only a few null plots in a lineup are
-attractive, MLE could fail to provide accurate estimates.
+Besides, the parameter \(\alpha\) used in Equation
+\ref{eq:pvalue-beta-binomial} is usually unknown and hence needs to be
+estimated from the survey data. For low values of \(\alpha\), only a few
+plots are attractive to the observers and tend to be selected. For
+higher values of \(\alpha\), the distribution of the probability of each
+plot being selected is more evenly. \citet{vanderplas2021statistical}
+defined that a plot is \(c\)-interesting if \(c\) or more participants
+selected the plot as the most different. Given the definition, The
+expected number of plots selected at least \(c\) times, \(E[Z_c]\), is
+calculated as
+
+\begin{equation} \label{eq:c-interesting-expectation}
+E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).\end{equation}
+
+\citet{vanderplas2021statistical} suggested that \(\alpha\) can be
+estimated using MLE and Equation \ref{eq:c-interesting-expectation}. But
+for precise estimate of \(\alpha\), additional responses to Rorschach
+lineups, which is a type of lineup consists of only null plots, are
+required.
 
 \hypertarget{power-calculation}{%
 \subsubsection{Power calculation}\label{power-calculation}}
@@ -447,7 +459,7 @@ of selections made by the subject for p-value calculation.
 
 Instead, we directly estimated the probability of a lineup being
 rejected using a logistic regression with the natural logarithm of the
-effect size as the only regressor formulated as:
+effect size as the only regressor formulated as
 
 \begin{equation} \label{eq:logistic-regression-1-1}
 Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
@@ -457,7 +469,7 @@ where \(\Lambda(.)\) is the standard logistic function given as
 \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
 Effect \(E\) is derived from the Kullback-Leibler divergence (see
-{[}appendix ref here{]}) formulated as:
+{[}appendix ref here{]}) formulated as
 
 \begin{equation} \label{eq:effect-size-ex1}
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
