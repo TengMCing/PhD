@@ -562,7 +562,8 @@ out by the null regression, which will result in model misspecification.
 Visual patterns of non-linearity were simulated using four different
 order of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)) and
 four different distribution of \(X_{raw}\): (1) \(U(-1, 1)\), (2)
-\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\).
+\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A
+summary of the factors is given in Table \ref{tab:model-factor-table}.
 
 \begin{table}
 
@@ -571,7 +572,7 @@ four different distribution of \(X_{raw}\): (1) \(U(-1, 1)\), (2)
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{cccccc}
 \toprule
-\multicolumn{1}{c}{\makecell[c]{Order of Hermite polynomial\\($j$)}} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} & \multicolumn{1}{c}{\makecell[c]{Standard deviation of polynomial model\\($\sigma$)}} & \multicolumn{1}{c}{\makecell[c]{Orientation of heteroskedasticity\\($a$)}} & \multicolumn{1}{c}{\makecell[c]{Variance factor of heteroskedasticity model\\($b$)}} & \multicolumn{1}{c}{\makecell[c]{Sample size\\($n$)}} \\
+\multicolumn{1}{c}{\makecell[c]{Order of Hermite polynomial\\($j$)}} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} & \multicolumn{1}{c}{\makecell[c]{Standard deviation of polynomial model\\($\sigma$)}} & \multicolumn{1}{c}{\makecell[c]{Shape of heteroskedasticity\\($a$)}} & \multicolumn{1}{c}{\makecell[c]{Variance factor of heteroskedasticity model\\($b$)}} & \multicolumn{1}{c}{\makecell[c]{Sample size\\($n$)}} \\
 \cmidrule(l{3pt}r{3pt}){1-1} \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6}
 2 & $U(-1, 1)$ & 0.25 & -1 & 0.25 & 50\\
 3 & $N(0, 0.3^2)$ & 1 & 0 & 1 & 100\\
@@ -645,7 +646,8 @@ For \(b \neq 0\), the variance-covariance matrix of the error term
 \(\boldsymbol{\varepsilon}\) is correlated with the regressor \(x\),
 which will lead to the presence of heteroskedasticity. Visual patterns
 were simulated using three different shapes (\(a\) = -1, 0, 1) and the
-same four different distribution of \(X_{raw}\) used in experiment I.
+same four different distribution of \(X_{raw}\) used in experiment I. A
+summary of the factors is given in Table \ref{tab:model-factor-table}.
 
 The values of \(a\) was chosen so that different shapes of
 heteroskedasticity were included in the residual plot. These include
@@ -683,14 +685,21 @@ lineup.
 \subsubsection{Controlling the strength of the
 signal}\label{controlling-the-strength-of-the-signal}}
 
-As summarised by Table \ref{tab:model-factor-table}, three additional
+As summarised in Table \ref{tab:model-factor-table}, three additional
 parameters \(n\), \(\sigma\) and \(b\) were used to control the strength
 of the signal so that different difficulty levels of lineups were
 generated, and therefore, the estimated power curve would be smooth and
 continuous. Parameter \(\sigma \in \{0.5, 1, 2, 4\}\) and
 \(b \in \{0.25, 1, 4, 16, 64\}\) were used in experiment I and II
 respectively. Figure \ref{fig:different-sigma} and \ref{fig:different-b}
-demonstrate the impact of these two parameters.
+demonstrate the impact of these two parameters. A large value of
+\(\sigma\) will increase the variation of the error of the polynomial
+model and decrease the visibility of the visual pattern. The parameter
+\(b\) controls the ratio of the standard deviation of the
+heteroskedasticity across the domain of the regressor. Given
+\(x \neq a\), a larger value of \(b\) will lead to a larger ratio of the
+variance at \(x\) to the variance at \(x - a = 0\), making the visual
+pattern more obvious.
 
 Three different sample sizes were used (n = 50, 100, 300) in all three
 experiments. It can be observed from Figure \ref{fig:different-n} that
@@ -728,14 +737,28 @@ more difficult to be detected.
 \subsubsection{Subject allocation}\label{subject-allocation}}
 
 Three replications are made for each of the parameter values shown in
-Table \ref{tab:parameter-table} resulting in 1152 different lineups. In
-addition, each lineup is designed to be evaluated by five different
-subjects and lineups with uniform distribution is designed to be
-evaluated by 11 subjects to provide reasonable estimates of the visual
-p-value.
+Table \ref{tab:parameter-table} resulting in
+\((4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116\)
+different lineups. In addition, each lineup is designed to be evaluated
+by five different subjects. After attempting some pilot studies
+internally in our research group, we decide to present a block of 20
+lineups to every subject. And to ensure the quality of the survey data,
+two lineups with obvious visual patterns are included as attention
+checks. Thus, \(576 \times 5/(20-2) = 160\) and
+\(540 \times 5 /(20-2) = 150\) subjects were recruited to satisfy the
+design of the experiment I and experiment II respectively.
 
-Thus, \(443\) subjects were recruited to satisfy the design of the
-experiment.
+As mentioned in Section {[}the alpha section{]}, \(\alpha\) used in
+Equation \ref{eq:eq:pvalue-beta-binomial} needs to be estimated using
+Rorschach lineups. Hence, 36 Rorschach lineups with all combinations of
+\(n\) and \(X_{raw}\) and three replications are designed to be included
+in experiment III. All Rorschach lineups are planned to be evaluated by
+20 subjects. However, presenting only Rorschach lineups to subjects are
+considered to be bad practices as subjects will lose interest quickly.
+We planned to also collect 6 more evaluations on the 279 lineups with
+uniform distribution, resulted in
+\((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3)/(20-2) = 133\)
+subjects recruited for experiment III.
 
 \hypertarget{collecting-results}{%
 \subsubsection{Collecting results}\label{collecting-results}}
@@ -758,12 +781,11 @@ selected plots were from others. If there was no noticeable difference
 between plots in a lineup, subjects were permitted to select zero plots
 without providing the reason. No subject was shown the same lineup
 twice. Information about preferred pronoun, age group, education, and
-previous experience in visual experiment were also collected. In every
-block of 20 lineups that presented to a subject, two lineups with
-obvious visual patterns were included as attention checks. A subject's
-submission was only accepted if the actual data plot was identified for
-at least one attention check. Data of rejected submissions were
-discarded automatically to maintain the overall data quality.
+previous experience in visual experiment were also collected. A
+subject's submission was only accepted if the actual data plot was
+identified for at least one attention check. Data of rejected
+submissions were discarded automatically to maintain the overall data
+quality.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
