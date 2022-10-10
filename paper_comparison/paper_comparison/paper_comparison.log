@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.12)  12 OCT 2022 03:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.12)  12 OCT 2022 04:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -585,7 +585,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/Users/patrickli/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf, id=133, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf, id=137, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf  used on input line 157.
@@ -602,7 +602,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has
                                                   \__shipout_drop_firstpage_...
 l.208 
        <./paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf>] [4]
-<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=201, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=205, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/first-example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/first-example-lineup-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/first-example-lineup-1.pdf  used on input line 316.
@@ -637,7 +637,7 @@ LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
 (Font)              size <5> substituted on input line 465.
 
 [8]
-<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=275, 578.16pt x 144.54pt>
+<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=279, 578.16pt x 144.54pt>
 File: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 519.
@@ -653,22 +653,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has 
                                                   \__shipout_drop_firstpage_...
 l.600 
        <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>]
-<paper_comparison_files/figure-latex/different-dist-1.pdf, id=309, 578.16pt x 144.54pt>
+<paper_comparison_files/figure-latex/different-dist-1.pdf, id=313, 578.16pt x 144.54pt>
 File: paper_comparison_files/figure-latex/different-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-dist-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 603.
 (pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-<paper_comparison_files/figure-latex/example-poly-lineup-1.pdf, id=311, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/example-poly-lineup-1.pdf, id=315, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/example-poly-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/example-poly-lineup-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/example-poly-lineup-1.pdf  used on input line 617.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=316, 578.16pt x 216.81pt>
+<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=320, 578.16pt x 216.81pt>
 File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 659.
 (pdftex.def)             Requested size: 408.0pt x 152.99994pt.
-<paper_comparison_files/figure-latex/example-heter-lineup-1.pdf, id=317, 578.16pt x 433.62pt>
+<paper_comparison_files/figure-latex/example-heter-lineup-1.pdf, id=321, 578.16pt x 433.62pt>
 File: paper_comparison_files/figure-latex/example-heter-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/example-heter-lineup-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/example-heter-lineup-1.pdf  used on input line 668.
@@ -694,17 +694,17 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has
                                                   \__shipout_drop_firstpage_...
 l.703 
        <./paper_comparison_files/figure-latex/example-heter-lineup-1.pdf>]
-<paper_comparison_files/figure-latex/different-n-1.pdf, id=366, 578.16pt x 216.81pt>
+<paper_comparison_files/figure-latex/different-n-1.pdf, id=370, 578.16pt x 216.81pt>
 File: paper_comparison_files/figure-latex/different-n-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-n-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-n-1.pdf  used on input line 711.
 (pdftex.def)             Requested size: 408.0pt x 152.99994pt.
-<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=367, 578.16pt x 144.54pt>
+<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=371, 578.16pt x 144.54pt>
 File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-sigma-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 720.
 (pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-<paper_comparison_files/figure-latex/different-b-1.pdf, id=368, 578.16pt x 144.54pt>
+<paper_comparison_files/figure-latex/different-b-1.pdf, id=372, 578.16pt x 144.54pt>
 File: paper_comparison_files/figure-latex/different-b-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-b-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-b-1.pdf  used on input line 729.
@@ -732,49 +732,60 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) ha
                                                   \__shipout_drop_firstpage_...
 l.806 
        <./paper_comparison_files/figure-latex/different-b-1.pdf>]
-
-LaTeX Warning: Reference `fig:power-poly-uniform' on page 16 undefined on input line 818.
-
-
-LaTeX Warning: Reference `hypothesis-testing' on page 16 undefined on input line 835.
-
-
-LaTeX Warning: Reference `fig:power-overview' on page 16 undefined on input line 845.
-
-[16]
-<paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf, id=413, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf  used on input line 876.
+<paper_comparison_files/figure-latex/p-value-comparison-1.pdf, id=406, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/p-value-comparison-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/p-value-comparison-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/p-value-comparison-1.pdf  used on input line 830.
 (pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/dist-power-1.pdf, id=415, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/dist-power-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/dist-power-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/dist-power-1.pdf  used on input line 898.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf, id=416, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 905.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[17
+
+LaTeX Warning: Reference `fig:power-poly-uniform' on page 16 undefined on input line 840.
+
+
+LaTeX Warning: Reference `hypothesis-testing' on page 16 undefined on input line 857.
+
+
+LaTeX Warning: Reference `fig:power-overview' on page 16 undefined on input line 867.
+
+[16] [17
 pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.905 ...ure-latex/unnamed-chunk-6-1} \end{center}
-                                                   <./paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf>] [18
+l.895 
+       <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
+<paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf, id=434, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf  used on input line 898.
+(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
+[18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.905 ...ure-latex/unnamed-chunk-6-1} \end{center}
+l.917 
+       <./paper_comparison_files/figure-latex/fig:power-poly-uniform-1.pdf>]
+<paper_comparison_files/figure-latex/dist-power-1.pdf, id=453, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/dist-power-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/dist-power-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/dist-power-1.pdf  used on input line 920.
+(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
+<paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf, id=454, 578.16pt x 433.62pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 927.
+(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
+[19
+pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.927 ...ure-latex/unnamed-chunk-7-1} \end{center}
                                                    <./paper_comparison_files/figure-latex/dist-power-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 907.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 929.
 (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <11> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 907.
-(./paper_comparison.bbl [19 <./paper_comparison_files/figure-latex/unnamed-chunk-6-1.pdf>]) [20] (./paper_comparison.aux)
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 929.
+(./paper_comparison.bbl [20 <./paper_comparison_files/figure-latex/unnamed-chunk-7-1.pdf>]) [21] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -786,21 +797,21 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
-(rerunfilecheck)             Checksum: 3D7B4A6B8C4A1235630C7BDD4B91FA7C;3506.
+(rerunfilecheck)             Checksum: 02A925811071635454B470484AD12118;3657.
  ) 
 Here is how much of TeX's memory you used:
- 13320 strings out of 477031
- 216822 string characters out of 5827124
- 567556 words of memory out of 5000000
- 34099 multiletter control sequences out of 15000+600000
+ 13336 strings out of 477031
+ 217493 string characters out of 5827124
+ 567632 words of memory out of 5000000
+ 34110 multiletter control sequences out of 15000+600000
  482359 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,20n,90p,646b,570s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (20 pages, 3589047 bytes).
+Output written on paper_comparison.pdf (21 pages, 3657939 bytes).
 PDF statistics:
- 585 PDF objects out of 1000 (max. 8388607)
- 488 compressed objects within 5 object streams
- 113 named destinations out of 1000 (max. 500000)
- 234 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 608 PDF objects out of 1000 (max. 8388607)
+ 507 compressed objects within 6 object streams
+ 117 named destinations out of 1000 (max. 500000)
+ 247 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -797,20 +797,42 @@ Subjects recruited from Prolific received a fixed payment for
 participating in the experiment. However, some subjects will try to
 maximize their earnings for minimum effort. During the review of
 submissions, if we found a subject objectively demonstrated clear
-low-effort throughout the experiment, i.e., failed all attention checks,
+low-effort throughout the experiment, e.g., failed all attention checks,
 we rejected the submission. The rejected submissions will be removed
 immediately, and Prolific will automatically recruit another subject as
 substitution. Therefore, we only paid for approved submissions and no
 further data screening procedure needed to be applied on the collected
 data.
 
-In overall, there were a total of 3200 lineup evaluations made by 160
-subjects in both experiment I and experiment II respectively, where 320
+In overall, there were a total of 8860 lineup evaluations made by 443
+subjects in experiment I, experiment II and experiment III, where 886
 lineup evaluations were attention checks and were not used in the
 following analysis.
 
 The collated dataset is provided in \texttt{vi\_survey} of the
 \texttt{visage} \texttt{R} package.
+
+\hypertarget{p-value-comparison}{%
+\subsection{P-value comparison}\label{p-value-comparison}}
+
+Visual inference and conventional hypothesis testing are two distinct
+statistical procedures. As shown in \ref{fig:p-value-comparison}, the
+visual test almost always gives higher p-values than the conventional
+test, suggesting that humans have lower confidence and much higher
+tolerance of the residual departures than the numerical procedure. In
+fact, only around 58\% of the cases, both tests will agree on the
+rejection decision given 95\% confidence level. And in 41\% of the
+cases, visual test does not reject the null hypothesis but conventional
+test does. This is an indicator of ``false alarm''
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
+
+}
+
+\caption{...}\label{fig:p-value-comparison}
+\end{figure}
 
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
@@ -902,7 +924,7 @@ tests are sensitive to the distribution of the regressor.
 \caption{...}\label{fig:dist-power}
 \end{figure}
 
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 --\textgreater{}
 

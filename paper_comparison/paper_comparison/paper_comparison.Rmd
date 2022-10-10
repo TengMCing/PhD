@@ -702,14 +702,47 @@ Subjects for all three experiments were recruited from an crowdsourcing platform
 
 <!-- How many people? How many lineups? -->
 
-Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, i.e., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
+Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, e.g., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
 
-In overall, there were a total of 3200 lineup evaluations made by 160 subjects in both experiment I and experiment II respectively, where 320 lineup evaluations were attention checks and were not used in the following analysis.
+In overall, there were a total of 8860 lineup evaluations made by 443 subjects in experiment I, experiment II and experiment III, where 886 lineup evaluations were attention checks and were not used in the following analysis.
 
 The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
+## P-value comparison
+
+Visual inference and conventional hypothesis testing are two distinct statistical procedures. As shown in \ref{fig:p-value-comparison}, the visual test almost always gives higher p-values than the conventional test, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the numerical procedure. In fact, only around 58% of the cases, both tests will agree on the rejection decision given 95% confidence level. And in 41% of the cases, visual test does not reject the null hypothesis but conventional test does. This is an indicator of "false alarm" 
+
+
+```{r eval = FALSE}
+vi_survey %>%
+  filter(lineup_id <= 576) %>%
+  filter(is.na(b) | b != 0) %>%
+  mutate(test = p_value > 0.05 & conventional_p_value < 0.05) %>%
+  {mean(.$test)}
+```
+
+
+
+```{r p-value-comparison, fig.cap="..."}
+vi_survey %>%
+  filter(lineup_id <= 576) %>%
+  filter(is.na(b) | b != 0) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  # filter(x_dist == "uniform") %>%
+  ggplot() +
+  geom_point(aes(p_value, conventional_p_value), alpha = 0.4) +
+  geom_abline() +
+  scale_x_log10() +
+  scale_y_log10() +
+  facet_wrap(~type)
+```
+
 
 ## Power comparison
+
+
+
 
 Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) = 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively.
 
