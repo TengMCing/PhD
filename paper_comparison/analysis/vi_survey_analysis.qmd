@@ -1,0 +1,767 @@
+---
+title: "vi_survey_analysis"
+execute:
+  warning: false
+format: 
+  html:
+    code-fold: true
+    toc: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Analysis of the survey result
+
+## Setup
+
+```{r}
+library(visage)
+library(tidyverse)
+```
+
+
+```{r cache = TRUE}
+vi_lineup <- readRDS(here::here("data/vi_lineup.rds"))
+poly_conv_sim <- readRDS(here::here("data/poly_conventional_simulation.rds"))
+heter_conv_sim <- readRDS(here::here("data/heter_conventional_simulation.rds"))
+```
+
+## Overview
+
+The survey dataset `vi_survey` contains `r length(vi_survey)` columns.
+
+```{r}
+knitr::kable(data.frame(names(vi_survey), 
+                        c("Experiment ID",
+                          "Unique lineup ID",
+                          "Lineup ID in an experiment",
+                          "Page number of the study website",
+                          "Subject ID in an experiment",
+                          "The count of the lineup presented to a subject",
+                          "Response time to a page",
+                          "Selected plots in a lineup",
+                          "Number of selected plots",
+                          "The position of the actual data plot",
+                          "Whether the subject selected the actual data plot",
+                          "Weighted detect is `detect`/`num_selection` and 1/20 for `num_selection == 0`",
+                          "Average weighted detect for a lineup",
+                          "Effect size of a lineup",
+                          "Coventional p-value",
+                          "Visual p-value",
+                          "Reason for the selection",
+                          "How different the selected plot from others",
+                          "Age group of the subject",
+                          "Education background of the subject",
+                          "Pronoun",
+                          "Whether the subject has previous experience in experiment about reading data plots",
+                          "Type of the lineup",
+                          "Formula of the data genearting processing",
+                          "Parameter `shape` of the polynomial model",
+                          "Parameter `a` of the heteroskedasticity model",
+                          "Parameter `b` of the heteroskedasticity model",
+                          "Distribution of the regressor",
+                          "Distribution of the error term",
+                          "Standard deviation of the polynomial model",
+                          "Whether to include polynomial terms",
+                          "Name of the model",
+                          "Number of plots in a lineup",
+                          "Number of observations in a plot",
+                          "c-interesting plots in a lineup",
+                          "Estimated alpha of the Dirichelt model",
+                          "Sum of squre error of the alpha estimate",
+                          "Expected effect size")), col.names = c("Variable", "Description")) %>%
+  kableExtra::kable_material_dark(bootstrap_options = c("striped", "hover"))
+```
+
+```{r}
+null_lineups <- filter(vi_survey, b == 0)
+vi_survey <- filter(vi_survey, lineup_id <= 576) %>%
+  mutate(subject = as.numeric(factor(interaction(exp, set))))
+```
+
+
+The survey data has `r nrow(vi_survey)` lineup evaluations for `r length(unique(vi_survey$unique_lineup_id))` unique lineups evaluated by `r length(unique(interaction(vi_survey$exp, vi_survey$set)))` subjects. 
+Experiment I has `r nrow(vi_survey[vi_survey$exp == 3, ])` lineup evaluations for `r length(unique(filter(vi_survey, exp == 3)$unique_lineup_id))` unique lineups evaluated by `r length(unique(filter(vi_survey, exp == 3)$set))` subjects. 
+Experiment II has `r nrow(vi_survey[vi_survey$exp == 4, ])` lineup evaluations for `r length(unique(filter(vi_survey, exp == 4)$unique_lineup_id))` unique lineups evaluated by `r length(unique(filter(vi_survey, exp == 4)$set))` subjects. 
+Experiment III has `r nrow(vi_survey[vi_survey$exp == 5, ])` lineup evaluations for `r length(unique(filter(vi_survey, exp == 5)$unique_lineup_id))` unique lineups evaluated by `r length(unique(filter(vi_survey, exp == 5)$set))` subjects.
+There are `r nrow(filter(vi_survey, b == 0))` lineup evaluations for `r length(unique(filter(vi_survey, b == 0)$lineup_id))` Rorschach lineups. 
+
+## Demographic
+
+The education background of most participants have Diploma or Bachelor degrees, followed by High school or below. The survey data is gender balanced. Most of the participants are between 18 to 39. 
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  ggplot() +
+  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
+  facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
+  xlab("Age group") +
+  ylab("Count")
+```
+
+Number of participants who have previous experience in experiment about reading data plots are not very different from the number of participants who haven't. Age distributions are also similar for these two groups.
+
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  ggplot() +
+  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
+  facet_wrap(~previous_experience) +
+  xlab("Age group") +
+  ylab("Count")
+```
+
+## Response time
+
+The distribution of the log response time is slightly right skewed.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_density(aes(response_time/1000)) +
+  scale_x_log10() +
+  xlab("Response time (seconds)") +
+  ggtitle("Distribution of response time in log scale")
+```
+
+Subjects spend less time as the experiment progress.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(num, response_time/1000, group = num)) +
+  xlab("#lineup") +
+  ylab("Response time (seconds)") +
+  scale_y_log10() +
+  ggtitle("Boxplots of response time in log scale vs the order of lienup")
+```
+
+The minimum response time is `r min(vi_survey$response_time)/1000` seconds given by subject ``r vi_survey$subject[which.min(vi_survey$response_time)]`` while evaluating lineup ``r vi_survey$unique_lineup_id[which.min(vi_survey$response_time)]``. This subject get it `r c("wrong", "correct")[vi_survey$detect[which.min(vi_survey$response_time)] + 1]` with `r vi_survey$num_selection[which.min(vi_survey$response_time)]` selections. This is the #`r vi_survey$num[which.min(vi_survey$response_time)]` lineup presented to the subject. The total amount of time this subject spent on the study is `r round(sum(vi_survey$response_time[vi_survey$subject == vi_survey$subject[which.min(vi_survey$response_time)]])/1000, 2)` seconds.
+
+The maximum response time is `r max(vi_survey$response_time)/1000` seconds given by subject ``r vi_survey$subject[which.max(vi_survey$response_time)]`` while evaluating lineup ``r vi_survey$unique_lineup_id[which.max(vi_survey$response_time)]``. This subject get it `r c("wrong", "correct")[vi_survey$detect[which.max(vi_survey$response_time)] + 1]` with `r vi_survey$num_selection[which.max(vi_survey$response_time)]` selections. This is the #`r vi_survey$num[which.max(vi_survey$response_time)]` lineup presented to the subject. The total amount of time this subject spent on the study is `r round(sum(vi_survey$response_time[vi_survey$subject == vi_survey$subject[which.max(vi_survey$response_time)]])/1000, 2)` seconds.
+
+The median response time is `r median(vi_survey$response_time)/1000` seconds.
+
+The median total response time per subject is `r vi_survey %>% group_by(subject) %>% summarise(total_response_time = sum(response_time)) %>% {median(.$total_response_time)/1000}` seconds. Four subjects spent more time than others in the study. Subject `11` spent a long time on the first lineup. Subject `163`, `176` and `246` consistently evaluates lineups in a slow pace.
+
+```{r}
+vi_survey %>%
+  group_by(subject) %>%
+  summarise(total_response_time = sum(response_time)/1000) %>%
+  ggplot() +
+  geom_boxplot(aes(total_response_time)) +
+  ggrepel::geom_label_repel(data = ~tail(arrange(., total_response_time), 4), aes(total_response_time, 0, label = subject)) +
+  scale_x_log10() +
+  xlab("Total response time per subject") +
+  ggtitle("Total response time per subject in log scale")
+```
+
+
+```{r}
+vi_survey %>%
+  filter(subject %in% c(163, 176, 11, 246)) %>%
+  ggplot() +
+  geom_line(aes(num, response_time/1000, col = factor(subject))) +
+  labs(col = "subject") +
+  scale_y_log10() +
+  xlab("#lineup") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs the order of lienup")
+```
+
+
+```{r}
+vi_survey %>%
+  filter(subject %in% c(163, 176, 11, 246)) %>%
+  select(subject, num, response_time) %>%
+  mutate(response_time = response_time/1000) %>%
+  pivot_wider(names_from = num, values_from = response_time) %>%
+  select(subject, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `13`, `14`, `15`, `16`, `17`, `18`, `19`, `20`) %>%
+  arrange(subject) %>%
+  knitr::kable("markdown")
+```
+
+When the subject detect the data plot, the response time is usually lower. This is because it is easier to make decision on lineup with obvious patterns.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_density(aes(response_time/1000, col = detect)) +
+  scale_x_log10() +
+  facet_wrap(~type) +
+  xlab("Response time (seconds)") +
+  ylab("Density") +
+  ggtitle("Distribution of response time in log scale")
+```
+
+
+There is a very weak negative relationship between the difficulty of the lineup and the response time. There are some cases where the lineup is very difficult, but the subject evaluates the lineup in a short time. But there are no obvious outliers except for one we have analysed.
+
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_point(aes(effect_size, response_time/1000), alpha = 0.1) +
+  geom_smooth(aes(effect_size, response_time/1000)) +
+  scale_y_log10() +
+  scale_x_log10() +
+  facet_grid(detect~type) +
+  xlab("Effect size") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs effect size in log scale")
+```
+
+For Rorschach lineup, the response time varies a lot, from few seconds to several minutes.
+
+```{r}
+vi_survey %>%
+  filter(b == 0) %>%
+  ggplot() +
+  geom_density(aes(response_time/1000)) +
+  scale_x_log10() +
+  xlab("Response time (seconds)") +
+  ylab("Count") +
+  ggtitle("Response time for Rorschach lineup in log scale") +
+  facet_wrap(~detect)
+```
+
+
+Number of selection made by the subjects seems to be correlated to the response time. Subjects tend to spend more time on a lineup if they select more plots, which is reasonable.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(num_selection, response_time/1000, group = factor(num_selection, levels = 0:20))) +
+  geom_smooth(aes(num_selection, response_time/1000)) +
+  scale_y_log10() +
+  scale_x_continuous(breaks = 0:20, minor_breaks = NULL) +
+  facet_grid(type~detect) +
+  xlab("Number of selections") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs number of selection faceted by detection and type of model")
+```
+
+When subjects correctly identify the actual data plot, they tend to spend less time if they discover a shape from the plot, followed by cluster(s) and outlier(s). Subjects spend much more time for reason "Others", which they need to manually provide a custom reason. This could be due to the fact that they need to spend time in typing the reason. However, we do not see the same difference when they do not detect the actual data plot. The median response time are similar for different reasons.
+
+```{r}
+vi_survey %>%
+  mutate(reason = ifelse(reason %in% c("Shape", "Cluster(s)", "Outlier(s)"), reason, "Others")) %>%
+  mutate(reason = factor(reason, levels = c("Shape", "Cluster(s)", "Outlier(s)", "Others"))) %>%
+  ggplot() +
+  geom_boxplot(aes(reason, response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(type~detect) +
+  xlab("Reason to select the plot") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs reason faceted by detection and type of model")
+```
+
+When subjects correctly identify the actual data plot, the response time decreases as the confidence level increases. When subjects do not detect the actual data plot, they tend to spend less time if they do not find anything particularly interesting for the heteroskedasticity model. Curiously, they spend more time even though they think the selected plot is extremely different to others for the polynomial model. This could be due to the small sample size (seven). And three out of seven evaluations are given by the same subject `202`.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(factor(confidence, levels = c("Not at all", "Slightly", "Moderately", "Very", "Extremely")), response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(type~detect) +
+  xlab("Confidence") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs confidence faceted by detection and type of model")
+```
+
+
+We do not observe any particular structure for the distribution of the log of the response time when the answer is placed in different panels. 
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(answer, response_time/1000, group = answer)) +
+  scale_y_log10() +
+  facet_grid(type~detect) +
+  xlab("Answer") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs answer faceted by detection and type of model")
+```
+
+
+It is interesting to see that the response time is greater for older subjects in regards of the type of the model and whether the answer is correct.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(age_group, response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(type~detect) +
+  xlab("Age group") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs age group faceted by detection and type of model")
+```
+
+Female subjects tend to spend little more time than male in our experiments. The "40-54" and "55-64" age groups show larger difference between male and female.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(age_group, response_time/1000, col = ifelse(pronoun == "They", "Other", pronoun))) +
+  scale_y_log10() +
+  labs(col = "pronoun") +
+  xlab("Age group") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs age group colored by pronoun")
+```
+
+The same upward trend of response time maintains for different education groups. 
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(age_group, response_time/1000)) +
+  scale_y_log10() +
+  facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
+  labs(col = "pronoun") +
+  xlab("Age group") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs age group faceted by pronoun")
+```
+
+However, notice that some groups have only few observations. Thus, the trend might not be reliable.
+
+```{r}
+vi_survey %>%
+  group_by(age_group, education) %>%
+  summarise(num_subject = length(unique(subject))) %>%
+  ggplot() +
+  geom_bar(aes(age_group, num_subject), stat = "identity") +
+  facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree"))
+```
+
+The median response time of the group "Doctoral Degree:FALSE:polynomial" is higher than others. It only contains evaluations given by two subjects. Apart from that, we do not observe any trend from the plot.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree"), response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(type~detect) + 
+  xlab("Education background") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs education background faceted by detection and type of model")
+```
+
+Subjects with previous experience doesn't seem like to evaluate lineups faster.
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_boxplot(aes(previous_experience, response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(type~detect) + 
+  xlab("Previous experience") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs previous experience faceted by detection and type of model")
+```
+
+For polynomial model, different shapes do not affect the response time much.
+
+```{r}
+vi_survey %>%
+  filter(type == "polynomial") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(shape), response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(~detect) +
+  xlab("Shape") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs shape for polynomial model")
+```
+
+Different distributions of $x$ slightly affect the response time. The response time for uniform distribution is lower when the subject correctly identify the actual data plot. Additionally, the response time for lognormal distribution is higher than others. This could be due to uniform distribution has a higher chance to reveal the underlying visual pattern, and lognormal distribution is the opposite.
+
+```{r}
+vi_survey %>%
+  filter(type == "polynomial") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(x_dist, levels = c("uniform", "even_discrete", "normal", "lognormal")), response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(~detect) +
+  xlab("Distribution of x") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs distribution of x for polynomial model faceted by detection")
+```
+
+It is interesting to see that the response times are not much different across different $\sigma$ values when the subject can not detect the data plot, except for $n = 300$. For $n = 300$, the response time is lower for lower noise level, indicating that when the visual pattern is visible and detectable, subjects will spend less time in making the decision. When the subject correctly identify the actual data plot, the same trend occurs in clearer manner.
+
+```{r}
+vi_survey %>%
+  filter(type == "polynomial") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(e_sigma), response_time/1000)) +
+  scale_y_log10() +
+  facet_grid(n~detect) +
+  xlab("Noise level (sigma)") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs noise level for polynomial model faceted by detection")
+```
+
+We do not observe any interesting pattern from the response time vs alpha plot. 
+
+```{r}
+vi_survey %>%
+  filter(type == "polynomial") %>%
+  mutate(alpha = jitter(alpha)) %>%
+  ggplot() +
+  geom_point(aes(alpha, response_time/1000)) +
+  geom_smooth(aes(alpha, response_time/1000)) +
+  scale_y_log10() +
+  xlab("Estimated alpha") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs estimated alpha for polynomial model")
+```
+
+For heteroskedasticity model, different $a$ and distribution of $x$ do not affect the response time much. Except for the uniform group, which has slightly lower response time.
+
+```{r}
+vi_survey %>%
+  filter(type == "heteroskedasticity") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(a), response_time/1000)) +
+  facet_grid(~factor(x_dist, levels = c("uniform", "even_discrete", "normal", "lognormal"))) +
+  scale_y_log10() +
+  xlab("a") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs a for heteroskedasticity model faceted by distribution of x")
+```
+
+As $b$ increases, when the subject correctly identify the actual data plot, the response time will decrease for $n = 100$ and $n = 300$.
+
+```{r}
+vi_survey %>%
+  filter(type == "heteroskedasticity") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(b), response_time/1000, group = b)) +
+  scale_y_log10() +
+  facet_grid(detect~n) +
+  xlab("b") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs b for heteroskedasticity model faceted by number of observations and detection")
+```
+
+Similar to the polynomial model, $\alpha$ does not affect the response time. 
+
+```{r}
+vi_survey %>%
+  filter(type == "heteroskedasticity") %>%
+  mutate(alpha = jitter(alpha)) %>%
+  ggplot() +
+  geom_point(aes(alpha, response_time/1000)) +
+  geom_smooth(aes(alpha, response_time/1000)) +
+  scale_y_log10() +
+  xlab("Estimated alpha") +
+  ylab("Response time (seconds)") +
+  ggtitle("Response time in log scale vs estimated alpha for heteroskedasticity model")
+```
+
+
+## Selection
+
+```{r eval = FALSE}
+vi_survey %>%
+  rowwise() %>%
+  mutate(p_value_rank = list((function(this_lineup) { 
+    vi_lineup[[this_lineup]]$data %>%
+      group_by(k) %>%
+      summarise(p_value = first(p_value)) %>%
+      arrange(k) %>%
+      pull(p_value)
+    })(unique_lineup_id))) %>%
+  unnest_longer(p_value_rank) %>%
+  View()
+```
+
+
+```{r}
+vi_survey %>%
+  filter(type == "heteroskedasticity") %>%
+  ggplot() +
+  geom_boxplot(aes(factor(a), response_time/1000)) +
+  scale_y_log10()
+```
+
+
+```{r}
+vi_survey %>%
+  ggplot() +
+  geom_point(aes(num_selection, log(response_time)))
+```
+
+```{r}
+plot_lineup <- function(this_lineup) {
+  VI_MODEL$plot_lineup(vi_lineup[[this_lineup]]$data, 
+                       theme = theme_light(), 
+                       remove_axis = TRUE, 
+                       remove_legend = TRUE, 
+                       remove_grid_line = TRUE,
+                       add_zero_line = TRUE) -> p
+  
+  # x_mean <- mean(layer_scales(p)$x$range$range)
+  # y_mean <- mean(layer_scales(p)$y$range$range)
+  
+  vi_survey %>%
+    filter(unique_lineup_id == this_lineup) %>%
+    # filter(unique_lineup_id == "heter_7") %>%
+    mutate(selection = ifelse(num_selection == 0, paste(1:20, collapse = "_"), selection)) %>%
+    mutate(num_selection = ifelse(num_selection == 0, 20, num_selection)) %>%
+    (function(x) {
+      for (i in 1:20)
+        x[[paste0("plot_", i)]] <-
+          grepl(paste0("_", i, "_"), x$selection) |
+          grepl(paste0("^", i, "_"), x$selection) |
+          grepl(paste0("_", i, "$"), x$selection) |
+          grepl(paste0("^", i, "$"), x$selection)
+      x}
+    ) -> tmp_survey
+  
+  tmp_survey %>%
+    group_by(unique_lineup_id) %>%
+    summarise(across(plot_1:plot_20, sum)) %>%
+    ungroup() %>%
+    pivot_longer(plot_1:plot_20) %>%
+    mutate(name = as.integer(gsub(".*_", "", name))) %>%
+    rename(k = name, total_detect = value) -> plot_total_detect
+  
+  tmp_survey %>%
+    mutate(across(plot_1:plot_20, function(x) x/num_selection)) %>%
+    group_by(unique_lineup_id) %>%
+    summarise(across(plot_1:plot_20, sum)) %>%
+    ungroup() %>%
+    pivot_longer(plot_1:plot_20) %>%
+    mutate(name = as.integer(gsub(".*_", "", name))) %>%
+    rename(k = name, weighted_selection = value) -> plot_weighted_selection
+  
+  k_col <- ifelse(plot_weighted_selection$weighted_selection == max(plot_weighted_selection$weighted_selection), 
+                  "max_sel", 
+                  ifelse(plot_weighted_selection$k == vi_lineup[[this_lineup]]$metadata$answer, 
+                         "answer", 
+                         "else")
+                  )
+  
+  p +
+    geom_polygon(data = merge(data.frame(k = 1:20,
+                                         k_col = k_col),
+                              data.frame(x = c(-Inf, Inf, Inf, -Inf),
+                                         y = c(-Inf, -Inf, Inf, Inf))),
+                 aes(x = x, y = y, col = k_col), fill = NA, size = 2) +
+    geom_label(data = group_by(vi_lineup[[this_lineup]]$data, k) %>% 
+                summarise(p_value = first(p_value)) %>%
+                ungroup(),
+              aes(x = -Inf, y = Inf, 
+                  label = paste0(round(p_value, 2), " (", rank(p_value, ties.method = "min"), ")")), 
+              hjust = 0, vjust = 1, alpha = 0.5, size = 2, label.padding = unit(0.1, "lines")) +
+    scale_color_manual(values = c("max_sel" = "blue", "answer" = "red", "else" = "white")) +
+    facet_wrap(~k, 
+               labeller = as_labeller(
+                 function(string, ...) 
+                   paste(round(filter(plot_weighted_selection, k == as.integer(string))$weighted_selection, 3),
+                         "/",
+                         filter(plot_total_detect, k == as.integer(string))$total_detect)
+                 )
+               ) +
+    ggtitle(paste0(this_lineup, 
+                  "\neffect size: ", 
+                  round(vi_lineup[[this_lineup]]$metadata$effect_size, 2),
+                  ", visual p-value: ", 
+                  round(filter(vi_survey, unique_lineup_id == this_lineup)$p_value[1], 2), 
+                  ", conventional p-value: ",
+                  round(filter(vi_survey, unique_lineup_id == this_lineup)$conventional_p_value[1], 2),
+                  "\nshape: ",
+                  filter(vi_survey, unique_lineup_id == this_lineup)$shape[1],
+                  ", e_sigma: ",
+                  filter(vi_survey, unique_lineup_id == this_lineup)$e_sigma[1],
+                  ", x_dist: ",
+                  filter(vi_survey, unique_lineup_id == this_lineup)$x_dist[1],
+                  ", n: ",
+                  filter(vi_survey, unique_lineup_id == this_lineup)$n[1]
+                  ),
+            subtitle =  paste0("Lineup evaluated by ",
+                               vi_survey %>% filter(unique_lineup_id == this_lineup) %>% nrow(),
+                               " subjects (c_i / total selections)"))
+
+  # # Pop the last layers
+  # tmp <- p$layers[[length(p$layers)]]
+  # p$layers[[length(p$layers)]] <- NULL
+  # 
+  # # Append the element back to the list
+  # p$layers <- append(list(tmp), p$layers)
+  # 
+  # p
+} 
+```
+
+
+
+```{r fig.height=7, fig.width=7, dpi=150}
+VI_MODEL$plot_lineup(vi_lineup$poly_1$data, theme = theme_light(), remove_axis = TRUE, remove_legend = TRUE, remove_grid_line = TRUE)
+```
+
+
+## Power
+
+There are some cases where the proportion of detection does not match with the predicted power. When effect size < 10, there are points with power around 0.25, and when effect size > 10, there points with power lower than 0.25. Those will be the main focus.
+
+```{r}
+boot_y <- function(dat, y, times = 100) {
+  map_df(1:times, function(i) slice_sample(dat, n = nrow(dat), replace = TRUE) %>% mutate(boot_id = i))
+}
+
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(effect_size, reject, col = "Visual"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_point(aes(effect_size, prop_detect, text = unique_lineup_id), alpha = 0.3) + 
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(effect_size, reject, group = boot_id, col = "Visual"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                rename(F = F_p_value, BP = BP_p_value, SW = SW_p_value) %>%
+                pivot_longer(F:SW) %>%
+                mutate(reject = as.numeric(value < 0.05)), 
+              aes(effect_size, reject, col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_x_log10() +
+  xlab("Effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test with comparison to F, BP and SW test") -> p
+
+plotly::ggplotly(p, tooltip = c("x", "y", "text"))
+```
+
+
+There are 10 lineups with effect size < 10 and power > 0.125, namely `r vi_survey %>% filter(x_dist == "uniform") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% filter(type == "polynomial") %>% filter(effect_size < 10 & prop_detect > 0.125) %>% .$unique_lineup_id`. 
+
+Lineup `poly_108` does not have a clear visual pattern. Subjects claimed to rely on outliers to identify the actual data plot.
+
+Lineup `poly_132` has a distracting plot positioning at panel 10, where subjects reported to see a shape from the plot. Those who correctly identifies the actual data plot suggest there are outliers in plot one, which is marginally true given there is a minor gap at the right of the plot.  
+
+Lineup `poly_159` has a clear outlier at plot one, which is the reason three subjects detect it. There is another subject who detect it because of "shape". This is kind of make sense as the outlier strengthen the shape.
+
+Lineup `poly_268` has an interesting plot at panel six, which happens to be the most selected plot. The actual data plot does not contain any visual detectable features, but two subjects still select this one. One select it with reason "cluster" and the other one select it with "shape".
+
+Lineup `poly_295` 
+
+
+
+```{r}
+eval_info <- function(this_lineup) {
+  vi_survey %>%
+    filter(unique_lineup_id == this_lineup) %>%
+    select(subject, selection, num_selection, detect, reason, confidence) %>%
+    arrange(-detect, num_selection, reason, confidence) %>%
+    gridExtra::tableGrob(rows = NULL, theme = gridExtra::ttheme_default(base_size = 8))
+}
+```
+
+
+```{r fig.height=7, fig.width=14, dpi=150}
+
+for (this_lineup in vi_survey %>% 
+  filter(x_dist == "uniform") %>% 
+  group_by(unique_lineup_id) %>% 
+  summarise(across(everything(), first)) %>% 
+  filter(type == "polynomial") %>% 
+  filter(effect_size < 10 & prop_detect > 0.125) %>% 
+  .$unique_lineup_id %>%
+  sort()) {
+  gridExtra::grid.arrange(plot_lineup(this_lineup), eval_info(this_lineup), ncol = 2)
+}
+
+```
+
+
+
+There are 7 lineups with effect size > 35 and power < 0.25, namely `r vi_survey %>% filter(x_dist == "uniform") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% filter(type == "polynomial") %>% filter(effect_size > 35 & prop_detect < 0.25) %>% .$unique_lineup_id`.
+
+
+```{r fig.height=7, fig.width=14, dpi=150}
+
+for (this_lineup in vi_survey %>% 
+     filter(x_dist == "uniform") %>% 
+     group_by(unique_lineup_id) %>% 
+     summarise(across(everything(), first)) %>% 
+     filter(type == "polynomial") %>% 
+     filter(effect_size > 35 & prop_detect < 0.25) %>% 
+     .$unique_lineup_id %>%
+  sort()) {
+  gridExtra::grid.arrange(plot_lineup(this_lineup), eval_info(this_lineup), ncol = 2)
+}
+
+```
+
+## Replace effect size with expected effect size 
+
+```{r}
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  ggplot() +
+  geom_point(aes(effect_size, expected_effect_size)) +
+  geom_abline()
+```
+
+
+```{r}
+boot_y <- function(dat, y, times = 100) {
+  map_df(1:times, function(i) slice_sample(dat, n = nrow(dat), replace = TRUE) %>% mutate(boot_id = i))
+}
+
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(expected_effect_size, reject, col = "Visual"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_point(aes(expected_effect_size, prop_detect, text = unique_lineup_id), alpha = 0.3) + 
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(expected_effect_size, reject, group = boot_id, col = "Visual"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                rename(F = F_p_value, BP = BP_p_value, SW = SW_p_value) %>%
+                pivot_longer(F:SW) %>%
+                mutate(reject = as.numeric(value < 0.05)), 
+              aes(effect_size, reject, col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_x_log10() +
+  xlab("Effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test with comparison to F, BP and SW test") -> p
+
+plotly::ggplotly(p, tooltip = c("x", "y", "text"))
+```
+
