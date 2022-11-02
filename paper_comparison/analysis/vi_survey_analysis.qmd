@@ -467,18 +467,78 @@ vi_survey %>%
 
 ## Selection
 
-```{r eval = FALSE}
-vi_survey %>%
-  rowwise() %>%
-  mutate(p_value_rank = list((function(this_lineup) { 
+```{r}
+sel_dist <- vi_survey %>%
+  group_by(unique_lineup_id) %>%
+  mutate(selection = ifelse(num_selection == 0, paste(1:20, collapse = "_"), selection)) %>%
+  mutate(num_selection = ifelse(num_selection == 0, 20, num_selection)) %>%
+    (function(x) {
+      for (i in 1:20)
+        x[[paste0("plot_", i)]] <-
+          grepl(paste0("_", i, "_"), x$selection) |
+          grepl(paste0("^", i, "_"), x$selection) |
+          grepl(paste0("_", i, "$"), x$selection) |
+          grepl(paste0("^", i, "$"), x$selection)
+      x}
+    ) %>%
+  mutate(across(plot_1:plot_20, function(x) x/num_selection)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(plot_1:plot_20, sum)) %>%
+  ungroup() %>%
+  pivot_longer(plot_1:plot_20) %>% 
+  left_join(vi_survey %>% group_by(unique_lineup_id) %>% summarise(answer = first(answer))) %>%
+  left_join(vi_survey %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value = list((function(this_lineup) {
+    this_lineup <- this_lineup[1]
     vi_lineup[[this_lineup]]$data %>%
       group_by(k) %>%
       summarise(p_value = first(p_value)) %>%
       arrange(k) %>%
-      pull(p_value)
-    })(unique_lineup_id))) %>%
-  unnest_longer(p_value_rank) %>%
-  View()
+      pull(p_value) -> x
+    names(x) <- paste0("plot_", 1:20)
+    x
+  })(unique_lineup_id))) %>%
+  unnest_longer(p_value) %>%
+  rename(name = p_value_id)) %>%
+  group_by(unique_lineup_id) %>%
+  mutate(prop = value/sum(value)) %>%
+  mutate(p_value_rank = rank(p_value, ties.method = "first")) %>%
+  rename(c_i = value) %>%
+  rename(plot = name) %>%
+  ungroup()
+```
+
+
+```{r}
+sel_dist %>%
+  filter(paste0("plot_", answer) == plot) %>%
+  select(unique_lineup_id, answer_p_value_rank = p_value_rank, answer_prop = prop) %>%
+  left_join(sel_dist %>%
+  group_by(unique_lineup_id) %>%
+  summarise(most_p_value_rank = min(p_value_rank[which(c_i == max(c_i))]),
+            most_prop = prop[which.min(p_value_rank[which(c_i == max(c_i))])])) %>%
+  ggplot() +
+  geom_boxplot(aes(answer_p_value_rank, answer_prop, group = answer_p_value_rank)) +
+  xlab("Rank of the p-value of the data plot in a lineup") +
+  ylab("Percentage of subject picking the data plot") +
+  ggtitle("")
+```
+
+
+```{r}
+sel_dist %>%
+  filter(paste0("plot_", answer) == plot) %>%
+  select(unique_lineup_id, answer_p_value_rank = p_value_rank, answer_prop = prop) %>%
+  left_join(sel_dist %>%
+  group_by(unique_lineup_id) %>%
+  summarise(most_p_value_rank = min(p_value_rank[which(c_i == max(c_i))]),
+            most_prop = prop[which.min(p_value_rank[which(c_i == max(c_i))])])) %>%
+  ggplot() +
+  geom_boxplot(aes(most_p_value_rank, most_prop, group = most_p_value_rank)) +
+  xlab("Rank of the p-value of the most selected plot in a lineup") +
+  ylab("Percentage of subject picking the most selected plot") +
+  ggtitle("")
 ```
 
 
@@ -648,6 +708,105 @@ vi_survey %>%
   ggtitle("Power of visual test with comparison to F, BP and SW test") -> p
 
 plotly::ggplotly(p, tooltip = c("x", "y", "text"))
+```
+
+```{r}
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(effect_size, reject, col = "Visual"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_text(aes(effect_size, prop_detect, text = unique_lineup_id, label = shape), alpha = 0.3) + 
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(effect_size, reject, group = boot_id, col = "Visual"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                rename(F = F_p_value, BP = BP_p_value, SW = SW_p_value) %>%
+                pivot_longer(F:SW) %>%
+                mutate(reject = as.numeric(value < 0.05)), 
+              aes(effect_size, reject, col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_x_log10() +
+  xlab("Effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test with comparison to F, BP and SW test")
+```
+
+```{r}
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(effect_size, reject, col = "Visual"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_text(aes(effect_size, prop_detect, text = unique_lineup_id, label = e_sigma), alpha = 0.3) + 
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(effect_size, reject, group = boot_id, col = "Visual"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                rename(F = F_p_value, BP = BP_p_value, SW = SW_p_value) %>%
+                pivot_longer(F:SW) %>%
+                mutate(reject = as.numeric(value < 0.05)), 
+              aes(effect_size, reject, col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_x_log10() +
+  xlab("Effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test with comparison to F, BP and SW test")
+```
+
+```{r}
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma >= 0.5) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(effect_size, reject, col = "Visual"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  geom_text(aes(effect_size, prop_detect, text = unique_lineup_id, label = n), alpha = 0.3) + 
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(effect_size, reject, group = boot_id, col = "Visual"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                rename(F = F_p_value, BP = BP_p_value, SW = SW_p_value) %>%
+                pivot_longer(F:SW) %>%
+                mutate(reject = as.numeric(value < 0.05)), 
+              aes(effect_size, reject, col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_x_log10() +
+  xlab("Effect size") +
+  ylab("Power") +
+  ggtitle("Power of visual test with comparison to F, BP and SW test")
 ```
 
 
