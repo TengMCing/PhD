@@ -33,7 +33,7 @@ for (i in 1:nrow(lineup)) {
                                               name = glue::glue("heter_{lineup$lineup_id[i]}"),
                                               k = 20,
                                               n = lineup$n[i],
-                                              effect_size = mod$effect_size(filter(lineup_dat, null == FALSE), type = "kl"),
+                                              effect_size = mod$sample_effect_size(filter(lineup_dat, null == FALSE), type = "kl"),
                                               ans = filter(lineup_dat, null == FALSE)$k[1]
 
   )
