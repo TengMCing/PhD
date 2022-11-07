@@ -789,7 +789,8 @@ vi_survey %>%
               method = "glm", 
               method.args = list(family = binomial),
               se = FALSE) +
-  theme_light(base_size = 5) -> p
+  theme_light(base_size = 5) +
+  facet_wrap(~n) -> p
 
 VI_MODEL$plot_lineup(vi_lineup[["poly_502"]]$data, 
                      remove_grid_line = TRUE, 
@@ -826,7 +827,7 @@ design <- c(patchwork::area(1, 1, 1, 8),
 patchwork::wrap_plots(p, B = p1, C = p2, D = p3, E = p4, design = design)
 ```
 
-```{r eval = FALSE}
+```{r eval = FALSE, fig.height= 3, fig.width=4}
 vi_survey %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
@@ -837,6 +838,26 @@ vi_survey %>%
   mutate(log_effect_size = log(effect_size)) %>%
   filter(abs(log(effect_size) - 1) < 0.5) %>%
   filter(n == 100)
+
+p
+
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  filter(abs(log(effect_size) - 4) < 0.5) %>%
+  filter(prop_detect < 0.25)
+
+vi_survey %>%
+  filter(unique_lineup_id == "poly_199") %>%
+  View()
+
+
+VI_MODEL$plot_lineup(vi_lineup$poly_159$data)
 
 vi_survey %>%
   filter(x_dist == "uniform") %>%
@@ -851,6 +872,19 @@ vi_survey %>%
   geom_point(aes(p_value_uniform, p_value)) +
   scale_x_log10() +
   scale_y_log10()
+
+
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(e_sigma != 0.125) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  ggbeeswarm::geom_quasirandom(aes(factor(e_sigma), weighted_detect)) +
+  facet_wrap(~n)
 ```
 
 ## Distribution of regressor
