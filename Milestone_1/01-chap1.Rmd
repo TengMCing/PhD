@@ -7,6 +7,7 @@ knit: "bookdown::render_book"
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, cache=TRUE, warning = FALSE)
 # Load any R packages you need here
 library(tidyverse)
+library(bandicoot)
 library(visage)
 ```
 
@@ -1560,7 +1561,7 @@ By adopting the techniques developed in query by example content-based image ret
 
 # OAVIS: An online automatic visual inference system {#se:project-3}
 
-Online machine learning is a technique to train machine learning model with data arriving in a sequential order. Models trained with online learning can be updated immediately for any new arrival data, which overcomes the drawbacks of the traditional batch learning where training data required to be available prior to the training. It is suitable for large-scale machine learning tasks in real-world data analytics applications [@].
+Online machine learning is a technique to train machine learning model with data arriving in a sequential order. Models trained with online learning can be updated immediately for any new arrival data, which overcomes the drawbacks of the traditional batch learning where training data required to be available prior to the training. It is suitable for large-scale machine learning tasks in real-world data analytics applications [@hoi_online_2018].
 
 The third projects aims to deploy the automatic visual inference system as an online application at a public-accessible website. The web application will evaluate lineups uploaded by users, and return the $p$-value with the selections made by the system. Meanwhile, as an option, users will be asked to also evaluate the lineup and give their selections. With the user selection data, the system will use online machine learning theory to update the built-in computer vision models such that the performance of the system can be improved.   
 
