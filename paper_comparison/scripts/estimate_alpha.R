@@ -1,6 +1,8 @@
 library(visage)
 library(tidyverse)
 
+# When we estimate alpha, we use ceiling(c)
+
 
 calc_alpha <- function(zero_sel = 0.05) {
   vi_survey %>%
@@ -85,3 +87,9 @@ vi_survey %>%
   geom_smooth(aes(log_effect_size, reject_dirichlet), method = "glm", method.args = list(family = binomial), se = FALSE)
 
 
+
+ggplot() +
+  geom_point(aes(vi_survey_processed$p_value_select_all_plots, visage::vi_survey$p_value)) +
+  geom_abline() +
+  scale_x_log10() +
+  scale_y_log10()
