@@ -34,7 +34,7 @@ header-includes: |
   \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
 output: rticles::tf_article
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -169,12 +169,7 @@ Abundance of literature describe appropriate diagnostic methods for linear regre
 
 The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers [ET: CITATION HERE?]. Section \ref{experimental-design} describes the experimental setup to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
-```{=html}
-<!--Regression diagnostics is an essential step in regression analysis which is a field of study with at least a hundred years of history. The diagnostic procedure conventionally involves evaluating the fitness of the proposed model, detecting the presence of influential observations and outliers, checking the validity of model assumptions and many more. In terms of diagnostic techniques, data plots, hypothesis testing, and summary statistics are vital tools for a systematic and detailed examination of the regression model [@mansfield1987diagnostic].
 
-Many of those regression diagnostic methods and procedures are mature and well-established in books first published in the twentieth century, such as @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. Regardless of the level of difficulty, one will find the importance and usefulness of diagnostic plots being emphasized in those books repeatedly. Checking diagnostic plots is also the recommended starting point for validating model assumptions such as normality, homoscedasticity and linearity [@anscombe_examination_1963]. 
--->
-```
 # Background
 
 ## Departures from good residual plots
@@ -226,12 +221,6 @@ Compared to non-linearity and heteroskedasticity, non-normality is usually harde
 Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
 
 Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding model structural test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite when majority of the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
-
-<!-- test formula -> appendix -->
-
-<!-- residual plot -> plot -->
-
-<!-- plot a included -->
 
 
 ```{r}
@@ -459,7 +448,6 @@ where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
 
 Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the null regression, which will result in model misspecification. Visual patterns of non-linearity were simulated using four different order of probabilist's Hermite polynomials ($j = 2, 3, 6, 18$) and four different distribution of $X_{raw}$: (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. A summary of the factors is given in Table \ref{tab:model-factor-table}.
 
-<!-- A summary of the parameters used in this experiment is given in Table \ref{tab:parameter-table}. -->
 
 ```{r results='asis'}
 data.frame(j = c("2", "3", "6", "18", ""),
@@ -529,29 +517,6 @@ VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data,
                      remove_axis = TRUE)
 ```
 
-
-
-<!-- ```{r results='asis'} -->
-<!-- data.frame(n = c(50, 100, 300, ""), -->
-<!--            j = c(2, 3, 6, 18), -->
-<!--            sigma = c(0.5, 1, 2, 4), -->
-<!--            x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$")) %>% -->
-<!--   knitr::kable(col.names = NULL, -->
-<!--                escape = FALSE, -->
-<!--                format = "latex", -->
-<!--                booktabs = TRUE,  -->
-<!--                caption  = 'Parameter values for $n$, $j$ $\\sigma$, $X_{raw}$',  -->
-<!--                label = "parameter-table" ) %>% -->
-<!--   kableExtra::add_header_above(c("Sample size\n(sym3)", "Order of Hermite polynomial\n(sym1)", "Error SD\n(sym2)", "Distribution of sym4\n")) %>% -->
-<!--   as.character() %>% -->
-<!--   gsub("sym1", "$j$", .) %>% -->
-<!--   gsub("sym2", "$\\\\sigma$", .) %>% -->
-<!--   gsub("sym3", "$n$", .) %>% -->
-<!--   gsub("sym4", "$X_{raw}$", .) %>% -->
-<!--   cat() -->
-<!--   # gsub("\\\\\\$", "$", .) %>% -->
-<!--   # cat() -->
-<!-- ``` -->
 
 ### Heteroskedasticity
 
@@ -702,48 +667,51 @@ Subjects for all three experiments were recruited from an crowdsourcing platform
 
 <!-- How many people? How many lineups? -->
 
-Subjects recruited from Prolific received a fixed payment for participating in the experiment. However, some subjects will try to maximize their earnings for minimum effort. During the review of submissions, if we found a subject objectively demonstrated clear low-effort throughout the experiment, e.g., failed all attention checks, we rejected the submission. The rejected submissions will be removed immediately, and Prolific will automatically recruit another subject as substitution. Therefore, we only paid for approved submissions and no further data screening procedure needed to be applied on the collected data.
+There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and 123 subjects recruited for experiment I, II and III respectively. In the total of 7974 lineup evaluations, 3744 used lineups produced by the non-linearity model, 3510 used lineups produced by the heteroskedasticity model, and 720 used lineups consists of only null plots.
 
-In overall, there were a total of 8860 lineup evaluations made by 443 subjects in experiment I, experiment II and experiment III, where 886 lineup evaluations were attention checks and were not used in the following analysis.
+Besides, there were 886 attention checks not included in the following analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
-The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
 ## P-value comparison
 
-Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test almost always gives higher p-values than the conventional test in both polynomial and heteroskedasticity models, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the numerical procedure. In fact, only around 58% of the cases, both tests will agree on the rejection decision given 95% confidence level. And in 41% of the cases, visual test does not reject the null hypothesis but conventional test does. Although we know that the all the designed lineups contain various degrees of residual departures and the conventional test is telling truth, analysts and general public as the consumers of the output will possibly not believe in or at least not response to the "false alarm" if they can not see the departures directly from the data plot and view it as impactful. The sensitivity of the conventional test may distract and discourage us from finding a good linear approximation to the data we try to model. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
+Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test in both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
+
+In particular, given 95% confidence level, both tests will agree on the rejection in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. In these 41% of the cases, though we know that the designed lineups contain various degrees of residual departures, analysts and the general public as the consumers of the output may not believe in the rejection of the null hypothesis, or at least may not consider the model violation as impactful, simply due to the fact that the departures are not clearly visible to them.
+
+This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically useful and thus is usually viewed as "false alarm" by analysts. Relying on visual perception to determine the quality of the regression model is just a way to  
+
+Alternatively, 
 
 
-```{r eval = FALSE}
-vi_survey %>%
-  filter(lineup_id <= 576) %>%
-  filter(is.na(b) | b != 0) %>%
-  mutate(test = p_value > 0.05 & conventional_p_value < 0.05) %>%
-  {mean(.$test)}
 
-vi_survey %>%
-  filter(lineup_id <= 576) %>%
-  filter(is.na(b) | b != 0) %>%
-ggplot() +
-  geom_histogram(aes(p_value), bins = 300) +
-  scale_x_sqrt() +
- facet_wrap(~type)
-```
+From a practical sense, data plots and the visual test provide better measure of the seriousness of the residual departure.
+
+
+One noticeable difference compared to the result provided in @buja_statistical_2009 is the lack of data points 
+
+Note that 
+
+
+This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
+
+
 
 
 
 ```{r p-value-comparison, fig.height=4, fig.cap="..."}
 vi_survey %>%
-  filter(lineup_id <= 576) %>%
-  filter(is.na(b) | b != 0) %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
-  # filter(x_dist == "uniform") %>%
   ggplot() +
-  geom_point(aes(p_value, conventional_p_value), alpha = 0.4) +
   geom_abline() +
+  geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
   scale_x_sqrt() +
   scale_y_sqrt() +
-  facet_wrap(~type)
+  facet_wrap(~type) +
+  ylab("Visual test p-value on square root scale") +
+  xlab("Conventional test p-value on square root scale")
 ```
 
 
