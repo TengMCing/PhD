@@ -676,40 +676,29 @@ Besides, there were 886 attention checks not included in the following analysis.
 
 Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test in both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
 
-In particular, given 95% confidence level, both tests will agree on the rejection in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. In these 41% of the cases, though we know that the designed lineups contain various degrees of residual departures, analysts and the general public as the consumers of the output may not believe in the rejection of the null hypothesis, or at least may not consider the model violation as impactful, simply due to the fact that the departures are not clearly visible to them.
+In particular, given 95% confidence level, both tests will reject the null hypothesis in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. In these 41% of the cases, though we know that the designed lineups contain various degrees of residual departures, analysts and the general public as the consumers of the output may not believe in the rejection of the null hypothesis, or at least may not consider the model violation as impactful, simply due to the fact that the departures are not clearly visible to them.
 
-This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically useful and thus is usually viewed as "false alarm" by analysts. Relying on visual perception to determine the quality of the regression model is just a way to  
+This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically useful and thus is usually viewed as a "false alarm" by analysts. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
 
-Alternatively, 
-
-
-
-From a practical sense, data plots and the visual test provide better measure of the seriousness of the residual departure.
-
-
-One noticeable difference compared to the result provided in @buja_statistical_2009 is the lack of data points 
-
-Note that 
-
-
-This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
-
-
-
+One noticeable difference compared to the result provided in @majumder_validation_2013 is we do not observe the pattern from Figure \ref{fig:p-value-comparison} that when the conventional test p-value is small, the visual test p-value will be very small, and when the conventional test p-value is large, the visual test p-value will be very large. This could because the number of subjects involved in a lineup evaluation is much larger in their experiments with 46 as the average number. As mentioned in section [Experimental setup], our lineups have at most 11 evaluations due to the time and budge constraint. Besides, evaluating a visual test with more than 15 people is rare given the size of research or business team.
 
 
 ```{r p-value-comparison, fig.height=4, fig.cap="..."}
 vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
+  left_join(vi_survey %>% 
+           count(unique_lineup_id) %>%
+           rename(num_subject = n)) %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   ggplot() +
   geom_abline() +
   geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
+  geom_smooth(aes(conventional_p_value, p_value), se = FALSE, span = 0.6) +
   scale_x_sqrt() +
   scale_y_sqrt() +
-  facet_wrap(~type) +
+  facet_wrap(num_subject~type) +
   ylab("Visual test p-value on square root scale") +
   xlab("Conventional test p-value on square root scale")
 ```
