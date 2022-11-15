@@ -876,36 +876,44 @@ Breusch--Pagan test and Shapiro--Wilk test reach around 75\% and 30\%
 respectively.
 
 What truly impress us is the huge difference between the estimated power
-of visual test and the estimated power of F-test. The margin is largest
-at around \(log_e(E) = 2\). An example lineup is included in Figure
-\ref{fig:power-poly-uniform} where none of subjects detect the actual
-data plot positioned at panel 10. It demonstrates that at this level of
-difficulty, the designed visual feature is rarely visible, making the
-actual data plot indistinguishable from residual plots simulated from
-the assumed model. From a communication perspective, given the fact that
-the visual difference is unperceivable, the argument that non-linearity
-present in the fitted model is less convincing to the public even though
-it is true. At around \(log_e(E) = 3\), the margin gets smaller as the
-chance of identifying the actual data plot becomes larger. At this level
-of difficulty, the designed visual features are usually detectable but
-it may not stand out from the lineup as other null plots may happen to
+of visual test and the estimated power of F-test. According to the
+example lineups included in Figure \ref{fig:power-poly-uniform}, at
+around \(log_e(E) = 1\), the designed visual feature is rarely visible,
+making the actual data plot indistinguishable from residual plots
+simulated from the assumed model at this level of difficulty. In fact,
+zero out of 11 subjects detect the actual data plot positioned at panel
+10. However, F-test has more than 60\% chance of rejecting the null
+hypothesis in this case. From a communication perspective, given the
+fact that the visual difference is unperceivable, the argument that
+non-linearity present in the fitted model is less convincing to the
+public.
+
+The margin is largest at around \(log_e(E) = 2\). As shown in Figure
+\ref{fig:power-poly-uniform}, the visual pattern is still undetectable
+which is similar to \(log_e(E) = 1\). The visual test power is close to
+zero. In contrast, F-test will reject the null hypothesis 90\% of the
+time.
+
+At around \(log_e(E) = 3\), the margin gets smaller as the chance of
+identifying the actual data plot becomes larger. At this level of
+difficulty, the designed visual features are usually detectable but it
+may not stand out from the lineup as other null plots may happen to
 include outliers or visual patterns that are are considered to be more
 attractive by human, and thus recognized as the most different plot.
 Without knowing the designed visual features beforehand, it is actually
 hard to identify the actual data plot by pure image comparison. The
 corresponding example lineup for \(log_e(E) = 3\) shown in Figure
 \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at
-panel 7, where four of 11 subjects detect it. It can be observed that a
-``U-shape'' is presented in plot 7, but the signal is not strong enough
-to attract all five subjects, resulting in a visual p-value sightly
-above the desired significance level \(\alpha = 0.05\). At
-\(log_e(E) = 4\), the designed visual features become much clear and
-attractive, leading to a high percentage of rejection of the null
-hypothesis. Figure \ref{fig:fig:power-poly-uniform} gives example
-lineups of such cases. It is also interesting to observe that the power
-curve of visual test behaves similarly to those inappropriate
-conventional tests until the designed visual features really becomes
-visible.
+panel 20, where two of 11 subjects detect it. It can be observed that a
+``S-shape'' is presented in plot 20, but the signal is not strong enough
+to attract all 11 subjects, resulting in a visual p-value sightly above
+\(0.1\). At \(log_e(E) = 4\), the designed visual features become much
+clear and attractive in panel 3, leading to a high percentage of
+rejection of the null hypothesis. Figure
+\ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It
+is also interesting to observe that the power curve of visual test
+behaves similarly to those inappropriate conventional tests until the
+designed visual features really becomes visible.
 
 \begin{figure}
 
@@ -937,8 +945,6 @@ tests are sensitive to the distribution of the regressor.
 
 \caption{...}\label{fig:dist-power}
 \end{figure}
-
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 --\textgreater{}
 
