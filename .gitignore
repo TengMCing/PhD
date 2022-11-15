@@ -42,3 +42,5 @@ Fifth_experiment/lineup_plots_poly/
 Fifth_experiment/plots/
 
 paper_comparison/cmp_plots/
+
+paper_comparison/data/vi_lineup.rds
