@@ -85,12 +85,20 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
                      mod <- poly_model(shape, x = x, sigma = e_sigma)
                      n <- sample(c(50, 100, 300), 1)
                      tmp_dat <- mod$gen(n)
+                     
+                     es <- filter(vi_survey, 
+                                  shape == {{shape}},
+                                  e_sigma == {{e_sigma}},
+                                  x_dist == {{x_dist}},
+                                  n == {{n}}) %>%
+                       head(1) %>%
+                       pull(effect_size)
 
                      tibble(shape = shape,
                             e_sigma = e_sigma,
                             x_dist = x_dist,
                             n = n,
-                            effect_size = mod$effect_size(tmp_dat),
+                            effect_size = es,
                             F_p_value = mod$test(tmp_dat)$p_value,
                             BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
@@ -130,12 +138,20 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
                      mod <- heter_model(a = a, b = b, x = x)
                      n <- sample(c(50, 100, 300), 1)
                      tmp_dat <- mod$gen(n)
+                     
+                     es <- filter(vi_survey, 
+                                  a == {{a}}, 
+                                  b == {{b}},
+                                  x_dist == {{x_dist}},
+                                  n == {{n}}) %>%
+                              head(1) %>%
+                              pull(effect_size)
 
                      tibble(a = a,
                             b = b,
                             x_dist = x_dist,
                             n = n,
-                            effect_size = mod$effect_size(tmp_dat, type = "kl"),
+                            effect_size = es,
                             F_p_value = POLY_MODEL$test(mutate(tmp_dat, z = poly_model()$gen(n, computed = select(tmp_dat, x))$z))$p_value,
                             BP_p_value = mod$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
@@ -671,22 +687,20 @@ There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and 123 subje
 
 Besides, there were 886 attention checks not included in the following analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
+## P-value and power comparison
 
-## P-value comparison
+Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test for both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
 
-Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test in both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
+In particular, given 95% confidence level, both tests will reject the null hypothesis in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. Since fail to reject the null hypothesis in a visual test means that there is no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not fully believe in the rejection of the null hypothesis even though the alternative hypothesis is true. Even if the rejection is accepted, the model violation may not be considered as impactful due to the fact that the departures are not clearly visible.
 
-In particular, given 95% confidence level, both tests will reject the null hypothesis in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. In these 41% of the cases, though we know that the designed lineups contain various degrees of residual departures, analysts and the general public as the consumers of the output may not believe in the rejection of the null hypothesis, or at least may not consider the model violation as impactful, simply due to the fact that the departures are not clearly visible to them.
-
-This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically useful and thus is usually viewed as a "false alarm" by analysts. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
-
-One noticeable difference compared to the result provided in @majumder_validation_2013 is we do not observe the pattern from Figure \ref{fig:p-value-comparison} that when the conventional test p-value is small, the visual test p-value will be very small, and when the conventional test p-value is large, the visual test p-value will be very large. This could because the number of subjects involved in a lineup evaluation is much larger in their experiments with 46 as the average number. As mentioned in section [Experimental setup], our lineups have at most 11 evaluations due to the time and budge constraint. Besides, evaluating a visual test with more than 15 people is rare given the size of research or business team.
+This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a simple but good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically meaningful and useful. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
 
 
-```{r p-value-comparison, fig.height=4, fig.cap="..."}
+```{r p-value-comparison, fig.height=4, fig.cap="Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
 vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
   left_join(vi_survey %>% 
            count(unique_lineup_id) %>%
            rename(num_subject = n)) %>%
@@ -698,17 +712,24 @@ vi_survey %>%
   geom_smooth(aes(conventional_p_value, p_value), se = FALSE, span = 0.6) +
   scale_x_sqrt() +
   scale_y_sqrt() +
-  facet_wrap(num_subject~type) +
+  facet_wrap(~type) +
   ylab("Visual test p-value on square root scale") +
-  xlab("Conventional test p-value on square root scale")
+  xlab("Conventional test p-value on square root scale") +
+  theme_light()
 ```
 
 
-## Power comparison
-
-Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test on lineups with uniform distribution $X_{raw}$ against natural logarithm of the effect with comparison to the power of an exact test - F-test, and the power of two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) \approx 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively.
+Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test on lineups with uniform distribution $X_{raw}$ against natural logarithm of the effect with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) \approx 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively.
 
 What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. The margin is largest at around $log_e(E) = 2$. An example lineup is included in Figure \ref{fig:power-poly-uniform} where none of subjects detect the actual data plot positioned at panel 10. It demonstrates that at this level of difficulty, the designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public even though it is true. At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at panel 7, where four of 11 subjects detect it. It can be observed that a "U-shape" is presented in plot 7, but the signal is not strong enough to attract all five subjects, resulting in a visual p-value sightly above the desired significance level $\alpha = 0.05$. At $log_e(E) = 4$, the designed visual features become much clear and attractive, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible.
+
+```{r eval = FALSE}
+filter(vi_survey, type == "polynomial") %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_es = abs(log(effect_size) - 4)) %>%
+  arrange(log_es) %>%
+  View()
+```
 
 
 <!-- TODO:difference between the simple formula and the simulation approach -->
@@ -730,8 +751,7 @@ vi_survey %>%
   mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "VI_p_value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3) + geom_point(data = ~filter(.x, unique_lineup_id %in% c("poly_502", "poly_78", "poly_6", "poly_447")), aes(log_effect_size, prop_detect), alpha = 1, col = "red", size = 2) +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual p-value"), method = "glm", method.args = list(family = binomial), se = FALSE) +
   stat_smooth(geom = "line", 
               data = ~boot_y(.x, reject_dirichlet, times = 500), 
               aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual p-value"), 
@@ -741,37 +761,45 @@ vi_survey %>%
               alpha = 0.03) +
   geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
                 filter(x_dist == "uniform") %>%
-                pivot_longer(F_p_value:SW_p_value), 
+                pivot_longer(F_p_value:SW_p_value) %>%
+                mutate(name = gsub("_p_value", " p-value", name)), 
               aes(log_effect_size, as.numeric(value < 0.05), col = name), 
               method = "glm", 
               method.args = list(family = binomial),
               se = FALSE) +
+  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3) + geom_point(data = ~filter(.x, unique_lineup_id %in% c("poly_166", "poly_269", "poly_396", "poly_574")), aes(log_effect_size, prop_detect), alpha = 1, col = "red", size = 2) +
   theme_light(base_size = 5) +
-  facet_wrap(~n) -> p
+  scale_color_brewer(palette = "Dark2", direction = -1) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power") -> p
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_502"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_166"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 1~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_502")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_502")$p_value[1], digits = 3)))) -> p1
+                     remove_axis = TRUE,
+                     size = 0.1) + 
+  ggtitle(bquote(log[e](E) %~~% 1~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_166")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_166")$p_value[1], digits = 3)))) -> p1
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_78"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_269"]]$data,
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_78")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_78")$p_value[1], digits = 3)))) -> p2
+                     remove_axis = TRUE,
+                     size = 0.1) + 
+  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_269")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_269")$p_value[1], digits = 3)))) -> p2
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_6"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_396"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 3~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_6")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_6")$p_value[1], digits = 3)))) -> p3
+                     remove_axis = TRUE, 
+                     size = 0.1) + 
+  ggtitle(bquote(log[e](E) %~~% 3~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_396")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_396")$p_value[1], digits = 3)))) -> p3
 
-VI_MODEL$plot_lineup(vi_lineup[["poly_447"]]$data, 
+VI_MODEL$plot_lineup(vi_lineup[["poly_574"]]$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(base_size = 5),
-                     remove_axis = TRUE) + 
-  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_447")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_447")$p_value[1], digits = 3)))) -> p4
+                     remove_axis = TRUE,
+                     size = 0.1) + 
+  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_574")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_574")$p_value[1], digits = 3)))) -> p4
 
 
 
