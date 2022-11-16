@@ -736,6 +736,11 @@ filter(vi_survey, type == "polynomial") %>%
 ```
 
 
+
+
+
+
+
 <!-- TODO:difference between the simple formula and the simulation approach -->
 
 ```{r}
@@ -817,6 +822,63 @@ design <- c(patchwork::area(1, 1, 1, 8),
 patchwork::wrap_plots(p, B = p1, C = p2, D = p3, E = p4, design = design)
 ```
 
+```{r cache = TRUE}
+target_sigma <- c(4.51, 3.52, 2.74, 2.14, 1.66, 1.29, 1.01, 0.79, 0.61, 0.48, 0.37)
+
+es <- map_dbl(target_sigma, ~log(poly_model(shape = 2, x = rand_uniform(), sigma = .x)$effect_size(n = 100)))
+```
+
+
+```{r}
+vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "polynomial") %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual test"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                pivot_longer(F_p_value:SW_p_value) %>%
+                mutate(name = gsub("_p_value", " test", name)), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3)  +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1)) +
+  theme_light(base_size = 5) +
+  scale_color_brewer(palette = "Dark2", direction = -1) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power")
+
+ex_dat <- poly_model(shape = 2, x = rand_uniform(), sigma = 1)$gen(n = 100)
+plist <- list()
+j <- 0
+
+for (i in target_sigma) {
+  j <- j + 1
+  plist[[j]] <- 
+  VI_MODEL$plot(poly_model(shape = 2, x = rand_uniform())$
+                  gen(n = 100, computed = select(mutate(ex_dat, e = sqrt(i) * e), x, e)), theme = theme_light(), 
+              remove_axis = TRUE, 
+              remove_grid_line = TRUE) +
+    ggtitle(round(es[j], 1))
+}
+
+patchwork::wrap_plots(plist)
+```
 
 The impact of the distribution of $X_{raw}$ on the power is displayed in Figure \ref{fig:dist-power}. For the non-linearity model, the power curve of F-test is stable across different distributions, while the visual test has a more gentle power curve for the discrete uniform distribution as it contains lineups with larger effect size. BP test performs worse for discrete uniform distribution but has relatively high power for normal distribution. SW test outperforms BP test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor. 
 
