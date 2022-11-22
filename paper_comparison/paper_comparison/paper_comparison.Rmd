@@ -750,7 +750,7 @@ boot_y <- function(dat, y, times = 100) {
 ```
 
 
-```{r power-poly-uniform, fig.cap = "..."}
+```{r power-poly-uniform, fig.cap = "...", eval = FALSE}
 vi_survey %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
@@ -954,68 +954,8 @@ vi_survey %>%
   facet_wrap(~x_dist)
 ```
 
-```{r, fig.cap="..."}
-vi_survey %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist)) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)) %>%
-                mutate(type = "polynomial") %>%
-                mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist)) %>%
-                bind_rows(mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)) %>%
-                mutate(type = "heteroskedasticity") %>%
-                mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist))), 
-              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
-              method = "glm", 
-              method.args = list(family = binomial),
-              se = FALSE) +
-  theme_light(base_size = 5) +
-  scale_color_brewer(palette = "Dark2", direction = -1) +
-  xlab("Natural logarithm of effect size") +
-  ylab("Power") +
-  facet_grid(x_dist~type)
-```
 
-```{r}
-vi_survey %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist)) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)) %>%
-                mutate(type = "polynomial") %>%
-                mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist)) %>%
-                bind_rows(mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)) %>%
-                mutate(type = "heteroskedasticity") %>%
-                mutate(x_dist = ifelse(x_dist == "even_discrete", "discrete uniform", x_dist))), 
-              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
-              method = "glm", 
-              method.args = list(family = binomial),
-              se = FALSE) +
-  theme_light(base_size = 5) +
-  scale_color_brewer(palette = "Dark2", direction = -1) +
-  xlab("Natural logarithm of effect size") +
-  ylab("Power") +
-  facet_grid(shape~type)
-```
+
+
 
 
