@@ -821,8 +821,7 @@ patchwork::wrap_plots(p, B = p1, C = p2, D = p3, E = p4, design = design)
 
 ```{r cache = TRUE}
 target_sigma <- c(4.51, 3.52, 2.74, 2.14, 1.66, 1.29, 1.01, 0.79, 0.61, 0.48, 0.37)
-
-es <- map_dbl(target_sigma, ~log(poly_model(shape = 2, x = rand_uniform(), sigma = .x)$effect_size(n = 100)))
+es <- map_dbl(target_sigma, ~log(poly_model(shape = 2, x = rand_uniform(-1, 1), sigma = .x)$effect_size(n = 100)))
 ```
 
 
@@ -854,9 +853,9 @@ p <- vi_survey %>%
               method.args = list(family = binomial),
               se = FALSE) +
   geom_point(aes(log_effect_size, prop_detect), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1)) +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
   theme_light(base_size = 5) +
-  scale_color_brewer(palette = "Dark2", direction = -1) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Safe"))[2:5]) +
   xlab("Natural logarithm of effect size") +
   ylab("Power")
 
@@ -895,6 +894,62 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
                         reduce(c) %>%
                         c(patchwork::area(1, 1, 15, 11), .))
 ```
+  
+
+```{r cache = TRUE}
+target_b <- c(0.14, 0.19, 0.27, 0.38, 0.57, 0.91, 1.53, 2.9, 6.4, 17.9, 75)
+es <- map_dbl(target_b, ~log(heter_model(a = 1, b = .x, x = rand_uniform(-1, 1))$effect_size(n = 100, type = "kl")))
+```
+
+
+```{r}
+p <- vi_survey %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "heteroskedasticity") %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject_dirichlet, times = 500), 
+              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual test"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(data = mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                pivot_longer(F_p_value:SW_p_value) %>%
+                mutate(name = gsub("_p_value", " test", name)), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3)  +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
+  theme_light(base_size = 5) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Safe"))[2:5]) +
+  xlab("Natural logarithm of effect size") +
+  ylab("Power")
+
+ex_dat <- heter_model(a = 1, x = rand_uniform(-1, 1), b = 1)$gen(n = 100)
+plist <- list()
+j <- 0
+
+for (i in target_b) {
+  j <- j + 1
+  plist[[j]] <-
+  VI_MODEL$plot(heter_model(a = 1, b = i,x = rand_uniform(-1, 1))$
+                  gen(n = 100, computed = select(ex_dat, x, e)), theme = theme_light(base_size =  5),
+              remove_axis = TRUE,
+              remove_grid_line = TRUE) +
+    ggtitle(round(es[j], 1))
+}
+```  
   
 ```{r fig.height = 3, fig.width = 12, fig.cap="..."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
