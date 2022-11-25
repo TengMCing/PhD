@@ -688,14 +688,13 @@ There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and 123 subje
 
 Besides, there were 886 attention checks not included in the following analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
-## P-value and power comparison
+## P-value comparison
 
 Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test for both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
 
 In particular, given 95% confidence level, both tests will reject the null hypothesis in only around 58% of the cases. And in 41% of the cases, the visual test does not reject the null hypothesis but the conventional test does. Since fail to reject the null hypothesis in a visual test means that there is no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not fully believe in the rejection of the null hypothesis even though the alternative hypothesis is true. Even if the rejection is accepted, the model violation may not be considered as impactful due to the fact that the departures are not clearly visible.
 
 This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a simple but good linear approximation to the data. The rejection of the null hypothesis because of acceptable and negligible residual departure is not practically meaningful and useful. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
-
 
 ```{r p-value-comparison, fig.height=4, fig.cap="Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
 vi_survey %>%
@@ -720,13 +719,15 @@ vi_survey %>%
 ```
 
 
-Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test on lineups with uniform distribution $X_{raw}$ against natural logarithm of the effect with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) \approx 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively.
+## Power comparison
 
-What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. According to the example lineups included in Figure \ref{fig:power-poly-uniform}, at around $log_e(E) = 1$, the  designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model at this level of difficulty. In fact, zero out of 11 subjects detect the actual data plot positioned at panel 10. However, F-test has more than 60% chance of rejecting the null hypothesis in this case. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public.
+<!-- Figure \ref{fig:power-poly-uniform} shows the estimated power of visual test on lineups with uniform distribution $X_{raw}$ against natural logarithm of the effect with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing other departures from the model assumptions. In overall, the power of all four tests increases as the effect becomes larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while others respond inactively to the change of effect and remain lower than 25% throughout the period, showing that as an exact test, the F-test is relatively more sensitive to the type of model defects that being considered. The power of visual test arises steadily and nearly linearly to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make noticeable impact on the degree of the presence of the designed visual features. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals mentioned in \ref{hypothesis-testing} that residual-based tests for a specific type of model defect are sensitive to other types of model defects. At $log_e(E) \approx 6$, the power curve of F-test reaches almost 100% followed by the visual test by a small margin. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively. -->
 
-The margin is largest at around $log_e(E) = 2$. As shown in Figure \ref{fig:power-poly-uniform}, the visual pattern is still undetectable which is similar to $log_e(E) = 1$. The visual test power is close to zero. In contrast, F-test will reject the null hypothesis 90% of the time.
+<!-- What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. According to the example lineups included in Figure \ref{fig:power-poly-uniform}, at around $log_e(E) = 1$, the  designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model at this level of difficulty. In fact, zero out of 11 subjects detect the actual data plot positioned at panel 10. However, F-test has more than 60% chance of rejecting the null hypothesis in this case. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public. -->
 
-At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at panel 20, where two of 11 subjects detect it. It can be observed that a "S-shape" is presented in plot 20, but the signal is not strong enough to attract all 11 subjects, resulting in a visual p-value sightly above $0.1$. At $log_e(E) = 4$, the designed visual features become much clear and attractive in panel 3, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible.
+<!-- The margin is largest at around $log_e(E) = 2$. As shown in Figure \ref{fig:power-poly-uniform}, the visual pattern is still undetectable which is similar to $log_e(E) = 1$. The visual test power is close to zero. In contrast, F-test will reject the null hypothesis 90% of the time. -->
+
+<!-- At around $log_e(E) = 3$, the margin gets smaller as the chance of identifying the actual data plot becomes larger. At this level of difficulty, the designed visual features are usually detectable but it may not stand out from the lineup as other null plots may happen to include outliers or visual patterns that are are considered to be more attractive by human, and thus recognized as the most different plot. Without knowing the designed visual features beforehand, it is actually hard to identify the actual data plot by pure image comparison. The corresponding example lineup for $log_e(E) = 3$ shown in Figure \ref{fig:fig:power-poly-uniform} has the actual data plot positioned at panel 20, where two of 11 subjects detect it. It can be observed that a "S-shape" is presented in plot 20, but the signal is not strong enough to attract all 11 subjects, resulting in a visual p-value sightly above $0.1$. At $log_e(E) = 4$, the designed visual features become much clear and attractive in panel 3, leading to a high percentage of rejection of the null hypothesis. Figure \ref{fig:fig:power-poly-uniform} gives example lineups of such cases. It is also interesting to observe that the power curve of visual test behaves similarly to those inappropriate conventional tests until the designed visual features really becomes visible. -->
 
 ```{r eval = FALSE}
 filter(vi_survey, type == "polynomial") %>%
@@ -872,23 +873,18 @@ for (i in target_sigma) {
               remove_grid_line = TRUE) +
     ggtitle(round(es[j], 1))
 }
-
-patchwork::wrap_plots(append(plist, list(p), after = 0), 
-                      design = map(1:11, ~patchwork::area(11, .x, 11, .x)) %>%
-                        reduce(c) %>%
-                        c(patchwork::area(1, 1, 10, 11), .))
 ```
 
-The impact of the distribution of $X_{raw}$ on the power is displayed in Figure \ref{fig:dist-power}. For the non-linearity model, the power curve of F-test is stable across different distributions, while the visual test has a more gentle power curve for the discrete uniform distribution as it contains lineups with larger effect size. BP test performs worse for discrete uniform distribution but has relatively high power for normal distribution. SW test outperforms BP test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor. 
+<!-- The impact of the distribution of $X_{raw}$ on the power is displayed in Figure \ref{fig:dist-power}. For the non-linearity model, the power curve of F-test is stable across different distributions, while the visual test has a more gentle power curve for the discrete uniform distribution as it contains lineups with larger effect size. BP test performs worse for discrete uniform distribution but has relatively high power for normal distribution. SW test outperforms BP test for discrete uniform distribution but remains as the worst test for other distributions. The results indicate those inappropriate residual-based tests are sensitive to the distribution of the regressor.  -->
 
-For the heteroskedasticity model, F-test is entirely insensitive to the non-constant variance. The visual test has similar power as the SW test  
-for normal distribution and lognormal distribution, and has higher power for uniform distribution, and lower power for discrete uniform distribution.
+<!-- For the heteroskedasticity model, F-test is entirely insensitive to the non-constant variance. The visual test has similar power as the SW test   -->
+<!-- for normal distribution and lognormal distribution, and has higher power for uniform distribution, and lower power for discrete uniform distribution. -->
 
-But still, we observe the huge gap in power between the preferred conventional tests and the visual test which is consistent with our previous argument that conventional test is too sensitive for diagnosing non-linearity and heteroskedasticity.
+<!-- But still, we observe the huge gap in power between the preferred conventional tests and the visual test which is consistent with our previous argument that conventional test is too sensitive for diagnosing non-linearity and heteroskedasticity. -->
 
 \begin{landscape}
 
-```{r fig.height = 3, fig.width = 12, fig.cap="..."}
+```{r polypower, fig.height = 3, fig.width = 12, fig.cap="..."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = map(1:11, ~patchwork::area(16, .x, 22, .x)) %>%
                         reduce(c) %>%
@@ -951,7 +947,7 @@ for (i in target_b) {
 }
 ```  
   
-```{r fig.height = 3, fig.width = 12, fig.cap="..."}
+```{r heterpower, fig.height = 3, fig.width = 12, fig.cap="..."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = map(1:11, ~patchwork::area(16, .x, 22, .x)) %>%
                         reduce(c) %>%
@@ -959,3 +955,4 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 ```  
 
 \end{landscape}
+
