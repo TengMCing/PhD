@@ -854,6 +854,29 @@ diagnostics.
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
 
+Figure \ref{fig:polypower} shows the estimated power of visual test on
+lineups produced by the non-linearity model with the \(X_{raw}\)
+following a uniform distribution against the natural logarithm of the
+effect with comparison to the power of an exact test - F-test, and two
+other residual-based conventional tests commonly used in regression
+diagnostics but for testing heteroskedasticity and non-normality
+respectively. In overall, the power of all four teste eincreases as the
+effect becomes larger. The power curve of F-test climbs aggressively
+from 25\% to around 90\% as \(log_e(E)\) increases from 0 to 2, while
+power of other tests respond inactively to the change of effect and
+remain lower than 25\% throughout the period, showing that F-test is way
+more sensitive to the type of model defects that being considered. The
+power of visual test arises steadily to around 90\% as \(log_e(E)\)
+increases from 2 to 5, suggesting that the effect starts to make
+noticeable impact on the degree of the presence of the designed visual
+features. Other two inappropriate conventional tests shows improvement
+at the same time but at a lower rate. This coincides the point made by
+\citet{cook1982residuals} that residual-based tests for a specific type
+of model defect are sensitive to other types of model defects. At
+\(log_e(E) \approx 6\), the power of both F-test and visual test reaches
+almost 100\%. The power of Breusch--Pagan test and Shapiro--Wilk test
+reach around 75\% and 30\% respectively.
+
 \begin{landscape}
 
 \begin{figure}
