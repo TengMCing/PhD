@@ -864,25 +864,34 @@ non-normality respectively. At the bottom of the figure
 \ref{fig:polypower}, there are a sequence of example residuals plots
 with increasing levels of \(log_e(E)\). Readers can evaluate them from
 left to right and determine at which level the departure from a good
-residual plot becomes noticeable.
+residual plot becomes detectable.
 
-The power of all four tests increases as the effect becomes larger. The
-power curve of F-test climbs aggressively from 25\% to around 90\% as
-\(log_e(E)\) increases from 0 to 2, while power of other tests respond
-inactively to the change of effect and remain lower than 25\% throughout
-the period, showing that F-test is way more sensitive to the type of
-model defects that being considered. Meanwhile, the residuals plot
+In overall, the power of all four tests increases as the effect gets
+larger. The power curve of F-test climbs aggressively from 25\% to
+around 90\% as \(log_e(E)\) increases from 0 to 2, while power of other
+tests respond inactively to the change of effect and remain lower than
+25\% throughout the period, showing that F-test is way more sensitive to
+the type of model defects that being considered. Meanwhile, no
+noticeable visual features can be spotted from the example residuals
+plots.
 
 The power of visual test arises steadily to around 90\% as \(log_e(E)\)
 increases from 2 to 5, suggesting that the effect starts to make
-noticeable impact on the degree of the presence of the designed visual
-features. Other two inappropriate conventional tests shows improvement
-at the same time but at a lower rate. This coincides the point made by
+significant impact on the degree of the presence of the designed visual
+features. This can also be observed from the example residuals plots
+that when \(log_e(E) = 2.5\), a weak ``S-shape'' starts to present. And
+as \(log_e(E)\) increases, the visual pattern becomes much clearer.
+Other two inappropriate conventional tests shows improvement at the same
+time but at a lower rate. This coincides the point made by
 \citet{cook1982residuals} that residual-based tests for a specific type
-of model defect are sensitive to other types of model defects. At
-\(log_e(E) \approx 6\), the power of both F-test and visual test reaches
-almost 100\%. The power of Breusch--Pagan test and Shapiro--Wilk test
-reach around 75\% and 30\% respectively.
+of model defect are sensitive to other types of model defects.
+
+At \(log_e(E) \approx 6\), the power of both F-test and visual test
+reaches almost 100\%. The power of Breusch--Pagan test and Shapiro--Wilk
+test reach around 75\% and 30\% respectively.
+
+Similarly, Figure \ref{fig:heterpower} shows the power of BP test,
+visual test and two other
 
 \begin{landscape}
 
