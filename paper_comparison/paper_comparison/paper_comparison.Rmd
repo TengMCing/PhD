@@ -721,15 +721,18 @@ vi_survey %>%
 
 ## Power comparison
 
-Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with the $X_{raw}$ following a uniform distribution against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
+Figure \ref{fig:polypower} show the estimated power of visual test on lineups produced by the non-linearity model with the $X_{raw}$ following a uniform distribution, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
-In overall, the power of all four tests increases as the effect gets larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
+Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - F-test and Shapiro-Wilk test. 
 
-The power of visual test arises steadily to around 90% as $log_e(E)$ increases from 2 to 5, suggesting that the effect starts to make significant impact on the degree of the presence of the designed visual features. This can also be observed from the example residuals plots that when $log_e(E) = 2.5$, a weak "S-shape" starts to present. And as $log_e(E)$ increases, the visual pattern becomes much clearer. Other two inappropriate conventional tests shows improvement at the same time but at a lower rate. This coincides the point made by @cook1982residuals that residual-based tests for a specific type of model defect are sensitive to other types of model defects. 
+For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
 
-At $log_e(E) \approx 6$, the power of both F-test and visual test reaches almost 100%. The power of Breusch--Pagan test and Shapiro--Wilk test reach around 75% and 30% respectively.
+In terms of the heteroskedasticity model, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $0 \leq log_e(E) \leq 2$, where the visual feature is nearly unobservable from the example residual plots and the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting the null hypothesis. 
 
-Similarly, Figure \ref{fig:heterpower} shows the power of BP test, visual test and two other
+The power of visual test arises steadily as $log_e(E)$ increases from 2 to 5 in both non-linearity model and heteroskedasticity model, suggesting that the effect starts to make significant impact on the degree of the presence of the designed visual features. This can also be observed from the example residuals plots that when $log_e(E) = 2.5$, a weak "S-shape" and a weak "triangle" shape are presented in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower} respectively. And as $log_e(E)$ increases, the visual pattern becomes much clearer, and the power reaches almost 100% at $log_e(E) \approx 6$.
+
+The power of all inappropriate tests except for F-test shows improvement as the effect increases but at a lower rate than the visual test in both scenarios. This coincides the point made by @cook1982residuals that residual-based tests for a specific type of model defect may be sensitive to other types of model defects. The power curve of F-test remains at around 5% in Figure \ref{fig:heterpower} since there is no non-linear term leave out in the heteroskedasticity model and 
+the null hypothesis of the F-test will be always satisfied.
 
 
 <!-- What truly impress us is the huge difference between the estimated power of visual test and the estimated power of F-test. According to the example lineups included in Figure \ref{fig:power-poly-uniform}, at around $log_e(E) = 1$, the  designed visual feature is rarely visible, making the actual data plot indistinguishable from residual plots simulated from the assumed model at this level of difficulty. In fact, zero out of 11 subjects detect the actual data plot positioned at panel 10. However, F-test has more than 60% chance of rejecting the null hypothesis in this case. From a communication perspective, given the fact that the visual difference is unperceivable, the argument that non-linearity present in the fitted model is less convincing to the public. -->
@@ -943,7 +946,7 @@ p <- vi_survey %>%
   xlab("Natural logarithm of effect size") +
   ylab("Power")
 
-set.seed(10085)
+set.seed(10089)
 ex_dat <- heter_model(a = 1, x = rand_uniform(-1, 1), b = 1)$gen(n = 100)
 plist <- list()
 j <- 0
