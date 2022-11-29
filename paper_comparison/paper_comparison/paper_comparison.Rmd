@@ -976,3 +976,6 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 \end{landscape}
 
+## Visual test 
+
+Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but    
