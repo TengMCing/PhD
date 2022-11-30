@@ -978,4 +978,150 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 ## Visual test 
 
-Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but    
+Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but 
+
+## Lineup selection
+
+```{r cache = TRUE}
+vi_survey_with_plot <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  left_join(map_df(1:length(vi_lineup), 
+    ~vi_lineup[[.x]]$data %>% 
+      group_by(k) %>% 
+      summarise(plot_p_value = first(p_value)) %>%
+      arrange(k) %>%
+      mutate(unique_lineup_id = names(vi_lineup)[.x]) %>%
+      mutate(plot_p_value_rank = rank(plot_p_value, ties.method = "min"))) %>%
+  pivot_wider(values_from = c(plot_p_value, plot_p_value_rank), names_from = k, names_prefix = "plot_")) %>%
+  (function(x) {
+      for (i in 1:20)
+        x[[paste0("plot_sel_plot_", i)]] <-
+          grepl(paste0("_", i, "_"), x$selection) |
+          grepl(paste0("^", i, "_"), x$selection) |
+          grepl(paste0("_", i, "$"), x$selection) |
+          grepl(paste0("^", i, "$"), x$selection)
+      x}
+    ) %>%
+  pivot_longer(plot_p_value_plot_1:plot_sel_plot_20, 
+               names_to = c(".value", "plot"), 
+               names_pattern = "(.*)_plot_(.+)") 
+```
+
+
+```{r dataplotsel, fig.cap = "..."}
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(answer == plot) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(plot_p_value_rank = first(plot_p_value_rank),
+            weighted_detect = sum(weighted_detect),
+            n_eval = n()) %>%
+  group_by(plot_p_value_rank) %>%
+  summarise(weighted_detect = sum(weighted_detect),
+            n_eval = sum(n_eval)) %>%
+  ggplot() +
+  geom_col(aes(factor(plot_p_value_rank), n_eval)) +
+  geom_col(aes(factor(plot_p_value_rank), weighted_detect, fill = "weighted number of detections")) +
+  xlab("Data plot p-value rank") +
+  ylab("Number of Lineups") +
+  theme(legend.position = "bottom") +
+  labs(fill = "")
+```
+
+```{r dadtaplotselfacet, fig.cap = "..."}
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  left_join(vi_survey_with_plot %>%
+              filter(!attention_check) %>%
+              filter(!null_lineup) %>%
+              filter(answer == plot) %>%
+              group_by(unique_lineup_id) %>%
+              summarise(answer_rank = first(plot_p_value_rank))) %>%
+  mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
+  group_by(plot_p_value_rank, answer_rank) %>%
+  summarise(weighted_sel = sum(weighted_sel)) %>%
+  ggplot() +
+  geom_col(aes(factor(plot_p_value_rank), weighted_sel)) +
+  geom_vline(data = data.frame(answer_rank = 1:20, x = 1:20),
+             aes(xintercept = x),
+             col = "red") +
+  facet_wrap(~answer_rank, scales = "free_y") +
+  xlab("Plot p-value rank") +
+  ylab("Weighted number of selections")
+```
+
+
+
+```{r eval = FALSE}
+# data plot not always has the lowest conventional p-value
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(answer == plot) %>%
+  ggplot() +
+  geom_bar(aes(factor(plot_p_value_rank)))
+
+# according to the rank of the data plot p-value, how many people select it 
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(plot_sel) %>%
+  left_join(vi_survey_with_plot %>%
+              filter(!attention_check) %>%
+              filter(!null_lineup) %>%
+              filter(answer == plot) %>%
+              group_by(unique_lineup_id) %>%
+              summarise(answer_rank = first(plot_p_value_rank))) %>%
+  ggplot() +
+  geom_bar(aes(factor(plot_p_value_rank))) +
+  geom_vline(data = data.frame(answer_rank = 1:20, x = 1:20),
+             aes(xintercept = x),
+             col = "red") +
+  facet_wrap(~answer_rank, scales = "free_y")
+
+# For different rank, percentage of subject select it
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(answer == plot) %>%
+  group_by(unique_lineup_id, set) %>%
+  summarise(plot_p_value_rank = first(plot_p_value_rank),
+            detect = first(detect),
+            type = first(type)) %>%
+  ggplot() +
+  geom_bar(aes(factor(plot_p_value_rank), fill = detect), position = "fill") +
+  geom_hline(yintercept = 0.05) +
+  xlab("Data plot p-value rank") +
+  ylab("Propotion of subject detecting the data plot")
+
+
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(answer == plot) %>%
+  group_by(unique_lineup_id, set) %>%
+  summarise(plot_p_value_rank = first(plot_p_value_rank),
+            prop_detect = first(prop_detect)) %>%
+  ggplot() +
+  geom_boxplot(aes(factor(plot_p_value_rank), prop_detect))
+  
+
+
+
+# vi_survey_with_plot %>%
+#   filter(!attention_check) %>%
+#   filter(!null_lineup) %>%
+#   filter(answer == plot) %>%
+#   group_by(unique_lineup_id, set) %>%
+#   summarise(plot_p_value_rank = first(plot_p_value_rank),
+#             conv_detect = first(conventional_p_value < 0.05)) %>%
+#   ggplot() +
+#   geom_bar(aes(factor(plot_p_value_rank), fill = conv_detect), position = "fill") +
+#   xlab("Data plot p-value rank") +
+#   ylab("Propotion of subject detecting the data plot")
+```
+
+\pagebreak
