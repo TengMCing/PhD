@@ -414,7 +414,7 @@ visual p-value is given as
 P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},
 \end{equation}
 
-where \(B(.)\) is the beta function defined as
+\noindent where \(B(.)\) is the beta function defined as
 
 \begin{equation} \label{eq:betafunction}
 B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
@@ -471,8 +471,8 @@ effect size as the only regressor formulated as
 Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 \end{equation}
 
-where \(\Lambda(.)\) is the standard logistic function given as
-\(\Lambda(z) = exp(z)/(1+exp(z))\).
+\noindent where \(\Lambda(.)\) is the standard logistic function given
+as \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
 Effect \(E\) is derived from the Kullback-Leibler divergence (see
 {[}appendix ref here{]}) formulated as
@@ -481,8 +481,8 @@ Effect \(E\) is derived from the Kullback-Leibler divergence (see
 E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
 \end{equation}
 
-where \(diag(.)\) is the diagonal matrix constructed from the diagonal
-elements of \(\boldsymbol{R}_a\).
+\noindent where \(diag(.)\) is the diagonal matrix constructed from the
+diagonal elements of \(\boldsymbol{R}_a\).
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
@@ -541,7 +541,7 @@ using Hermite polynomials {[}Hermite ref here{]} on random vector
 \boldsymbol{z}_{raw} = He_j(g(\boldsymbol{z}, 2)),
 \end{align}
 
-where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
+\noindent where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
 \(\boldsymbol{\varepsilon}\), \(\boldsymbol{x}_{raw}\),
 \(\boldsymbol{z}_{raw}\) are vectors of size \(n\), \(He_{j}(.)\) is the
 \(j\)th-order probabilist's Hermite polynomials,
@@ -560,7 +560,7 @@ above model is formulated as
 \boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
 \end{equation}
 
-where
+\noindent where
 \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
 
 Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
@@ -640,7 +640,7 @@ linear regression model setting:
 \boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + 2 - |a| b (\boldsymbol{x} - a)^2 \boldsymbol{I}), \\
 \end{align}
 
-where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
+\noindent where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
 \(\boldsymbol{\varepsilon}\) are vectors of size \(n\) and \(g(.)\) is
 the scaling function defined in \ref{eq:scaling-function}.
 
@@ -914,7 +914,7 @@ human acceptable residual departures could often alarm by the
 conventional tests. This could limit the popularity of conventional
 tests in residual diagnostics among analysts.
 
-\begin{landscape}
+\%\textbackslash begin\{landscape\}
 
 \begin{figure}
 
@@ -922,15 +922,9 @@ tests in residual diagnostics among analysts.
 
 }
 
-\caption{...}\label{fig:polypower}
+\caption{Comparison of power between different tests for nonlinear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much nonlinearity in the residuals? For the F test (should this be RESET??) this is around log effect size 0.5, but for the visual test it is around 3.}\label{fig:polypower}
 \end{figure}
-  
 
-
-
-
-
-  
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heterpower-1} 
@@ -940,7 +934,7 @@ tests in residual diagnostics among analysts.
 \caption{...}\label{fig:heterpower}
 \end{figure}
 
-\end{landscape}
+\%\textbackslash end\{landscape\}
 
 \hypertarget{visual-test}{%
 \subsection{Visual test}\label{visual-test}}

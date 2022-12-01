@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.7)  1 DEC 2022 21:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.7)  2 DEC 2022 03:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -741,52 +741,55 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) ha
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.868 
-       <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>] [17]
-<paper_comparison_files/figure-latex/polypower-1.pdf, id=467, 850.17625pt x 205.76875pt>
+       <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 917.
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <11> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 917.
+<paper_comparison_files/figure-latex/polypower-1.pdf, id=461, 344.28625pt x 185.69376pt>
 File: paper_comparison_files/figure-latex/polypower-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/polypower-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/polypower-1.pdf  used on input line 921.
-(pdftex.def)             Requested size: 650.0pt x 157.32779pt.
-<paper_comparison_files/figure-latex/heterpower-1.pdf, id=468, 850.17625pt x 205.76875pt>
+(pdftex.def)             Requested size: 408.0pt x 220.06027pt.
+<paper_comparison_files/figure-latex/heterpower-1.pdf, id=462, 344.28625pt x 185.69376pt>
 File: paper_comparison_files/figure-latex/heterpower-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/heterpower-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/heterpower-1.pdf  used on input line 936.
-(pdftex.def)             Requested size: 650.0pt x 157.32779pt.
-[18
+Package pdftex.def Info: paper_comparison_files/figure-latex/heterpower-1.pdf  used on input line 930.
+(pdftex.def)             Requested size: 408.0pt x 220.06027pt.
+[17] [18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.943 \end{landscape}
-                     
+l.946 ...ineup selection}\label{lineup-selection}}
+                                                  
 pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.943 \end{landscape}
-                      <./paper_comparison_files/figure-latex/polypower-1.pdf> <./paper_comparison_files/figure-latex/heterpower-1.pdf>]
-<paper_comparison_files/figure-latex/dataplotsel-1.pdf, id=499, 572.1375pt x 418.56375pt>
+l.946 ...ineup selection}\label{lineup-selection}}
+                                                   <./paper_comparison_files/figure-latex/polypower-1.pdf> <./paper_comparison_files/figure-latex/heterpower-1.pdf>]
+<paper_comparison_files/figure-latex/dataplotsel-1.pdf, id=500, 572.1375pt x 418.56375pt>
 File: paper_comparison_files/figure-latex/dataplotsel-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/dataplotsel-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/dataplotsel-1.pdf  used on input line 956.
+Package pdftex.def Info: paper_comparison_files/figure-latex/dataplotsel-1.pdf  used on input line 950.
 (pdftex.def)             Requested size: 408.0pt x 298.48523pt.
-<paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf, id=500, 574.145pt x 424.58624pt>
+<paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf, id=501, 574.145pt x 424.58624pt>
 File: paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf  used on input line 965.
+Package pdftex.def Info: paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf  used on input line 959.
 (pdftex.def)             Requested size: 408.0pt x 301.72397pt.
 [19
-
-
-] (./paper_comparison.bbl [20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.58 
-      <./paper_comparison_files/figure-latex/dataplotsel-1.pdf>]) [21
+l.967 
+       <./paper_comparison_files/figure-latex/dataplotsel-1.pdf>] (./paper_comparison.bbl [20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.981 \end{document}
-                     <./paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf>] (./paper_comparison.aux)
+l.58 
+      <./paper_comparison_files/figure-latex/dadtaplotselfacet-1.pdf>]) [21] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -801,15 +804,15 @@ Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
 (rerunfilecheck)             Checksum: 852856B71D04EFF966D07691DF122B16;3725.
  ) 
 Here is how much of TeX's memory you used:
- 13351 strings out of 476931
- 217522 string characters out of 5824666
- 566792 words of memory out of 5000000
- 34220 multiletter control sequences out of 15000+600000
+ 13372 strings out of 476931
+ 217902 string characters out of 5824666
+ 567255 words of memory out of 5000000
+ 34238 multiletter control sequences out of 15000+600000
  482359 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,20n,90p,646b,576s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (21 pages, 2025755 bytes).
+Output written on paper_comparison.pdf (21 pages, 2030311 bytes).
 PDF statistics:
  654 PDF objects out of 1000 (max. 8388607)
  536 compressed objects within 6 object streams
