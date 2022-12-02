@@ -101,6 +101,7 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
                             n = n,
                             effect_size = es,
                             F_p_value = mod$test(tmp_dat)$p_value,
+                            RESET_p_value = mod$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
                             BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
@@ -154,6 +155,7 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
                             n = n,
                             effect_size = es,
                             F_p_value = POLY_MODEL$test(mutate(tmp_dat, z = poly_model()$gen(n, computed = select(tmp_dat, x))$z))$p_value,
+                            RESET_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
                             BP_p_value = mod$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
@@ -939,7 +941,7 @@ p <- vi_survey %>%
               method = "glm", 
               method.args = list(family = binomial),
               se = FALSE) +
-    geom_point(data = ~.x %>% 
+  geom_point(data = ~.x %>% 
                group_by(log_effect_size, reject_dirichlet) %>% 
                summarise(num_response = n()),
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
@@ -1021,19 +1023,28 @@ vi_survey_with_plot %>%
   group_by(plot_p_value_rank) %>%
   summarise(weighted_detect = sum(weighted_detect),
             n_eval = sum(n_eval)) %>%
+  mutate(plot_p_value_rank_g5 = plot_p_value_rank >= 5) %>%
+  group_by(plot_p_value_rank_g5) %>%
+  mutate(n_eval = ifelse(plot_p_value_rank_g5, sum(n_eval), n_eval)) %>%
+  mutate(weighted_detect = ifelse(plot_p_value_rank_g5, sum(weighted_detect), weighted_detect)) %>%
+  ungroup() %>%
+  filter(plot_p_value_rank <= 5) %>%
+  mutate(plot_p_value_rank = ifelse(plot_p_value_rank == 5, "5+", as.character(plot_p_value_rank))) %>%
+  mutate(plot_p_value_rank = factor(plot_p_value_rank, levels = c(as.character(1:5), "5+"))) %>%
   ggplot() +
-  geom_col(aes(factor(plot_p_value_rank), n_eval)) +
-  geom_col(aes(factor(plot_p_value_rank), weighted_detect, fill = "weighted number of detections")) +
+  geom_col(aes(plot_p_value_rank, n_eval)) +
+  geom_col(aes(plot_p_value_rank, weighted_detect, fill = "weighted number of detections")) +
   xlab("Data plot p-value rank") +
   ylab("Number of Lineups") +
   theme(legend.position = "bottom") +
   labs(fill = "")
 ```
 
-```{r dadtaplotselfacet, fig.cap = "..."}
+```{r dadtaplotselfacet, fig.cap = "...", fig.height=12, fig.width=16}
 vi_survey_with_plot %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
   left_join(vi_survey_with_plot %>%
               filter(!attention_check) %>%
               filter(!null_lineup) %>%
@@ -1043,9 +1054,16 @@ vi_survey_with_plot %>%
   mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
   group_by(plot_p_value_rank, answer_rank) %>%
   summarise(weighted_sel = sum(weighted_sel)) %>%
+  mutate(answer_rank_g5 = answer_rank >= 5) %>%
+  group_by(plot_p_value_rank, answer_rank_g5) %>%
+  mutate(weighted_sel = ifelse(answer_rank_g5, sum(weighted_sel), weighted_sel)) %>%
+  ungroup() %>%
+  filter(answer_rank <= 5) %>%
+  mutate(answer_rank = ifelse(answer_rank == 5, "5+", as.character(answer_rank))) %>%
+  mutate(answer_rank = factor(answer_rank, levels = c(as.character(1:5), "5+"))) %>%
   ggplot() +
   geom_col(aes(factor(plot_p_value_rank), weighted_sel)) +
-  geom_vline(data = data.frame(answer_rank = 1:20, x = 1:20),
+  geom_vline(data = data.frame(answer_rank = c("1", "2", "3", "4"), x = 1:4),
              aes(xintercept = x),
              col = "red") +
   facet_wrap(~answer_rank, scales = "free_y") +
@@ -1053,6 +1071,28 @@ vi_survey_with_plot %>%
   ylab("Weighted number of selections")
 ```
 
+```{r eval = FALSE}
+vi_survey_with_plot %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(answer == plot) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(plot_p_value_rank = first(plot_p_value_rank),
+            weighted_detect = sum(weighted_detect),
+            n_eval = n(),
+            reject = first(conventional_p_value < 0.05)) %>%
+  group_by(plot_p_value_rank, reject) %>%
+  summarise(weighted_detect = sum(weighted_detect),
+            n_eval = sum(n_eval)) %>%
+  ggplot() +
+  geom_col(aes(factor(plot_p_value_rank), n_eval)) +
+  geom_col(aes(factor(plot_p_value_rank), weighted_detect, fill = "weighted number of detections")) +
+  xlab("Data plot p-value rank") +
+  ylab("Number of Lineups") +
+  theme(legend.position = "bottom") +
+  labs(fill = "") +
+  facet_wrap(~reject)
+```
 
 
 ```{r eval = FALSE}
