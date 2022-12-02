@@ -901,7 +901,7 @@ for (i in target_sigma) {
 <!-- But still, we observe the huge gap in power between the preferred conventional tests and the visual test which is consistent with our previous argument that conventional test is too sensitive for diagnosing non-linearity and heteroskedasticity. -->
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for nonlinear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much nonlinearity in the residuals? For the F test (should this be RESET??) this is around log effect size 0.5, but for the visual test it is around 3."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for nonlinear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much nonlinearity in the residuals? For the F test this is around log effect size 0.5, but for the visual test it is around 3."}
 patchwork::wrap_plots(append(plist, list(p), 
                              after = 0), 
                       design = map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
@@ -1166,4 +1166,4 @@ vi_survey_with_plot %>%
 #   ylab("Propotion of subject detecting the data plot")
 ```
 
-\pagebreak
+
