@@ -868,7 +868,7 @@ p <- vi_survey %>%
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
   geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Safe"))[2:5]) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(6, "Safe"))[2:6]) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
@@ -949,7 +949,7 @@ p <- vi_survey %>%
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
   geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Safe"))[2:5]) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(6, "Safe"))[2:6]) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
