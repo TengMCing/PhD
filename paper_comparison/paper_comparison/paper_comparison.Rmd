@@ -101,7 +101,14 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
                             n = n,
                             effect_size = es,
                             F_p_value = mod$test(tmp_dat)$p_value,
-                            RESET_p_value = mod$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
+                            RESET3_p_value = mod$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
+                            RESET4_p_value = mod$test(tmp_dat, test = "RESET", power = 2:4, power_type = "fitted")$p_value,
+                            RESET5_p_value = mod$test(tmp_dat, test = "RESET", power = 2:5, power_type = "fitted")$p_value,
+                            RESET6_p_value = mod$test(tmp_dat, test = "RESET", power = 2:6, power_type = "fitted")$p_value,
+                            RESET7_p_value = mod$test(tmp_dat, test = "RESET", power = 2:7, power_type = "fitted")$p_value,
+                            RESET8_p_value = mod$test(tmp_dat, test = "RESET", power = 2:8, power_type = "fitted")$p_value,
+                            RESET9_p_value = mod$test(tmp_dat, test = "RESET", power = 2:9, power_type = "fitted")$p_value,
+                            RESET10_p_value = mod$test(tmp_dat, test = "RESET", power = 2:10, power_type = "fitted")$p_value,
                             BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
@@ -155,7 +162,14 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
                             n = n,
                             effect_size = es,
                             F_p_value = POLY_MODEL$test(mutate(tmp_dat, z = poly_model()$gen(n, computed = select(tmp_dat, x))$z))$p_value,
-                            RESET_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
+                            RESET3_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
+                            RESET4_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:4, power_type = "fitted")$p_value,
+                            RESET5_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:5, power_type = "fitted")$p_value,
+                            RESET6_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:6, power_type = "fitted")$p_value,
+                            RESET7_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:7, power_type = "fitted")$p_value,
+                            RESET8_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:8, power_type = "fitted")$p_value,
+                            RESET9_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:9, power_type = "fitted")$p_value,
+                            RESET10_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:10, power_type = "fitted")$p_value,
                             BP_p_value = mod$test(tmp_dat)$p_value,
                             SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
                             boot_id = i)
@@ -855,6 +869,9 @@ p <- vi_survey %>%
               se = FALSE, 
               alpha = 0.03) +
   geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                select(-(RESET5_p_value:RESET10_p_value)) %>%
+                select(-RESET3_p_value) %>%
+                rename(RESET_p_value = RESET4_p_value) %>%
                 filter(x_dist == "uniform") %>%
                 pivot_longer(F_p_value:SW_p_value) %>%
                 mutate(name = gsub("_p_value", " test", name)), 
@@ -916,6 +933,27 @@ es <- map_dbl(target_b, ~log(heter_model(a = 1, b = .x, x = rand_uniform(-1, 1))
 ```
 
 
+```{r eval = FALSE}
+
+# For checking RESET test
+plotly::ggplotly(ggplot() +
+geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
+                filter(x_dist == "uniform") %>%
+                # select(-(RESET4_p_value:RESET10_p_value)) %>%
+                pivot_longer(F_p_value:RESET10_p_value) %>%
+                mutate(name = gsub("_p_value", " test", name)), 
+              aes(log_effect_size, as.numeric(value < 0.05), col = factor(name, levels = c(paste0("RESET", 3:10, " test"), "F test"))), 
+              method = "glm", 
+              method.args = list(family = binomial),
+              se = FALSE) +
+  scale_color_brewer("YlGnBu") +
+  labs(col = "") +
+  xlab("Log of effect size") +
+  ylab("Power") +
+  ggtitle("Power of the RESET test under different powers of the fitted values"))
+```
+
+
 ```{r}
 p <- vi_survey %>%
   filter(x_dist == "uniform") %>%
@@ -937,6 +975,9 @@ p <- vi_survey %>%
               alpha = 0.03) +
   geom_smooth(data = mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
                 filter(x_dist == "uniform") %>%
+                select(-(RESET5_p_value:RESET10_p_value)) %>%
+                select(-RESET3_p_value) %>%
+                rename(RESET_p_value = RESET4_p_value) %>%
                 pivot_longer(F_p_value:SW_p_value) %>%
                 mutate(name = gsub("_p_value", " test", name)), 
               aes(log_effect_size, as.numeric(value < 0.05), col = name), 
