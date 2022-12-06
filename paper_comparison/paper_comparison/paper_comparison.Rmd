@@ -870,10 +870,10 @@ p <- vi_survey %>%
               alpha = 0.03) +
   geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
                 select(-(RESET5_p_value:RESET10_p_value)) %>%
-                select(-RESET3_p_value) %>%
+                select(-RESET3_p_value, -F_p_value) %>%
                 rename(RESET_p_value = RESET4_p_value) %>%
                 filter(x_dist == "uniform") %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
+                pivot_longer(RESET_p_value:SW_p_value) %>%
                 mutate(name = gsub("_p_value", " test", name)), 
               aes(log_effect_size, as.numeric(value < 0.05), col = name), 
               method = "glm", 
@@ -885,7 +885,7 @@ p <- vi_survey %>%
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
   geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(6, "Safe"))[2:6]) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
@@ -976,9 +976,9 @@ p <- vi_survey %>%
   geom_smooth(data = mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
                 filter(x_dist == "uniform") %>%
                 select(-(RESET5_p_value:RESET10_p_value)) %>%
-                select(-RESET3_p_value) %>%
+                select(-RESET3_p_value, -F_p_value) %>%
                 rename(RESET_p_value = RESET4_p_value) %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
+                pivot_longer(RESET_p_value:SW_p_value) %>%
                 mutate(name = gsub("_p_value", " test", name)), 
               aes(log_effect_size, as.numeric(value < 0.05), col = name), 
               method = "glm", 
@@ -990,7 +990,7 @@ p <- vi_survey %>%
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
   geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(6, "Safe"))[2:6]) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
@@ -1051,6 +1051,24 @@ vi_survey_with_plot <- vi_survey %>%
   pivot_longer(plot_p_value_plot_1:plot_sel_plot_20, 
                names_to = c(".value", "plot"), 
                names_pattern = "(.*)_plot_(.+)") 
+```
+
+
+```{r plotsel, fig.cap=" A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50% of subjects evenly select other plots."}
+vi_survey_with_plot %>%
+  mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
+  group_by(type) %>%
+  mutate(n_eval = n()/20) %>%
+  ungroup() %>%
+  group_by(type, plot_p_value_rank) %>%
+  summarise(weighted_sel = sum(weighted_sel), n_eval = first(n_eval)) %>%
+  ggplot() +
+  geom_col(aes(plot_p_value_rank, n_eval), fill = "grey", alpha = 0.3) +
+  geom_col(aes(plot_p_value_rank, weighted_sel)) +
+  facet_wrap(~type) +
+  theme_light() +
+  ylab("Weighted number of selections") +
+  xlab("Plot p-value rank")
 ```
 
 
