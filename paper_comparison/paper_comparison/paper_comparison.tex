@@ -114,14 +114,17 @@ explanatory variables on a scatter plot is a recommend way to scrutinize
 their relationships. If there is any visually discoverable patterns, the
 model is potentially misspecified. However, correctly judging a residual
 plot where no pattern exists is a painstakingly difficult task for
-humans. It is especially common, particularly among new data analysts to
+humans.
+
+It is especially common, particularly among new statistics students to
 report patterns when an experienced data analyst might quickly conclude
 that there are none. {[}ET: I don't know if the former statement is
-true?{]} Generally, one looks for noticeable departures from the model
-like non-linear dependency or heteroskedasticity. It is also possible to
-conduct hypothesis tests for non-linear dependence
-\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
-\citep{breusch_simple_1979} for heteroskedasticity.
+true? \textgreater\textgreater{} PL: change to students{]} Generally,
+one looks for noticeable departures from the model like non-linear
+dependency or heteroskedasticity. It is also possible to conduct
+hypothesis tests for non-linear dependence \citep{ramsey_tests_1969},
+and use a Breusch-Pagan test \citep{breusch_simple_1979} for
+heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for
 linear regression: \citet{draper1998applied},
@@ -139,14 +142,14 @@ The persistence of this advice to check the plots is curious, and
 investigating why this might be common advice is the subject of this
 paper. The paper is structured as follows. The next background section
 describes the types of departures that one expects to detect, and
-describes a formal process for reading residual plots, called visual
-inference, that can avoid the concerns about subjectiveness of human
-readers {[}ET: CITATION HERE?{]}. Section \ref{experimental-design}
-describes the experimental setup to compare the decision made by formal
-hypothesis testing, and how humans would read diagnostic plots. The
-results are reported in Section \ref{results}. We finish with a
-discussion on future work, in particular how the responsibility for
-residual plot reading might be passed on to computer vision.
+describes a formal statistical process for reading residual plots,
+called visual inference {[}ET: CITATION HERE? \textgreater\textgreater{}
+PL: arguments removed{]}. Section \ref{experimental-design} describes
+the experiment design to compare the decision made by formal hypothesis
+testing, and how humans would read diagnostic plots. The results are
+reported in Section \ref{results}. We finish with a discussion on future
+work, in particular how the responsibility for residual plot reading
+might be passed on to computer vision.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -932,24 +935,17 @@ tests in residual diagnostics among analysts.
 \caption{...}\label{fig:heterpower}
 \end{figure}
 
-\hypertarget{visual-test}{%
-\subsection{Visual test}\label{visual-test}}
-
-Note that both the p-value and power comparison are not directly based
-on the diagnostic plots recommended by abundance of literature, but
-
 \hypertarget{lineup-selection}{%
 \subsection{Lineup selection}\label{lineup-selection}}
 
-\textbackslash begin\{figure\}
+\begin{figure}
 
-\{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/plotsel-1}
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/plotsel-1} 
 
-\}
+}
 
-\textbackslash caption\{ A large amount of subjects select the residuals
-plot with the lowest p-value. But greater than 50\% of subjects evenly
-select other plots.\}\label{fig:plotsel} \textbackslash end\{figure\}
+\caption{A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50 percent of subjects evenly select other plots.}\label{fig:plotsel}
+\end{figure}
 
 \begin{figure}
 

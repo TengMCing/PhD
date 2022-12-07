@@ -50,14 +50,22 @@ knitr::opts_chunk$set(
 ```
 
 ```{r}
-library(tidyverse)
+# OOP supports needed by `visuage`
+# remotes::install_github("TengMCing/bandicoot")
+# 
+# Visual inference models and p-value calculation
 # remotes::install_github("TengMCing/visage")
+
+library(tidyverse)
 library(visage)
 
+# To control the simulation in this file
 set.seed(10086)
 ```
 
 ```{r get-lineup-data}
+# The lineup data used to draw residual plot needed to be downloaded
+# from the github repo. Cache it.
 if (!file.exists(here::here("data/vi_lineup.rds"))) {
   vi_lineup <- get_vi_lineup()
   saveRDS(vi_lineup, here::here("data/vi_lineup.rds"))
@@ -67,52 +75,101 @@ if (!file.exists(here::here("data/vi_lineup.rds"))) {
 ```
 
 ```{r poly-conventional-simulation}
+# Ensure the support of the regressor is [-1, 1]
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
 
+# Run simulations to get the behaviours of conventional tests
 if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
   poly_conv_sim <- list()
+  
+  # 100 bootstrap samples
   for (i in 1:100)
   {
-    poly_conv_sim[[i]] <- map(1:2000,
-                            function(x) {
-                     shape <- sample(1:4, 1)
-                     e_sigma <- sample(c(0.5, 1, 2, 4), 1)
-                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
-                     x <- switch(x_dist,
-                                 uniform = rand_uniform(-1, 1),
-                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
-                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(k = 5, even = TRUE))
-                     mod <- poly_model(shape, x = x, sigma = e_sigma)
-                     n <- sample(c(50, 100, 300), 1)
-                     tmp_dat <- mod$gen(n)
-                     
-                     es <- filter(vi_survey, 
-                                  shape == {{shape}},
-                                  e_sigma == {{e_sigma}},
-                                  x_dist == {{x_dist}},
-                                  n == {{n}}) %>%
-                       head(1) %>%
-                       pull(effect_size)
-
-                     tibble(shape = shape,
-                            e_sigma = e_sigma,
-                            x_dist = x_dist,
-                            n = n,
-                            effect_size = es,
-                            F_p_value = mod$test(tmp_dat)$p_value,
-                            RESET3_p_value = mod$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
-                            RESET4_p_value = mod$test(tmp_dat, test = "RESET", power = 2:4, power_type = "fitted")$p_value,
-                            RESET5_p_value = mod$test(tmp_dat, test = "RESET", power = 2:5, power_type = "fitted")$p_value,
-                            RESET6_p_value = mod$test(tmp_dat, test = "RESET", power = 2:6, power_type = "fitted")$p_value,
-                            RESET7_p_value = mod$test(tmp_dat, test = "RESET", power = 2:7, power_type = "fitted")$p_value,
-                            RESET8_p_value = mod$test(tmp_dat, test = "RESET", power = 2:8, power_type = "fitted")$p_value,
-                            RESET9_p_value = mod$test(tmp_dat, test = "RESET", power = 2:9, power_type = "fitted")$p_value,
-                            RESET10_p_value = mod$test(tmp_dat, test = "RESET", power = 2:10, power_type = "fitted")$p_value,
-                            BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
-                            SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
-                            boot_id = i)
-                   }) %>%
+    poly_conv_sim[[i]] <- 
+      # Every sample contains 2000 lineups
+      map(1:2000, function(i) {
+        
+        # Sample a set of parameters
+        shape <- sample(1:4, 1)
+        e_sigma <- sample(c(0.5, 1, 2, 4), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- poly_model(shape, x = x, sigma = e_sigma)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Get the effect size from the pre-calculated table 
+        es <- filter(vi_survey, 
+                     shape == {{shape}},
+                     e_sigma == {{e_sigma}},
+                     x_dist == {{x_dist}},
+                     n == {{n}}) %>%
+          head(1) %>%
+          pull(effect_size)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(shape = shape,
+               e_sigma = e_sigma,
+               x_dist = x_dist,
+               n = n,
+               effect_size = es,
+               F_p_value = mod$test(tmp_dat)$p_value,
+               RESET3_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:3, 
+                                         power_type = "fitted")$p_value,
+               RESET4_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:4, 
+                                         power_type = "fitted")$p_value,
+               RESET5_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:5, 
+                                         power_type = "fitted")$p_value,
+               RESET6_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:6, 
+                                         power_type = "fitted")$p_value,
+               RESET7_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:7, 
+                                         power_type = "fitted")$p_value,
+               RESET8_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:8, 
+                                         power_type = "fitted")$p_value,
+               RESET9_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:9, 
+                                         power_type = "fitted")$p_value,
+               RESET10_p_value = mod$test(tmp_dat, 
+                                          test = "RESET", 
+                                          power = 2:10, 
+                                          power_type = "fitted")$p_value,
+               BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
   reduce(bind_rows)
   }
   
@@ -128,52 +185,102 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
 
 
 ```{r heter-conventional-simulation}
-stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
-
+# Run simulations to get the behaviours of conventional tests
 if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
   heter_conv_sim <- list()
+  
+  # 100 bootstrap samples
   for (i in 1:100)
   {
-    heter_conv_sim[[i]] <- map(1:2000,
-                            function(x) {
-                     a <- sample(c(-1, 0, 1), 1)
-                     b <- sample(c(0.25, 1, 4, 16, 64), 1)
-                     x_dist <- sample(c("uniform", "normal", "lognormal", "even_discrete"), 1)
-                     x <- switch(x_dist,
-                                 uniform = rand_uniform(-1, 1),
-                                 normal = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))},
-                                 lognormal = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))},
-                                 even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
-                     mod <- heter_model(a = a, b = b, x = x)
-                     n <- sample(c(50, 100, 300), 1)
-                     tmp_dat <- mod$gen(n)
-                     
-                     es <- filter(vi_survey, 
-                                  a == {{a}}, 
-                                  b == {{b}},
-                                  x_dist == {{x_dist}},
-                                  n == {{n}}) %>%
-                              head(1) %>%
-                              pull(effect_size)
-
-                     tibble(a = a,
-                            b = b,
-                            x_dist = x_dist,
-                            n = n,
-                            effect_size = es,
-                            F_p_value = POLY_MODEL$test(mutate(tmp_dat, z = poly_model()$gen(n, computed = select(tmp_dat, x))$z))$p_value,
-                            RESET3_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:3, power_type = "fitted")$p_value,
-                            RESET4_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:4, power_type = "fitted")$p_value,
-                            RESET5_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:5, power_type = "fitted")$p_value,
-                            RESET6_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:6, power_type = "fitted")$p_value,
-                            RESET7_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:7, power_type = "fitted")$p_value,
-                            RESET8_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:8, power_type = "fitted")$p_value,
-                            RESET9_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:9, power_type = "fitted")$p_value,
-                            RESET10_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:10, power_type = "fitted")$p_value,
-                            BP_p_value = mod$test(tmp_dat)$p_value,
-                            SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
-                            boot_id = i)
-                   }) %>%
+    heter_conv_sim[[i]] <-
+      # Every sample contains 2000 lineups
+      map(1:2000, function(x) {
+        
+        # Sample a set of parameters
+        a <- sample(c(-1, 0, 1), 1)
+        b <- sample(c(0.25, 1, 4, 16, 64), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- heter_model(a = a, b = b, x = x)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Get the effect size from the pre-calculated table 
+        es <- filter(vi_survey, 
+                     a == {{a}}, 
+                     b == {{b}},
+                     x_dist == {{x_dist}},
+                     n == {{n}}) %>%
+          head(1) %>%
+          pull(effect_size)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(a = a,
+               b = b,
+               x_dist = x_dist,
+               n = n,
+               effect_size = es,
+               F_p_value = POLY_MODEL$test(
+                 
+                 # Create a pseudo z to be able to use F-test
+                 tmp_dat %>%
+                   mutate(z = poly_model() %>%
+                            {.$gen(n, computed = select(tmp_dat, x))} %>%
+                            pull(z))
+                 )$p_value,
+               RESET3_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:3, 
+                                                power_type = "fitted")$p_value,
+               RESET4_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:4, 
+                                                power_type = "fitted")$p_value,
+               RESET5_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:5, 
+                                                power_type = "fitted")$p_value,
+               RESET6_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:6, 
+                                                power_type = "fitted")$p_value,
+               RESET7_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:7, 
+                                                power_type = "fitted")$p_value,
+               RESET8_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:8, 
+                                                power_type = "fitted")$p_value,
+               RESET9_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:9, 
+                                                power_type = "fitted")$p_value,
+               RESET10_p_value = POLY_MODEL$test(tmp_dat, test = "RESET", power = 2:10, power_type = "fitted")$p_value,
+               BP_p_value = mod$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
   reduce(bind_rows)
   }
   
@@ -196,11 +303,13 @@ Diagnosing a model is the key to determining whether there is anything important
 
 We can assess residuals in multiple ways. Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical normal linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or contains outliers, there is cause for concern. The distribution could also be inspected by conducting a goodness of fit test, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
 
-Plotting the residuals against predicted values and each of the explanatory variables on a scatter plot is a recommend way to scrutinize their relationships. If there is any visually discoverable patterns, the model is potentially misspecified. However, correctly judging a residual plot where no pattern exists is a painstakingly difficult task for humans. It is especially common, particularly among new data analysts to report patterns when an experienced data analyst might quickly conclude that there are none. [ET: I don't know if the former statement is true?] Generally, one looks for noticeable departures from the model like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
+Plotting the residuals against predicted values and each of the explanatory variables on a scatter plot is a recommend way to scrutinize their relationships. If there is any visually discoverable patterns, the model is potentially misspecified. However, correctly judging a residual plot where no pattern exists is a painstakingly difficult task for humans. 
+
+It is especially common, particularly among new statistics students to report patterns when an experienced data analyst might quickly conclude that there are none. [ET: I don't know if the former statement is true? >> PL: change to students] Generally, one looks for noticeable departures from the model like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* A common guidance by experts is that optimal method for diagnosing model fits is by plotting the data.
 
-The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal process for reading residual plots, called visual inference, that can avoid the concerns about subjectiveness of human readers [ET: CITATION HERE?]. Section \ref{experimental-design} describes the experimental setup to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
+The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal statistical process for reading residual plots, called visual inference [ET: CITATION HERE? >> PL: arguments removed]. Section \ref{experimental-design} describes the experiment design to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
 
 # Background
@@ -1021,11 +1130,13 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 ```  
 
 
-## Visual test 
+<!-- ## Visual test  -->
 
-Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but 
+<!-- Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but  -->
 
 ## Lineup selection
+
+
 
 ```{r cache = TRUE}
 vi_survey_with_plot <- vi_survey %>%
@@ -1054,7 +1165,7 @@ vi_survey_with_plot <- vi_survey %>%
 ```
 
 
-```{r plotsel, fig.cap=" A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50% of subjects evenly select other plots."}
+```{r plotsel, fig.cap = "A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50 percent of subjects evenly select other plots."}
 vi_survey_with_plot %>%
   mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
   group_by(type) %>%
