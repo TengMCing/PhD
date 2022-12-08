@@ -244,8 +244,8 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
                  
                  # Create a pseudo z to be able to use F-test
                  tmp_dat %>%
-                   mutate(z = poly_model() %>%
-                            {.$gen(n, computed = select(tmp_dat, x))} %>%
+                   mutate(z = poly_model()$
+                            gen(n, computed = select(tmp_dat, x)) %>%
                             pull(z))
                  )$p_value,
                RESET3_p_value = POLY_MODEL$test(tmp_dat, 
@@ -323,28 +323,47 @@ The persistence of this advice to check the plots is curious, and investigating 
 
 set.seed(10086)
 
+# Base model
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
 dat <- mod$gen(300)
+
 patchwork::wrap_plots(
+  
+  # Plot base data
   mod$plot(dat, theme = theme_light()) +
     ggtitle("A. Good residuals") + 
-    xlab("fitted values") + ylab("residuals"),
-  mod$plot(mod$set_prm("include_z", TRUE)$gen(300, 
-    computed = select(dat, x, e)), 
+    xlab("fitted values") + 
+    ylab("residuals"),
+  
+  # Include the z term
+  # Reuse the x and e terms
+  mod$plot(mod$
+             set_prm("include_z", TRUE)$
+             gen(300, computed = select(dat, x, e)), 
     theme = theme_light()) + 
     ggtitle("B. Non-linearity") +
-    xlab("fitted values") + ylab("residuals"),
-  mod$plot(heter_model(b = 64)$gen(300, 
-    computed = select(dat, x, e)), 
+    xlab("fitted values") + 
+    ylab("residuals"),
+  
+  # Build a heter model
+  # Reuse the x and e terms
+  mod$plot(heter_model(b = 64)$
+             gen(300, computed = select(dat, x, e)), 
     theme = theme_light()) + 
     ggtitle("C. Heteroskedasticity") +
-    xlab("fitted values") + ylab("residuals"),
-  mod$plot(heter_model(b = 0, 
-    e = rand_lognormal(sigma = 0.5))$gen(300, 
-    computed = select(dat, x)), 
+    xlab("fitted values") + 
+    ylab("residuals"),
+  
+  # Build a heter model with non-normal error
+  # Reuse the x term
+  mod$plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+             gen(300, computed = select(dat, x)), 
     theme = theme_light()) + 
     ggtitle("D. Non-normality") +
-    xlab("Fitted values") + ylab("Residuals")
+    xlab("Fitted values") + 
+    ylab("Residuals")
 )
 ```
 
