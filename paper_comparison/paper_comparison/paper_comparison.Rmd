@@ -381,7 +381,7 @@ Compared to non-linearity and heteroskedasticity, non-normality is usually harde
 
 Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [@shapiro1965analysis] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [@jarque1980efficient] which directly checks if the sample skewness and kurtosis match a normal distribution.
 
-Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding RESET test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis $H_0$ for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely $H_0$ is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of $H_0$ despite when majority of the residuals are well-behaved [@cook_applied_1999]. Furthermore, with a sufficiently large sample size, residual-based tests may reject $H_0$ due to a slight departure that is of little practical significance. These can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers and slight departures. 
+Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding RESET test, Breusch-Pagan test and Shapiro-Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis $H_0$ for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely $H_0$ is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of $H_0$ despite when majority of the residuals are well-behaved [@cook_applied_1999]. Furthermore, with a sufficiently large sample size, residual-based tests may reject $H_0$ due to a slight departure that is of little practical significance. These can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers and slight departures. 
 
 
 ```{r}
@@ -458,13 +458,13 @@ The effectiveness of lineup protocol is validated by @majumder_validation_2013 u
 
 ### Sampling from the null distribution
 
-Data used in the $m - 1$ null plots need to be simulated. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggest, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
+Data used in the $m - 1$ null plots need to be simulated. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
 ### Calculating $p$-values 
 
 Further, a visual test can involve $K$ independent observers. Let $X_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
-As point out by @vanderplas2021statistical, this basic binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. @vanderplas2021statistical summarizes three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experiment design. For Scenario 3, @vanderplas2021statistical model the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Since we are only interested in the selections of the actual data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual p-value is given as
+As pointed out by @vanderplas2021statistical, this basic binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. @vanderplas2021statistical summarises three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same actual data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experiment design. For Scenario 3, @vanderplas2021statistical model the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. And defined $c_i$ to be the number of times plot $i$ being selected in $K$ evaluations. In case subject $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensured $\sum_{i}c_i=K$. Since we are only interested in the selections of the actual data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual p-value is given as
 
 <!-- TODO:Clarify this is only for integer c_i -->
 
@@ -510,9 +510,9 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 
 ### Power calculation
 
-As discussed in @majumder_validation_2013, individual's skill will affect the number of observers who identify the actual data plot from the lineup. Thus, the power of a visual test depends on the subject-specific abilities. Previously, it was addressed by modelling the probability of a subject $i$ correctly picking the actual data plot from a lineup $l$ using a mixed-effect logistic regression with the subject being treated as a random effect [@majumder_validation_2013]. However, having this probability is insufficient to determine the power of a visual test allowed for multiple selections as it doesn't provide information about the number of selections made by the subject for p-value calculation. 
+As discussed in @majumder_validation_2013, individual's skill will affect the number of observers who identify the actual data plot from the lineup. Thus, the power of a visual test depends on the subject-specific abilities. Previously, it is addressed by modelling the probability of a subject $i$ correctly picking the actual data plot from a lineup $l$ using a mixed-effect logistic regression with the subject being treated as a random effect [@majumder_validation_2013]. However, having this probability is insufficient to determine the power of a visual test allowed for multiple selections as it doesn't provide information about the number of selections made by the subject for p-value calculation. 
 
-Instead, we directly estimated the probability of a lineup being rejected using a logistic regression with the natural logarithm of the effect size as the only regressor formulated as
+Instead, we omitted the individual effect and directly estimated the probability of a lineup being rejected using a logistic regression with the natural logarithm of the effect size as the only regressor formulated as
 
 ```{=tex}
 \begin{equation} \label{eq:logistic-regression-1-1}
@@ -520,6 +520,57 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 \end{equation}
 ```
 \noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
+
+```{r eval = FALSE}
+MASS::glmmPQL(weighted_detect ~ log_effect_size, random = ~ log_effect_size | subject,  family = quasibinomial(), data = vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  filter(type == "polynomial") %>%
+  mutate(log_effect_size = log10(effect_size)) %>%
+  mutate(subject = factor(as.integer(factor(paste(exp, set))))) %>%
+  select(log_effect_size, weighted_detect, subject)) -> mod
+
+lme4::glmer(weighted_detect ~ log_effect_size  + (log_effect_size | subject), 
+            family = binomial(),
+            data = vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  filter(type == "polynomial") %>%
+    mutate(log_effect_size = log10(effect_size)) %>%
+  mutate(subject = factor(as.integer(factor(paste(exp, set))))) %>%
+  select(log_effect_size, weighted_detect, subject)) -> mod
+
+
+
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  filter(type == "polynomial") %>%
+  mutate(log_effect_size = log10(effect_size)) %>%
+  mutate(subject = factor(as.integer(factor(paste(exp, set))))) %>%
+  mutate(pred_wd = predict(mod, type = "response")) %>%
+  group_by(unique_lineup_id) %>%
+  mutate(pred_ci = pred_wd * n()) %>%
+  mutate(n_eval = n()) %>%
+  ungroup() %>%
+  rowwise() %>%
+  mutate(pred_pval = (function(c_i, n_eval, alpha) {
+  target_dist <- exact_dist(n_eval, 20, dist = "dirichlet", alpha = alpha)
+  floor_c_i <- floor(c_i)
+  ceil_c_i <- ceiling(c_i)
+  return(unname(sum(target_dist[(ceil_c_i:n_eval) + 1]) + (ceil_c_i - c_i) * target_dist[floor_c_i + 1]))
+})(pred_ci, n_eval, alpha)) %>%
+  ungroup() %>%
+  mutate(pred_reject = pred_pval < 0.05) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, as.numeric(pred_reject)), method = "glm", method.args = list(family = binomial()), se = FALSE)
+
+
+ 
+```
 
 
 Effect $E$ is derived from the Kullback-Leibler divergence (see [appendix ref here]) formulated as
