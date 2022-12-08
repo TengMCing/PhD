@@ -379,68 +379,72 @@ Compared to non-linearity and heteroskedasticity, non-normality is usually harde
 
 ## Conventionally testing for departures
 
-(This section discusses the tests that will be used in the analysis and shows the results for the residual plots displayed in the previous section.)
+Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [@shapiro1965analysis] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [@jarque1980efficient] which directly checks if the sample skewness and kurtosis match a normal distribution.
 
-Other than checking diagnostic plots, analysts may perform formal hypothesis testing for detecting model defects. Depending on the alternative hypothesis that is focused on, a variety of tests can be applied. For example, the presence of heteroskedasticity can usually be tested by applying the White test [@white_heteroskedasticity-consistent_1980] or the Breusch-Pagan test [@breusch_simple_1979], which are both derived from the Lagrange multiplier test [@silvey1959lagrangian] principle that relies on the asymptotic properties of the null distribution. For testing non-linearity, one may apply the F-test as a model structural test to examine the significance of specific polynomial and non-linear forms of the regressors, or the significance of proxy variables as in the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey_tests_1969]. And for testing normality, the Shapiro--Wilk test [ref here] is perhaps the most widely used test included by many of the statistical softwares. Another choice will be the Jarque--Bera test [ref here] which directly checks if the sample skewness and kurtosis match a normal distribution.
-
-Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding model structural test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite when majority of the residuals are well-behaved [@cook_applied_1999]. This can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers.
+Example residual plots given in Figure \ref{fig:residual-plot-common-departures} are examined by the corresponding RESET test, Breusch-Pagan test and Shapiro--Wilk test as shown in Table \ref{tab:example-residual-plot-table}. In the example, both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null hypothesis for departures that they do not intend to examine. As discussed in @cook1982residuals, most residual-based tests for a particular type of departure from model assumptions are sensitive to other types of departures. It is likely the null hypothesis is correctly rejected but for the wrong reason, which is known as the "Type III error". Additionally, outliers will often incorrectly trigger the rejection of the null hypothesis despite when majority of the residuals are well-behaved [@cook_applied_1999]. Furthermore, with a sufficiently large sample size, residual-based tests may reject the null hypothesis due to a slight departure that is of little practical significance. These can be largely avoided in diagnostic plots as experienced analysts can evaluate the acceptability of assumptions flexibly, even in the presence of outliers and slight departures. 
 
 
 ```{r}
-
 set.seed(10086)
 
+# Base model
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
-dat <- mod$gen(300)
 
-dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat, x, e))
-dat2 <- heter_model(b = 64)$gen(300, computed = select(dat, x, e))
+# Base data
+dat0 <- mod$gen(300)
+
+# Replicate data in Figure 1
+dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat0, x, e))
+dat2 <- heter_model(b = 64)$gen(300, computed = select(dat0, x, e))
 dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-               gen(300, computed = select(dat, x))
+               gen(300, computed = select(dat0, x))
 
+dat_list <- list(dat0, dat1, dat2, dat3)
 
-
-data.frame(plot = c("A", "B", "C", "D"), 
-           model = c("None", "Non-linearity", "Heteroskedasticity", "Non-normality"),
-           f = c(POLY_MODEL$test(dat)$p_value, 
-                 POLY_MODEL$test(dat1)$p_value,
-                 POLY_MODEL$test(mutate(dat2, z = poly_model()$gen(300, computed = select(dat2, x))$z))$p_value,
-                 POLY_MODEL$test(mutate(dat3, z = poly_model()$gen(300, computed = select(dat3, x))$z))$p_value),
-           b = c(HETER_MODEL$test(dat)$p_value, 
-                 HETER_MODEL$test(dat1)$p_value,
-                 HETER_MODEL$test(dat2)$p_value,
-                 HETER_MODEL$test(dat3)$p_value),
-           s = c(shapiro.test(dat$.resid)$p.value, 
-                 shapiro.test(dat1$.resid)$p.value,
-                 shapiro.test(dat2$.resid)$p.value,
-                 shapiro.test(dat3$.resid)$p.value)) %>%
-  mutate(f = format(round(f, digits = 3), nsmall = 3), b = format(round(b, digits = 3), nsmall = 3), s = format(round(s, digits = 3), nsmall = 3)) -> table_dat
-
-
-  table_dat$f <- kableExtra::cell_spec(table_dat$f, italic = as.numeric(table_dat$f) < 0.05)
-  table_dat$b <- kableExtra::cell_spec(table_dat$b, italic = as.numeric(table_dat$b) < 0.05)
-  table_dat$s <- kableExtra::cell_spec(table_dat$s, italic = as.numeric(table_dat$s) < 0.05)
+table_dat <- data.frame(plot = c("A", "B", "C", "D"), 
+                        model = c("None", 
+                                  "Non-linearity", 
+                                  "Heteroskedasticity", 
+                                  "Non-normality"),
+                        r = map_dbl(dat_list, 
+                                    ~POLY_MODEL$test(.x, 
+                                                     test = "RESET", 
+                                                     power = 2:4)$p_value),
+                        b = map_dbl(dat_list, 
+                                    ~HETER_MODEL$test(.x)$p_value),
+                        
+                        # SW test has not been included by visage
+                        s = map_dbl(dat_list, 
+                                    ~shapiro.test(.x$.resid)$p.value)) %>%
+  
+  # 3 decimal points
+  mutate(across(r:s, ~ format(round(.x, digits = 3), nsmall = 3))) %>%
+  
+  # Italic if reject
+  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) < 0.05)))
 
   table_dat %>%
-  knitr::kable(col.names = c("Plot", "Departures", "RESET", "Breusch-Pagan", "Shapiro–Wilk"),
+  knitr::kable(col.names = c("Plot", 
+                             "Departures", 
+                             "RESET", 
+                             "Breusch-Pagan", 
+                             "Shapiro–Wilk"),
                align = "llrrr",
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
                caption  = 'Statistical significance testing for departures from good residuals for plots in Figure \\ref{fig:residual-plot-common-departures}. Shown are the $p$-values calculated for the conventional RESET, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.', 
                label = "example-residual-plot-table" ) 
-
 ```
 
-## Visual testing for departures
 
-(This section introduces the lineup protocol, and briefly discusses the method for sampling null data, calculating the p-value and estimating power.)
+## Visual testing for departures
 
 ### Lineup protocol
 
 <!-- improve the first sentence -->
 
-Unlike hypothesis testing built upon rigorous statistical procedures, reading diagnostic plots relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984], which is to some extent subjective and indecisive. Further, visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
+One may prefer conventional hypothesis testing because reading diagnostic plots is to some extent subjective and indecisive as it relies on graphical perception - human's ability to interpret and decode the information embedded in the graph [@cleveland_graphical_1984]. It is arguably true that visual discovery suffers from its unsecured and unconfirmed nature where the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. One such example is finding an over-interpretation of the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots [@gelman_exploratory_2004]. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the actual data plot, and the remaining $m - 1$ plots have the identical graphical production as the data plot except the data has been replaced with data consistent with the null hypothesis. Then, an observer who have not seen the actual data plot will be asked to point out the most different plot from the lineup. Under the null hypothesis, it is expected that the actual data plot would have no distinguishable difference with the null plots, and the probability of the observer correctly picks the actual data plot is $1/m$. If we reject the null hypothesis as the observer correctly picks the actual data plot, then the Type I error of this test is $1/m$.
 

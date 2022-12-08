@@ -218,10 +218,6 @@ of the horizontal axis as shown in plot D of Figure
 \subsection{Conventionally testing for
 departures}\label{conventionally-testing-for-departures}}
 
-(This section discusses the tests that will be used in the analysis and
-shows the results for the residual plots displayed in the previous
-section.)
-
 Other than checking diagnostic plots, analysts may perform formal
 hypothesis testing for detecting model defects. Depending on the
 alternative hypothesis that is focused on, a variety of tests can be
@@ -236,17 +232,16 @@ test to examine the significance of specific polynomial and non-linear
 forms of the regressors, or the significance of proxy variables as in
 the Ramsey Regression Equation Specification Error Test (RESET)
 \citep{ramsey_tests_1969}. And for testing normality, the Shapiro--Wilk
-test {[}ref here{]} is perhaps the most widely used test included by
-many of the statistical softwares. Another choice will be the
-Jarque--Bera test {[}ref here{]} which directly checks if the sample
-skewness and kurtosis match a normal distribution.
+test \citep{shapiro1965analysis} is perhaps the most widely used test
+included by many of the statistical softwares. Another choice will be
+the Jarque--Bera test \citep{jarque1980efficient} which directly checks
+if the sample skewness and kurtosis match a normal distribution.
 
 Example residual plots given in Figure
 \ref{fig:residual-plot-common-departures} are examined by the
-corresponding model structural test, Breusch-Pagan test and
-Shapiro--Wilk test as shown in Table
-\ref{tab:example-residual-plot-table}. In the example, both the
-Breusch-Pagan test and the Shapiro--Wilk test rejects the null
+corresponding RESET test, Breusch-Pagan test and Shapiro--Wilk test as
+shown in Table \ref{tab:example-residual-plot-table}. In the example,
+both the Breusch-Pagan test and the Shapiro--Wilk test rejects the null
 hypothesis for departures that they do not intend to examine. As
 discussed in \citet{cook1982residuals}, most residual-based tests for a
 particular type of departure from model assumptions are sensitive to
@@ -254,9 +249,12 @@ other types of departures. It is likely the null hypothesis is correctly
 rejected but for the wrong reason, which is known as the ``Type III
 error''. Additionally, outliers will often incorrectly trigger the
 rejection of the null hypothesis despite when majority of the residuals
-are well-behaved \citep{cook_applied_1999}. This can be largely avoided
-in diagnostic plots as experienced analysts can evaluate the
-acceptability of assumptions flexibly, even in the presence of outliers.
+are well-behaved \citep{cook_applied_1999}. Furthermore, with a
+sufficiently large sample size, residual-based tests may reject the null
+hypothesis due to a slight departure that is of little practical
+significance. These can be largely avoided in diagnostic plots as
+experienced analysts can evaluate the acceptability of assumptions
+flexibly, even in the presence of outliers and slight departures.
 
 \begin{table}
 
@@ -266,10 +264,10 @@ acceptability of assumptions flexibly, even in the presence of outliers.
 \toprule
 Plot & Departures & RESET & Breusch-Pagan & Shapiro–Wilk\\
 \midrule
-A & None & 0.434 & 0.133 & 0.728\\
+A & None & 0.779 & 0.133 & 0.728\\
 B & Non-linearity & \em{0.000} & \em{0.000} & \em{0.039}\\
-C & Heteroskedasticity & 0.378 & \em{0.000} & \em{0.000}\\
-D & Non-normality & 0.667 & 0.736 & \em{0.000}\\
+C & Heteroskedasticity & 0.658 & \em{0.000} & \em{0.000}\\
+D & Non-normality & 0.863 & 0.736 & \em{0.000}\\
 \bottomrule
 \end{tabular}
 \end{table}
