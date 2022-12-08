@@ -276,19 +276,15 @@ D & Non-normality & 0.863 & 0.736 & \em{0.000}\\
 \subsection{Visual testing for
 departures}\label{visual-testing-for-departures}}
 
-(This section introduces the lineup protocol, and briefly discusses the
-method for sampling null data, calculating the p-value and estimating
-power.)
-
 \hypertarget{lineup-protocol}{%
 \subsubsection{Lineup protocol}\label{lineup-protocol}}
 
-Unlike hypothesis testing built upon rigorous statistical procedures,
-reading diagnostic plots relies on graphical perception - human's
-ability to interpret and decode the information embedded in the graph
-\citep{cleveland_graphical_1984}, which is to some extent subjective and
-indecisive. Further, visual discovery suffers from its unsecured and
-unconfirmed nature where the degree of the presence of the visual
+One may argue that reading diagnostic plots is to some extent subjective
+and indecisive compared to those rigorous statistical procedures as it
+relies on graphical perception - human's ability to interpret and decode
+the information embedded in the graph \citep{cleveland_graphical_1984}.
+It is particularly true that visual discovery suffers from its unsecured
+and unconfirmed nature where the degree of the presence of the visual
 features typically can not be measured quantitatively and objectively,
 which may lead to over or under-interpretations of the data. One such
 example is finding an over-interpretation of the separation between gene
@@ -323,19 +319,18 @@ the Type I error of this test is \(1/m\).
 
 }
 
-\caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 11, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 11.}\label{fig:first-example-lineup}
+\caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 7, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 7.}\label{fig:first-example-lineup}
 \end{figure}
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup
-protocol. If the actual data plot at position 11 is identifiable, then
-it is evidence for the rejection of the null hypothesis that the
-regression model is correctly specified. In fact, the actual residual
-plot is obtained from a misspecified regression model with non-linearity
-issue.
+protocol. If the actual data plot at position 7 is identifiable, then it
+is evidence for the rejection of the null hypothesis that the regression
+model is correctly specified. In fact, the actual residual plot is
+obtained from a misspecified regression model with non-linearity issue.
 
-The effectiveness of lineup protocol has already been validated by
+The effectiveness of lineup protocol is validated by
 \citet{majumder_validation_2013} under relatively simple classical
-normal linear regression model settings with only one or two regressors.
+normal linear regression model settings with one or two regressors.
 Their results suggest visual test is capable of testing the significance
 of a single regressor with a similar power as a t-test, though they
 expressed that in general it is unnecessary to use visual inference if
@@ -345,9 +340,11 @@ experiment, where there does not exist a proper conventional test,
 visual test outperforms the conventional test for a large margin. This
 is encouraging as it promotes the use of visual inference in border
 field of data science where there are no existing statistical testing
-procedures. In fact, lineup protocol has been integrated successfully
-into diagnostic tools of hierarchical linear models
-\citep{loy2013diagnostic}.
+procedures. Visual inference have also been integrated into diagnostic
+of hierarchical linear models by \citet{loy2013diagnostic},
+\citet{loy2014hlmdiag} and \citet{loy2015you}. They use lineup protocols
+to judge the assumption of linearity, normality and constant error
+variance for both the level-1 and level-2 residuals.
 
 \hypertarget{sampling-from-the-null-distribution}{%
 \subsubsection{Sampling from the null
