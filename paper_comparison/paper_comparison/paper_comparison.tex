@@ -116,15 +116,15 @@ model is potentially misspecified. However, correctly judging a residual
 plot where no pattern exists is a painstakingly difficult task for
 humans.
 
-It is especially common, particularly among new statistics students to
-report patterns when an experienced data analyst might quickly conclude
-that there are none. {[}ET: I don't know if the former statement is
-true? \textgreater\textgreater{} PL: change to students{]} Generally,
-one looks for noticeable departures from the model like non-linear
-dependency or heteroskedasticity. It is also possible to conduct
-hypothesis tests for non-linear dependence \citep{ramsey_tests_1969},
-and use a Breusch-Pagan test \citep{breusch_simple_1979} for
-heteroskedasticity.
+It is especially common, particularly among new data analytics students
+to report patterns when an experienced data analyst might quickly
+conclude that there are none. {[}ET: I don't know if the former
+statement is true? \textgreater\textgreater{} PL: change to students{]}
+Generally, one looks for noticeable departures from the model like
+non-linear dependency or heteroskedasticity. It is also possible to
+conduct hypothesis tests for non-linear dependence
+\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
+\citep{breusch_simple_1979} for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for
 linear regression: \citet{draper1998applied},
@@ -158,9 +158,6 @@ might be passed on to computer vision.
 \subsection{Departures from good residual
 plots}\label{departures-from-good-residual-plots}}
 
-(This section discusses the visual patterns data analysts expect to see
-and their implications.)
-
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/residual-plot-common-departures-1} 
@@ -171,22 +168,24 @@ and their implications.)
 \end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
-or other functions of the predictor variables that are approximately
-orthogonal to residuals are referred to as standard residual plots in
+or other functions of the regressors that are approximately orthogonal
+to residuals are referred to as standard residual plots in
 \citet{cook1982residuals}. As shown in Figure
 \ref{fig:residual-plot-common-departures}, the top-left panel is a good
 residual plot with residuals evenly distributed at both sides of the
-horizontal zero line showing no noticeable patterns. There are various
-types of departures from a good residual plot.
+horizontal zero line showing no noticeable patterns.
 
+There are various types of departures from a good residual plot.
 Non-linearity, heterskedasticity and non-normality are perhaps the three
-mostly checked departures. Non-linearity is a type of model
-misspecification caused by failing to include higher order terms of the
-regressors in the regression equation. Any non-linear functional form of
-residuals on fitted values presented in the residual plot could be
-considered as an indicative of non-linearity. An example residual plot
-containing visual pattern of non-linearity is given at the top-right of
-Figure \ref{fig:commondepartures}. One can clearly observe the
+mostly checked departures.
+
+Non-linearity is a type of model misspecification caused by failing to
+include higher order terms of the regressors in the regression equation.
+Any non-linear functional form of residuals on fitted values presented
+in the residual plot could be considered as an indicative of
+non-linearity. An example residual plot containing visual pattern of
+non-linearity is given at plot B of Figure
+\ref{fig:residual-plot-common-departures}. One can clearly observe the
 ``S-shape'' from the residual plot as the cubic term is not captured by
 the misspecified model.
 
@@ -196,8 +195,8 @@ assumptions on the variance-covariance matrix of the error term. The
 usual pattern of heteroskedasticity on a residual plot is the
 inconsistent spread of the residuals across the horizontal axis.
 Visually, it sometimes results in the so-called ``butterfly'' shape as
-shown in the bottom-left panel of Figure \ref{fig:commondepartures}, or
-the ``left-triangle'' and ``right-triangle'' shape where the smallest
+shown in the plot C of Figure \ref{fig:residual-plot-common-departures},
+or the ``left-triangle'' and ``right-triangle'' shape where the smallest
 variance occurs at one side of the horizontal axis.
 
 Compared to non-linearity and heteroskedasticity, non-normality is
@@ -261,11 +260,11 @@ acceptability of assumptions flexibly, even in the presence of outliers.
 
 \begin{table}
 
-\caption{\label{tab:example-residual-plot-table}Statistical significance testing for departures from good residuals for plots in Figure \ref{fig:residual-plot-common-departures}. Shown are the $p$-values calculated for the conventional Model structural, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.}
+\caption{\label{tab:example-residual-plot-table}Statistical significance testing for departures from good residuals for plots in Figure \ref{fig:residual-plot-common-departures}. Shown are the $p$-values calculated for the conventional RESET, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.}
 \centering
 \begin{tabular}[t]{llrrr}
 \toprule
-Plot & Departures & Model structural & Breusch-Pagan & Shapiro–Wilk\\
+Plot & Departures & RESET & Breusch-Pagan & Shapiro–Wilk\\
 \midrule
 A & None & 0.434 & 0.133 & 0.728\\
 B & Non-linearity & \em{0.000} & \em{0.000} & \em{0.039}\\
