@@ -68,6 +68,7 @@ set.seed(10086)
 # from the github repo. Cache it.
 if (!file.exists(here::here("data/vi_lineup.rds"))) {
   vi_lineup <- get_vi_lineup()
+  if (!dir.exists(here::here("data/"))) dir.create(here::here("data/"))
   saveRDS(vi_lineup, here::here("data/vi_lineup.rds"))
 } else {
   vi_lineup <- readRDS(here::here("data/vi_lineup.rds"))
