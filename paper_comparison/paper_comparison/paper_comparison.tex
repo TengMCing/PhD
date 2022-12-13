@@ -826,48 +826,6 @@ Besides, there were 886 attention checks not included in the following
 analysis. The collated dataset is provided in \texttt{vi\_survey} of the
 \texttt{visage} \texttt{R} package.
 
-\hypertarget{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}{%
-\subsection{P-value comparison (remove?) (closer to the topic of the
-paper) (put it after
-power)}\label{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}}
-
-Visual inference and conventional hypothesis testing are two distinct
-statistical procedures. As displayed in Figure
-\ref{fig:p-value-comparison}, the visual test gives higher p-values than
-the conventional test for both polynomial and heteroskedasticity models
-in most of the time, suggesting that humans have lower confidence and
-much higher tolerance of the residual departures than the conventional
-test.
-
-In particular, given 95\% confidence level, both tests will reject
-\(H_0\) in only around 58\% of the cases. And in 41\% of the cases, the
-visual test does not reject \(H_0\) but the conventional test does.
-Since fail to reject \(H_0\) in a visual test means that there is no
-obvious visual discoveries found in the residual plot, analysts and the
-general public as the consumers of the output may not fully believe in
-the rejection of \(H_0\) even though the alternative hypothesis is true.
-Even if the rejection is accepted, the model violation may not be
-considered as impactful due to the fact that the departures are not
-clearly visible.
-
-This makes it sounds like people are arrogantly ignoring the accuracy of
-conventional tests and trust too much to their visual perception, but it
-is not. In fact, the sensitivity of the conventional test could
-sometimes distract and discourage analysts from finding a simple but
-good linear approximation to the data. The rejection of \(H_0\) because
-of acceptable and negligible residual departure is not practically
-meaningful and useful. This also partly explains why abundance of
-literature suggesting the use of data plot in regression diagnostics.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
-
-}
-
-\caption{Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. }\label{fig:p-value-comparison}
-\end{figure}
-
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
 
@@ -951,6 +909,48 @@ tests in residual diagnostics among analysts.
 
 tick mark on x. dashed line too strong. use solid line (grey) in light
 color.
+
+\hypertarget{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}{%
+\subsection{P-value comparison (remove?) (closer to the topic of the
+paper) (put it after
+power)}\label{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}}
+
+Visual inference and conventional hypothesis testing are two distinct
+statistical procedures. As displayed in Figure
+\ref{fig:p-value-comparison}, the visual test gives higher p-values than
+the conventional test for both polynomial and heteroskedasticity models
+in most of the time, suggesting that humans have lower confidence and
+much higher tolerance of the residual departures than the conventional
+test.
+
+In particular, given 95\% confidence level, both tests will reject
+\(H_0\) in only around 58\% of the cases. And in 41\% of the cases, the
+visual test does not reject \(H_0\) but the conventional test does.
+Since fail to reject \(H_0\) in a visual test means that there is no
+obvious visual discoveries found in the residual plot, analysts and the
+general public as the consumers of the output may not fully believe in
+the rejection of \(H_0\) even though the alternative hypothesis is true.
+Even if the rejection is accepted, the model violation may not be
+considered as impactful due to the fact that the departures are not
+clearly visible.
+
+This makes it sounds like people are arrogantly ignoring the accuracy of
+conventional tests and trust too much to their visual perception, but it
+is not. In fact, the sensitivity of the conventional test could
+sometimes distract and discourage analysts from finding a simple but
+good linear approximation to the data. The rejection of \(H_0\) because
+of acceptable and negligible residual departure is not practically
+meaningful and useful. This also partly explains why abundance of
+literature suggesting the use of data plot in regression diagnostics.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
+
+}
+
+\caption{Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. }\label{fig:p-value-comparison}
+\end{figure}
 
 \hypertarget{lineup-selection}{%
 \subsection{Lineup selection}\label{lineup-selection}}
