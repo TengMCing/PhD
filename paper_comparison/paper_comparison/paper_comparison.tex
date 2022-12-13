@@ -109,18 +109,18 @@ is cause for concern. The distribution could also be inspected by
 conducting a goodness of fit test, such as the Shapiro-Wilk Normality
 test \citep{shapiro1965analysis}.
 
-Residuals might also be plotted, as a scatter plot against the predicted
-values and each of the explanatory variables to scrutinize their
-relationships. If there is any visually discoverable patterns, the model
-is potentially misspecified. However, correctly judging a residual plot
-where no pattern exists is a painstakingly difficult task for humans. It
-is especially common, particularly among new data analytics students to
-report patterns when an experienced data analyst might quickly conclude
-that there are none. Generally, one looks for noticeable departures from
-the model like non-linear dependency or heteroskedasticity. It is also
-possible to conduct hypothesis tests for non-linear dependence
-\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
-\citep{breusch_simple_1979} for heteroskedasticity.
+More typically, residuals will be plotted, as a scatter plot against the
+predicted values and each of the explanatory variables to scrutinize
+their relationships. If there is any visually discoverable patterns, the
+model is potentially misspecified. However, correctly judging a residual
+plot where no pattern exists is a painstakingly difficult task for
+humans. It is especially common, particularly among new data analytics
+students to report patterns when an experienced data analyst might
+quickly conclude that there are none. Generally, one looks for
+noticeable departures from the model like non-linear dependency or
+heteroskedasticity. It is also possible to conduct hypothesis tests for
+non-linear dependence \citep{ramsey_tests_1969}, and use a Breusch-Pagan
+test \citep{breusch_simple_1979} for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for
 linear regression: \citet{draper1998applied},
@@ -197,16 +197,19 @@ variance occurs at one side of the horizontal axis.
 Compared to non-linearity and heteroskedasticity, non-normality is
 usually harder to detect from a residual plot since scatter plot do not
 readily reveal the marginal distribution. A favourable graphical summary
-for this task is the quantile-quantile plot. However, for a consistent
-comparison, residual plot will be the focus of this paper. Besides, it
-is important to note that not all regression models assume normality for
-the error term, but a certain amount do including the classical normal
-linear regression model. In the case that the normality assumption is
-violated, it is expected to observe data points do not center around the
-horizontal axis and there is an uneven distribution of the number points
-at both below and above the horizontal axis. For example, given a skewed
-error distribution, fewer data points and more outliers are on one side
-of the horizontal axis as shown in plot D of Figure
+for this task is the quantile-quantile plot. For a consistent
+comparison, the residual plot of this departure is still presented in
+plot D of Figure \ref{fig:residual-plot-common-departures}. But since
+the scatter plot is not optimal for this task, non-normality will not be
+the focus of this paper. Besides, it is important to note that not all
+regression models assume normality for the error term, but a certain
+amount do including the classical normal linear regression model. In the
+case that the normality assumption is violated, it is expected to
+observe data points do not center around the horizontal axis and there
+is an uneven distribution of the number points at both below and above
+the horizontal axis. For example, given a skewed error distribution,
+fewer data points and more outliers are on one side of the horizontal
+axis as shown in plot D of Figure
 \ref{fig:residual-plot-common-departures}.
 
 \hypertarget{conventionally-testing-for-departures}{%
@@ -564,8 +567,6 @@ above model is formulated as
 
 \noindent where
 \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
-
-\textbf{test}
 
 Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
 out by the null regression, which will result in model misspecification.
