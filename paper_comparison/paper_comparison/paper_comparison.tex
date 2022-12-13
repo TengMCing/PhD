@@ -139,7 +139,7 @@ investigating why this might be common advice is the subject of this
 paper. The paper is structured as follows. The next background section
 describes the types of departures that one expects to detect, and
 describes a formal statistical process for reading residual plots,
-called visual inference. Section \ref{experimental-design} describes the
+called visual inference. Section \ref{experiment-design} describes the
 experiment design to compare the decision made by formal hypothesis
 testing, and how humans would read diagnostic plots. The results are
 reported in Section \ref{results}. We finish with a discussion on future
@@ -534,8 +534,8 @@ our experiments.
 
 Experiment I is designed to study the ability of human subjects to
 detect the effect of a non-linear term \(\boldsymbol{z}\) constructed
-using Hermite polynomials {[}Hermite ref here{]} on random vector
-\(\boldsymbol{x}\) formulated as
+using Hermite polynomials {[}unsure how to cite 1810 work{]} on random
+vector \(\boldsymbol{x}\) formulated as
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
@@ -576,18 +576,18 @@ summary of the factors is given in Table \ref{tab:model-factor-table}.
 
 \begin{table}
 
-\caption{\label{tab:model-factor-table}Description of all factors involved in the nonlinear and heteroskedasticity studies.}
+\caption{\label{tab:model-factor-table}Description of all factors involved in the non-linear and heteroskedasticity studies.}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rcrrrr}
 \toprule
-\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Poly Shape ($a$)} & \multicolumn{1}{c}{Heteroskedasticity ($b$)} & \multicolumn{1}{c}{Size ($n$)} \\
+\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Heteroskedasticity Shape ($a$)} & \multicolumn{1}{c}{Heteroskedasticity ($b$)} & \multicolumn{1}{c}{Size ($n$)} \\
 \cmidrule(l{3pt}r{3pt}){1-1} \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6}
 2 & $U(-1, 1)$ & 0.25 & -1 & 0.25 & 50\\
 3 & $N(0, 0.3^2)$ & 1.00 & 0 & 1.00 & 100\\
 6 & $lognormal(0, 0.6^2)/3$ & 2.00 & 1 & 4.00 & 300\\
 18 & $U\{1, 5\}$ & 4.00 &  & 16.00 & \\
- & NA &  &  & 64.00 & \\
+ &  &  &  & 64.00 & \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -613,13 +613,14 @@ which could enrich the pool of visual patterns.
 
 }
 
-\caption{Variations in fitted values, that might affect perception of residual plots. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns.}\label{fig:different-dist}
+\caption{Variations in fitted values, that might affect perception of residual plots. Four different distribution of $X_{raw}$ are used in the experiment to provide various visual patterns.}\label{fig:different-dist}
 \end{figure}
 
 Figure \ref{fig:example-poly-lineup} shows one of the lineups used in
-experiment I. This lineup was produced under \(j = 6\) and
-\(X_{raw} \sim N(0.0.3^2)\). The actual data plot location was four. All
-five subjects correctly identified the actual data plot for this lineup.
+experiment I. This lineup is produced under \(j = 6\) and
+\(X_{raw} \sim N(0.0.3^2)\). The actual data plot location is
+\(2^3 - 4\). All five subjects correctly identified the actual data plot
+for this lineup.
 
 \begin{figure}
 
@@ -652,11 +653,12 @@ above model is formulated exactly the same as Equation
 \ref{eq:null-model}.
 
 For \(b \neq 0\), the variance-covariance matrix of the error term
-\(\boldsymbol{\varepsilon}\) is correlated with the regressor \(x\),
-which will lead to the presence of heteroskedasticity. Visual patterns
-were simulated using three different shapes (\(a\) = -1, 0, 1) and the
-same four different distribution of \(X_{raw}\) used in experiment I. A
-summary of the factors is given in Table \ref{tab:model-factor-table}.
+\(\boldsymbol{\varepsilon}\) is correlated with the regressor
+\(\boldsymbol{x}\), which will lead to the presence of
+heteroskedasticity. Visual patterns were simulated using three different
+shapes (\(a\) = -1, 0, 1) and the same four different distribution of
+\(X_{raw}\) used in experiment I. A summary of the factors is given in
+Table \ref{tab:model-factor-table}.
 
 The values of \(a\) was chosen so that different shapes of
 heteroskedasticity were included in the residual plot. These include
@@ -683,12 +685,12 @@ displayed in Figure \ref{fig:different-shape-of-heter}.
 
 An example lineup of this model is shown in Figure
 \ref{fig:example-heter-lineup} with \(a = -1\) and
-\(X_{raw} \sim U(-1, 1)\). The actual data plot location was 15. 8 out
-of 11 subjects correctly identified the actual data plot for this
-lineup.
+\(X_{raw} \sim U(-1, 1)\). The actual data plot location is \(2^4 + 2\).
+Nine out of 11 subjects correctly identified the actual data plot for
+this lineup.
 
-\hypertarget{experimental-setup}{%
-\subsection{Experimental setup}\label{experimental-setup}}
+\hypertarget{experiment-setup}{%
+\subsection{Experiment setup}\label{experiment-setup}}
 
 \hypertarget{controlling-the-strength-of-the-signal}{%
 \subsubsection{Controlling the strength of the
@@ -702,7 +704,7 @@ continuous. Parameter \(\sigma \in \{0.5, 1, 2, 4\}\) and
 \(b \in \{0.25, 1, 4, 16, 64\}\) were used in experiment I and II
 respectively. Figure \ref{fig:different-sigma} and \ref{fig:different-b}
 demonstrate the impact of these two parameters. A large value of
-\(\sigma\) will increase the variation of the error of the non-linear
+\(\sigma\) will increase the variation of the error of the non-linearity
 model and decrease the visibility of the visual pattern. The parameter
 \(b\) controls the ratio of the standard deviation of the
 heteroskedasticity across the domain of the regressor. Given
@@ -745,37 +747,48 @@ more difficult to be detected.
 \hypertarget{subject-allocation}{%
 \subsubsection{Subject allocation}\label{subject-allocation}}
 
-Three replications are made for each of the parameter values shown in
-Table \ref{tab:parameter-table} resulting in
+Three replications were made for each of the parameter values shown in
+Table \ref{tab:model-factor-table} resulting in
 \((4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116\)
-different lineups. In addition, each lineup is designed to be evaluated
+different lineups. In addition, each lineup was designed to be evaluated
 by five different subjects. After attempting some pilot studies
-internally in our research group, we decide to present a block of 20
+internally in our research group, we decided to present a block of 20
 lineups to every subject. And to ensure the quality of the survey data,
-two lineups with obvious visual patterns are included as attention
-checks. Thus, \(576 \times 5/(20-2) = 160\) and
-\(540 \times 5 /(20-2) = 150\) subjects were recruited to satisfy the
-design of the experiment I and experiment II respectively.
+two lineups with obvious visual patterns were included as attention
+checks. Thus, \(576 \times 5 \div (20-2) = 160\) and
+\(540 \times 5 \div (20-2) = 150\) subjects were recruited to satisfy
+the design of the experiment I and experiment II respectively.
 
-As mentioned in Section {[}the alpha section{]}, \(\alpha\) used in
-Equation \ref{eq:eq:pvalue-beta-binomial} needs to be estimated using
-Rorschach lineups. Hence, 36 Rorschach lineups with all combinations of
-\(n\) and \(X_{raw}\) and three replications are designed to be included
-in experiment III. All Rorschach lineups are planned to be evaluated by
-20 subjects. However, presenting only Rorschach lineups to subjects are
+As mentioned in Section \ref{calculating-p-values}, \(\alpha\) used in
+Equation \ref{eq:pvalue-beta-binomial} needs to be estimated using
+Rorschach lineups. Hence, 36 lineups consist of only null plots with all
+combinations of \(n\) and \(X_{raw}\) and three replications are
+designed to be included in experiment III. Note that we generated the
+lineups using the same simulation mechanism discussed in Section
+\ref{sampling-from-the-null-distribution} rather than from a null model.
+We overlooked this detail until the data had been collected. Thus, we
+used another valid method suggested in vanderplas2021statistical which
+was designed for typical lineups to estimate \(\alpha\) correctly.
+However, by not using Rorschach lineups, we did lose some accuracy in
+the estimation. We recommend future studies to generate Rorschach
+lineups strictly following the definition given by
+buja\_statistical\_2009.
+
+All lineups consist of only null plots are planned to be evaluated by 20
+subjects. However, presenting only these lineups to subjects are
 considered to be bad practices as subjects will lose interest quickly.
 We planned to also collect 6 more evaluations on the 279 lineups with
-uniform distribution, resulted in
-\((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3)/(20-2) = 133\)
+\(X_{raw} \sim U(-1,1)\), resulted in
+\((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3) \div (20-2) = 133\)
 subjects recruited for experiment III.
 
 \hypertarget{collecting-results}{%
 \subsubsection{Collecting results}\label{collecting-results}}
 
 Subjects for all three experiments were recruited from an crowdsourcing
-platform called Prolific {[}ref here{]}. Prescreening procedure was
-applied during the recruitment, subjects were required to be fluent in
-English, with \(98\%\) minimum approval rate in other studies and 10
+platform called Prolific {[}palan2018prolific{]}. Prescreening procedure
+was applied during the recruitment, subjects were required to be fluent
+in English, with \(98\%\) minimum approval rate in other studies and 10
 minimum submissions. During the experiment, every subject was presented
 with a block of 20 lineups. For each lineup, the actual data plot was
 drawn as a standard residual plot of the null model with raw residuals

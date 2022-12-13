@@ -311,7 +311,7 @@ More typically, residuals will be plotted, as a scatter plot against the predict
 
 Abundance of literature describe appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* A common guidance by experts is that optimal method for diagnosing model fits is by plotting the data.
 
-The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal statistical process for reading residual plots, called visual inference. Section \ref{experimental-design} describes the experiment design to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
+The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal statistical process for reading residual plots, called visual inference. Section \ref{experiment-design} describes the experiment design to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
 
 # Background
@@ -333,8 +333,8 @@ patchwork::wrap_plots(
   # Plot base data
   mod$plot(dat, theme = theme_light()) +
     ggtitle("A. Good residuals") + 
-    xlab("fitted values") + 
-    ylab("residuals"),
+    xlab("Fitted values") + 
+    ylab("Residuals"),
   
   # Include the z term
   # Reuse the x and e terms
@@ -343,8 +343,8 @@ patchwork::wrap_plots(
              gen(300, computed = select(dat, x, e)), 
     theme = theme_light()) + 
     ggtitle("B. Non-linearity") +
-    xlab("fitted values") + 
-    ylab("residuals"),
+    xlab("Fitted values") + 
+    ylab("Residuals"),
   
   # Build a heter model
   # Reuse the x and e terms
@@ -352,8 +352,8 @@ patchwork::wrap_plots(
              gen(300, computed = select(dat, x, e)), 
     theme = theme_light()) + 
     ggtitle("C. Heteroskedasticity") +
-    xlab("fitted values") + 
-    ylab("residuals"),
+    xlab("Fitted values") + 
+    ylab("Residuals"),
   
   # Build a heter model with non-normal error
   # Reuse the x term
@@ -475,7 +475,7 @@ The effectiveness of lineup protocol is validated by @majumder_validation_2013 u
 
 Data used in the $m - 1$ null plots need to be simulated. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
-### Calculating $p$-values 
+### Calculating $p$-values
 
 Further, a visual test can involve $K$ independent observers. Let $X_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
@@ -634,24 +634,32 @@ ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(
 
 VI_MODEL$plot(ori_dat) + 
   ggtitle(quote(He[2]:"U")) + 
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote(He[3]:"S")) + 
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(poly_model(shape = 3, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote(He[6]:"M")) + 
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.05)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote(He[18]:"Triple-U")) + 
-  theme_light() -> p4
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 ```
 
-Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials [Hermite ref here] on random vector $\boldsymbol{x}$ formulated as
+Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials [unsure how to cite 1810 work] on random vector $\boldsymbol{x}$ formulated as
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
@@ -682,7 +690,7 @@ Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the nu
 
 ```{r results='asis'}
 data.frame(j = c("2", "3", "6", "18", ""),
-           x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$", "NA"),
+           x_dist = c("$U(-1, 1)$", "$N(0, 0.3^2)$", "$lognormal(0, 0.6^2)/3$", "$U\\{1, 5\\}$", ""),
            sigma = c("0.25", "1.00", "2.00", "4.00", ""),
            a = c("-1", "0", "1", "", ""),
            b = c("0.25", "1.00", "4.00", "16.00", "64.00"),
@@ -692,13 +700,13 @@ data.frame(j = c("2", "3", "6", "18", ""),
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
-               caption  = 'Description of all factors involved in the nonlinear and heteroskedasticity studies.', 
+               caption  = 'Description of all factors involved in the non-linear and heteroskedasticity studies.', 
                label = "model-factor-table" ) %>%
   kableExtra::kable_styling(latex_options = "scale_down") %>%
   kableExtra::add_header_above(c("Poly Order (sym1)", #"Order of Hermite polynomial\n(sym1)", 
                                  "Distribution of sym2\n", 
                                  "SD (sym3)", #"Standard deviation of polynomial model\n(sym3)",
-                                 "Poly Shape (sym4)", # "Shape of heteroskedasticity\n(sym4)", 
+                                 "Heteroskedasticity Shape (sym4)", # "Shape of heteroskedasticity\n(sym4)", 
                                  "Heteroskedasticity (sym5)", # Variance factor of heteroskedasticity model\n(sym5)",
                                  "Size (sym6)")) %>% #"Sample size\n(sym6)")) %>%
   as.character() %>%
@@ -717,29 +725,37 @@ The values of $j$ was chosen so that distinct shapes of non-linearity were inclu
 
 Four different distribution were used to generate $X_{raw}$ as shown in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density, while the discrete uniform distribution provides discreteness in residual plot, which could enrich the pool of visual patterns.
 
-```{r different-dist, fig.height = 2, fig.cap="Variations in fitted values, that might affect perception of residual plots. Four different distribution of $x_{raw}$ are used in the experiment to provide various visual patterns."}
+```{r different-dist, fig.height = 2, fig.cap="Variations in fitted values, that might affect perception of residual plots. Four different distribution of $X_{raw}$ are used in the experiment to provide various visual patterns."}
 ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300)
 
 VI_MODEL$plot(ori_dat) + 
   ggtitle("A. Uniform") + #quote(U(-1,1))) + 
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
   ggtitle("B. Normal") + #quote(N(0,0.3^2))) + 
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_lognormal(sigma = 0.6); closed_form(~stand_dist(raw_x/3 - 1))}, sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
   ggtitle("C. Skewed") + #quote(lognormal(0,0.6^2)/3)) + 
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 VI_MODEL$plot(poly_model(shape = 1, x = rand_uniform_d(k = 5, even = TRUE), sigma = 0.5)$gen(300, computed = select(ori_dat, e))) +
   ggtitle("D. Discrete") + #quote(U~"{1,5}")) + 
-  theme_light() -> p4
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 ```
 
-Figure \ref{fig:example-poly-lineup} shows one of the lineups used in experiment I. This lineup was produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location was four. All five subjects correctly identified the actual data plot for this lineup.
+Figure \ref{fig:example-poly-lineup} shows one of the lineups used in experiment I. This lineup is produced under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The actual data plot location is $2^3 - 4$. All five subjects correctly identified the actual data plot for this lineup.
 
 ```{r example-poly-lineup, fig.cap="Lineup poly-24 in experiment I. Can you spot the most different plot? \\label{fig:example-poly-lineup}"}
 VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
@@ -765,7 +781,7 @@ Experiment II is designed to study the ability of human subjects to detect the a
 
 The null regression model used to fit the realizations generated by the above model is formulated exactly the same as Equation \ref{eq:null-model}.
 
-For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the regressor $x$, which will lead to the presence of heteroskedasticity. Visual patterns were simulated using three different shapes ($a$ = -1, 0, 1) and the same four different distribution of $X_{raw}$ used in experiment I. A summary of the factors is given in Table \ref{tab:model-factor-table}.
+For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the regressor $\boldsymbol{x}$, which will lead to the presence of heteroskedasticity. Visual patterns were simulated using three different shapes ($a$ = -1, 0, 1) and the same four different distribution of $X_{raw}$ used in experiment I. A summary of the factors is given in Table \ref{tab:model-factor-table}.
 
 The values of $a$ was chosen so that different shapes of heteroskedasticity were included in the residual plot. These include left-triangle shape, butterfly shape and right-triangle shape as displayed in Figure \ref{fig:different-shape-of-heter}.
 
@@ -776,34 +792,56 @@ ori_dat <- heter_model(a = -1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~s
 
 VI_MODEL$plot(ori_dat) +
   ggtitle(quote("A. a = -1: Left-triangle")) +
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("B. a = 0: Butterfly")) +
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(heter_model(a = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 128)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("C. a = 1: Right-triangle")) +
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 patchwork::wrap_plots(p1, p2, p3, ncol = 3)
 ```
 
 ```{r example-heter-lineup, fig.cap="Lineup heter-169 in experiment II. Can you spot the most different plot? \\label{fig:example-heter-lineup}"}
-VI_MODEL$plot_lineup(vi_lineup[["heter_169"]]$data, 
+
+# vi_survey %>%
+#   filter(!attention_check) %>%
+#   filter(!null_lineup) %>%
+#   filter(type == "heteroskedasticity") %>%
+#   filter(x_dist == "uniform") %>%
+#   filter(a == -1) %>%
+#   filter(n == 300) %>%
+#   group_by(unique_lineup_id) %>%
+#   summarise(effect_size = first(effect_size)) %>%
+#   arrange(effect_size)
+
+# vi_survey %>%
+#   filter(unique_lineup_id == "heter_471") %>%
+#   View()
+
+VI_MODEL$plot_lineup(vi_lineup$heter_471$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
                      remove_axis = TRUE)
 ```
 
 
-An example lineup of this model is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The actual data plot location was 15. 8 out of 11 subjects correctly identified the actual data plot for this lineup. 
+An example lineup of this model is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The actual data plot location is $2^4 + 2$. Nine out of 11 subjects correctly identified the actual data plot for this lineup. 
 
-## Experimental setup
+## Experiment setup
 
 ### Controlling the strength of the signal
 
-As summarised in Table \ref{tab:model-factor-table}, three additional parameters $n$, $\sigma$ and $b$ were used to control the strength of the signal so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. Parameter $\sigma \in \{0.5, 1, 2, 4\}$ and $b \in \{0.25, 1, 4, 16, 64\}$ were used in experiment I and II respectively. Figure \ref{fig:different-sigma} and \ref{fig:different-b} demonstrate the impact of these two parameters. A large value of $\sigma$ will increase the variation of the error of the non-linear model and decrease the visibility of the visual pattern. The parameter $b$ controls the ratio of the standard deviation of the heteroskedasticity across the domain of the regressor. Given $x \neq a$, a larger value of $b$ will lead to a larger ratio of the variance at $x$ to the variance at $x - a = 0$, making the visual pattern more obvious.
+As summarised in Table \ref{tab:model-factor-table}, three additional parameters $n$, $\sigma$ and $b$ were used to control the strength of the signal so that different difficulty levels of lineups were generated, and therefore, the estimated power curve would be smooth and continuous. Parameter $\sigma \in \{0.5, 1, 2, 4\}$ and $b \in \{0.25, 1, 4, 16, 64\}$ were used in experiment I and II respectively. Figure \ref{fig:different-sigma} and \ref{fig:different-b} demonstrate the impact of these two parameters. A large value of $\sigma$ will increase the variation of the error of the non-linearity model and decrease the visibility of the visual pattern. The parameter $b$ controls the ratio of the standard deviation of the heteroskedasticity across the domain of the regressor. Given $x \neq a$, a larger value of $b$ will lead to a larger ratio of the variance at $x$ to the variance at $x - a = 0$, making the visual pattern more obvious.
 
 Three different sample sizes were used (n = 50, 100, 300) in all three experiments. It can be observed from Figure \ref{fig:different-n} that with fewer data points drawn in a residual plot, the visual pattern is more difficult to be detected.
 
@@ -812,15 +850,21 @@ ori_dat <- poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(
 
 VI_MODEL$plot(ori_dat) + 
   ggtitle(quote(n~"="~300)) + 
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(50, computed = select(ori_dat[1:50,], x, e))) +
   ggtitle(quote(n~"="~50)) + 
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(50, computed = select(ori_dat[1:100,], x, e))) +
   ggtitle(quote(n~"="~100)) + 
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 patchwork::wrap_plots(p2, p3, p1, ncol = 3)
 ```
@@ -831,19 +875,27 @@ ori_dat <- poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(
 
 VI_MODEL$plot(ori_dat) + 
   ggtitle(quote(sigma~"="~0.5)) + 
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1)$gen(300, computed = select(ori_dat, x))) +
   ggtitle(quote(sigma~"="~1)) + 
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 2)$gen(300, computed = select(ori_dat, x))) +
   ggtitle(quote(sigma~"="~2)) + 
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 4)$gen(300, computed = select(ori_dat, x))) +
   ggtitle(quote(sigma~"="~4)) + 
-  theme_light() -> p4
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p4
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 ```
@@ -855,23 +907,33 @@ ori_dat <- heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~st
 
 VI_MODEL$plot(ori_dat) +
   ggtitle(quote("b = 0.25")) +
-  theme_light() -> p1
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p1
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 1)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("b = 1")) +
-  theme_light() -> p2
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p2
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 4)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("b = 4")) +
-  theme_light() -> p3
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p3
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 16)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("b = 16")) +
-  theme_light() -> p4
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p4
 
 VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, b = 64)$gen(300, computed = select(ori_dat, x, e))) +
   ggtitle(quote("b = 64")) +
-  theme_light() -> p5
+  theme_light() +
+  xlab("Fitted values") +
+  ylab("Residuals") -> p5
 
 patchwork::wrap_plots(p1, p2, p3, p4, p5, ncol = 5)
 ```
@@ -879,16 +941,18 @@ patchwork::wrap_plots(p1, p2, p3, p4, p5, ncol = 5)
 
 ### Subject allocation
 
-Three replications are made for each of the parameter values shown in Table \ref{tab:parameter-table} resulting in $(4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116$ different lineups. In addition, each lineup is designed to be evaluated by five different subjects. After attempting some pilot studies internally in our research group, we decide to present a block of 20 lineups to every subject. And to ensure the quality of the survey data, two lineups with obvious visual patterns are included as attention checks. Thus, $576 \times 5/(20-2) = 160$ and $540 \times 5 /(20-2) = 150$ subjects were recruited to satisfy the design of the experiment I and experiment II respectively.
+Three replications were made for each of the parameter values shown in Table \ref{tab:model-factor-table} resulting in $(4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116$ different lineups. In addition, each lineup was designed to be evaluated by five different subjects. After attempting some pilot studies internally in our research group, we decided to present a block of 20 lineups to every subject. And to ensure the quality of the survey data, two lineups with obvious visual patterns were included as attention checks. Thus, $576 \times 5 \div (20-2) = 160$ and $540 \times 5 \div (20-2) = 150$ subjects were recruited to satisfy the design of the experiment I and experiment II respectively.
 
-As mentioned in Section [the alpha section], $\alpha$ used in Equation \ref{eq:eq:pvalue-beta-binomial} needs to be estimated using Rorschach lineups. Hence, 36 Rorschach lineups with all combinations of $n$ and $X_{raw}$ and three replications are designed to be included in experiment III. All Rorschach lineups are planned to be evaluated by 20 subjects. However, presenting only Rorschach lineups to subjects are considered to be bad practices as subjects will lose interest quickly. We planned to also collect 6 more evaluations on the 279 lineups with uniform distribution, resulted in $(36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3)/(20-2) = 133$ subjects recruited for experiment III.
+As mentioned in Section \ref{calculating-p-values}, $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} needs to be estimated using Rorschach lineups. Hence, 36 lineups consist of only null plots with all combinations of $n$ and $X_{raw}$ and three replications are designed to be included in experiment III. Note that we generated the lineups using the same simulation mechanism discussed in Section \ref{sampling-from-the-null-distribution} rather than from a null model. We overlooked this detail until the data had been collected. Thus, we used another valid method suggested in vanderplas2021statistical which was designed for typical lineups to estimate $\alpha$ correctly. However, by not using Rorschach lineups, we did lose some accuracy in the estimation. We recommend future studies to generate Rorschach lineups strictly following the definition given by buja_statistical_2009.
+
+All lineups consist of only null plots are planned to be evaluated by 20 subjects. However, presenting only these lineups to subjects are considered to be bad practices as subjects will lose interest quickly. We planned to also collect 6 more evaluations on the 279 lineups with $X_{raw} \sim U(-1,1)$, resulted in $(36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3) \div (20-2) = 133$ subjects recruited for experiment III.
 
 
 <!-- TODO:subject allocation algorithm -->
 
 ### Collecting results
 
-Subjects for all three experiments were recruited from an crowdsourcing platform called Prolific [ref here]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions. During the experiment, every subject was presented with a block of 20 lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. An additional horizontal red line was added at $y = 0$ as a helping line. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
+Subjects for all three experiments were recruited from an crowdsourcing platform called Prolific [palan2018prolific]. Prescreening procedure was applied during the recruitment, subjects were required to be fluent in English, with $98\%$ minimum approval rate in other studies and 10 minimum submissions. During the experiment, every subject was presented with a block of 20 lineups. For each lineup, the actual data plot was drawn as a standard residual plot of the null model with raw residuals on the y-axis and fitted values on the x-axis. An additional horizontal red line was added at $y = 0$ as a helping line. The 19 null datasets were generated by the residual rotation technique, and plotted in the same way. The lineup consisted of 20 residual plots with one randomly placed actual data plot. And for every lineup, the subject was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots were from others. If there was no noticeable difference between plots in a lineup, subjects were permitted to select zero plots without providing the reason. No subject was shown the same lineup twice. Information about preferred pronoun, age group, education, and previous experience in visual experiment were also collected. A subject's submission was only accepted if the actual data plot was identified for at least one attention check. Data of rejected submissions were discarded automatically to maintain the overall data quality.
 
 <!-- TODO:pipeline description -->
 
