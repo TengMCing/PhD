@@ -617,19 +617,13 @@ cm$plot() +
 ```
 
 
-# Experimental design
-
-(This section discusses the experimental design including the motivation of the experiment, an overview of the experiment, the simulation setting of the depatures from good residual plots, parameter choices, allocation of the lineups and other technical details.)
-
-<!-- ## Experiment overview-->
-
-<!-- With our knowledge, the effectiveness of visual test relative to the equivalent conventional test in regression diagnostics has not been validated. Particularly, its ability to detect non-linearity and heteroskedasticity compared to model structural test and Breusch–Pagan test. Meanwhile, as mentioned in Section \ref{introduction} section, we keen to understand the differences between conventional hypothesis testing and graphical diagnostics in the application of linear regression diagnostics and why conventional tests are not preferred by data analysts in linear regression diagnostics. Attempting to find the answer to these questions, three experiments were conducted. -->
+# Experiment design
 
 Three experiments were conducted to investigate the difference between conventional hypothesis testing and visual inference in the application of linear regression diagnostics. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. Meanwhile, the experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to lineup with only good residual plots such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups performed by 443 subjects throughout three experiment. 
 
 ## Simulating departures
 
-Two types of departures, namely non-linearity and heteroskedasticity, were considered with the corresponding data generating process being designed for experiment I and II. 
+Two types of departures, namely non-linearity and heteroskedasticity, were considered with the corresponding data generating process being designed for experiment I and II. As mentioned earlier, residual plot is not suitable for revealing non-normality, thus it was not considered in our experiments. 
 
 ### Non-linearity
 
