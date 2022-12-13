@@ -317,29 +317,30 @@ picks the actual data plot, then the Type I error of this test is
 
 }
 
-\caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 7, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 7.}\label{fig:first-example-lineup}
+\caption{Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$.}\label{fig:first-example-lineup}
 \end{figure}
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup
-protocol. If the actual data plot at position 7 is identifiable, then it
-is evidence for the rejection of \(H_0\) that the regression model is
-correctly specified. In fact, the actual residual plot is obtained from
-a misspecified regression model with non-linearity issue.
+protocol. If the actual data plot at position \(2^2 + 2\) is
+identifiable, then it is evidence for the rejection of \(H_0\) that the
+regression model is correctly specified. In fact, the actual residual
+plot is obtained from a misspecified regression model with non-linearity
+defect.
 
 The effectiveness of lineup protocol is validated by
 \citet{majumder_validation_2013} under relatively simple classical
 normal linear regression model settings with one or two regressors.
-Their results suggest visual test is capable of testing the significance
-of a single regressor with a similar power as a t-test, though they
-expressed that in general it is unnecessary to use visual inference if
-there exists a conventional test and they didn't expect the visual test
-to perform equally well as the conventional test. In their third
-experiment, where there does not exist a proper conventional test,
+Their results suggest that visual test is capable of testing the
+significance of a single regressor with a similar power as a t-test,
+though they express that in general it is unnecessary to use visual
+inference if there exists a conventional test and they do not expect the
+visual test to perform equally well as the conventional test. In their
+third experiment, where there does not exist a proper conventional test,
 visual test outperforms the conventional test for a large margin. This
 is encouraging as it promotes the use of visual inference in border
 field of data science where there are no existing statistical testing
-procedures. Visual inference have also been integrated into diagnostic
-of hierarchical linear models by \citet{loy2013diagnostic},
+procedures. Visual inference have also already been integrated into
+diagnostic of hierarchical linear models by \citet{loy2013diagnostic},
 \citet{loy2014hlmdiag} and \citet{loy2015you}. They use lineup protocols
 to judge the assumption of linearity, normality and constant error
 variance for both the level-1 and level-2 residuals.
