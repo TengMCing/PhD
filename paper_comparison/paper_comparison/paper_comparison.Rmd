@@ -968,9 +968,9 @@ Besides, there were 886 attention checks not included in the following analysis.
 
 ## Power comparison
 
-Figure \ref{fig:polypower} show the estimated power of visual test on lineups produced by the non-linearity model with the $X_{raw}$ following a uniform distribution, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - F-test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
+Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - RESET test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
-Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - F-test and Shapiro-Wilk test. 
+Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
 For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
 
@@ -983,15 +983,6 @@ $H_0$ of the F-test will be always satisfied.
 
 Overall, the power analysis suggests that conventional tests do not match how humans perceive residual plots and thus determine model violations in these two scenarios. Non-severe model violations with human acceptable residual departures could often alarm by the conventional tests. This could limit the popularity of conventional tests in residual diagnostics among analysts.
 
-```{r eval = FALSE}
-filter(vi_survey, type == "polynomial") %>%
-  filter(x_dist == "uniform") %>%
-  mutate(log_es = abs(log(effect_size) - 4)) %>%
-  arrange(log_es) %>%
-  View()
-```
-
-
 
 <!-- TODO:difference between the simple formula and the simulation approach -->
 
@@ -999,79 +990,6 @@ filter(vi_survey, type == "polynomial") %>%
 boot_y <- function(dat, y, times = 100) {
   map_df(1:times, function(i) slice_sample(dat, n = nrow(dat), replace = TRUE) %>% mutate(boot_id = i))
 }
-```
-
-
-```{r power-poly-uniform, fig.cap = "...", eval = FALSE}
-vi_survey %>%
-  filter(x_dist == "uniform") %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(type == "polynomial") %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  stat_smooth(geom = "line", 
-              data = ~boot_y(.x, reject_dirichlet, times = 500), 
-              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              alpha = 0.03) +
-  geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
-                filter(x_dist == "uniform") %>%
-                pivot_longer(F_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)), 
-              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
-              method = "glm", 
-              method.args = list(family = binomial),
-              se = FALSE) +
-  geom_point(aes(log_effect_size, prop_detect), alpha = 0.3) + geom_point(data = ~filter(.x, unique_lineup_id %in% c("poly_166", "poly_269", "poly_396", "poly_574")), aes(log_effect_size, prop_detect), alpha = 1, col = "red", size = 2) +
-  theme_light(base_size = 5) +
-  scale_color_brewer(palette = "Dark2", direction = -1) +
-  xlab("Natural logarithm of effect size") +
-  ylab("Power") -> p
-
-VI_MODEL$plot_lineup(vi_lineup[["poly_166"]]$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE,
-                     size = 0.1) + 
-  ggtitle(bquote(log[e](E) %~~% 1~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_166")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_166")$p_value[1], digits = 3)))) -> p1
-
-VI_MODEL$plot_lineup(vi_lineup[["poly_269"]]$data,
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE,
-                     size = 0.1) + 
-  ggtitle(bquote(log[e](E) %~~% 2~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_269")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_269")$p_value[1], digits = 3)))) -> p2
-
-VI_MODEL$plot_lineup(vi_lineup[["poly_396"]]$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE, 
-                     size = 0.1) + 
-  ggtitle(bquote(log[e](E) %~~% 3~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_396")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_396")$p_value[1], digits = 3)))) -> p3
-
-VI_MODEL$plot_lineup(vi_lineup[["poly_574"]]$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(base_size = 5),
-                     remove_axis = TRUE,
-                     size = 0.1) + 
-  ggtitle(bquote(log[e](E) %~~% 4~","~"F-test p-value" == .(format(filter(vi_survey, unique_lineup_id == "poly_574")$conventional_p_value[1], digits = 3))~", Visual p-value " == .(format(filter(vi_survey, unique_lineup_id == "poly_574")$p_value[1], digits = 3)))) -> p4
-
-
-
-design <- c(patchwork::area(1, 1, 1, 8),
-            patchwork::area(2, 1, 2, 4), 
-            patchwork::area(2, 5, 2, 8), 
-            patchwork::area(3, 1, 3, 4), 
-            patchwork::area(3, 5, 3, 8))
-
-patchwork::wrap_plots(p, B = p1, C = p2, D = p3, E = p4, design = design)
 ```
 
 ```{r cache = TRUE}
@@ -1114,10 +1032,11 @@ p <- vi_survey %>%
                group_by(log_effect_size, reject_dirichlet) %>% 
                summarise(num_response = n()),
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.3, col = "grey") +
   theme_light(base_size = 5) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   xlab("Effect size (log e)") +
   ylab("Power") +
   labs(col = "", size = "#lineups")
@@ -1149,7 +1068,7 @@ for (i in target_sigma) {
 <!-- But still, we observe the huge gap in power between the preferred conventional tests and the visual test which is consistent with our previous argument that conventional test is too sensitive for diagnosing non-linearity and heteroskedasticity. -->
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for nonlinear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much nonlinearity in the residuals? For the F test this is around log effect size 0.5, but for the visual test it is around 3."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for non-linear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1, but for the visual test it is around 3."}
 patchwork::wrap_plots(append(plist, list(p), 
                              after = 0), 
                       design = map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
@@ -1219,9 +1138,10 @@ p <- vi_survey %>%
                group_by(log_effect_size, reject_dirichlet) %>% 
                summarise(num_response = n()),
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.4, linetype = 2) +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.3, col = "grey") +
   theme_light(base_size = 5) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
@@ -1244,7 +1164,7 @@ for (i in target_b) {
 }
 ```  
   
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="..."}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
                         reduce(c) %>%

@@ -829,11 +829,11 @@ analysis. The collated dataset is provided in \texttt{vi\_survey} of the
 \hypertarget{power-comparison}{%
 \subsection{Power comparison}\label{power-comparison}}
 
-Figure \ref{fig:polypower} show the estimated power of visual test on
-lineups produced by the non-linearity model with the \(X_{raw}\)
-following a uniform distribution, against the natural logarithm of the
-effect \(log_e(E)\) with comparison to the power of an exact test -
-F-test, and two other residual-based conventional tests commonly used in
+Figure \ref{fig:polypower} shows the estimated power of visual test on
+lineups produced by the non-linearity model with
+\(X_{raw} \sim U(-1,1)\), against the natural logarithm of the effect
+\(log_e(E)\) with comparison to the power of an exact test - RESET test,
+and two other residual-based conventional tests commonly used in
 regression diagnostics but for testing heteroskedasticity and
 non-normality respectively. At the bottom of the figure
 \ref{fig:polypower}, there are a sequence of example residuals plots
@@ -845,7 +845,7 @@ Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower},
 but shows corresponding information on lineups produced by the
 heteroskedasticity model. In this scenario, the visual test is compared
 to an approximate test - Breusch-Pagan test, and two other inappropriate
-tests - F-test and Shapiro-Wilk test.
+tests - RESET test and Shapiro-Wilk test.
 
 For the non-linearity model, the power of all four tests increases as
 the effect gets larger. The power curve of F-test climbs aggressively
@@ -895,7 +895,7 @@ tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for nonlinear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much nonlinearity in the residuals? For the F test this is around log effect size 0.5, but for the visual test it is around 3.}\label{fig:polypower}
+\caption{Comparison of power between different tests for non-linear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1, but for the visual test it is around 3.}\label{fig:polypower}
 \end{figure}
 
 \begin{figure}
@@ -904,7 +904,7 @@ tests in residual diagnostics among analysts.
 
 }
 
-\caption{...}\label{fig:heterpower}
+\caption{Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
 \end{figure}
 
 tick mark on x. dashed line too strong. use solid line (grey) in light
