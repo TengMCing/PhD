@@ -109,20 +109,16 @@ is cause for concern. The distribution could also be inspected by
 conducting a goodness of fit test, such as the Shapiro-Wilk Normality
 test \citep{shapiro1965analysis}.
 
-Plotting the residuals against predicted values and each of the
-explanatory variables on a scatter plot is a recommend way to scrutinize
-their relationships. If there is any visually discoverable patterns, the
-model is potentially misspecified. However, correctly judging a residual
-plot where no pattern exists is a painstakingly difficult task for
-humans.
-
-It is especially common, particularly among new data analytics students
-to report patterns when an experienced data analyst might quickly
-conclude that there are none. {[}ET: I don't know if the former
-statement is true? \textgreater\textgreater{} PL: change to students{]}
-Generally, one looks for noticeable departures from the model like
-non-linear dependency or heteroskedasticity. It is also possible to
-conduct hypothesis tests for non-linear dependence
+Residuals might also be plotted, as a scatter plot against the predicted
+values and each of the explanatory variables to scrutinize their
+relationships. If there is any visually discoverable patterns, the model
+is potentially misspecified. However, correctly judging a residual plot
+where no pattern exists is a painstakingly difficult task for humans. It
+is especially common, particularly among new data analytics students to
+report patterns when an experienced data analyst might quickly conclude
+that there are none. Generally, one looks for noticeable departures from
+the model like non-linear dependency or heteroskedasticity. It is also
+possible to conduct hypothesis tests for non-linear dependence
 \citep{ramsey_tests_1969}, and use a Breusch-Pagan test
 \citep{breusch_simple_1979} for heteroskedasticity.
 
@@ -143,9 +139,8 @@ investigating why this might be common advice is the subject of this
 paper. The paper is structured as follows. The next background section
 describes the types of departures that one expects to detect, and
 describes a formal statistical process for reading residual plots,
-called visual inference {[}ET: CITATION HERE? \textgreater\textgreater{}
-PL: arguments removed{]}. Section \ref{experimental-design} describes
-the experiment design to compare the decision made by formal hypothesis
+called visual inference. Section \ref{experimental-design} describes the
+experiment design to compare the decision made by formal hypothesis
 testing, and how humans would read diagnostic plots. The results are
 reported in Section \ref{results}. We finish with a discussion on future
 work, in particular how the responsibility for residual plot reading
@@ -570,6 +565,8 @@ above model is formulated as
 \noindent where
 \(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\).
 
+\textbf{test}
+
 Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
 out by the null regression, which will result in model misspecification.
 Visual patterns of non-linearity were simulated using four different
@@ -803,8 +800,8 @@ quality.
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\hypertarget{data-overview}{%
-\subsection{Data overview}\label{data-overview}}
+\hypertarget{overview}{%
+\subsection{Overview}\label{overview}}
 
 There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and
 123 subjects recruited for experiment I, II and III respectively. In the
@@ -817,8 +814,10 @@ Besides, there were 886 attention checks not included in the following
 analysis. The collated dataset is provided in \texttt{vi\_survey} of the
 \texttt{visage} \texttt{R} package.
 
-\hypertarget{p-value-comparison}{%
-\subsection{P-value comparison}\label{p-value-comparison}}
+\hypertarget{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}{%
+\subsection{P-value comparison (remove?) (closer to the topic of the
+paper) (put it after
+power)}\label{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}}
 
 Visual inference and conventional hypothesis testing are two distinct
 statistical procedures. As displayed in Figure
@@ -938,6 +937,9 @@ tests in residual diagnostics among analysts.
 \caption{...}\label{fig:heterpower}
 \end{figure}
 
+tick mark on x. dashed line too strong. use solid line (grey) in light
+color.
+
 \hypertarget{lineup-selection}{%
 \subsection{Lineup selection}\label{lineup-selection}}
 
@@ -967,6 +969,14 @@ tests in residual diagnostics among analysts.
 
 \caption{...}\label{fig:dadtaplotselfacet}
 \end{figure}
+
+\hypertarget{invesgating-interesting-lineups}{%
+\section{invesgating interesting
+lineups}\label{invesgating-interesting-lineups}}
+
+\hypertarget{change-of-x_dist---power}{%
+\section{change of x\_dist -\textgreater{}
+power}\label{change-of-x_dist---power}}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

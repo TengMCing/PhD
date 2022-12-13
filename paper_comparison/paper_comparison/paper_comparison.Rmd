@@ -307,13 +307,11 @@ Diagnosing a model is the key to determining whether there is anything important
 
 We can assess residuals in multiple ways. Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical normal linear regression model as an example, if the distribution is symmetric and unimodal, it is well-behaved. But if the distribution is skewed, bimodal, multimodal, or contains outliers, there is cause for concern. The distribution could also be inspected by conducting a goodness of fit test, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
 
-Plotting the residuals against predicted values and each of the explanatory variables on a scatter plot is a recommend way to scrutinize their relationships. If there is any visually discoverable patterns, the model is potentially misspecified. However, correctly judging a residual plot where no pattern exists is a painstakingly difficult task for humans. 
-
-It is especially common, particularly among new data analytics students to report patterns when an experienced data analyst might quickly conclude that there are none. [ET: I don't know if the former statement is true? >> PL: change to students] Generally, one looks for noticeable departures from the model like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
+Residuals might also be plotted, as a scatter plot against the predicted values and each of the explanatory variables to scrutinize their relationships. If there is any visually discoverable patterns, the model is potentially misspecified. However, correctly judging a residual plot where no pattern exists is a painstakingly difficult task for humans. It is especially common, particularly among new data analytics students to report patterns when an experienced data analyst might quickly conclude that there are none. Generally, one looks for noticeable departures from the model like non-linear dependency or heteroskedasticity. It is also possible to conduct hypothesis tests for non-linear dependence [@ramsey_tests_1969], and use a Breusch-Pagan test [@breusch_simple_1979] for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for linear regression: @draper1998applied, @montgomery1982introduction, @belsley_regression_1980, @cook_applied_1999 and @cook1982residuals. The diligent reader of these sage writings will also notice sentences that express sentiments like *based on their experience, statistical tests are not widely used in regression diagnostics. The same or even larger amount of information can be provided by diagnostic plots than the corresponding tests in most empirical studies.* A common guidance by experts is that optimal method for diagnosing model fits is by plotting the data.
 
-The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal statistical process for reading residual plots, called visual inference [ET: CITATION HERE? >> PL: arguments removed]. Section \ref{experimental-design} describes the experiment design to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
+The persistence of this advice to check the plots is curious, and investigating why this might be common advice is the subject of this paper. The paper is structured as follows. The next background section describes the types of departures that one expects to detect, and describes a formal statistical process for reading residual plots, called visual inference. Section \ref{experimental-design} describes the experiment design to compare the decision made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in Section \ref{results}. We finish with a discussion on future work, in particular how the responsibility for residual plot reading might be passed on to computer vision.
 
 
 # Background
@@ -449,6 +447,9 @@ Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM)
 
 ```{r first-example-lineup, fig.cap="Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot 7, exhibiting non-linearity) is embedded among 19 null plots, where the residuals were simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot 7."}
 
+# a bit stronger
+# plot 7 -> plot 2^3 - 1
+
 vi_lineup$poly_422$data %>%
   VI_MODEL$plot_lineup(theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
 ```
@@ -523,26 +524,33 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(\boldsymbol{E})),
 \noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
 
 ```{r eval = FALSE}
-MASS::glmmPQL(weighted_detect ~ log_effect_size, random = ~ log_effect_size | subject,  family = quasibinomial(), data = vi_survey %>%
+MASS::glmmPQL(weighted_detect ~ scale(log_effect_size), random = ~ scale(log_effect_size) | subject,  family = quasibinomial(), data = vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform") %>%
   filter(type == "polynomial") %>%
-  mutate(log_effect_size = log10(effect_size)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
   mutate(subject = factor(as.integer(factor(paste(exp, set))))) %>%
   select(log_effect_size, weighted_detect, subject)) -> mod
 
-lme4::glmer(weighted_detect ~ log_effect_size  + (log_effect_size | subject), 
-            family = binomial(),
-            data = vi_survey %>%
+mod_dat <- vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform") %>%
   filter(type == "polynomial") %>%
-    mutate(log_effect_size = log10(effect_size)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  # mutate(log_effect_size = scale(log_effect_size)) %>%
   mutate(subject = factor(as.integer(factor(paste(exp, set))))) %>%
-  select(log_effect_size, weighted_detect, subject)) -> mod
+  select(log_effect_size, weighted_detect, subject)
 
+mod <- lme4::glmer(weighted_detect ~ scale(log_effect_size)  + (scale(log_effect_size) | subject), 
+                   family = quasibinomial(),
+                   data = mod_dat)
+
+mod_dat$log_effect_size
+
+map(seq(-1, 6, 0.1), ~predict(mod, newdata = data.frame(subject = 1:283, log_effect_size = .x), type = "response")) %>%
+  `names<-`()
 
 
 vi_survey %>%
@@ -879,7 +887,7 @@ Subjects for all three experiments were recruited from an crowdsourcing platform
 
 # Results 
 
-## Data overview
+## Overview
 
 <!-- How many people? How many lineups? -->
 
@@ -887,7 +895,7 @@ There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and 123 subje
 
 Besides, there were 886 attention checks not included in the following analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
-## P-value comparison
+## P-value comparison (remove?) (closer to the topic of the paper) (put it after power)
 
 Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test for both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
 
@@ -1204,6 +1212,8 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 ```  
 
 
+tick mark on x. dashed line too strong. use solid line (grey) in light color.
+
 <!-- ## Visual test  -->
 
 <!-- Note that both the p-value and power comparison are not directly based on the diagnostic plots recommended by abundance of literature, but  -->
@@ -1411,3 +1421,8 @@ vi_survey_with_plot %>%
 ```
 
 
+# invesgating interesting lineups
+
+# change of x_dist -> power
+
+# appendix (contains all the details)
