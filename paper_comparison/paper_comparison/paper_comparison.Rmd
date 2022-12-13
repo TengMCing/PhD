@@ -968,7 +968,10 @@ Besides, there were 886 attention checks not included in the following analysis.
 
 ## Power comparison
 
-Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - RESET test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
+Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - RESET test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively.
+For the RESET test, we included different power of fitted values as proxies. According to [@ramsey_tests_1969], there is no general rule for the power of the fitted values needed by the RESET test, but it found power up to four is usually sufficient. Thus, we followed this guidline to conduct the RESET test.
+
+At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 

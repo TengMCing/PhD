@@ -835,11 +835,17 @@ lineups produced by the non-linearity model with
 \(log_e(E)\) with comparison to the power of an exact test - RESET test,
 and two other residual-based conventional tests commonly used in
 regression diagnostics but for testing heteroskedasticity and
-non-normality respectively. At the bottom of the figure
-\ref{fig:polypower}, there are a sequence of example residuals plots
-with increasing levels of \(log_e(E)\). Readers can evaluate them from
-left to right and determine at which level the departure from a good
-residual plot becomes detectable.
+non-normality respectively. For the RESET test, we included different
+power of fitted values as proxies. According to
+\citep{ramsey_tests_1969}, there is no general rule for the power of the
+fitted values needed by the RESET test, but it found power up to four is
+usually sufficient. Thus, we followed this guidline to conduct the RESET
+test.
+
+At the bottom of the figure \ref{fig:polypower}, there are a sequence of
+example residuals plots with increasing levels of \(log_e(E)\). Readers
+can evaluate them from left to right and determine at which level the
+departure from a good residual plot becomes detectable.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower},
 but shows corresponding information on lineups produced by the
