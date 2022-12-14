@@ -270,9 +270,9 @@ D & Non-normality & 0.863 & 0.736 & \em{0.000}\\
 \end{tabular}
 \end{table}
 
-\hypertarget{visual-testing-for-departures}{%
-\subsection{Visual testing for
-departures}\label{visual-testing-for-departures}}
+\hypertarget{visual-test-procedure-based-on-lineups}{%
+\subsection{Visual test procedure based on
+lineups}\label{visual-test-procedure-based-on-lineups}}
 
 \hypertarget{lineup-protocol}{%
 \subsubsection{Lineup protocol}\label{lineup-protocol}}
@@ -367,9 +367,9 @@ null residuals can be simulated by regressing \(N\) i.i.d standard
 normal random draws on the regressors, then rescaling it by the ratio of
 residual sum of square in two regressions.
 
-\hypertarget{calculating-p-values}{%
-\subsubsection{\texorpdfstring{Calculating
-\(p\)-values}{Calculating p-values}}\label{calculating-p-values}}
+\hypertarget{calculating-p-values-for-the-visual-test}{%
+\subsubsection{\texorpdfstring{Calculating \(p\)-values for the visual
+test}{Calculating p-values for the visual test}}\label{calculating-p-values-for-the-visual-test}}
 
 Further, a visual test can involve \(K\) independent observers. Let
 \(X_i = \{0,1\}\) be a binomial random variable denoting whether subject
@@ -453,8 +453,8 @@ But for precise estimate of \(\alpha\), additional responses to
 Rorschach lineups, which is a type of lineup consists of only null
 plots, are required.
 
-\hypertarget{power-calculation}{%
-\subsubsection{Power calculation}\label{power-calculation}}
+\hypertarget{power-of-a-visual-test}{%
+\subsubsection{Power of a visual test}\label{power-of-a-visual-test}}
 
 As discussed in \citet{majumder_validation_2013}, individual's skill
 will affect the number of observers who identify the actual data plot
@@ -495,8 +495,8 @@ the same logistic regression model is fit on different subsets of the
 collated data grouped by levels of factors. This includes
 {[}expansion{]}.
 
-\hypertarget{experiment-design}{%
-\section{Experiment design}\label{experiment-design}}
+\hypertarget{experimental-design}{%
+\section{Experimental design}\label{experimental-design}}
 
 Three experiments were conducted to investigate the difference between
 conventional hypothesis testing and visual inference in the application
@@ -511,8 +511,9 @@ parameter \(\alpha\) in Equation \ref{eq:pvalue-beta-binomial} can be
 estimated. Overall, we planned to collect 7974 evaluations on 1152
 uniqued lineups performed by 443 subjects throughout three experiment.
 
-\hypertarget{simulating-departures}{%
-\subsection{Simulating departures}\label{simulating-departures}}
+\hypertarget{simulating-departures-from-good-residuals}{%
+\subsection{Simulating departures from good
+residuals}\label{simulating-departures-from-good-residuals}}
 
 Two types of departures, namely non-linearity and heteroskedasticity,
 were considered with the corresponding data generating process being
@@ -689,8 +690,8 @@ An example lineup of this model is shown in Figure
 Nine out of 11 subjects correctly identified the actual data plot for
 this lineup.
 
-\hypertarget{experiment-setup}{%
-\subsection{Experiment setup}\label{experiment-setup}}
+\hypertarget{experimental-setup}{%
+\subsection{Experimental setup}\label{experimental-setup}}
 
 \hypertarget{controlling-the-strength-of-the-signal}{%
 \subsubsection{Controlling the strength of the
@@ -826,8 +827,9 @@ Besides, there were 886 attention checks not included in the following
 analysis. The collated dataset is provided in \texttt{vi\_survey} of the
 \texttt{visage} \texttt{R} package.
 
-\hypertarget{power-comparison}{%
-\subsection{Power comparison}\label{power-comparison}}
+\hypertarget{comparison-of-the-power-of-different-tests}{%
+\subsection{Comparison of the power of different
+tests}\label{comparison-of-the-power-of-different-tests}}
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on
 lineups produced by the non-linearity model with
@@ -916,10 +918,9 @@ tests in residual diagnostics among analysts.
 tick mark on x. dashed line too strong. use solid line (grey) in light
 color.
 
-\hypertarget{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}{%
-\subsection{P-value comparison (remove?) (closer to the topic of the
-paper) (put it after
-power)}\label{p-value-comparison-remove-closer-to-the-topic-of-the-paper-put-it-after-power}}
+\hypertarget{comparison-of-rejection-rates-based-on-p-values}{%
+\subsection{\texorpdfstring{Comparison of rejection rates based on
+\(p\)-values}{Comparison of rejection rates based on p-values}}\label{comparison-of-rejection-rates-based-on-p-values}}
 
 Visual inference and conventional hypothesis testing are two distinct
 statistical procedures. As displayed in Figure
@@ -958,8 +959,9 @@ literature suggesting the use of data plot in regression diagnostics.
 \caption{Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. }\label{fig:p-value-comparison}
 \end{figure}
 
-\hypertarget{lineup-selection}{%
-\subsection{Lineup selection}\label{lineup-selection}}
+\hypertarget{effect-of-the-distribution-of-the-independent-variable}{%
+\subsection{Effect of the distribution of the independent
+variable}\label{effect-of-the-distribution-of-the-independent-variable}}
 
 \begin{figure}
 
