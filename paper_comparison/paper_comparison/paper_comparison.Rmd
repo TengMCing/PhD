@@ -1,6 +1,6 @@
 ---
 title: |
-  Why aren't significance tests commonly used for linear regression diagnostics?
+  Why is it that statistical tests are not widely used in regression diagnostics? An explanation using visual inference.
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
