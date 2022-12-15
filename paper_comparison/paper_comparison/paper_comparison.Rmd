@@ -1,6 +1,6 @@
 ---
 title: |
-  Why is it that statistical tests are not widely used in regression diagnostics? An explanation using visual inference.
+  Why is it that statistical tests for residuals are not widely used? An explanation using visual inference.
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
