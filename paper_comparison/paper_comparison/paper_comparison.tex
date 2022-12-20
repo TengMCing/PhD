@@ -848,15 +848,32 @@ tests}\label{comparison-of-the-power-of-different-tests}}
 Figure \ref{fig:polypower} shows the estimated power of visual test on
 lineups produced by the non-linearity model with
 \(X_{raw} \sim U(-1,1)\), against the natural logarithm of the effect
-\(log_e(E)\) with comparison to the power of an exact test - RESET test,
-and two other residual-based conventional tests commonly used in
-regression diagnostics but for testing heteroskedasticity and
-non-normality respectively. For the RESET test, we included different
-power of fitted values as proxies. According to
+\(log_e(E)\).
+
+As discussed in Section \ref{conventionally-testing-for-departures},
+many conventionally tests are available for detecting residual
+departures. Implementation-wise, the built-in R package \texttt{stats}
+provides some commonly used residual-based tests, such as Shapiro-Wilk
+test. A more comprehensive collection of regression diagnostics tests
+can be found in the R package \texttt{lmtest} \citep{lmtest}. In terms
+of heteroskedasticity diagnostics, the R package \texttt{skedastic}
+\citep{skedastic} collects and implements 25 existing conventional tests
+published since 1961.
+
+To compare the power of visual test and conventional tests, we picked
+RESET test (\texttt{resettest}) and Breusch-Pagan test (\texttt{bptest})
+from the R package \texttt{lmtest}, and Shapiro-Wilk test
+(\texttt{shapiro.test}) from the built-in R package \texttt{stats}.
+These three tests can be used to detect non-linearity,
+heteroskedasticity and non-normality respectively. Their estimated power
+is shown in Figure \ref{fig:polypower}. For the RESET test, we included
+different power of fitted values as proxies. According to
 \citep{ramsey_tests_1969}, there is no general rule for the power of the
 fitted values needed by the RESET test, but it found power up to four is
-usually sufficient. Thus, we followed this guidline to conduct the RESET
-test.
+usually sufficient. Thus, we followed this guideline to conduct the
+RESET test. For the Breusch-Pagan test, both \(\boldsymbol{x}\) and
+\(\boldsymbol{x}^2\) were included in the auxiliary regression equation
+to {[}justify this choice?{]}.
 
 At the bottom of the figure \ref{fig:polypower}, there are a sequence of
 example residuals plots with increasing levels of \(log_e(E)\). Readers
