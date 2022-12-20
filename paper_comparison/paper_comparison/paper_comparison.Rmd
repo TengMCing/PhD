@@ -1179,10 +1179,6 @@ for (i in target_b) {
 ```  
   
   
-(top: curves)
-(middle: dots)
-(bottom: vertical lines/grid lines)
-  
   
 ```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
@@ -1191,8 +1187,6 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
                         c(patchwork::area(3, 1, 20, 11), .))
 ```  
 
-
-tick mark on x. dashed line too strong. use solid line (grey) in light color.
 
 <!-- ## Visual test  -->
 
@@ -1235,6 +1229,26 @@ vi_survey %>%
   theme_light()
 ```
 
+
+```{r}
+library(ggmosaic)
+vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  left_join(vi_survey %>% 
+           count(unique_lineup_id) %>%
+           rename(num_subject = n)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not reject"),
+         reject = ifelse(p_value < 0.05, "Reject", "Not reject")) %>%
+  ggplot() +
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(conv_reject, reject), fill = conv_reject)) +
+  xlab("Visual tests") +
+  ylab("Conventional tests") +
+  labs(fill = "Conventional tests")
+```
 
 
 ## Effect of the distribution of the independent variable
