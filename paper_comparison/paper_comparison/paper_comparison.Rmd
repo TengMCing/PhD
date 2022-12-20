@@ -1025,17 +1025,13 @@ p <- vi_survey %>%
   filter(type == "polynomial") %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
-  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  stat_smooth(geom = "line", 
-              data = ~boot_y(.x, reject_dirichlet, times = 500), 
-              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              alpha = 0.03) +
+  geom_point(data = ~.x %>% 
+             group_by(log_effect_size, reject) %>% 
+             summarise(num_response = n()),
+           aes(log_effect_size, reject, size = factor(num_response)), alpha = 0.3)  +
   geom_smooth(data = mutate(poly_conv_sim, log_effect_size = log(effect_size)) %>%
                 select(-(RESET5_p_value:RESET10_p_value)) %>%
                 select(-RESET3_p_value, -F_p_value) %>%
@@ -1047,18 +1043,22 @@ p <- vi_survey %>%
               method = "glm", 
               method.args = list(family = binomial),
               se = FALSE) +
-  geom_point(data = ~.x %>% 
-               group_by(log_effect_size, reject_dirichlet) %>% 
-               summarise(num_response = n()),
-             aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = -Inf, yend = Inf), alpha = 0.3, col = "grey") +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(log_effect_size, reject, group = boot_id, col = "Visual test"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
   theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   xlab("Effect size (log e)") +
   ylab("Power") +
-  labs(col = "", size = "#lineups")
+  labs(col = "", size = "# lineups")
 
 
 set.seed(10085)
@@ -1131,17 +1131,13 @@ p <- vi_survey %>%
   filter(type == "heteroskedasticity") %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
-  mutate(reject_dirichlet = as.numeric(p_value <= 0.05)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject_dirichlet, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  stat_smooth(geom = "line", 
-              data = ~boot_y(.x, reject_dirichlet, times = 500), 
-              aes(log_effect_size, reject_dirichlet, group = boot_id, col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              alpha = 0.03) +
+  geom_point(data = ~.x %>% 
+               group_by(log_effect_size, reject) %>% 
+               summarise(num_response = n()),
+             aes(log_effect_size, reject, size = factor(num_response)), alpha = 0.3) +
   geom_smooth(data = mutate(heter_conv_sim, log_effect_size = log(effect_size)) %>%
                 filter(x_dist == "uniform") %>%
                 select(-(RESET5_p_value:RESET10_p_value)) %>%
@@ -1153,18 +1149,22 @@ p <- vi_survey %>%
               method = "glm", 
               method.args = list(family = binomial),
               se = FALSE) +
-  geom_point(data = ~.x %>% 
-               group_by(log_effect_size, reject_dirichlet) %>% 
-               summarise(num_response = n()),
-             aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = -Inf, yend = Inf), alpha = 0.3, col = "grey") +
+  stat_smooth(geom = "line", 
+              data = ~boot_y(.x, reject, times = 500), 
+              aes(log_effect_size, reject, group = boot_id, col = "Visual test"), 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, 
+              alpha = 0.03) +
+  geom_smooth(aes(log_effect_size, reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
   theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   scale_size_manual(values = c(1, 2, 3)) +
   xlab("Effect size (log e)") +
   ylab("Power") +
-  labs(col = "", size = "#lineups")
+  labs(col = "", size = "# lineups")
 
 set.seed(10089)
 ex_dat <- heter_model(a = 1, x = rand_uniform(-1, 1), b = 1)$gen(n = 100)
