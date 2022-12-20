@@ -1217,6 +1217,7 @@ vi_survey %>%
            rename(num_subject = n)) %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
   ggplot() +
   geom_abline() +
   geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
@@ -1230,7 +1231,7 @@ vi_survey %>%
 ```
 
 
-```{r}
+```{r compare-reject, fig.width=8, fig.height=4, fig.cap="Comparison of conventional and visual test rejection rates."}
 library(ggmosaic)
 vi_survey %>%
   filter(!null_lineup) %>%
@@ -1241,13 +1242,20 @@ vi_survey %>%
            rename(num_subject = n)) %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
-  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not reject"),
-         reject = ifelse(p_value < 0.05, "Reject", "Not reject")) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not"),
+         reject = ifelse(p_value < 0.05, "Reject", "Not")) %>%
+  mutate(conv_reject = factor(conv_reject, levels = c("Reject", "Not")),
+         reject = factor(reject, levels = c("Reject", "Not"))) %>%
   ggplot() +
-  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(conv_reject, reject), fill = conv_reject)) +
-  xlab("Visual tests") +
-  ylab("Conventional tests") +
-  labs(fill = "Conventional tests")
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(reject, conv_reject), fill = reject)) +
+  facet_wrap(~type) +
+  ylab("Visual tests") +
+  xlab("Conventional tests") +
+  labs(fill = "Conventional tests") +
+  scale_fill_brewer("", palette="Dark2") +
+  theme_bw() +
+  theme(legend.position="none")
 ```
 
 
