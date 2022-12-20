@@ -450,9 +450,8 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 \citet{vanderplas2021statistical} suggest that \(\alpha\) can be
 estimated using MLE with Equation \ref{eq:c-interesting-expectation}.
 But for precise estimate of \(\alpha\), additional responses to
-Rorschach lineups, which is a type of lineup that consists of
-
-plots constructed from the same null data generating mechnisam.
+Rorschach lineups, which is a type of lineup that consists of plots
+constructed from the same null data generating mechanism, are required.
 
 \hypertarget{power-of-a-visual-test}{%
 \subsubsection{Power of a visual test}\label{power-of-a-visual-test}}
@@ -765,26 +764,22 @@ checks. Thus, \(576 \times 5 \div (20-2) = 160\) and
 \(540 \times 5 \div (20-2) = 150\) subjects were recruited to satisfy
 the design of the experiment I and experiment II respectively.
 
-As mentioned in Section \ref{calculating-p-values}, \(\alpha\) used in
-Equation \ref{eq:pvalue-beta-binomial} needs to be estimated using
-Rorschach lineups. Hence, 36 lineups consist of only null plots with all
-combinations of \(n\) and \(X_{raw}\) and three replications are
-designed to be included in experiment III. Note that we generated the
-lineups using the same simulation mechanism discussed in Section
-\ref{sampling-from-the-null-distribution} rather than from a null model.
-
-(it has zero effect size, an alternative to Rorschach lineups)
-
-(Appendix: vary the alpha a little bit and see how the curves change,
-sensitivity analysis)
-
-Thus, we used another valid method suggested in
-vanderplas2021statistical which was designed for typical lineups to
-estimate \(\alpha\) correctly. However, by not using Rorschach lineups,
-we did lose some accuracy in the estimation. (questionable)
-
-We recommend future studies to generate Rorschach lineups strictly
-following the definition given by buja\_statistical\_2009.
+As mentioned in Section \ref{calculating-p-values-for-the-visual-test},
+\(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial} needs to be
+estimated using Rorschach lineups. Hence, 36 lineups with all
+combinations of \(n\) and \(X_{raw}\) and three replications were
+included in experiment III. In these lineups, the data of the data plot
+was generated from a model consistent with the null hypothesis, while
+the data of the 19 null plots were generated using the same simulation
+method discussed in Section \ref{sampling-from-the-null-distribution}.
+Technically, this was an alternative to Rorschach lineup but with the
+null distribution further conditioning on the estimated coefficients and
+the residual sum of squares. Thus, we used another valid method
+suggested in \citet{vanderplas2021statistical} which was designed for
+typical lineups to estimate \(\alpha\). Considering the differnece
+between typical lineups and Rorschach lineups, we have also included a
+sensitivity analysis in the Appendix to examine the impact of the
+variance of the estimate on our findings.
 
 All lineups consist of only null plots are planned to be evaluated by 20
 subjects. However, presenting only these lineups to subjects are
