@@ -1,6 +1,6 @@
 ---
 title: |
-  Why aren't significance tests commonly used for linear regression diagnostics?
+  Why is it that statistical tests for residuals are not widely used? An explanation using visual inference.
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r}
-# OOP supports needed by `visuage`
+# OOP supports needed by `visage`
 # remotes::install_github("TengMCing/bandicoot")
 # 
 # Visual inference models and p-value calculation
@@ -438,7 +438,7 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
 ```
 
 
-## Visual testing for departures
+## Visual test procedure based on lineups
 
 ### Lineup protocol
 
@@ -475,7 +475,7 @@ The effectiveness of lineup protocol is validated by @majumder_validation_2013 u
 
 Data used in the $m - 1$ null plots need to be simulated. In the context of regression diagnostics, sampling data from $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually composited by a collection of distributions controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
-### Calculating $p$-values
+### Calculating $p$-values for the visual test
 
 Further, a visual test can involve $K$ independent observers. Let $X_i = \{0,1\}$ be a binomial random variable denoting whether subject $i$ correctly detecting the actual data plot, and $X = \sum_{i=1}^{K}X_i$ be the number of observers correctly picking the actual data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the actual data plot [@majumder_validation_2013].
 
@@ -525,8 +525,7 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 
 plots constructed from the same null data generating mechnisam.
 
-
-### Power calculation
+### Power of a visual test
 
 As discussed in @majumder_validation_2013, individual's skill will affect the number of observers who identify the actual data plot from the lineup. Thus, the power of a visual test depends on the subject-specific abilities. Previously, it is addressed by modelling the probability of a subject $i$ correctly picking the actual data plot from a lineup $l$ using a mixed-effect logistic regression with the subject being treated as a random effect [@majumder_validation_2013]. However, having this probability is insufficient to determine the power of a visual test allowed for multiple selections as it doesn't provide information about the number of selections made by the subject for p-value calculation. 
 
@@ -620,11 +619,11 @@ cm$plot() +
 ```
 
 
-# Experiment design
+# Experimental design
 
 Three experiments were conducted to investigate the difference between conventional hypothesis testing and visual inference in the application of linear regression diagnostics. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. Meanwhile, the experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to lineup with only good residual plots such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we planned to collect 7974 evaluations on 1152 uniqued lineups performed by 443 subjects throughout three experiment. 
 
-## Simulating departures
+## Simulating departures from good residuals
 
 Two types of departures, namely non-linearity and heteroskedasticity, were considered with the corresponding data generating process being designed for experiment I and II. 
 
@@ -844,7 +843,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_471$data,
 
 An example lineup of this model is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The actual data plot location is $2^4 + 2$. Nine out of 11 subjects correctly identified the actual data plot for this lineup. 
 
-## Experiment setup
+## Experimental setup
 
 ### Controlling the strength of the signal
 
@@ -981,7 +980,7 @@ There were 2880, 2880 and 2214 lineups evaluation made by 160, 160 and 123 subje
 
 Besides, there were 886 attention checks not included in the following analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package.
 
-## Power comparison
+## Comparison of the power of different tests 
 
 (discuss choice of tests, mention pkg `lmtest`, `skedastic`)
 
@@ -1207,7 +1206,7 @@ tick mark on x. dashed line too strong. use solid line (grey) in light color.
 
 
 
-## P-value comparison (remove?) (closer to the topic of the paper) (put it after power)
+## Comparison of rejection rates based on $p$-values
 
 (style similar to mosaic plot)
 
@@ -1243,7 +1242,7 @@ vi_survey %>%
 
 
 
-<!-- ## Lineup selection -->
+## Effect of the distribution of the independent variable
 
 
 
