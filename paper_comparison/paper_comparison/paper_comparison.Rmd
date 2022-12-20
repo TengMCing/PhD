@@ -974,19 +974,17 @@ Besides, there were 886 attention checks not included in the following analysis.
 
 ## Comparison of the power of different tests 
 
-(discuss choice of tests, mention pkg `lmtest`, `skedastic`)
-
 Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$. 
 
 As discussed in Section \ref{conventionally-testing-for-departures}, many conventionally tests are available for detecting residual departures. Implementation-wise, the built-in R package `stats` provides some commonly used residual-based tests, such as Shapiro-Wilk test. A more comprehensive collection of regression diagnostics tests can be found in the R package `lmtest` [@lmtest]. In terms of heteroskedasticity diagnostics, the R package `skedastic` [@skedastic] collects and implements 25 existing conventional tests published since 1961.
 
-To compare the power of visual test and conventional tests, we picked RESET test (`resettest`) and Breusch-Pagan test (`bptest`) from the R package `lmtest`, and Shapiro-Wilk test (`shapiro.test`) from the built-in R package `stats`. These three tests can be used to detect non-linearity, heteroskedasticity and non-normality respectively. Their estimated power is shown in Figure \ref{fig:polypower}. For the RESET test, we included different power of fitted values as proxies. According to [@ramsey_tests_1969], there is no general rule for the power of the fitted values needed by the RESET test, but it found power up to four is usually sufficient. Thus, we followed this guideline to conduct the RESET test. For the Breusch-Pagan test, both $\boldsymbol{x}$ and $\boldsymbol{x}^2$ were included in the auxiliary regression equation to [justify this choice?]. 
+To compare the power of visual test and conventional test, we picked RESET test (`resettest`) and Breusch-Pagan test (`bptest`) from the R package `lmtest`, and Shapiro-Wilk test (`shapiro.test`) from the built-in R package `stats`. Among them, RESET test is the only exact and appropriate test in this scenario. Both the Breusch-Pagan test and the Shapiro-Wilk test are approximate and inappropriate tests. Their estimated power is shown in Figure \ref{fig:polypower}. For the RESET test, we included different power of fitted values as proxies. According to @ramsey_tests_1969, there is no general rule for the power of the fitted values needed by the RESET test, but it found power up to four is usually sufficient. Thus, we followed this guideline to conduct the RESET test. For the Breusch-Pagan test, both $\boldsymbol{x}$ and $\boldsymbol{x}^2$ were included in the auxiliary regression equation to [justify this choice?]. 
 
 At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residuals plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
-For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of RESET test climbs aggressively from 13% to around 70% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
+For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of RESET test climbs aggressively from 13% to around 70% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that REST test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
 
 In terms of the heteroskedasticity model, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $0 \leq log_e(E) \leq 2$, where the visual feature is nearly unobservable from the example residual plots and the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting $H_0$. 
 
@@ -995,7 +993,11 @@ The power of visual test arises steadily as $log_e(E)$ increases from 2 to 5 in 
 The power of all inappropriate tests except for F-test shows improvement as the effect increases but at a lower rate than the visual test in both scenarios. This coincides the point made by @cook1982residuals that residual-based tests for a specific type of model defect may be sensitive to other types of model defects. The power curve of F-test remains at around 5% in Figure \ref{fig:heterpower} since there is no non-linear term leave out in the heteroskedasticity model and 
 $H_0$ of the F-test will be always satisfied.
 
-Overall, the power analysis suggests that conventional tests do not match how humans perceive residual plots and thus determine model violations in these two scenarios. Non-severe model violations with human acceptable residual departures could often alarm by the conventional tests. This could limit the popularity of conventional tests in residual diagnostics among analysts.
+Overall, the power analysis suggests that conventional tests do not match how humans perceive residual plots in these two scenarios. Humans have much higher tolerance of the residual departures than the conventional test. Since fail to reject $H_0$ in a visual test means that there is no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not be convinced of the existence of significant residual departures in spite of the rejection of $H_0$ given by the conventional test. Even if the rejection is accepted, the model violation may be considered as impactless due to the fact that they are not clearly visible. Besides, the sensitivity of the conventional test could also distract and discourage analysts from finding simple but good linear approximation to the data. The rejection of $H_0$ because of human acceptable and negligible residual departures is not practically meaningful and useful. (it does not fit the purpose of )
+
+
+
+This could limit the popularity of conventional tests in residual diagnostics among analysts.
 
 
 <!-- TODO:difference between the simple formula and the simulation approach -->
@@ -1207,7 +1209,7 @@ In particular, given 95% confidence level, both tests will reject $H_0$ in only 
 
 This makes it sounds like people are arrogantly ignoring the accuracy of conventional tests and trust too much to their visual perception, but it is not. In fact, the sensitivity of the conventional test could sometimes distract and discourage analysts from finding a simple but good linear approximation to the data. The rejection of $H_0$ because of acceptable and negligible residual departure is not practically meaningful and useful. This also partly explains why abundance of literature suggesting the use of data plot in regression diagnostics.
 
-```{r p-value-comparison, fig.height=4, fig.cap="Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
+```{r p-value-comparison-old, eval = FALSE, fig.height=4, fig.cap="Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
 vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
@@ -1230,7 +1232,8 @@ vi_survey %>%
 ```
 
 
-```{r}
+```{r p-value-comparison, fig.height=4, fig.cap="Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model. Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category."}
+
 library(ggmosaic)
 vi_survey %>%
   filter(!null_lineup) %>%
@@ -1244,10 +1247,11 @@ vi_survey %>%
   mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not reject"),
          reject = ifelse(p_value < 0.05, "Reject", "Not reject")) %>%
   ggplot() +
-  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(conv_reject, reject), fill = conv_reject)) +
-  xlab("Visual tests") +
-  ylab("Conventional tests") +
-  labs(fill = "Conventional tests")
+  geom_mosaic(aes(x = product(conv_reject, reject), fill = conv_reject)) +
+  scale_fill_manual(values = rev(rcartocolor::carto_pal(3, "Vivid"))[2:3]) +
+  xlab("Visual test") +
+  ylab("Conventional test") +
+  labs(fill = "Conventional test")
 ```
 
 
