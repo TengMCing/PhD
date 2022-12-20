@@ -374,7 +374,7 @@ Non-linearity is a type of model misspecification caused by failing to include h
 
 Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in the plot C of Figure \ref{fig:residual-plot-common-departures}, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
 
-Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. For a consistent comparison, the residual plot of this departure is still presented in plot D of Figure \ref{fig:residual-plot-common-departures}. But since the scatter plot is not optimal for this task, non-normality will not be the focus of this paper. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption is violated, it is expected to observe data points do not center around the horizontal axis and there is an uneven distribution of the number points at both below and above the horizontal axis. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the horizontal axis as shown in plot D of Figure \ref{fig:residual-plot-common-departures}.
+Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. For a consistent comparison, the residual plot of this departure is still presented in plot D of Figure \ref{fig:residual-plot-common-departures}. However, since the scatter plot is not suitable for this task, non-normality will not be the focus of this paper. Besides, it is important to note that not all regression models assume normality for the error term, but a certain amount do including the classical normal linear regression model. In the case that the normality assumption is violated, it is expected to observe data points do not center around the horizontal axis and there is an uneven distribution of the number points at both below and above the horizontal axis. For example, given a skewed error distribution, fewer data points and more outliers are on one side of the horizontal axis as shown in plot D of Figure \ref{fig:residual-plot-common-departures}.
 
 
 ## Conventionally testing for departures
@@ -521,7 +521,10 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 ```
 
 
-@vanderplas2021statistical suggest that $\alpha$ can be estimated using MLE with Equation \ref{eq:c-interesting-expectation}. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup consists of only null plots, are required.
+@vanderplas2021statistical suggest that $\alpha$ can be estimated using MLE with Equation \ref{eq:c-interesting-expectation}. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of 
+
+plots constructed from the same null data generating mechnisam.
+
 
 ### Power calculation
 
@@ -623,7 +626,7 @@ Three experiments were conducted to investigate the difference between conventio
 
 ## Simulating departures
 
-Two types of departures, namely non-linearity and heteroskedasticity, were considered with the corresponding data generating process being designed for experiment I and II. As mentioned earlier, residual plot is not suitable for revealing non-normality, thus it was not considered in our experiments. 
+Two types of departures, namely non-linearity and heteroskedasticity, were considered with the corresponding data generating process being designed for experiment I and II. 
 
 ### Non-linearity
 
@@ -658,6 +661,10 @@ VI_MODEL$plot(poly_model(shape = 4, x = {raw_x <- rand_uniform(-1, 1); closed_fo
 
 patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 ```
+
+(handbook of mathathetical function, https://aapt.scitation.org/doi/10.1119/1.15378, cite the package)
+
+(hermite poly is created by ... in 18..,)
 
 Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials [unsure how to cite 1810 work] on random vector $\boldsymbol{x}$ formulated as
 
@@ -943,7 +950,15 @@ patchwork::wrap_plots(p1, p2, p3, p4, p5, ncol = 5)
 
 Three replications were made for each of the parameter values shown in Table \ref{tab:model-factor-table} resulting in $(4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116$ different lineups. In addition, each lineup was designed to be evaluated by five different subjects. After attempting some pilot studies internally in our research group, we decided to present a block of 20 lineups to every subject. And to ensure the quality of the survey data, two lineups with obvious visual patterns were included as attention checks. Thus, $576 \times 5 \div (20-2) = 160$ and $540 \times 5 \div (20-2) = 150$ subjects were recruited to satisfy the design of the experiment I and experiment II respectively.
 
-As mentioned in Section \ref{calculating-p-values}, $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} needs to be estimated using Rorschach lineups. Hence, 36 lineups consist of only null plots with all combinations of $n$ and $X_{raw}$ and three replications are designed to be included in experiment III. Note that we generated the lineups using the same simulation mechanism discussed in Section \ref{sampling-from-the-null-distribution} rather than from a null model. We overlooked this detail until the data had been collected. Thus, we used another valid method suggested in vanderplas2021statistical which was designed for typical lineups to estimate $\alpha$ correctly. However, by not using Rorschach lineups, we did lose some accuracy in the estimation. We recommend future studies to generate Rorschach lineups strictly following the definition given by buja_statistical_2009.
+As mentioned in Section \ref{calculating-p-values}, $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} needs to be estimated using Rorschach lineups. Hence, 36 lineups consist of only null plots with all combinations of $n$ and $X_{raw}$ and three replications are designed to be included in experiment III. Note that we generated the lineups using the same simulation mechanism discussed in Section \ref{sampling-from-the-null-distribution} rather than from a null model. 
+
+(it has zero effect size, an alternative to Rorschach lineups)
+
+(Appendix: vary the alpha a little bit and see how the curves change, sensitivity analysis)
+
+Thus, we used another valid method suggested in vanderplas2021statistical which was designed for typical lineups to estimate $\alpha$ correctly. However, by not using Rorschach lineups, we did lose some accuracy in the estimation. (questionable)
+
+We recommend future studies to generate Rorschach lineups strictly following the definition given by buja_statistical_2009.
 
 All lineups consist of only null plots are planned to be evaluated by 20 subjects. However, presenting only these lineups to subjects are considered to be bad practices as subjects will lose interest quickly. We planned to also collect 6 more evaluations on the 279 lineups with $X_{raw} \sim U(-1,1)$, resulted in $(36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3) \div (20-2) = 133$ subjects recruited for experiment III.
 
@@ -968,6 +983,8 @@ Besides, there were 886 attention checks not included in the following analysis.
 
 ## Power comparison
 
+(discuss choice of tests, mention pkg `lmtest`, `skedastic`)
+
 Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$ with comparison to the power of an exact test - RESET test, and two other residual-based conventional tests commonly used in regression diagnostics but for testing heteroskedasticity and non-normality respectively.
 For the RESET test, we included different power of fitted values as proxies. According to [@ramsey_tests_1969], there is no general rule for the power of the fitted values needed by the RESET test, but it found power up to four is usually sufficient. Thus, we followed this guidline to conduct the RESET test.
 
@@ -975,7 +992,7 @@ At the bottom of the figure \ref{fig:polypower}, there are a sequence of example
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
-For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of F-test climbs aggressively from 25% to around 90% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
+For the non-linearity model, the power of all four tests increases as the effect gets larger. The power curve of RESET test climbs aggressively from 13% to around 70% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect and remain lower than 25% throughout the period, showing that F-test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residuals plots. 
 
 In terms of the heteroskedasticity model, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $0 \leq log_e(E) \leq 2$, where the visual feature is nearly unobservable from the example residual plots and the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting $H_0$. 
 
@@ -1035,7 +1052,7 @@ p <- vi_survey %>%
                group_by(log_effect_size, reject_dirichlet) %>% 
                summarise(num_response = n()),
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.3, col = "grey") +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = -Inf, yend = Inf), alpha = 0.3, col = "grey") +
   theme_light(base_size = 5) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
@@ -1141,7 +1158,7 @@ p <- vi_survey %>%
                group_by(log_effect_size, reject_dirichlet) %>% 
                summarise(num_response = n()),
              aes(log_effect_size, reject_dirichlet, size = factor(num_response)), alpha = 0.3)  +
-  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = 0, yend = 1), alpha = 0.3, col = "grey") +
+  geom_segment(data = data.frame(xi = es), aes(x = xi, xend = xi, y = -Inf, yend = Inf), alpha = 0.3, col = "grey") +
   theme_light(base_size = 5) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
@@ -1167,6 +1184,12 @@ for (i in target_b) {
 }
 ```  
   
+  
+(top: curves)
+(middle: dots)
+(bottom: vertical lines/grid lines)
+  
+  
 ```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
@@ -1185,6 +1208,10 @@ tick mark on x. dashed line too strong. use solid line (grey) in light color.
 
 
 ## P-value comparison (remove?) (closer to the topic of the paper) (put it after power)
+
+(style similar to mosaic plot)
+
+(lineups detected by visual test but not by conventional tests)
 
 Visual inference and conventional hypothesis testing are two distinct statistical procedures. As displayed in Figure \ref{fig:p-value-comparison}, the visual test gives higher p-values than the conventional test for both polynomial and heteroskedasticity models in most of the time, suggesting that humans have lower confidence and much higher tolerance of the residual departures than the conventional test. 
 
@@ -1216,211 +1243,222 @@ vi_survey %>%
 
 
 
-## Lineup selection
+<!-- ## Lineup selection -->
 
 
 
-```{r cache = TRUE}
-vi_survey_with_plot <- vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  left_join(map_df(1:length(vi_lineup), 
-    ~vi_lineup[[.x]]$data %>% 
-      group_by(k) %>% 
-      summarise(plot_p_value = first(p_value)) %>%
-      arrange(k) %>%
-      mutate(unique_lineup_id = names(vi_lineup)[.x]) %>%
-      mutate(plot_p_value_rank = rank(plot_p_value, ties.method = "min"))) %>%
-  pivot_wider(values_from = c(plot_p_value, plot_p_value_rank), names_from = k, names_prefix = "plot_")) %>%
-  (function(x) {
-      for (i in 1:20)
-        x[[paste0("plot_sel_plot_", i)]] <-
-          grepl(paste0("_", i, "_"), x$selection) |
-          grepl(paste0("^", i, "_"), x$selection) |
-          grepl(paste0("_", i, "$"), x$selection) |
-          grepl(paste0("^", i, "$"), x$selection)
-      x}
-    ) %>%
-  pivot_longer(plot_p_value_plot_1:plot_sel_plot_20, 
-               names_to = c(".value", "plot"), 
-               names_pattern = "(.*)_plot_(.+)") 
-```
+<!-- ```{r cache = TRUE} -->
+<!-- vi_survey_with_plot <- vi_survey %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   left_join(map_df(1:length(vi_lineup),  -->
+<!--     ~vi_lineup[[.x]]$data %>%  -->
+<!--       group_by(k) %>%  -->
+<!--       summarise(plot_p_value = first(p_value)) %>% -->
+<!--       arrange(k) %>% -->
+<!--       mutate(unique_lineup_id = names(vi_lineup)[.x]) %>% -->
+<!--       mutate(plot_p_value_rank = rank(plot_p_value, ties.method = "min"))) %>% -->
+<!--   pivot_wider(values_from = c(plot_p_value, plot_p_value_rank), names_from = k, names_prefix = "plot_")) %>% -->
+<!--   (function(x) { -->
+<!--       for (i in 1:20) -->
+<!--         x[[paste0("plot_sel_plot_", i)]] <- -->
+<!--           grepl(paste0("_", i, "_"), x$selection) | -->
+<!--           grepl(paste0("^", i, "_"), x$selection) | -->
+<!--           grepl(paste0("_", i, "$"), x$selection) | -->
+<!--           grepl(paste0("^", i, "$"), x$selection) -->
+<!--       x} -->
+<!--     ) %>% -->
+<!--   pivot_longer(plot_p_value_plot_1:plot_sel_plot_20,  -->
+<!--                names_to = c(".value", "plot"),  -->
+<!--                names_pattern = "(.*)_plot_(.+)")  -->
+<!-- ``` -->
 
 
-```{r plotsel, fig.cap = "A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50 percent of subjects evenly select other plots."}
-vi_survey_with_plot %>%
-  mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
-  group_by(type) %>%
-  mutate(n_eval = n()/20) %>%
-  ungroup() %>%
-  group_by(type, plot_p_value_rank) %>%
-  summarise(weighted_sel = sum(weighted_sel), n_eval = first(n_eval)) %>%
-  ggplot() +
-  geom_col(aes(plot_p_value_rank, n_eval), fill = "grey", alpha = 0.3) +
-  geom_col(aes(plot_p_value_rank, weighted_sel)) +
-  facet_wrap(~type) +
-  theme_light() +
-  ylab("Weighted number of selections") +
-  xlab("Plot p-value rank")
-```
+<!-- ```{r plotsel, fig.cap = "A large amount of subjects select the residuals plot with the lowest p-value. But greater than 50 percent of subjects evenly select other plots."} -->
+<!-- vi_survey_with_plot %>% -->
+<!--   mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>% -->
+<!--   group_by(type) %>% -->
+<!--   mutate(n_eval = n()/20) %>% -->
+<!--   ungroup() %>% -->
+<!--   group_by(type, plot_p_value_rank) %>% -->
+<!--   summarise(weighted_sel = sum(weighted_sel), n_eval = first(n_eval)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_col(aes(plot_p_value_rank, n_eval), fill = "grey", alpha = 0.3) + -->
+<!--   geom_col(aes(plot_p_value_rank, weighted_sel)) + -->
+<!--   facet_wrap(~type) + -->
+<!--   theme_light() + -->
+<!--   ylab("Weighted number of selections") + -->
+<!--   xlab("Plot p-value rank") -->
+<!-- ``` -->
 
 
-```{r dataplotsel, fig.cap = "..."}
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(answer == plot) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(plot_p_value_rank = first(plot_p_value_rank),
-            weighted_detect = sum(weighted_detect),
-            n_eval = n()) %>%
-  group_by(plot_p_value_rank) %>%
-  summarise(weighted_detect = sum(weighted_detect),
-            n_eval = sum(n_eval)) %>%
-  mutate(plot_p_value_rank_g5 = plot_p_value_rank >= 5) %>%
-  group_by(plot_p_value_rank_g5) %>%
-  mutate(n_eval = ifelse(plot_p_value_rank_g5, sum(n_eval), n_eval)) %>%
-  mutate(weighted_detect = ifelse(plot_p_value_rank_g5, sum(weighted_detect), weighted_detect)) %>%
-  ungroup() %>%
-  filter(plot_p_value_rank <= 5) %>%
-  mutate(plot_p_value_rank = ifelse(plot_p_value_rank == 5, "5+", as.character(plot_p_value_rank))) %>%
-  mutate(plot_p_value_rank = factor(plot_p_value_rank, levels = c(as.character(1:5), "5+"))) %>%
-  ggplot() +
-  geom_col(aes(plot_p_value_rank, n_eval)) +
-  geom_col(aes(plot_p_value_rank, weighted_detect, fill = "weighted number of detections")) +
-  xlab("Data plot p-value rank") +
-  ylab("Number of Lineups") +
-  theme(legend.position = "bottom") +
-  labs(fill = "")
-```
+<!-- ```{r dataplotsel, fig.cap = "..."} -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(answer == plot) %>% -->
+<!--   group_by(unique_lineup_id) %>% -->
+<!--   summarise(plot_p_value_rank = first(plot_p_value_rank), -->
+<!--             weighted_detect = sum(weighted_detect), -->
+<!--             n_eval = n()) %>% -->
+<!--   group_by(plot_p_value_rank) %>% -->
+<!--   summarise(weighted_detect = sum(weighted_detect), -->
+<!--             n_eval = sum(n_eval)) %>% -->
+<!--   mutate(plot_p_value_rank_g5 = plot_p_value_rank >= 5) %>% -->
+<!--   group_by(plot_p_value_rank_g5) %>% -->
+<!--   mutate(n_eval = ifelse(plot_p_value_rank_g5, sum(n_eval), n_eval)) %>% -->
+<!--   mutate(weighted_detect = ifelse(plot_p_value_rank_g5, sum(weighted_detect), weighted_detect)) %>% -->
+<!--   ungroup() %>% -->
+<!--   filter(plot_p_value_rank <= 5) %>% -->
+<!--   mutate(plot_p_value_rank = ifelse(plot_p_value_rank == 5, "5+", as.character(plot_p_value_rank))) %>% -->
+<!--   mutate(plot_p_value_rank = factor(plot_p_value_rank, levels = c(as.character(1:5), "5+"))) %>% -->
+<!--   ggplot() + -->
+<!--   geom_col(aes(plot_p_value_rank, n_eval)) + -->
+<!--   geom_col(aes(plot_p_value_rank, weighted_detect, fill = "weighted number of detections")) + -->
+<!--   xlab("Data plot p-value rank") + -->
+<!--   ylab("Number of Lineups") + -->
+<!--   theme(legend.position = "bottom") + -->
+<!--   labs(fill = "") -->
+<!-- ``` -->
 
-```{r dadtaplotselfacet, fig.cap = "...", fig.height=12, fig.width=16}
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(type == "polynomial") %>%
-  left_join(vi_survey_with_plot %>%
-              filter(!attention_check) %>%
-              filter(!null_lineup) %>%
-              filter(answer == plot) %>%
-              group_by(unique_lineup_id) %>%
-              summarise(answer_rank = first(plot_p_value_rank))) %>%
-  mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>%
-  group_by(plot_p_value_rank, answer_rank) %>%
-  summarise(weighted_sel = sum(weighted_sel)) %>%
-  mutate(answer_rank_g5 = answer_rank >= 5) %>%
-  group_by(plot_p_value_rank, answer_rank_g5) %>%
-  mutate(weighted_sel = ifelse(answer_rank_g5, sum(weighted_sel), weighted_sel)) %>%
-  ungroup() %>%
-  filter(answer_rank <= 5) %>%
-  mutate(answer_rank = ifelse(answer_rank == 5, "5+", as.character(answer_rank))) %>%
-  mutate(answer_rank = factor(answer_rank, levels = c(as.character(1:5), "5+"))) %>%
-  ggplot() +
-  geom_col(aes(factor(plot_p_value_rank), weighted_sel)) +
-  geom_vline(data = data.frame(answer_rank = c("1", "2", "3", "4"), x = 1:4),
-             aes(xintercept = x),
-             col = "red") +
-  facet_wrap(~answer_rank, scales = "free_y") +
-  xlab("Plot p-value rank") +
-  ylab("Weighted number of selections")
-```
+<!-- ```{r dadtaplotselfacet, fig.cap = "...", fig.height=12, fig.width=16} -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(type == "polynomial") %>% -->
+<!--   left_join(vi_survey_with_plot %>% -->
+<!--               filter(!attention_check) %>% -->
+<!--               filter(!null_lineup) %>% -->
+<!--               filter(answer == plot) %>% -->
+<!--               group_by(unique_lineup_id) %>% -->
+<!--               summarise(answer_rank = first(plot_p_value_rank))) %>% -->
+<!--   mutate(weighted_sel = ifelse(num_selection == 0, 0.05, plot_sel/num_selection)) %>% -->
+<!--   group_by(plot_p_value_rank, answer_rank) %>% -->
+<!--   summarise(weighted_sel = sum(weighted_sel)) %>% -->
+<!--   mutate(answer_rank_g5 = answer_rank >= 5) %>% -->
+<!--   group_by(plot_p_value_rank, answer_rank_g5) %>% -->
+<!--   mutate(weighted_sel = ifelse(answer_rank_g5, sum(weighted_sel), weighted_sel)) %>% -->
+<!--   ungroup() %>% -->
+<!--   filter(answer_rank <= 5) %>% -->
+<!--   mutate(answer_rank = ifelse(answer_rank == 5, "5+", as.character(answer_rank))) %>% -->
+<!--   mutate(answer_rank = factor(answer_rank, levels = c(as.character(1:5), "5+"))) %>% -->
+<!--   ggplot() + -->
+<!--   geom_col(aes(factor(plot_p_value_rank), weighted_sel)) + -->
+<!--   geom_vline(data = data.frame(answer_rank = c("1", "2", "3", "4"), x = 1:4), -->
+<!--              aes(xintercept = x), -->
+<!--              col = "red") + -->
+<!--   facet_wrap(~answer_rank, scales = "free_y") + -->
+<!--   xlab("Plot p-value rank") + -->
+<!--   ylab("Weighted number of selections") -->
+<!-- ``` -->
 
-```{r eval = FALSE}
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(answer == plot) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(plot_p_value_rank = first(plot_p_value_rank),
-            weighted_detect = sum(weighted_detect),
-            n_eval = n(),
-            reject = first(conventional_p_value < 0.05)) %>%
-  group_by(plot_p_value_rank, reject) %>%
-  summarise(weighted_detect = sum(weighted_detect),
-            n_eval = sum(n_eval)) %>%
-  ggplot() +
-  geom_col(aes(factor(plot_p_value_rank), n_eval)) +
-  geom_col(aes(factor(plot_p_value_rank), weighted_detect, fill = "weighted number of detections")) +
-  xlab("Data plot p-value rank") +
-  ylab("Number of Lineups") +
-  theme(legend.position = "bottom") +
-  labs(fill = "") +
-  facet_wrap(~reject)
-```
-
-
-```{r eval = FALSE}
-# data plot not always has the lowest conventional p-value
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(answer == plot) %>%
-  ggplot() +
-  geom_bar(aes(factor(plot_p_value_rank)))
-
-# according to the rank of the data plot p-value, how many people select it 
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(plot_sel) %>%
-  left_join(vi_survey_with_plot %>%
-              filter(!attention_check) %>%
-              filter(!null_lineup) %>%
-              filter(answer == plot) %>%
-              group_by(unique_lineup_id) %>%
-              summarise(answer_rank = first(plot_p_value_rank))) %>%
-  ggplot() +
-  geom_bar(aes(factor(plot_p_value_rank))) +
-  geom_vline(data = data.frame(answer_rank = 1:20, x = 1:20),
-             aes(xintercept = x),
-             col = "red") +
-  facet_wrap(~answer_rank, scales = "free_y")
-
-# For different rank, percentage of subject select it
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(answer == plot) %>%
-  group_by(unique_lineup_id, set) %>%
-  summarise(plot_p_value_rank = first(plot_p_value_rank),
-            detect = first(detect),
-            type = first(type)) %>%
-  ggplot() +
-  geom_bar(aes(factor(plot_p_value_rank), fill = detect), position = "fill") +
-  geom_hline(yintercept = 0.05) +
-  xlab("Data plot p-value rank") +
-  ylab("Propotion of subject detecting the data plot")
+<!-- ```{r eval = FALSE} -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(answer == plot) %>% -->
+<!--   group_by(unique_lineup_id) %>% -->
+<!--   summarise(plot_p_value_rank = first(plot_p_value_rank), -->
+<!--             weighted_detect = sum(weighted_detect), -->
+<!--             n_eval = n(), -->
+<!--             reject = first(conventional_p_value < 0.05)) %>% -->
+<!--   group_by(plot_p_value_rank, reject) %>% -->
+<!--   summarise(weighted_detect = sum(weighted_detect), -->
+<!--             n_eval = sum(n_eval)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_col(aes(factor(plot_p_value_rank), n_eval)) + -->
+<!--   geom_col(aes(factor(plot_p_value_rank), weighted_detect, fill = "weighted number of detections")) + -->
+<!--   xlab("Data plot p-value rank") + -->
+<!--   ylab("Number of Lineups") + -->
+<!--   theme(legend.position = "bottom") + -->
+<!--   labs(fill = "") + -->
+<!--   facet_wrap(~reject) -->
+<!-- ``` -->
 
 
-vi_survey_with_plot %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(answer == plot) %>%
-  group_by(unique_lineup_id, set) %>%
-  summarise(plot_p_value_rank = first(plot_p_value_rank),
-            prop_detect = first(prop_detect)) %>%
-  ggplot() +
-  geom_boxplot(aes(factor(plot_p_value_rank), prop_detect))
-  
+<!-- ```{r eval = FALSE} -->
+<!-- # data plot not always has the lowest conventional p-value -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(answer == plot) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(factor(plot_p_value_rank))) -->
+
+<!-- # according to the rank of the data plot p-value, how many people select it  -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(plot_sel) %>% -->
+<!--   left_join(vi_survey_with_plot %>% -->
+<!--               filter(!attention_check) %>% -->
+<!--               filter(!null_lineup) %>% -->
+<!--               filter(answer == plot) %>% -->
+<!--               group_by(unique_lineup_id) %>% -->
+<!--               summarise(answer_rank = first(plot_p_value_rank))) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(factor(plot_p_value_rank))) + -->
+<!--   geom_vline(data = data.frame(answer_rank = 1:20, x = 1:20), -->
+<!--              aes(xintercept = x), -->
+<!--              col = "red") + -->
+<!--   facet_wrap(~answer_rank, scales = "free_y") -->
+
+<!-- # For different rank, percentage of subject select it -->
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(answer == plot) %>% -->
+<!--   group_by(unique_lineup_id, set) %>% -->
+<!--   summarise(plot_p_value_rank = first(plot_p_value_rank), -->
+<!--             detect = first(detect), -->
+<!--             type = first(type)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_bar(aes(factor(plot_p_value_rank), fill = detect), position = "fill") + -->
+<!--   geom_hline(yintercept = 0.05) + -->
+<!--   xlab("Data plot p-value rank") + -->
+<!--   ylab("Propotion of subject detecting the data plot") -->
+
+
+<!-- vi_survey_with_plot %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(answer == plot) %>% -->
+<!--   group_by(unique_lineup_id, set) %>% -->
+<!--   summarise(plot_p_value_rank = first(plot_p_value_rank), -->
+<!--             prop_detect = first(prop_detect)) %>% -->
+<!--   ggplot() + -->
+<!--   geom_boxplot(aes(factor(plot_p_value_rank), prop_detect)) -->
 
 
 
-# vi_survey_with_plot %>%
-#   filter(!attention_check) %>%
-#   filter(!null_lineup) %>%
-#   filter(answer == plot) %>%
-#   group_by(unique_lineup_id, set) %>%
-#   summarise(plot_p_value_rank = first(plot_p_value_rank),
-#             conv_detect = first(conventional_p_value < 0.05)) %>%
-#   ggplot() +
-#   geom_bar(aes(factor(plot_p_value_rank), fill = conv_detect), position = "fill") +
-#   xlab("Data plot p-value rank") +
-#   ylab("Propotion of subject detecting the data plot")
-```
 
-
-# invesgating interesting lineups
+<!-- # vi_survey_with_plot %>% -->
+<!-- #   filter(!attention_check) %>% -->
+<!-- #   filter(!null_lineup) %>% -->
+<!-- #   filter(answer == plot) %>% -->
+<!-- #   group_by(unique_lineup_id, set) %>% -->
+<!-- #   summarise(plot_p_value_rank = first(plot_p_value_rank), -->
+<!-- #             conv_detect = first(conventional_p_value < 0.05)) %>% -->
+<!-- #   ggplot() + -->
+<!-- #   geom_bar(aes(factor(plot_p_value_rank), fill = conv_detect), position = "fill") + -->
+<!-- #   xlab("Data plot p-value rank") + -->
+<!-- #   ylab("Propotion of subject detecting the data plot") -->
+<!-- ``` -->
 
 # change of x_dist -> power
 
 # appendix (contains all the details)
+
+### A collection interesting lineups (unusual results)
+
+why unusual? what is the possible explanations?
+
+# targe journal
+
+JRSSB: Journal of the Royal Statistical Society Series B (Statistical Methodology)
+Deadline: Jan 1, Apr 1
+
+Reading: style of writing, author guideline (https://rss.onlinelibrary.wiley.com/hub/journal/14679868/author-guidelines)
+
+JCGS
+JDSS
