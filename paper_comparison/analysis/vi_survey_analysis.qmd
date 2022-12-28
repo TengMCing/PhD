@@ -660,6 +660,11 @@ plot_lineup <- function(this_lineup) {
 } 
 ```
 
+```{r}
+plot_lineup("poly_86")
+
+vi_lineup$poly_86$data
+```
 
 
 ```{r fig.height=7, fig.width=7, dpi=150}

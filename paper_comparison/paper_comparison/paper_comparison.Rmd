@@ -32,6 +32,9 @@ header-includes: |
   \usepackage{hyperref}
   \usepackage[utf8]{inputenc}
   \def\tightlist{}
+  \usepackage{xcolor}
+  \definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
+  \newcommand{\svp}[1]{{\textcolor{orange-red}{#1}}}
   \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
 output: rticles::tf_article
 editor_options: 
@@ -663,7 +666,9 @@ patchwork::wrap_plots(p1, p2, p3, p4, ncol = 4)
 
 <!-- (hermite poly is created by ... in 18..,) -->
 
-Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials [@hermite1864nouveau] on random vector $\boldsymbol{x}$ formulated as
+(include English reference)
+
+Experiment I is designed to study the ability of human subjects to detect the effect of a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials on random vector $\boldsymbol{x}$ formulated as
 
 \begin{align} \label{eq:nonlinearity-model}
 \boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
@@ -946,7 +951,6 @@ patchwork::wrap_plots(p1, p2, p3, p4, p5, ncol = 5)
 
 
 ### Subject allocation
-\newcommand{\svp}[1]{{\textcolor{RedOrange}{#1}}}
 
 Three replications were made for each of the parameter values shown in Table \ref{tab:model-factor-table} resulting in $(4 \times 4 \times 4 \times 3 + 4 \times 3 \times 5 \times 3) \times 3 = 1116$ different lineups. In addition, each lineup was designed to be evaluated by five different subjects. After attempting some pilot studies internally in our research group, we decided to present a block of 20 lineups to every subject. And to ensure the quality of the survey data, two lineups with obvious visual patterns were included as attention checks. Thus, $576 \times 5 \div (20-2) = 160$ and $540 \times 5 \div (20-2) = 150$ subjects were recruited to satisfy the design of the experiment I and experiment II respectively.
 
@@ -998,6 +1002,10 @@ The power of visual test arises steadily as $log_e(E)$ increases from 2 to 5 in 
 
 The power of all inappropriate tests except for F-test shows improvement as the effect increases but at a lower rate than the visual test in both scenarios. This coincides the point made by @cook1982residuals that residual-based tests for a specific type of model defect may be sensitive to other types of model defects. The power curve of F-test remains at around 5% in Figure \ref{fig:heterpower} since there is no non-linear term leave out in the heteroskedasticity model and 
 $H_0$ of the F-test will be always satisfied.
+
+(remove human perception)
+
+(revisit Emi's concern)
 
 Overall, the power analysis suggests that conventional tests do not match how humans perceive residual plots in these two scenarios. Humans have much higher tolerance of the residual departures than the conventional test. Since fail to reject $H_0$ in a visual test means that there is no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not be convinced of the existence of significant residual departures in spite of the rejection of $H_0$ given by the conventional test. Even if the rejection is accepted, the model violation may be considered as impactless due to the fact that they are not clearly visible. Besides, the sensitivity of the conventional test could also distract and discourage analysts from finding simple but good linear approximation to the data. The rejection of $H_0$ because of human acceptable and negligible residual departures is not practically meaningful and useful. (it does not fit the purpose of )
 
@@ -1205,6 +1213,8 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 ## Comparison of rejection rates based on $p$-values
 
+(1. How you calc rejection, 2. scatter plot p-value vs p-value -> appendix, 3. percentage in explained the tex, both marginal and conditional, 4. interesting lineup, discuss the reason)
+
 (style similar to mosaic plot)
 
 (lineups detected by visual test but not by conventional tests)
@@ -1265,6 +1275,24 @@ vi_survey %>%
   scale_fill_brewer("", palette="Dark2") +
   theme_bw() +
   theme(legend.position="none")
+```
+
+
+```{r eval = FALSE}
+vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  left_join(vi_survey %>% 
+           count(unique_lineup_id) %>%
+           rename(num_subject = n)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not"),
+         reject = ifelse(p_value < 0.05, "Reject", "Not")) %>%
+  filter(type == "non-linearity", conv_reject == "Not", reject == "Reject") %>%
+  View()
 ```
 
 
