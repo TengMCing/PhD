@@ -983,8 +983,8 @@ how often they agree with each other by investigate the rejection rates
 based on \(p\)-values.
 
 Depending on the natural logarithm of the effect, lineups are classified
-into three categories: easy (\textless{} 1.5), moderate (1.5 - 3.5) and
-difficult (\textgreater{} 3.5). Figure \ref{fig:p-value-comparison}
+into three categories: easy (\textgreater{} 3.5), moderate (1.5 - 3.5)
+and difficult (\textless{} 1.5). Figure \ref{fig:p-value-comparison}
 provides a mosaic plot showing the rejection rate of visual tests and
 conventional tests at different difficulty levels.
 
@@ -994,23 +994,21 @@ conventional tests at different difficulty levels.
 For easy lineups produced by the non-linearity model, 65\% are rejected
 by both the conventional and visual tests, while 9\% are accepted by
 both tests. Thus, 74\% of the time two tests will agree with each other.
-There are 16\% of lineups rejected only by the conventional test.
+There are 16\% of lineups rejected by the conventional test only.
 
 Interestingly, in spite of the greater power of the conventional test,
-10\% of the lineups are rejected only by the visual test. This means
-among those accepted by the conventional test, 51\% are rejected by the
-visual test. Recall that the RESET test used in our analysis includes
-powers of fitted values up to four. However, the ``M'' and ``Triple-U''
-shapes constructed from the Hermite polynomials contain powers of
-regressor up to six and 18 respectively. In fact, by including the
-powers of fitted values up to six, all cases will be rejected by the
-RESET test. And from the example plot displayed in Figure
-\ref{fig:easy-poly-example}, we can observe panel three is distinctly
-different from others exhibiting a ``M'' shape. It clearly suggests
-users of the RESET test and any other residual-based conventional tests
-that require the specification of variables of interest to check the
-residual plot before conducting the test, such that the correct choice
-of variables can be made.
+10\% of the lineups are rejected by the visual test only. Recall that
+the RESET test used in our analysis includes powers of fitted values up
+to four. However, the ``M'' and the ``Triple-U'' shapes constructed from
+the Hermite polynomials contain powers of the regressor up to six and 18
+respectively. In fact, by including the powers of fitted values up to
+six in the RESET test, all cases will be rejected. We also can observe
+from the example plot displayed in Figure \ref{fig:easy-poly-example}
+that panel three is distinctly different from others, exhibiting a ``M''
+shape. This clearly suggests users of the RESET test and any other
+residual-based conventional tests that require the specification of
+variables of interest to check the residual plot before conducting the
+test, such that the correct choice of variables can be made.
 
 \begin{figure}
 
@@ -1018,8 +1016,25 @@ of variables can be made.
 
 }
 
-\caption{An example easy lineup produced by the non-linearity model not rejected by the conventional test but rejected by the visual test. Panel three exhibits strong non-linear pattern.}\label{fig:easy-poly-example}
+\caption{Lineup poly-270 produced by the non-linearity model used in experiment I and III. It is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern.}\label{fig:easy-poly-example}
 \end{figure}
+
+For easy lineups produced by the heteroskedasticity model, 62\% are
+rejected by both the conventional test and the visual test, and 7\% are
+accepted by both, result in 69\% agreement rate. Lineups only rejected
+by conventional test are 30\%. 1\% of lineups are accepted by the
+conventional test but rejected by the visual test.
+
+Among those 1\%, which are two lineups, one shows detectable
+heteroskedasticity pattern as displayed in Figure
+\ref{fig:easy-heter-example1}. Another contain data plot with an
+noticeable outlier, but the ``Right-triangle'' shape is not very strong
+as shown in Figure \ref{fig:easy-heter-example2}. The \(p\)-values of
+Breusch-Pagan test for these two lineups are \(0.055\) and \(0.135\).
+Compared to the visual test, its \(p\)-values are \(0.026\) and
+\(0.012\). The Breusch-Pagan test should reject the one with obvious
+heteroskedasticity signal, but it yields a \(p\)-value slightly above
+5\%.
 
 \begin{figure}
 
@@ -1027,7 +1042,7 @@ of variables can be made.
 
 }
 
-\caption{An example easy lineup produced by the heteroskedasticity not rejected by the conventional test but rejected by the visual test. Panel 17 exhibits strong heteroskedasticity pattern.}\label{fig:easy-heter-example1}
+\caption{Lineup heter-331 produced by the heteroskedasticity model used in experiment II and III. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 17 contains a "Butterfly" shape, indicating the presence of heteroskedasticity.}\label{fig:easy-heter-example1}
 \end{figure}
 
 \begin{figure}
@@ -1036,45 +1051,32 @@ of variables can be made.
 
 }
 
-\caption{An example easy lineup produced by the heteroskedasticity not rejected by the conventional test but rejected by the visual test. Panel 18 contains a distinct outlier.}\label{fig:easy-heter-example2}
+\caption{Lineup heter-536 produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 18 exhibits a vague heteroskedasticity pattern, but it contains a distinct outlier which makes it attractive to subjects.}\label{fig:easy-heter-example2}
 \end{figure}
-
-For easy lineups produced by the heteroskedasticity model, 62\% are
-rejected by both the conventional test and the visual test, and 7\% are
-accepted by both, result in 69\% agreement rate. Lineups rejected by
-only conventional test are 30\%. 1\% of lineups are accepted by the
-conventional test but rejected by the visual test.
-
-Among those 1\% lineups, which are two lineups, one shows detectable
-heteroskedasticity pattern as displayed in Figure
-\ref{fig:easy-heter-example1}. Another contain data plot with an
-noticeable outlier, but the ``Right-triangle'' shape is not obvious as
-shown in Figure \ref{fig:easy-heter-example2}. The \(p\)-values of
-Breusch-Pagan test for these two lineups are \(0.055\) and \(0.135\).
-Compared to the visual test, its \(p\)-values are \(0.026\) and
-\(0.012\). The Breusch-Pagan test should reject the one with obvious
-heteroskedasticity signal, but it yields a \(p\)-value slightly above
-5\%.
 
 \hypertarget{moderate-lineup}{%
 \subsubsection{Moderate lineup}\label{moderate-lineup}}
 
 With the increase of the difficulty level, the sensitivity of
 conventional tests enlarge the difference in rejection rates. For
-moderate lineup produced by the non-linearity model, only 8\% and 28\%
-are rejected and accepted by both respectively. We can observe a decline
-in agreement rate to 36\%. A huge amount of lineups are accepted by the
-visual test. 63\% of lineups rejected only by the conventional test.
-There are 1\% of lineups which rejected only by conventional tests
-suffer the same RESET test issue as mentioned earlier.
+moderate lineup produced by the non-linearity model, 8\% and 28\% are
+rejected and accepted by both tests respectively. We can observe a
+decline in agreement rate to 36\%. A large proportion of lineups are
+accepted by the visual test and rejected by the conventional test, which
+is around 63\%. The remaining 1\% are rejected by conventional tests
+only, which suffer the same issue caused by the RESET test as mentioned
+earlier.
 
 For those produced by the heteroskedasticy model, the corresponding
-numbers are 23\%, 31\%, 54\%, 45\% and 1\%. Only one lineup rejected by
-the visual test but accepted by the conventional test. It shows zero
-heteroskedasticity patterns, but contains a few outliers at the bottom
-of the data plot as illustrated in panel 14 of Figure
-\ref{fig:moderate-heter-example1}. Two out of five subjects correctly
-identify this lineup yielding a \(p\)-value equal to \(0.044\).
+numbers are 23\%, 31\%, 54\%, 45\% and 1\%. There is only one lineup
+rejected by the visual test but accepted by the conventional test. It
+does not show any heteroskedasticity patterns, but contains a few
+outliers at the bottom of the data plot as illustrated in panel 14 of
+Figure \ref{fig:moderate-heter-example1}. Two out of five subjects
+correctly identify this lineup yielding a \(p\)-value equal to
+\(0.044\). We consider this instance is rejected by chance. If a
+different set of null plots are used, the data plot may not be
+identified.
 
 \begin{figure}
 
@@ -1082,36 +1084,37 @@ identify this lineup yielding a \(p\)-value equal to \(0.044\).
 
 }
 
-\caption{An example easy lineup produced by the heteroskedasticity not rejected by the conventional test but rejected by the visual test. Panel 14 contains a few outliers at the bottom of the panel.}\label{fig:moderate-heter-example1}
+\caption{Lineup heter-219 produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Though the data plot at panel 14 shows no heteroskedasticity patterns, it contains a few outliers at the bottom of the panel.}\label{fig:moderate-heter-example1}
 \end{figure}
 
 \hypertarget{difficult-lineup}{%
 \subsubsection{Difficult lineup}\label{difficult-lineup}}
 
 Visual test is insensitive to lineups with small effect. When it comes
-to difficult lineups produced by the non-linearity model, none of them
-are rejected by the visual test. There are 73\% of lineups accepted by
-both tests, and 26\% rejected by the conventional test. The agreement
-rate rise up to 73\%.
+to difficult level, none of the lineups produced by the non-linearity
+model are rejected by the visual test. There are 73\% of lineups
+accepted by both tests, and 26\% rejected by the conventional test. The
+agreement rate rise up to 73\%.
 
 For lineups produced by the heteroskedasticity model, 3\% are rejected
-by both, 71\% are accepted by both, 24\% are rejected only by the
-conventional test and 2\% are rejected only by the visual test, which
-are two lineups.
+by both tests, and 71\% are accepted by both tests. There are 24\% of
+lineups rejected by the conventional test only. Besides, only two
+lineups, which is 2\% of all the difficult lineups, are rejected by the
+visual test only.
 
 As shown in \ref{fig:difficult-heter-example1} and
 \ref{fig:difficult-heter-example2}, residual plots of both lineups are
 constructed with \(X_{raw} \sim lognormal(0, 0.6^2)/3\). Though the
-designed patterns are ``Left-triangle'' and ``Butterfly'', both of them
-are invisible due to the small effect. The residual plots are dominated
-by the skewed distribution. Further, no distinguishable visual patterns,
-such as outliers, are detectable from the data plot of these two
-lineups, which are panel 5 and panel 15. The data plot in these two
+designed patterns are ``Left-triangle'' and ``Butterfly'' shape, both of
+them are invisible due to the small effect. The visual effect are
+dominated by the skewed distribution. Further, no distinguishable visual
+patterns, such as outliers, are detectable from the data plot of these
+two lineups, which are panel 5 and panel 15. The data plots in these two
 lineups are not the most different plot from our point of view either.
 However, three out of five and two out of five subjects correctly
 identify the data plot for these two lineups respectively. But the
-reasons for selecting the plot provided by the subjects are not
-consistent. Therefore, with the current data, we can not explain why
+reasons for selecting the plot provided by the subjects are mixed and
+inconsistent. Hence, with the current data, we can not explain why
 subjects can correctly identify the data plot of these two lineups.
 Collecting more data in future study may help to answer this question.
 
@@ -1121,7 +1124,7 @@ Collecting more data in future study may help to answer this question.
 
 }
 
-\caption{An example easy lineup produced by the heteroskedasticity not rejected by the conventional test but rejected by the visual test. Panel 14 contains a few outliers at the bottom of the panel.}\label{fig:difficult-heter-example1}
+\caption{Lineup heter-224 produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Although two out of five subjects correctly identify the data plot at panel 5, it does not exhibit any visually distinguishable pattern.}\label{fig:difficult-heter-example1}
 \end{figure}
 
 \begin{figure}
@@ -1130,7 +1133,7 @@ Collecting more data in future study may help to answer this question.
 
 }
 
-\caption{An example easy lineup produced by the heteroskedasticity not rejected by the conventional test but rejected by the visual test. Panel 14 contains a few outliers at the bottom of the panel.}\label{fig:difficult-heter-example2}
+\caption{Lineup heter-415 produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Panel 15 is the data plot but it does not exhibit any visually distinguishable pattern.}\label{fig:difficult-heter-example2}
 \end{figure}
 
 \begin{figure}
