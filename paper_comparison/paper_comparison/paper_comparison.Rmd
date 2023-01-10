@@ -1091,7 +1091,7 @@ p <- vi_survey %>%
 ```
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for non-linear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for non-linear patterns. Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
 set.seed(106)
 ex_dat <- poly_model(shape = 2, x = rand_uniform(), sigma = 1)$gen(n = 100)
 plist <- list()
@@ -1169,7 +1169,7 @@ p <- vi_survey %>%
   
   
   
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 set.seed(10091)
 ex_dat <- heter_model(a = 1, x = rand_uniform(-1, 1), b = 1)$gen(n = 100)
 plist <- list()
@@ -1381,7 +1381,13 @@ vi_survey %>%
 
 ## Effect of the distribution of the regressor
 
-```{r fig.height = 3, fig.width = 5}
+Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the visual effect of the residual plot. In our experiments, four distributions of the regressor are used to accommodate this variation.
+
+Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different distribution of $X_{raw}$ used in the non-linearity model and the heteroskedasticity model. 
+
+
+
+```{r different-x-dist-poly-power, fig.height = 3, fig.width = 5, fig.cap = "..."}
 vi_survey %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
@@ -1418,7 +1424,7 @@ vi_survey %>%
               method.args = list(family = binomial), 
               se = FALSE) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Vivid"))) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   scale_linetype_manual(values = c("longdash", "solid")) +
   guides(linetype = guide_legend(nrow = 2), col = guide_legend(nrow = 2)) +
@@ -1429,7 +1435,7 @@ vi_survey %>%
 ```
 
 
-```{r fig.height = 3, fig.width = 5}
+```{r different-x-dist-heter-power, fig.height = 3, fig.width = 5, fig.cap = "..."}
 vi_survey %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
@@ -1465,7 +1471,7 @@ vi_survey %>%
               method.args = list(family = binomial), 
               se = FALSE) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(5, "Vivid"))) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   scale_linetype_manual(values = c("longdash", "solid")) +
   guides(linetype = guide_legend(nrow = 2), col = guide_legend(nrow = 2)) +
@@ -1475,8 +1481,6 @@ vi_survey %>%
   labs(col = "Distribution of regressor", linetype = "Test")
 ```
 
-
-(change of x_dist -> power)
 
 # Appendix
 
@@ -1520,3 +1524,5 @@ Reading: style of writing, author guideline (https://rss.onlinelibrary.wiley.com
 
 JCGS
 JDSS
+
+\newpage

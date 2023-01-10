@@ -961,7 +961,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for non-linear patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
+\caption{Comparison of power between different tests for non-linear patterns. Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
 \end{figure}
 
 \begin{figure}
@@ -970,7 +970,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
+\caption{Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
 \end{figure}
 
 \hypertarget{comparison-of-rejection-rates-based-on-p-values}{%
@@ -1149,11 +1149,34 @@ Collecting more data in future study may help to answer this question.
 \subsection{Effect of the distribution of the
 regressor}\label{effect-of-the-distribution-of-the-regressor}}
 
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-14-1} \end{center}
+Although the distribution of the regressor is classically not restricted
+by the assumptions of linear regression, it will have an impact on the
+visual effect of the residual plot. In our experiments, four
+distributions of the regressor are used to accommodate this variation.
 
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-15-1} \end{center}
+Figure \ref{fig:different-x-dist-poly-power} and Figure
+\ref{fig:different-x-dist-heter-power} illustrate the change of power of
+visual tests and conventional tests for different distribution of
+\(X_{raw}\) used in the non-linearity model and the heteroskedasticity
+model.
 
-(change of x\_dist -\textgreater{} power)
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-x-dist-poly-power-1} 
+
+}
+
+\caption{...}\label{fig:different-x-dist-poly-power}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/different-x-dist-heter-power-1} 
+
+}
+
+\caption{...}\label{fig:different-x-dist-heter-power}
+\end{figure}
 
 \hypertarget{appendix}{%
 \section{Appendix}\label{appendix}}
@@ -1181,6 +1204,8 @@ Reading: style of writing, author guideline
 (\url{https://rss.onlinelibrary.wiley.com/hub/journal/14679868/author-guidelines})
 
 JCGS JDSS
+
+\newpage
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}

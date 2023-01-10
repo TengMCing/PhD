@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.28)  11 JAN 2023 09:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.28)  11 JAN 2023 10:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -783,43 +783,53 @@ File: paper_comparison_files/figure-latex/p-value-comparison-1.pdf Graphic file 
 <use paper_comparison_files/figure-latex/p-value-comparison-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/p-value-comparison-1.pdf  used on input line 1141.
 (pdftex.def)             Requested size: 408.0pt x 203.99771pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf, id=580, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf  used on input line 1152.
-(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
 [19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1152 ...e-latex/unnamed-chunk-14-1} \end{center}
-                                                   <./paper_comparison_files/figure-latex/easy-heter-example2-1.pdf>] [20
+l.1156 
+        <./paper_comparison_files/figure-latex/easy-heter-example2-1.pdf>] [20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1152 ...e-latex/unnamed-chunk-14-1} \end{center}
-                                                  
+l.1156 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1152 ...e-latex/unnamed-chunk-14-1} \end{center}
-                                                   <./paper_comparison_files/figure-latex/moderate-heter-example1-1.pdf> <./paper_comparison_files/figure-latex/difficult-heter-example1-1.pdf>] [21
+l.1156 
+        <./paper_comparison_files/figure-latex/moderate-heter-example1-1.pdf> <./paper_comparison_files/figure-latex/difficult-heter-example1-1.pdf>] [21
 pdfTeX warning (ext4): destination with the same identifier (name{figure.18}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1152 ...e-latex/unnamed-chunk-14-1} \end{center}
-                                                  
+l.1156 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.19}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1152 ...e-latex/unnamed-chunk-14-1} \end{center}
-                                                   <./paper_comparison_files/figure-latex/difficult-heter-example2-1.pdf> <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf, id=628, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf  used on input line 1154.
+l.1156 
+        <./paper_comparison_files/figure-latex/difficult-heter-example2-1.pdf> <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
+<paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf, id=629, 361.35pt x 216.81pt>
+File: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf  used on input line 1165.
 (pdftex.def)             Requested size: 408.0pt x 244.80055pt.
-[22 <./paper_comparison_files/figure-latex/unnamed-chunk-14-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-15-1.pdf>] (./paper_comparison.bbl [23]) [24] (./paper_comparison.aux)
+<paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf, id=630, 361.35pt x 216.81pt>
+File: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf  used on input line 1174.
+(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
+[22
+pdfTeX warning (ext4): destination with the same identifier (name{figure.20}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1208 \newpage
+                <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>] (./paper_comparison.bbl [23
+pdfTeX warning (ext4): destination with the same identifier (name{figure.21}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.68 \bibitem[Kahle(2013)]{mpoly}
+                                  <./paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>]) [24] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -831,18 +841,18 @@ Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
 (rerunfilecheck)             Checksum: 6F63AC34B47E3A79C0F1F40CE4367850;5600.
  ) 
 Here is how much of TeX's memory you used:
- 13476 strings out of 478053
- 223042 string characters out of 5839799
+ 13480 strings out of 478053
+ 223334 string characters out of 5839799
  1868793 words of memory out of 5000000
- 33188 multiletter control sequences out of 15000+600000
+ 33190 multiletter control sequences out of 15000+600000
  525387 words of font info for 83 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,20n,90p,646b,584s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 85i,20n,90p,723b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (24 pages, 3460441 bytes).
+Output written on paper_comparison.pdf (24 pages, 3461240 bytes).
 PDF statistics:
- 790 PDF objects out of 1000 (max. 8388607)
- 669 compressed objects within 7 object streams
- 153 named destinations out of 1000 (max. 500000)
+ 794 PDF objects out of 1000 (max. 8388607)
+ 673 compressed objects within 7 object streams
+ 155 named destinations out of 1000 (max. 500000)
  346 words of extra memory for PDF output out of 10000 (max. 10000000)
 
