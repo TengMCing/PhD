@@ -480,7 +480,7 @@ Data used in the $m - 1$ null plots needs to be simulated. In the context of reg
 
 ### Calculating $p$-values for the visual test
 
-In hypothesis testing, $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Within the context of visual inference, by involving $k$ independent observers, $p$-value can be interpreted as the probability of having as many or more subjects detect the data plot than the observed result.
+In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Within the context of visual inference, by involving $k$ independent observers, the $p$-value can be interpreted as the probability of having as many or more subjects detect the data plot than the observed result.
 
 Let $X_j = \{0,1\}$ be a binomial random variable denoting whether subject $j$ correctly detecting the data plot, and $X = \sum_{j=1}^{K}X_j$ be the number of observers correctly picking the data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the data plot [@majumder_validation_2013].
 
@@ -527,6 +527,8 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required.
 
 ### Power of a visual test
+
+(definition of power, apply it to visual test)
 
 The power of a model misspecification test specifies the chance of a misspecified regression model being detected given a certain alternative hypothesis. It is an important indicator when one concerns if the regression model is misspecified. Though, people might usually be more interested in knowing how much the residuals depart from the model assumptions and if the departure is of practical significance.
 
@@ -1195,6 +1197,18 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 ## Comparison of rejection rates based on $p$-values
 
+(put easy, moderate, difficult in caption)
+
+(aspect ratio of mosaic plot)
+
+(set the threshold of RESET -> higher)
+
+(own: inspect the power of RESET for higher order only)
+
+(own: power of BP on butterfly shape, triangle shape, etc)
+
+(remove lineup id from caption)
+
 The power comparison illustrates that appropriate conventional tests reject $H_0$ more aggressively than visual tests. In this section, we explore how often they agree with each other by investigate the rejection rates based on $p$-values.
 
 Depending on the natural logarithm of the effect, lineups are classified into three categories: easy (> 3.5), moderate (1.5 - 3.5) and difficult (< 1.5). Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the rejection rate of visual tests and conventional tests at different difficulty levels.
@@ -1362,6 +1376,68 @@ patchwork::wrap_plots(p1, p2, p3)
 
 
 ```{r eval = FALSE}
+
+p_value_cmp_dat %>%
+  filter(x_dist == "uniform") %>%
+  ggplot() +
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(reject, conv_reject), fill = reject)) +
+  facet_grid(~type) +
+  ylab("Visual tests") +
+  xlab("Conventional tests") +
+  labs(fill = "Conventional tests") +
+  scale_fill_brewer("", palette="Dark2") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+p_value_cmp_dat %>%
+  filter(x_dist == "uniform") %>%
+  filter(difficulty == "easy") %>%
+  ggplot() +
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(reject, conv_reject), fill = reject)) +
+  facet_grid(~type) +
+  ylab("Visual tests") +
+  xlab("Conventional tests") +
+  labs(fill = "Conventional tests") +
+  scale_fill_brewer("", palette="Dark2") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  ggtitle("Easy") -> p1
+
+p_value_cmp_dat %>%
+  filter(x_dist == "uniform") %>%
+  filter(difficulty == "moderate") %>%
+  ggplot() +
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(reject, conv_reject), fill = reject)) +
+  facet_grid(~type) +
+  ylab("Visual tests") +
+  xlab("Conventional tests") +
+  labs(fill = "Conventional tests") +
+  scale_fill_brewer("", palette="Dark2") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  ylab("") +
+  ggtitle("Moderate") -> p2
+
+p_value_cmp_dat %>%
+  filter(x_dist == "uniform") %>%
+  filter(difficulty == "difficult") %>%
+  ggplot() +
+  ggmosaic::geom_mosaic(aes(x = ggmosaic::product(reject, conv_reject), fill = reject)) +
+  facet_grid(~type) +
+  ylab("Visual tests") +
+  xlab("Conventional tests") +
+  labs(fill = "Conventional tests") +
+  scale_fill_brewer("", palette="Dark2") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  ylab("") +
+  ggtitle("Difficult") -> p3
+
+patchwork::wrap_plots(p1, p2, p3)
+```
+
+
+```{r eval = FALSE}
 vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
@@ -1381,9 +1457,48 @@ vi_survey %>%
 
 ## Effect of the distribution of the regressor
 
+(uniform base line : grey)
+
+(grey not work great with green)
+
+(use different color pal)
+
+(calc the diff in power and plot)
+
+(randomly subset uniform and check the change of the power)
+
 Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the visual effect of the residual plot. In our experiments, four distributions of the regressor are used to accommodate this variation.
 
 Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different distribution of $X_{raw}$ used in the non-linearity model and the heteroskedasticity model. 
+
+
+(discrete is the lowest for non-linearity: discreteness makes people harder to connect the shape? People focus on other features such as outliers instead of the shape? If this is the case, more evaluations may lead to a reject. We need some examples (log(E) > 4) here)
+
+```{r eval = FALSE}
+vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  filter(type == "polynomial") %>%
+  filter(x_dist == "even_discrete") %>%
+  filter(log(effect_size) > 4) %>%
+  filter(p_value > 0.05) %>%
+  .$unique_lineup_id %>%
+  unique()
+```
+
+```{r eval = FALSE}
+VI_MODEL$plot_lineup(vi_lineup$poly_64$data, 
+                     remove_grid_line = TRUE, 
+                     theme = theme_light(),
+                     remove_axis = TRUE)
+```
+
+
+In the case of non-linearity model,
+
+It can be observed that because of the visibility of the visual pattern, the discrete uniform distribution 
+
+visual test 
 
 
 
