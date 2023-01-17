@@ -103,14 +103,14 @@ typically examined for model diagnostics. Residuals summarise what is
 not captured by the model, and thus provide the capacity to identify
 what might be wrong.
 
-One can access residuals in multiple ways. Residuals might be plotted,
-as a histogram or quantile-quantile plot to examine the distribution.
-Using the classical normal linear regression model as an example, if the
-distribution is symmetric and unimodal, it is well-behaved. But if the
-distribution is skewed, bimodal, multimodal, or contains outliers, there
-is cause for concern. One could also inspect the distribution by
-conducting a goodness of fit test, such as the Shapiro-Wilk Normality
-test \citep{shapiro1965analysis}.
+We can assess residuals in multiple ways. Residuals might be plotted, as
+a histogram or quantile-quantile plot to examine the distribution. Using
+the classical normal linear regression model as an example, if the
+distribution is symmetric and unimodal, we consider it well-behaved. But
+if the distribution is skewed, bimodal, multimodal, or contains
+outliers, there is cause for concern. One could also inspect the
+distribution by conducting a goodness of fit test, such as the
+Shapiro-Wilk Normality test \citep{shapiro1965analysis}.
 
 More typically, residuals will be plotted, as a scatter plot against the
 predicted values and each of the explanatory variables to scrutinize
@@ -162,16 +162,16 @@ plots}\label{departures-from-good-residual-plots}}
 
 }
 
-\caption{Example fitted vs residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:residual-plot-common-departures}
+\caption{Example residual vs fitted plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:residual-plot-common-departures}
 \end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the regressors that are approximately orthogonal
 to residuals are referred to as standard residual plots in
-\citet{cook1982residuals}. As shown in Figure
-\ref{fig:residual-plot-common-departures}, the plot A is an ideal
-residual plot with residuals evenly distributed at both sides of the
-horizontal zero line, with no noticeable patterns.
+\citet{cook1982residuals}. Figure
+\ref{fig:residual-plot-common-departures}A shows an ideal residual plot
+with residuals evenly distributed at both sides of the horizontal zero
+line, with no noticeable patterns.
 
 There are various types of departures from an ideal residual plot.
 Non-linearity, heterskedasticity and non-normality are perhaps the three
@@ -179,11 +179,10 @@ mostly checked departures.
 
 Non-linearity is a type of model misspecification caused by failing to
 include higher order terms of the regressors in the regression equation.
-Any non-linear functional form of residuals on fitted values presented
-in the residual plot could be considered as an indicative of
-non-linearity. An example residual plot containing visual pattern of
-non-linearity is given at plot B of Figure
-\ref{fig:residual-plot-common-departures}. One can clearly observe the
+Any non-linear functional form of residuals on fitted values in the
+residual plot could be indicative of non-linearity. An example residual
+plot containing visual pattern of non-linearity is given at Figure
+\ref{fig:residual-plot-common-departures}B. One can clearly observe the
 ``S-shape'' from the residual plot as the cubic term is not captured by
 the misspecified model.
 
@@ -193,27 +192,23 @@ assumptions on the variance-covariance matrix of the error term. The
 usual pattern of heteroskedasticity on a residual plot is the
 inconsistent spread of the residuals across the horizontal axis.
 Visually, it sometimes results in the so-called ``butterfly'' shape as
-shown in the plot C of Figure \ref{fig:residual-plot-common-departures},
-or the ``left-triangle'' and ``right-triangle'' shape where the smallest
+shown in the Figure \ref{fig:residual-plot-common-departures}C, or the
+``left-triangle'' and ``right-triangle'' shape where the smallest
 variance occurs at one side of the horizontal axis.
 
 Compared to non-linearity and heteroskedasticity, non-normality is
 usually harder to detect from a residual plot since a scatter plot do
 not readily reveal the marginal distribution. A favourable graphical
-summary for this task is the quantile-quantile plot. Hence,
-non-normality will not be the focus of this paper as we mainly discuss
-residual plots. For a consistent comparison, the residual plot of this
-departure is still presented in plot D of Figure
-\ref{fig:residual-plot-common-departures}. Besides, it is important to
-note that not all regression models assume normality for the error term,
-but a certain amount do including the classical normal linear regression
-model. In the case that the normality assumption is violated, it is
-expected to observe data points do not center around the horizontal axis
-and there is an uneven distribution of the number points at both below
-and above the horizontal axis. For example, given a skewed error
+summary for this task is the quantile-quantile plot. As we mainly
+discuss residual plots, non-normality will not be the focus of this
+paper. For a consistent comparison, the residual plot of this departure
+is still presented in Figure \ref{fig:residual-plot-common-departures}D.
+When the number residuals below and above the horizontal axis are uneven
+across the local regions along the \(x\)-axis, we expect that the
+normality assumption is violated. For example, given a skewed error
 distribution, there will be fewer data points and more outliers on one
-side of the horizontal axis as shown in plot D of Figure
-\ref{fig:residual-plot-common-departures}.
+side of the horizontal axis as shown in Figure
+\ref{fig:residual-plot-common-departures}D.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
@@ -259,7 +254,7 @@ and slight departures.
 
 \begin{table}
 
-\caption{\label{tab:example-residual-plot-table}Statistical significance testing for departures from good residuals for plots in Figure \ref{fig:residual-plot-common-departures}. Shown are the $p$-values calculated for the conventional RESET, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.}
+\caption{\label{tab:example-residual-plot-table}Statistical significance testing for departures from good residuals for plots in Figure \ref{fig:residual-plot-common-departures}. Shown are the $p$-values calculated for the RESET, the Breusch-Pagan and the Shapiro–Wilk tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.}
 \centering
 \begin{tabular}[t]{llrrr}
 \toprule
@@ -302,14 +297,14 @@ test inspired by the ``police lineup'' or ``identity parade'' which is
 the act of asking the eyewitness to identify criminal suspect from a
 group of irrelevant people. The protocol consists of \(m\) randomly
 placed plots, where one plot is the data plot, and the remaining
-\(m - 1\) plots have the identical graphical procedure except the data
-has been replaced with data consistent with \(H_0\). Then, an observer
-who have not seen the data plot will be asked to point out the most
-different plot from the lineup. Under \(H_0\), it is expected that the
-data plot would have no distinguishable difference from the null plots,
-and the probability that the observer correctly picks the data plot is
-\(1/m\). If one rejects \(H_0\) as the observer correctly picks the data
-plot, then the Type I error of this test is \(1/m\).
+\(m - 1\) null plots have the identical graphical procedure except the
+data has been replaced with data consistent with \(H_0\). Then, an
+observer who have not seen the data plot will be asked to point out the
+most different plot from the lineup. Under \(H_0\), it is expected that
+the data plot would have no distinguishable difference from the null
+plots, and the probability that the observer correctly picks the data
+plot is \(1/m\). If one rejects \(H_0\) as the observer correctly picks
+the data plot, then the Type I error of this test is \(1/m\).
 
 \begin{figure}
 
@@ -333,22 +328,23 @@ tests are capable of testing the significance of a single regressor with
 a similar power as a t-test, though they express that in general it is
 unnecessary to use visual inference if there exists a conventional test,
 and they do not expect the visual test to perform equally well as the
-conventional test. In their third experiment, where there is not a
-conventional test, visual test outperforms the conventional test for a
-large margin. This is encouraging, as it promotes the use of visual
-inference in situations where there are no existing statistical testing
-procedures. Visual inference have also been integrated into diagnostic
-of hierarchical linear models by \citet{loy2013diagnostic},
-\citet{loy2014hlmdiag} and \citet{loy2015you}. They use lineup protocols
-to judge the assumption of linearity, normality and constant error
-variance for both the level-1 and level-2 residuals. (expand?)
+conventional test. (contradict to our claim? expand?) In their third
+experiment, where there is not a conventional test, visual test
+outperforms the conventional test for a large margin. This is
+encouraging, as it promotes the use of visual inference in situations
+where there are no existing statistical testing procedures. Visual
+inference have also been integrated into diagnostic of hierarchical
+linear models by \citet{loy2013diagnostic}, \citet{loy2014hlmdiag} and
+\citet{loy2015you}. They use lineup protocols to judge the assumption of
+linearity, normality and constant error variance for both the level-1
+and level-2 residuals. (expand?)
 
 \hypertarget{sampling-from-the-null-distribution}{%
 \subsubsection{Sampling from the null
 distribution}\label{sampling-from-the-null-distribution}}
 
-Data used in the \(m - 1\) null plots needs to be simulated. In the
-context of regression diagnostics, sampling data from \(H_0\) is
+Data used in the \(m - 1\) null plots needs to be simulated. In
+regression diagnostics, sampling data consistent with \(H_0\) is
 equivalent to sampling data from the assumed model. As
 \citet{buja_statistical_2009} suggested, \(H_0\) is usually a composite
 hypothesis controlled by nuisance parameters. Since regression models
@@ -369,14 +365,14 @@ two regressions.
 \subsubsection{\texorpdfstring{Calculating \(p\)-values for the visual
 test}{Calculating p-values for the visual test}}\label{calculating-p-values-for-the-visual-test}}
 
-In hypothesis testing, \(p\)-value is defined as the probability of
+In hypothesis testing, a \(p\)-value is defined as the probability of
 observing test results as least as extreme as the observed result given
 \(H_0\) is true. Within the context of visual inference, by involving
-\(k\) independent observers, \(p\)-value can be interpreted as the
+\(k\) independent observers, the \(p\)-value can be interpreted as the
 probability of having as many or more subjects detect the data plot than
 the observed result.
 
-Let \(X_j = \{0,1\}\) be a binomial random variable denoting whether
+Let \(X_j = \{0,1\}\) be a Bernoulli random variable denoting whether
 subject \(j\) correctly detecting the data plot, and
 \(X = \sum_{j=1}^{K}X_j\) be the number of observers correctly picking
 the data plot. Then, by imposing a relatively strong assumption on the
@@ -461,35 +457,34 @@ data generating mechanism, are required.
 \hypertarget{power-of-a-visual-test}{%
 \subsubsection{Power of a visual test}\label{power-of-a-visual-test}}
 
-The power of a model misspecification test specifies the chance of a
-misspecified regression model being detected given a certain alternative
-hypothesis. It is an important indicator when one concerns if the
-regression model is misspecified. Though, people might usually be more
-interested in knowing how much the residuals depart from the model
-assumptions and if the departure is of practical significance.
+The power of a model misspecification test is the probability that the
+null hypothesis is rejected given the regression model is misspecified.
+It is an important indicator when one is concerned about whether model
+assumptions have been violated. Although in practice, one might be more
+interested in knowing how much the residuals deviate from the model
+assumptions, and whether this deviation is of practical significance.
 
-As discussed in \citet{majumder_validation_2013}, individual's skill may
-affect the number of observers who identify the data plot from the
-lineup. Thus, the power of a visual test could depend on the
-subject-specific abilities. Previously, it is addressed by modelling the
+As discussed in \citet{majumder_validation_2013}, the power of a visual
+test may depend on the ability of the particular subject, as the skill
+of the individual may affect the number of observers who identify the
+data plot from the lineup. Previously, it is addressed by modelling the
 probability of a subject \(j\) correctly picking the data plot from a
-lineup \(l\) using a mixed-effect logistic regression with the subject
-being treated as a random effect \citep{majumder_validation_2013}.
-However, in the multiple selections scenario, having this probability is
-insufficient to determine the power of a visual test as it doesn't
+lineup \(l\) using a mixed-effect logistic regression, with subjects
+treated as random effects \citep{majumder_validation_2013}. However, in
+the multiple selections scenario, having this probability is not
+sufficient to determine the power of a visual test because it does not
 provide information about the number of selections made by the subject
-for p-value calculation.
+for the calculation of the p-value.
 
-Instead, we estimate the probability of a lineup being rejected directly
-by assuming the individual skill has negligible impact on the variation
-of the power of a lineup. The assumption is made to simplify the model
-structure, thus mitigating the need for expensive large-scale
-experiments to estimate the complex covariance matrix. The model is a
-logistic regression with the natural logarithm of the effect as the only
-regressor formulated as
+Instead, we directly estimate the probability of a lineup being rejected
+by assuming that individual skill has negligible effect on the variation
+of the power. The assumption is to simplify the model structure, thereby
+obviate costly large-scale experiments to estimate complex covariance
+matrices. The model is a logistic regression with the natural logarithm
+of the effect as the only regressor formulated as
 
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log_e(E)),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log(E)),
 \end{equation}
 
 \noindent where \(\Lambda(.)\) is the standard logistic function given
@@ -498,17 +493,30 @@ as \(\Lambda(z) = exp(z)/(1+exp(z))\).
 Effect \(E\) is derived from the Kullback-Leibler divergence (see
 {[}appendix ref here{]}) formulated as
 
-\begin{equation} \label{eq:effect-size-ex1}
-E = \frac{1}{2\sigma^2}\boldsymbol{X}_b'\boldsymbol{R}_a'(diag(\boldsymbol{R}_a))^{-1}\boldsymbol{R}_a\boldsymbol{X}_b,
-\end{equation}
+\small
+
+\begin{gather}  \label{eq:effect-size}
+E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V})^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V})^{-1}\boldsymbol{\mu}_z\right),\\
+\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T,
+\end{gather}
+
+\normalsize
 
 \noindent where \(diag(.)\) is the diagonal matrix constructed from the
-diagonal elements of \(\boldsymbol{R}_a\).
+diagonal elements of a matrix,
+\(\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})\) is the matrix of
+regressors including the intercept used in the regression equation,
+\(\sigma^2\) is the assumed variance of the error term when \(H_0\) is
+true, \(\boldsymbol{V}\) is the actual variance of the error term, and
+\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
+is the expected values of the residuals with \(\boldsymbol{Z}\) be any
+variables leave out by the model and \(\boldsymbol{\beta}_z\) be the
+corresponding coefficients.
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
-collated data grouped by levels of factors. This includes
-{[}expansion{]}.
+collated data grouped by levels of factors. These include the
+distribution of the regressor and the type of the simulated model.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
@@ -552,10 +560,10 @@ using Hermite polynomials on random vector \(\boldsymbol{x}\) formulated
 as
 
 \begin{align} \label{eq:nonlinearity-model}
-\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
-\boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1), \\
-\boldsymbol{z} = g(\boldsymbol{z}_{raw}, 1), \\
-\boldsymbol{z}_{raw} = He_j(g(\boldsymbol{x}, 2)),
+\boldsymbol{y} &= 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1), \\
+\boldsymbol{z} &= g(\boldsymbol{z}_{raw}, 1), \\
+\boldsymbol{z}_{raw} &= He_j(g(\boldsymbol{x}, 2)),
 \end{align}
 
 \noindent where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
@@ -661,9 +669,9 @@ detect the appearance of a heteroskedasticity pattern under a simple
 linear regression model setting:
 
 \begin{align} \label{eq:heter-model}
-\boldsymbol{y} = 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
-\boldsymbol{x} = g(\boldsymbol{x}_{raw}, 1)\\
-\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}, 1 + (2 - |a|)(\boldsymbol{x} - a)^2b \boldsymbol{I}), \\
+\boldsymbol{y} &= 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1),\\
+\boldsymbol{\varepsilon} &\sim N(\boldsymbol{0}, 1 + (2 - |a|)(\boldsymbol{x} - a)^2b \boldsymbol{I}), 
 \end{align}
 
 \noindent where \(\boldsymbol{y}\), \(\boldsymbol{x}\),
@@ -851,6 +859,14 @@ model, and 720 use null lineups. Besides, there are 886 attention checks
 not included in the following analysis. The collated dataset is provided
 in \texttt{vi\_survey} of the \texttt{visage} \texttt{R} package.
 
+In the following analysis, lineups with \(X_{raw} \sim U(-1,1)\) will be
+the focus of next two sections, because visual patterns are more likely
+to be revealed with uniform distribution. Besides, six more evaluations
+are collected for the uniform distribution in experiment III, which will
+produce more reliable and stable results. Analysis of other
+distributions can be found in Section
+\ref{effect-of-the-distribution-of-the-regressor}.
+
 \hypertarget{comparison-of-the-power-of-different-tests}{%
 \subsection{Comparison of the power of different
 tests}\label{comparison-of-the-power-of-different-tests}}
@@ -858,16 +874,11 @@ tests}\label{comparison-of-the-power-of-different-tests}}
 Figure \ref{fig:polypower} shows the estimated power of visual test on
 lineups produced by the non-linearity model with
 \(X_{raw} \sim U(-1,1)\), against the natural logarithm of the effect
-\(log_e(E)\), with a 5\% significance level. Uniform distribution is the
-focus of this section because visual patterns are more likely to be
-revealed. Besides, six more evaluations are collected for the uniform
-distribution in experiment III, which will produce more reliable and
-stable power curves. Analysis of other distributions can be found in
-Section \ref{effect-of-the-distribution-of-the-regressor}. At the bottom
-of the figure \ref{fig:polypower}, there are a sequence of example
-residual plots with increasing levels of \(log_e(E)\). Readers can
-evaluate them from left to right and determine at which level the
-departure from a good residual plot becomes detectable.
+\(log_e(E)\), with a 5\% significance level. At the bottom of the figure
+\ref{fig:polypower}, there are a sequence of example residual plots with
+increasing levels of \(log_e(E)\). Readers can evaluate them from left
+to right and determine at which level the departure from a good residual
+plot becomes detectable.
 
 As discussed in Section \ref{conventionally-testing-for-departures},
 many conventionally tests are available for detecting residual
@@ -907,7 +918,7 @@ tests - RESET test and Shapiro-Wilk test.
 For the non-linearity model, the power curve of RESET test climbs
 aggressively from 13\% to around 70\% as \(log_e(E)\) increases from 0
 to 2, while power of other tests respond inactively to the change of
-effect, showing that REST test is way more sensitive to the type of
+effect, showing that RESET test is way more sensitive to the type of
 model defects that being considered. Meanwhile, no noticeable visual
 features can be spotted from the example residual plots.
 
@@ -977,34 +988,40 @@ popularity of conventional tests in residual diagnostics among analysts.
 \subsection{\texorpdfstring{Comparison of rejection rates based on
 \(p\)-values}{Comparison of rejection rates based on p-values}}\label{comparison-of-rejection-rates-based-on-p-values}}
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
+
+}
+
+\caption{Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model. Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category.}\label{fig:p-value-comparison}
+\end{figure}
+
+(remove lineup id from caption)
+
 The power comparison illustrates that appropriate conventional tests
 reject \(H_0\) more aggressively than visual tests. In this section, we
 explore how often they agree with each other by investigate the
 rejection rates based on \(p\)-values.
 
-Depending on the natural logarithm of the effect, lineups are classified
-into three categories: easy (\textgreater{} 3.5), moderate (1.5 - 3.5)
-and difficult (\textless{} 1.5). Figure \ref{fig:p-value-comparison}
-provides a mosaic plot showing the rejection rate of visual tests and
-conventional tests at different difficulty levels.
+Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the
+rejection rate of visual tests and conventional tests for both the
+non-linearity model and the heteroskedasticity model.
 
-\hypertarget{easy-lineup}{%
-\subsubsection{Easy lineup}\label{easy-lineup}}
+For lineups produced by the non-linearity model, 25\% are rejected by
+both the conventional and visual tests, while 42\% are accepted by both
+tests. Thus, 69\% of the time two tests will agree with each other.
+There are 26\% of lineups rejected by conventional tests only.
 
-For easy lineups produced by the non-linearity model, 65\% are rejected
-by both the conventional and visual tests, while 9\% are accepted by
-both tests. Thus, 74\% of the time two tests will agree with each other.
-There are 16\% of lineups rejected by conventional tests only.
-
-Interestingly, in spite of the greater power of conventional tests, 10\%
+Interestingly, in spite of the greater power of conventional tests, 7\%
 of the lineups are rejected by visual tests only. Recall that the RESET
 test used in our analysis includes powers of fitted values up to four.
 However, the ``M'' and the ``Triple-U'' shapes constructed from the
 Hermite polynomials contain power of the regressor up to six and 18
 respectively. In fact, by including the power of fitted values up to six
 in the RESET test, all these cases will be rejected. We also can observe
-from the example plot displayed in Figure \ref{fig:easy-poly-example}
-that panel three is distinctly different from others, exhibiting a ``M''
+from the example plot displayed in Figure \ref{fig:poly-example} that
+panel three is distinctly different from others, exhibiting a ``M''
 shape. This clearly suggests users of the RESET test and any other
 residual-based conventional tests that require the specification of
 variables of interest to check the residual plot before conducting the
@@ -1012,142 +1029,46 @@ test, such that the correct choice of variables can be made.
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/easy-poly-example-1} 
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/poly-example-1} 
 
 }
 
-\caption{Lineup poly-270 with $log_e(E) = 3.89$ produced by the non-linearity model used in experiment I and III. It is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern.}\label{fig:easy-poly-example}
+\caption{Lineup poly-270 with $log_e(E) = 3.89$ produced by the non-linearity model used in experiment I and III. It is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern.}\label{fig:poly-example}
 \end{figure}
 
-For easy lineups produced by the heteroskedasticity model, 62\% are
-rejected by both the conventional test and the visual test, and 7\% are
-accepted by both, result in 69\% agreement rate. Lineups only rejected
-by conventional test are 30\%. 1\% of lineups are accepted by the
-conventional test but rejected by the visual test.
+\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
-Among those 1\%, which are two lineups, one shows detectable
-heteroskedasticity pattern as displayed in Figure
-\ref{fig:easy-heter-example1}. Another contain data plot with an
-noticeable outlier, but the ``Right-triangle'' shape is not very strong
-as shown in Figure \ref{fig:easy-heter-example2}. The \(p\)-values of
-Breusch-Pagan test for these two lineups are \(0.055\) and \(0.135\).
-Compared to the visual test, its \(p\)-values are \(0.026\) and
-\(0.012\). The Breusch-Pagan test should reject the one with obvious
-heteroskedasticity signal, but it yields a \(p\)-value slightly above
-5\%.
+\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-12-1} \end{center}
+
+\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-1} \end{center}
+
+For lineups produced by the heteroskedasticity model, 55\% are rejected
+by both the conventional test and the visual test, and 24\% are accepted
+by both, result in 79\% agreement rate. Percentage of lineups only
+rejected by conventional test are 20\%. Besides, only 1 lineup, which is
+less than 1\% of all the lineups, are rejected by the visual test only.
+This lineup shows relatively strong heteroskedasticity pattern as
+displayed in Figure \ref{fig:heter-example}. The visual test rejects it
+with a \(p\text{-value} = 0.026\), but the Breusch-Pagan test produces a
+\(p\)-value slightly above 5\%. However, as we can see, it is an
+exceptional case.
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/easy-heter-example1-1} 
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heter-example-1} 
 
 }
 
-\caption{Lineup heter-331 with $log_e(E) = 4.02$ produced by the heteroskedasticity model used in experiment II and III. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 17 contains a "Butterfly" shape, indicating the presence of heteroskedasticity.}\label{fig:easy-heter-example1}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/easy-heter-example2-1} 
-
-}
-
-\caption{Lineup heter-536 with $log_e(E) = 4.13$ produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 18 exhibits a vague heteroskedasticity pattern, but it contains a distinct outlier which makes it attractive to subjects.}\label{fig:easy-heter-example2}
-\end{figure}
-
-\hypertarget{moderate-lineup}{%
-\subsubsection{Moderate lineup}\label{moderate-lineup}}
-
-With the increase of the difficulty level, the sensitivity of
-conventional tests enlarge the difference in rejection rates. For
-moderate lineup produced by the non-linearity model, 8\% and 28\% are
-rejected and accepted by both tests respectively. We can observe a
-decline in agreement rate to 36\%. A large proportion of lineups are
-accepted by the visual test and rejected by the conventional test, which
-is around 63\%. The remaining 1\% are rejected by conventional tests
-only, which suffer the same issue caused by the RESET test as mentioned
-earlier.
-
-For those produced by the heteroskedasticy model, the corresponding
-numbers are 23\%, 31\%, 54\%, 45\% and 1\%. There is only one lineup
-rejected by the visual test but accepted by the conventional test. It
-does not show any heteroskedasticity patterns, but contains a few
-outliers at the bottom of the data plot as illustrated in panel 14 of
-Figure \ref{fig:moderate-heter-example1}. Two out of five subjects
-correctly identify this lineup yielding a \(p\)-value equal to
-\(0.044\). We consider this instance is rejected by chance. If a
-different set of null plots are used, the data plot may not be
-identified.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/moderate-heter-example1-1} 
-
-}
-
-\caption{Lineup heter-219 with $log_e(E) = 1.61$ produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Though the data plot at panel 14 shows no heteroskedasticity patterns, it contains a few outliers at the bottom of the panel.}\label{fig:moderate-heter-example1}
-\end{figure}
-
-\hypertarget{difficult-lineup}{%
-\subsubsection{Difficult lineup}\label{difficult-lineup}}
-
-Visual test is insensitive to lineups with small effect. When it comes
-to difficult level, none of the lineups produced by the non-linearity
-model are rejected by the visual test. There are 73\% of lineups
-accepted by both tests, and 26\% rejected by the conventional test. The
-agreement rate rise up to 73\%.
-
-For lineups produced by the heteroskedasticity model, 3\% are rejected
-by both tests, and 71\% are accepted by both tests. There are 24\% of
-lineups rejected by the conventional test only. Besides, only two
-lineups, which is 2\% of all the difficult lineups, are rejected by the
-visual test only.
-
-As shown in \ref{fig:difficult-heter-example1} and
-\ref{fig:difficult-heter-example2}, residual plots of both lineups are
-constructed with \(X_{raw} \sim lognormal(0, 0.6^2)/3\). Though the
-designed patterns are ``Left-triangle'' and ``Butterfly'' shape, both of
-them are invisible due to the small effect. The visual effect are
-dominated by the skewed distribution. Further, no distinguishable visual
-patterns, such as outliers, are detectable from the data plot of these
-two lineups, which are panel 5 and panel 15. The data plots in these two
-lineups are not the most different plot from our point of view either.
-However, three out of five and two out of five subjects correctly
-identify the data plot for these two lineups respectively. But the
-reasons for selecting the plot provided by the subjects are mixed and
-inconsistent. Hence, with the current data, we can not explain why
-subjects can correctly identify the data plot of these two lineups.
-Collecting more data in future study may help to answer this question.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/difficult-heter-example1-1} 
-
-}
-
-\caption{Lineup heter-224 with $log_e(E) = 1.32$ produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Although two out of five subjects correctly identify the data plot at panel 5, it does not exhibit any visually distinguishable pattern.}\label{fig:difficult-heter-example1}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/difficult-heter-example2-1} 
-
-}
-
-\caption{Lineup heter-415 with $log_e(E) = -0.31$ produced by the heteroskedasticity model used in experiment II. It is rejected by the visual test but not by the  Breusch-Pagan test. Panel 15 is the data plot but it does not exhibit any visually distinguishable pattern.}\label{fig:difficult-heter-example2}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
-
-}
-
-\caption{Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model at different levels of difficulty. Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category.}\label{fig:p-value-comparison}
+\caption{Lineup heter-331 with $log_e(E) = 4.02$ produced by the heteroskedasticity model used in experiment II and III. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 17 contains a "Butterfly" shape, indicating the presence of heteroskedasticity.}\label{fig:heter-example}
 \end{figure}
 
 \hypertarget{effect-of-the-distribution-of-the-regressor}{%
 \subsection{Effect of the distribution of the
 regressor}\label{effect-of-the-distribution-of-the-regressor}}
+
+(calc the diff in power and plot)
+
+(randomly subset uniform and check the change of the power)
 
 Although the distribution of the regressor is classically not restricted
 by the assumptions of linear regression, it will have an impact on the
@@ -1158,7 +1079,38 @@ Figure \ref{fig:different-x-dist-poly-power} and Figure
 \ref{fig:different-x-dist-heter-power} illustrate the change of power of
 visual tests and conventional tests for different distribution of
 \(X_{raw}\) used in the non-linearity model and the heteroskedasticity
-model.
+model. We focus on \(log(E) > 2\) as the visual patterns become visible.
+
+For the non-linearity model, we do not observe significant difference of
+power of visual test between distributions, except for the discrete
+uniform distribution. It could be due to the fact that humans have
+difficulties in recognising visual patterns from discreteness, which
+makes the shape disconnected and incomplete (ref?). In terms of
+conventional tests, the discrete uniform distribution is instead the one
+with the greatest power, followed by the lognormal distribution, uniform
+distribution and the normal distribution.
+
+For the heteroskedasticity model, the power of visual test on lineups
+with uniform distribution has the greatest power. This is as expected
+since other three distributions could reduce the chance of revealing the
+underlying visual pattern because of uneven data points. Although the
+power of visual test under the discrete uniform distribution is the
+lowest in the case of non-linearity model, it has a relatively great
+power this time. Considering for heteroskedasticity, the visual patterns
+are usually detected by connecting the maximum and minimum residuals
+separately at different fitted values. It will not be greatly affected
+by the discrete uniform distribution compared to the uniform
+distribution. Visual tests have low power on lineups with the normal
+distribution and the lognormal distribution. This suggests the use of
+transformation of fitted values in reading residual plots. In the case
+of conventional tests, the discrete uniform distribution consistently
+doing great, followed by the uniform distribution, the normal
+distribution and the lognormal distribution.
+
+In regards of the type of the simulated model, the power of visual tests
+under different distributions of regressor are always lower than the
+corresponding conventional tests, consistent with the result from the
+previous sections.
 
 \begin{figure}
 
@@ -1166,7 +1118,7 @@ model.
 
 }
 
-\caption{...}\label{fig:different-x-dist-poly-power}
+\caption{Power of conventional tests and visual tests on lineups produced by the non-linearity model under different distributions of regressor.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
 \begin{figure}
@@ -1175,7 +1127,7 @@ model.
 
 }
 
-\caption{...}\label{fig:different-x-dist-heter-power}
+\caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor.}\label{fig:different-x-dist-heter-power}
 \end{figure}
 
 \hypertarget{appendix}{%
