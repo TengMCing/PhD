@@ -1014,21 +1014,21 @@ Surprisingly, the visual test rejects 14\% (i.e.~10 out of 70) of
 lineups where the conventional test does not reject.
 
 Figure \ref{fig:poly-example} shows one of the ten lineups where the
-visual test rejected the residual plot. The data plot, in position three
-is very obvious, and different from the nulls. The visual test was
-correct to reject. To understand why this is, one needs to return to the
-way the RESET test is applied. It requires a parameter indicating degree
-of polynomial to test for, and the recommendation is to generically use
-4 (XXX REF). However, the ``M'' and the ``Triple-U'' shapes constructed
-from the Hermite polynomials use power up to 6 and 18 respectively. All
-10 lineups rejected by the visual test but not the RESET were of types
-``M'' or ``Triple-U''. If the RESET test had been applied using the
-power up to 6, all the decisions for these lineups would have been to
-reject. The recommendation of the polynomial power for the RESET should
-be revised, perhaps. This illustrates the sensitivity of conventional
-testing to the parameters, and it also points to a limitation that one
-needs to know the data structure in order to set the parameters for the
-test.
+visual test rejected the residual plot. The data plot, in position
+three, is very obvious, and different from the nulls. The visual test
+was correct to reject. To understand why this is, one needs to return to
+the way the RESET test is applied. It requires a parameter indicating
+degree of polynomial to test for, and the recommendation is to
+generically use 4 (XXX REF). However, the ``M'' and the ``Triple-U''
+shapes constructed from the Hermite polynomials use power up to 6 and 18
+respectively. All 10 lineups rejected by the visual test but not the
+RESET were of types ``M'' or ``Triple-U''. If the RESET test had been
+applied using the power up to 6, all the decisions for these lineups
+would have been to reject. The recommendation of the polynomial power
+for the RESET should be revised, perhaps. This illustrates the
+sensitivity of conventional testing to the parameters, and it also
+points to a limitation that one needs to know the data structure in
+order to set the parameters for the test.
 
 \begin{figure}
 
