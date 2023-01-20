@@ -89,6 +89,11 @@ data visualization; visual inference; hypothesis testing; residual
 plots;
 \end{keywords}
 
+Title (jokes: finding the pattern in residual tests) (why using
+visulization is important in regression diagnostics? an explanation
+using visual inference) (a picture is worth a thousand word) (a plot is
+worth a thousand test: )
+
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
@@ -1007,54 +1012,23 @@ rejection rate of visual tests and conventional tests for both the
 non-linearity model and the heteroskedasticity model.
 
 For lineups produced by the non-linearity model, conventional tests
-reject 51\% and visual tests reject 32\% of the time. Of the tests
-rejected by the conventional test, 49\% are rejected by the visual test,
-that is, approximately half as many as the conventional test.
-Surprisingly, the visual test rejects 14\% (i.e.~10 out of 70) of
-lineups where the conventional test does not reject.
-
-Figure \ref{fig:poly-example} shows one of the ten lineups where the
-visual test rejected the residual plot. The data plot, in position
-three, is very obvious, and different from the nulls. The visual test
-was correct to reject. To understand why this is, one needs to return to
-the way the RESET test is applied. It requires a parameter indicating
-degree of polynomial to test for, and the recommendation is to
-generically use 4 (XXX REF). However, the ``M'' and the ``Triple-U''
-shapes constructed from the Hermite polynomials use power up to 6 and 18
-respectively. All 10 lineups rejected by the visual test but not the
-RESET were of types ``M'' or ``Triple-U''. If the RESET test had been
-applied using the power up to 6, all the decisions for these lineups
-would have been to reject. The recommendation of the polynomial power
-for the RESET should be revised, perhaps. This illustrates the
-sensitivity of conventional testing to the parameters, and it also
-points to a limitation that one needs to know the data structure in
-order to set the parameters for the test.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/poly-example-1} 
-
-}
-
-\caption{Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!}\label{fig:poly-example}
-\end{figure}
-
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-11-1} \end{center}
-
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-12-1} \end{center}
-
-\begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-13-1} \end{center}
+reject 69\% and visual tests reject 32\% of the time. Of the tests
+rejected by the conventional test, 46\% are rejected by the visual test,
+that is, approximately half as many as the conventional test. There are
+no lineups that are rejected by the visual test but not by the
+conventional test.
 
 For lineups produced by the heteroskedasticity model, 55\% are rejected
 by both the conventional test and the visual test, and 24\% are accepted
 by both, result in 79\% agreement rate. Percentage of lineups only
-rejected by conventional test are 20\%. Besides, only 1 lineup, which is
-less than 1\% of all the lineups, are rejected by the visual test only.
-This lineup shows relatively strong heteroskedasticity pattern as
-displayed in Figure \ref{fig:heter-example}. The visual test rejects it
-with a \(p\text{-value} = 0.026\), but the Breusch-Pagan test produces a
-\(p\)-value slightly above 5\%. However, as we can see, it is an
-exceptional case.
+rejected by conventional test are 20\%.
+
+Surprisingly, the visual test rejects 3\% (i.e.~1 out of 32) of lineups
+where the conventional test does not reject. This lineup shows
+relatively strong heteroskedasticity pattern as displayed in Figure
+\ref{fig:heter-example}. The visual test rejects it with a
+\(p\text{-value} = 0.026\), but the Breusch-Pagan test produces a
+\(p\)-value slightly above 5\%.
 
 \begin{figure}
 
@@ -1065,9 +1039,12 @@ exceptional case.
 \caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$. It is a mystery as to why this is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
-\hypertarget{effect-of-the-fitted-value-distribution}{%
-\subsection{Effect of the fitted value
-distribution}\label{effect-of-the-fitted-value-distribution}}
+\hypertarget{effect-of-other-factors}{%
+\subsection{Effect of other factors}\label{effect-of-other-factors}}
+
+\hypertarget{fitted-value-distribution}{%
+\subsubsection{Fitted value
+distribution}\label{fitted-value-distribution}}
 
 (calc the diff in power and plot)
 
@@ -1075,8 +1052,9 @@ distribution}\label{effect-of-the-fitted-value-distribution}}
 
 Although the distribution of the regressor is classically not restricted
 by the assumptions of linear regression, it will have an impact on the
-visual effect of the residual plot. In our experiments, four
-distributions of the regressor are used to accommodate this variation.
+distribution of the fitted values and the visual effect of the residual
+plot. In our experiments, four distributions of the regressor are used
+to accommodate this variation.
 
 Figure \ref{fig:different-x-dist-poly-power} and Figure
 \ref{fig:different-x-dist-heter-power} illustrate the change of power of
@@ -1131,6 +1109,27 @@ previous sections.
 }
 
 \caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor.}\label{fig:different-x-dist-heter-power}
+\end{figure}
+
+\hypertarget{shape}{%
+\subsubsection{Shape}\label{shape}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/poly-power-j-1} 
+
+}
+
+\caption{Power of conventional tests and visual tests on lineups produced by the non-linearity model with four different shapes controlled by the parameter $j$.}\label{fig:poly-power-j}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heter-power-a-1} 
+
+}
+
+\caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$.}\label{fig:heter-power-a}
 \end{figure}
 
 \hypertarget{appendix}{%

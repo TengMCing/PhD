@@ -1232,8 +1232,6 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 ## Comparison of test decisions based on $p$-values
 
-
-
 ```{r p-value-comparison, fig.width=8, fig.height=4, fig.cap="Rejection rate ($p$-value $<0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. "}
 
 library(ggmosaic)
@@ -1267,18 +1265,40 @@ p_value_cmp_dat %>%
   coord_fixed()
 ```
 
+
+```{r eval = FALSE}
+vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  left_join(vi_survey %>% 
+           count(unique_lineup_id) %>%
+           rename(num_subject = n)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not"),
+         reject = ifelse(p_value < 0.05, "Reject", "Not")) %>%
+  mutate(conv_reject = factor(conv_reject, levels = c("Reject", "Not")),
+         reject = factor(reject, levels = c("Reject", "Not"))) %>%
+  filter(type == "non-linearity") %>%
+  filter(reject == "Reject") %>%
+  filter(conv_reject == "Not") %>%
+  View()
+  count(conv_reject, reject)
+```
+
+
 The power comparison illustrates that appropriate conventional tests reject $H_0$ more aggressively than visual tests. In this section, we explore how often they agree with each other by investigate the rejection rates based on $p$-values. 
 
 Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the rejection rate of visual tests and conventional tests for both the non-linearity model and the heteroskedasticity model.
 
 For lineups produced by the non-linearity model, conventional tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
-and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. Surprisingly, the visual test rejects `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Not") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% (i.e. 10 out of 70) of lineups where the conventional test does not reject. 
+and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. There are no lineups that are rejected by the visual test but not by the conventional test.
 
-Figure \ref{fig:poly-example} shows one of the ten lineups where the visual test rejected the residual plot. The data plot, in position three, is very obvious, and different from the nulls. The visual test was correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of polynomial to test for, and the recommendation is to generically use 4 (XXX REF). However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials use power up to 6 and 18 respectively. All 10 lineups rejected by the visual test but not the RESET were of types "M" or "Triple-U". If the RESET test had been applied using the power up to 6, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test. 
+<!-- Figure \ref{fig:poly-example} shows one of the ten lineups where the visual test rejected the residual plot. The data plot, in position three, is very obvious, and different from the nulls. The visual test was correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of polynomial to test for, and the recommendation is to generically use 4 (XXX REF). However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials use power up to 6 and 18 respectively. All 10 lineups rejected by the visual test but not the RESET were of types "M" or "Triple-U". If the RESET test had been applied using the power up to 6, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.  -->
 
-<!--We also can observe from the example plot displayed in Figure \ref{fig:poly-example} that panel three is distinctly different from others, exhibiting a "M" shape. This clearly suggests users of the RESET test and any other residual-based conventional tests that require the specification of variables of interest to check the residual plot before conducting the test, such that the correct choice of variables can be made.-->
-
-```{r poly-example, fig.height = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
+```{r poly-example, eval = FALSE, fig.height = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
 # plot poly-270 
 VI_MODEL$plot_lineup(vi_lineup$poly_270$data, 
                      remove_grid_line = TRUE, 
@@ -1286,7 +1306,9 @@ VI_MODEL$plot_lineup(vi_lineup$poly_270$data,
                      remove_axis = TRUE)
 ```
 
-For lineups produced by the heteroskedasticity model, 55% are rejected by both the conventional test and the visual test, and 24% are accepted by both, result in 79% agreement rate. Percentage of lineups only rejected by conventional test are 20%.  Besides, only 1 lineup, which is less than 1% of all the lineups, are rejected by the visual test only. This lineup shows relatively strong heteroskedasticity pattern as displayed in Figure \ref{fig:heter-example}. The visual test rejects it with a $p\text{-value} = 0.026$, but the Breusch-Pagan test produces a $p$-value slightly above 5%. However, as we can see, it is an exceptional case.
+For lineups produced by the heteroskedasticity model, 55% are rejected by both the conventional test and the visual test, and 24% are accepted by both, result in 79% agreement rate. Percentage of lineups only rejected by conventional test are 20%.
+
+Surprisingly, the visual test rejects `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Not") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% (i.e. 1 out of 32) of lineups where the conventional test does not reject. This lineup shows relatively strong heteroskedasticity pattern as displayed in Figure \ref{fig:heter-example}. The visual test rejects it with a $p\text{-value} = 0.026$, but the Breusch-Pagan test produces a $p$-value slightly above 5%. 
 
 
 ```{r heter-example, fig.height = 7, fig.cap = 'The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$. It is a mystery as to why this is not detected by the BP test.'}
