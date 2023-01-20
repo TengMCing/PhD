@@ -670,6 +670,15 @@ this lineup.
 \caption{Four different values of $\sigma$ are used in the experiment I to control the strength of the signal.}\label{fig:different-sigma}
 \end{figure}
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-poly-lineup-1} 
+
+}
+
+\caption{Lineup poly-24 in experiment I. Can you spot the most different plot? \label{fig:example-poly-lineup}}\label{fig:example-poly-lineup}
+\end{figure}
+
 \hypertarget{heteroskedasticity}{%
 \subsubsection{Heteroskedasticity}\label{heteroskedasticity}}
 
@@ -721,6 +730,15 @@ magnitude of residuals across different values of \(a\).
 }
 
 \caption{Five different values of $b$ are used in experiment II to control the strength of the signal.}\label{fig:different-b}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/example-heter-lineup-1} 
+
+}
+
+\caption{Lineup heter-169 in experiment II. Can you spot the most different plot? \label{fig:example-heter-lineup}}\label{fig:example-heter-lineup}
 \end{figure}
 
 An example lineup of this model used in Experiment II is shown in Figure
@@ -1015,7 +1033,7 @@ test, such that the correct choice of variables can be made.
 
 }
 
-\caption{Lineup poly-270 with $log_e(E) = 3.89$ produced by the non-linearity model used in experiment I and III. It is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern.}\label{fig:poly-example}
+\caption{Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!}\label{fig:poly-example}
 \end{figure}
 
 \begin{center}\includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/unnamed-chunk-11-1} \end{center}
@@ -1041,7 +1059,7 @@ exceptional case.
 
 }
 
-\caption{Lineup heter-331 with $log_e(E) = 4.02$ produced by the heteroskedasticity model used in experiment II and III. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 17 contains a "Butterfly" shape, indicating the presence of heteroskedasticity.}\label{fig:heter-example}
+\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$. It is a mystery as to why this is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
 \hypertarget{effect-of-the-fitted-value-distribution}{%

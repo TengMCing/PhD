@@ -815,15 +815,6 @@ patchwork::wrap_plots(dp1, dp2, dp3, dp4, ncol = 4)
 
 Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups used in experiment I. This lineup is produced by the non-linearity model under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The data plot location is $2^3 - 4$. All five subjects correctly identify the data plot from this lineup.
 
-<!--
-```{r example-poly-lineup, fig.height=5, fig.cap="Lineup poly-24 in experiment I. Can you spot the most different plot? \\label{fig:example-poly-lineup}"}
-VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(),
-                     remove_axis = TRUE)
-```
--->
-
 ```{r different-n, fig.height = 2.67, fig.cap="Three different values of $n$ are used in experiment I, II and III to control the strength of the signal."}
 ori_dat <- poly_model(shape = 2, x = {raw_x <- rand_uniform(-1, 1); closed_form(~stand_dist(raw_x))}, sigma = 1.5)$gen(300)
 
@@ -884,6 +875,13 @@ sp4 <- VI_MODEL$plot(poly_model(shape = 1, x = {raw_x <- rand_uniform(-1, 1); cl
   theme(axis.text = element_blank())
 
 patchwork::wrap_plots(sp1, sp2, sp3, sp4, ncol = 4)
+```
+
+```{r example-poly-lineup, fig.height=7, fig.cap="Lineup poly-24 in experiment I. Can you spot the most different plot? \\label{fig:example-poly-lineup}"}
+VI_MODEL$plot_lineup(vi_lineup[["poly_24"]]$data, 
+                     remove_grid_line = TRUE, 
+                     theme = theme_light(),
+                     remove_axis = TRUE)
 ```
 
 ### Heteroskedasticity
@@ -979,8 +977,8 @@ bp5 <- VI_MODEL$plot(heter_model(a = 0, x = {raw_x <- rand_uniform(-1, 1); close
 patchwork::wrap_plots(bp1, bp2, bp3, bp4, bp5, ncol = 5)
 ```
 
-<!--
-```{r example-heter-lineup, fig.height = 5, fig.cap="Lineup heter-169 in experiment II. Can you spot the most different plot? \\label{fig:example-heter-lineup}"}
+
+```{r example-heter-lineup, fig.height = 7, fig.cap="Lineup heter-169 in experiment II. Can you spot the most different plot? \\label{fig:example-heter-lineup}"}
 
 # vi_survey %>%
 #   filter(!attention_check) %>%
@@ -1002,7 +1000,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_471$data,
                      theme = theme_light(),
                      remove_axis = TRUE)
 ```
--->
+
 
 An example lineup of this model used in Experiment II is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The data plot location is $2^4 + 2$. Nine out of 11 subjects correctly identify the data plot from this lineup. 
 
@@ -1276,7 +1274,8 @@ For lineups produced by the non-linearity model, 25% are rejected by both the co
 
 Interestingly, in spite of the greater power of conventional tests, 7% of the lineups are rejected by visual tests only. Recall that the RESET test used in our analysis includes powers of fitted values up to four. However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials contain power of the regressor up to six and 18 respectively. In fact, by including the power of fitted values up to six in the RESET test, all these cases will be rejected. We also can observe from the example plot displayed in Figure \ref{fig:poly-example} that panel three is distinctly different from others, exhibiting a "M" shape. This clearly suggests users of the RESET test and any other residual-based conventional tests that require the specification of variables of interest to check the residual plot before conducting the test, such that the correct choice of variables can be made.
 
-```{r poly-example, fig.height = 5, fig.cap = "Lineup poly-270 with $log_e(E) = 3.89$ produced by the non-linearity model used in experiment I and III. It is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern."}
+```{r poly-example, fig.height = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
+# plot poly-270 
 VI_MODEL$plot_lineup(vi_lineup$poly_270$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
@@ -1350,7 +1349,8 @@ vi_survey %>%
 For lineups produced by the heteroskedasticity model, 55% are rejected by both the conventional test and the visual test, and 24% are accepted by both, result in 79% agreement rate. Percentage of lineups only rejected by conventional test are 20%.  Besides, only 1 lineup, which is less than 1% of all the lineups, are rejected by the visual test only. This lineup shows relatively strong heteroskedasticity pattern as displayed in Figure \ref{fig:heter-example}. The visual test rejects it with a $p\text{-value} = 0.026$, but the Breusch-Pagan test produces a $p$-value slightly above 5%. However, as we can see, it is an exceptional case.
 
 
-```{r heter-example, fig.height = 5, fig.cap = 'Lineup heter-331 with $log_e(E) = 4.02$ produced by the heteroskedasticity model used in experiment II and III. It is rejected by the visual test but not by the  Breusch-Pagan test. The data plot at panel 17 contains a "Butterfly" shape, indicating the presence of heteroskedasticity.'}
+```{r heter-example, fig.height = 7, fig.cap = 'The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$. It is a mystery as to why this is not detected by the BP test.'}
+# plot heter-331
 VI_MODEL$plot_lineup(vi_lineup$heter_331$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
