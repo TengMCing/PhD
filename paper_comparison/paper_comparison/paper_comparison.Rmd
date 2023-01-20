@@ -1226,11 +1226,11 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 ```  
 
 
-## Comparison of rejection rates based on $p$-values
+## Comparison of test decisions based on $p$-values
 
 
 
-```{r p-value-comparison, fig.width=10, fig.height=5, fig.cap="Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model (uniform fitted values only). Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category."}
+```{r p-value-comparison, fig.width=8, fig.height=4, fig.cap="Rejection rate of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. "}
 
 library(ggmosaic)
 

@@ -984,9 +984,9 @@ popularity of conventional tests in residual diagnostics among analysts.
 \caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
 \end{figure}
 
-\hypertarget{comparison-of-rejection-rates-based-on-p-values}{%
-\subsection{\texorpdfstring{Comparison of rejection rates based on
-\(p\)-values}{Comparison of rejection rates based on p-values}}\label{comparison-of-rejection-rates-based-on-p-values}}
+\hypertarget{comparison-of-test-decisions-based-on-p-values}{%
+\subsection{\texorpdfstring{Comparison of test decisions based on
+\(p\)-values}{Comparison of test decisions based on p-values}}\label{comparison-of-test-decisions-based-on-p-values}}
 
 \begin{figure}
 
@@ -994,7 +994,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model (uniform fitted values only). Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category.}\label{fig:p-value-comparison}
+\caption{Rejection rate of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. }\label{fig:p-value-comparison}
 \end{figure}
 
 (remove lineup id from caption)
