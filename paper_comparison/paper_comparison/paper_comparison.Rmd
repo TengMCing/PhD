@@ -1049,7 +1049,7 @@ There are 2880, 2700 and 2394 lineups evaluation made by 160, 150 and 133 subjec
 
 In the following analysis, lineups with $X_{raw} \sim U(-1,1)$ will be the focus of next two sections, because visual patterns are more likely to be revealed with uniform distribution. Besides, six more evaluations are collected for the uniform distribution in experiment III, which will produce more reliable and stable results. Analysis of other distributions can be found in Section \ref{effect-of-the-distribution-of-the-regressor}.
 
-## Comparison of the power of different tests 
+## Power comparison of different tests 
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with $X_{raw} \sim U(-1,1)$, against the natural logarithm of the effect $log_e(E)$, with a 5% significance level. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residual plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
@@ -1126,7 +1126,7 @@ p <- vi_survey %>%
 ```
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for non-linear patterns. Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
 set.seed(106)
 ex_dat <- poly_model(shape = 2, x = rand_uniform(), sigma = 1)$gen(n = 100)
 plist <- list()
@@ -1204,7 +1204,7 @@ p <- vi_survey %>%
   
   
   
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap="Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 set.seed(10091)
 ex_dat <- heter_model(a = 1, x = rand_uniform(-1, 1), b = 1)$gen(n = 100)
 plist <- list()
@@ -1232,7 +1232,7 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 
 
-```{r p-value-comparison, fig.width=10, fig.height=5, fig.cap="Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model. Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category."}
+```{r p-value-comparison, fig.width=10, fig.height=5, fig.cap="Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model (uniform fitted values only). Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category."}
 
 library(ggmosaic)
 

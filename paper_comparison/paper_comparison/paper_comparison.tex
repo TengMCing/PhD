@@ -849,9 +849,9 @@ produce more reliable and stable results. Analysis of other
 distributions can be found in Section
 \ref{effect-of-the-distribution-of-the-regressor}.
 
-\hypertarget{comparison-of-the-power-of-different-tests}{%
-\subsection{Comparison of the power of different
-tests}\label{comparison-of-the-power-of-different-tests}}
+\hypertarget{power-comparison-of-different-tests}{%
+\subsection{Power comparison of different
+tests}\label{power-comparison-of-different-tests}}
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on
 lineups produced by the non-linearity model with
@@ -954,7 +954,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for non-linear patterns. Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
+\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
 \end{figure}
 
 \begin{figure}
@@ -963,7 +963,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for heteroskedasticity patterns. Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
+\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
 \end{figure}
 
 \hypertarget{comparison-of-rejection-rates-based-on-p-values}{%
@@ -976,7 +976,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model. Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category.}\label{fig:p-value-comparison}
+\caption{Rejection rate of visual test compared to conventional test on lineups produced by heteroskedasticity and non-linearity model (uniform fitted values only). Based on the rejection decision made by the visual test and the conventional test, the mosaic plot shows the proportion of lineups in each category.}\label{fig:p-value-comparison}
 \end{figure}
 
 (remove lineup id from caption)
