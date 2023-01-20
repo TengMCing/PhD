@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.28)  18 JAN 2023 10:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.6)  20 JAN 2023 11:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -7,9 +7,9 @@ entering extended mode
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2022-12-17> (./interact.cls
 Document Class: interact 2016/10/17 v1.03 Interact LaTeX document class
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/size11.clo
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -23,20 +23,20 @@ File: size11.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
 \@mathmargin=\skip50
 For additional information on amsmath, use the `?' option.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks16
 \ex@=\dimen141
-)) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen142
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count193
@@ -86,16 +86,16 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
+)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks21
 \thm@bodyfont=\toks22
@@ -106,7 +106,7 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@postskip=\skip54
 \thm@headsep=\skip55
 \dth@everypar=\toks26
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen150
 \lightrulewidth=\dimen151
@@ -125,22 +125,22 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count273
 \@lastruleclass=\count274
 \@thisrulewidth=\dimen162
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/epsfig.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 2017/06/25 v1.7b (e)psfig emulation (SPQR)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks27
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen163
@@ -148,9 +148,9 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 )
 \epsfxsize=\dimen165
 \epsfysize=\dimen166
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/rotating.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count275
@@ -158,11 +158,11 @@ Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 \rotFPbot=\skip57
 \rot@float@box=\box53
 \rot@mess@toks=\toks28
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ))
 \Gm@cnth=\count276
@@ -189,34 +189,34 @@ LaTeX Font Info:    Overwriting symbol font `letters' in version `boldupright'
 \tabledim=\dimen177
 \LabelSep=\dimen178
 \TopSep=\skip58
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
 Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.sty
+))) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip59
 \subfigcapskip=\skip60
@@ -231,10 +231,10 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 ****************************************
 * Local config file subfigure.cfg used *
 ****************************************
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.cfg)
 \subfig@top=\skip63
 \subfig@bottom=\skip64
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip65
 \bibsep=\skip66
@@ -244,23 +244,23 @@ LaTeX Info: Redefining \cite on input line 694.
 \c@theorem=\count286
 \c@remark=\count287
 \c@notation=\count288
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-11-13 v7.00u Hypertext links for LaTeX
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count289
@@ -268,17 +268,17 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 \@linkdim=\dimen181
 \Hy@linkcounter=\count290
 \Hy@pagecounter=\count291
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2022-11-13 v7.00u Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count292
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2022-11-13 v7.00u Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -291,15 +291,15 @@ Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4410.
 \c@Hy@tempcnt=\count293
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4748.
 \XeTeXLinkMargin=\dimen182
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count294
@@ -312,7 +312,7 @@ Package hyperref Info: backreferencing OFF on input line 6042.
 Package hyperref Info: Link coloring OFF on input line 6047.
 Package hyperref Info: Link coloring with OCG OFF on input line 6052.
 Package hyperref Info: PDF/A mode OFF on input line 6057.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -321,33 +321,33 @@ package with kernel methods
 \c@Hfootnote=\count297
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2022-11-13 v7.00u Hyperref driver for pdfTeX
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
 \Fld@listcount=\count298
 \c@bookmark@seq@number=\count299
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip67
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks30
 \inpenc@posthook=\toks31
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
 Package xcolor Info: Model `RGB' extended on input line 1369.
@@ -357,7 +357,7 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LTleft=\skip68
 \LTright=\skip69
@@ -375,7 +375,7 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \c@LT@tables=\count303
 \c@LT@chunks=\count304
 \LT@p@ftn=\toks32
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
 \col@sep=\dimen186
 \ar@mcellbox=\box59
@@ -384,39 +384,39 @@ Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
 \extratabsurround=\skip72
 \backup@length=\skip73
 \ar@cellbox=\box60
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip74
 \multirow@cntb=\count305
 \multirow@dima=\skip75
 \bigstrutjot=\dimen188
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen189
 \WF@size=\dimen190
 \c@WF@wrappedlines=\count306
 \WF@box=\box61
 \WF@everypar=\toks34
 Package: wrapfig 2003/01/31  v 3.6
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count307
 \float@exts=\toks35
 \float@box=\box62
 \@float@everytoks=\toks36
 \@floatcapt=\box63
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
 \everycr=\toks37
 \minrowclearance=\skip76
 \rownum=\count308
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
 Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-)) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box64
 \sift@deathcycles=\count309
@@ -445,18 +445,18 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@hleads=\box67
 \tabu@vleads=\box68
 \tabu@cellskip=\skip77
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box69
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
 Package: threeparttablex 2013/07/23 v0.3 by daleif
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
 \TPTL@width=\skip78
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box70
 \UL@hyphenbox=\box71
 \UL@skip=\skip79
@@ -467,23 +467,16 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \ULC@box=\box72
 Package: ulem 2019/11/18
 \ULdepth=\dimen260
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen261
 \c@nlinenum=\count317
 \TeXr@lab=\toks41
-) (/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-10-26 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count318
 \l__pdf_internal_box=\box73
-) (./paper_comparison.aux
-
-LaTeX Warning: Label `fig:example-poly-lineup' multiply defined.
-
-
-LaTeX Warning: Label `fig:example-heter-lineup' multiply defined.
-
-)
+) (./paper_comparison.aux)
 \openout1 = `paper_comparison.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
@@ -565,33 +558,33 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
 (Font)              size <5> substituted on input line 82.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 
 
-{/Users/patrickli/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf, id=160, 722.7pt x 180.675pt>
+{/Users/cookd/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf, id=160, 702.625pt x 160.6pt>
 File: paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf  used on input line 161.
-(pdftex.def)             Requested size: 408.0pt x 101.99884pt.
+(pdftex.def)             Requested size: 408.0pt x 93.26077pt.
 [2
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.198 
        <./paper_comparison_files/figure-latex/residual-plot-common-departures-1.pdf>] [3]
-<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=231, 578.16pt x 361.35pt>
+<paper_comparison_files/figure-latex/first-example-lineup-1.pdf, id=233, 565.11125pt x 492.84125pt>
 File: paper_comparison_files/figure-latex/first-example-lineup-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/first-example-lineup-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/first-example-lineup-1.pdf  used on input line 311.
-(pdftex.def)             Requested size: 408.0pt x 254.99991pt.
+(pdftex.def)             Requested size: 408.0pt x 355.83055pt.
 [4
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -601,14 +594,14 @@ l.341
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.374 
-       <./paper_comparison_files/figure-latex/first-example-lineup-1.pdf>]
+l.341 
+       <./paper_comparison_files/figure-latex/first-example-lineup-1.pdf>] [6]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 411.
 
-[6] [7]
+[7]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <5.5> not available
 (Font)              size <5> substituted on input line 507.
@@ -621,209 +614,193 @@ LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <5.5> not available
 (Font)              size <5> substituted on input line 507.
 
-<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=319, 578.16pt x 144.54pt>
+[8] [9]
+<paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf, id=363, 558.085pt x 124.465pt>
 File: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 550.
-(pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-[8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.561 
-       <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf>] [9
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.639 
-      ]
-<paper_comparison_files/figure-latex/different-dist-1.pdf, id=367, 578.16pt x 144.54pt>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf  used on input line 633.
+(pdftex.def)             Requested size: 408.0pt x 90.99542pt.
+<paper_comparison_files/figure-latex/different-dist-1.pdf, id=364, 558.085pt x 124.465pt>
 File: paper_comparison_files/figure-latex/different-dist-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-dist-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-dist-1.pdf  used on input line 642.
-(pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-<paper_comparison_files/figure-latex/example-poly-lineup-1.pdf, id=369, 578.16pt x 361.35pt>
-File: paper_comparison_files/figure-latex/example-poly-lineup-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/example-poly-lineup-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/example-poly-lineup-1.pdf  used on input line 657.
-(pdftex.def)             Requested size: 408.0pt x 254.99991pt.
+(pdftex.def)             Requested size: 408.0pt x 90.99542pt.
+
+LaTeX Warning: Reference `fig:example-poly-lineup' on page 10 undefined on input line 649.
+
+<paper_comparison_files/figure-latex/different-n-1.pdf, id=365, 558.085pt x 172.645pt>
+File: paper_comparison_files/figure-latex/different-n-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-n-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-n-1.pdf  used on input line 657.
+(pdftex.def)             Requested size: 408.0pt x 126.21945pt.
+<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=366, 558.085pt x 124.465pt>
+File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-sigma-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 666.
+(pdftex.def)             Requested size: 408.0pt x 90.99542pt.
 [10
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.689 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.689 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.675 \end{align}
-                 
+l.689 
+       <./paper_comparison_files/figure-latex/different-shape-of-herimite-1.pdf> <./paper_comparison_files/figure-latex/different-dist-1.pdf>]
+<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=396, 558.085pt x 172.645pt>
+File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 710.
+(pdftex.def)             Requested size: 408.0pt x 126.21945pt.
+<paper_comparison_files/figure-latex/different-b-1.pdf, id=397, 558.085pt x 124.465pt>
+File: paper_comparison_files/figure-latex/different-b-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-b-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-b-1.pdf  used on input line 719.
+(pdftex.def)             Requested size: 408.0pt x 90.99542pt.
+
+LaTeX Warning: Reference `fig:example-heter-lineup' on page 11 undefined on input line 727.
+
+[11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.675 \end{align}
-                  <./paper_comparison_files/figure-latex/different-dist-1.pdf> <./paper_comparison_files/figure-latex/example-poly-lineup-1.pdf>]
-<paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf, id=391, 578.16pt x 192.72pt>
-File: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf  used on input line 701.
-(pdftex.def)             Requested size: 408.0pt x 135.99994pt.
-<paper_comparison_files/figure-latex/example-heter-lineup-1.pdf, id=392, 578.16pt x 361.35pt>
-File: paper_comparison_files/figure-latex/example-heter-lineup-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/example-heter-lineup-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/example-heter-lineup-1.pdf  used on input line 710.
-(pdftex.def)             Requested size: 408.0pt x 254.99991pt.
-[11
+l.732 ...imental setup}\label{experimental-setup}}
+                                                  
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.744 T
-       hree different sample sizes are used (n = 50, 100, 300) in all three <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>]
-<paper_comparison_files/figure-latex/different-n-1.pdf, id=416, 578.16pt x 192.72pt>
-File: paper_comparison_files/figure-latex/different-n-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-n-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-n-1.pdf  used on input line 751.
-(pdftex.def)             Requested size: 408.0pt x 135.99994pt.
-<paper_comparison_files/figure-latex/different-sigma-1.pdf, id=417, 578.16pt x 144.54pt>
-File: paper_comparison_files/figure-latex/different-sigma-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-sigma-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-sigma-1.pdf  used on input line 760.
-(pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-<paper_comparison_files/figure-latex/different-b-1.pdf, id=418, 578.16pt x 144.54pt>
-File: paper_comparison_files/figure-latex/different-b-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-b-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-b-1.pdf  used on input line 769.
-(pdftex.def)             Requested size: 408.0pt x 101.99994pt.
-[12
+l.732 ...imental setup}\label{experimental-setup}}
+                                                  
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.791 A
-       s mentioned in Section \ref{calculating-p-values-for-the-visual-test},
+l.732 ...imental setup}\label{experimental-setup}}
+                                                   <./paper_comparison_files/figure-latex/different-n-1.pdf> <./paper_comparison_files/figure-latex/different-sigma-1.pdf> <./paper_comparison_files/figure-latex/different-shape-of-heter-1.pdf>] [12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.791 A
-       s mentioned in Section \ref{calculating-p-values-for-the-visual-test}, <./paper_comparison_files/figure-latex/example-heter-lineup-1.pdf> <./paper_comparison_files/figure-latex/different-n-1.pdf>] [13
+l.788 
+       <./paper_comparison_files/figure-latex/different-b-1.pdf>] [13] [14]
+<paper_comparison_files/figure-latex/polypower-1.pdf, id=502, 344.28625pt x 185.69376pt>
+File: paper_comparison_files/figure-latex/polypower-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/polypower-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/polypower-1.pdf  used on input line 953.
+(pdftex.def)             Requested size: 408.0pt x 220.06027pt.
+<paper_comparison_files/figure-latex/heterpower-1.pdf, id=503, 344.28625pt x 185.69376pt>
+File: paper_comparison_files/figure-latex/heterpower-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/heterpower-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/heterpower-1.pdf  used on input line 962.
+(pdftex.def)             Requested size: 408.0pt x 220.06027pt.
+<paper_comparison_files/figure-latex/p-value-comparison-1.pdf, id=504, 666.49pt x 352.31625pt>
+File: paper_comparison_files/figure-latex/p-value-comparison-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/p-value-comparison-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/p-value-comparison-1.pdf  used on input line 975.
+(pdftex.def)             Requested size: 408.0pt x 215.67596pt.
+[15
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.829 
-      
+l.992 
+       <./paper_comparison_files/figure-latex/polypower-1.pdf>] [16
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.829 
-       <./paper_comparison_files/figure-latex/different-sigma-1.pdf> <./paper_comparison_files/figure-latex/different-b-1.pdf>] [14]
-<paper_comparison_files/figure-latex/polypower-1.pdf, id=498, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/polypower-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/polypower-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/polypower-1.pdf  used on input line 971.
-(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
-[15]
-<paper_comparison_files/figure-latex/heterpower-1.pdf, id=505, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/heterpower-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/heterpower-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/heterpower-1.pdf  used on input line 980.
-(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
-<paper_comparison_files/figure-latex/p-value-comparison-1.pdf, id=506, 722.7pt x 361.35pt>
-File: paper_comparison_files/figure-latex/p-value-comparison-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/p-value-comparison-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/p-value-comparison-1.pdf  used on input line 993.
-(pdftex.def)             Requested size: 408.0pt x 203.99771pt.
-<paper_comparison_files/figure-latex/poly-example-1.pdf, id=509, 578.16pt x 361.35pt>
-File: paper_comparison_files/figure-latex/poly-example-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/poly-example-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/poly-example-1.pdf  used on input line 1032.
-(pdftex.def)             Requested size: 408.0pt x 254.99991pt.
-[16
+l.992 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1037 \end{figure}
-                    <./paper_comparison_files/figure-latex/polypower-1.pdf>] [17
+l.992 
+       <./paper_comparison_files/figure-latex/heterpower-1.pdf> <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
+<paper_comparison_files/figure-latex/poly-example-1.pdf, id=553, 565.11125pt x 348.30125pt>
+File: paper_comparison_files/figure-latex/poly-example-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/poly-example-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/poly-example-1.pdf  used on input line 1014.
+(pdftex.def)             Requested size: 408.0pt x 251.47293pt.
+<paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf, id=554, 562.1pt x 424.58624pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 1021.
+(pdftex.def)             Requested size: 408.0pt x 308.18318pt.
+[17
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1037 \end{figure}
-                   
+l.1021 ...e-latex/unnamed-chunk-11-1} \end{center}
+                                                   <./paper_comparison_files/figure-latex/poly-example-1.pdf>]
+<paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf, id=567, 562.1pt x 424.58624pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 1023.
+(pdftex.def)             Requested size: 408.0pt x 308.18318pt.
+<paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf, id=568, 562.1pt x 424.58624pt>
+File: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 1025.
+(pdftex.def)             Requested size: 408.0pt x 308.18318pt.
+[18 <./paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf>]
+<paper_comparison_files/figure-latex/heter-example-1.pdf, id=588, 565.11125pt x 348.30125pt>
+File: paper_comparison_files/figure-latex/heter-example-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/heter-example-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/heter-example-1.pdf  used on input line 1040.
+(pdftex.def)             Requested size: 408.0pt x 251.47293pt.
+[19 <./paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>]
+<paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf, id=607, 354.32375pt x 212.795pt>
+File: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf  used on input line 1099.
+(pdftex.def)             Requested size: 408.0pt x 245.03703pt.
+<paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf, id=608, 354.32375pt x 212.795pt>
+File: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf Graphic file (type pdf)
+<use paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>
+Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf  used on input line 1108.
+(pdftex.def)             Requested size: 408.0pt x 245.03703pt.
+[20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1037 \end{figure}
-                    <./paper_comparison_files/figure-latex/heterpower-1.pdf> <./paper_comparison_files/figure-latex/p-value-comparison-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf, id=551, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 1039.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-<paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf, id=552, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 1041.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[18
+l.1132 ...ion{targe journal}\label{targe-journal}}
+                                                   <./paper_comparison_files/figure-latex/heter-example-1.pdf>] [21
 pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1041 ...e-latex/unnamed-chunk-12-1} \end{center}
-                                                   <./paper_comparison_files/figure-latex/poly-example-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-11-1.pdf>]
-<paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf, id=567, 578.16pt x 433.62pt>
-File: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 1043.
-(pdftex.def)             Requested size: 408.0pt x 305.99988pt.
-[19 <./paper_comparison_files/figure-latex/unnamed-chunk-12-1.pdf> <./paper_comparison_files/figure-latex/unnamed-chunk-13-1.pdf>]
-<paper_comparison_files/figure-latex/heter-example-1.pdf, id=584, 578.16pt x 361.35pt>
-File: paper_comparison_files/figure-latex/heter-example-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/heter-example-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/heter-example-1.pdf  used on input line 1058.
-(pdftex.def)             Requested size: 408.0pt x 254.99991pt.
-[20
+l.1132 ...ion{targe journal}\label{targe-journal}}
+                                                  
 pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1092 
-        <./paper_comparison_files/figure-latex/heter-example-1.pdf>]
-<paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf, id=600, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf  used on input line 1117.
-(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
-<paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf, id=601, 361.35pt x 216.81pt>
-File: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf Graphic file (type pdf)
-<use paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>
-Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf  used on input line 1126.
-(pdftex.def)             Requested size: 408.0pt x 244.80055pt.
-[21
-pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1155 R
-        eading: style of writing, author guideline <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>] [22
-pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1160 \newpage
-                <./paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>] (./paper_comparison.bbl [23]) [24] (./paper_comparison.aux)
+l.1132 ...ion{targe journal}\label{targe-journal}}
+                                                   <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf> <./paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>] [22] (./paper_comparison.bbl [23]) [24] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
 (rerunfilecheck)             Checksum: 32FACFB83FB2988C5BE2E3D10B729638;5177.
  ) 
 Here is how much of TeX's memory you used:
- 13441 strings out of 478053
- 221838 string characters out of 5839799
- 1868793 words of memory out of 5000000
- 33162 multiletter control sequences out of 15000+600000
+ 13421 strings out of 478053
+ 219831 string characters out of 5840129
+ 1866793 words of memory out of 5000000
+ 33146 multiletter control sequences out of 15000+600000
  527228 words of font info for 89 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,20n,90p,723b,600s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (24 pages, 2434610 bytes).
+ 85i,20n,90p,721b,600s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on paper_comparison.pdf (24 pages, 1762942 bytes).
 PDF statistics:
- 774 PDF objects out of 1000 (max. 8388607)
- 651 compressed objects within 7 object streams
- 145 named destinations out of 1000 (max. 500000)
- 317 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 794 PDF objects out of 1000 (max. 8388607)
+ 657 compressed objects within 7 object streams
+ 143 named destinations out of 1000 (max. 500000)
+ 307 words of extra memory for PDF output out of 10000 (max. 10000000)
 
