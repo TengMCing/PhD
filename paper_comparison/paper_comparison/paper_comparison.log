@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.6)  20 JAN 2023 17:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.6)  20 JAN 2023 19:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -782,11 +782,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) ha
                                                   \__shipout_drop_firstpage_...
 l.1095 
         <./paper_comparison_files/figure-latex/heter-example-1.pdf>]
-<paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf, id=648, 354.32375pt x 211.79124pt>
+<paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf, id=648, 501.875pt x 203.76125pt>
 File: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>
 Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf  used on input line 1120.
-(pdftex.def)             Requested size: 408.0pt x 243.8812pt.
+(pdftex.def)             Requested size: 408.0pt x 165.65509pt.
 <paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf, id=649, 354.32375pt x 211.79124pt>
 File: paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf Graphic file (type pdf)
 <use paper_comparison_files/figure-latex/different-x-dist-heter-power-1.pdf>
@@ -796,8 +796,8 @@ Package pdftex.def Info: paper_comparison_files/figure-latex/different-x-dist-he
 pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1153 ...ion{targe journal}\label{targe-journal}}
-                                                   <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>] [24
+l.1158 R
+        eading: style of writing, author guideline <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.pdf>] [24
 pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
@@ -825,7 +825,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  85i,20n,90p,752b,600s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (26 pages, 2445485 bytes).
+Output written on paper_comparison.pdf (26 pages, 2445617 bytes).
 PDF statistics:
  829 PDF objects out of 1000 (max. 8388607)
  684 compressed objects within 7 object streams

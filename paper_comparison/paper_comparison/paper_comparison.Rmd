@@ -1336,7 +1336,9 @@ VI_MODEL$plot_lineup(vi_lineup$poly_64$data,
 ```
 
 
-```{r different-x-dist-poly-power, fig.height = 3, fig.width = 5, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model under different distributions of regressor."}
+
+
+```{r different-x-dist-poly-power, fig.height = 3, fig.width = 7, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions."}
 
 dat_different_dist <- poly_conv_sim %>% 
   mutate(log_effect_size = log(effect_size)) %>%
@@ -1360,23 +1362,35 @@ dat_different_dist <- poly_conv_sim %>%
   mutate(x_dist = ifelse(x_dist == "even_discrete", 
                          "Discrete", 
                          stringr::str_to_title(x_dist))) %>%
-  mutate(conv_or_not = "Visual"))
+  mutate(conv_or_not = "Visual")) %>%
+  mutate(x_dist = factor(x_dist, 
+      levels = c("Uniform", "Normal", 
+                 "Lognormal", "Discrete")))
 
-dat_different_dist %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, 
+ggplot() +
+  geom_smooth(data=filter(dat_different_dist, 
+                          x_dist == "Uniform"),
+              aes(log_effect_size, 
+                  reject), 
+                  col = "grey", 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, size=3) +
+  geom_smooth(data=dat_different_dist,
+              aes(log_effect_size, 
                   reject, 
                   col = x_dist), 
               method = "glm", 
               method.args = list(family = binomial), 
-              se = FALSE) +
+              se = FALSE, size=1) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(1,3,2,4)]) +
-  scale_size_manual(values = c(1, 2, 3)) +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
+  scale_size_manual(values = c(1, 2, 3, 4)) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
-  labs(col = "Distribution of regressor", linetype = "Test") +
-  facet_wrap(~conv_or_not)
+  labs(col = "", linetype = "Test") +
+  facet_wrap(~conv_or_not) +
+  theme(legend.position="bottom")
 ```
 
 
