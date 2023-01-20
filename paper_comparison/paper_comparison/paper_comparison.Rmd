@@ -300,7 +300,11 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
 }
 ```
 
-
+Title 
+(jokes: finding the pattern in residual tests) 
+(why using visulization is important in regression diagnostics? an explanation using visual inference)
+(a picture is worth a thousand word)
+(a plot is worth a thousand test: )
 
 # Introduction
 
@@ -1282,70 +1286,6 @@ VI_MODEL$plot_lineup(vi_lineup$poly_270$data,
                      remove_axis = TRUE)
 ```
 
-
-```{r}
-poly_conv_sim %>%
-  filter(x_dist == "uniform", shape %in% c(3, 4)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(shape, log_effect_size, (RESET3_p_value:RESET9_p_value)) %>%
-  pivot_longer(RESET3_p_value:RESET9_p_value) %>%
-  mutate(name = gsub("_p_value", " ", name)) %>%
-  mutate(name = gsub("RESET", "", name)) %>%
-  mutate(name = gsub("test", "", name)) %>%
-  mutate(reject = as.numeric(value < 0.05)) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = name), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(7, "RedOr"))) +
-  theme_light() +
-  labs(col = "RESET test order") +
-  facet_wrap(~shape)
-```
-
-```{r}
-heter_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
-  mutate(a = c("left-triangle", "butterfly", "right-triangle")[a + 2]) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = factor(a)), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
-  theme_light() +
-  labs(col = "Heteroskedasticity shape") +
-  ggtitle("Conventional test")
-```
-
-```{r}
-vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform", type == "heteroskedasticity") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
-  mutate(a = c("left-triangle", "butterfly", "right-triangle")[a + 2]) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = factor(a)), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
-  theme_light() +
-  labs(col = "Heteroskedasticity shape") +
-  ggtitle("Visual test")
-```
-
 For lineups produced by the heteroskedasticity model, 55% are rejected by both the conventional test and the visual test, and 24% are accepted by both, result in 79% agreement rate. Percentage of lineups only rejected by conventional test are 20%.  Besides, only 1 lineup, which is less than 1% of all the lineups, are rejected by the visual test only. This lineup shows relatively strong heteroskedasticity pattern as displayed in Figure \ref{fig:heter-example}. The visual test rejects it with a $p\text{-value} = 0.026$, but the Breusch-Pagan test produces a $p$-value slightly above 5%. However, as we can see, it is an exceptional case.
 
 
@@ -1357,13 +1297,16 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
                      remove_axis = TRUE)
 ```
 
-## Effect of the fitted value distribution 
+
+## Effect of other factors
+
+### Fitted value distribution 
 
 (calc the diff in power and plot)
 
 (randomly subset uniform and check the change of the power)
 
-Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the visual effect of the residual plot. In our experiments, four distributions of the regressor are used to accommodate this variation.
+Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the distribution of the fitted values and the visual effect of the residual plot. In our experiments, four distributions of the regressor are used to accommodate this variation.
 
 Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different distribution of $X_{raw}$ used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ as the visual patterns become visible. 
 
@@ -1391,8 +1334,6 @@ VI_MODEL$plot_lineup(vi_lineup$poly_64$data,
                      theme = theme_light(),
                      remove_axis = TRUE)
 ```
-
-
 
 
 ```{r different-x-dist-poly-power, fig.height = 3, fig.width = 5, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model under different distributions of regressor."}
@@ -1481,6 +1422,90 @@ dat_different_dist %>%
   facet_wrap(~conv_or_not)
 ```
 
+
+### Shape
+
+```{r eval = FALSE}
+poly_conv_sim %>%
+  filter(x_dist == "uniform", shape %in% c(3, 4)) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  select(shape, log_effect_size, (RESET3_p_value:RESET9_p_value)) %>%
+  pivot_longer(RESET3_p_value:RESET9_p_value) %>%
+  mutate(name = gsub("_p_value", " ", name)) %>%
+  mutate(name = gsub("RESET", "", name)) %>%
+  mutate(name = gsub("test", "", name)) %>%
+  mutate(reject = as.numeric(value < 0.05)) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject, col = name), 
+              se = FALSE, 
+              method = "glm",
+              method.args = list(family = binomial())) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(7, "RedOr"))) +
+  theme_light() +
+  labs(col = "RESET test order") +
+  facet_wrap(~shape)
+```
+
+
+```{r poly-power-j, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model with four different shapes controlled by the parameter $j$."}
+
+poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
+  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
+  mutate(conv_type = "Conventional") %>%
+  bind_rows(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform", type == "polynomial") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
+  mutate(conv_type = "Visual")) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject, col = factor(shape)), 
+              se = FALSE, 
+              method = "glm",
+              method.args = list(family = binomial())) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "Vivid")) +
+  theme_light() +
+  facet_wrap(~conv_type) +
+  labs(col = "Non-linearity shape")
+```
+
+```{r heter-power-a, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
+
+heter_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
+  mutate(a = c("left-triangle", "butterfly", "right-triangle")[a + 2]) %>%
+  mutate(conv_type = "Conventional") %>%
+  bind_rows(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform", type == "heteroskedasticity") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(a = c("left-triangle", "butterfly", "right-triangle")[a + 2]) %>%
+  mutate(conv_type = "Visual")) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject, col = factor(a)), 
+              se = FALSE, 
+              method = "glm",
+              method.args = list(family = binomial())) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
+  theme_light() +
+  facet_wrap(~conv_type) +
+  labs(col = "Heteroskedasticity shape")
+```
 
 
 # Appendix
