@@ -1230,7 +1230,7 @@ patchwork::wrap_plots(append(plist, list(p), after = 0),
 
 
 
-```{r p-value-comparison, fig.width=8, fig.height=4, fig.cap="Rejection rate of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. "}
+```{r p-value-comparison, fig.width=8, fig.height=4, fig.cap="Rejection rate ($p$-value $<0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. "}
 
 library(ggmosaic)
 
@@ -1263,14 +1263,14 @@ p_value_cmp_dat %>%
   coord_fixed()
 ```
 
-
-(remove lineup id from caption)
-
 The power comparison illustrates that appropriate conventional tests reject $H_0$ more aggressively than visual tests. In this section, we explore how often they agree with each other by investigate the rejection rates based on $p$-values. 
 
 Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the rejection rate of visual tests and conventional tests for both the non-linearity model and the heteroskedasticity model.
 
-For lineups produced by the non-linearity model, 25% are rejected by both the conventional and visual tests, while 42% are accepted by both tests. Thus, 69% of the time two tests will agree with each other. There are 26% of lineups rejected by conventional tests only.
+For lineups produced by the non-linearity model, conventional tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
+and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`%, so approximately half as many as the conventional test. Surprisingly, the visual test rejects `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Not") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of lineups where the conventional test does not reject.
+
+are rejected by both the conventional and visual tests, while 42% are accepted by both tests. Thus, 69% of the time two tests will agree with each other. There are 26% of lineups rejected by conventional tests only.
 
 Interestingly, in spite of the greater power of conventional tests, 7% of the lineups are rejected by visual tests only. Recall that the RESET test used in our analysis includes powers of fitted values up to four. However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials contain power of the regressor up to six and 18 respectively. In fact, by including the power of fitted values up to six in the RESET test, all these cases will be rejected. We also can observe from the example plot displayed in Figure \ref{fig:poly-example} that panel three is distinctly different from others, exhibiting a "M" shape. This clearly suggests users of the RESET test and any other residual-based conventional tests that require the specification of variables of interest to check the residual plot before conducting the test, such that the correct choice of variables can be made.
 
