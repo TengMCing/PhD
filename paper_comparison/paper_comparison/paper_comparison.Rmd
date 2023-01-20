@@ -1120,7 +1120,7 @@ p <- vi_survey %>%
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_size_manual(values = c(1, 2, 3)) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   labs(col = "", size = "# lineups")
 ```
@@ -1197,7 +1197,7 @@ p <- vi_survey %>%
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   scale_size_manual(values = c(1, 2, 3)) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   labs(col = "", size = "# lineups")
 ```  
@@ -1299,7 +1299,7 @@ poly_conv_sim %>%
               se = FALSE, 
               method = "glm",
               method.args = list(family = binomial())) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   scale_color_manual(values = rev(rcartocolor::carto_pal(7, "RedOr"))) +
   theme_light() +
@@ -1318,7 +1318,7 @@ heter_conv_sim %>%
               se = FALSE, 
               method = "glm",
               method.args = list(family = binomial())) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
   theme_light() +
@@ -1339,7 +1339,7 @@ vi_survey %>%
               se = FALSE, 
               method = "glm",
               method.args = list(family = binomial())) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
   theme_light() +
@@ -1357,7 +1357,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
                      remove_axis = TRUE)
 ```
 
-## Effect of the distribution of the regressor
+## Effect of the fitted value distribution 
 
 (calc the diff in power and plot)
 
@@ -1432,7 +1432,7 @@ dat_different_dist %>%
   theme_light(base_size = 5) +
   scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(1,3,2,4)]) +
   scale_size_manual(values = c(1, 2, 3)) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   labs(col = "Distribution of regressor", linetype = "Test") +
   facet_wrap(~conv_or_not)
@@ -1475,7 +1475,7 @@ dat_different_dist %>%
   theme_light(base_size = 5) +
   scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(1,3,2,4)]) +
   scale_size_manual(values = c(1, 2, 3)) +
-  xlab("Effect size (log E)") +
+  xlab("Effect size (log e)") +
   ylab("Power") +
   labs(col = "Distribution of regressor", linetype = "Test") +
   facet_wrap(~conv_or_not)
