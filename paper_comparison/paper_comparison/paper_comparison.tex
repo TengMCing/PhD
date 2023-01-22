@@ -597,10 +597,11 @@ Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
 out by the null regression, which will lead to model misspecification.
 
 Visual patterns of non-linearity are simulated using four different
-orders of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)) and
-four different distributions of \(X_{raw}\): (1) \(U(-1, 1)\), (2)
-\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A
-summary of the factors is given in Table \ref{tab:model-factor-table}.
+orders of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)). Four
+distributions of fitted values are also considered by using \(X_{raw}\)
+follows different distributions: (1) \(U(-1, 1)\), (2) \(N(0, 0.3^2)\),
+(3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A summary of the
+factors is given in Table \ref{tab:model-factor-table}.
 
 \begin{table}
 
@@ -609,12 +610,12 @@ summary of the factors is given in Table \ref{tab:model-factor-table}.
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rcrrrr}
 \toprule
-\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{\makecell[c]{Distribution of $X_{raw}$\\}} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Heteroskedasticity Shape ($a$)} & \multicolumn{1}{c}{Heteroskedasticity ($b$)} & \multicolumn{1}{c}{Size ($n$)} \\
+\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{Distribution of fitted values} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Heteroskedasticity Shape ($a$)} & \multicolumn{1}{c}{Heteroskedasticity ($b$)} & \multicolumn{1}{c}{Size ($n$)} \\
 \cmidrule(l{3pt}r{3pt}){1-1} \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6}
-2 & $U(-1, 1)$ & 0.25 & -1 & 0.25 & 50\\
-3 & $N(0, 0.3^2)$ & 1.00 & 0 & 1.00 & 100\\
-6 & $lognormal(0, 0.6^2)/3$ & 2.00 & 1 & 4.00 & 300\\
-18 & $U\{1, 5\}$ & 4.00 &  & 16.00 & \\
+2 & Uniform & 0.25 & -1 & 0.25 & 50\\
+3 & Normal & 1.00 & 0 & 1.00 & 100\\
+6 & Skewed & 2.00 & 1 & 4.00 & 300\\
+18 & Discrete uniform & 4.00 &  & 16.00 & \\
  &  &  &  & 64.00 & \\
 \bottomrule
 \end{tabular}}
@@ -628,12 +629,12 @@ result in a curve with more turning points. It is expected that the
 ``U'' shape will be the easiest one to detect because complex shape
 tends to be concealed by cluster of data points.
 
-Different distributions of \(X_{raw}\) help enriching the pool of visual
-patterns as illustrated in Figure \ref{fig:different-dist}. The uniform
-and the normal distribution are symmetric and commonly assumed in
-statistical models. The adjusted log-normal distribution provides skewed
-density, while the discrete uniform distribution provides discreteness
-in residual plot.
+Different distributions of fitted values help enriching the pool of
+visual patterns as illustrated in Figure \ref{fig:different-dist}. The
+uniform and the normal distribution are symmetric and commonly assumed
+in statistical models. The adjusted log-normal distribution provides
+skewed density, while the discrete uniform distribution provides
+discreteness in residual plot.
 
 \begin{figure}
 
@@ -650,14 +651,14 @@ in residual plot.
 
 }
 
-\caption{Variations in fitted values ($X_{raw}$), that might affect perception of residual plots. Four different distribution are used.}\label{fig:different-dist}
+\caption{Variations in fitted values, that might affect perception of residual plots. Four different distribution are used.}\label{fig:different-dist}
 \end{figure}
 
 Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups
 used in experiment I. This lineup is produced by the non-linearity model
-under \(j = 6\) and \(X_{raw} \sim N(0.0.3^2)\). The data plot location
-is \(2^3 - 4\). All five subjects correctly identify the data plot from
-this lineup.
+under \(j = 6\) and fitted values follow a uniform distribution. The
+data plot location is \(2^3 - 4\). All five subjects correctly identify
+the data plot from this lineup.
 
 \begin{figure}
 
@@ -819,7 +820,7 @@ All lineups consist of only null plots are planned to be evaluated by 20
 subjects. However, presenting only these lineups to subjects are
 considered to be bad practices as subjects will lose interest quickly.
 Therefore, we plan to collect 6 more evaluations on the 279 lineups with
-\(X_{raw} \sim U(-1,1)\), result in
+fitted values follow a uniform distribution, result in
 \((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3 \times 6) / (20-2) = 133\)
 subjects recruited for experiment III.
 
@@ -862,30 +863,28 @@ maintain the overall data quality.
 \hypertarget{overview}{%
 \subsection{Overview}\label{overview}}
 
-There are 2880, 2700 and \texttt{133\ *\ 18} lineups evaluation made by
-160, 150 and 133 subjects recruited for experiment I, II and III
-respectively. In the total of 7974 lineup evaluations, 3744 use lineups
-produced by the non-linearity model, 4230 use lineups produced by the
-heteroskedasticity model, and 720 use null lineups. Besides, there are
-886 attention checks not included in the following analysis. The
-collated dataset is provided in \texttt{vi\_survey} of the
-\texttt{visage} \texttt{R} package.
+There are 2880, 2700 and 2394 lineups evaluation made by 160, 150 and
+133 subjects recruited for experiment I, II and III respectively. In the
+total of 7974 lineup evaluations, 3744 use lineups produced by the
+non-linearity model, 4230 use lineups produced by the heteroskedasticity
+model, and 720 use null lineups. Besides, there are 886 attention checks
+not included in the analysis. The collated dataset is provided in
+\texttt{vi\_survey} of the \texttt{visage} \texttt{R} package.
 
-In the following analysis, lineups with \(X_{raw} \sim U(-1,1)\) will be
-the focus of next two sections, because visual patterns are more likely
-to be revealed with uniform distribution. Besides, six more evaluations
-are collected for the uniform distribution in experiment III, which will
-produce more reliable and stable results. Analysis of other
-distributions can be found in Section
-\ref{effect-of-the-distribution-of-the-regressor}.
+In the following analysis, lineups with fitted values follows a uniform
+distribution will be the focus of next two sections. Visual patterns are
+more likely to be revealed under a uniform distribution. Additionally,
+we have collected extra evaluations on these lineups, which will result
+in more reliable analysis. Analysis of lineups with other fitted value
+distributions can be found in Section \ref{fitted-value-distribution}.
 
 \hypertarget{power-comparison-of-different-tests}{%
 \subsection{Power comparison of different
 tests}\label{power-comparison-of-different-tests}}
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on
-lineups produced by the non-linearity model with
-\(X_{raw} \sim U(-1,1)\), against the natural logarithm of the effect
+lineups produced by the non-linearity model with fitted values follow a
+uniform distribution, against the natural logarithm of the effect
 \(log_e(E)\), with a 5\% significance level. At the bottom of the figure
 \ref{fig:polypower}, there are a sequence of example residual plots with
 increasing levels of \(log_e(E)\). Readers can evaluate them from left
