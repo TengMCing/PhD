@@ -1281,44 +1281,19 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 ```
 
 
-## Effect of other factors
+## Effect of other factors used in the simulated model
 
 ### Fitted value distribution 
 
-(calc the diff in power and plot)
+Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the fitted value distribution and the visual effect of the residual plot. In our experiments, four distributions of fitted values are considered to accommodate this variation.
 
-(randomly subset uniform and check the change of the power)
+Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ where the visual patterns start to become recognisable.
 
-Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the distribution of the fitted values and the visual effect of the residual plot. In our experiments, four distributions of the regressor are used to accommodate this variation.
-
-Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different distribution of $X_{raw}$ used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ as the visual patterns become visible. 
-
-For the non-linearity model, we do not observe significant difference of power of visual test between distributions, except for the discrete uniform distribution. It could be due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform  distribution is instead the one with the greatest power, followed by the lognormal distribution, uniform distribution and the normal distribution.
+For the non-linearity model, we do not observe significant difference in power of visual test between distributions, except for the discrete uniform distribution. It is possibility due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform distribution is instead the one with the greatest power, followed by the lognormal distribution, the uniform distribution and the normal distribution.
 
 For the heteroskedasticity model, the power of visual test on lineups with uniform distribution has the greatest power. This is as expected since other three distributions could reduce the chance of revealing the underlying visual pattern because of uneven data points. Although the power of visual test under the discrete uniform  distribution is the lowest in the case of non-linearity model, it has a relatively great power this time. Considering for heteroskedasticity, the visual patterns are usually detected by connecting the maximum and minimum residuals separately at different fitted values. It will not be greatly affected by the discrete uniform distribution compared to the uniform distribution. Visual tests have low power on lineups with the normal distribution and the lognormal distribution. This suggests the use of transformation of fitted values in reading residual plots. In the case of conventional tests, the discrete uniform distribution consistently doing great, followed by the uniform distribution, the normal distribution and the lognormal distribution. 
 
-In regards of the type of the simulated model, the power of visual tests under different distributions of regressor are always lower than the corresponding conventional tests, consistent with the result from the previous sections.
-
-```{r eval = FALSE}
-vi_survey %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  filter(type == "polynomial") %>%
-  filter(x_dist == "even_discrete") %>%
-  filter(log(effect_size) > 4) %>%
-  filter(p_value > 0.05) %>%
-  .$unique_lineup_id %>%
-  unique()
-```
-
-```{r eval = FALSE}
-VI_MODEL$plot_lineup(vi_lineup$poly_64$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(),
-                     remove_axis = TRUE)
-```
-
-
+In regards of the type of the simulated model, the power of visual tests under different distributions of regressor are always lower than the corresponding conventional tests, which is consistent with the result from the previous sections.
 
 ```{r different-x-dist-poly-power, fig.height = 3, fig.width = 7, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions."}
 
@@ -1347,24 +1322,25 @@ dat_different_dist <- poly_conv_sim %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(x_dist = factor(x_dist, 
       levels = c("Uniform", "Normal", 
-                 "Lognormal", "Discrete")))
+                 "Lognormal", "Discrete"))) %>%
+  select(x_dist, log_effect_size, reject, conv_or_not)
 
-ggplot() +
-  geom_smooth(data=filter(dat_different_dist, 
-                          x_dist == "Uniform"),
+dat_different_dist %>%
+  ggplot() +
+  geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
               aes(log_effect_size, 
                   reject), 
                   col = "grey", 
               method = "glm", 
               method.args = list(family = binomial), 
-              se = FALSE, size=3) +
-  geom_smooth(data=dat_different_dist,
-              aes(log_effect_size, 
+              se = FALSE, size = 3) +
+  geom_smooth(aes(log_effect_size, 
                   reject, 
                   col = x_dist), 
               method = "glm", 
               method.args = list(family = binomial), 
-              se = FALSE, size=1) +
+              se = FALSE, 
+              size = 1) +
   theme_light(base_size = 5) +
   scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
   scale_size_manual(values = c(1, 2, 3, 4)) +
@@ -1376,7 +1352,7 @@ ggplot() +
 ```
 
 
-```{r different-x-dist-heter-power, fig.height = 3, fig.width = 5, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor."}
+```{r different-x-dist-heter-power, fig.height = 3, fig.width = 7, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor."}
 
 dat_different_dist <- heter_conv_sim %>% 
   mutate(log_effect_size = log(effect_size)) %>%
@@ -1399,27 +1375,42 @@ dat_different_dist <- heter_conv_sim %>%
   mutate(x_dist = ifelse(x_dist == "even_discrete", 
                          "Discrete", 
                          stringr::str_to_title(x_dist))) %>%
-  mutate(conv_or_not = "Visual"))
+  mutate(conv_or_not = "Visual")) %>%
+  mutate(x_dist = factor(x_dist, 
+      levels = c("Uniform", "Normal", 
+                 "Lognormal", "Discrete"))) %>%
+  select(x_dist, log_effect_size, reject, conv_or_not)
 
 dat_different_dist %>%
   ggplot() +
+  geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
+              aes(log_effect_size, 
+                  reject), 
+                  col = "grey", 
+              method = "glm", 
+              method.args = list(family = binomial), 
+              se = FALSE, size = 3) +
   geom_smooth(aes(log_effect_size, 
                   reject, 
                   col = x_dist), 
               method = "glm", 
               method.args = list(family = binomial), 
-              se = FALSE) +
+              se = FALSE, 
+              size = 1) +
   theme_light(base_size = 5) +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(1,3,2,4)]) +
-  scale_size_manual(values = c(1, 2, 3)) +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
+  scale_size_manual(values = c(1, 2, 3, 4)) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
-  labs(col = "Distribution of regressor", linetype = "Test") +
-  facet_wrap(~conv_or_not)
+  labs(col = "", linetype = "Test") +
+  facet_wrap(~conv_or_not) +
+  theme(legend.position="bottom")
 ```
 
 
-### Shape
+### Shape of non-linearity
+
+### Shape of heteroskedasticity
 
 ```{r eval = FALSE}
 poly_conv_sim %>%

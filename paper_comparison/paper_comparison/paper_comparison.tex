@@ -1050,37 +1050,35 @@ that may have resulted in the lack of detection.
 \caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
-\hypertarget{effect-of-other-factors}{%
-\subsection{Effect of other factors}\label{effect-of-other-factors}}
+\hypertarget{effect-of-other-factors-used-in-the-simulated-model}{%
+\subsection{Effect of other factors used in the simulated
+model}\label{effect-of-other-factors-used-in-the-simulated-model}}
 
 \hypertarget{fitted-value-distribution}{%
 \subsubsection{Fitted value
 distribution}\label{fitted-value-distribution}}
 
-(calc the diff in power and plot)
-
-(randomly subset uniform and check the change of the power)
-
 Although the distribution of the regressor is classically not restricted
 by the assumptions of linear regression, it will have an impact on the
-distribution of the fitted values and the visual effect of the residual
-plot. In our experiments, four distributions of the regressor are used
-to accommodate this variation.
+fitted value distribution and the visual effect of the residual plot. In
+our experiments, four distributions of fitted values are considered to
+accommodate this variation.
 
 Figure \ref{fig:different-x-dist-poly-power} and Figure
 \ref{fig:different-x-dist-heter-power} illustrate the change of power of
-visual tests and conventional tests for different distribution of
-\(X_{raw}\) used in the non-linearity model and the heteroskedasticity
-model. We focus on \(log(E) > 2\) as the visual patterns become visible.
+visual tests and conventional tests for different fitted distributions
+used in the non-linearity model and the heteroskedasticity model. We
+focus on \(log(E) > 2\) where the visual patterns start to become
+recognisable.
 
-For the non-linearity model, we do not observe significant difference of
+For the non-linearity model, we do not observe significant difference in
 power of visual test between distributions, except for the discrete
-uniform distribution. It could be due to the fact that humans have
+uniform distribution. It is possibility due to the fact that humans have
 difficulties in recognising visual patterns from discreteness, which
 makes the shape disconnected and incomplete (ref?). In terms of
 conventional tests, the discrete uniform distribution is instead the one
-with the greatest power, followed by the lognormal distribution, uniform
-distribution and the normal distribution.
+with the greatest power, followed by the lognormal distribution, the
+uniform distribution and the normal distribution.
 
 For the heteroskedasticity model, the power of visual test on lineups
 with uniform distribution has the greatest power. This is as expected
@@ -1101,8 +1099,8 @@ distribution and the lognormal distribution.
 
 In regards of the type of the simulated model, the power of visual tests
 under different distributions of regressor are always lower than the
-corresponding conventional tests, consistent with the result from the
-previous sections.
+corresponding conventional tests, which is consistent with the result
+from the previous sections.
 
 \begin{figure}
 
@@ -1122,8 +1120,12 @@ previous sections.
 \caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor.}\label{fig:different-x-dist-heter-power}
 \end{figure}
 
-\hypertarget{shape}{%
-\subsubsection{Shape}\label{shape}}
+\hypertarget{shape-of-non-linearity}{%
+\subsubsection{Shape of non-linearity}\label{shape-of-non-linearity}}
+
+\hypertarget{shape-of-heteroskedasticity}{%
+\subsubsection{Shape of
+heteroskedasticity}\label{shape-of-heteroskedasticity}}
 
 \begin{figure}
 
