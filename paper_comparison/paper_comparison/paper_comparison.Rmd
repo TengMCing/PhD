@@ -815,53 +815,38 @@ Since $supp(X) = [-1, 1]$, choosing $a$ to be $-1$, $0$ and $1$ can generate "le
 
 ```{r different-shape-of-heter, fig.height=2.67, fig.cap="Heteroskedasticity forms used in experiment II. Three different shapes (a = -1, 0, 1) are used in the experiment to create left-triangle, butterfly and right-triangle shapes."}
 
+a_labels <- c("Left-triangle", "Butterfly", "Right-triangle")
+
 # Generate data for a = -1
-ori_dat <- heter_model(a = -1, 
-                       x = {
-                         raw_x <- rand_uniform(-1, 1);
-                         closed_form(~stand_dist(raw_x))
-                         }, 
-                       b = 128)$gen(300)
+dat_a_n1 <- heter_model(a = -1, 
+                        x = {
+                          raw_x <- rand_uniform(-1, 1);
+                          closed_form(~stand_dist(raw_x))
+                          },
+                        b = 128)$gen(300) %>%
+  mutate(a = a_labels[1])
 
-# Plot data for a = -1
-hp1 <- VI_MODEL$plot(ori_dat) +
-  ggtitle(quote("A. a = -1: Left-triangle")) +
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-# Plot data for a = 0
-hp2 <- heter_model(a = 0, 
-                   x = {
-                     raw_x <- rand_uniform(-1, 1); 
-                     closed_form(~stand_dist(raw_x))
-                     }, 
-                   b = 128)$
-  gen(300, computed = select(ori_dat, x, e)) %>%
+# Generate data for other a
+map(c(0, 1), function(a) {
+  heter_model(a = a,
+              x = {
+                raw_x <- rand_uniform(-1, 1); 
+                closed_form(~stand_dist(raw_x))
+                }, 
+              b = 128)$
+    gen(300, computed = select(dat_a_n1, x, e)) %>%
+    mutate(a = a_labels[a + 2])
+}) %>%
+  
+  # Combined with data for a = -1
+  bind_rows(dat_a_n1) %>%
+  mutate(a = factor(a, levels = a_labels)) %>%
   VI_MODEL$plot() +
-  ggtitle(quote("B. a = 0: Butterfly")) +
+  facet_wrap(~a, scales = "free", ncol = 3) +
   theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
-
-# Plot data for a = 1
-hp3 <- heter_model(a = 1, 
-                   x = {
-                     raw_x <- rand_uniform(-1, 1); 
-                     closed_form(~stand_dist(raw_x))
-                     }, 
-                   b = 128)$
-  gen(300, computed = select(ori_dat, x, e)) %>%
-  VI_MODEL$plot() +
-  ggtitle(quote("C. a = 1: Right-triangle")) +
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-patchwork::wrap_plots(hp1, hp2, hp3, ncol = 3)
 ```
 
 
