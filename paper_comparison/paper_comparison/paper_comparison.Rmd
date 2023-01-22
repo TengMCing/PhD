@@ -715,52 +715,32 @@ Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups used in exp
 ```{r different-n, fig.height = 2.67, fig.cap="Three different values of $n$ are used in experiment I, II and III to control the strength of the signal."}
 
 # Generate data for 300 observations
-ori_dat <- poly_model(shape = 2, 
-                      x = {
-                        raw_x <- rand_uniform(-1, 1);
-                        closed_form(~stand_dist(raw_x))
-                        }, 
-                      sigma = 1.5)$gen(300)
+dat_n_300 <- poly_model(shape = 2, 
+                        x = {
+                          raw_x <- rand_uniform(-1, 1);
+                          closed_form(~stand_dist(raw_x))
+                        },
+                        sigma = 1.5)$gen(300) %>%
+  mutate(n = "N = 300")
 
-# Plot data for 300 observations
-np300 <- VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote(n~"="~300)) + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-# Generate and plot data for 50 observations
-np50 <- poly_model(shape = 2, 
+# Generate data for other settings
+map(c(50, 100), function(n) {
+  poly_model(shape = 2, 
                    x = {
                      raw_x <- rand_uniform(-1, 1);
                      closed_form(~stand_dist(raw_x))
                      }, 
-                   sigma = 1.5)$
-  gen(50, computed = select(ori_dat[1:50, ], x, e)) %>%
+             sigma = 1.5)$
+    gen(n, computed = select(dat_n_300[1:n, ], x, e)) %>%
+    mutate(n = paste0("N = ", n))
+}) %>%
+  bind_rows(dat_n_300) %>%
   VI_MODEL$plot() +
-  ggtitle(quote(n~"="~50)) + 
   theme_light() +
+  facet_wrap(~n, scales = "free", ncol = 3) +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
-
-# Generate and plot data for 100 observations
-np100 <- poly_model(shape = 2, 
-                    x = {
-                      raw_x <- rand_uniform(-1, 1);
-                      closed_form(~stand_dist(raw_x))
-                      }, 
-                    sigma = 1.5)$
-  gen(50, computed = select(ori_dat[1:100,], x, e)) %>%
-  VI_MODEL$plot() +
-  ggtitle(quote(n~"="~100)) + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-patchwork::wrap_plots(np50, np100, np300, ncol = 3)
 ```
 
 
