@@ -652,7 +652,7 @@ map_df(2:4, function(shape) {
   # Combined with data for shape 1
   bind_rows(dat_shape_1) %>%
   VI_MODEL$plot() +
-  facet_wrap(~shape, scales = "free_x", labeller = label_parsed, ncol = 4) +
+  facet_wrap(~shape, scales = "free", labeller = label_parsed, ncol = 4) +
   theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
@@ -664,67 +664,50 @@ map_df(2:4, function(shape) {
 ```{r different-dist, fig.height = 2, fig.cap="Variations in fitted values ($X_{raw}$), that might affect perception of residual plots. Four different distribution are used."}
 
 # Data for uniform distribution
-ori_dat <- poly_model(shape = 1, 
+dat_dist_1 <- poly_model(shape = 1, 
                       x = {
                         raw_x <- rand_uniform(-1, 1);
                         closed_form(~stand_dist(raw_x))
                         }, 
-                      sigma = 0.5)$gen(300)
+                      sigma = 0.5)$gen(300) %>%
+  mutate(x_dist = "Uniform")
 
-# Plot the data for uniform distribution
-dp1 <- VI_MODEL$plot(ori_dat) + 
-  ggtitle("A. Uniform") + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
+# Generate data for other distributions
+dat_dist_2 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_normal(sigma = 0.3); 
+                           closed_form(~stand_dist(raw_x))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "Normal")
 
-# Generate and plot data for normal distribution
-dp2 <- poly_model(shape = 1, 
-                  x = {
-                    raw_x <- rand_normal(sigma = 0.3); 
-                    closed_form(~stand_dist(raw_x))
-                    }, 
-                  sigma = 0.5)$
-  gen(300, computed = select(ori_dat, e)) %>%
-  VI_MODEL$plot() +
-  ggtitle("B. Normal") +
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
+dat_dist_3 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_lognormal(sigma = 0.6); 
+                           closed_form(~stand_dist(raw_x/3 - 1))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "Skewed")
 
-# Generate and plot data for lognormal distribution
-dp3 <- poly_model(shape = 1, 
-                  x = {
-                    raw_x <- rand_lognormal(sigma = 0.6);
-                    closed_form(~stand_dist(raw_x/3 - 1))
-                    }, 
-                  sigma = 0.5)$
-  gen(300, computed = select(ori_dat, e)) %>%
-  VI_MODEL$plot() +
-  ggtitle("C. Skewed") +
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
+dat_dist_4 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_uniform_d(k = 5, even = TRUE); 
+                           closed_form(~stand_dist(raw_x))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "Discrete")
 
 # Generate and plot data for discrete uniform distribution
-dp4 <- poly_model(shape = 1, 
-                  x = {
-                    raw_x <- rand_uniform_d(k = 5, even = TRUE);
-                    closed_form(~stand_dist(raw_x))
-                    }, 
-                  sigma = 0.5)$
-  gen(300, computed = select(ori_dat, e)) %>%
+bind_rows(dat_dist_1, dat_dist_2, dat_dist_3, dat_dist_4) %>%
   VI_MODEL$plot() +
-  ggtitle("D. Discrete") +
   theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-patchwork::wrap_plots(dp1, dp2, dp3, dp4, ncol = 4)
+  theme(axis.text = element_blank()) +
+  facet_wrap(~x_dist, ncol = 4, scales = "free")
 ```
 
 Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups used in experiment I. This lineup is produced by the non-linearity model under $j = 6$ and $X_{raw} \sim N(0.0.3^2)$. The data plot location is $2^3 - 4$. All five subjects correctly identify the data plot from this lineup.
