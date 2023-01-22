@@ -496,13 +496,14 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log(E)),
 as \(\Lambda(z) = exp(z)/(1+exp(z))\).
 
 Effect \(E\) is derived from the Kullback-Leibler divergence (see
-{[}appendix ref here{]}) formulated as
+Appendix for the details) formulated as
 
 \small
 
 \begin{gather}  \label{eq:effect-size}
 E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V})^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V})^{-1}\boldsymbol{\mu}_z\right),\\
-\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T,
+\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a,
+\boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T,
 \end{gather}
 
 \normalsize
@@ -521,7 +522,8 @@ corresponding coefficients.
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
 collated data grouped by levels of factors. These include the
-distribution of the regressor and the type of the simulated model.
+distribution of the regressor and the type of the simulated model
+(modify this according to the result).
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
@@ -536,7 +538,7 @@ the visual test may have a chance to match the performance of the
 conventional test. The experiment III is designed for collecting human
 responses to null lineups such that the parameter \(\alpha\) in Equation
 \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we plan to
-collect 7974 evaluations on 1152 uniqued lineups performed by 443
+collect 7974 evaluations on 1152 unique lineups performed by 443
 subjects throughout three experiments.
 
 \hypertarget{simulating-departures-from-good-residuals}{%
@@ -795,26 +797,30 @@ design of the experiment I and experiment II respectively.
 
 As mentioned in Section \ref{calculating-p-values-for-the-visual-test},
 \(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial} needs to be
-estimated using {\textcolor{orange-red}{null}} lineups. Hence, 36
-lineups with all combinations of \(n\) and \(X_{raw}\) and three
-replications are included in experiment III. In these lineups, the data
-of the data plot is generated from a model
-{\textcolor{orange-red}{with zero effect size}}, while the data of the
-19 null plots are generated using the same simulation method discussed
-in Section \ref{sampling-from-the-null-distribution}.
-{\textcolor{orange-red}{This generation procedure differs from the canonical Rorschach lineup procedure, which requires that all 20 plots are generated from the null hypothesis. However, these lineups serve the same fundamental purpose: to assess the number of visually interesting plots generated under the null hypothesis.}}
-{\textcolor{orange-red}{To account for the fact that our simulation method for these lineups is not the Rorschach procedure,}}
-we use the method suggested in \citet{vanderplas2021statistical} for
-typical lineups containing a data plot to estimate \(\alpha\). We have
-included a sensitivity analysis in the Appendix to examine the impact of
-the variance of the \(\alpha\) estimate on our findings.
+estimated using null lineups. Hence, 36 lineups with all combinations of
+\(n\) and \(X_{raw}\) and three replications are included in experiment
+III. In these lineups, the data of the data plot is generated from a
+model with zero effect size, while the data of the 19 null plots are
+generated using the same simulation method discussed in Section
+\ref{sampling-from-the-null-distribution}. This generation procedure
+differs from the canonical Rorschach lineup procedure, which requires
+that all 20 plots are generated from the null hypothesis. However, these
+lineups serve the same fundamental purpose: to assess the number of
+visually interesting plots generated under the null hypothesis.
+
+To account for the fact that our simulation method for these lineups is
+not the Rorschach procedure, we use the method suggested in
+\citet{vanderplas2021statistical} for typical lineups containing a data
+plot to estimate \(\alpha\). We have included a sensitivity analysis in
+the Appendix to examine the impact of the variance of the \(\alpha\)
+estimate on our findings.
 
 All lineups consist of only null plots are planned to be evaluated by 20
 subjects. However, presenting only these lineups to subjects are
 considered to be bad practices as subjects will lose interest quickly.
 Therefore, we plan to collect 6 more evaluations on the 279 lineups with
 \(X_{raw} \sim U(-1,1)\), result in
-\((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3) / (20-2) = 133\)
+\((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3 \times 6) / (20-2) = 133\)
 subjects recruited for experiment III.
 
 \hypertarget{collecting-results}{%
@@ -856,13 +862,14 @@ maintain the overall data quality.
 \hypertarget{overview}{%
 \subsection{Overview}\label{overview}}
 
-There are 2880, 2700 and 2394 lineups evaluation made by 160, 150 and
-133 subjects recruited for experiment I, II and III respectively. In the
-total of 7974 lineup evaluations, 3744 use lineups produced by the
-non-linearity model, 3510 use lineups produced by the heteroskedasticity
-model, and 720 use null lineups. Besides, there are 886 attention checks
-not included in the following analysis. The collated dataset is provided
-in \texttt{vi\_survey} of the \texttt{visage} \texttt{R} package.
+There are 2880, 2700 and \texttt{133\ *\ 18} lineups evaluation made by
+160, 150 and 133 subjects recruited for experiment I, II and III
+respectively. In the total of 7974 lineup evaluations, 3744 use lineups
+produced by the non-linearity model, 4230 use lineups produced by the
+heteroskedasticity model, and 720 use null lineups. Besides, there are
+886 attention checks not included in the following analysis. The
+collated dataset is provided in \texttt{vi\_survey} of the
+\texttt{visage} \texttt{R} package.
 
 In the following analysis, lineups with \(X_{raw} \sim U(-1,1)\) will be
 the focus of next two sections, because visual patterns are more likely
@@ -921,11 +928,11 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For the non-linearity model, the power curve of RESET test climbs
-aggressively from 13\% to around 70\% as \(log_e(E)\) increases from 0
-to 2, while power of other tests respond inactively to the change of
-effect, showing that RESET test is way more sensitive to the type of
-model defects that being considered. Meanwhile, no noticeable visual
-features can be spotted from the example residual plots.
+aggressively from 15\% to 69\% as \(log_e(E)\) increases from 0 to 2,
+while power of other tests respond inactively to the change of effect,
+showing that RESET test is way more sensitive to the type of model
+defects that being considered. Meanwhile, no noticeable visual features
+can be spotted from the example residual plots.
 
 In terms of the heteroskedasticity model, the power of Breusch-Pagan
 test is also almost always greater than the power of visual test. For
@@ -1023,12 +1030,12 @@ reject 76\% and visual tests reject 56\% of the time. Of the tests
 rejected by the conventional test, 73\% are rejected by the visual test,
 that is, approximately half as many as the conventional test.
 
-Surprisingly, the visual test rejects 1:2 out of c(NA, NA) (c(NA, NA)\%)
-of lineups where the conventional test does not reject. Figure
-\ref{fig:heter-example} shows this lineup. The data plot in position
-seventeen displays a relatively strong heteroskedasticity pattern, and
-has a strong effect size (\(log_e E=4.02\)). This is reflected by the
-visual test \(p\text{-value} = 0.026\), but the Breusch-Pagan test
+Surprisingly, the visual test rejects 1 out of 33 (3\%) of lineups where
+the conventional test does not reject. Figure \ref{fig:heter-example}
+shows this lineup. The data plot in position seventeen displays a
+relatively strong heteroskedasticity pattern, and has a strong effect
+size (\(log_e E=4.02\)). This is reflected by the visual test
+\(p\text{-value} = 0.026\), but the Breusch-Pagan test
 \(p\text{-value} = 0.056\), slightly above the significance cutoff of
 \(0.05\). This lineup was evaluated by 11 subjects, it has experimental
 factors \(n=50\) (small sample size), \(\sigma=1\), and a uniform
