@@ -651,6 +651,7 @@ map_df(2:4, function(shape) {
   
   # Combined with data for shape 1
   bind_rows(dat_shape_1) %>%
+  mutate(shape = factor(shape, levels = shape_labels)) %>%
   VI_MODEL$plot() +
   facet_wrap(~shape, scales = "free", labeller = label_parsed, ncol = 4) +
   theme_light() +
@@ -702,6 +703,11 @@ dat_dist_4 <- poly_model(shape = 1,
 
 # Generate and plot data for discrete uniform distribution
 bind_rows(dat_dist_1, dat_dist_2, dat_dist_3, dat_dist_4) %>%
+  mutate(x_dist = factor(x_dist, 
+                         levels = c("Uniform", 
+                                    "Normal", 
+                                    "Skewed", 
+                                    "Discrete"))) %>%
   VI_MODEL$plot() +
   theme_light() +
   xlab("Fitted values") +
@@ -721,7 +727,7 @@ dat_n_300 <- poly_model(shape = 2,
                           closed_form(~stand_dist(raw_x))
                         },
                         sigma = 1.5)$gen(300) %>%
-  mutate(n = "N = 300")
+  mutate(n = "N: 300")
 
 # Generate data for other settings
 map(c(50, 100), function(n) {
@@ -732,9 +738,12 @@ map(c(50, 100), function(n) {
                      }, 
              sigma = 1.5)$
     gen(n, computed = select(dat_n_300[1:n, ], x, e)) %>%
-    mutate(n = paste0("N = ", n))
+    mutate(n = paste0("N: ", n))
 }) %>%
+  
+  # Combined with data for 300 observations
   bind_rows(dat_n_300) %>%
+  mutate(n = factor(n, levels = c("N: 50", "N: 100", "N: 300"))) %>%
   VI_MODEL$plot() +
   theme_light() +
   facet_wrap(~n, scales = "free", ncol = 3) +
@@ -746,69 +755,35 @@ map(c(50, 100), function(n) {
 
 ```{r different-sigma, fig.height = 2, fig.cap="Four different values of $\\sigma$ are used in the experiment I to control the strength of the signal."}
 
-
 # Generate data for sigma 0.5
-ori_dat <- poly_model(shape = 1, 
-                      x = {
-                        raw_x <- rand_uniform(-1, 1);
-                        closed_form(~stand_dist(raw_x))
-                        }, 
-                      sigma = 0.5)$gen(300)
+dat_sigma_05 <- poly_model(shape = 1, 
+                           x = {
+                             raw_x <- rand_uniform(-1, 1);
+                             closed_form(~stand_dist(raw_x))
+                             }, 
+                           sigma = 0.5)$gen(300) %>%
+  mutate(sigma = "sigma: 0.5")
 
-# Plot data for sigma 0.5
-sp1 <- VI_MODEL$plot(ori_dat) + 
-  ggtitle(quote(sigma~"="~0.5)) + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-# Generate and plot data for sigma 1
-sp2 <- poly_model(shape = 1, 
+# Generate data for other sigma
+map(c(1, 2, 4), function(sigma) {
+  poly_model(shape = 1, 
                   x = {
                     raw_x <- rand_uniform(-1, 1); 
                     closed_form(~stand_dist(raw_x))
                     }, 
-                  sigma = 1)$
-  gen(300, computed = select(ori_dat, x)) %>%
-  VI_MODEL$plot() +
-  ggtitle(quote(sigma~"="~1)) + 
+                  sigma = sigma)$
+  gen(300, computed = select(dat_sigma_05, x)) %>%
+  mutate(sigma = paste0("sigma: ", sigma))
+}) %>%
+  
+  # Combined with data for sigma 0.5
+  bind_rows(dat_sigma_05) %>%
+  VI_MODEL$plot() + 
+  facet_wrap(~sigma, ncol = 4, scales = "free", labeller = label_parsed) +
   theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
-
-# Generate and plot data for sigma 2
-sp3 <- poly_model(shape = 1, 
-                  x = {
-                    raw_x <- rand_uniform(-1, 1); 
-                    closed_form(~stand_dist(raw_x))
-                    }, 
-                  sigma = 2)$
-  gen(300, computed = select(ori_dat, x)) %>%
-  VI_MODEL$plot() +
-  ggtitle(quote(sigma~"="~2)) + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-# Generate and plot data for sigma 4
-sp4 <- poly_model(shape = 1, 
-                  x = {
-                    raw_x <- rand_uniform(-1, 1); 
-                    closed_form(~stand_dist(raw_x))
-                    }, 
-                  sigma = 4)$
-  gen(300, computed = select(ori_dat, x)) %>%
-  VI_MODEL$plot() +
-  ggtitle(quote(sigma~"="~4)) + 
-  theme_light() +
-  xlab("Fitted values") +
-  ylab("Residuals") +
-  theme(axis.text = element_blank())
-
-patchwork::wrap_plots(sp1, sp2, sp3, sp4, ncol = 4)
 ```
 
 ```{r example-poly-lineup, fig.height=7, fig.cap="Lineup poly-24 in experiment I. Can you spot the most different plot? \\label{fig:example-poly-lineup}"}
