@@ -999,13 +999,13 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Rejection rate ($p$-value $<0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, this is not what we see: the visual test sometimes rejects when the conventional test doesn't. }\label{fig:p-value-comparison}
+\caption{Rejection rate ($p$-value $<0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, there is one lineup in the heteroskedasticity study where this is not the case. }\label{fig:p-value-comparison}
 \end{figure}
 
-The power comparison illustrates that appropriate conventional tests
+The power comparison illustrates that appropriate conventional test will
 reject \(H_0\) more aggressively than visual tests. In this section, we
-explore how often they agree with each other by investigate the
-rejection rates based on \(p\)-values.
+explore how often they agree with each other by investigating the
+rejections for the two studies based on \(p\)-values for each lineup.
 
 Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the
 rejection rate of visual tests and conventional tests for both the
@@ -1018,17 +1018,22 @@ that is, approximately half as many as the conventional test. There are
 no lineups that are rejected by the visual test but not by the
 conventional test.
 
-For lineups produced by the heteroskedasticity model, 55\% are rejected
-by both the conventional test and the visual test, and 24\% are accepted
-by both, result in 79\% agreement rate. Percentage of lineups only
-rejected by conventional test are 20\%.
+For lineups produced by the non-linearity model, conventional tests
+reject 76\% and visual tests reject 56\% of the time. Of the tests
+rejected by the conventional test, 73\% are rejected by the visual test,
+that is, approximately half as many as the conventional test.
 
-Surprisingly, the visual test rejects 3\% (i.e.~1 out of 32) of lineups
-where the conventional test does not reject. This lineup shows
-relatively strong heteroskedasticity pattern as displayed in Figure
-\ref{fig:heter-example}. The visual test rejects it with a
-\(p\text{-value} = 0.026\), but the Breusch-Pagan test produces a
-\(p\)-value slightly above 5\%.
+Surprisingly, the visual test rejects 1:2 out of c(NA, NA) (c(NA, NA)\%)
+of lineups where the conventional test does not reject. Figure
+\ref{fig:heter-example} shows this lineup. The data plot in position
+seventeen displays a relatively strong heteroskedasticity pattern, and
+has a strong effect size (\(log_e E=4.02\)). This is reflected by the
+visual test \(p\text{-value} = 0.026\), but the Breusch-Pagan test
+\(p\text{-value} = 0.056\), slightly above the significance cutoff of
+\(0.05\). This lineup was evaluated by 11 subjects, it has experimental
+factors \(n=50\) (small sample size), \(\sigma=1\), and a uniform
+distribution for the fitted values. It must be the small sample size
+that may have resulted in the lack of detection.
 
 \begin{figure}
 
@@ -1036,7 +1041,7 @@ relatively strong heteroskedasticity pattern as displayed in Figure
 
 }
 
-\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$. It is a mystery as to why this is not detected by the BP test.}\label{fig:heter-example}
+\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
 \hypertarget{effect-of-other-factors}{%
