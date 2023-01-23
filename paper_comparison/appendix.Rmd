@@ -6,5 +6,48 @@ date: "2023-01-22"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(visage)
 ```
 
+# Appendix
+
+## Effect derivation
+
+## $p$-value scatter plot
+
+```{r p-value-comparison-old, eval = FALSE, fig.height = 4, fig.cap = "Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
+vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  left_join(vi_survey %>% 
+           count(unique_lineup_id) %>%
+           rename(num_subject = n)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  ggplot() +
+  geom_abline() +
+  geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
+  geom_smooth(aes(conventional_p_value, p_value), se = FALSE, span = 0.6) +
+  scale_x_sqrt() +
+  scale_y_sqrt() +
+  facet_wrap(~type) +
+  ylab("Visual test p-value on square root scale") +
+  xlab("Conventional test p-value on square root scale") +
+  theme_light()
+```
+
+## A collection interesting lineups (unusual results)
+
+why unusual? what is the possible explanations?
+
+# targe journal
+
+JRSSB: Journal of the Royal Statistical Society Series B (Statistical Methodology)
+Deadline: Jan 1, Apr 1
+
+Reading: style of writing, author guideline (https://rss.onlinelibrary.wiley.com/hub/journal/14679868/author-guidelines)
+
+JCGS
+JDSS

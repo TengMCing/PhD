@@ -1295,122 +1295,96 @@ For heteroskedasticity patterns, the power of visual test on lineups with unifor
 
 In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are always lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
 
-```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions."}
+```{r different-x-dist-poly-power, fig.cap = "Comparison of power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions."}
 
-dat_different_dist <- poly_conv_sim %>% 
+# Extract three datasets, one for poly conventional, one for heter conventional
+# and one for visual tests.
+list(
+poly_conv_sim %>% 
   mutate(log_effect_size = log(effect_size)) %>%
   select(x_dist, log_effect_size, RESET4_p_value) %>%
   rename(RESET_p_value = RESET4_p_value) %>%
-  pivot_longer(RESET_p_value) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                                       "Discrete", 
-                                       stringr::str_to_title(x_dist))) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  mutate(reject = value < 0.05) %>%
-  mutate(conv_or_not = "Conventional") %>%
-  bind_rows(vi_survey %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(type == "polynomial") %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", 
+  mutate(x_dist = ifelse(x_dist == "even_discrete",
                          "Discrete", 
                          stringr::str_to_title(x_dist))) %>%
-  mutate(conv_or_not = "Visual")) %>%
-  mutate(x_dist = factor(x_dist, 
-      levels = c("Uniform", "Normal", 
-                 "Lognormal", "Discrete"))) %>%
-  select(x_dist, log_effect_size, reject, conv_or_not)
-
-dat_different_dist %>%
-  ggplot() +
-  geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
-              aes(log_effect_size, 
-                  reject), 
-                  col = "grey", 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, size = 3) +
-  geom_smooth(aes(log_effect_size, 
-                  reject, 
-                  col = x_dist), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              size = 1) +
-  theme_light() +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
-  scale_size_manual(values = c(1, 2, 3, 4)) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", linetype = "Test") +
-  facet_wrap(~conv_or_not) +
-  theme(legend.position="bottom")
-```
-
-
-```{r different-x-dist-heter-power, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model under different distributions of regressor."}
-
-dat_different_dist <- heter_conv_sim %>% 
+  mutate(reject = as.numeric(RESET_p_value < 0.05)) %>%
+  mutate(conv_or_not = "Conventional") %>%
+  mutate(type = "non-linearity") %>%
+  select(type, x_dist, log_effect_size, reject, conv_or_not)
+,
+heter_conv_sim %>% 
   mutate(log_effect_size = log(effect_size)) %>%
   select(x_dist, log_effect_size, BP_p_value) %>%
-  pivot_longer(BP_p_value) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                                       "Discrete", 
-                                       stringr::str_to_title(x_dist))) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  mutate(reject = value < 0.05) %>%
+  mutate(x_dist = ifelse(x_dist == "even_discrete",
+                         "Discrete", 
+                         stringr::str_to_title(x_dist))) %>%
+  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
   mutate(conv_or_not = "Conventional") %>%
-  bind_rows(vi_survey %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(type == "heteroskedasticity") %>%
+  mutate(type = "heteroskedasticity") %>%
+  select(type, x_dist, log_effect_size, reject, conv_or_not)
+,
+vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
   mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   mutate(x_dist = ifelse(x_dist == "even_discrete", 
                          "Discrete", 
                          stringr::str_to_title(x_dist))) %>%
-  mutate(conv_or_not = "Visual")) %>%
+  mutate(conv_or_not = "Visual") %>%
+  select(type, x_dist, log_effect_size, reject, conv_or_not)
+) %>%
+  
+  # Bind rows
+  map_df(~.x) %>%
+  
+  # Manually control factor ordering
+  mutate(type = factor(type, 
+                       levels = c("non-linearity", 
+                                  "heteroskedasticity"))) %>%
   mutate(x_dist = factor(x_dist, 
-      levels = c("Uniform", "Normal", 
-                 "Lognormal", "Discrete"))) %>%
-  select(x_dist, log_effect_size, reject, conv_or_not)
-
-dat_different_dist %>%
+                         levels = c("Uniform", 
+                                    "Normal", 
+                                    "Lognormal", 
+                                    "Discrete"))) %>%
+  
   ggplot() +
+  
+  # Bold the uniform smooth line
   geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
-              aes(log_effect_size, 
-                  reject), 
-                  col = "grey", 
+              aes(log_effect_size, reject), 
+              col = "grey", 
               method = "glm", 
               method.args = list(family = binomial), 
-              se = FALSE, size = 3) +
-  geom_smooth(aes(log_effect_size, 
-                  reject, 
-                  col = x_dist), 
+              se = FALSE, 
+              size = 3) +
+  
+  # Draw all smooth lines
+  geom_smooth(aes(log_effect_size, reject, col = x_dist), 
               method = "glm", 
               method.args = list(family = binomial), 
               se = FALSE, 
               size = 1) +
+  
+  # Theme
   theme_light() +
   scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
   scale_size_manual(values = c(1, 2, 3, 4)) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", linetype = "Test") +
-  facet_wrap(~conv_or_not) +
-  theme(legend.position="bottom")
+  facet_grid(type ~ conv_or_not) +
+  theme(legend.position = "bottom")
 ```
+
 
 
 ### Shape of non-linearity
 
-Shape of the non-linearity pattern is another factor contributed to the simulation model. 
+Shape of the non-linearity pattern is another factor contributed to the simulation model. Figure \ref{fig:poly-power-j} 
 
 ```{r poly-power-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model with four different shapes controlled by the parameter $j$."}
 
@@ -1472,56 +1446,10 @@ heter_conv_sim %>%
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
-  theme(legend.position = "bottom") +
   theme_light() +
+  theme(legend.position = "bottom") +
   facet_wrap(~conv_or_not) +
   labs(col = "Heteroskedasticity shape")
 ```
-
-
-# Appendix
-
-## Effect derivation
-
-
-
-## $p$-value scatter plot
-
-```{r p-value-comparison-old, eval = FALSE, fig.height = 4, fig.cap = "Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
-vi_survey %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  left_join(vi_survey %>% 
-           count(unique_lineup_id) %>%
-           rename(num_subject = n)) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  ggplot() +
-  geom_abline() +
-  geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
-  geom_smooth(aes(conventional_p_value, p_value), se = FALSE, span = 0.6) +
-  scale_x_sqrt() +
-  scale_y_sqrt() +
-  facet_wrap(~type) +
-  ylab("Visual test p-value on square root scale") +
-  xlab("Conventional test p-value on square root scale") +
-  theme_light()
-```
-
-## A collection interesting lineups (unusual results)
-
-why unusual? what is the possible explanations?
-
-# targe journal
-
-JRSSB: Journal of the Royal Statistical Society Series B (Statistical Methodology)
-Deadline: Jan 1, Apr 1
-
-Reading: style of writing, author guideline (https://rss.onlinelibrary.wiley.com/hub/journal/14679868/author-guidelines)
-
-JCGS
-JDSS
 
 \newpage
