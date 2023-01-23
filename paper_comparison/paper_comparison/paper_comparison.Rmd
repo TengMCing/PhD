@@ -1287,7 +1287,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 
 Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the fitted value distribution and the visual effect of the residual plot. In our experiments, four distributions of fitted values are considered to accommodate this variation.
 
-Figure \ref{fig:different-x-dist-poly-power} and Figure \ref{fig:different-x-dist-heter-power} illustrate the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ where the visual patterns start to become recognisable.
+Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ where the visual patterns start to become recognisable.
 
 For non-linearity patterns, we do not observe significant difference in power of visual test between distributions, except for the discrete uniform distribution. It is possibility due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform distribution is instead the one with the greatest power, followed by the lognormal distribution, the uniform distribution and the normal distribution.
 
@@ -1295,7 +1295,7 @@ For heteroskedasticity patterns, the power of visual test on lineups with unifor
 
 In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are always lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
 
-```{r different-x-dist-poly-power, fig.cap = "Comparison of power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions."}
+```{r different-x-dist-poly-power, fig.cap = "Comparison of power of conventional tests and visual tests on lineups with different fitted value distributions. Each power curve of the uniform distribution is surrounded by a grey line to indicate it is the baseline in its group. Conventional tests are more sensitive than visual tests in regards of the type of the simulated model and the fitted value distribution. For non-linearity patterns, visual tests show lower power with discrete uniform distribution, possibly due to the difficulty in reading discreteness. For heteroskedasticity patterns, because of the unevenness, visual tests have lower power with normal and lognormal distribution."}
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
