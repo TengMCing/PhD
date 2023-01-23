@@ -512,8 +512,9 @@ E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|diag(\bol
 diagonal elements of a matrix,
 \(\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})\) is the matrix of
 regressors including the intercept used in the regression equation,
-\(\sigma^2\) is the assumed variance of the error term when \(H_0\) is
-true, \(\boldsymbol{V}\) is the actual variance of the error term, and
+\(\sigma^2\boldsymbol{I}\) is the assumed variance of the error term
+when \(H_0\) is true, \(\boldsymbol{V}\) is the actual variance of the
+error term, and
 \(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
 is the expected values of the residuals with \(\boldsymbol{Z}\) be any
 variables leave out by the model and \(\boldsymbol{\beta}_z\) be the
@@ -522,7 +523,7 @@ corresponding coefficients.
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
 collated data grouped by levels of factors. These include the
-distribution of the regressor and the type of the simulated model
+distribution of the regressor and the type of the simulation model
 (modify this according to the result).
 
 \hypertarget{experimental-design}{%
@@ -651,14 +652,14 @@ discreteness in residual plot.
 
 }
 
-\caption{Variations in fitted values, that might affect perception of residual plots. Four different distribution are used.}\label{fig:different-dist}
+\caption{Variations in fitted values, that might affect perception of residual plots. Four different distributions are used.}\label{fig:different-dist}
 \end{figure}
 
 Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups
 used in experiment I. This lineup is produced by the non-linearity model
-under \(j = 6\) and fitted values follow a uniform distribution. The
-data plot location is \(2^3 - 4\). All five subjects correctly identify
-the data plot from this lineup.
+with \(j = 6\) and uniform fitted values. The data plot location is
+\(2^3 - 4\). All five subjects correctly identify the data plot from
+this lineup.
 
 \begin{figure}
 
@@ -666,7 +667,7 @@ the data plot from this lineup.
 
 }
 
-\caption{Three different values of $n$ are used in experiment I, II and III to control the strength of the signal.}\label{fig:different-n}
+\caption{Number of observations $n$ have an impact on the strength of the signal. Three different values of $n$ are used in experiment I, II and III.}\label{fig:different-n}
 \end{figure}
 
 \begin{figure}
@@ -675,7 +676,7 @@ the data plot from this lineup.
 
 }
 
-\caption{Four different values of $\sigma$ are used in the experiment I to control the strength of the signal.}\label{fig:different-sigma}
+\caption{For the non-lienearity model, the standard deviation of the error term $\sigma$ affects the strength of the signal. Four different values of $\sigma$ are used in the experiment I.}\label{fig:different-sigma}
 \end{figure}
 
 \begin{figure}
@@ -684,7 +685,7 @@ the data plot from this lineup.
 
 }
 
-\caption{Lineup poly-24 in experiment I. Can you spot the most different plot? \label{fig:example-poly-lineup}}\label{fig:example-poly-lineup}
+\caption{One of the lineups containing non-linearity patterns used in experiment I. Can you spot the most different plot? The data plot is positioned at $2^3 + 1$.}\label{fig:example-poly-lineup}
 \end{figure}
 
 \hypertarget{heteroskedasticity}{%
@@ -746,7 +747,7 @@ magnitude of residuals across different values of \(a\).
 
 }
 
-\caption{Lineup heter-169 in experiment II. Can you spot the most different plot? \label{fig:example-heter-lineup}}\label{fig:example-heter-lineup}
+\caption{One of the lineups containing heteroskedasticity pattern used in experiment II. Can you spot the most different plot? The data plot is positioned at $3^3 - 3^2$}\label{fig:example-heter-lineup}
 \end{figure}
 
 An example lineup of this model used in Experiment II is shown in Figure
@@ -820,7 +821,7 @@ All lineups consist of only null plots are planned to be evaluated by 20
 subjects. However, presenting only these lineups to subjects are
 considered to be bad practices as subjects will lose interest quickly.
 Therefore, we plan to collect 6 more evaluations on the 279 lineups with
-fitted values follow a uniform distribution, result in
+uniform fitted values, result in
 \((36 \times 20 + (4 \times 4 \times 3 + 3 \times 5 \times 3) \times 3 \times 6) / (20-2) = 133\)
 subjects recruited for experiment III.
 
@@ -871,25 +872,25 @@ model, and 720 use null lineups. Besides, there are 886 attention checks
 not included in the analysis. The collated dataset is provided in
 \texttt{vi\_survey} of the \texttt{visage} \texttt{R} package.
 
-In the following analysis, lineups with fitted values follows a uniform
-distribution will be the focus of next two sections. Visual patterns are
-more likely to be revealed under a uniform distribution. Additionally,
-we have collected extra evaluations on these lineups, which will result
-in more reliable analysis. Analysis of lineups with other fitted value
-distributions can be found in Section \ref{fitted-value-distribution}.
+In the following analysis, lineups with uniform fitted values will be
+the focus of next two sections. Visual patterns are more likely to be
+revealed under a uniform distribution. Additionally, we have collected
+extra evaluations on these lineups, which will result in more reliable
+analysis. Analysis of lineups with other fitted value distributions can
+be found in Section \ref{fitted-value-distribution}.
 
 \hypertarget{power-comparison-of-different-tests}{%
 \subsection{Power comparison of different
 tests}\label{power-comparison-of-different-tests}}
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on
-lineups produced by the non-linearity model with fitted values follow a
-uniform distribution, against the natural logarithm of the effect
-\(log_e(E)\), with a 5\% significance level. At the bottom of the figure
-\ref{fig:polypower}, there are a sequence of example residual plots with
-increasing levels of \(log_e(E)\). Readers can evaluate them from left
-to right and determine at which level the departure from a good residual
-plot becomes detectable.
+lineups produced by the non-linearity model with uniform fitted values,
+against the natural logarithm of the effect \(log_e(E)\), with a 5\%
+significance level. At the bottom of the figure \ref{fig:polypower},
+there are a sequence of example residual plots with increasing levels of
+\(log_e(E)\). Readers can evaluate them from left to right and determine
+at which level the departure from a good residual plot becomes
+detectable.
 
 As discussed in Section \ref{conventionally-testing-for-departures},
 many conventionally tests are available for detecting residual
@@ -926,22 +927,22 @@ heteroskedasticity model. In this scenario, the visual test is compared
 to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
-For the non-linearity model, the power curve of RESET test climbs
+For non-linearity patterns, the power curve of RESET test climbs
 aggressively from 15\% to 69\% as \(log_e(E)\) increases from 0 to 2,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is way more sensitive to the type of model
 defects that being considered. Meanwhile, no noticeable visual features
 can be spotted from the example residual plots.
 
-In terms of the heteroskedasticity model, the power of Breusch-Pagan
-test is also almost always greater than the power of visual test. For
+In terms of heteroskedasticity patterns, the power of Breusch-Pagan test
+is also almost always greater than the power of visual test. For
 \(0 \leq log_e(E) \leq 2\), where the power curve of the visual test
 remains at a low level, the Breusch-Pagan test still have a decent
 amount of chance of rejecting \(H_0\). Similarly, the visual feature is
 nearly unobservable from the example residual plots.
 
 The power of visual test arises steadily as \(log_e(E)\) increases from
-2 to 5 for both non-linearity model and heteroskedasticity model,
+2 to 5 for both non-linearity patterns and heteroskedasticity patterns,
 suggesting that the effect starts to make significant impact on the
 degree of the presence of the designed visual features. This can also be
 observed from the example residual plots that when \(log_e(E) = 2.5\), a
@@ -1014,20 +1015,20 @@ explore how often they agree with each other by investigating the
 rejections for the two studies based on \(p\)-values for each lineup.
 
 Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the
-rejection rate of visual tests and conventional tests for both the
-non-linearity model and the heteroskedasticity model.
+rejection rate of visual tests and conventional tests for both
+non-linearity patterns and heteroskedasticity patterns.
 
-For lineups produced by the non-linearity model, conventional tests
-reject 69\% and visual tests reject 32\% of the time. Of the tests
-rejected by the conventional test, 46\% are rejected by the visual test,
-that is, approximately half as many as the conventional test. There are
-no lineups that are rejected by the visual test but not by the
-conventional test.
+For lineups containing non-linearity patterns, conventional tests reject
+69\% and visual tests reject 32\% of the time. Of the tests rejected by
+the conventional test, 46\% are rejected by the visual test, that is,
+approximately half as many as the conventional test. There are no
+lineups that are rejected by the visual test but not by the conventional
+test.
 
-For lineups produced by the non-linearity model, conventional tests
-reject 76\% and visual tests reject 56\% of the time. Of the tests
-rejected by the conventional test, 73\% are rejected by the visual test,
-that is, approximately half as many as the conventional test.
+For lineups containing non-linearity patterns, conventional tests reject
+76\% and visual tests reject 56\% of the time. Of the tests rejected by
+the conventional test, 73\% are rejected by the visual test, that is,
+approximately half as many as the conventional test.
 
 Surprisingly, the visual test rejects 1 out of 33 (3\%) of lineups where
 the conventional test does not reject. Figure \ref{fig:heter-example}
@@ -1047,12 +1048,12 @@ that may have resulted in the lack of detection.
 
 }
 
-\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size$ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
+\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
-\hypertarget{effect-of-other-factors-used-in-the-simulated-model}{%
-\subsection{Effect of other factors used in the simulated
-model}\label{effect-of-other-factors-used-in-the-simulated-model}}
+\hypertarget{effect-of-other-factors-used-in-the-simulation-model}{%
+\subsection{Effect of other factors used in the simulation
+model}\label{effect-of-other-factors-used-in-the-simulation-model}}
 
 \hypertarget{fitted-value-distribution}{%
 \subsubsection{Fitted value
@@ -1071,7 +1072,7 @@ used in the non-linearity model and the heteroskedasticity model. We
 focus on \(log(E) > 2\) where the visual patterns start to become
 recognisable.
 
-For the non-linearity model, we do not observe significant difference in
+For non-linearity patterns, we do not observe significant difference in
 power of visual test between distributions, except for the discrete
 uniform distribution. It is possibility due to the fact that humans have
 difficulties in recognising visual patterns from discreteness, which
@@ -1080,12 +1081,12 @@ conventional tests, the discrete uniform distribution is instead the one
 with the greatest power, followed by the lognormal distribution, the
 uniform distribution and the normal distribution.
 
-For the heteroskedasticity model, the power of visual test on lineups
+For heteroskedasticity patterns, the power of visual test on lineups
 with uniform distribution has the greatest power. This is as expected
 since other three distributions could reduce the chance of revealing the
 underlying visual pattern because of uneven data points. Although the
 power of visual test under the discrete uniform distribution is the
-lowest in the case of non-linearity model, it has a relatively great
+lowest in the case of non-linearity patterns, it has a relatively great
 power this time. Considering for heteroskedasticity, the visual patterns
 are usually detected by connecting the maximum and minimum residuals
 separately at different fitted values. It will not be greatly affected
@@ -1097,10 +1098,10 @@ of conventional tests, the discrete uniform distribution consistently
 doing great, followed by the uniform distribution, the normal
 distribution and the lognormal distribution.
 
-In regards of the type of the simulated model, the power of visual tests
-under different distributions of regressor are always lower than the
-corresponding conventional tests, which is consistent with the result
-from the previous sections.
+In regards of the type of the simulation model, the power of visual
+tests under different fitted value distributions are always lower than
+the corresponding conventional tests, which is consistent with the
+result reported in the previous sections.
 
 \begin{figure}
 
@@ -1108,7 +1109,7 @@ from the previous sections.
 
 }
 
-\caption{Power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions.}\label{fig:different-x-dist-poly-power}
+\caption{Comparison of power of conventional tests and visual tests on lineups produced by the non-linearity model under different fitted value distributions.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
 \begin{figure}
@@ -1122,6 +1123,9 @@ from the previous sections.
 
 \hypertarget{shape-of-non-linearity}{%
 \subsubsection{Shape of non-linearity}\label{shape-of-non-linearity}}
+
+Shape of the non-linearity pattern is another factor contributed to the
+simulation model.
 
 \begin{figure}
 
