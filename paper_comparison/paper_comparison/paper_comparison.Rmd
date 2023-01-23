@@ -1252,16 +1252,6 @@ Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the rejection
 For lineups containing non-linearity patterns, conventional tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
 and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. There are no lineups that are rejected by the visual test but not by the conventional test.
 
-<!-- Figure \ref{fig:poly-example} shows one of the ten lineups where the visual test rejected the residual plot. The data plot, in position three, is very obvious, and different from the nulls. The visual test was correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of polynomial to test for, and the recommendation is to generically use 4 (XXX REF). However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials use power up to 6 and 18 respectively. All 10 lineups rejected by the visual test but not the RESET were of types "M" or "Triple-U". If the RESET test had been applied using the power up to 6, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.  -->
-
-```{r poly-example, eval = FALSE, fig.height = 7, fig.width = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
-# plot poly-270 
-VI_MODEL$plot_lineup(vi_lineup$poly_270$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(),
-                     remove_axis = TRUE)
-```
-
 For lineups containing non-linearity patterns, conventional tests reject `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
 and visual tests reject `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. 
 
@@ -1384,9 +1374,13 @@ vi_survey %>%
 
 ### Shape of non-linearity
 
-Shape of the non-linearity pattern is another factor contributed to the simulation model. Figure \ref{fig:poly-power-j} 
+Shape of the non-linearity pattern is another factor contributed to the non-linearity model. According to Figure \ref{fig:poly-power-j}, conventional tests are significantly less powerful in testing "Triple-U" shape compared to other three shapes, though it is still more sensitive than the visual test. In fact, among the lineups containing non-linearity patterns used in our experiments, around `r vi_survey %>% filter(!attention_check) %>% filter(!null_lineup) %>% filter(type == "polynomial") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% count(a = p_value < 0.05, b = conventional_p_value < 0.05) %>% mutate(prop = n / sum(n) * 100) %>% filter(a, !b) %>% pull(prop) %>% round(digits = 1)`% (two our of 576) are rejected by the visual test, but accepted by the conventional test.
 
-```{r poly-power-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the non-linearity model with four different shapes controlled by the parameter $j$."}
+Figure \ref{fig:poly-example} shows one of the two lineups where the visual test rejects the residual plot. The data plot, in position 18, is very obvious, and different from the nulls. The visual test is correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. Both lineups rejected by the visual test but not the RESET are of "Triple-U". If the RESET test had been applied using the power up to six, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.
+
+We expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape. The readability of the shape do not strictly follow the degree of the polynomials.
+
+```{r poly-power-j, fig.height = 4, fig.cap = "Comparison of power of conventional tests and visual tests on lineups containing four different non-linearity shapes. "}
 
 poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
@@ -1402,7 +1396,7 @@ poly_conv_sim %>%
   mutate(reject = as.numeric(p_value < 0.05)) %>%
   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
   mutate(conv_or_not = "Visual")) %>%
-  mutate(shape = factor(shape, levels = c("S", "U", "M", "Triple-U"))) %>%
+  mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
   select(shape, log_effect_size, reject, conv_or_not) %>%
   ggplot() +
   geom_smooth(aes(log_effect_size, reject, col = shape), 
@@ -1416,6 +1410,14 @@ poly_conv_sim %>%
   theme(legend.position = "bottom") +
   facet_wrap(~conv_or_not) +
   labs(col = "Non-linearity shape")
+```
+
+```{r poly-example, fig.height = 7, fig.width = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel 18 exhibits strong non-linear pattern. It has effect size $= 3.96$. Interestingly, all the lineups in this group are higher order polynomials (Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
+# plot poly-275
+VI_MODEL$plot_lineup(vi_lineup$poly_275$data, 
+                     remove_grid_line = TRUE, 
+                     theme = theme_light(),
+                     remove_axis = TRUE)
 ```
 
 ### Shape of heteroskedasticity
