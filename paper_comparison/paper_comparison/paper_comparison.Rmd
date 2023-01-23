@@ -453,7 +453,7 @@ over-interpret the separation between gene groups in a two-dimensional projectio
 
 Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the data plot, and the remaining $m - 1$ null plots have the identical graphical procedure except the data has been replaced with data consistent with $H_0$. Then, an observer who have not seen the data plot will be asked to point out the most different plot from the lineup. Under $H_0$, it is expected that the data plot would have no distinguishable difference from the null plots, and the probability that the observer correctly picks the data plot is $1/m$. If one rejects $H_0$ as the observer correctly picks the data plot, then the Type I error of this test is $1/m$.
 
-```{r first-example-lineup, fig.height = 7, fig.cap = "Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$."}
+```{r first-example-lineup, fig.height = 7, fig.width = 7, fig.cap = "Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$."}
 
 vi_lineup$poly_300$data %>%
   VI_MODEL$plot_lineup(theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
@@ -786,7 +786,7 @@ map(c(1, 2, 4), function(sigma) {
   theme(axis.text = element_blank())
 ```
 
-```{r example-poly-lineup, fig.height = 7, fig.cap = "One of the lineups containing non-linearity patterns used in experiment I. Can you spot the most different plot? The data plot is positioned at $2^3 + 1$."}
+```{r example-poly-lineup, fig.height = 7, fig.width = 7, fig.cap = "One of the lineups containing non-linearity patterns used in experiment I. Can you spot the most different plot? The data plot is positioned at $2^3 + 1$."}
 VI_MODEL$plot_lineup(vi_lineup$poly_24$data, 
                      remove_grid_line = TRUE, 
                      theme = theme_light(),
@@ -885,7 +885,7 @@ map(c(1, 4, 16, 64), function(b) {
 ```
 
 
-```{r example-heter-lineup, fig.height = 7, fig.cap = "One of the lineups containing heteroskedasticity pattern used in experiment II. Can you spot the most different plot? The data plot is positioned at $3^3 - 3^2$"}
+```{r example-heter-lineup, fig.height = 7, fig.width = 7, fig.cap = "One of the lineups containing heteroskedasticity pattern used in experiment II. Can you spot the most different plot? The data plot is positioned at $3^3 - 3^2$"}
 
 VI_MODEL$plot_lineup(vi_lineup$heter_471$data, 
                      remove_grid_line = TRUE, 
@@ -1254,7 +1254,7 @@ and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %
 
 <!-- Figure \ref{fig:poly-example} shows one of the ten lineups where the visual test rejected the residual plot. The data plot, in position three, is very obvious, and different from the nulls. The visual test was correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of polynomial to test for, and the recommendation is to generically use 4 (XXX REF). However, the "M" and the "Triple-U" shapes constructed from the Hermite polynomials use power up to 6 and 18 respectively. All 10 lineups rejected by the visual test but not the RESET were of types "M" or "Triple-U". If the RESET test had been applied using the power up to 6, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.  -->
 
-```{r poly-example, eval = FALSE, fig.height = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
+```{r poly-example, eval = FALSE, fig.height = 7, fig.width = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel three exhibits strong non-linear pattern. It has effect size $= 3.89$. Interestingly, all the lineups in this group are higher order polynomials (M, Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
 # plot poly-270 
 VI_MODEL$plot_lineup(vi_lineup$poly_270$data, 
                      remove_grid_line = TRUE, 
@@ -1272,7 +1272,7 @@ nr <- p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_r
 
 Surprisingly, the visual test rejects `r nr$n[1]` out of `r nr$n[1]+nr$n[2]` (`r round(nr$n[1]/(nr$n[1]+nr$n[2])*100, 0)`%) of lineups where the conventional test does not reject. Figure \ref{fig:heter-example} shows this lineup. The data plot in position seventeen displays a relatively strong heteroskedasticity pattern, and has a strong effect size ($log_e E=4.02$). This is reflected by the visual test $p\text{-value} = 0.026$, but the Breusch-Pagan test $p\text{-value} = 0.056$, slightly above the significance cutoff of $0.05$. This lineup was evaluated by 11 subjects, it has experimental factors $n=50$ (small sample size), $\sigma=1$, and a uniform distribution for the fitted values. It must be the small sample size that may have resulted in the lack of detection.
 
-```{r heter-example, fig.height = 7, fig.cap = 'The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.'}
+```{r heter-example, fig.height = 7, fig.width = 7, fig.cap = 'The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.'}
 # plot heter-331
 VI_MODEL$plot_lineup(vi_lineup$heter_331$data, 
                      remove_grid_line = TRUE, 
