@@ -968,9 +968,50 @@ The power of all inappropriate tests except for RESET test shows improvement as 
 Overall, the power comparison suggests that conventional tests differs significantly from visual tests in two regression diagnostics scenarios designed by us. Visual test have much higher tolerance of the residual departures than the conventional test. Since fail to reject $H_0$ in a visual test usually means that there are no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not be convinced of the existence of significant residual departures in spite of the rejection of $H_0$ given by the conventional test. Even if the rejection is accepted, the model violation may be considered as impactless due to the fact that they are not clearly visible. Besides, the sensitivity of the conventional test could also distract and discourage analysts from finding simple but good linear approximation to the data. The rejection of $H_0$ because of human acceptable and negligible residual departures is not practically meaningful and useful. This may limit the popularity of conventional tests in residual diagnostics among analysts.
 
 ```{r}
-# Bootstrap the dataset
-boot_y <- function(dat, y, times = 100) {
-  map_df(1:times, function(i) slice_sample(dat, n = nrow(dat), replace = TRUE) %>% mutate(boot_id = i))
+# Get bootstrap CI
+get_boot_conf <- function(dat, 
+                          .x,
+                          .y,
+                          times = 100, 
+                          upper_q = 0.975, 
+                          lower_q = 0.025) {
+  
+  # Construct the model formula
+  mod_formula <- substitute(.y ~ .x)
+  
+  # Get the x variable name
+  x_chr <- as.character(substitute(.x))
+  
+  # Prepare a sequence of x values
+  x_seq <- seq(min(dat[[x_chr]]), max(dat[[x_chr]]), by = 0.01)
+  
+  # Properly construct the new data frame for prediction
+  newdata <- data.frame(.x = x_seq)
+  newdata[[x_chr]] <- x_seq
+  
+  # Get the prediction for each bootstrap sample   
+  dat_pred <- map_df(1:times, function(i) {
+    
+    # Get a bootstrap sample
+    dat_i <- slice_sample(dat, n = nrow(dat), replace = TRUE) %>%
+      mutate(boot_id = i)
+    
+    # Fit the model on the sample
+    mod_i <- glm(mod_formula, family = binomial, data = dat_i)
+
+    # Get the prediction
+    newdata$.pred <- predict(mod_i, newdata = newdata, type = "response")
+    
+    # Return the prediction
+    newdata
+  })
+  
+  dat_pred <- dat_pred %>%
+    group_by(.x) %>%
+    summarise(upper = quantile(.pred, upper_q), 
+              lower = quantile(.pred, lower_q))
+  dat_pred[[x_chr]] <- dat_pred$.x
+  dat_pred
 }
 ```
 
@@ -1026,17 +1067,16 @@ p <- vi_survey %>%
               method.args = list(family = binomial),
               se = FALSE) +
   
-  # Draw bootstrap visual test power curves
-  stat_smooth(geom = "line", 
-              data = ~boot_y(.x, reject, times = 500), 
-              aes(log_effect_size, 
-                  reject, 
-                  group = boot_id, 
-                  col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              alpha = 0.03) +
+  # Draw bootstrap CI for visual test
+  geom_ribbon(data = ~get_boot_conf(.x,
+                                    log_effect_size,
+                                    reject,
+                                    times = 1000),
+              aes(x = log_effect_size, 
+                  ymin = lower, 
+                  ymax = upper),
+              fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
+              alpha = 0.2) +
   
   # Draw visual test power curve
   geom_smooth(aes(log_effect_size, reject, col = "Visual test"), 
@@ -1056,7 +1096,7 @@ p <- vi_survey %>%
 ```
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding band of the visual test shows the 95 percent confidence interval estimated using 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
 
 set.seed(106)
 
@@ -1146,17 +1186,16 @@ p <- vi_survey %>%
               method.args = list(family = binomial),
               se = FALSE) +
   
-  # Draw bootstrap visual test power curves
-  stat_smooth(geom = "line", 
-              data = ~boot_y(.x, reject, times = 500), 
-              aes(log_effect_size, 
-                  reject, 
-                  group = boot_id, 
-                  col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE, 
-              alpha = 0.03) +
+  # Draw bootstrap CI for visual test
+  geom_ribbon(data = ~get_boot_conf(.x,
+                                    log_effect_size,
+                                    reject,
+                                    times = 1000),
+              aes(x = log_effect_size, 
+                  ymin = lower, 
+                  ymax = upper),
+              fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
+              alpha = 0.2) +
   
   # Draw visual test power curve
   geom_smooth(aes(log_effect_size, reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
@@ -1174,7 +1213,7 @@ p <- vi_survey %>%
   
   
   
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding band of the visual test shows the 95 percent confidence interval estimated using 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
 
 set.seed(10091)
 
@@ -1281,7 +1320,7 @@ Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of 
 
 For non-linearity patterns, we do not observe significant difference in power of visual test between distributions, except for the discrete uniform distribution. It is possibility due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform distribution is instead the one with the greatest power, followed by the lognormal distribution, the uniform distribution and the normal distribution.
 
-For heteroskedasticity patterns, the power of visual test on lineups with uniform distribution has the greatest power. This is as expected since other three distributions could reduce the chance of revealing the underlying visual pattern because of uneven data points. Although the power of visual test under the discrete uniform distribution is the lowest in the case of non-linearity patterns, it has a relatively great power this time. Considering for heteroskedasticity, the visual patterns are usually detected by connecting the maximum and minimum residuals separately at different fitted values. It will not be greatly affected by the discrete uniform distribution compared to the uniform distribution. Visual tests have low power on lineups with the normal distribution and the lognormal distribution. This suggests the use of transformation of fitted values in reading residual plots. In the case of conventional tests, the discrete uniform distribution consistently doing great, followed by the uniform distribution, the normal distribution and the lognormal distribution. 
+For heteroskedasticity patterns, the power of visual test on lineups with uniform distribution has the greatest power. This is as expected since other three distributions could reduce the chance of revealing the underlying visual pattern because of uneven data points. Although the power of visual test under the discrete uniform distribution is the lowest in the case of non-linearity patterns, it has a relatively great power this time. Considering for heteroskedasticity, the visual patterns are usually detected by connecting the maximum and minimum residuals separately at different fitted values. It will not be greatly affected by the discrete uniform distribution compared to the uniform distribution. Visual tests have low power on lineups with the normal distribution and the lognormal distribution. This suggests the use of transformation of fitted values in reading residual plots. In the case of conventional tests, the discrete uniform distribution consistently perform well, followed by the uniform distribution, the normal distribution and the lognormal distribution. 
 
 In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are always lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
 
@@ -1380,7 +1419,7 @@ Figure \ref{fig:poly-example} shows one of the two lineups where the visual test
 
 We expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape. The readability of the shape do not strictly follow the degree of the polynomials.
 
-```{r poly-power-j, fig.height = 4, fig.cap = "Comparison of power of conventional tests and visual tests on lineups containing four different non-linearity shapes. "}
+```{r poly-power-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours."}
 
 poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
@@ -1405,7 +1444,7 @@ poly_conv_sim %>%
               method.args = list(family = binomial())) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Vivid")) +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
   theme_light() +
   theme(legend.position = "bottom") +
   facet_wrap(~conv_or_not) +
@@ -1421,6 +1460,8 @@ VI_MODEL$plot_lineup(vi_lineup$poly_275$data,
 ```
 
 ### Shape of heteroskedasticity
+
+We also investigate the impact of the shape of heteroskedasticity on the power of different tests. The corresponding result is presented in Figure \ref{fig:heter-power-a}. In theory, the "Left-triangle" and the "Right-triangle" should have little difference from the point of view of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-a}, this is indeed the case. And these two shapes should have the same visual test power, unless the orientation of the visual pattern is a non-negligible factor from human perspective. However, by checking the bootstrap confidence intervals, it can be observed from Figure \ref{fig:heter-power-a} that when $3 < log(E) < 4$, the "Left-triangle" power curve is significantly greater than the "Right-triangle" power curve. This phenomenon is particularly interesting. It implies the current residual plot design is not robust to the orientation of the visual pattern, which is worth to be explored in future research. 
 
 ```{r heter-power-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
 
@@ -1445,13 +1486,56 @@ heter_conv_sim %>%
               se = FALSE, 
               method = "glm",
               method.args = list(family = binomial())) +
+  
+  # Draw bootstrap for Left-triangle
+  geom_ribbon(data = ~get_boot_conf(filter(.x, 
+                                           conv_or_not == "Visual", 
+                                           a == "Left-triangle"),
+                                    log_effect_size,
+                                    reject,
+                                    times = 1000) %>%
+                mutate(conv_or_not = "Visual"),
+              aes(x = log_effect_size, 
+                  ymin = lower, 
+                  ymax = upper),
+              fill = rcartocolor::carto_pal(3, "Earth")[1],
+              alpha = 0.2) +
+  
+  # Draw bootstrap for Right-triangle
+  geom_ribbon(data = ~get_boot_conf(filter(.x, 
+                                           conv_or_not == "Visual", 
+                                           a == "Right-triangle"),
+                                    log_effect_size,
+                                    reject,
+                                    times = 1000) %>%
+                mutate(conv_or_not = "Visual"),
+              aes(x = log_effect_size, 
+                  ymin = lower, 
+                  ymax = upper),
+              fill = rcartocolor::carto_pal(3, "Earth")[3],
+              alpha = 0.2) +
+  
+  # Theme
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(3, "Vivid")) +
+  scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
   theme_light() +
   theme(legend.position = "bottom") +
   facet_wrap(~conv_or_not) +
   labs(col = "Heteroskedasticity shape")
 ```
+
+# Conclusion
+
+1. summarise paper content
+2. briefly describe what was learned
+3. how does this apply more broadly than simple regression
+4. where does this lead? Computer vision residual plot reading
+
+# Acknowledgement
+
+1. software tools
+2. point to github repo (create a new one)
+3. summarise the supplementary material
 
 \newpage
