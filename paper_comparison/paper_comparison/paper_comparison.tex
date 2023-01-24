@@ -978,23 +978,39 @@ of \(H_0\) because of human acceptable and negligible residual
 departures is not practically meaningful and useful. This may limit the
 popularity of conventional tests in residual diagnostics among analysts.
 
-\begin{figure}
+\textbackslash begin\{figure\}
 
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/polypower-1} 
+\{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/polypower-1}
 
-}
+\}
 
-\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation.  Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
-\end{figure}
+\textbackslash caption\{Comparison of power between different tests for
+non-linear patterns (uniform fitted values only). Main plot shows the
+power curves estimated using logistic regression, with dots indicating
+human evaluations of lineups. Surrounding band of the visual test shows
+the 95\% confidence interval estimated using 500 bootstrap samples.
+Small row of plots shows typical residual plots corresponding to
+specific effect sizes, marked by dashed lines in main plot. Where would
+you draw the line of too much non-linearity in the residuals? For the
+RESET test this is around log effect size 1.5, but for the visual test
+it is around 3.5.\}\label{fig:polypower} \textbackslash end\{figure\}
 
-\begin{figure}
+\textbackslash begin\{figure\}
 
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heterpower-1} 
+\{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heterpower-1}
 
-}
+\}
 
-\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding curves of the visual test show 500 samples of bootstrap estimation. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
-\end{figure}
+\textbackslash caption\{Comparison of power between different tests for
+heteroskedasticity patterns (uniform fitted values only). Main plot
+shows the power curves, with dots indicating human evaluations of
+lineups. Surrounding band of the visual test shows the 95\% confidence
+interval estimated using 500 bootstrap samples. Small row of plots shows
+typical residual plots corresponding to specific effect sizes, marked by
+dashed lines in main plot. Where would you draw the line of too much
+heteroskedasticity in the residuals? For the BP test this is around log
+effect size 1.5, but for the visual test it is around
+3.\}\label{fig:heterpower} \textbackslash end\{figure\}
 
 \hypertarget{comparison-of-test-decisions-based-on-p-values}{%
 \subsection{\texorpdfstring{Comparison of test decisions based on
@@ -1094,7 +1110,7 @@ distribution. Visual tests have low power on lineups with the normal
 distribution and the lognormal distribution. This suggests the use of
 transformation of fitted values in reading residual plots. In the case
 of conventional tests, the discrete uniform distribution consistently
-doing great, followed by the uniform distribution, the normal
+perform well, followed by the uniform distribution, the normal
 distribution and the lognormal distribution.
 
 In regards of the type of the simulation model, the power of visual
@@ -1108,7 +1124,7 @@ result reported in the previous sections.
 
 }
 
-\caption{Comparison of power of conventional tests and visual tests on lineups with different fitted value distributions. Each power curve of the uniform distribution is surrounded by a grey line to indicate it is the baseline in its group. Conventional tests are more sensitive than visual tests in regards of the type of the simulated model and the fitted value distribution. For non-linearity patterns, visual tests show lower power with discrete uniform distribution, possibly due to the difficulty in reading discreteness. For heteroskedasticity patterns, because of the unevenness, visual tests have lower power with normal and lognormal distribution.}\label{fig:different-x-dist-poly-power}
+\caption{Power of different tests on lineups with different fitted value distributions. Each power curve of the uniform distribution is surrounded by a grey line to indicate it is the baseline within its group. Conventional tests are more sensitive than visual tests in regards of the type of the visual pattern and the fitted value distribution. Visual tests exhibit relatively low power in testing non-linearity patterns under discrete uniform distribution, possibly due to the difficulty in reading discreteness. Meanwhile, uneveness affects heteroskedasticity patterns greatly, result in low power of visual tests under normal and lognormal distribution.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
 \hypertarget{shape-of-non-linearity}{%
@@ -1153,7 +1169,7 @@ the polynomials.
 
 }
 
-\caption{Comparison of power of conventional tests and visual tests on lineups containing four different non-linearity shapes. }\label{fig:poly-power-j}
+\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. }\label{fig:poly-power-j}
 \end{figure}
 
 \begin{figure}
@@ -1168,6 +1184,17 @@ the polynomials.
 \hypertarget{shape-of-heteroskedasticity}{%
 \subsubsection{Shape of
 heteroskedasticity}\label{shape-of-heteroskedasticity}}
+
+We also investigate the impact of the shape of heteroskedasticity on the
+power of different tests. The corresponding result is presented in
+Figure \ref{fig:heter-power-a}. In theory, the ``Left-triangle'' and the
+``Right-triangle'' should have no difference from the point of view of a
+Breusch-Pagan test. According to Figure \ref{fig:heter-power-a}, this is
+indeed the case. And these two shapes should have the same visual test
+power, unless the orientation of the visual pattern is a non-negligible
+factor from human perspective. However, the same graph suggests that the
+``Right-triangle'' shape is more difficult to be noticed by subjects
+than the ``Left-triangle'' shape.
 
 \begin{figure}
 
