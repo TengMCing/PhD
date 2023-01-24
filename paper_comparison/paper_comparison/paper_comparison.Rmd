@@ -1299,7 +1299,7 @@ and visual tests reject `r p_value_cmp_dat %>% filter(type == "heteroskedasticit
 nr <- p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Not") %>% count(reject)
 ```
 
-Surprisingly, the visual test rejects `r nr$n[1]` out of `r nr$n[1]+nr$n[2]` (`r round(nr$n[1]/(nr$n[1]+nr$n[2])*100, 0)`%) of lineups where the conventional test does not reject. Figure \ref{fig:heter-example} shows this lineup. The data plot in position seventeen displays a relatively strong heteroskedasticity pattern, and has a strong effect size ($log_e E=4.02$). This is reflected by the visual test $p\text{-value} = 0.026$, but the Breusch-Pagan test $p\text{-value} = 0.056$, slightly above the significance cutoff of $0.05$. This lineup was evaluated by 11 subjects, it has experimental factors $n=50$ (small sample size), $\sigma=1$, and a uniform distribution for the fitted values. It must be the small sample size that may have resulted in the lack of detection.
+Surprisingly, the visual test rejects `r nr$n[1]` of the `r nr$n[1]+nr$n[2]` (`r round(nr$n[1]/(nr$n[1]+nr$n[2])*100, 0)`%) of lineups where the conventional test does not reject. Figure \ref{fig:heter-example} shows this lineup. The data plot in position seventeen displays a relatively strong heteroskedasticity pattern, and has a strong effect size ($log_e E=4.02$). This is reflected by the visual test $p\text{-value} = 0.026$, but the Breusch-Pagan test $p\text{-value} = 0.056$, slightly above the significance cutoff of $0.05$. This lineup was evaluated by 11 subjects, it has experimental factors $n=50$ (small sample size), $\sigma=1$, and a uniform distribution for the fitted values. It must be the small sample size that may have resulted in the lack of detection.
 
 ```{r heter-example, fig.height = 7, fig.width = 7, fig.cap = 'The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.'}
 # plot heter-331
@@ -1314,7 +1314,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 
 ### Fitted value distribution 
 
-Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the fitted value distribution and the visual effect of the residual plot. In our experiments, four distributions of fitted values are considered to accommodate this variation.
+The prediction in a regression model is $E(Y|X)$, that is, it is conditional on observed values of the predictors. The distribution of $X$, or consequently $\hat{Y}$, may however affect the ability to read any patterns in the residuals. <!-- Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the fitted value distribution and the visual effect of the residual plot.--> The four distributions of fitted values, used in this experiment, were designed to examine this.
 
 Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ where the visual patterns start to become recognisable.
 
