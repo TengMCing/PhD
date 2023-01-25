@@ -598,11 +598,15 @@ Since \(z = O(x^j)\), for \(j > 1\), \(z\) is a higher order term leaves
 out by the null regression, which will lead to model misspecification.
 
 Visual patterns of non-linearity are simulated using four different
-orders of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)). Four
-distributions of fitted values are also considered by using \(X_{raw}\)
-follows different distributions: (1) \(U(-1, 1)\), (2) \(N(0, 0.3^2)\),
-(3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). A summary of the
-factors is given in Table \ref{tab:model-factor-table}.
+orders of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)). (A
+summary of the factors is given in Table \ref{tab:model-factor-table}.)
+The values of \(j\) is chosen so that distinct shapes of non-linearity
+are included in the residual plot. These include ``U'', ``S'', ``M'' and
+``Triple-U'' shape as shown in Figure
+\ref{fig:different-shape-of-herimite}. A greater value of \(j\) will
+result in a curve with more turning points. It is expected that the
+``U'' shape will be the easiest one to detect because complex shape
+tends to be concealed by cluster of data points.
 
 \begin{table}
 
@@ -621,21 +625,6 @@ factors is given in Table \ref{tab:model-factor-table}.
 \bottomrule
 \end{tabular}}
 \end{table}
-
-The values of \(j\) is chosen so that distinct shapes of non-linearity
-are included in the residual plot. These include ``U'', ``S'', ``M'' and
-``Triple-U'' shape as shown in Figure
-\ref{fig:different-shape-of-herimite}. A greater value of \(j\) will
-result in a curve with more turning points. It is expected that the
-``U'' shape will be the easiest one to detect because complex shape
-tends to be concealed by cluster of data points.
-
-Different distributions of fitted values help enriching the pool of
-visual patterns as illustrated in Figure \ref{fig:different-dist}. The
-uniform and the normal distribution are symmetric and commonly assumed
-in statistical models. The adjusted log-normal distribution provides
-skewed density, while the discrete uniform distribution provides
-discreteness in residual plot.
 
 \begin{figure}
 
@@ -713,9 +702,8 @@ For \(b \neq 0\), the variance-covariance matrix of the error term
 \(\boldsymbol{\varepsilon}\) is correlated with the regressor
 \(\boldsymbol{x}\), which will lead to the presence of
 heteroskedasticity. Visual patterns of heteroskedasticity are simulated
-using three different shapes (\(a\) = -1, 0, 1) and the same four
-different distribution of \(X_{raw}\) used in experiment I. A summary of
-the factors can also be found in Table \ref{tab:model-factor-table}.
+using three different shapes (\(a\) = -1, 0, 1). (A summary of the
+factors can be found in Table \ref{tab:model-factor-table}.)
 
 Since \(supp(X) = [-1, 1]\), choosing \(a\) to be \(-1\), \(0\) and
 \(1\) can generate ``left-triangle'', ``butterfly'' and
@@ -754,6 +742,23 @@ An example lineup of this model used in Experiment II is shown in Figure
 \ref{fig:example-heter-lineup} with \(a = -1\) and
 \(X_{raw} \sim U(-1, 1)\). The data plot location is \(2^4 + 2\). Nine
 out of 11 subjects correctly identify the data plot from this lineup.
+
+\hypertarget{factors-common-to-both-experiments}{%
+\subsubsection{Factors common to both
+experiments}\label{factors-common-to-both-experiments}}
+
+XXX DC will clean this up
+
+Four distributions of fitted values are also considered by using
+\(X_{raw}\) follows different distributions: (1) \(U(-1, 1)\), (2)
+\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\).
+
+Different distributions of fitted values help enriching the pool of
+visual patterns as illustrated in Figure \ref{fig:different-dist}. The
+uniform and the normal distribution are symmetric and commonly assumed
+in statistical models. The adjusted log-normal distribution provides
+skewed density, while the discrete uniform distribution provides
+discreteness in residual plot.
 
 \hypertarget{experimental-setup}{%
 \subsection{Experimental setup}\label{experimental-setup}}
