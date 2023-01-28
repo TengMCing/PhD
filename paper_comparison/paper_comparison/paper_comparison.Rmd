@@ -324,6 +324,10 @@ The persistence of this advice to check the plots is curious, and investigating 
 
 ## Departures from good residual plots
 
+(change it to facet)
+
+(remove backticks for some plots)
+
 ```{r residual-plot-common-departures, fig.width = 10, fig.height = 2.5, fig.cap = "Example residual vs fitted plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot."}
 
 set.seed(10086)
