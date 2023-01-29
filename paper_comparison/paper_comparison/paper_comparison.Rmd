@@ -955,6 +955,13 @@ The power of all inappropriate tests except for RESET test shows improvement as 
 Overall, the power comparison suggests that conventional tests differs significantly from visual tests in two regression diagnostics scenarios designed by us. Visual test have much higher tolerance of the residual departures than the conventional test. Since fail to reject $H_0$ in a visual test usually means that there are no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not be convinced of the existence of significant residual departures in spite of the rejection of $H_0$ given by the conventional test. Even if the rejection is accepted, the model violation may be considered as impactless due to the fact that they are not clearly visible. Besides, the sensitivity of the conventional test could also distract and discourage analysts from finding simple but good linear approximation to the data. The rejection of $H_0$ because of human acceptable and negligible residual departures is not practically meaningful and useful. This may limit the popularity of conventional tests in residual diagnostics among analysts.
 
 ```{r}
+# Get bootstrap samples
+get_boot_sample <- function(dat, times = 100) {
+  map_df(1:times, 
+         ~slice_sample(dat, n = nrow(dat), replace = TRUE) %>%
+           mutate(boot_id = .x))
+}
+
 # Get bootstrap CI
 get_boot_conf <- function(dat, 
                           .x,
@@ -1055,15 +1062,26 @@ p <- vi_survey %>%
               se = FALSE) +
   
   # Draw bootstrap CI for visual test
-  geom_ribbon(data = ~get_boot_conf(.x,
-                                    log_effect_size,
-                                    reject,
-                                    times = 1000),
-              aes(x = log_effect_size, 
-                  ymin = lower, 
-                  ymax = upper),
-              fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
-              alpha = 0.2) +
+  # geom_ribbon(data = ~get_boot_conf(.x,
+  #                                   log_effect_size,
+  #                                   reject,
+  #                                   times = 1000),
+  #             aes(x = log_effect_size, 
+  #                 ymin = lower, 
+  #                 ymax = upper),
+  #             fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
+  #             alpha = 0.2) +
+  
+  stat_smooth(data = ~get_boot_sample(.x, times = 1000),
+              geom = "line",
+              aes(log_effect_size, 
+                  reject, 
+                  col = "Visual test", 
+                  group = boot_id),
+              method = "glm",
+              method.args = list(family = binomial),
+              se = FALSE,
+              alpha = 0.01) +
   
   # Draw visual test power curve
   geom_smooth(aes(log_effect_size, reject, col = "Visual test"), 
@@ -1109,7 +1127,7 @@ plist[[j]] <- poly_model(shape = 2,
                 remove_grid_line = TRUE, 
                 size = 0.05) +
     ggtitle(round(es[j], 1)) +
-    theme(aspect.ratio=0.8)
+    theme(aspect.ratio = 0.8)
 }
 
 # Use area() to design layout
@@ -1174,15 +1192,26 @@ p <- vi_survey %>%
               se = FALSE) +
   
   # Draw bootstrap CI for visual test
-  geom_ribbon(data = ~get_boot_conf(.x,
-                                    log_effect_size,
-                                    reject,
-                                    times = 1000),
-              aes(x = log_effect_size, 
-                  ymin = lower, 
-                  ymax = upper),
-              fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
-              alpha = 0.2) +
+  # geom_ribbon(data = ~get_boot_conf(.x,
+  #                                   log_effect_size,
+  #                                   reject,
+  #                                   times = 1000),
+  #             aes(x = log_effect_size, 
+  #                 ymin = lower, 
+  #                 ymax = upper),
+  #             fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
+  #             alpha = 0.2) +
+  
+  stat_smooth(data = ~get_boot_sample(.x, times = 1000),
+              geom = "line",
+              aes(log_effect_size, 
+                  reject, 
+                  col = "Visual test", 
+                  group = boot_id),
+              method = "glm",
+              method.args = list(family = binomial),
+              se = FALSE,
+              alpha = 0.01) +
   
   # Draw visual test power curve
   geom_smooth(aes(log_effect_size, reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
