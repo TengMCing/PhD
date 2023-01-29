@@ -67,11 +67,13 @@ set.seed(10086)
 ```
 
 ```{r get-lineup-data}
+# Create the dir folder
+if (!dir.exists(here::here("data/"))) dir.create(here::here("data/"))
+
 # The lineup data used to draw residual plot needed to be downloaded
 # from the github repo. Cache it.
 if (!file.exists(here::here("data/vi_lineup.rds"))) {
   vi_lineup <- get_vi_lineup()
-  if (!dir.exists(here::here("data/"))) dir.create(here::here("data/"))
   saveRDS(vi_lineup, here::here("data/vi_lineup.rds"))
 } else {
   vi_lineup <- readRDS(here::here("data/vi_lineup.rds"))
@@ -338,54 +340,34 @@ mod <- poly_model(include_z = FALSE, sigma = 0.25)
 # Base data
 dat <- mod$gen(300)
 
-patchwork::wrap_plots(
-  
-  # Plot base data
-  mod$plot(dat, theme = theme_light()) +
-    ggtitle("A. Good residuals") + 
-    xlab("Fitted values") + 
-    ylab("Residuals"),
-  
-  # Include the z term
-  # Reuse the x and e terms
-  mod$plot(mod$
-             set_prm("include_z", TRUE)$
-             gen(300, computed = select(dat, x, e)), 
-    theme = theme_light()) + 
-    ggtitle("B. Non-linearity") +
-    xlab("Fitted values") + 
-    ylab("Residuals"),
-  
-  # Build a heter model
-  # Reuse the x and e terms
-  mod$plot(heter_model(b = 64)$
-             gen(300, computed = select(dat, x, e)), 
-    theme = theme_light()) + 
-    ggtitle("C. Heteroskedasticity") +
-    xlab("Fitted values") + 
-    ylab("Residuals"),
-  
-  # Build a heter model with non-normal error
-  # Reuse the x term
-  mod$plot(heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-             gen(300, computed = select(dat, x)), 
-    theme = theme_light()) + 
-    ggtitle("D. Non-normality") +
-    xlab("Fitted values") + 
-    ylab("Residuals"),
-  ncol = 4
-)
+bind_rows(
+  dat %>%
+    mutate(type = "Good residuals"),
+  mod$set_prm("include_z", TRUE)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "Non-linearity"),
+  heter_model(b = 64)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "Heteroskedasticity"),
+  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+    gen(300, computed = select(dat, x)) %>%
+    mutate(type = "Non-normality")
+) %>%
+  mod$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
+  facet_wrap(~type, ncol = 4, scales = "free") +
+  xlab("Fitted values") +
+  ylab("Residuals")
 ```
 
-Graphical summaries in which residuals are plotted against fitted values or other functions of the regressors that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. Figure \ref{fig:residual-plot-common-departures}A shows an ideal residual plot with residuals evenly distributed at both sides of the horizontal zero line, with no noticeable patterns. 
+Graphical summaries in which residuals are plotted against fitted values or other functions of the regressors that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. The first panel of Figure \ref{fig:residual-plot-common-departures} shows an ideal residual plot with residuals evenly distributed at both sides of the horizontal zero line, with no noticeable patterns. 
 
 There are various types of departures from an ideal residual plot. Non-linearity, heterskedasticity and non-normality are perhaps the three mostly checked departures. 
 
-Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values in the residual plot could be indicative of non-linearity. An example residual plot containing visual pattern of non-linearity is given at Figure \ref{fig:residual-plot-common-departures}B. One can clearly observe the "S-shape" from the residual plot as the cubic term is not captured by the misspecified model.
+Non-linearity is a type of model misspecification caused by failing to include higher order terms of the regressors in the regression equation. Any non-linear functional form of residuals on fitted values in the residual plot could be indicative of non-linearity. An example residual plot containing visual pattern of non-linearity is given at the second panel of Figure \ref{fig:residual-plot-common-departures}. One can clearly observe the "S-shape" from the residual plot as the cubic term is not captured by the misspecified model.
 
-Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in the Figure \ref{fig:residual-plot-common-departures}C, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
+Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in the third panel of Figure \ref{fig:residual-plot-common-departures}, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
 
-Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since a scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. As we mainly discuss residual plots, non-normality will not be the focus of this paper. For a consistent comparison, the residual plot of this departure is still presented in Figure \ref{fig:residual-plot-common-departures}D. When the number residuals below and above the horizontal axis are uneven across the local regions along the $x$-axis, we expect that the normality assumption is violated. For example, given a skewed error distribution, there will be fewer data points and more outliers on one side of the horizontal axis as shown in Figure \ref{fig:residual-plot-common-departures}D.
+Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since a scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. As we mainly discuss residual plots, non-normality will not be the focus of this paper. For a consistent comparison, the residual plot of this departure is still presented in the fourth panel of Figure \ref{fig:residual-plot-common-departures}. When the number residuals below and above the horizontal axis are uneven across the local regions along the $x$-axis, we expect that the normality assumption is violated. For example, given a skewed error distribution, there will be fewer data points and more outliers on one side of the horizontal axis as shown in the fourth panel of Figure \ref{fig:residual-plot-common-departures}.
 
 ## Conventionally testing for departures
 
@@ -654,9 +636,8 @@ map_df(2:4, function(shape) {
   # Combined with data for shape 1
   bind_rows(dat_shape_1) %>%
   mutate(shape = factor(shape, levels = shape_labels)) %>%
-  VI_MODEL$plot() +
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   facet_wrap(~shape, scales = "free", labeller = label_parsed, ncol = 4) +
-  theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
@@ -710,8 +691,7 @@ bind_rows(dat_dist_1, dat_dist_2, dat_dist_3, dat_dist_4) %>%
                                     "Normal", 
                                     "Skewed", 
                                     "Discrete"))) %>%
-  VI_MODEL$plot() +
-  theme_light() +
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank()) +
@@ -746,8 +726,7 @@ map(c(50, 100), function(n) {
   # Combined with data for 300 observations
   bind_rows(dat_n_300) %>%
   mutate(n = factor(n, levels = c("N: 50", "N: 100", "N: 300"))) %>%
-  VI_MODEL$plot() +
-  theme_light() +
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   facet_wrap(~n, scales = "free", ncol = 3) +
   xlab("Fitted values") +
   ylab("Residuals") +
@@ -780,9 +759,8 @@ map(c(1, 2, 4), function(sigma) {
   
   # Combined with data for sigma 0.5
   bind_rows(dat_sigma_05) %>%
-  VI_MODEL$plot() + 
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) + 
   facet_wrap(~sigma, ncol = 4, scales = "free", labeller = label_parsed) +
-  theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
@@ -843,9 +821,8 @@ map(c(0, 1), function(a) {
   # Combined with data for a = -1
   bind_rows(dat_a_n1) %>%
   mutate(a = factor(a, levels = a_labels)) %>%
-  VI_MODEL$plot() +
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   facet_wrap(~a, scales = "free", ncol = 3) +
-  theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
@@ -878,9 +855,8 @@ map(c(1, 4, 16, 64), function(b) {
   # Combined with data for b = 0.25
   bind_rows(dat_b025) %>%
   mutate(b = factor(b, levels = paste0("b: ", c(0.25, 1, 4, 16, 64)))) %>%
-  VI_MODEL$plot() +
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   facet_wrap(~b, scales = "free", ncol = 5) +
-  theme_light() +
   xlab("Fitted values") +
   ylab("Residuals") +
   theme(axis.text = element_blank())
