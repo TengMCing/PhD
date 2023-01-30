@@ -1405,7 +1405,7 @@ The "Butterfly" shape
 
 ```{r heter-power-uniform-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
 
-heter_conv_sim %>%
+dat_heter_a <- heter_conv_sim %>%
   filter(x_dist == "uniform") %>%
   mutate(log_effect_size = log(effect_size)) %>%
   mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
@@ -1420,14 +1420,44 @@ heter_conv_sim %>%
   mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>%
-  select(a, log_effect_size, reject, conv_or_not) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = a), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
+  select(a, log_effect_size, reject, conv_or_not)
   
-  # Theme
+map_df(levels(dat_heter_a$a), function(x) {
+  
+  # Adjust the range of x
+  result <- data.frame(log_effect_size = seq(min(dat_heter_a$log_effect_size),
+                                             max(dat_heter_a$log_effect_size), 
+                                             0.01))
+  
+  # Manually fit the model
+  conv_mod <- glm(reject ~ log_effect_size, 
+                  family = binomial(),
+                  data = filter(dat_heter_a, 
+                                a == x, 
+                                conv_or_not == "Conventional"))
+  
+  # Manually fit the model
+  visual_mod <- glm(reject ~ log_effect_size, 
+                  family = binomial(),
+                  data = filter(dat_heter_a, 
+                                a == x, 
+                                conv_or_not == "Visual"))
+  
+  # Get the prediction
+  result <- result %>%
+    mutate(Conventional = predict(conv_mod, 
+                                  newdata = result, 
+                                  type = "response"),
+           Visual = predict(visual_mod, 
+                            newdata = result, 
+                            type = "response"),
+           a = x) %>%
+    pivot_longer(Conventional:Visual, names_to = "conv_or_not")
+  
+  result
+}) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, value, col = a), se = FALSE, span = 0.03) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
