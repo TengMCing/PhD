@@ -1325,7 +1325,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 
 ## Shape of non-linearity
 
-Shape of the non-linearity pattern is another factor contributes to the non-linearity model. With different non-linearity patterns, it is expected that the visual test will respond variously.
+Shape of the non-linearity pattern is a primary factor contributes to the non-linearity model. With different non-linearity patterns, it is expected that the visual test will respond variously.
 
 According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have almost identical power in testing the "U", the "S" and the "M" shape, except for testing the "Triple-U" shape, which have significantly lower power. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. If the RESET test had been applied using a higher power no less than six, the power curve of "Triple-U" shape will have little difference to other shapes. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.
 
@@ -1333,7 +1333,8 @@ For visual tests, we expect the "U" shape will be the easiest one to be detected
 
 ```{r poly-power-uniform-j, fig.height = 4, fig.cap = 'Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Tripe-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.'}
 
-poly_conv_sim %>%
+dat_poly_j <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
   mutate(log_effect_size = log(effect_size)) %>%
   mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
@@ -1347,12 +1348,44 @@ poly_conv_sim %>%
   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
-  select(shape, log_effect_size, reject, conv_or_not) %>%
+  select(shape, log_effect_size, reject, conv_or_not)
+
+map_df(levels(dat_poly_j$shape), function(x) {
+  
+  # Adjust the range of x
+  result <- data.frame(log_effect_size = seq(min(dat_poly_j$log_effect_size),
+                                             max(dat_poly_j$log_effect_size), 
+                                             0.01))
+  
+  # Manually fit the model
+  conv_mod <- glm(reject ~ log_effect_size, 
+                  family = binomial(),
+                  data = filter(dat_poly_j, 
+                                shape == x, 
+                                conv_or_not == "Conventional"))
+  
+  # Manually fit the model
+  visual_mod <- glm(reject ~ log_effect_size, 
+                  family = binomial(),
+                  data = filter(dat_poly_j, 
+                                shape == x, 
+                                conv_or_not == "Visual"))
+  
+  # Get the prediction
+  result <- result %>%
+    mutate(Conventional = predict(conv_mod, 
+                                  newdata = result, 
+                                  type = "response"),
+           Visual = predict(visual_mod, 
+                            newdata = result, 
+                            type = "response"),
+           shape = x) %>%
+    pivot_longer(Conventional:Visual, names_to = "conv_or_not")
+  
+  result
+}) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = shape), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
+  geom_smooth(aes(log_effect_size, value, col = shape), se = FALSE, span = 0.03) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
@@ -1364,6 +1397,46 @@ poly_conv_sim %>%
 
 
 ## Shape of heteroskedasticity
+
+We also investigate the impact of different heteroskedasticity patterns. In theory, the "Left-triangle" and the "Right-triangle" should have little difference from the point of view of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-uniform-a}, this is indeed the case. 
+Similarly, these two shapes should have the same visual test power, unless the orientation of the visual pattern is a non-negligible factor from human perspective. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "Left-triangle" shape is constantly higher than the one for the "Right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies.
+
+The "Butterfly" shape 
+
+```{r heter-power-uniform-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
+
+heter_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
+  mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
+  mutate(conv_or_not = "Conventional") %>%
+  bind_rows(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform", type == "heteroskedasticity") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
+  mutate(conv_or_not = "Visual")) %>%
+  mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>%
+  select(a, log_effect_size, reject, conv_or_not) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject, col = a), 
+              se = FALSE, 
+              method = "glm",
+              method.args = list(family = binomial())) +
+  
+  # Theme
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
+  theme_light() +
+  theme(legend.position = "bottom") +
+  facet_wrap(~conv_or_not) +
+  labs(col = "Heteroskedasticity shape")
+```
+
 
 ## Effect of other fitted value distributions
 

@@ -1064,8 +1064,8 @@ that may have resulted in the lack of detection.
 \hypertarget{shape-of-non-linearity}{%
 \subsection{Shape of non-linearity}\label{shape-of-non-linearity}}
 
-Shape of the non-linearity pattern is another factor contributes to the
-non-linearity model. With different non-linearity patterns, it is
+Shape of the non-linearity pattern is a primary factor contributes to
+the non-linearity model. With different non-linearity patterns, it is
 expected that the visual test will respond variously.
 
 According to Figure \ref{fig:poly-power-uniform-j}, conventional tests
@@ -1098,12 +1098,35 @@ do not strictly follow the degree of the polynomials.
 
 }
 
-\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Tripe-U" shape. To achieve the similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.}\label{fig:poly-power-uniform-j}
+\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Tripe-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.}\label{fig:poly-power-uniform-j}
 \end{figure}
 
 \hypertarget{shape-of-heteroskedasticity}{%
 \subsection{Shape of
 heteroskedasticity}\label{shape-of-heteroskedasticity}}
+
+We also investigate the impact of different heteroskedasticity patterns.
+In theory, the ``Left-triangle'' and the ``Right-triangle'' should have
+little difference from the point of view of a Breusch-Pagan test.
+According to Figure \ref{fig:heter-power-uniform-a}, this is indeed the
+case. Similarly, these two shapes should have the same visual test
+power, unless the orientation of the visual pattern is a non-negligible
+factor from human perspective. However, it can be observed from Figure
+\ref{fig:heter-power-uniform-a} that the power curve for the
+``Left-triangle'' shape is constantly higher than the one for the
+``Right-triangle'' shape, indicating a potential favour of orientation
+by human, which is worth to be explored in future studies.
+
+The ``Butterfly'' shape
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heter-power-uniform-a-1} 
+
+}
+
+\caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$.}\label{fig:heter-power-uniform-a}
+\end{figure}
 
 \hypertarget{effect-of-other-fitted-value-distributions}{%
 \subsection{Effect of other fitted value
