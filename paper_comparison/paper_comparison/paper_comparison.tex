@@ -806,16 +806,17 @@ design of the experiment I and experiment II respectively.
 
 As mentioned in Section \ref{calculating-p-values-for-the-visual-test},
 \(\alpha\) used in Equation \ref{eq:pvalue-beta-binomial} needs to be
-estimated using null lineups. Hence, 36 lineups with all combinations of
-\(n\) and \(X_{raw}\) and three replications are included in experiment
-III. In these lineups, the data of the data plot is generated from a
-model with zero effect size, while the data of the 19 null plots are
-generated using the same simulation method discussed in Section
-\ref{sampling-from-the-null-distribution}. This generation procedure
-differs from the canonical Rorschach lineup procedure, which requires
-that all 20 plots are generated from the null hypothesis. However, these
-lineups serve the same fundamental purpose: to assess the number of
-visually interesting plots generated under the null hypothesis.
+estimated using null lineups. Hence, three replications of 36 lineups
+with all combinations of \(n\) and fitted value distributions are
+included in experiment III. In these lineups, the data of the data plot
+is generated from a model with zero effect size, while the data of the
+19 null plots are generated using the same simulation method discussed
+in Section \ref{sampling-from-the-null-distribution}. This generation
+procedure differs from the canonical Rorschach lineup procedure, which
+requires that all 20 plots are generated from the null hypothesis.
+However, these lineups serve the same fundamental purpose: to assess the
+number of visually interesting plots generated under the null
+hypothesis.
 
 To account for the fact that our simulation method for these lineups is
 not the Rorschach procedure, we use the method suggested in
@@ -871,11 +872,12 @@ maintain the overall data quality.
 \hypertarget{overview}{%
 \subsection{Overview}\label{overview}}
 
-There are 2880, 2700 and 2394 lineups evaluation made by 160, 150 and
+There are 2880, 2700 and 1674 lineups evaluation made by 160, 150 and
 133 subjects recruited for experiment I, II and III respectively. In the
 total of 7974 lineup evaluations, 3744 use lineups produced by the
-non-linearity model, 4230 use lineups produced by the heteroskedasticity
-model, and 720 use null lineups. Besides, there are 886 attention checks
+non-linearity model, and 4230 use lineups produced by the
+heteroskedasticity model. Besides, there are 886 attention checks and
+720 evaluations on null lineups needed for the estimate of \(\alpha\)
 not included in the analysis. The collated dataset is provided in
 \texttt{vi\_survey} of the \texttt{visage} \texttt{R} package.
 
