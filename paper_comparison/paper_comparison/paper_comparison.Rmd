@@ -534,11 +534,9 @@ To study various factors contributing to the power of the visual test, the same 
 
 # Experimental design
 
-Three experiments are conducted to investigate the difference between conventional hypothesis testing and visual inference in the application of linear regression diagnostics. The experiment I has ideal scenario for conventional testing, where the visual test is not expected to outperform the conventional test. Meanwhile, the experiment II is a scenario where the conventional test is an approximate test, in which the visual test may have a chance to match the performance of the conventional test. The experiment III is designed for collecting human responses to null lineups such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we plan to collect `r vi_survey  %>% filter(!attention_check) %>% nrow()` evaluations on `r vi_survey  %>% filter(!attention_check) %>% pull(unique_lineup_id) %>% unique() %>% length()` unique lineups performed by `r vi_survey  %>% filter(!attention_check) %>% count(exp, set) %>% nrow()` subjects throughout three experiments. 
+Three experiments are conducted to investigate the difference between conventional hypothesis testing and visual inference in the application of linear regression diagnostics. Two types of departures, namely non-linearity and heteroskedasticity, are considered with the corresponding data generating process being designed for experiment I and II. The experiment III is designed for collecting human responses to null lineups such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we plan to collect `r vi_survey  %>% filter(!attention_check) %>% nrow()` evaluations on `r vi_survey  %>% filter(!attention_check) %>% pull(unique_lineup_id) %>% unique() %>% length()` unique lineups performed by `r vi_survey  %>% filter(!attention_check) %>% count(exp, set) %>% nrow()` subjects throughout three experiments. 
 
 ## Simulating departures from good residuals
-
-Two types of departures, namely non-linearity and heteroskedasticity, are considered with the corresponding data generating process being designed for experiment I and II. 
 
 ### Non-linearity
 
