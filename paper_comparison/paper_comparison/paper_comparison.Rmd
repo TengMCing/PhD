@@ -1300,16 +1300,13 @@ p_value_cmp_dat %>%
 ```
 
 
-The power comparison illustrates that appropriate conventional test will reject $H_0$ more aggressively than visual tests. In this section, we explore how often they agree with each other by investigating the rejections for the two studies based on $p$-values for each lineup. 
+The power comparison illustrates that appropriate conventional tests will reject $H_0$ more aggressively than visual tests. In this section, we explore how often they agree with each other by investigating the rejections for the two model designs based on $p$-values for each lineup. 
 
 Figure \ref{fig:p-value-comparison} provides a mosaic plot showing the rejection rate of visual tests and conventional tests for both non-linearity patterns and heteroskedasticity patterns.
 
-For lineups containing non-linearity patterns, conventional tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
-and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. There are no lineups that are rejected by the visual test but not by the conventional test.
+For lineups containing non-linearity patterns, conventional tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% and visual tests reject `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the lineups rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "non-linearity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. There are no lineups that are rejected by the visual test but not by the conventional test.
 
-For lineups containing non-linearity patterns, conventional tests reject `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% 
-and visual tests reject `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% of the time. Of the tests rejected by the conventional test, `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by the visual test, that is, approximately half as many as the conventional test. 
-
+In terms of lineups containing heteroskedasticity patterns, `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(conv_reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by conventional tests, while `r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`% are rejected by visual tests. When the conventional test rejects a lineup, there is a great chance (`r p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Reject") %>% count(reject) %>% summarise(pct=round(n[1]/(n[1]+n[2])*100, 0))`%) the visual test will also reject it.  
 
 ```{r}
 nr <- p_value_cmp_dat %>% filter(type == "heteroskedasticity") %>% filter(conv_reject == "Not") %>% count(reject)
@@ -1325,6 +1322,48 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
                      remove_axis = TRUE)
 ```
 
+
+## Shape of non-linearity
+
+Shape of the non-linearity pattern is another factor contributes to the non-linearity model. With different non-linearity patterns, it is expected that the visual test will respond variously.
+
+According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have almost identical power in testing the "U", the "S" and the "M" shape, except for testing the "Triple-U" shape, which have significantly lower power. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. If the RESET test had been applied using a higher power no less than six, the power curve of "Triple-U" shape will have little difference to other shapes. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.
+
+For visual tests, we expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape, which implies the readability of the shape do not strictly follow the degree of the polynomials.
+
+```{r poly-power-uniform-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours."}
+
+poly_conv_sim %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
+  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
+  mutate(conv_or_not = "Conventional") %>%
+  bind_rows(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform", type == "polynomial") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
+  mutate(conv_or_not = "Visual")) %>%
+  mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
+  select(shape, log_effect_size, reject, conv_or_not) %>%
+  ggplot() +
+  geom_smooth(aes(log_effect_size, reject, col = shape), 
+              se = FALSE, 
+              method = "glm",
+              method.args = list(family = binomial())) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
+  theme_light() +
+  theme(legend.position = "bottom") +
+  facet_wrap(~conv_or_not) +
+  labs(col = "Non-linearity shape")
+```
+
+
+## Shape of heteroskedasticity
 
 ## Effect of other fitted value distributions
 
@@ -1427,7 +1466,7 @@ vi_survey %>%
 
 
 
-### Shape of non-linearity
+### Shape of non-linearity (old)
 
 Shape of the non-linearity pattern is another factor contributed to the non-linearity model. According to Figure \ref{fig:poly-power-j}, conventional tests are significantly less powerful in testing "Triple-U" shape compared to other three shapes, though it is still more sensitive than the visual test. In fact, among the lineups containing non-linearity patterns used in our experiments, around `r vi_survey %>% filter(!attention_check) %>% filter(!null_lineup) %>% filter(type == "polynomial") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% count(a = p_value < 0.05, b = conventional_p_value < 0.05) %>% mutate(prop = n / sum(n) * 100) %>% filter(a, !b) %>% pull(prop) %>% round(digits = 1)`% (two our of 576) are rejected by the visual test, but accepted by the conventional test.
 
@@ -1475,7 +1514,7 @@ VI_MODEL$plot_lineup(vi_lineup$poly_275$data,
                      remove_axis = TRUE)
 ```
 
-### Shape of heteroskedasticity
+### Shape of heteroskedasticity (old)
 
 We also investigate the impact of the shape of heteroskedasticity on the power of different tests. The corresponding result is presented in Figure \ref{fig:heter-power-a}. In theory, the "Left-triangle" and the "Right-triangle" should have little difference from the point of view of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-a}, this is indeed the case. And these two shapes should have the same visual test power, unless the orientation of the visual pattern is a non-negligible factor from human perspective. However, by checking the bootstrap confidence intervals, it can be observed from Figure \ref{fig:heter-power-a} that when $3 < log(E) < 4$, the "Left-triangle" power curve is significantly greater than the "Right-triangle" power curve. This phenomenon is particularly interesting. It implies the current residual plot design is not robust to the orientation of the visual pattern, which is worth to be explored in future research. 
 
