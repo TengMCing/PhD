@@ -1331,7 +1331,7 @@ According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have almo
 
 For visual tests, we expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape, which implies the readability of the shape do not strictly follow the degree of the polynomials.
 
-```{r poly-power-uniform-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours."}
+```{r poly-power-uniform-j, fig.height = 4, fig.cap = 'Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Tripe-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.'}
 
 poly_conv_sim %>%
   mutate(log_effect_size = log(effect_size)) %>%
