@@ -920,7 +920,7 @@ In every lineup evaluation, the subject is asked to select one or more plots tha
 
 There are `r 160 * 18`, `r 150 * 18` and `r 133 * 18` lineups evaluation made by 160, 150 and 133 subjects recruited for experiment I, II and III respectively. In the total of `r nrow(filter(vi_survey, !attention_check))` lineup evaluations, `r nrow(filter(vi_survey, type == "polynomial", !attention_check))` use lineups produced by the non-linearity model, `r nrow(filter(vi_survey, type == "heteroskedasticity", !attention_check))` use lineups produced by the heteroskedasticity model, and `r nrow(filter(vi_survey, null_lineup, !attention_check))` use null lineups. Besides, there are `r nrow(filter(vi_survey, attention_check))` attention checks not included in the analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package. 
 
-In the following analysis, lineups with uniform fitted values will be the focus of next two sections. Visual patterns are more likely to be revealed under a uniform distribution. Additionally, we have collected extra evaluations on these lineups, which will result in more reliable analysis. Analysis of lineups with other fitted value distributions can be found in Section \ref{fitted-value-distribution}. 
+In the following analysis, lineups with uniform fitted values will be the focus. Visual patterns are more likely to be revealed under a uniform distribution. Additionally, we have collected extra evaluations on these lineups, which will result in more reliable analysis. Analysis of lineups with other fitted value distributions can be found in Section \ref{effect-of-other-fitted-value-distributions}. 
 
 ## Power comparison of different tests 
 
@@ -1326,7 +1326,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 ```
 
 
-## Effect of other factors used in the simulation model
+## Effect of other fitted value distributions
 
 ### Fitted value distribution 
 
