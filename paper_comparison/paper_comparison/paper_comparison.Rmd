@@ -577,25 +577,27 @@ Visual patterns of non-linearity are simulated using four different orders of pr
 
 ```{r results='asis'}
 data.frame(j = c("2", "3", "6", "18", ""),
-           x_dist = c("Uniform", "Normal", "Skewed", "Discrete uniform", ""),
            sigma = c("0.25", "1.00", "2.00", "4.00", ""),
            a = c("-1", "0", "1", "", ""),
            b = c("0.25", "1.00", "4.00", "16.00", "64.00"),
-           n = c("50", "100", "300", "", "")) %>%
+           n = c("50", "100", "300", "", ""), 
+           x_dist = c("Uniform", "Normal", "Skewed", "Discrete uniform", "")) %>%
   knitr::kable(col.names = NULL,
-               align = "rcrrrr",
+               align = "rr|rr|rc",
                escape = FALSE,
                format = "latex",
                booktabs = TRUE, 
-               caption  = 'Description of all factors involved in the non-linear and heteroskedasticity studies.', 
+               caption  = 'Levels of the factors used in experiments I, II, III.', 
                label = "model-factor-table" ) %>%
   kableExtra::kable_styling(latex_options = "scale_down") %>%
   kableExtra::add_header_above(c("Poly Order (sym1)", #"Order of Hermite polynomial\n(sym1)", 
-                                 "Distribution of fitted values", 
                                  "SD (sym3)", #"Standard deviation of polynomial model\n(sym3)",
-                                 "Heteroskedasticity Shape (sym4)", # "Shape of heteroskedasticity\n(sym4)", 
-                                 "Heteroskedasticity (sym5)", # Variance factor of heteroskedasticity model\n(sym5)",
-                                 "Size (sym6)")) %>% #"Sample size\n(sym6)")) %>%
+                                 "Shape (sym4)", # "Shape of heteroskedasticity\n(sym4)", 
+                                 "Ratio (sym5)", # Variance factor of heteroskedasticity model\n(sym5)",
+                                 "Size (sym6)", 
+                                 "Distribution of fitted values")) %>% #"Sample size\n(sym6)")) %>%
+  kableExtra::add_header_above(c("Non-linearity" = 2, 
+                               "Heteroskedasticity" = 2, "Common" = 2)) %>%
   as.character() %>%
   gsub("sym1", "$j$", .) %>%
   gsub("sym3", "$\\\\sigma$", .) %>%

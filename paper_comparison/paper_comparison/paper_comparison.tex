@@ -616,18 +616,20 @@ tends to be concealed by cluster of data points.
 
 \begin{table}
 
-\caption{\label{tab:model-factor-table}Description of all factors involved in the non-linear and heteroskedasticity studies.}
+\caption{\label{tab:model-factor-table}Levels of the factors used in experiments I, II, III.}
 \centering
 \resizebox{\linewidth}{!}{
-\begin{tabular}[t]{rcrrrr}
+\begin{tabular}[t]{rr|rr|rcrr|rr|rcrr|rr|rcrr|rr|rcrr|rr|rcrr|rr|rc}
 \toprule
-\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{Distribution of fitted values} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Heteroskedasticity Shape ($a$)} & \multicolumn{1}{c}{Heteroskedasticity ($b$)} & \multicolumn{1}{c}{Size ($n$)} \\
+\multicolumn{2}{c}{Non-linearity} & \multicolumn{2}{c}{Heteroskedasticity} & \multicolumn{2}{c}{Common} \\
+\cmidrule(l{3pt}r{3pt}){1-2} \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6}
+\multicolumn{1}{c}{Poly Order ($j$)} & \multicolumn{1}{c}{SD ($\sigma$)} & \multicolumn{1}{c}{Shape ($a$)} & \multicolumn{1}{c}{Ratio ($b$)} & \multicolumn{1}{c}{Size ($n$)} & \multicolumn{1}{c}{Distribution of fitted values} \\
 \cmidrule(l{3pt}r{3pt}){1-1} \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6}
-2 & Uniform & 0.25 & -1 & 0.25 & 50\\
-3 & Normal & 1.00 & 0 & 1.00 & 100\\
-6 & Skewed & 2.00 & 1 & 4.00 & 300\\
-18 & Discrete uniform & 4.00 &  & 16.00 & \\
- &  &  &  & 64.00 & \\
+2 & 0.25 & -1 & 0.25 & 50 & Uniform\\
+3 & 1.00 & 0 & 1.00 & 100 & Normal\\
+6 & 2.00 & 1 & 4.00 & 300 & Skewed\\
+18 & 4.00 &  & 16.00 &  & Discrete uniform\\
+ &  &  & 64.00 &  & \\
 \bottomrule
 \end{tabular}}
 \end{table}
