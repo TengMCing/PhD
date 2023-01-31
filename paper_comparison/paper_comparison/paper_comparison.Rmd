@@ -1396,10 +1396,10 @@ map_df(levels(dat_poly_j$shape), function(x) {
 
 ## Shape of heteroskedasticity
 
-We also investigate the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "Left-triangle" and the "Right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. 
-Similarly, visual tests will have the same power of detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "Left-triangle" shape is constantly higher than the one for the "Right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies.
+We also investigate the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "Left-triangle" and the "Right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. Similarly, visual tests will have the same power of detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "Left-triangle" shape is constantly higher than the one for the "Right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies.
 
-The "Butterfly" shape on the other hand seems to be 
+The chance of detecting the "Butterfly" shape is roughly the same as the chance of detecting the "Left-triangle" shape in both tests. The only noticeable difference from Figure \ref{fig:heter-power-uniform-a} is the Breusch-Pagan test has slightly higher power for detecting this shape compared to other two shapes when the effect size is low.
+
 
 ```{r heter-power-uniform-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
 
