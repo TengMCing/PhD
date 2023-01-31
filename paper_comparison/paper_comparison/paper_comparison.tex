@@ -1061,8 +1061,9 @@ that may have resulted in the lack of detection.
 \caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
-\hypertarget{shape-of-non-linearity}{%
-\subsection{Shape of non-linearity}\label{shape-of-non-linearity}}
+\hypertarget{effect-of-shape-of-non-linearity}{%
+\subsection{Effect of shape of
+non-linearity}\label{effect-of-shape-of-non-linearity}}
 
 A primary factor contributes to the non-linearity model is the shape of
 the non-linearity. According to Figure \ref{fig:poly-power-uniform-j},
@@ -1098,9 +1099,9 @@ degree of the polynomials.
 \caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Tripe-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.}\label{fig:poly-power-uniform-j}
 \end{figure}
 
-\hypertarget{shape-of-heteroskedasticity}{%
-\subsection{Shape of
-heteroskedasticity}\label{shape-of-heteroskedasticity}}
+\hypertarget{effect-of-shape-of-heteroskedasticity}{%
+\subsection{Effect of shape of
+heteroskedasticity}\label{effect-of-shape-of-heteroskedasticity}}
 
 We also investigate the impact of different heteroskedasticity shapes on
 power of conventional tests and visual tests. In theory, the
@@ -1130,13 +1131,9 @@ shape compared to other two shapes when the effect size is low.
 \caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$.}\label{fig:heter-power-uniform-a}
 \end{figure}
 
-\hypertarget{effect-of-other-fitted-value-distributions}{%
-\subsection{Effect of other fitted value
-distributions}\label{effect-of-other-fitted-value-distributions}}
-
-\hypertarget{fitted-value-distribution}{%
-\subsubsection{Fitted value
-distribution}\label{fitted-value-distribution}}
+\hypertarget{effect-of-fitted-value-distributions}{%
+\subsection{Effect of fitted value
+distributions}\label{effect-of-fitted-value-distributions}}
 
 The prediction in a regression model is \(E(Y|X)\), that is, it is
 conditional on observed values of the predictors. The distribution of
@@ -1152,7 +1149,7 @@ become recognisable.
 
 For non-linearity patterns, we do not observe significant difference in
 power of visual test between distributions, except for the discrete
-uniform distribution. It is possibility due to the fact that humans have
+uniform distribution. It could be due to the fact that humans have
 difficulties in recognising visual patterns from discreteness, which
 makes the shape disconnected and incomplete (ref?). In terms of
 conventional tests, the discrete uniform distribution is instead the one
@@ -1190,92 +1187,28 @@ result reported in the previous sections.
 \caption{Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. Each power curve of the uniform distribution is surrounded by a grey line to indicate it is the baseline in its group. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
-\hypertarget{shape-of-non-linearity-old}{%
-\subsubsection{Shape of non-linearity
-(old)}\label{shape-of-non-linearity-old}}
-
-Shape of the non-linearity pattern is another factor contributed to the
-non-linearity model. According to Figure \ref{fig:poly-power-j},
-conventional tests are significantly less powerful in testing
-``Triple-U'' shape compared to other three shapes, though it is still
-more sensitive than the visual test. In fact, among the lineups
-containing non-linearity patterns used in our experiments, around 0.3\%
-(two our of 576) are rejected by the visual test, but accepted by the
-conventional test.
-
-Figure \ref{fig:poly-example} shows one of the two lineups where the
-visual test rejects the residual plot. The data plot, in position 18, is
-very obvious, and different from the nulls. The visual test is correct
-to reject. To understand why this is, one needs to return to the way the
-RESET test is applied. It requires a parameter indicating degree of
-fitted values to test for, and the recommendation is to generically use
-four (\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape
-constructed from the Hermite polynomials use power up to 18. Both
-lineups rejected by the visual test but not the RESET are of
-``Triple-U''. If the RESET test had been applied using the power up to
-six, all the decisions for these lineups would have been to reject. The
-recommendation of the polynomial power for the RESET should be revised,
-perhaps. This illustrates the sensitivity of conventional testing to the
-parameters, and it also points to a limitation that one needs to know
-the data structure in order to set the parameters for the test.
-
-We expect the ``U'' shape will be the easiest one to be detected by
-subjects followed by the ``S'', ``M'' and ``Triple-U'' shape. From
-Figure \ref{fig:poly-power-j}, it can be observed that the power curves
-are mostly aligned with our expectation, except for the ``M'' shape.
-Interestingly, the ``M'' shape is as easy to be detected as the ``U''
-shape. The readability of the shape do not strictly follow the degree of
-the polynomials.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/poly-power-j-1} 
-
-}
-
-\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours.}\label{fig:poly-power-j}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/poly-example-1} 
-
-}
-
-\caption{Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel 18 exhibits strong non-linear pattern. It has effect size $= 3.96$. Interestingly, all the lineups in this group are higher order polynomials (Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!}\label{fig:poly-example}
-\end{figure}
-
-\hypertarget{shape-of-heteroskedasticity-old}{%
-\subsubsection{Shape of heteroskedasticity
-(old)}\label{shape-of-heteroskedasticity-old}}
-
-We also investigate the impact of the shape of heteroskedasticity on the
-power of different tests. The corresponding result is presented in
-Figure \ref{fig:heter-power-a}. In theory, the ``Left-triangle'' and the
-``Right-triangle'' should have little difference from the point of view
-of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-a},
-this is indeed the case. And these two shapes should have the same
-visual test power, unless the orientation of the visual pattern is a
-non-negligible factor from human perspective. However, by checking the
-bootstrap confidence intervals, it can be observed from Figure
-\ref{fig:heter-power-a} that when \(3 < log(E) < 4\), the
-``Left-triangle'' power curve is significantly greater than the
-``Right-triangle'' power curve. This phenomenon is particularly
-interesting. It implies the current residual plot design is not robust
-to the orientation of the visual pattern, which is worth to be explored
-in future research.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/heter-power-a-1} 
-
-}
-
-\caption{Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$.}\label{fig:heter-power-a}
-\end{figure}
-
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
+
+This paper has demonstrated that conventional residual-based statistical
+tests are more sensitive to departures from assumptions for residuals
+than visual tests evaluated by humans in the diagnostics of linear
+regression models. Three experiments are conducted with two simulation
+models designed for non-linearity and heteroskedasticity model defects
+being applied. Methods for obtaining the \(p\)-value of visual tests
+proposed by \citet{vanderplas2021statistical} are extended to allowed
+for multiple selections in a lineup protocol.
+
+Residual plots rejected by visual tests are rarely not rejected by
+conventional tests. Throughout the three human subject experiments we
+conducted, departures of residuals that are of little practical sense to
+humans will often be alarmed by conventional tests, supporting the
+common guidance given by experts to utilize graphical representations of
+data in model diagnostics.
+
+Conventional tests relying on
+
+such as RESET test
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

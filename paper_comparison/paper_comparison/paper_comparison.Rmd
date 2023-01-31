@@ -1323,7 +1323,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 ```
 
 
-## Shape of non-linearity
+## Effect of shape of non-linearity
 
 A primary factor contributes to the non-linearity model is the shape of the non-linearity. According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have almost identical power in testing the "U", the "S" and the "M" shape, except for testing the "Triple-U" shape, which have significant lower power. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. If the RESET test had been applied using a higher power no less than six, the power curve of "Triple-U" shape will have little difference to other shapes. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.
 
@@ -1394,7 +1394,7 @@ map_df(levels(dat_poly_j$shape), function(x) {
 ```
 
 
-## Shape of heteroskedasticity
+## Effect of shape of heteroskedasticity
 
 We also investigate the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "Left-triangle" and the "Right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. Similarly, visual tests will have the same power of detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "Left-triangle" shape is constantly higher than the one for the "Right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies.
 
@@ -1466,15 +1466,13 @@ map_df(levels(dat_heter_a$a), function(x) {
 ```
 
 
-## Effect of other fitted value distributions
+## Effect of fitted value distributions
 
-### Fitted value distribution 
-
-The prediction in a regression model is $E(Y|X)$, that is, it is conditional on observed values of the predictors. The distribution of $X$, or consequently $\hat{Y}$, may however affect the ability to read any patterns in the residuals. <!-- Although the distribution of the regressor is classically not restricted by the assumptions of linear regression, it will have an impact on the fitted value distribution and the visual effect of the residual plot.--> The four distributions of fitted values, used in this experiment, were designed to examine this.
+The prediction in a regression model is $E(Y|X)$, that is, it is conditional on observed values of the predictors. The distribution of $X$, or consequently $\hat{Y}$, may however affect the ability to read any patterns in the residuals. The four distributions of fitted values, used in this experiment, were designed to examine this.
 
 Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. We focus on $log(E) > 2$ where the visual patterns start to become recognisable.
 
-For non-linearity patterns, we do not observe significant difference in power of visual test between distributions, except for the discrete uniform distribution. It is possibility due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform distribution is instead the one with the greatest power, followed by the lognormal distribution, the uniform distribution and the normal distribution.
+For non-linearity patterns, we do not observe significant difference in power of visual test between distributions, except for the discrete uniform distribution. It could be due to the fact that humans have difficulties in recognising visual patterns from discreteness, which makes the shape disconnected and incomplete (ref?). In terms of conventional tests, the discrete uniform distribution is instead the one with the greatest power, followed by the lognormal distribution, the uniform distribution and the normal distribution.
 
 For heteroskedasticity patterns, the power of visual test on lineups with uniform distribution has the greatest power. This is as expected since other three distributions could reduce the chance of revealing the underlying visual pattern because of uneven data points. Although the power of visual test under the discrete uniform distribution is the lowest in the case of non-linearity patterns, it has a relatively great power this time. Considering for heteroskedasticity, the visual patterns are usually detected by connecting the maximum and minimum residuals separately at different fitted values. It will not be greatly affected by the discrete uniform distribution compared to the uniform distribution. Visual tests have low power on lineups with the normal distribution and the lognormal distribution. This suggests the use of transformation of fitted values in reading residual plots. In the case of conventional tests, the discrete uniform distribution consistently perform well, followed by the uniform distribution, the normal distribution and the lognormal distribution. 
 
@@ -1567,121 +1565,140 @@ vi_survey %>%
 
 
 
-### Shape of non-linearity (old)
+<!-- ### Shape of non-linearity (old) -->
 
-Shape of the non-linearity pattern is another factor contributed to the non-linearity model. According to Figure \ref{fig:poly-power-j}, conventional tests are significantly less powerful in testing "Triple-U" shape compared to other three shapes, though it is still more sensitive than the visual test. In fact, among the lineups containing non-linearity patterns used in our experiments, around `r vi_survey %>% filter(!attention_check) %>% filter(!null_lineup) %>% filter(type == "polynomial") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% count(a = p_value < 0.05, b = conventional_p_value < 0.05) %>% mutate(prop = n / sum(n) * 100) %>% filter(a, !b) %>% pull(prop) %>% round(digits = 1)`% (two our of 576) are rejected by the visual test, but accepted by the conventional test.
+<!-- Shape of the non-linearity pattern is another factor contributed to the non-linearity model. According to Figure \ref{fig:poly-power-j}, conventional tests are significantly less powerful in testing "Triple-U" shape compared to other three shapes, though it is still more sensitive than the visual test. In fact, among the lineups containing non-linearity patterns used in our experiments, around `r vi_survey %>% filter(!attention_check) %>% filter(!null_lineup) %>% filter(type == "polynomial") %>% group_by(unique_lineup_id) %>% summarise(across(everything(), first)) %>% count(a = p_value < 0.05, b = conventional_p_value < 0.05) %>% mutate(prop = n / sum(n) * 100) %>% filter(a, !b) %>% pull(prop) %>% round(digits = 1)`% (two our of 576) are rejected by the visual test, but accepted by the conventional test. -->
 
-Figure \ref{fig:poly-example} shows one of the two lineups where the visual test rejects the residual plot. The data plot, in position 18, is very obvious, and different from the nulls. The visual test is correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. Both lineups rejected by the visual test but not the RESET are of "Triple-U". If the RESET test had been applied using the power up to six, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test.
+<!-- Figure \ref{fig:poly-example} shows one of the two lineups where the visual test rejects the residual plot. The data plot, in position 18, is very obvious, and different from the nulls. The visual test is correct to reject. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "Triple-U" shape constructed from the Hermite polynomials use power up to 18. Both lineups rejected by the visual test but not the RESET are of "Triple-U". If the RESET test had been applied using the power up to six, all the decisions for these lineups would have been to reject. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data structure in order to set the parameters for the test. -->
 
-We expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape. The readability of the shape do not strictly follow the degree of the polynomials.
+<!-- We expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "Triple-U" shape. From Figure \ref{fig:poly-power-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape. Interestingly, the "M" shape is as easy to be detected as the "U" shape. The readability of the shape do not strictly follow the degree of the polynomials. -->
 
-```{r poly-power-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours."}
+<!-- ```{r poly-power-j, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours."} -->
 
-poly_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
-  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
-  mutate(conv_or_not = "Conventional") %>%
-  bind_rows(vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform", type == "polynomial") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
-  mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
-  mutate(conv_or_not = "Visual")) %>%
-  mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
-  select(shape, log_effect_size, reject, conv_or_not) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = shape), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
-  theme_light() +
-  theme(legend.position = "bottom") +
-  facet_wrap(~conv_or_not) +
-  labs(col = "Non-linearity shape")
-```
+<!-- poly_conv_sim %>% -->
+<!--   filter(x_dist == "uniform") %>% -->
+<!--   mutate(log_effect_size = log(effect_size)) %>% -->
+<!--   mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>% -->
+<!--   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>% -->
+<!--   mutate(conv_or_not = "Conventional") %>% -->
+<!--   bind_rows(vi_survey %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(x_dist == "uniform", type == "polynomial") %>% -->
+<!--   mutate(log_effect_size = log(effect_size)) %>% -->
+<!--   mutate(reject = as.numeric(p_value < 0.05)) %>% -->
+<!--   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>% -->
+<!--   mutate(conv_or_not = "Visual")) %>% -->
+<!--   mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>% -->
+<!--   select(shape, log_effect_size, reject, conv_or_not) %>% -->
+<!--   ggplot() + -->
+<!--   geom_smooth(aes(log_effect_size, reject, col = shape),  -->
+<!--               se = FALSE,  -->
+<!--               method = "glm", -->
+<!--               method.args = list(family = binomial())) + -->
+<!--   xlab(expression(log[e] (Effect_size))) + -->
+<!--   ylab("Power") + -->
+<!--   scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) + -->
+<!--   theme_light() + -->
+<!--   theme(legend.position = "bottom") + -->
+<!--   facet_wrap(~conv_or_not) + -->
+<!--   labs(col = "Non-linearity shape") -->
+<!-- ``` -->
 
-```{r poly-example, fig.height = 7, fig.width = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel 18 exhibits strong non-linear pattern. It has effect size $= 3.96$. Interestingly, all the lineups in this group are higher order polynomials (Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"}
-# plot poly-275
-VI_MODEL$plot_lineup(vi_lineup$poly_275$data, 
-                     remove_grid_line = TRUE, 
-                     theme = theme_light(),
-                     remove_axis = TRUE)
-```
+<!-- ```{r poly-example, fig.height = 7, fig.width = 7, fig.cap = "Example of a non-linearity that is rejected by the visual test but not by the RESET test. The data plot at panel 18 exhibits strong non-linear pattern. It has effect size $= 3.96$. Interestingly, all the lineups in this group are higher order polynomials (Triple-U), and it is apparent that the default RESET test under-performs. The RESET test using the higher order polynomial parameter could be used, but this would change it's performance for lower order polynomials. The only way for it to be sensitive to these type of departure is to know the order prior to testing!"} -->
+<!-- # plot poly-275 -->
+<!-- VI_MODEL$plot_lineup(vi_lineup$poly_275$data,  -->
+<!--                      remove_grid_line = TRUE,  -->
+<!--                      theme = theme_light(), -->
+<!--                      remove_axis = TRUE) -->
+<!-- ``` -->
 
-### Shape of heteroskedasticity (old)
+<!-- ### Shape of heteroskedasticity (old) -->
 
-We also investigate the impact of the shape of heteroskedasticity on the power of different tests. The corresponding result is presented in Figure \ref{fig:heter-power-a}. In theory, the "Left-triangle" and the "Right-triangle" should have little difference from the point of view of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-a}, this is indeed the case. And these two shapes should have the same visual test power, unless the orientation of the visual pattern is a non-negligible factor from human perspective. However, by checking the bootstrap confidence intervals, it can be observed from Figure \ref{fig:heter-power-a} that when $3 < log(E) < 4$, the "Left-triangle" power curve is significantly greater than the "Right-triangle" power curve. This phenomenon is particularly interesting. It implies the current residual plot design is not robust to the orientation of the visual pattern, which is worth to be explored in future research. 
+<!-- We also investigate the impact of the shape of heteroskedasticity on the power of different tests. The corresponding result is presented in Figure \ref{fig:heter-power-a}. In theory, the "Left-triangle" and the "Right-triangle" should have little difference from the point of view of a Breusch-Pagan test. According to Figure \ref{fig:heter-power-a}, this is indeed the case. And these two shapes should have the same visual test power, unless the orientation of the visual pattern is a non-negligible factor from human perspective. However, by checking the bootstrap confidence intervals, it can be observed from Figure \ref{fig:heter-power-a} that when $3 < log(E) < 4$, the "Left-triangle" power curve is significantly greater than the "Right-triangle" power curve. This phenomenon is particularly interesting. It implies the current residual plot design is not robust to the orientation of the visual pattern, which is worth to be explored in future research.  -->
 
-```{r heter-power-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."}
+<!-- ```{r heter-power-a, fig.height = 4, fig.cap = "Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$."} -->
 
-heter_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
-  mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
-  mutate(conv_or_not = "Conventional") %>%
-  bind_rows(vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform", type == "heteroskedasticity") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
-  mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
-  mutate(conv_or_not = "Visual")) %>%
-  mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>%
-  select(a, log_effect_size, reject, conv_or_not) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = a), 
-              se = FALSE, 
-              method = "glm",
-              method.args = list(family = binomial())) +
-  
-  # Draw bootstrap for Left-triangle
-  geom_ribbon(data = ~get_boot_conf(filter(.x, 
-                                           conv_or_not == "Visual", 
-                                           a == "Left-triangle"),
-                                    log_effect_size,
-                                    reject,
-                                    times = 1000) %>%
-                mutate(conv_or_not = "Visual"),
-              aes(x = log_effect_size, 
-                  ymin = lower, 
-                  ymax = upper),
-              fill = rcartocolor::carto_pal(3, "Earth")[1],
-              alpha = 0.2) +
-  
-  # Draw bootstrap for Right-triangle
-  geom_ribbon(data = ~get_boot_conf(filter(.x, 
-                                           conv_or_not == "Visual", 
-                                           a == "Right-triangle"),
-                                    log_effect_size,
-                                    reject,
-                                    times = 1000) %>%
-                mutate(conv_or_not = "Visual"),
-              aes(x = log_effect_size, 
-                  ymin = lower, 
-                  ymax = upper),
-              fill = rcartocolor::carto_pal(3, "Earth")[3],
-              alpha = 0.2) +
-  
-  # Theme
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
-  theme_light() +
-  theme(legend.position = "bottom") +
-  facet_wrap(~conv_or_not) +
-  labs(col = "Heteroskedasticity shape")
-```
+<!-- heter_conv_sim %>% -->
+<!--   filter(x_dist == "uniform") %>% -->
+<!--   mutate(log_effect_size = log(effect_size)) %>% -->
+<!--   mutate(reject = as.numeric(BP_p_value < 0.05)) %>% -->
+<!--   mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>% -->
+<!--   mutate(conv_or_not = "Conventional") %>% -->
+<!--   bind_rows(vi_survey %>% -->
+<!--   filter(!attention_check) %>% -->
+<!--   filter(!null_lineup) %>% -->
+<!--   filter(x_dist == "uniform", type == "heteroskedasticity") %>% -->
+<!--   mutate(log_effect_size = log(effect_size)) %>% -->
+<!--   mutate(reject = as.numeric(p_value < 0.05)) %>% -->
+<!--   mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>% -->
+<!--   mutate(conv_or_not = "Visual")) %>% -->
+<!--   mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>% -->
+<!--   select(a, log_effect_size, reject, conv_or_not) %>% -->
+<!--   ggplot() + -->
+<!--   geom_smooth(aes(log_effect_size, reject, col = a),  -->
+<!--               se = FALSE,  -->
+<!--               method = "glm", -->
+<!--               method.args = list(family = binomial())) + -->
+
+<!--   # Draw bootstrap for Left-triangle -->
+<!--   geom_ribbon(data = ~get_boot_conf(filter(.x,  -->
+<!--                                            conv_or_not == "Visual",  -->
+<!--                                            a == "Left-triangle"), -->
+<!--                                     log_effect_size, -->
+<!--                                     reject, -->
+<!--                                     times = 1000) %>% -->
+<!--                 mutate(conv_or_not = "Visual"), -->
+<!--               aes(x = log_effect_size,  -->
+<!--                   ymin = lower,  -->
+<!--                   ymax = upper), -->
+<!--               fill = rcartocolor::carto_pal(3, "Earth")[1], -->
+<!--               alpha = 0.2) + -->
+
+<!--   # Draw bootstrap for Right-triangle -->
+<!--   geom_ribbon(data = ~get_boot_conf(filter(.x,  -->
+<!--                                            conv_or_not == "Visual",  -->
+<!--                                            a == "Right-triangle"), -->
+<!--                                     log_effect_size, -->
+<!--                                     reject, -->
+<!--                                     times = 1000) %>% -->
+<!--                 mutate(conv_or_not = "Visual"), -->
+<!--               aes(x = log_effect_size,  -->
+<!--                   ymin = lower,  -->
+<!--                   ymax = upper), -->
+<!--               fill = rcartocolor::carto_pal(3, "Earth")[3], -->
+<!--               alpha = 0.2) + -->
+
+<!--   # Theme -->
+<!--   xlab(expression(log[e] (Effect_size))) + -->
+<!--   ylab("Power") + -->
+<!--   scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) + -->
+<!--   theme_light() + -->
+<!--   theme(legend.position = "bottom") + -->
+<!--   facet_wrap(~conv_or_not) + -->
+<!--   labs(col = "Heteroskedasticity shape") -->
+<!-- ``` -->
 
 # Conclusion
+
+This paper has demonstrated that conventional residual-based statistical tests are more sensitive to departures from assumptions for residuals than visual tests evaluated by humans in the diagnostics of linear regression models. Three experiments are conducted with two simulation models designed for non-linearity and heteroskedasticity model defects being applied. Methods for obtaining the $p$-value of visual tests proposed by @vanderplas2021statistical are extended to allowed for multiple selections in a lineup protocol.
+
+Residual plots rejected by visual tests are rarely not rejected by conventional tests. Throughout the three human subject experiments we conducted, departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. 
+
+
+
+Conventional tests relying on 
+
+
+
+
+
+
+such as RESET test
+
+
+
+
 
 1. summarise paper content
 2. briefly describe what was learned
