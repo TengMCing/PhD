@@ -1348,42 +1348,23 @@ dat_poly_j <- poly_conv_sim %>%
   mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
   select(shape, log_effect_size, reject, conv_or_not)
 
-map_df(levels(dat_poly_j$shape), function(x) {
-  
-  # Adjust the range of x
-  result <- data.frame(log_effect_size = seq(min(dat_poly_j$log_effect_size),
-                                             max(dat_poly_j$log_effect_size), 
-                                             0.01))
-  
-  # Manually fit the model
-  conv_mod <- glm(reject ~ log_effect_size, 
-                  family = binomial(),
-                  data = filter(dat_poly_j, 
-                                shape == x, 
-                                conv_or_not == "Conventional"))
-  
-  # Manually fit the model
-  visual_mod <- glm(reject ~ log_effect_size, 
-                  family = binomial(),
-                  data = filter(dat_poly_j, 
-                                shape == x, 
-                                conv_or_not == "Visual"))
-  
-  # Get the prediction
-  result <- result %>%
-    mutate(Conventional = predict(conv_mod, 
-                                  newdata = result, 
-                                  type = "response"),
-           Visual = predict(visual_mod, 
-                            newdata = result, 
-                            type = "response"),
-           shape = x) %>%
-    pivot_longer(Conventional:Visual, names_to = "conv_or_not")
-  
-  result
-}) %>%
+dat_poly_j %>%
+  mutate(es_min = min(log_effect_size), 
+         es_max = max(log_effect_size)) %>%
+  nest(data = c(log_effect_size, reject)) %>%
+  mutate(mod = map(data, 
+                   ~glm(reject ~ log_effect_size, 
+                        family = binomial(), 
+                        data = .x))) %>%
+  mutate(reject = map(mod, function(mod) {
+    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
+    result$reject <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-es_min, -es_max, -data, -mod) %>%
+  unnest(reject) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, value, col = shape), se = FALSE, span = 0.03) +
+  geom_smooth(aes(log_effect_size, reject, col = shape), se = FALSE, span = 0.03) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
@@ -1419,43 +1400,25 @@ dat_heter_a <- heter_conv_sim %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>%
   select(a, log_effect_size, reject, conv_or_not)
-  
-map_df(levels(dat_heter_a$a), function(x) {
-  
-  # Adjust the range of x
-  result <- data.frame(log_effect_size = seq(min(dat_heter_a$log_effect_size),
-                                             max(dat_heter_a$log_effect_size), 
-                                             0.01))
-  
-  # Manually fit the model
-  conv_mod <- glm(reject ~ log_effect_size, 
-                  family = binomial(),
-                  data = filter(dat_heter_a, 
-                                a == x, 
-                                conv_or_not == "Conventional"))
-  
-  # Manually fit the model
-  visual_mod <- glm(reject ~ log_effect_size, 
-                  family = binomial(),
-                  data = filter(dat_heter_a, 
-                                a == x, 
-                                conv_or_not == "Visual"))
-  
-  # Get the prediction
-  result <- result %>%
-    mutate(Conventional = predict(conv_mod, 
-                                  newdata = result, 
-                                  type = "response"),
-           Visual = predict(visual_mod, 
-                            newdata = result, 
-                            type = "response"),
-           a = x) %>%
-    pivot_longer(Conventional:Visual, names_to = "conv_or_not")
-  
-  result
-}) %>%
+
+# Manually fit the model
+dat_heter_a %>%
+  mutate(es_min = min(log_effect_size), 
+         es_max = max(log_effect_size)) %>%
+  nest(data = c(log_effect_size, reject)) %>%
+  mutate(mod = map(data, 
+                   ~glm(reject ~ log_effect_size, 
+                        family = binomial(), 
+                        data = .x))) %>%
+  mutate(reject = map(mod, function(mod) {
+    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
+    result$reject <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-es_min, -es_max, -data, -mod) %>%
+  unnest(reject) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, value, col = a), se = FALSE, span = 0.03) +
+  geom_smooth(aes(log_effect_size, reject, col = a), se = FALSE, span = 0.03) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
@@ -1482,43 +1445,44 @@ In regards of the type of the simulation model, the power of visual tests under 
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
-list(
-poly_conv_sim %>% 
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(x_dist, log_effect_size, RESET4_p_value) %>%
-  rename(RESET_p_value = RESET4_p_value) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete",
-                         "Discrete", 
-                         stringr::str_to_title(x_dist))) %>%
-  mutate(reject = as.numeric(RESET_p_value < 0.05)) %>%
-  mutate(conv_or_not = "Conventional") %>%
-  mutate(type = "non-linearity") %>%
-  select(type, x_dist, log_effect_size, reject, conv_or_not)
-,
-heter_conv_sim %>% 
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(x_dist, log_effect_size, BP_p_value) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete",
-                         "Discrete", 
-                         stringr::str_to_title(x_dist))) %>%
-  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
-  mutate(conv_or_not = "Conventional") %>%
-  mutate(type = "heteroskedasticity") %>%
-  select(type, x_dist, log_effect_size, reject, conv_or_not)
-,
-vi_survey %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                         "Discrete", 
-                         stringr::str_to_title(x_dist))) %>%
-  mutate(conv_or_not = "Visual") %>%
-  select(type, x_dist, log_effect_size, reject, conv_or_not)
+
+dat_x_dist <- list(
+  poly_conv_sim %>% 
+    mutate(log_effect_size = log(effect_size)) %>%
+    select(x_dist, log_effect_size, RESET4_p_value) %>%
+    rename(RESET_p_value = RESET4_p_value) %>%
+    mutate(x_dist = ifelse(x_dist == "even_discrete",
+                           "Discrete", 
+                           stringr::str_to_title(x_dist))) %>%
+    mutate(reject = as.numeric(RESET_p_value < 0.05)) %>%
+    mutate(conv_or_not = "Conventional") %>%
+    mutate(type = "non-linearity") %>%
+    select(type, x_dist, log_effect_size, reject, conv_or_not),
+  
+  heter_conv_sim %>% 
+    mutate(log_effect_size = log(effect_size)) %>%
+    select(x_dist, log_effect_size, BP_p_value) %>%
+    mutate(x_dist = ifelse(x_dist == "even_discrete",
+                           "Discrete", 
+                           stringr::str_to_title(x_dist))) %>%
+    mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
+    mutate(conv_or_not = "Conventional") %>%
+    mutate(type = "heteroskedasticity") %>%
+    select(type, x_dist, log_effect_size, reject, conv_or_not),
+  
+  vi_survey %>%
+    filter(!null_lineup) %>%
+    filter(!attention_check) %>%
+    group_by(unique_lineup_id) %>%
+    summarise(across(everything(), first)) %>%
+    mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+    mutate(reject = as.numeric(p_value <= 0.05)) %>%
+    mutate(log_effect_size = log(effect_size)) %>%
+    mutate(x_dist = ifelse(x_dist == "even_discrete", 
+                           "Discrete", 
+                           stringr::str_to_title(x_dist))) %>%
+    mutate(conv_or_not = "Visual") %>%
+    select(type, x_dist, log_effect_size, reject, conv_or_not)
 ) %>%
   
   # Bind rows
@@ -1532,7 +1496,24 @@ vi_survey %>%
                          levels = c("Uniform", 
                                     "Normal", 
                                     "Lognormal", 
-                                    "Discrete"))) %>%
+                                    "Discrete")))
+
+# Fit the model manually
+dat_x_dist %>%
+  mutate(es_min = min(log_effect_size), 
+         es_max = max(log_effect_size)) %>%
+  nest(data = c(log_effect_size, reject)) %>%
+  mutate(mod = map(data, 
+                   ~glm(reject ~ log_effect_size, 
+                        family = binomial(), 
+                        data = .x))) %>%
+  mutate(reject = map(mod, function(mod) {
+    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
+    result$reject <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-es_min, -es_max, -data, -mod) %>%
+  unnest(reject) %>%
   
   ggplot() +
   
@@ -1540,15 +1521,13 @@ vi_survey %>%
   geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
               aes(log_effect_size, reject), 
               col = "grey", 
-              method = "glm", 
-              method.args = list(family = binomial), 
               se = FALSE, 
+              span = 0.03,
               size = 3) +
   
   # Draw all smooth lines
   geom_smooth(aes(log_effect_size, reject, col = x_dist), 
-              method = "glm", 
-              method.args = list(family = binomial), 
+              span = 0.03,
               se = FALSE, 
               size = 1) +
   
@@ -1681,28 +1660,28 @@ vi_survey %>%
 
 # Conclusion
 
+1. summarise paper content
+
 This paper has demonstrated that conventional residual-based statistical tests are more sensitive to departures from assumptions for residuals than visual tests evaluated by humans in the diagnostics of linear regression models. Three experiments are conducted with two simulation models designed for non-linearity and heteroskedasticity model defects being applied. Methods for obtaining the $p$-value of visual tests proposed by @vanderplas2021statistical are extended to allowed for multiple selections in a lineup protocol.
 
-Residual plots rejected by visual tests are rarely not rejected by conventional tests. Throughout the three human subject experiments we conducted, departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. 
-
-
-
-Conventional tests relying on 
-
-
-
-
-
-
-such as RESET test
-
-
-
-
-
-1. summarise paper content
 2. briefly describe what was learned
+
+Throughout the three human subject experiments we conducted, residual plots rejected by visual tests are rarely not rejected by conventional tests, but departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. 
+
+We have also found that residual-based conventional tests relying on a user-parameterized test formula, such as the RESET test, will suffer from a decrease in power for detecting certain residual departures intended to be tested but not covered by the test formula. This can not be avoided without prior knowledge of their functional forms, which is usually obtained by plotting the residuals. On the other hand, visual tests do not rely on such information and a collection of departures can be tested simultaneously.
+
+Besides, fitted value distributions 
+
+
+with different 
+
+symmetric, evenly 
+
 3. how does this apply more broadly than simple regression
+
+
+
+
 4. where does this lead? Computer vision residual plot reading
 
 # Acknowledgement

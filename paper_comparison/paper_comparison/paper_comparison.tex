@@ -1190,6 +1190,13 @@ result reported in the previous sections.
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  summarise paper content
+\end{enumerate}
+
 This paper has demonstrated that conventional residual-based statistical
 tests are more sensitive to departures from assumptions for residuals
 than visual tests evaluated by humans in the diagnostics of linear
@@ -1199,24 +1206,39 @@ being applied. Methods for obtaining the \(p\)-value of visual tests
 proposed by \citet{vanderplas2021statistical} are extended to allowed
 for multiple selections in a lineup protocol.
 
-Residual plots rejected by visual tests are rarely not rejected by
-conventional tests. Throughout the three human subject experiments we
-conducted, departures of residuals that are of little practical sense to
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  briefly describe what was learned
+\end{enumerate}
+
+Throughout the three human subject experiments we conducted, residual
+plots rejected by visual tests are rarely not rejected by conventional
+tests, but departures of residuals that are of little practical sense to
 humans will often be alarmed by conventional tests, supporting the
 common guidance given by experts to utilize graphical representations of
 data in model diagnostics.
 
-Conventional tests relying on
+We have also found that residual-based conventional tests relying on a
+user-parameterized test formula, such as the RESET test, will suffer
+from a decrease in power for detecting certain residual departures
+intended to be tested but not covered by the test formula. This can not
+be avoided without prior knowledge of their functional forms, which is
+usually obtained by plotting the residuals. On the other hand, visual
+tests do not rely on such information and a collection of departures can
+be tested simultaneously.
 
-such as RESET test
+Besides, fitted value distributions
+
+with different
+
+symmetric, evenly
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  summarise paper content
-\item
-  briefly describe what was learned
+\setcounter{enumi}{2}
 \item
   how does this apply more broadly than simple regression
 \item
