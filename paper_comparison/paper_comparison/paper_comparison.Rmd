@@ -1443,27 +1443,28 @@ For heteroskedasticity patterns, the power of visual test on lineups with unifor
 
 In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are always lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
 
-```{r}
-vi_survey %>%
+```{r get-5-eval, cache = TRUE}
+dat_uniform_5 <- map_df(1:1000, function(boot_id) {
+  vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
-  mutate(reject_only_5  = as.numeric(p_value_only_5 < 0.05)) %>%
+  slice_sample(n = 5) %>%
+  ungroup() %>%
+  calc_p_value_multi(lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha) %>%
+  mutate(boot_id = boot_id)
+}) %>%
+  left_join(select(vi_survey, unique_lineup_id, effect_size, x_dist, type)) %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
   mutate(log_effect_size = log(effect_size)) %>%
-  ggplot() +
-  geom_smooth(aes(log_effect_size, reject), 
-              method = "glm", 
-              method.args = list(family = binomial()),
-              se = FALSE) +
-  geom_smooth(aes(log_effect_size, reject_only_5), 
-              method = "glm", 
-              method.args = list(family = binomial()),
-              col = "red",
-              se = FALSE) +
-  facet_wrap(~type)
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(conv_or_not = "Visual") %>%
+  select(-unique_lineup_id, -p_value, -effect_size)
+
 ```
 
 
@@ -1501,6 +1502,7 @@ dat_x_dist <- list(
     filter(!attention_check) %>%
     group_by(unique_lineup_id) %>%
     summarise(across(everything(), first)) %>%
+    filter(x_dist != "uniform") %>%
     mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
     mutate(reject = as.numeric(p_value <= 0.05)) %>%
     mutate(log_effect_size = log(effect_size)) %>%
@@ -1524,6 +1526,22 @@ dat_x_dist <- list(
                                     "Lognormal", 
                                     "Discrete")))
 
+dat_uniform_5_pred <- dat_uniform_5 %>%
+  mutate(es_min = min(dat_x_dist$log_effect_size), 
+         es_max = max(dat_x_dist$log_effect_size)) %>%
+  nest(data = c(log_effect_size, reject)) %>%
+  mutate(mod = map(data, 
+                   ~glm(reject ~ log_effect_size, 
+                        family = binomial(), 
+                        data = .x))) %>%
+  mutate(reject = map(mod, function(mod) {
+    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
+    result$reject <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-es_min, -es_max, -data, -mod) %>%
+  unnest(reject)
+
 # Fit the model manually
 dat_x_dist %>%
   mutate(es_min = min(log_effect_size), 
@@ -1543,37 +1561,19 @@ dat_x_dist %>%
   
   ggplot() +
   
-  # Bold the uniform smooth line
-  # geom_smooth(data = ~filter(.x, x_dist == "Uniform"),
-  #             aes(log_effect_size, reject), 
-  #             col = "grey", 
-  #             se = FALSE, 
-  #             span = 0.03,
-  #             size = 3) +
-  
   # Draw all smooth lines
-  geom_smooth(data = ~filter(.x, x_dist != "Uniform"),
-              aes(log_effect_size, reject, col = x_dist), 
+  geom_smooth(aes(log_effect_size, reject, col = x_dist),
               span = 0.03,
-              se = FALSE, 
+              se = FALSE,
               size = 1) +
   
-  geom_smooth(data = vi_survey %>%
-                filter(!null_lineup) %>%
-                filter(!attention_check) %>%
-                filter(x_dist == "uniform") %>%
-                group_by(unique_lineup_id) %>%
-                summarise(across(everything(), first)) %>%
-                mutate(reject = as.numeric(p_value < 0.05)) %>%
-                mutate(reject_only_5  = as.numeric(p_value_only_5 < 0.05)) %>%
-                mutate(log_effect_size = log(effect_size)) %>%
-                mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-                mutate(conv_or_not = "Visual"),
-              aes(log_effect_size, reject_only_5, col = "Uniform"),
-              method = "glm",
-              method.args = list(family = binomial()),
-              se = FALSE
-              ) +
+  # Draw boot uniform (5 eval) lines
+  stat_smooth(data = dat_uniform_5_pred,
+              geom = "line",
+              aes(log_effect_size, reject, col = "Uniform", group = boot_id),
+              span = 0.03,
+              se = FALSE,
+              alpha = 0.01) +
   
   # Theme
   theme_light() +
