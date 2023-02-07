@@ -534,8 +534,6 @@ To study various factors contributing to the power of the visual test, the same 
 
 # Experimental design
 
-1. experiments -> data collection periods
-
 To investigate the difference between conventional hypothesis testing and visual inference in the application of linear regression diagnostics, an experiment is conducted in three data collection periods. Two types of departures, namely non-linearity and heteroskedasticity, are considered with the corresponding data generating process being designed for data collection periods I and II. The data collection period III is designed for collecting human responses to null lineups such that the parameter $\alpha$ in Equation \ref{eq:pvalue-beta-binomial} can be estimated. Overall, we plan to collect `r vi_survey  %>% filter(!attention_check) %>% nrow()` evaluations on `r vi_survey  %>% filter(!attention_check) %>% pull(unique_lineup_id) %>% unique() %>% length()` unique lineups performed by `r vi_survey  %>% filter(!attention_check) %>% count(exp, set) %>% nrow()` subjects throughout three data collection periods. 
 
 ## Simulating departures from good residuals
@@ -922,7 +920,7 @@ In every lineup evaluation, the subject is asked to select one or more plots tha
 
 There are `r 160 * 18`, `r 150 * 18` and `r 133 * 18 - nrow(filter(vi_survey, null_lineup, !attention_check))` lineups evaluation made by 160, 150 and 133 subjects recruited for data collection periods I, II and III respectively. In the total of `r nrow(filter(vi_survey, !attention_check))` lineup evaluations, `r nrow(filter(vi_survey, type == "polynomial", !attention_check))` use lineups produced by the non-linearity model, and `r nrow(filter(vi_survey, type == "heteroskedasticity", !attention_check))` use lineups produced by the heteroskedasticity model. Besides, there are `r nrow(filter(vi_survey, attention_check))` attention checks and `r nrow(filter(vi_survey, null_lineup, !attention_check))` evaluations on null lineups needed for the estimate of $\alpha$ not included in the analysis. The collated dataset is provided in `vi_survey` of the `visage` `R` package. 
 
-In the following analysis, lineups with uniform fitted values will be the focus. Visual patterns are more likely to be revealed under a uniform distribution. Additionally, we have collected extra evaluations on these lineups, which will result in more reliable analysis. Analysis of lineups with other fitted value distributions can be found in Section \ref{effect-of-other-fitted-value-distributions}. 
+In the following analysis, lineups with uniform fitted values will be the focus. Visual patterns are more likely to be revealed under a uniform distribution. Additionally, we have collected extra evaluations on these lineups, which will result in more reliable analysis. Analysis of lineups with other fitted value distributions can be found in Section \ref{effect-of-fitted-value-distributions}. 
 
 ## Power comparison of different tests 
 
@@ -1036,9 +1034,9 @@ To compare the power of visual test and conventional test, we pick RESET test (`
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
 For non-linearity patterns, the power curve of RESET test climbs aggressively from
-`r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(0), offset0 = log(0.05/0.95)), type = "response")) * 100)`% to `r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(2), offset0 = log(0.05/0.95)), type = "response")) * 100)`% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect, showing that RESET test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residual plots.
+`r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(0), offset0 = log(0.05/0.95)), type = "response")) * 100)`% to `r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(2.5), offset0 = log(0.05/0.95)), type = "response")) * 100)`% as $log_e(E)$ increases from 0 to 2.5, while power of other tests respond inactively to the change of effect, showing that RESET test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable residual depatures can be spotted from the example residual plots.
 
-In terms of heteroskedasticity patterns, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $0 \leq log_e(E) \leq 2$, where the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting $H_0$. Similarly, the visual feature is nearly unobservable from the example residual plots.
+In terms of heteroskedasticity patterns, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $log_e(E)$ at around 2.5, where the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting $H_0$. Similarly, the visual feature is nearly unobservable from the example residual plots.
 
 The power of visual test arises steadily as $log_e(E)$ increases from 2 to 5 for both non-linearity patterns and heteroskedasticity patterns, suggesting that the effect starts to make significant impact on the degree of the presence of the designed visual features. This can also be observed from the example residual plots that when $log_e(E) = 2.5$, a weak "S-shape" and a weak "triangle" shape are presented in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower} respectively. The visual pattern becomes much clearer as $log_e(E)$ increases. At $log_e(E) \approx 6$, the power reaches almost 100%.
 
@@ -1105,7 +1103,15 @@ es <- map_dbl(target_sigma,
 
 ```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2.5, but for the visual test it is around 3.5."}
 
-set.seed(106)
+# 106
+# 112
+# 113
+# 115
+# 132
+# 133
+# 144!
+# 147
+set.seed(132)
 
 # Base data
 ex_dat <- poly_model(shape = 2, 
@@ -1120,14 +1126,13 @@ for (i in target_sigma) {
 plist[[j]] <- poly_model(shape = 2, 
                          x = rand_uniform())$
                   gen(n = 100, 
-                      computed =  ex_dat %>%
+                      computed = ex_dat %>%
                         mutate(e = sqrt(i) * e) %>%
                         select(x, e)
                       ) %>%
   VI_MODEL$plot(theme = theme_light(base_size =  5), 
                 remove_axis = TRUE, 
-                remove_grid_line = TRUE, 
-                size = 0.05) +
+                remove_grid_line = TRUE, size = 0.25, stroke = 0.25) +
     ggtitle(round(es[j], 1)) +
     theme(aspect.ratio = 0.8)
 }
@@ -1293,7 +1298,14 @@ es <- map_dbl(target_b,
   
 ```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5."}
 
-set.seed(10091)
+# 10091
+# 101
+# 105
+# 106
+# 112
+# 119
+# 133
+set.seed(135)
 
 # Base data
 ex_dat <- heter_model(a = 1, 
@@ -1311,7 +1323,7 @@ for (i in target_b) {
                   gen(n = 100, computed = select(ex_dat, x, e)) %>%
   VI_MODEL$plot(theme = theme_light(base_size =  5),
                 remove_axis = TRUE,
-                remove_grid_line = TRUE, size = 0.05) +
+                remove_grid_line = TRUE, size = 0.25, stroke = 0.25) +
     ggtitle(round(es[j], 1)) +
     theme(aspect.ratio = 0.8)
 }

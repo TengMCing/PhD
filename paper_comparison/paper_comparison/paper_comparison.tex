@@ -491,17 +491,18 @@ Instead, we directly estimate the probability of a lineup being rejected
 by assuming that individual skill has negligible effect on the variation
 of the power. The assumption is to simplify the model structure, thereby
 obviate costly large-scale experiments to estimate complex covariance
-matrices. The model is a logistic regression with the natural logarithm
-of the effect as the only regressor formulated as
+matrices. The model is a logistic regression formulated as
 
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log(E)),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.5}{0.95}) + \beta_1 E),
 \end{equation}
 
 \noindent where \(\Lambda(.)\) is the standard logistic function given
-as \(\Lambda(z) = exp(z)/(1+exp(z))\).
+as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size is the only
+regressor and the intercept is fixed to \(log(0.5/0.95)\) so that
+\(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\).
 
-Effect \(E\) is derived from the Kullback-Leibler divergence (see
+Effect size \(E\) is derived from the Kullback-Leibler divergence (see
 Appendix for the details) formulated as
 
 \small
@@ -534,13 +535,6 @@ distribution of the regressor and the type of the simulation model
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  experiments -\textgreater{} data collection periods
-\end{enumerate}
 
 To investigate the difference between conventional hypothesis testing
 and visual inference in the application of linear regression
@@ -895,7 +889,7 @@ the focus. Visual patterns are more likely to be revealed under a
 uniform distribution. Additionally, we have collected extra evaluations
 on these lineups, which will result in more reliable analysis. Analysis
 of lineups with other fitted value distributions can be found in Section
-\ref{effect-of-other-fitted-value-distributions}.
+\ref{effect-of-fitted-value-distributions}.
 
 \hypertarget{power-comparison-of-different-tests}{%
 \subsection{Power comparison of different
@@ -946,15 +940,15 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 7\% to 30\% as \(log_e(E)\) increases from 0 to 2,
+aggressively from 7\% to 63\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is way more sensitive to the type of model
-defects that being considered. Meanwhile, no noticeable visual features
-can be spotted from the example residual plots.
+defects that being considered. Meanwhile, no noticeable residual
+depatures can be spotted from the example residual plots.
 
 In terms of heteroskedasticity patterns, the power of Breusch-Pagan test
 is also almost always greater than the power of visual test. For
-\(0 \leq log_e(E) \leq 2\), where the power curve of the visual test
+\(log_e(E)\) at around 2.5, where the power curve of the visual test
 remains at a low level, the Breusch-Pagan test still have a decent
 amount of chance of rejecting \(H_0\). Similarly, the visual feature is
 nearly unobservable from the example residual plots.
