@@ -1460,15 +1460,15 @@ dat_uniform_5 <- map_df(1:1000, function(boot_id) {
 }) %>%
   left_join(select(vi_survey, unique_lineup_id, effect_size, x_dist, type)) %>%
   mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
   mutate(log_effect_size = log(effect_size)) %>%
   mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(conv_or_not = "Visual") %>%
   select(-unique_lineup_id, -p_value, -effect_size)
-
 ```
 
 
-```{r different-x-dist-poly-power, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. Each power curve of the uniform distribution is surrounded by a grey line to indicate it is the baseline in its group. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests."}
+```{r different-x-dist-poly-power, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 1000 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, the lognormal distribution produce lower power for both types of tests."}
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
@@ -1561,12 +1561,6 @@ dat_x_dist %>%
   
   ggplot() +
   
-  # Draw all smooth lines
-  geom_smooth(aes(log_effect_size, reject, col = x_dist),
-              span = 0.03,
-              se = FALSE,
-              size = 1) +
-  
   # Draw boot uniform (5 eval) lines
   stat_smooth(data = dat_uniform_5_pred,
               geom = "line",
@@ -1575,9 +1569,15 @@ dat_x_dist %>%
               se = FALSE,
               alpha = 0.01) +
   
+  # Draw all smooth lines
+  geom_smooth(aes(log_effect_size, reject, col = x_dist),
+              span = 0.03,
+              se = FALSE,
+              size = 1) +
+  
   # Theme
   theme_light() +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(2,1,3,4)]) +
   scale_size_manual(values = c(1, 2, 3, 4)) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
