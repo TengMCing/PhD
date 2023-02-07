@@ -954,24 +954,23 @@ amount of chance of rejecting \(H_0\). Similarly, the visual feature is
 nearly unobservable from the example residual plots.
 
 The power of visual test arises steadily as \(log_e(E)\) increases from
-2 to 5 for both non-linearity patterns and heteroskedasticity patterns,
+3 to 5 for both non-linearity patterns and heteroskedasticity patterns,
 suggesting that the effect starts to make significant impact on the
 degree of the presence of the designed visual features. This can also be
-observed from the example residual plots that when \(log_e(E) = 2.5\), a
+observed from the example residual plots that when \(log_e(E) = 3.5\), a
 weak ``S-shape'' and a weak ``triangle'' shape are presented in Figure
 \ref{fig:polypower} and Figure \ref{fig:heterpower} respectively. The
 visual pattern becomes much clearer as \(log_e(E)\) increases. At
-\(log_e(E) \approx 6\), the power reaches almost 100\%.
+\(log_e(E) = 5\), the power reaches almost 100\%.
 
-The power of all inappropriate tests except for RESET test shows
-improvement as the effect increases but at a lower rate than the visual
-test in both scenarios. This coincides the point made by
-\citet{cook1982residuals} that residual-based tests for a specific type
-of model defect may be sensitive to other types of model defects. The
-power curve of RESET test remains at around 5\% in Figure
-\ref{fig:heterpower} since there are no non-linear terms leave out in
-the heteroskedasticity model and \(H_0\) of the test is always
-satisfied.
+The power of all inappropriate tests show improvement as the effect
+increases but at a lower rate than the visual test in both scenarios.
+This coincides the point made by \citet{cook1982residuals} that
+residual-based tests for a specific type of model defect may be
+sensitive to other types of model defects. The power curve of RESET test
+remains at around 5\% in Figure \ref{fig:heterpower} since there are no
+non-linear terms leave out in the heteroskedasticity model and \(H_0\)
+of the test is always satisfied.
 
 Overall, the power comparison suggests that conventional tests differs
 significantly from visual tests in two regression diagnostics scenarios
@@ -1069,29 +1068,30 @@ that may have resulted in the lack of detection.
 non-linearity}\label{effect-of-shape-of-non-linearity}}
 
 A primary factor contributes to the non-linearity model is the shape of
-the non-linearity. According to Figure \ref{fig:poly-power-uniform-j},
-conventional tests have almost identical power in testing the ``U'', the
-``S'' and the ``M'' shape, except for testing the ``Triple-U'' shape,
-which have significant lower power. To understand why this is, one needs
-to return to the way the RESET test is applied. It requires a parameter
-indicating degree of fitted values to test for, and the recommendation
-is to generically use four (\citet{ramsey_tests_1969}). However, the
-``Triple-U'' shape constructed from the Hermite polynomials use power up
-to 18. If the RESET test had been applied using a higher power no less
-than six, the power curve of ``Triple-U'' shape will have little
-difference to other shapes. The recommendation of the polynomial power
-for the RESET should be revised, perhaps. This illustrates the
-sensitivity of conventional testing to the parameters, and it also
-points to a limitation that one needs to know the data structure in
-order to set the parameters for the test.
+the non-linearity pattern. According to Figure
+\ref{fig:poly-power-uniform-j}, conventional tests have identical power
+in testing the ``U'', the ``S'' and the ``M'' shape. But it has
+significant lower power in testing the ``Triple-U'' shape. To understand
+why this is, one needs to return to the way the RESET test is applied.
+It requires a parameter indicating degree of fitted values to test for,
+and the recommendation is to generically use four
+(\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape constructed
+from the Hermite polynomials use power up to 18. If the RESET test had
+been applied using a higher power no less than six, the power curve of
+``Triple-U'' shape will have little difference to other shapes. The
+recommendation of the polynomial power for the RESET should be revised,
+perhaps. This illustrates the sensitivity of conventional testing to the
+parameters, and it also points to a limitation that one needs to know
+the data generating process in order to set the parameters for the test.
 
-For visual tests, we expect the ``U'' shape will be the easiest one to
-be detected by subjects followed by the ``S'', ``M'' and ``Triple-U''
-shape. From Figure \ref{fig:poly-power-uniform-j}, it can be observed
-that the power curves are mostly aligned with our expectation, except
-for the ``M'' shape, which is as easy to be detected as the ``U'' shape.
-This implies the readability of the shape do not strictly follow the
-degree of the polynomials.
+For visual tests, based on the orders of the Hermite polynomials, we
+expect the ``U'' shape will be the easiest one to be detected by
+subjects followed by the ``S'', ``M'' and ``Triple-U'' shape. From
+Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power
+curves are mostly aligned with our expectation, except for the ``M''
+shape, which is as easy to be detected as the ``U'' shape. This implies
+the readability of the shape do not strictly follow the degree of the
+polynomials.
 
 \begin{figure}
 
@@ -1106,24 +1106,20 @@ degree of the polynomials.
 \subsection{Effect of shape of
 heteroskedasticity}\label{effect-of-shape-of-heteroskedasticity}}
 
-We also investigate the impact of different heteroskedasticity shapes on
-power of conventional tests and visual tests. In theory, the
+We have also investigated the impact of different heteroskedasticity
+shapes on power of conventional tests and visual tests. In theory, the
 ``Left-triangle'' and the ``Right-triangle'' shapes are functionally
 identical from the point of view of a Breusch-Pagan test. As shown in
 Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where
 little difference between the power curves can be perceived. Similarly,
-visual tests will have the same power of detecting these two shapes if
+visual tests should have the smae power in detecting these two shapes if
 they are equally likely to be identified. However, it can be observed
 from Figure \ref{fig:heter-power-uniform-a} that the power curve for the
 ``Left-triangle'' shape is constantly higher than the one for the
 ``Right-triangle'' shape, indicating a potential favour of orientation
-by human, which is worth to be explored in future studies.
-
-The chance of detecting the ``Butterfly'' shape is roughly the same as
-the chance of detecting the ``Left-triangle'' shape in both tests. The
-only noticeable difference from Figure \ref{fig:heter-power-uniform-a}
-is the Breusch-Pagan test has slightly higher power for detecting this
-shape compared to other two shapes when the effect size is low.
+by human, which is worth to be explored in future studies. Besides, the
+chance of detecting the ``Butterfly'' shape by visual tests are slightly
+higher than other two shapes.
 
 \begin{figure}
 
@@ -1147,8 +1143,13 @@ values, used in this experiment, were designed to examine this.
 Figure \ref{fig:different-x-dist-poly-power} illustrates the change of
 power of visual tests and conventional tests for different fitted
 distributions used in the non-linearity model and the heteroskedasticity
-model. We focus on \(log(E) > 2\) where the visual patterns start to
-become recognisable.
+model. Note that we have collected more evaluations on lineup with
+uniform fitted value distribution, and the number of evaluations on a
+lineup will have an impact on the power of the visual test. To have a
+fair comparison, the five evaluations used in the power estimation are
+randomly sampled from the total eleven evaluations for each lineup with
+uniform fitted value distribution. The sampling process has been
+repeated 500 times to visualize the variation.
 
 For non-linearity patterns, we do not observe significant difference in
 power of visual test between distributions, except for the discrete
