@@ -507,16 +507,16 @@ The power of a model misspecification test is the probability that the null hypo
 
 As discussed in @majumder_validation_2013, the power of a visual test may depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup. Previously, it is addressed by modelling the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effects [@majumder_validation_2013]. However, in the multiple selections scenario, having this probability is not sufficient to determine the power of a visual test because it does not provide information about the number of selections made by the subject for the calculation of the p-value. 
 
-Instead, we directly estimate the probability of a lineup being rejected by assuming that individual skill has negligible effect on the variation of the power. The assumption is to simplify the model structure, thereby obviate costly large-scale experiments to estimate complex covariance matrices. The model is a logistic regression with the natural logarithm of the effect as the only regressor formulated as
+Instead, we directly estimate the probability of a lineup being rejected by assuming that individual skill has negligible effect on the variation of the power. The assumption is to simplify the model structure, thereby obviate costly large-scale experiments to estimate complex covariance matrices. The model is a logistic regression formulated as 
 
 ```{=tex}
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(\beta_0 + \beta_1 log(E)),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.5}{0.95}) + \beta_1 E),
 \end{equation}
 ```
-\noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$.
+\noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size is the only regressor and the intercept is fixed to $log(0.5/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
 
-Effect $E$ is derived from the Kullback-Leibler divergence (see Appendix for the details) formulated as
+Effect size $E$ is derived from the Kullback-Leibler divergence (see Appendix for the details) formulated as
 
 \small
 
