@@ -946,7 +946,7 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 15\% to 69\% as \(log_e(E)\) increases from 0 to 2,
+aggressively from 7\% to 30\% as \(log_e(E)\) increases from 0 to 2,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is way more sensitive to the type of model
 defects that being considered. Meanwhile, no noticeable visual features
@@ -1002,7 +1002,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5.}\label{fig:polypower}
+\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2.5, but for the visual test it is around 3.5.}\label{fig:polypower}
 \end{figure}
 
 \begin{figure}
@@ -1011,7 +1011,7 @@ popularity of conventional tests in residual diagnostics among analysts.
 
 }
 
-\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3.}\label{fig:heterpower}
+\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5.}\label{fig:heterpower}
 \end{figure}
 
 \hypertarget{comparison-of-test-decisions-based-on-p-values}{%
@@ -1193,7 +1193,7 @@ result reported in the previous sections.
 
 }
 
-\caption{Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 1000 times and the corresponding power curves are drawn with transparent grey lines. The vetical dotted line is drawn to indicate where the visual pattern start to become recognisable. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, the lognormal distribution produce lower power for both types of tests.}\label{fig:different-x-dist-poly-power}
+\caption{Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
 \hypertarget{conclusion}{%
@@ -1224,12 +1224,12 @@ selections in a lineup protocol.
   briefly describe what was learned
 \end{enumerate}
 
-Throughout the three data collection periods of the human subject
-experiment we conducted, residual plots rejected by visual tests are
-rarely not rejected by conventional tests, but departures of residuals
-that are of little practical sense to humans will often be alarmed by
-conventional tests, supporting the common guidance given by experts to
-utilize graphical representations of data in model diagnostics.
+According to the data collected from the human subject experiment,
+residual plots rejected by visual tests are rarely not rejected by
+conventional tests, but departures of residuals that are of little
+practical sense to humans will often be alarmed by conventional tests,
+supporting the common guidance given by experts to utilize graphical
+representations of data in model diagnostics.
 
 We have also found that residual-based conventional tests relying on a
 user-parameterized test formula, such as the RESET test, will suffer
@@ -1239,6 +1239,8 @@ This can not be avoided without prior knowledge of their functional
 forms, which is usually obtained by plotting the residuals. On the other
 hand, visual tests do not rely on such information and a collection of
 departures can be tested simultaneously.
+
+Interestingly, the orientation of the visual pattern
 
 fitted value distribution
 

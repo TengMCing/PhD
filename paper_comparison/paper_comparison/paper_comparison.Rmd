@@ -413,7 +413,7 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
   mutate(across(r:s, ~ format(round(.x, digits = 3), nsmall = 3))) %>%
   
   # Italic if reject
-  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) < 0.05)))
+  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) <= 0.05)))
 
   table_dat %>%
   knitr::kable(col.names = c("Plot", 
@@ -926,16 +926,106 @@ In the following analysis, lineups with uniform fitted values will be the focus.
 
 ## Power comparison of different tests 
 
-```{r}
-# The glm model for RESET test
-conv_poly_glmmod <- poly_conv_sim %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(x_dist, log_effect_size, RESET4_p_value) %>%
-  filter(x_dist == "uniform") %>%
-  mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
-glm(reject ~ log_effect_size, family = binomial(), data = .)
-```
+```{r cache = TRUE}
+# Define the minimum and maximum effect size
+min_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
 
+# The glm model for RESET test
+reset_poly_glmmod <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(RESET4_p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(x_dist, effect_size, log_effect_size, offset0, reject) %>%
+  glm(reject ~ effect_size - 1, family = binomial(), data = ., offset = offset0)
+
+# The prediction for all conventional tests on poly model
+pred_conv_poly <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
+  rename(RESET_p_value = RESET4_p_value) %>%
+  pivot_longer(RESET_p_value:SW_p_value) %>%
+  mutate(name = gsub("_p_value", " test", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# Data needed by the visual test
+visual_poly_dat <- vi_survey %>%
+  filter(!null_lineup, 
+         !attention_check, 
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(effect_size, offset0, reject)
+
+# The glm model for visual test
+visual_poly_glmmod <- glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = visual_poly_dat, 
+                          offset = offset0)
+
+# The prediction of the visual test
+pred_visual_poly <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                               offset0 = log(0.05/0.95)) %>%
+  mutate(power = predict(visual_poly_glmmod, 
+                         type = "response",
+                         newdata = data.frame(effect_size = effect_size,
+                                              offset0 = offset0))) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# The prediction of the boot visual test
+pred_visual_poly_boot <- map_df(1:500, function(boot_id) {
+  slice_sample(visual_poly_dat, n = nrow(visual_poly_dat), replace = TRUE) %>%
+    nest(dat = c(effect_size, offset0, reject)) %>%
+    mutate(mod = map(dat, 
+                     ~glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = .x,
+                          offset = offset0))) %>%
+    mutate(power = map(mod, function(mod) {
+      result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                           offset0 = log(0.05/0.95))
+      result$power <- predict(mod, type = "response", newdata = result)
+      result
+    })) %>%
+    select(-dat, -mod) %>%
+    unnest(power) %>%
+    mutate(log_effect_size = log(effect_size)) %>%
+    mutate(boot_id = boot_id)
+  })
+```
 
 Figure \ref{fig:polypower} shows the estimated power of visual test on lineups produced by the non-linearity model with uniform fitted values, against the natural logarithm of the effect $log_e(E)$, with a 5% significance level. At the bottom of the figure \ref{fig:polypower}, there are a sequence of example residual plots with increasing levels of $log_e(E)$. Readers can evaluate them from left to right and determine at which level the departure from a good residual plot becomes detectable.
 
@@ -946,7 +1036,7 @@ To compare the power of visual test and conventional test, we pick RESET test (`
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
 For non-linearity patterns, the power curve of RESET test climbs aggressively from
-`r round(unname(predict(conv_poly_glmmod, newdata = data.frame(log_effect_size = 0), type = "response")) * 100)`% to `r round(unname(predict(conv_poly_glmmod, newdata = data.frame(log_effect_size = 2), type = "response")) * 100)`% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect, showing that RESET test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residual plots.
+`r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(0), offset0 = log(0.05/0.95)), type = "response")) * 100)`% to `r round(unname(predict(reset_poly_glmmod, newdata = data.frame(effect_size = exp(2), offset0 = log(0.05/0.95)), type = "response")) * 100)`% as $log_e(E)$ increases from 0 to 2, while power of other tests respond inactively to the change of effect, showing that RESET test is way more sensitive to the type of model defects that being considered. Meanwhile, no noticeable visual features can be spotted from the example residual plots.
 
 In terms of heteroskedasticity patterns, the power of Breusch-Pagan test is also almost always greater than the power of visual test. For $0 \leq log_e(E) \leq 2$, where the power curve of the visual test remains at a low level, the Breusch-Pagan test still have a decent amount of chance of rejecting $H_0$. Similarly, the visual feature is nearly unobservable from the example residual plots.
 
@@ -956,60 +1046,46 @@ The power of all inappropriate tests except for RESET test shows improvement as 
 
 Overall, the power comparison suggests that conventional tests differs significantly from visual tests in two regression diagnostics scenarios designed by us. Visual test have much higher tolerance of the residual departures than the conventional test. Since fail to reject $H_0$ in a visual test usually means that there are no obvious visual discoveries found in the residual plot, analysts and the general public as the consumers of the output may not be convinced of the existence of significant residual departures in spite of the rejection of $H_0$ given by the conventional test. Even if the rejection is accepted, the model violation may be considered as impactless due to the fact that they are not clearly visible. Besides, the sensitivity of the conventional test could also distract and discourage analysts from finding simple but good linear approximation to the data. The rejection of $H_0$ because of human acceptable and negligible residual departures is not practically meaningful and useful. This may limit the popularity of conventional tests in residual diagnostics among analysts.
 
+
 ```{r}
-# Get bootstrap samples
-get_boot_sample <- function(dat, times = 100) {
-  map_df(1:times, 
-         ~slice_sample(dat, n = nrow(dat), replace = TRUE) %>%
-           mutate(boot_id = .x))
-}
-
-# Get bootstrap CI
-get_boot_conf <- function(dat, 
-                          .x,
-                          .y,
-                          times = 100, 
-                          upper_q = 0.975, 
-                          lower_q = 0.025) {
+# Analyse uniform polynomial data
+p <- ggplot() +
   
-  # Construct the model formula
-  mod_formula <- substitute(.y ~ .x)
+  # Group the data by effect and reject to draw points
+  geom_point(data = visual_poly_dat %>%
+               mutate(log_effect_size = log(effect_size)) %>%
+               group_by(log_effect_size, reject) %>% 
+               summarise(num_response = factor(n())),
+             aes(log_effect_size, reject, size = num_response), 
+             alpha = 0.3) +
   
-  # Get the x variable name
-  x_chr <- as.character(substitute(.x))
+  # Draw conventional test power curve
+  geom_line(data = pred_conv_poly,
+            aes(log_effect_size, power, col = name),
+            size = 1) +
   
-  # Prepare a sequence of x values
-  x_seq <- seq(min(dat[[x_chr]]), max(dat[[x_chr]]), by = 0.01)
+  # Draw boot visual test curves
+  geom_line(data = pred_visual_poly_boot,
+            aes(log_effect_size, power, col = "Visual test", group = boot_id),
+            size = 1,
+            alpha = 0.01) +
   
-  # Properly construct the new data frame for prediction
-  newdata <- data.frame(.x = x_seq)
-  newdata[[x_chr]] <- x_seq
+  # Draw visual test power curve
+  geom_line(data = pred_visual_poly,
+            aes(log_effect_size, power, col = "Visual test"), 
+            size = 1) +
   
-  # Get the prediction for each bootstrap sample   
-  dat_pred <- map_df(1:times, function(i) {
-    
-    # Get a bootstrap sample
-    dat_i <- slice_sample(dat, n = nrow(dat), replace = TRUE) %>%
-      mutate(boot_id = i)
-    
-    # Fit the model on the sample
-    mod_i <- glm(mod_formula, family = binomial, data = dat_i)
-
-    # Get the prediction
-    newdata$.pred <- predict(mod_i, newdata = newdata, type = "response")
-    
-    # Return the prediction
-    newdata
-  })
-  
-  dat_pred <- dat_pred %>%
-    group_by(.x) %>%
-    summarise(upper = quantile(.pred, upper_q), 
-              lower = quantile(.pred, lower_q))
-  dat_pred[[x_chr]] <- dat_pred$.x
-  dat_pred
-}
+  # Theme
+  theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  scale_size_manual(values = c(1, 2, 3)) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  labs(col = "", size = "# lineups")
 ```
+
 
 ```{r cache = TRUE}
 # target_sigma is obtained by evaluating a vector of sigma and picking those 
@@ -1027,83 +1103,7 @@ es <- map_dbl(target_sigma,
 ```
 
 
-```{r}
-# Analyse uniform polynomial data
-p <- vi_survey %>%
-  filter(!null_lineup, 
-         !attention_check, 
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(log_effect_size, reject) %>%
-  ggplot() +
-  
-  # Group the data by effect and reject to draw points
-  geom_point(data = ~.x %>% 
-             group_by(log_effect_size, reject) %>% 
-             summarise(num_response = factor(n())),
-           aes(log_effect_size, reject, size = num_response), 
-           alpha = 0.3)  +
-  
-  # Draw conventional test power curve
-  geom_smooth(data = poly_conv_sim %>% 
-                filter(x_dist == "uniform") %>%
-                mutate(log_effect_size = log(effect_size)) %>%
-                select(-RESET3_p_value, 
-                       -(RESET5_p_value:RESET10_p_value), 
-                       -F_p_value) %>%
-                rename(RESET_p_value = RESET4_p_value) %>%
-                pivot_longer(RESET_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)), 
-              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
-              method = "glm", 
-              method.args = list(family = binomial),
-              se = FALSE) +
-  
-  # Draw bootstrap CI for visual test
-  # geom_ribbon(data = ~get_boot_conf(.x,
-  #                                   log_effect_size,
-  #                                   reject,
-  #                                   times = 1000),
-  #             aes(x = log_effect_size, 
-  #                 ymin = lower, 
-  #                 ymax = upper),
-  #             fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
-  #             alpha = 0.2) +
-  
-  stat_smooth(data = ~get_boot_sample(.x, times = 1000),
-              geom = "line",
-              aes(log_effect_size, 
-                  reject, 
-                  col = "Visual test", 
-                  group = boot_id),
-              method = "glm",
-              method.args = list(family = binomial),
-              se = FALSE,
-              alpha = 0.01) +
-  
-  # Draw visual test power curve
-  geom_smooth(aes(log_effect_size, reject, col = "Visual test"), 
-              method = "glm", 
-              method.args = list(family = binomial), 
-              se = FALSE) +
-  
-  # Theme
-  theme_light(base_size = 5) +
-  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  scale_size_manual(values = c(1, 2, 3)) +
-  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", size = "# lineups")
-```
-
-
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 3.5."}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2.5, but for the visual test it is around 3.5."}
 
 set.seed(106)
 
@@ -1142,6 +1142,141 @@ map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
   
 
 ```{r cache = TRUE}
+# Define the minimum and maximum effect size
+min_heter_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_heter_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
+
+# The prediction for all conventional tests on heter model
+pred_conv_heter <- heter_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
+  rename(RESET_p_value = RESET4_p_value) %>%
+  pivot_longer(RESET_p_value:SW_p_value) %>%
+  mutate(name = gsub("_p_value", " test", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# Data needed by the visual test
+visual_heter_dat <- vi_survey %>%
+  filter(!null_lineup, 
+         !attention_check, 
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(effect_size, offset0, reject)
+
+# The glm model for visual test
+visual_heter_glmmod <- glm(reject ~ effect_size - 1, 
+                           family = binomial(), 
+                           data = visual_poly_dat, 
+                           offset = offset0)
+
+# The prediction of the visual test
+pred_visual_heter <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                                offset0 = log(0.05/0.95)) %>%
+  mutate(power = predict(visual_heter_glmmod, 
+                         type = "response",
+                         newdata = data.frame(effect_size = effect_size,
+                                              offset0 = offset0))) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# The prediction of the boot visual test
+pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
+  slice_sample(visual_heter_dat, n = nrow(visual_heter_dat), replace = TRUE) %>%
+    nest(dat = c(effect_size, offset0, reject)) %>%
+    mutate(mod = map(dat, 
+                     ~glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = .x,
+                          offset = offset0))) %>%
+    mutate(power = map(mod, function(mod) {
+      result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                           offset0 = log(0.05/0.95))
+      result$power <- predict(mod, type = "response", newdata = result)
+      result
+    })) %>%
+    select(-dat, -mod) %>%
+    unnest(power) %>%
+    mutate(log_effect_size = log(effect_size)) %>%
+    mutate(boot_id = boot_id)
+  })
+```
+
+
+
+
+```{r}
+# Analyse uniform heteroskedasticity data
+p <- ggplot() +
+  
+  # Group the data by effect and reject to draw points
+  geom_point(data = visual_heter_dat %>%
+               mutate(log_effect_size = log(effect_size)) %>%
+               group_by(log_effect_size, reject) %>% 
+               summarise(num_response = factor(n())),
+             aes(log_effect_size, reject, size = num_response), 
+             alpha = 0.3) +
+  
+  # Draw conventional test power curve
+  geom_line(data = pred_conv_heter,
+            aes(log_effect_size, power, col = name),
+            size = 1) +
+  
+  # Draw boot visual test curves
+  geom_line(data = pred_visual_heter_boot,
+            aes(log_effect_size, power, col = "Visual test", group = boot_id),
+            size = 1,
+            alpha = 0.01) +
+  
+  # Draw visual test power curve
+  geom_line(data = pred_visual_heter,
+            aes(log_effect_size, power, col = "Visual test"), 
+            size = 1) +
+  
+  # Theme
+  theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  scale_size_manual(values = c(1, 2, 3)) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  labs(col = "", size = "# lineups")
+```  
+  
+  
+```{r cache = TRUE}
 # target_b is obtained by evaluating a vector of b and picking those 
 # with expected effect 0 ~ 5
 target_b <- c(0.14, 0.19, 0.27, 0.38, 0.57, 0.91, 1.53, 2.9, 6.4, 17.9, 75)
@@ -1155,83 +1290,8 @@ es <- map_dbl(target_b,
                    )
               )
 ```
-
-
-```{r}
-# Analyse uniform heteroskedasticity data
-p <- vi_survey %>%
-  filter(!null_lineup, 
-         !attention_check, 
-         x_dist == "uniform", 
-         type == "heteroskedasticity") %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  select(log_effect_size, reject) %>%
-  ggplot() +
   
-  # Group the data by effect and reject to draw points
-  geom_point(data = ~.x %>% 
-               group_by(log_effect_size, reject) %>% 
-               summarise(num_response = factor(n())),
-             aes(log_effect_size, reject, size = num_response), 
-             alpha = 0.3) +
-  
-  # Draw conventional test power curve
-  geom_smooth(data = heter_conv_sim %>% 
-                filter(x_dist == "uniform") %>%
-                mutate(log_effect_size = log(effect_size)) %>%
-                select(-RESET3_p_value, 
-                       -(RESET5_p_value:RESET10_p_value), 
-                       -F_p_value) %>%
-                rename(RESET_p_value = RESET4_p_value) %>%
-                pivot_longer(RESET_p_value:SW_p_value) %>%
-                mutate(name = gsub("_p_value", " test", name)), 
-              aes(log_effect_size, as.numeric(value < 0.05), col = name), 
-              method = "glm", 
-              method.args = list(family = binomial),
-              se = FALSE) +
-  
-  # Draw bootstrap CI for visual test
-  # geom_ribbon(data = ~get_boot_conf(.x,
-  #                                   log_effect_size,
-  #                                   reject,
-  #                                   times = 1000),
-  #             aes(x = log_effect_size, 
-  #                 ymin = lower, 
-  #                 ymax = upper),
-  #             fill = rev(rcartocolor::carto_pal(4, "Vivid"))[4],
-  #             alpha = 0.2) +
-  
-  stat_smooth(data = ~get_boot_sample(.x, times = 1000),
-              geom = "line",
-              aes(log_effect_size, 
-                  reject, 
-                  col = "Visual test", 
-                  group = boot_id),
-              method = "glm",
-              method.args = list(family = binomial),
-              se = FALSE,
-              alpha = 0.01) +
-  
-  # Draw visual test power curve
-  geom_smooth(aes(log_effect_size, reject, col = "Visual test"), method = "glm", method.args = list(family = binomial), se = FALSE) +
-  
-  # Theme
-  theme_light(base_size = 5) +
-  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
-  scale_size_manual(values = c(1, 2, 3)) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", size = "# lineups")
-```  
-  
-  
-  
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 1.5, but for the visual test it is around 3."}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5."}
 
 set.seed(10091)
 
@@ -1280,8 +1340,8 @@ p_value_cmp_dat <- vi_survey %>%
   group_by(unique_lineup_id) %>%
   summarise(across(everything(), first)) %>%
   mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  mutate(conv_reject = ifelse(conventional_p_value < 0.05, "Reject", "Not"),
-         reject = ifelse(p_value < 0.05, "Reject", "Not")) %>%
+  mutate(conv_reject = ifelse(conventional_p_value <= 0.05, "Reject", "Not"),
+         reject = ifelse(p_value <= 0.05, "Reject", "Not")) %>%
   mutate(conv_reject = factor(conv_reject, levels = c("Reject", "Not")),
          reject = factor(reject, levels = c("Reject", "Not"))) %>%
   select(type, conv_reject, reject)
@@ -1335,38 +1395,38 @@ For visual tests, we expect the "U" shape will be the easiest one to be detected
 
 dat_poly_j <- poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(RESET4_p_value < 0.05)) %>%
+  mutate(reject = as.numeric(RESET4_p_value <= 0.05)) %>%
   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
   mutate(conv_or_not = "Conventional") %>%
   bind_rows(vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform", type == "polynomial") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(shape = c("U", "S", "M", "Triple-U")[shape]) %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(shape = factor(shape, levels = c("U", "S", "M", "Triple-U"))) %>%
-  select(shape, log_effect_size, reject, conv_or_not)
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(shape, effect_size, offset0, reject, conv_or_not)
 
 dat_poly_j %>%
-  mutate(es_min = min(log_effect_size), 
-         es_max = max(log_effect_size)) %>%
-  nest(data = c(log_effect_size, reject)) %>%
-  mutate(mod = map(data, 
-                   ~glm(reject ~ log_effect_size, 
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
                         family = binomial(), 
-                        data = .x))) %>%
-  mutate(reject = map(mod, function(mod) {
-    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
-    result$reject <- predict(mod, type = "response", newdata = result)
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
     result
   })) %>%
-  select(-es_min, -es_max, -data, -mod) %>%
-  unnest(reject) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = shape), se = FALSE, span = 0.03) +
+  geom_line(aes(log_effect_size, power, col = shape), size = 1) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(4, "TealGrn")) +
@@ -1388,39 +1448,39 @@ The chance of detecting the "Butterfly" shape is roughly the same as the chance 
 
 dat_heter_a <- heter_conv_sim %>%
   filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
+  mutate(reject = as.numeric(BP_p_value <= 0.05)) %>%
   mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
   mutate(conv_or_not = "Conventional") %>%
   bind_rows(vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform", type == "heteroskedasticity") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(p_value < 0.05)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(a = c("Left-triangle", "Butterfly", "Right-triangle")[a + 2]) %>%
   mutate(conv_or_not = "Visual")) %>%
   mutate(a = factor(a, levels = c("Left-triangle", "Butterfly", "Right-triangle"))) %>%
-  select(a, log_effect_size, reject, conv_or_not)
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(a, effect_size, offset0, reject, conv_or_not)
 
 # Manually fit the model
 dat_heter_a %>%
-  mutate(es_min = min(log_effect_size), 
-         es_max = max(log_effect_size)) %>%
-  nest(data = c(log_effect_size, reject)) %>%
-  mutate(mod = map(data, 
-                   ~glm(reject ~ log_effect_size, 
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
                         family = binomial(), 
-                        data = .x))) %>%
-  mutate(reject = map(mod, function(mod) {
-    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
-    result$reject <- predict(mod, type = "response", newdata = result)
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
     result
   })) %>%
-  select(-es_min, -es_max, -data, -mod) %>%
-  unnest(reject) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
   ggplot() +
-  geom_smooth(aes(log_effect_size, reject, col = a), se = FALSE, span = 0.03) +
+  geom_line(aes(log_effect_size, power, col = a), size = 1) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   scale_color_manual(values = rcartocolor::carto_pal(3, "Earth")) +
@@ -1444,7 +1504,7 @@ For heteroskedasticity patterns, the power of visual test on lineups with unifor
 In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are substantially lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
 
 ```{r get-5-eval, cache = TRUE}
-dat_uniform_5 <- map_df(1:1000, function(boot_id) {
+dat_uniform_5 <- map_df(1:500, function(boot_id) {
   vi_survey %>%
   filter(!null_lineup) %>%
   filter(!attention_check) %>%
@@ -1461,41 +1521,39 @@ dat_uniform_5 <- map_df(1:1000, function(boot_id) {
   left_join(select(vi_survey, unique_lineup_id, effect_size, x_dist, type)) %>%
   mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
   mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
   mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(conv_or_not = "Visual") %>%
-  select(-unique_lineup_id, -p_value, -effect_size)
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(-unique_lineup_id, -p_value)
 ```
 
 
-```{r different-x-dist-poly-power, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 1000 times and the corresponding power curves are drawn with transparent grey lines. The vetical dotted line is drawn to indicate where the visual pattern start to become recognisable. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, the lognormal distribution produce lower power for both types of tests."}
+```{r different-x-dist-poly-power, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests."}
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
 
 dat_x_dist <- list(
   poly_conv_sim %>% 
-    mutate(log_effect_size = log(effect_size)) %>%
-    select(x_dist, log_effect_size, RESET4_p_value) %>%
     rename(RESET_p_value = RESET4_p_value) %>%
     mutate(x_dist = ifelse(x_dist == "even_discrete",
                            "Discrete", 
                            stringr::str_to_title(x_dist))) %>%
-    mutate(reject = as.numeric(RESET_p_value < 0.05)) %>%
+    mutate(reject = as.numeric(RESET_p_value <= 0.05)) %>%
     mutate(conv_or_not = "Conventional") %>%
     mutate(type = "non-linearity") %>%
-    select(type, x_dist, log_effect_size, reject, conv_or_not),
+    mutate(offset0 = log(0.05/0.95)) %>%
+    select(type, x_dist, effect_size, offset0, reject, conv_or_not),
   
   heter_conv_sim %>% 
-    mutate(log_effect_size = log(effect_size)) %>%
-    select(x_dist, log_effect_size, BP_p_value) %>%
     mutate(x_dist = ifelse(x_dist == "even_discrete",
                            "Discrete", 
                            stringr::str_to_title(x_dist))) %>%
-    mutate(reject = as.numeric(BP_p_value < 0.05)) %>%
+    mutate(reject = as.numeric(BP_p_value <= 0.05)) %>%
     mutate(conv_or_not = "Conventional") %>%
     mutate(type = "heteroskedasticity") %>%
-    select(type, x_dist, log_effect_size, reject, conv_or_not),
+    mutate(offset0 = log(0.05/0.95)) %>%
+    select(type, x_dist, effect_size, offset0, reject, conv_or_not),
   
   vi_survey %>%
     filter(!null_lineup) %>%
@@ -1505,12 +1563,12 @@ dat_x_dist <- list(
     filter(x_dist != "uniform") %>%
     mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
     mutate(reject = as.numeric(p_value <= 0.05)) %>%
-    mutate(log_effect_size = log(effect_size)) %>%
     mutate(x_dist = ifelse(x_dist == "even_discrete", 
                            "Discrete", 
                            stringr::str_to_title(x_dist))) %>%
     mutate(conv_or_not = "Visual") %>%
-    select(type, x_dist, log_effect_size, reject, conv_or_not)
+    mutate(offset0 = log(0.05/0.95)) %>%
+    select(type, x_dist, effect_size, offset0, reject, conv_or_not)
 ) %>%
   
   # Bind rows
@@ -1527,55 +1585,55 @@ dat_x_dist <- list(
                                     "Discrete")))
 
 dat_uniform_5_pred <- dat_uniform_5 %>%
-  mutate(es_min = min(dat_x_dist$log_effect_size), 
-         es_max = max(dat_x_dist$log_effect_size)) %>%
-  nest(data = c(log_effect_size, reject)) %>%
-  mutate(mod = map(data, 
-                   ~glm(reject ~ log_effect_size, 
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
                         family = binomial(), 
-                        data = .x))) %>%
-  mutate(reject = map(mod, function(mod) {
-    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
-    result$reject <- predict(mod, type = "response", newdata = result)
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map2(mod, type, function(mod, type) {
+    this_min_es <- ifelse(type == "heteroskedasticity", min_heter_es, min_poly_es)
+    this_max_es <- ifelse(type == "heteroskedasticity", max_heter_es, max_poly_es)
+    result <- data.frame(effect_size = seq(this_min_es[1], this_max_es[1], 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
     result
   })) %>%
-  select(-es_min, -es_max, -data, -mod) %>%
-  unnest(reject)
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
 
 # Fit the model manually
 dat_x_dist %>%
-  mutate(es_min = min(log_effect_size), 
-         es_max = max(log_effect_size)) %>%
-  nest(data = c(log_effect_size, reject)) %>%
-  mutate(mod = map(data, 
-                   ~glm(reject ~ log_effect_size, 
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
                         family = binomial(), 
-                        data = .x))) %>%
-  mutate(reject = map(mod, function(mod) {
-    result <- data.frame(log_effect_size = seq(es_min[1], es_max[1], 0.01))
-    result$reject <- predict(mod, type = "response", newdata = result)
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map2(mod, type, function(mod, type) {
+    this_min_es <- ifelse(type == "heteroskedasticity", min_heter_es, min_poly_es)
+    this_max_es <- ifelse(type == "heteroskedasticity", max_heter_es, max_poly_es)
+    result <- data.frame(effect_size = seq(this_min_es[1], this_max_es[1], 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
     result
   })) %>%
-  select(-es_min, -es_max, -data, -mod) %>%
-  unnest(reject) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
   
   ggplot() +
   
-  geom_vline(xintercept = 2, linetype = 2) +
-  
   # Draw boot uniform (5 eval) lines
-  stat_smooth(data = dat_uniform_5_pred,
-              geom = "line",
-              aes(log_effect_size, reject, col = "Uniform", group = boot_id),
-              span = 0.03,
-              se = FALSE,
-              alpha = 0.01) +
+  geom_line(data = dat_uniform_5_pred,
+            aes(log_effect_size, power, col = "Uniform", group = boot_id),
+            size = 1,
+            alpha = 0.01) +
   
   # Draw all smooth lines
-  geom_smooth(aes(log_effect_size, reject, col = x_dist),
-              span = 0.03,
-              se = FALSE,
-              size = 1) +
+  geom_line(aes(log_effect_size, power, col = x_dist),
+            size = 1) +
   
   # Theme
   theme_light() +
@@ -1597,9 +1655,12 @@ This paper has demonstrated that conventional residual-based statistical tests a
 
 2. briefly describe what was learned
 
-Throughout the three data collection periods of the human subject experiment we conducted, residual plots rejected by visual tests are rarely not rejected by conventional tests, but departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. 
+According to the data collected from the human subject experiment, residual plots rejected by visual tests are rarely not rejected by conventional tests, but departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. 
 
 We have also found that residual-based conventional tests relying on a user-parameterized test formula, such as the RESET test, will suffer from a significant decrease in power for detecting certain residual departures intended to be tested but not covered by the test formula. This can not be avoided without prior knowledge of their functional forms, which is usually obtained by plotting the residuals. On the other hand, visual tests do not rely on such information and a collection of departures can be tested simultaneously.
+
+
+Interestingly, the orientation of the visual pattern 
 
 fitted value distribution
 
