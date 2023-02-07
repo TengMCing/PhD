@@ -171,7 +171,7 @@ plots}\label{departures-from-good-residual-plots}}
 
 }
 
-\caption{Example residual vs fitted plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted plot.}\label{fig:residual-plot-common-departures}
+\caption{Example residual vs fitted value plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted value plot.}\label{fig:residual-plot-common-departures}
 \end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
@@ -754,18 +754,29 @@ out of 11 subjects correctly identify the data plot from this lineup.
 \subsubsection{Factors common to both data collection
 periods}\label{factors-common-to-both-data-collection-periods}}
 
-XXX DC will clean this up
+Fitted values are a function of the independent variables, and the
+distribution of the observed values affects the distribution of the
+fitted values. In the best case scenario the fitted values will have a
+uniform distribution, which means that there is even coverage of
+possible observed values across all of the predictors. This is not
+always present in the collected data. Sometimes the fitted values are
+discrete because one or more predictors were measured discretely. The
+distribution may be relatively Gaussian, reflecting a linear combinatio
+of many predictors, adhering to the Central Limit Theorem. It is also
+common to see a skewed distribution of fitted values, if one or more of
+the predictors has a skewed distribution. This latter problem is usually
+corrected before modeling using a variable transformation. Our
+simulation asesses this by using four different distributions to
+represent the fitted values (\(X_{raw}\)): (1) \(U(-1, 1)\), (2)
+\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). We
+would expect that the best reading of residual plots occurs when the
+fitted values are uniformly distributed.
 
-Four distributions of fitted values are also considered by using
-\(X_{raw}\) follows different distributions: (1) \(U(-1, 1)\), (2)
-\(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\).
-
-Different distributions of fitted values help enriching the pool of
-visual patterns as illustrated in Figure \ref{fig:different-dist}. The
-uniform and the normal distribution are symmetric and commonly assumed
-in statistical models. The adjusted log-normal distribution provides
-skewed density, while the discrete uniform distribution provides
-discreteness in residual plot.
+Three different sample sizes are used, \(n=50, 100, 300\) across the
+experiments. We would expect considerable variation in the signal
+strength in the simulated data plots with smaller \(n\). A sample size
+of 300 is typically enough for structure to be visible in a scatterplot
+reliably.
 
 \hypertarget{experimental-setup}{%
 \subsection{Experimental setup}\label{experimental-setup}}
