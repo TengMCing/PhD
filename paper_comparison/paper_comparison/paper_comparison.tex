@@ -1208,57 +1208,51 @@ result reported in the previous sections.
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  summarise paper content
-\end{enumerate}
+Motivated by the advice of regression analysis experts, that residual
+plots as opposed to conventional tests are an indispensible methods for
+assessing model fit, a human subjects experiment was conducted using
+visual inference. The experiment tested two primary departures from good
+residuals: non-linearity and heteroskedasticity.
 
-This paper has demonstrated that conventional residual-based statistical
-tests are more sensitive to departures from assumptions for residuals
-than visual tests evaluated by humans in the diagnostics of linear
-regression models. An experiment is conducted in three data collection
-periods using two simulation models, one for for non-linearity and and
-the other for heteroskedasticity. Methods for obtaining the \(p\)-value
-of visual tests proposed by \citet{vanderplas2021statistical} are
-extended to allow for multiple selections in a lineup protocol.
+The experiment found that conventional residual-based statistical tests
+are more sensitive to departures from assumptions for residuals than
+visual tests as would be evaluated by humans. That is, conventional
+tests conclude there are problems with the model fit almost twice as
+often as humans would. They often reject when departures in the form of
+non-linearity and heteroskedasticity are not visible to a human.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  briefly describe what was learned
-\end{enumerate}
+One might say that this is correct behaviour, but it can be argued that
+the conventional tests are rejecting when it is not necessary. Many of
+these rejections happen even when downstream analysis and results would
+not be significantly affected by the small departures from a good fit.
+The results from human evaluations provide a more practical solution,
+which reinforces the statements from regression experts that residual
+plots are an indispensible method for model diagnostics.
 
-According to the data collected from the human subject experiment,
-residual plots rejected by visual tests are rarely not rejected by
-conventional tests, but departures of residuals that are of little
-practical sense to humans are sometimes alarmed by conventional tests,
-supporting the common guidance given by experts to utilize graphical
-representations of data in model diagnostics. We have also found that
-residual-based conventional tests relying on a user-parameterized test
-formula, such as the RESET test, will suffer from a significant decrease
-in power for detecting certain residual departures intended to be tested
-but not covered by the test formula. This is difficult to be avoided
-without prior knowledge of their functional forms, which is usually
-obtained by plotting the residuals. On the other hand, visual tests do
-not rely on such information and a collection of departures can be
-tested simultaneously. Interestingly, subjects recruited for our
-experiment behaves a potential favour of the orientation of the residual
-departure patterns. They perform slightly better in identifying triangle
-residual patterns pointing to the left than to the right. Besides, it is
-found that fitted value distributions have a great impact on the power
-of both conventional and visual tests. Generally, fitted values followed
-an evenly distributed and symmetric distribution such as the uniform
-distribution is preferred. Depending on the type of the residual
-departures, discreteness may cause trouble to humans to identify the
-residual patterns, while conventional tests are not affected. Skewness
-on the other hand significantly decrease the power of both conventional
-and visual tests when testing heteroskedasticity. Although it is
-commonly assumed by analysts, a normal fitted value distribution may not
-be the optimal option when comes to regression diagnostics.
+Now it is important to note that residual plots need to be delivered as
+a line up, where it is embedded in a field of null plots. This enables a
+careful calibration for reading structure in residual plots. XXX More
+here
+
+However, human evaluation of residuals is expensive. It is
+time-consuming, and laborious. This is another reason why it often
+appears to be ignored. With the availability of sophisticated computer
+vision algorithms today, the goal of this work is to form the basis of
+providing automated residual plot reading. XXX More here
+
+The experiment also revealed some interesting details about how residual
+plots are read. For the most part, the visual test performed very
+similarly to the (best) conventional test only with the power curve
+shifted in the less sensitive direction. Unlike the conventional tests,
+where one needs to specifically test for non-linearity or
+heteroskedasticity the visual test operated effectively across the range
+of departures from good residuals.
+
+As expected, if the fitted value distribution is not uniform, there is a
+loss of power in the visual test. Structure is hardest to detect if
+fitted values ar discrete. Also, a surprising find was that the
+direction of heteroskedasticity appears to affect the ability to
+visually detect it, with wedge to the left being less detectable.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
