@@ -468,6 +468,11 @@ data generating mechanism, are required.
 \hypertarget{power-of-a-visual-test}{%
 \subsubsection{Power of a visual test}\label{power-of-a-visual-test}}
 
+(use uniform effect size? normal effect size? -\textgreater{} other
+dist?)
+
+(average out dist for effect size calc?)
+
 The power of a model misspecification test is the probability that the
 null hypothesis is rejected given the regression model is misspecified.
 It is an important indicator when one is concerned about whether model
@@ -494,7 +499,7 @@ obviate costly large-scale experiments to estimate complex covariance
 matrices. The model is a logistic regression formulated as
 
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.5}{0.95}) + \beta_1 E),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.05}{0.95}) + \beta_1 E),
 \end{equation}
 
 \noindent where \(\Lambda(.)\) is the standard logistic function given
@@ -1119,6 +1124,8 @@ polynomials.
 \hypertarget{effect-of-shape-of-heteroskedasticity}{%
 \subsection{Effect of shape of
 heteroskedasticity}\label{effect-of-shape-of-heteroskedasticity}}
+
+(change the butterfly color)
 
 We have also investigated the impact of different heteroskedasticity
 shapes on power of conventional tests and visual tests. In theory, the
