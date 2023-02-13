@@ -127,7 +127,6 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
         es <- filter(vi_survey, 
                      shape == {{shape}},
                      e_sigma == {{e_sigma}},
-                     x_dist == {{x_dist}},
                      n == {{n}}) %>%
           head(1) %>%
           pull(effect_size)
@@ -234,7 +233,6 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
         es <- filter(vi_survey, 
                      a == {{a}}, 
                      b == {{b}},
-                     x_dist == {{x_dist}},
                      n == {{n}}) %>%
           head(1) %>%
           pull(effect_size)
@@ -503,15 +501,20 @@ With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated usin
 
 ### Power of a visual test
 
+(use uniform effect size? normal effect size? -> other dist?)
+
+(average out dist for effect size calc?)
+
 The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.
 
 As discussed in @majumder_validation_2013, the power of a visual test may depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup. Previously, it is addressed by modelling the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effects [@majumder_validation_2013]. However, in the multiple selections scenario, having this probability is not sufficient to determine the power of a visual test because it does not provide information about the number of selections made by the subject for the calculation of the p-value. 
+
 
 Instead, we directly estimate the probability of a lineup being rejected by assuming that individual skill has negligible effect on the variation of the power. The assumption is to simplify the model structure, thereby obviate costly large-scale experiments to estimate complex covariance matrices. The model is a logistic regression formulated as 
 
 ```{=tex}
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.5}{0.95}) + \beta_1 E),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.05}{0.95}) + \beta_1 E),
 \end{equation}
 ```
 \noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size is the only regressor and the intercept is fixed to $log(0.5/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
@@ -1088,14 +1091,15 @@ p <- ggplot() +
 ```{r cache = TRUE}
 # target_sigma is obtained by evaluating a vector of sigma and picking those 
 # with expected effect 0 ~ 5
-target_sigma <- c(4.51, 3.52, 2.74, 2.14, 1.66, 1.29, 1.01, 0.79, 0.61, 0.48, 0.37)
+
+target_sigma <- c(3.65, 2.84, 2.21, 1.72, 1.34, 1.04, 0.81, 0.63, 0.49, 0.38, 0.3)
 
 # Calculate the effect size 
 es <- map_dbl(target_sigma, 
               ~log(poly_model(shape = 2, 
-                              x = rand_uniform(-1, 1), 
+                              x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, 
                               sigma = .x)$
-                     effect_size(n = 100)
+                     average_effect_size(n = 100)
                    )
               )
 ```
@@ -1115,7 +1119,7 @@ set.seed(132)
 
 # Base data
 ex_dat <- poly_model(shape = 2, 
-                     x = rand_uniform(), 
+                     x = rand_uniform(-1, 1), 
                      sigma = 1)$gen(n = 100)
 plist <- list()
 j <- 0
@@ -1204,7 +1208,7 @@ visual_heter_dat <- vi_survey %>%
 # The glm model for visual test
 visual_heter_glmmod <- glm(reject ~ effect_size - 1, 
                            family = binomial(), 
-                           data = visual_poly_dat, 
+                           data = visual_heter_dat, 
                            offset = offset0)
 
 # The prediction of the visual test
@@ -1237,9 +1241,6 @@ pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
     mutate(boot_id = boot_id)
   })
 ```
-
-
-
 
 ```{r}
 # Analyse uniform heteroskedasticity data
@@ -1284,14 +1285,15 @@ p <- ggplot() +
 ```{r cache = TRUE}
 # target_b is obtained by evaluating a vector of b and picking those 
 # with expected effect 0 ~ 5
-target_b <- c(0.14, 0.19, 0.27, 0.38, 0.57, 0.91, 1.53, 2.9, 6.4, 17.9, 75)
+
+target_b <- c(0.17, 0.23, 0.32, 0.46, 0.67, 1.04, 1.7, 3, 6.3, 16.2, 61)
 
 # Calculate the effect size 
 es <- map_dbl(target_b, 
               ~log(heter_model(a = 1, 
                                b = .x, 
-                               x = rand_uniform(-1, 1))$
-                     effect_size(n = 100, type = "kl")
+                               x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))})$
+                     average_effect_size(n = 100, type = "kl")
                    )
               )
 ```
@@ -1450,6 +1452,8 @@ dat_poly_j %>%
 
 
 ## Effect of shape of heteroskedasticity
+
+(change the butterfly color)
 
 We have also investigated the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "Left-triangle" and the "Right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. Similarly, visual tests should have the smae power in detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "Left-triangle" shape is constantly higher than the one for the "Right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies. Besides, the chance of detecting the "Butterfly" shape by visual tests are slightly higher than other two shapes.
 
