@@ -499,29 +499,32 @@ obviate costly large-scale experiments to estimate complex covariance
 matrices. The model is a logistic regression formulated as
 
 \begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda(log(\frac{0.05}{0.95}) + \beta_1 E),
+Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
 \end{equation}
 
 \noindent where \(\Lambda(.)\) is the standard logistic function given
 as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size is the only
-regressor and the intercept is fixed to \(log(0.5/0.95)\) so that
+regressor and the intercept is fixed to \(log(0.05/0.95)\) so that
 \(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\).
 
-Effect size \(E\) is derived from the Kullback-Leibler divergence (see
-Appendix for the details) formulated as
+Effect size \(E\) is formulated as the conditional expectation of the
+sample-based effect size \(E_{sample}\) derived from the
+Kullback-Leibler divergence (see Appendix for the details) given by
 
 \small
 
 \begin{gather}  \label{eq:effect-size}
-E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V})^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V})^{-1}\boldsymbol{\mu}_z\right),\\
+E = E[E_{sample}|M],\\
+E_{sample} = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V})^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V})^{-1}\boldsymbol{\mu}_z\right),\\
 \boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a,\\
 \boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T,
 \end{gather}
 
 \normalsize
 
-\noindent where \(diag(.)\) is the diagonal matrix constructed from the
-diagonal elements of a matrix,
+\noindent where \(M\) is a given model that generates the data,
+\(diag(.)\) is the diagonal matrix constructed from the diagonal
+elements of a matrix,
 \(\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})\) is the matrix of
 regressors including the intercept used in the regression equation,
 \(\sigma^2\boldsymbol{I}\) is the assumed variance of the error term
@@ -529,8 +532,13 @@ when \(H_0\) is true, \(\boldsymbol{V}\) is the actual variance of the
 error term, and
 \(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
 is the expected values of the residuals with \(\boldsymbol{Z}\) be any
-variables leave out by the model and \(\boldsymbol{\beta}_z\) be the
-corresponding coefficients.
+variables leave out by the regression equation and
+\(\boldsymbol{\beta}_z\) be the corresponding coefficients. An
+expectation is taken because \(E_{sample}\) depends on the regressors
+\(X\) and we want the effect size \(E\) to be the same for the same data
+generating process. It is difficult to solve the effect size \(E\)
+analytically, so in the analysis, we estimate it with the average of
+\(E_{sample}\) over a very large sample size.
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
