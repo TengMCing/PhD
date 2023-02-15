@@ -532,12 +532,17 @@ equation and \(\boldsymbol{\beta}_z\) be the corresponding coefficients.
 
 A conditional expectation is taken because \(E\) is designed to be
 invariant to different realizations of \(\boldsymbol{X}\). However,
-solving this conditional expectation analytically is difficult as
-\(\boldsymbol{X}\) can follow almost any distribution. We make an
-assumption that \(\boldsymbol{X}\) follows a particular multivariate
-normal distribution, and repeatedly draw samples from the given model
-\(M\). The estimate of \(E\) is obtained by taking the average of the
-\(E_{sample}\) calculated for each sample.
+solving this conditional expectation analytically is very difficult as
+\(\boldsymbol{X}\) can follow arbitrary distributions. Therefore, we
+make an assumption that \(\boldsymbol{X}\) follows a particular
+multivariate normal distribution
+
+We make an assumption that all the realizations of \(\boldsymbol{X}\)
+are generated from a multivariate normal distribution
+\(N(\boldsymbol{0}, 0.3^2\boldsymbol{I})\) and then rescaled by the
+min-max normalization. The estimate of \(E\) is obtained by taking the
+average of the \(E_{sample}\) calculated for samples drawn from the
+given model \(M\) repeatedly.
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
