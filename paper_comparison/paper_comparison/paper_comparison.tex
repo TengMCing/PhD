@@ -542,7 +542,8 @@ are generated from a multivariate normal distribution
 \(N(\boldsymbol{0}, 0.3^2\boldsymbol{I})\) and then rescaled by the
 min-max normalization. The estimate of \(E\) is obtained by taking the
 average of the \(E_{sample}\) calculated for samples drawn from the
-given model \(M\) repeatedly.
+given model \(M\) repeatedly. We use the normal distribution as a
+general choice to approximate the conditional effect size.
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
@@ -966,10 +967,6 @@ it is a good choice for the set of auxiliary regressors in the
 Breusch-Pagan test be the same as the White test. Thus, we include both
 \(\boldsymbol{x}\) and \(\boldsymbol{x}^2\) in the auxiliary regression.
 
-To get an accurate estimate of the power of conventional tests, we
-simulate 200000 samples evenly from the models used in the human subject
-experiments, and record the \(p\)-values produced by every sample.
-
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower},
 but shows corresponding information on lineups produced by the
 heteroskedasticity model. In this scenario, the visual test is compared
@@ -977,18 +974,18 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 7\% to 63\% as \(log_e(E)\) increases from 0 to 2.5,
+aggressively from 7\% to 84\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is way more sensitive to the type of model
 defects that being considered. Meanwhile, no noticeable residual
-depatures can be spotted from the example residual plots.
+departures can be spotted from the example residual plots.
 
 In terms of heteroskedasticity patterns, the power of Breusch-Pagan test
-is also almost always greater than the power of visual test. For
-\(log_e(E)\) at around 2.5, where the power curve of the visual test
-remains at a low level, the Breusch-Pagan test still have a decent
-amount of chance of rejecting \(H_0\). Similarly, the visual feature is
-nearly unobservable from the example residual plots.
+is almost always greater than the power of visual test. For \(log_e(E)\)
+at around 2.5, where the power curve of the visual test remains at a low
+level, the Breusch-Pagan test has around 50\% chance of rejecting
+\(H_0\). Similarly, the visual feature is nearly unobservable from the
+example residual plots.
 
 The power of visual test arises steadily as \(log_e(E)\) increases from
 3 to 5 for both non-linearity patterns and heteroskedasticity patterns,
@@ -1097,7 +1094,7 @@ that may have resulted in the lack of detection.
 
 }
 
-\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 4.02$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
+\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 3.76$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
 \hypertarget{effect-of-shape-of-non-linearity}{%
@@ -1106,29 +1103,30 @@ non-linearity}\label{effect-of-shape-of-non-linearity}}
 
 A primary factor contributes to the non-linearity model is the shape of
 the non-linearity pattern. According to Figure
-\ref{fig:poly-power-uniform-j}, conventional tests have identical power
-in testing the ``U'', the ``S'' and the ``M'' shape. But it has
-significant lower power in testing the ``Triple-U'' shape. To understand
-why this is, one needs to return to the way the RESET test is applied.
-It requires a parameter indicating degree of fitted values to test for,
-and the recommendation is to generically use four
+\ref{fig:poly-power-uniform-j}, conventional tests have higher power in
+testing shapes constructed from lower orders of Hermite polynomials. But
+the power in testing the ``Triple-U'' shape drops significantly. To
+understand why this is, one needs to return to the way the RESET test is
+applied. It requires a parameter indicating degree of fitted values to
+test for, and the recommendation is to generically use four
 (\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape constructed
 from the Hermite polynomials use power up to 18. If the RESET test had
 been applied using a higher power no less than six, the power curve of
-``Triple-U'' shape will have little difference to other shapes. The
-recommendation of the polynomial power for the RESET should be revised,
-perhaps. This illustrates the sensitivity of conventional testing to the
-parameters, and it also points to a limitation that one needs to know
-the data generating process in order to set the parameters for the test.
+``Triple-U'' shape will only slight lower than the power curve of ``M''
+shape. The recommendation of the polynomial power for the RESET should
+be revised, perhaps. This illustrates the sensitivity of conventional
+testing to the parameters, and it also points to a limitation that one
+needs to know the data generating process in order to set the parameters
+for the test.
 
 For visual tests, based on the orders of the Hermite polynomials, we
 expect the ``U'' shape will be the easiest one to be detected by
 subjects followed by the ``S'', ``M'' and ``Triple-U'' shape. From
 Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power
 curves are mostly aligned with our expectation, except for the ``M''
-shape, which is as easy to be detected as the ``U'' shape. This implies
-the readability of the shape do not strictly follow the degree of the
-polynomials.
+shape, which is as easy to be detected as the ``S'' shape. This implies,
+unlike the conventional test, the readability of the shape do not
+strictly follow the degree of the polynomials.
 
 \begin{figure}
 
@@ -1143,22 +1141,20 @@ polynomials.
 \subsection{Effect of shape of
 heteroskedasticity}\label{effect-of-shape-of-heteroskedasticity}}
 
-(change the butterfly color)
-
 We have also investigated the impact of different heteroskedasticity
 shapes on power of conventional tests and visual tests. In theory, the
 ``Left-triangle'' and the ``Right-triangle'' shapes are functionally
 identical from the point of view of a Breusch-Pagan test. As shown in
 Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where
 little difference between the power curves can be perceived. Similarly,
-visual tests should have the smae power in detecting these two shapes if
+visual tests should have the same power in detecting these two shapes if
 they are equally likely to be identified. However, it can be observed
 from Figure \ref{fig:heter-power-uniform-a} that the power curve for the
-``Left-triangle'' shape is constantly higher than the one for the
+``Left-triangle'' shape is higher than the one for the
 ``Right-triangle'' shape, indicating a potential favour of orientation
 by human, which is worth to be explored in future studies. Besides, the
-chance of detecting the ``Butterfly'' shape by visual tests are slightly
-higher than other two shapes.
+chance of detecting the ``Butterfly'' shape by both conventional and
+visual tests are much higher than other two shapes.
 
 \begin{figure}
 
@@ -1190,31 +1186,35 @@ randomly sampled from the total eleven evaluations for each lineup with
 uniform fitted value distribution. The sampling process has been
 repeated 500 times to visualize the variation.
 
+For visual tests, the power curves for normal distribution and lognormal
+distribution are lower than other two distributions, which are all even.
+For non-linearity patterns, the power curve of normal distribution is
+slightly greater than the one for lognormal distribution. And the margin
+is even larger for heteroskedasticity patterns. This suggests skewness
+can affect the degree of presence of the visual pattern.
+
 For non-linearity patterns, we do not observe significant difference in
-power of visual test between distributions, except for the discrete
-uniform distribution. It could be due to the fact that humans have
-difficulties in recognising visual patterns from discreteness, which
-makes the shape disconnected and incomplete (ref?). In terms of
-conventional tests, the discrete uniform distribution is instead the one
-with the greatest power, followed by lognormal, uniform and the normal
-distribution.
+power of visual test between uniform distribution and discrete uniform
+distribution, but the normal distribution and the lognoraml distribution
+have lower power than the previous two. In terms of conventional tests,
+the discrete uniform distribution is the one with the greatest power,
+followed by lognormal, uniform and the normal distribution.
 
 For heteroskedasticity patterns, the power of visual test on lineups
 with uniform distribution has the greatest power. This is as expected
 since other three distributions could reduce the chance of revealing the
-underlying visual pattern because of uneven data points. Although the
-power of visual test under the discrete uniform distribution is the
-lowest in the case of non-linearity patterns, it has a relatively great
-power this time. Considering for heteroskedasticity, the visual patterns
-are usually detected by connecting the maximum and minimum residuals
+underlying visual pattern because of uneven data points. The power of
+visual test under the discrete uniform distribution has a relatively
+great. Considering for heteroskedasticity, the visual patterns are
+usually detected by connecting the maximum and minimum residuals
 separately at different fitted values. It will not be greatly affected
 by the discrete uniform distribution compared to the uniform
-distribution. Visual tests have low power on lineups with the normal
-distribution and the lognormal distribution. This suggests the use of
-transformation of fitted values in reading residual plots. In the case
-of conventional tests, the discrete uniform distribution consistently
-perform well, followed by uniform, normal and the lognormal
-distribution.
+distribution. Again, visual tests have low power on lineups with the
+normal distribution and the lognormal distribution. It indicates
+skewness and unevenness can reduce the detection rate of the visual
+pattern. In the case of conventional tests, the discrete uniform
+distribution consistently perform well, followed by uniform, normal and
+the lognormal distribution.
 
 In regards of the type of the simulation model, the power of visual
 tests under different fitted value distributions are substantially lower
@@ -1255,7 +1255,7 @@ which reinforces the statements from regression experts that residual
 plots are an indispensible method for model diagnostics.
 
 Now it is important to note that residual plots need to be delivered as
-a line up, where it is embedded in a field of null plots. This enables a
+a lineup, where it is embedded in a field of null plots. This enables a
 careful calibration for reading structure in residual plots. XXX More
 here
 
@@ -1275,9 +1275,9 @@ of departures from good residuals.
 
 As expected, if the fitted value distribution is not uniform, there is a
 loss of power in the visual test. Structure is hardest to detect if
-fitted values ar discrete. Also, a surprising find was that the
+fitted values are lognormal. Also, a surprising find was that the
 direction of heteroskedasticity appears to affect the ability to
-visually detect it, with wedge to the left being less detectable.
+visually detect it, with wedge to the right being less detectable.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
