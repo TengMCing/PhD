@@ -468,11 +468,6 @@ data generating mechanism, are required.
 \hypertarget{power-of-a-visual-test}{%
 \subsubsection{Power of a visual test}\label{power-of-a-visual-test}}
 
-(use uniform effect size? normal effect size? -\textgreater{} other
-dist?)
-
-(average out dist for effect size calc?)
-
 The power of a model misspecification test is the probability that the
 null hypothesis is rejected given the regression model is misspecified.
 It is an important indicator when one is concerned about whether model
@@ -503,7 +498,7 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \
 \end{equation}
 
 \noindent where \(\Lambda(.)\) is the standard logistic function given
-as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size is the only
+as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size \(E\) is the only
 regressor and the intercept is fixed to \(log(0.05/0.95)\) so that
 \(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\).
 
@@ -532,19 +527,23 @@ when \(H_0\) is true, \(\boldsymbol{V}\) is the actual variance of the
 error term, and
 \(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
 is the expected values of the residuals with \(\boldsymbol{Z}\) be any
-variables leave out by the regression equation and
-\(\boldsymbol{\beta}_z\) be the corresponding coefficients. A
-conditional expectation is taken because \(E_{sample}\) depends on the
-regressors \(\boldsymbol{X}\) and we want the effect size \(E\) to be
-the same for the same data generating process. It is difficult to solve
-the effect size \(E\) analytically, so we estimate it with the average
-of \(E_{sample}\) over a very large sample size.
+higher order terms of \(\boldsymbol{X}\) leave out by the regression
+equation and \(\boldsymbol{\beta}_z\) be the corresponding coefficients.
+
+A conditional expectation is taken because \(E\) is designed to be
+invariant to different realizations of \(\boldsymbol{X}\). However,
+solving this conditional expectation analytically is difficult as
+\(\boldsymbol{X}\) can follow almost any distribution. We make an
+assumption that \(\boldsymbol{X}\) follows a particular multivariate
+normal distribution, and repeatedly draw samples from the given model
+\(M\). The estimate of \(E\) is obtained by taking the average of the
+\(E_{sample}\) calculated for each sample.
 
 To study various factors contributing to the power of the visual test,
 the same logistic regression model is fit on different subsets of the
 collated data grouped by levels of factors. These include the
-distribution of the regressor and the type of the simulation model
-(modify this according to the result).
+distribution of the regressor, type of the simulation model and the
+shape of the residual departures.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
@@ -914,9 +913,9 @@ package.
 In the following analysis, lineups with uniform fitted values will be
 the focus. Visual patterns are more likely to be revealed under a
 uniform distribution. Additionally, we have collected extra evaluations
-on these lineups, which will result in more reliable analysis. Analysis
-of lineups with other fitted value distributions can be found in Section
-\ref{effect-of-fitted-value-distributions}.
+on these lineups, which will result in a more reliable analysis.
+Analysis of lineups with other fitted value distributions can be found
+in Section \ref{effect-of-fitted-value-distributions}.
 
 \hypertarget{power-comparison-of-different-tests}{%
 \subsection{Power comparison of different
@@ -941,15 +940,17 @@ of heteroskedasticity diagnostics, the R package \texttt{skedastic}
 \citep{skedastic} collects and implements 25 existing conventional tests
 published since 1961.
 
-To compare the power of visual test and conventional test, we pick RESET
-test (\texttt{resettest}) and Breusch-Pagan test (\texttt{bptest}) from
-the R package \texttt{lmtest}, and Shapiro-Wilk test
-(\texttt{shapiro.test}) from the built-in R package \texttt{stats}.
-Among them, RESET test is the only exact and appropriate test in this
-scenario. Both the Breusch-Pagan test and the Shapiro-Wilk test are
-approximate and inappropriate tests. Their estimated power is shown in
-Figure \ref{fig:polypower}. To set up the RESET test, we include
-different powers of fitted values as proxies. According to
+To compare the power of visual tests and conventional tests, we simulate
+200000 samples evenly from the models used in the human subject
+experiments, and record the conventional \(p\)-values produced from
+every sample. We pick RESET test (\texttt{resettest}) and Breusch-Pagan
+test (\texttt{bptest}) from the R package \texttt{lmtest}, and
+Shapiro-Wilk test (\texttt{shapiro.test}) from the built-in R package
+\texttt{stats}. Among them, RESET test is the only exact and appropriate
+test in this scenario. Both the Breusch-Pagan test and the Shapiro-Wilk
+test are approximate and inappropriate tests. Their estimated power is
+shown in Figure \ref{fig:polypower}. To set up the RESET test, we
+include different powers of fitted values as proxies. According to
 \citet{ramsey_tests_1969}, there are no general rules for the power of
 the fitted values needed by the RESET test, but it finds power up to
 four is usually sufficient. Thus, we follow this guideline to conduct
@@ -959,6 +960,10 @@ the auxiliary regression is left to the user
 it is a good choice for the set of auxiliary regressors in the
 Breusch-Pagan test be the same as the White test. Thus, we include both
 \(\boldsymbol{x}\) and \(\boldsymbol{x}^2\) in the auxiliary regression.
+
+To get an accurate estimate of the power of conventional tests, we
+simulate 200000 samples evenly from the models used in the human subject
+experiments, and record the \(p\)-values produced by every sample.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower},
 but shows corresponding information on lineups produced by the

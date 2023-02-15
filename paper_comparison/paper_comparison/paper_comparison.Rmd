@@ -501,10 +501,6 @@ With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated usin
 
 ### Power of a visual test
 
-(use uniform effect size? normal effect size? -> other dist?)
-
-(average out dist for effect size calc?)
-
 The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.
 
 As discussed in @majumder_validation_2013, the power of a visual test may depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup. Previously, it is addressed by modelling the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effects [@majumder_validation_2013]. However, in the multiple selections scenario, having this probability is not sufficient to determine the power of a visual test because it does not provide information about the number of selections made by the subject for the calculation of the p-value. 
@@ -517,7 +513,7 @@ Instead, we directly estimate the probability of a lineup being rejected by assu
 Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
 \end{equation}
 ```
-\noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size is the only regressor and the intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
+\noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size $E$ is the only regressor and the intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
 
 Effect size $E$ is formulated as the conditional expectation of the sample-based effect size $E_{sample}$ derived from the Kullback-Leibler divergence (see Appendix for the details) given by
 
@@ -532,9 +528,11 @@ E_{sample} = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V})|}{|
 
 \normalsize
 
-\noindent where $M$ is a given model that generates the data, $diag(.)$ is the diagonal matrix constructed from the diagonal elements of a matrix,  $\boldsymbol{X}_a = (\boldsymbol{1},  \boldsymbol{X})$ is the matrix of regressors including the intercept used in the regression equation, $\sigma^2\boldsymbol{I}$ is the assumed variance of the error term when $H_0$ is true, $\boldsymbol{V}$ is the actual variance of the error term, and $\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z$ is the expected values of the residuals with $\boldsymbol{Z}$ be any variables leave out by the regression equation and $\boldsymbol{\beta}_z$ be the corresponding coefficients. A conditional expectation is taken because $E_{sample}$ depends on the regressors $\boldsymbol{X}$ and we want the effect size $E$ to be the same for the same data generating process. It is difficult to solve the effect size $E$ analytically, so we estimate it with the average of $E_{sample}$ over a very large sample size.
+\noindent where $M$ is a given model that generates the data, $diag(.)$ is the diagonal matrix constructed from the diagonal elements of a matrix,  $\boldsymbol{X}_a = (\boldsymbol{1},  \boldsymbol{X})$ is the matrix of regressors including the intercept used in the regression equation, $\sigma^2\boldsymbol{I}$ is the assumed variance of the error term when $H_0$ is true, $\boldsymbol{V}$ is the actual variance of the error term, and $\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z$ is the expected values of the residuals with $\boldsymbol{Z}$ be any higher order terms of $\boldsymbol{X}$ leave out by the regression equation and $\boldsymbol{\beta}_z$ be the corresponding coefficients. 
 
-To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. These include the distribution of the regressor and the type of the simulation model (modify this according to the result).
+A conditional expectation is taken because $E$ is designed to be invariant to different realizations of $\boldsymbol{X}$. However, solving this conditional expectation analytically is difficult as $\boldsymbol{X}$ can follow almost any distribution. We make an assumption that $\boldsymbol{X}$ follows a particular multivariate normal distribution, and repeatedly draw samples from the given model $M$. The estimate of $E$ is obtained by taking the average of the $E_{sample}$ calculated for each sample.  
+
+To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. These include the distribution of the regressor, type of the simulation model and the shape of the residual departures.
 
 # Experimental design
 
