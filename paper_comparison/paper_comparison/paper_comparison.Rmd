@@ -93,7 +93,7 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
   {
     poly_conv_sim[[i]] <- 
       # Every sample contains 2000 lineups
-      map(1:2000, function(i) {
+      map(1:200, function(i) {
         
         # Sample a set of parameters
         shape <- sample(1:4, 1)
@@ -187,8 +187,6 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
 }
 ```
 
-
-
 ```{r heter-conventional-simulation}
 # Run simulations to get the behaviours of conventional tests
 if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
@@ -199,7 +197,7 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
   {
     heter_conv_sim[[i]] <-
       # Every sample contains 2000 lineups
-      map(1:2000, function(x) {
+      map(1:200, function(x) {
         
         # Sample a set of parameters
         a <- sample(c(-1, 0, 1), 1)
@@ -323,10 +321,6 @@ The persistence of this advice to check the plots is curious, and investigating 
 # Background
 
 ## Departures from good residual plots
-
-(change it to facet)
-
-(remove backticks for some plots)
 
 ```{r residual-plot-common-departures, fig.width = 10, fig.height = 2.5, fig.cap = "Example residual vs fitted value plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted value plot."}
 
@@ -455,50 +449,7 @@ Data used in the $m - 1$ null plots needs to be simulated. In regression diagnos
 
 In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Within the context of visual inference, by involving $k$ independent observers, the $p$-value can be interpreted as the probability of having as many or more subjects detect the data plot than the observed result.
 
-Let $X_j = \{0,1\}$ be a Bernoulli random variable denoting whether subject $j$ correctly detecting the data plot, and $X = \sum_{j=1}^{K}X_j$ be the number of observers correctly picking the data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the cumulative distribution function, $f(.)$ is the probability mass function and $x$ is the realization of number of observers correctly picking the data plot [@majumder_validation_2013].
-
-As pointed out by @vanderplas2021statistical, this basic binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. @vanderplas2021statistical summarises three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experiment design. For Scenario 3, @vanderplas2021statistical models the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. The number of times plot $i$ being selected in $K$ evaluations is denoted as $c_i$. In case subject $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensures $\sum_{i}c_i=K$. Since we are only interested in the selections of the data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual p-value is given as
-
-<!-- TODO:Clarify this is only for integer c_i -->
-
-```{=tex}
-\begin{equation} \label{eq:pvalue-beta-binomial}
-P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+
-\end{equation}
-```
-
-\noindent where $B(.)$ is the beta function defined as
-
-```{=tex}
-\begin{equation} \label{eq:betafunction}
-B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0. 
-\end{equation}
-```
-
-Note that Equation \ref{eq:pvalue-beta-binomial} given in @vanderplas2021statistical only works with non-negative integer $c_i$. We extend the equation to non-negative real number $c_i$ by applying a linear approximation
-
-```{=tex}
-\begin{equation} \label{eq:pvalue-beta-binomial-approx}
-P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+,
-\end{equation}
-```
-
-where $P(C \geq \lceil c_i \rceil)$ is calculated using Equation \ref{eq:pvalue-beta-binomial} and $P(C = \lfloor c_i \rfloor)$ is calculated by
-
-\begin{equation} \label{eq:pmf-beta-binomial}
-P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+.
-\end{equation}
-
-
-Besides, the parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} and \ref{eq:pmf-beta-binomial} is usually unknown and hence needs to be estimated from the survey data. For low values of $\alpha$, only a few plots are attractive to the observers and tend to be selected. For higher values of $\alpha$, the distribution of the probability of each plot being selected is more even. @vanderplas2021statistical defines that a plot is $c$-interesting if $c$ or more participants select the plot as the most different. Given the definition, The expected number of plots selected at least $c$ times, $E[Z_c]$, is calculated as
-
-```{=tex}
-\begin{equation} \label{eq:c-interesting-expectation}
-E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).\end{equation}
-```
-
-With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required.
-
+Let $X_j = \{0,1\}$ be a Bernoulli random variable denoting whether subject $j$ correctly detecting the data plot, and $X = \sum_{j=1}^{K}X_j$ be the number of observers correctly picking the data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the binomial cumulative distribution function, $f(.)$ is the binomial probability mass function and $x$ is the realization of number of observers correctly picking the data plot [@majumder_validation_2013].
 ### Power of a visual test
 
 The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.
@@ -886,6 +837,57 @@ Fitted values are a function of the independent variables, and the distribution 
 
 Three different sample sizes are used, $n=50, 100, 300$ across the experiments. We would expect considerable variation in the signal strength in the simulated data plots with smaller $n$. A sample size of 300 is typically enough for structure to be visible in a scatterplot reliably.
 
+## Methodology
+
+### Caluculation of effect size
+
+### Caluculation of p-value
+
+
+
+
+<!-- As pointed out by @vanderplas2021statistical, this basic binomial model doesn't take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup. And it is inapplicable to visual test where subjects are asked to select one or more "most different" plots from the lineup. @vanderplas2021statistical summarises three common scenarios in visual inference: (1) $K$ different lineups are shown to $K$ subjects, (2) $K$ lineups with different null plots but the same data plot are shown to $K$ subjects, and (3) the same lineup is shown to $K$ subjects. Out of these three scenarios, Scenario 3 is the most common in previous studies as it puts the least constraints on the experiment design. For Scenario 3, @vanderplas2021statistical models the probability of a plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim Dirichlet(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. The number of times plot $i$ being selected in $K$ evaluations is denoted as $c_i$. In case subject $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots subject $j$ selected for $j=1,...K$. This ensures $\sum_{i}c_i=K$. Since we are only interested in the selections of the data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual p-value is given as -->
+
+<!-- <!-- TODO:Clarify this is only for integer c_i --> -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:pvalue-beta-binomial} -->
+<!-- P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+ -->
+<!-- \end{equation} -->
+<!-- ``` -->
+
+<!-- \noindent where $B(.)$ is the beta function defined as -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:betafunction} -->
+<!-- B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.  -->
+<!-- \end{equation} -->
+<!-- ``` -->
+
+<!-- Note that Equation \ref{eq:pvalue-beta-binomial} given in @vanderplas2021statistical only works with non-negative integer $c_i$. We extend the equation to non-negative real number $c_i$ by applying a linear approximation -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:pvalue-beta-binomial-approx} -->
+<!-- P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+, -->
+<!-- \end{equation} -->
+<!-- ``` -->
+
+<!-- where $P(C \geq \lceil c_i \rceil)$ is calculated using Equation \ref{eq:pvalue-beta-binomial} and $P(C = \lfloor c_i \rfloor)$ is calculated by -->
+
+<!-- \begin{equation} \label{eq:pmf-beta-binomial} -->
+<!-- P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+. -->
+<!-- \end{equation} -->
+
+
+<!-- Besides, the parameter $\alpha$ used in Equation \ref{eq:pvalue-beta-binomial} and \ref{eq:pmf-beta-binomial} is usually unknown and hence needs to be estimated from the survey data. For low values of $\alpha$, only a few plots are attractive to the observers and tend to be selected. For higher values of $\alpha$, the distribution of the probability of each plot being selected is more even. @vanderplas2021statistical defines that a plot is $c$-interesting if $c$ or more participants select the plot as the most different. Given the definition, The expected number of plots selected at least $c$ times, $E[Z_c]$, is calculated as -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:c-interesting-expectation} -->
+<!-- E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).\end{equation} -->
+<!-- ``` -->
+
+<!-- With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required. -->
+### Caluculation of power
 
 ## Experimental setup
 
@@ -930,6 +932,13 @@ In the following analysis, lineups with uniform fitted values will be the focus.
 
 ```{r cache = TRUE}
 # Define the minimum and maximum effect size
+
+vi_survey <- vi_survey %>%
+  mutate(effect_size = sqrt(n) / (e_sigma * c(1,2,3,5)[shape]))
+
+poly_conv_sim <- poly_conv_sim %>%
+  mutate(effect_size = sqrt(n) / (e_sigma * c(1,2,3,5)[shape]))
+
 min_poly_es <- vi_survey %>% 
   filter(!null_lineup, 
          !attention_check,
@@ -1081,7 +1090,7 @@ p <- ggplot() +
   theme_light(base_size = 5) +
   theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  scale_size_manual(values = c(1, 2, 3)) +
+  # scale_size_manual(values = c(1, 2, 3)) +
   scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
