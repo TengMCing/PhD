@@ -445,47 +445,11 @@ The effectiveness of lineup protocol for regression analysis is validated by @ma
 
 Data used in the $m - 1$ null plots needs to be simulated. In regression diagnostics, sampling data consistent with $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually a composite hypothesis controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to a so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
-### Calculating $p$-values for the visual test
+### $p$-values of a visual test
 
 In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Within the context of visual inference, by involving $k$ independent observers, the $p$-value can be interpreted as the probability of having as many or more subjects detect the data plot than the observed result.
 
 Let $X_j = \{0,1\}$ be a Bernoulli random variable denoting whether subject $j$ correctly detecting the data plot, and $X = \sum_{j=1}^{K}X_j$ be the number of observers correctly picking the data plot. Then, by imposing a relatively strong assumption on the visual test that all $K$ evaluations are fully independent, under $H_0$, $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is given as $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the binomial cumulative distribution function, $f(.)$ is the binomial probability mass function and $x$ is the realization of number of observers correctly picking the data plot [@majumder_validation_2013].
-### Power of a visual test
-
-The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.
-
-As discussed in @majumder_validation_2013, the power of a visual test may depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup. Previously, it is addressed by modelling the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effects [@majumder_validation_2013]. However, in the multiple selections scenario, having this probability is not sufficient to determine the power of a visual test because it does not provide information about the number of selections made by the subject for the calculation of the p-value. 
-
-
-Instead, we directly estimate the probability of a lineup being rejected by assuming that individual skill has negligible effect on the variation of the power. The assumption is to simplify the model structure, thereby obviate costly large-scale experiments to estimate complex covariance matrices. The model is a logistic regression formulated as 
-
-```{=tex}
-\begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
-\end{equation}
-```
-\noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size $E$ is the only regressor and the intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
-
-Effect size $E$ is formulated as the conditional expectation of the sample-based effect size $E_{sample}$ derived from the Kullback-Leibler divergence (see Appendix for the details) given by
-
-\footnotesize
-
-\begin{gather}  \label{eq:effect-size}
-E = E[E_{sample}|M],\\
-E_{sample} = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right),\\
-\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a,\\
-\boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T,
-\end{gather}
-
-\normalsize
-
-\noindent where $M$ is a given model that generates the data, $diag(.)$ is the diagonal matrix constructed from the diagonal elements of a matrix,  $\boldsymbol{X}_a = (\boldsymbol{1},  \boldsymbol{X})$ is the matrix of regressors including the intercept used in the regression equation, $\sigma^2\boldsymbol{I}$ is the assumed variance of the error term when $H_0$ is true, $\boldsymbol{V}$ is the actual variance of the error term, and $\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z$ is the expected values of the residuals with $\boldsymbol{Z}$ be any higher order terms of $\boldsymbol{X}$ leave out by the regression equation and $\boldsymbol{\beta}_z$ be the corresponding coefficients. 
-
-A conditional expectation is taken because $E$ is designed to be invariant to different realizations of $\boldsymbol{X}$. However, solving this conditional expectation analytically is very difficult as $\boldsymbol{X}$ can follow arbitrary distributions. Therefore, we make an assumption that $\boldsymbol{X}$ follows a particular multivariate normal distribution
-
-We make an assumption that all the realizations of $\boldsymbol{X}$ are generated from a multivariate normal distribution $N(\boldsymbol{0}, 0.3^2\boldsymbol{I})$ and then rescaled by the min-max normalization. The estimate of $E$ is obtained by taking the average of the $E_{sample}$ calculated for samples drawn from the given model $M$ repeatedly. We use the normal distribution as a general choice to approximate the conditional effect size.
-
-To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. These include the distribution of the regressor, type of the simulation model and the shape of the residual departures.
 
 # Experimental design
 
@@ -887,7 +851,46 @@ Three different sample sizes are used, $n=50, 100, 300$ across the experiments. 
 <!-- ``` -->
 
 <!-- With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required. -->
+
 ### Caluculation of power
+
+
+### Power of a visual test
+
+<!-- The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance. -->
+
+<!-- As discussed in @majumder_validation_2013, the power of a visual test may depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup. Previously, it is addressed by modelling the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effects [@majumder_validation_2013]. However, in the multiple selections scenario, having this probability is not sufficient to determine the power of a visual test because it does not provide information about the number of selections made by the subject for the calculation of the p-value.  -->
+
+
+<!-- Instead, we directly estimate the probability of a lineup being rejected by assuming that individual skill has negligible effect on the variation of the power. The assumption is to simplify the model structure, thereby obviate costly large-scale experiments to estimate complex covariance matrices. The model is a logistic regression formulated as  -->
+
+<!-- ```{=tex} -->
+<!-- \begin{equation} \label{eq:logistic-regression-1-1} -->
+<!-- Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right), -->
+<!-- \end{equation} -->
+<!-- ``` -->
+<!-- \noindent where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. The effect size $E$ is the only regressor and the intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$. -->
+
+<!-- Effect size $E$ is formulated as the conditional expectation of the sample-based effect size $E_{sample}$ derived from the Kullback-Leibler divergence (see Appendix for the details) given by -->
+
+<!-- \footnotesize -->
+
+<!-- \begin{gather}  \label{eq:effect-size} -->
+<!-- E = E[E_{sample}|M],\\ -->
+<!-- E_{sample} = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right),\\ -->
+<!-- \boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a,\\ -->
+<!-- \boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a^T\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a^T, -->
+<!-- \end{gather} -->
+
+<!-- \normalsize -->
+
+<!-- \noindent where $M$ is a given model that generates the data, $diag(.)$ is the diagonal matrix constructed from the diagonal elements of a matrix,  $\boldsymbol{X}_a = (\boldsymbol{1},  \boldsymbol{X})$ is the matrix of regressors including the intercept used in the regression equation, $\sigma^2\boldsymbol{I}$ is the assumed variance of the error term when $H_0$ is true, $\boldsymbol{V}$ is the actual variance of the error term, and $\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z$ is the expected values of the residuals with $\boldsymbol{Z}$ be any higher order terms of $\boldsymbol{X}$ leave out by the regression equation and $\boldsymbol{\beta}_z$ be the corresponding coefficients.  -->
+
+<!-- A conditional expectation is taken because $E$ is designed to be invariant to different realizations of $\boldsymbol{X}$. However, solving this conditional expectation analytically is very difficult as $\boldsymbol{X}$ can follow arbitrary distributions. Therefore, we make an assumption that $\boldsymbol{X}$ follows a particular multivariate normal distribution -->
+
+<!-- We make an assumption that all the realizations of $\boldsymbol{X}$ are generated from a multivariate normal distribution $N(\boldsymbol{0}, 0.3^2\boldsymbol{I})$ and then rescaled by the min-max normalization. The estimate of $E$ is obtained by taking the average of the $E_{sample}$ calculated for samples drawn from the given model $M$ repeatedly. We use the normal distribution as a general choice to approximate the conditional effect size. -->
+
+<!-- To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. These include the distribution of the regressor, type of the simulation model and the shape of the residual departures. -->
 
 ## Experimental setup
 
