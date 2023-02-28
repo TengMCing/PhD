@@ -306,7 +306,7 @@ Title
 
 > *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@box1976science]
 
-Diagnosing a model is the key to determining whether there is anything importantly wrong. In linear regression analysis, residuals are typically examined for model diagnostics. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. 
+Diagnostics are the key to determining whether there is anything importantly wrong with a model. In linear regression analysis, residuals from the model fit are commonly used. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong. 
 
 We can assess residuals in multiple ways. Residuals might be plotted, as a histogram or quantile-quantile plot to examine the distribution. Using the classical normal linear regression model as an example, if the distribution is symmetric and unimodal, we consider it well-behaved. But if the distribution is skewed, bimodal, multimodal, or contains outliers, there is cause for concern. One could also inspect the distribution by conducting a goodness of fit test, such as the Shapiro-Wilk Normality test [@shapiro1965analysis].
 
