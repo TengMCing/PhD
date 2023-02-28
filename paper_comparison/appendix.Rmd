@@ -11,6 +11,8 @@ library(visage)
 
 # Appendix
 
+## Estimation of power in the multiple selections scenario
+
 ## Effect size derivation
 
 (discuss what happens if we switch to different effect size)
