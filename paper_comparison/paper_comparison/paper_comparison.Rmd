@@ -123,21 +123,12 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
         # Generate data from the model 
         tmp_dat <- mod$gen(n)
         
-        # Get the effect size from the pre-calculated table 
-        es <- filter(vi_survey, 
-                     shape == {{shape}},
-                     e_sigma == {{e_sigma}},
-                     n == {{n}}) %>%
-          head(1) %>%
-          pull(effect_size)
-        
         # Return a data frame containing p-values of
         # F, RESET, BP and SW tests
         tibble(shape = shape,
                e_sigma = e_sigma,
                x_dist = x_dist,
                n = n,
-               effect_size = es,
                F_p_value = mod$test(tmp_dat)$p_value,
                RESET3_p_value = mod$test(tmp_dat, 
                                          test = "RESET", 
@@ -227,21 +218,12 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
         # Generate data from the model 
         tmp_dat <- mod$gen(n)
         
-        # Get the effect size from the pre-calculated table 
-        es <- filter(vi_survey, 
-                     a == {{a}}, 
-                     b == {{b}},
-                     n == {{n}}) %>%
-          head(1) %>%
-          pull(effect_size)
-        
         # Return a data frame containing p-values of
         # F, RESET, BP and SW tests
         tibble(a = a,
                b = b,
                x_dist = x_dist,
                n = n,
-               effect_size = es,
                F_p_value = POLY_MODEL$test(
                  
                  # Create a pseudo z to be able to use F-test
@@ -297,6 +279,22 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
   heter_conv_sim <- readRDS(here::here("data/heter_conventional_simulation.rds"))
 }
 ```
+
+```{r}
+# rewrite effect size here (if needed)
+
+```
+
+
+```{r}
+# Borrow effect size from the survey
+poly_conv_sim <- poly_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "polynomial"), shape, e_sigma, n, x_dist, effect_size))
+
+heter_conv_sim <- heter_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "heteroskedasticity"), a, b, n, x_dist, effect_size))
+```
+
 
 Title 
 (jokes: finding the pattern in residual tests) 
@@ -1541,7 +1539,7 @@ dat_uniform_5 <- map_df(1:500, function(boot_id) {
 ```
 
 
-```{r different-x-dist-poly-power, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests.", dev = 'png', dpi = 450}
+```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests.", dev = 'png', dpi = 450}
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
