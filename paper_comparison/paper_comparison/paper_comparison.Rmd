@@ -439,17 +439,9 @@ Data used in the $m - 1$ null plots needs to be simulated. In regression diagnos
 
 The effectiveness of lineup protocol for regression analysis is validated by @majumder_validation_2013 under relatively simple settings with up to two regressors. Their results suggest that visual tests are capable of testing the significance of a single regressor with a similar power as a t-test, though they express that in general it is unnecessary to use visual inference if there exists a conventional test, and they do not expect the visual test to perform equally well as the conventional test. (contradict to our claim? expand?) In their third experiment, where there is not a conventional test, visual test outperforms the conventional test for a large margin. This is encouraging, as it promotes the use of visual inference in situations where there are no existing statistical testing procedures. Visual inference have also been integrated into diagnostic of hierarchical linear models by @loy2013diagnostic, @loy2014hlmdiag and @loy2015you. They use lineup protocols to judge the assumption of linearity, normality and constant error variance for both the level-1 and level-2 residuals. (expand?)
 
-# Caluculation of p-value, effect size and power
+# Caculation of p-value and power
 
-Visual inference is 
-
-
-To be able to properly compare conventional tests to visual tests, we need to define the effect size of the residual departure, the power of the tests under a certain level of effect size,     
-
-### Caluculation of effect size
-
-
-### Caluculation of p-value
+## $p$-value
 
 In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Within the context of visual inference, by involving $k$ independent observers, the $p$-value can be interpreted as the probability of having as many or more subjects detect the data plot than the observed result.
 
@@ -498,7 +490,7 @@ Let $X_j = \{0,1\}$ be a Bernoulli random variable denoting whether subject $j$ 
 
 <!-- With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required. -->
 
-### Caluculation of power
+## Power
 
 <!-- The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified. It is an important indicator when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance. -->
 
@@ -534,6 +526,8 @@ Let $X_j = \{0,1\}$ be a Bernoulli random variable denoting whether subject $j$ 
 <!-- We make an assumption that all the realizations of $\boldsymbol{X}$ are generated from a multivariate normal distribution $N(\boldsymbol{0}, 0.3^2\boldsymbol{I})$ and then rescaled by the min-max normalization. The estimate of $E$ is obtained by taking the average of the $E_{sample}$ calculated for samples drawn from the given model $M$ repeatedly. We use the normal distribution as a general choice to approximate the conditional effect size. -->
 
 <!-- To study various factors contributing to the power of the visual test, the same logistic regression model is fit on different subsets of the collated data grouped by levels of factors. These include the distribution of the regressor, type of the simulation model and the shape of the residual departures. -->
+
+
 
 # Experimental design
 
@@ -877,6 +871,8 @@ VI_MODEL$plot_lineup(vi_lineup$heter_471$data,
 
 An example lineup of this model used in data collection period II is shown in Figure \ref{fig:example-heter-lineup} with $a = -1$ and $X_{raw} \sim U(-1, 1)$. The data plot location is $2^4 + 2$. Nine out of 11 subjects correctly identify the data plot from this lineup. 
 
+
+
 ### Factors common to both data collection periods
 
 Fitted values are a function of the independent variables, and the distribution of the observed values affects the distribution of the fitted values. In the best case scenario the fitted values will have a uniform distribution, which means that there is even coverage of possible observed values across all of the predictors. This is not always present in the collected data. Sometimes the fitted values are discrete because one or more predictors were measured discretely. The distribution may be relatively Gaussian, reflecting a linear combinatio of many predictors, adhering to the Central Limit Theorem. It is also common to see a skewed distribution of fitted values, if one or more of the predictors has a skewed distribution. This latter problem is usually corrected before modeling using a variable transformation. Our simulation asesses this by using four different distributions to represent the fitted values ($X_{raw}$): (1) $U(-1, 1)$, (2) $N(0, 0.3^2)$, (3) $lognormal(0, 0.6^2)/3$ and (4) $u\{1, 5\}$. We would expect that the best reading of residual plots occurs when the fitted values are uniformly distributed.
@@ -884,6 +880,8 @@ Fitted values are a function of the independent variables, and the distribution 
 <!--Different distributions of fitted values help enriching the pool of visual patterns as illustrated in Figure \ref{fig:different-dist}. The uniform and the normal distribution are symmetric and commonly assumed in statistical models. The adjusted log-normal distribution provides skewed density, while the discrete uniform distribution provides discreteness in residual plot.-->
 
 Three different sample sizes are used, $n=50, 100, 300$ across the experiments. We would expect considerable variation in the signal strength in the simulated data plots with smaller $n$. A sample size of 300 is typically enough for structure to be visible in a scatterplot reliably.
+
+## Effect size
 
 ## Experimental setup
 
