@@ -1079,7 +1079,7 @@ p <- ggplot() +
   theme_light(base_size = 5) +
   theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  scale_x_continuous(breaks = seq(0, 3, 0.5), minor_breaks = NULL) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", size = "# lineups")
@@ -1090,21 +1090,20 @@ p <- ggplot() +
 # target_sigma is obtained by evaluating a vector of sigma and picking those 
 # with expected effect 0 ~ 5
 
-target_sigma <- c(5, 3.03, 1.84, 1.12, 0.68, 0.41, 0.25)
+target_sigma <- c(3.65, 2.84, 2.21, 1.72, 1.34, 1.04, 0.81, 0.63, 0.49, 0.38, 0.3)
 
 # Calculate the effect size 
 es <- map_dbl(target_sigma, 
-              function(.x){
-                mod <- poly_model(shape = 2, 
+              ~log(poly_model(shape = 2, 
                               x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, 
-                              sigma = .x)
-                log(mod$sample_effect_size(mod$gen(100), type = "simple"))
-                }
+                              sigma = .x)$
+                     average_effect_size(n = 100, type = "kl")
+                   )
               )
 ```
 
 
-```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 1.5, but for the visual test it is around 2.", dev = 'png', dpi = 450}
+```{r polypower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2.5, but for the visual test it is around 3.5.", dev = 'png', dpi = 450}
 
 # 106
 # 112
@@ -1141,9 +1140,9 @@ plist[[j]] <- poly_model(shape = 2,
 }
 
 # Use area() to design layout
-map(1:7, ~patchwork::area(21, .x, 22, .x)) %>%
+map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
   reduce(c) %>%
-  c(patchwork::area(3, 1, 20, 7), .) %>%
+  c(patchwork::area(3, 1, 20, 11), .) %>%
   patchwork::wrap_plots(append(plist, list(p), after = 0), 
                         design = .)
 ```
@@ -1211,7 +1210,7 @@ visual_heter_glmmod <- glm(reject ~ effect_size - 1,
                            offset = offset0)
 
 # The prediction of the visual test
-pred_visual_heter <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
+pred_visual_heter <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
                                 offset0 = log(0.05/0.95)) %>%
   mutate(power = predict(visual_heter_glmmod, 
                          type = "response",
@@ -1229,7 +1228,7 @@ pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
                           data = .x,
                           offset = offset0))) %>%
     mutate(power = map(mod, function(mod) {
-      result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
+      result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
                            offset0 = log(0.05/0.95))
       result$power <- predict(mod, type = "response", newdata = result)
       result
@@ -1274,7 +1273,7 @@ p <- ggplot() +
   theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
   # scale_size_manual(values = seq(1, 9)) +
-  scale_x_continuous(breaks = seq(1, 7, 1), minor_breaks = NULL) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", size = "# lineups")
@@ -1285,20 +1284,19 @@ p <- ggplot() +
 # target_b is obtained by evaluating a vector of b and picking those 
 # with expected effect 0 ~ 5
 
-target_b <- c(0.27, 0.74, 2.01, 5.46, 14.84, 40.34, 109.66)
+target_b <- c(0.17, 0.23, 0.32, 0.46, 0.67, 1.04, 1.7, 3, 6.3, 16.2, 61)
 
 # Calculate the effect size 
 es <- map_dbl(target_b, 
-              function(.x){
-                mod <- heter_model(a = 0, 
-                                   b = .x, 
-                                   x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))})
-                log(mod$sample_effect_size(mod$gen(100), type = "simple"))
-                }
+              ~log(heter_model(a = 1, 
+                               b = .x, 
+                               x = {raw_x <- rand_normal(sigma = 0.3);closed_form(~stand_dist(raw_x))})$
+                     average_effect_size(n = 100, type = "kl")
+                   )
               )
 ```
   
-```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 3, but for the visual test it is around 5.", dev = 'png', dpi = 450}
+```{r heterpower, fig.height = 3, fig.width = 5, fig.cap = "Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5.", dev = 'png', dpi = 450}
 
 # 10091
 # 101
@@ -1307,7 +1305,7 @@ es <- map_dbl(target_b,
 # 112
 # 119
 # 133
-set.seed(112)
+set.seed(135)
 
 # Base data
 ex_dat <- heter_model(a = 1, 
@@ -1331,9 +1329,9 @@ for (i in target_b) {
 }
 
 # Use area() to design layout
-map(1:7, ~patchwork::area(21, .x, 22, .x)) %>%
+map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
   reduce(c) %>%
-  c(patchwork::area(3, 1, 20, 7), .) %>%
+  c(patchwork::area(3, 1, 20, 11), .) %>%
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = .)
 ```  
@@ -1482,7 +1480,7 @@ dat_heter_a %>%
                         data = .x,
                         offset = offset0))) %>%
   mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
+    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
                          offset0 = log(0.05/0.95))
     result$power <- predict(mod, type = "response", newdata = result)
     result
