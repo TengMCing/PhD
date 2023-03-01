@@ -1051,13 +1051,9 @@ Overall, the power comparison suggests that conventional tests differs significa
 # Analyse uniform polynomial data
 p <- ggplot() +
   
-  # Group the data by effect and reject to draw points
-  geom_point(data = visual_poly_dat %>%
-               mutate(log_effect_size = log(effect_size)) %>%
-               group_by(log_effect_size, reject) %>% 
-               summarise(num_response = n()),
-             aes(log_effect_size, reject, size = num_response), 
-             alpha = 0.3) +
+  geom_point(data = visual_poly_dat,
+             aes(log(effect_size), reject),
+             alpha = 0.15) +
   
   # Draw conventional test power curve
   geom_line(data = pred_conv_poly,
@@ -1244,13 +1240,9 @@ pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
 # Analyse uniform heteroskedasticity data
 p <- ggplot() +
   
-  # Group the data by effect and reject to draw points
-  geom_point(data = visual_heter_dat %>%
-               mutate(log_effect_size = log(effect_size)) %>%
-               group_by(log_effect_size, reject) %>% 
-               summarise(num_response = n()),
-             aes(log_effect_size, reject, size = num_response), 
-             alpha = 0.3) +
+  geom_point(data = visual_heter_dat,
+             aes(log(effect_size), reject),
+             alpha = 0.15) +
   
   # Draw conventional test power curve
   geom_line(data = pred_conv_heter,
