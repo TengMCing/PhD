@@ -367,12 +367,30 @@ linear models by \citet{loy2013diagnostic}, \citet{loy2014hlmdiag} and
 linearity, normality and constant error variance for both the level-1
 and level-2 residuals. (expand?)
 
-\hypertarget{estimation-of-p-value-and-power}{%
-\section{Estimation of p-value and
-power}\label{estimation-of-p-value-and-power}}
+\hypertarget{calculation-of-p-value-and-power}{%
+\section{\texorpdfstring{Calculation of \(p\)-value and
+power}{Calculation of p-value and power}}\label{calculation-of-p-value-and-power}}
+
+\hypertarget{hypotheses}{%
+\subsection{Hypotheses}\label{hypotheses}}
+
+A paragraph on what hypothesis(es) are being tested.
+
+Generally, by looking at the residuals we are concerned with
+
+\(H_o:\) The model specification is correct
+
+against a broad alternative that something is missing:
+
+\(H_a:\) The model specification is not correct
+
+The conventional tests are only equipped to measure specific departures,
+and thus have a more specific hypotheses being tested:
+
+XXX
 
 \hypertarget{p-value}{%
-\subsection{p-value}\label{p-value}}
+\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
 
 In hypothesis testing, a \(p\)-value is defined as the probability of
 observing test results as least as extreme as the observed result given
@@ -1095,30 +1113,30 @@ non-linearity}\label{effect-of-shape-of-non-linearity}}
 
 A primary factor contributes to the non-linearity model is the shape of
 the non-linearity pattern. According to Figure
-\ref{fig:poly-power-uniform-j}, conventional tests have higher power in
-testing shapes constructed from lower orders of Hermite polynomials. But
-the power in testing the ``Triple-U'' shape drops significantly. To
-understand why this is, one needs to return to the way the RESET test is
-applied. It requires a parameter indicating degree of fitted values to
-test for, and the recommendation is to generically use four
-(\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape constructed
-from the Hermite polynomials use power up to 18. If the RESET test had
-been applied using a higher power no less than six, the power curve of
-``Triple-U'' shape will only slight lower than the power curve of ``M''
-shape. The recommendation of the polynomial power for the RESET should
-be revised, perhaps. This illustrates the sensitivity of conventional
-testing to the parameters, and it also points to a limitation that one
-needs to know the data generating process in order to set the parameters
-for the test.
+\ref{fig:poly-power-uniform-j}, conventional tests have roughly the same
+power in testing shapes constructed from low orders of Hermite
+polynomials. But the power in testing the ``Triple-U'' shape drops
+significantly. To understand why this is, one needs to return to the way
+the RESET test is applied. It requires a parameter indicating degree of
+fitted values to test for, and the recommendation is to generically use
+four (\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape
+constructed from the Hermite polynomials use power up to 18. If the
+RESET test had been applied using a higher power no less than six, the
+power curve of ``Triple-U'' shape will only slight lower than the power
+curve of ``M'' shape. The recommendation of the polynomial power for the
+RESET should be revised, perhaps. This illustrates the sensitivity of
+conventional testing to the parameters, and it also points to a
+limitation that one needs to know the data generating process in order
+to set the parameters for the test.
 
 For visual tests, based on the orders of the Hermite polynomials, we
 expect the ``U'' shape will be the easiest one to be detected by
 subjects followed by the ``S'', ``M'' and ``Triple-U'' shape. From
 Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power
 curves are mostly aligned with our expectation, except for the ``M''
-shape, which is as easy to be detected as the ``S'' shape. This implies,
-unlike the conventional test, the readability of the shape do not
-strictly follow the degree of the polynomials.
+shape, which is the easiest shape to be detected. This implies the
+visibility of the shape do not strictly follow the degree of the
+polynomials.
 
 \begin{figure}
 

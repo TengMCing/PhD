@@ -439,9 +439,25 @@ Data used in the $m - 1$ null plots needs to be simulated. In regression diagnos
 
 The effectiveness of lineup protocol for regression analysis is validated by @majumder_validation_2013 under relatively simple settings with up to two regressors. Their results suggest that visual tests are capable of testing the significance of a single regressor with a similar power as a t-test, though they express that in general it is unnecessary to use visual inference if there exists a conventional test, and they do not expect the visual test to perform equally well as the conventional test. (contradict to our claim? expand?) In their third experiment, where there is not a conventional test, visual test outperforms the conventional test for a large margin. This is encouraging, as it promotes the use of visual inference in situations where there are no existing statistical testing procedures. Visual inference have also been integrated into diagnostic of hierarchical linear models by @loy2013diagnostic, @loy2014hlmdiag and @loy2015you. They use lineup protocols to judge the assumption of linearity, normality and constant error variance for both the level-1 and level-2 residuals. (expand?)
 
-# Estimation of p-value and power
+# Calculation of $p$-value and power
 
-## p-value
+## Hypotheses
+
+A paragraph on what hypothesis(es) are being tested.
+
+Generally, by looking at the residuals we are concerned with 
+
+$H_o:$ The model specification is correct
+
+against a broad alternative that something is missing:
+
+$H_a:$ The model specification is not correct
+
+The conventional tests are only equipped to measure specific departures, and thus have a more specific hypotheses being tested:
+
+XXX
+
+## $p$-value
 
 In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Conventional hypothesis tests usually have an existing method to derive or compute $p$-value based on the null distribution. What we need to discuss in the following is the method to estimate $p$-value for a visual test.
 
