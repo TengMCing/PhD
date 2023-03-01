@@ -367,19 +367,24 @@ linear models by \citet{loy2013diagnostic}, \citet{loy2014hlmdiag} and
 linearity, normality and constant error variance for both the level-1
 and level-2 residuals. (expand?)
 
-\hypertarget{caculation-of-p-value-and-power}{%
-\section{Caculation of p-value and
-power}\label{caculation-of-p-value-and-power}}
+\hypertarget{estimation-of-p-value-and-power}{%
+\section{Estimation of p-value and
+power}\label{estimation-of-p-value-and-power}}
 
 \hypertarget{p-value}{%
-\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
+\subsection{p-value}\label{p-value}}
 
 In hypothesis testing, a \(p\)-value is defined as the probability of
 observing test results as least as extreme as the observed result given
-\(H_0\) is true. Within the context of visual inference, by involving
-\(k\) independent observers, the \(p\)-value can be interpreted as the
-probability of having as many or more subjects detect the data plot than
-the observed result.
+\(H_0\) is true. Conventional hypothesis tests usually have an existing
+method to derive or compute \(p\)-value based on the null distribution.
+What we need to discuss in the following is the method to estimate
+\(p\)-value for a visual test.
+
+Within the context of visual inference, by involving \(k\) independent
+observers, the visual \(p\)-value can be interpreted as the probability
+of having as many or more subjects detect the data plot than the
+observed result.
 
 Let \(X_j = \{0,1\}\) be a Bernoulli random variable denoting whether
 subject \(j\) correctly detecting the data plot, and
@@ -393,10 +398,147 @@ cumulative distribution function, \(f(.)\) is the binomial probability
 mass function and \(x\) is the realization of number of observers
 correctly picking the data plot \citep{majumder_validation_2013}.
 
---\textgreater{}
+As pointed out by \citet{vanderplas2021statistical}, this basic binomial
+model doesn't take into account the possible dependencies in the visual
+test due to repeated evaluations of the same lineup. And it is
+inapplicable to visual test where subjects are asked to select one or
+more ``most different'' plots from the lineup.
+\citet{vanderplas2021statistical} summarises three common scenarios in
+visual inference: (1) \(K\) different lineups are shown to \(K\)
+subjects, (2) \(K\) lineups with different null plots but the same data
+plot are shown to \(K\) subjects, and (3) the same lineup is shown to
+\(K\) subjects. Out of these three scenarios, Scenario 3 is the most
+common in previous studies as it puts the least constraints on the
+experiment design. For Scenario 3, \citet{vanderplas2021statistical}
+models the probability of a plot \(i\) being selected from a lineup as
+\(\theta_i\), where \(\theta_i \sim Dirichlet(\alpha)\) for
+\(i=1,...,m\) and \(\alpha > 0\). The number of times plot \(i\) being
+selected in \(K\) evaluations is denoted as \(c_i\). In case subject
+\(j\) makes multiple selections, \(1/s_j\) will be added to \(c_i\)
+instead of one, where \(s_j\) is the number of plots subject \(j\)
+selected for \(j=1,...K\). This ensures \(\sum_{i}c_i=K\). Since we are
+only interested in the selections of the data plot \(i\), the marginal
+model can be simplified to a beta-binomial model and thus the visual
+p-value is given as
+
+\begin{equation} \label{eq:pvalue-beta-binomial}
+P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+
+\end{equation}
+
+\noindent where \(B(.)\) is the beta function defined as
+
+\begin{equation} \label{eq:betafunction}
+B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.
+\end{equation}
+
+Note that Equation \ref{eq:pvalue-beta-binomial} given in
+\citet{vanderplas2021statistical} only works with non-negative integer
+\(c_i\). We extend the equation to non-negative real number \(c_i\) by
+applying a linear approximation
+
+\begin{equation} \label{eq:pvalue-beta-binomial-approx}
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+,
+\end{equation}
+
+where \(P(C \geq \lceil c_i \rceil)\) is calculated using Equation
+\ref{eq:pvalue-beta-binomial} and \(P(C = \lfloor c_i \rfloor)\) is
+calculated by
+
+\begin{equation} \label{eq:pmf-beta-binomial}
+P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+.
+\end{equation}
+
+Besides, the parameter \(\alpha\) used in Equation
+\ref{eq:pvalue-beta-binomial} and \ref{eq:pmf-beta-binomial} is usually
+unknown and hence needs to be estimated from the survey data. For low
+values of \(\alpha\), only a few plots are attractive to the observers
+and tend to be selected. For higher values of \(\alpha\), the
+distribution of the probability of each plot being selected is more
+even. \citet{vanderplas2021statistical} defines that a plot is
+\(c\)-interesting if \(c\) or more participants select the plot as the
+most different. Given the definition, The expected number of plots
+selected at least \(c\) times, \(E[Z_c]\), is calculated as
+
+\begin{equation} \label{eq:c-interesting-expectation}
+E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).\end{equation}
+
+With Equation \ref{eq:c-interesting-expectation}, \(\alpha\) can be
+estimated using maximum likelihood estimation. But for precise estimate
+of \(\alpha\), additional human responses to Rorschach lineups, which is
+a type of lineup that consists of plots constructed from the same null
+data generating mechanism, are required.
 
 \hypertarget{power}{%
 \subsection{Power}\label{power}}
+
+The power of a model misspecification test is the probability that the
+null hypothesis is rejected given the regression model is misspecified
+in a specific way. It is an important indicator when one is concerned
+about whether model assumptions have been violated. Although in
+practice, one might be more interested in knowing how much the residuals
+deviate from the model assumptions, and whether this deviation is of
+practical significance.
+
+The power of a conventional hypothesis test is affected by both the true
+parameter \(\boldsymbol{\theta}\) and the sample size \(n\). These two
+can be quantified in terms of effect size \(E\) to measure the strength
+of the residual departures from the model assumptions. Details about the
+effect size is provided in Section \ref{effect-size} after the
+introduction of the simulation model used in our human subject
+experiment. The theoretical power of a test is sometimes not a trival
+solution. For a given regression model under a specific effect size, if
+the data generating process is also known, the power of a conventional
+test can be estimated by counting the number of times the test rejects
+the null hypothesis in a repeated sampling exercise and divided by the
+number of times simulated from the known data generating process. This
+is the method we used to estimate the power of conventional tests in our
+experiment.
+
+The power of a visual test on the other hand, may additionally depend on
+the ability of the particular subject, as the skill of the individual
+may affect the number of observers who identify the data plot from the
+lineup \citep{majumder_validation_2013}. To address this issue,
+\citet{majumder_validation_2013} models the probability of a subject
+\(j\) correctly picking the data plot from a lineup \(l\) using a
+mixed-effect logistic regression, with subjects treated as random
+effect. Then, the estimated power of a visual test evaluated by a single
+subject is the predicted value obtained from the mix-effect model.
+
+However, this mix-effect model does not work with scenario where
+subjects are asked to select one or more ``most different'' plots. In
+this scenario, having the probability of a subject \(j\) correctly
+picking the data plot from a lineup \(l\) is insufficient to determine
+the power of a visual test because it does not provide information about
+the number of selections made by the subject for the calculation of the
+p-value (See Equation \ref{eq:pvalue-beta-binomial-approx}).
+
+Therefore, we directly estimate the probability of a lineup being
+rejected by assuming that individual skill has negligible effect on the
+variation of the power. This assumption is not necessary true, but it
+helps simplifying the model structure, thereby obviate a costly
+large-scale experiment to estimate complex covariance matrices. There is
+a discussion provided in the Appendix about a potential solution to
+model individual effect in the multiple selections scenario.
+
+(should we just link the power together for conventional test?)
+
+We use the same logistic regression model to fit the power of
+conventional tests and visual tests formulated as
+
+\begin{equation} \label{eq:logistic-regression-1-1}
+Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
+\end{equation}
+
+\noindent where \(\Lambda(.)\) is the standard logistic function given
+as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size \(E\) is the only
+regressor and the intercept is fixed to \(log(0.05/0.95)\) so that
+\(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\).
+
+To study various factors contributing to the power of test, the same
+logistic regression model is fit on different subsets of the collated
+data grouped by levels of factors. These include the distribution of the
+regressor, type of the simulation model and the shape of the residual
+departures.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
@@ -643,9 +785,6 @@ strength in the simulated data plots with smaller \(n\). A sample size
 of 300 is typically enough for structure to be visible in a scatterplot
 reliably.
 
-\hypertarget{effect-size}{%
-\subsection{Effect size}\label{effect-size}}
-
 \hypertarget{experimental-setup}{%
 \subsection{Experimental setup}\label{experimental-setup}}
 
@@ -672,6 +811,24 @@ Three different sample sizes are used (n = 50, 100, 300) in all three
 data collection periods. It can be observed from Figure
 \ref{fig:different-n} that with fewer data points drawn in a residual
 plot, the visual pattern is more difficult to be detected.
+
+\hypertarget{effect-size}{%
+\subsubsection{Effect size}\label{effect-size}}
+
+(do we actually need the penalty term?)
+
+Effect size \(E\) can be defined as the difference of a parameter for a
+particular model or distribution, or a statistic derived from a sample.
+Importantly, it needs to reflect the treatment we try to measure.
+According to the underlying simulated model, we define the effect size
+\(E = \sqrt{n}/(\sigma k)\) for the non-linearity model and
+\(E = b\sqrt{n}/(|a| + 1)\) for the heteroskedasticity model. The
+parameter \(k\) is the number of turning points embedded in the residual
+plot. It is used as a penalty term to reduce the effect size for complex
+shapes. There are one, two, three and five turning points in ``U'',
+``S'', ``M'', ``Triple-U'' shape respectively. The denominator of the
+effect size of the heteroskedasticity model is \(|a| + 1\). It is used
+to
 
 \hypertarget{subject-allocation}{%
 \subsubsection{Subject allocation}\label{subject-allocation}}
@@ -796,17 +953,14 @@ of heteroskedasticity diagnostics, the R package \texttt{skedastic}
 \citep{skedastic} collects and implements 25 existing conventional tests
 published since 1961.
 
-To compare the power of visual tests and conventional tests, we simulate
-200000 samples evenly from the models used in the human subject
-experiments, and record the conventional \(p\)-values produced from
-every sample. We pick RESET test (\texttt{resettest}) and Breusch-Pagan
-test (\texttt{bptest}) from the R package \texttt{lmtest}, and
-Shapiro-Wilk test (\texttt{shapiro.test}) from the built-in R package
-\texttt{stats}. Among them, RESET test is the only exact and appropriate
-test in this scenario. Both the Breusch-Pagan test and the Shapiro-Wilk
-test are approximate and inappropriate tests. Their estimated power is
-shown in Figure \ref{fig:polypower}. To set up the RESET test, we
-include different powers of fitted values as proxies. According to
+We pick RESET test (\texttt{resettest}) and Breusch-Pagan test
+(\texttt{bptest}) from the R package \texttt{lmtest}, and Shapiro-Wilk
+test (\texttt{shapiro.test}) from the built-in R package \texttt{stats}.
+Among them, RESET test is the only exact and appropriate test in this
+scenario. Both the Breusch-Pagan test and the Shapiro-Wilk test are
+approximate and inappropriate tests. Their estimated power is shown in
+Figure \ref{fig:polypower}. To set up the RESET test, we include
+different powers of fitted values as proxies. According to
 \citet{ramsey_tests_1969}, there are no general rules for the power of
 the fitted values needed by the RESET test, but it finds power up to
 four is usually sufficient. Thus, we follow this guideline to conduct
@@ -824,7 +978,7 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 16\% to 100\% as \(log_e(E)\) increases from 0 to 2.5,
+aggressively from 10\% to 100\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is way more sensitive to the type of model
 defects that being considered. Meanwhile, no noticeable residual

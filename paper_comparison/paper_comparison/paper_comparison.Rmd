@@ -878,7 +878,9 @@ Three different sample sizes are used (n = 50, 100, 300) in all three data colle
 
 ### Effect size
 
-Effect size $E$ can be defined as the difference of a parameter for a particular model or distribution, or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. According to the underlying simulated model, we define the effect size $E = \sqrt{n}/(\sigma k)$ for the non-linearity model and $E = \sqrt{n}/(|a| + 1)$ for the heteroskedasticity model. The parameter $k$ is the number of turning points embedded in the residual plot. It is used as a penalty term to reduce the effect size for complex shapes. There are one, two, three and five turning points in "U", "S", "M", "Triple-U" shape respectively.  The denominator of the effect size of the heteroskedasticity model is $|a| + 1$. It is used to 
+(do we actually need the penalty term?)
+
+Effect size $E$ can be defined as the difference of a parameter for a particular model or distribution, or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. According to the underlying simulated model, we define the effect size $E = \sqrt{n}/(\sigma k)$ for the non-linearity model and $E = b\sqrt{n}/(|a| + 1)$ for the heteroskedasticity model. The parameter $k$ is the number of turning points embedded in the residual plot. It is used as a penalty term to reduce the effect size for complex shapes. There are one, two, three and five turning points in "U", "S", "M", "Triple-U" shape respectively.  The denominator of the effect size of the heteroskedasticity model is $|a| + 1$. It is used to 
 
 ### Subject allocation
 
@@ -1018,7 +1020,7 @@ Figure \ref{fig:polypower} shows the estimated power of visual test on lineups p
 
 As discussed in Section \ref{conventionally-testing-for-departures}, many conventionally tests are available for detecting residual departures. Implementation-wise, the built-in R package `stats` provides some commonly used residual-based tests, such as Shapiro-Wilk test. A more comprehensive collection of regression diagnostics tests can be found in the R package `lmtest` [@lmtest]. In terms of heteroskedasticity diagnostics, the R package `skedastic` [@skedastic] collects and implements 25 existing conventional tests published since 1961.
 
-To compare the power of visual tests and conventional tests, we simulate 200000 samples evenly from the models used in the human subject experiments, and record the conventional $p$-values produced from every sample. We pick RESET test (`resettest`) and Breusch-Pagan test (`bptest`) from the R package `lmtest`, and Shapiro-Wilk test (`shapiro.test`) from the built-in R package `stats`. Among them, RESET test is the only exact and appropriate test in this scenario. Both the Breusch-Pagan test and the Shapiro-Wilk test are approximate and inappropriate tests. Their estimated power is shown in Figure \ref{fig:polypower}. To set up the RESET test, we include different powers of fitted values as proxies. According to @ramsey_tests_1969, there are no general rules for the power of the fitted values needed by the RESET test, but it finds power up to four is usually sufficient. Thus, we follow this guideline to conduct the RESET test. For the Breusch-Pagan test, the choice of regressors in the auxiliary regression is left to the user [@breusch_simple_1979]. But as @waldman1983note suggested, it is a good choice for the set of auxiliary regressors in the Breusch-Pagan test be the same as the White test. Thus, we include both $\boldsymbol{x}$ and $\boldsymbol{x}^2$ in the auxiliary regression.
+We pick RESET test (`resettest`) and Breusch-Pagan test (`bptest`) from the R package `lmtest`, and Shapiro-Wilk test (`shapiro.test`) from the built-in R package `stats`. Among them, RESET test is the only exact and appropriate test in this scenario. Both the Breusch-Pagan test and the Shapiro-Wilk test are approximate and inappropriate tests. Their estimated power is shown in Figure \ref{fig:polypower}. To set up the RESET test, we include different powers of fitted values as proxies. According to @ramsey_tests_1969, there are no general rules for the power of the fitted values needed by the RESET test, but it finds power up to four is usually sufficient. Thus, we follow this guideline to conduct the RESET test. For the Breusch-Pagan test, the choice of regressors in the auxiliary regression is left to the user [@breusch_simple_1979]. But as @waldman1983note suggested, it is a good choice for the set of auxiliary regressors in the Breusch-Pagan test be the same as the White test. Thus, we include both $\boldsymbol{x}$ and $\boldsymbol{x}^2$ in the auxiliary regression.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower}, but shows corresponding information on lineups produced by the heteroskedasticity model. In this scenario, the visual test is compared to an approximate test - Breusch-Pagan test, and two other inappropriate tests - RESET test and Shapiro-Wilk test. 
 
@@ -1077,15 +1079,16 @@ p <- ggplot() +
 # target_sigma is obtained by evaluating a vector of sigma and picking those 
 # with expected effect 0 ~ 5
 
-target_sigma <- c(3.65, 2.84, 2.21, 1.72, 1.34, 1.04, 0.81, 0.63, 0.49, 0.38, 0.3)
+target_sigma <- c(5, 3.03, 1.84, 1.12, 0.68, 0.41, 0.25)
 
 # Calculate the effect size 
 es <- map_dbl(target_sigma, 
-              ~log(poly_model(shape = 2, 
+              function(.x){
+                mod <- poly_model(shape = 2, 
                               x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))}, 
-                              sigma = .x)$
-                     average_effect_size(n = 100, type = "simple")
-                   )
+                              sigma = .x)
+                log(mod$sample_effect_size(mod$gen(100), type = "simple"))
+                }
               )
 ```
 
@@ -1127,9 +1130,9 @@ plist[[j]] <- poly_model(shape = 2,
 }
 
 # Use area() to design layout
-map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
+map(1:7, ~patchwork::area(21, .x, 22, .x)) %>%
   reduce(c) %>%
-  c(patchwork::area(3, 1, 20, 11), .) %>%
+  c(patchwork::area(3, 1, 20, 7), .) %>%
   patchwork::wrap_plots(append(plist, list(p), after = 0), 
                         design = .)
 ```
@@ -1259,6 +1262,7 @@ p <- ggplot() +
   theme_light(base_size = 5) +
   theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
   scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  # scale_size_manual(values = seq(1, 9)) +
   scale_x_continuous(breaks = seq(1, 7, 1), minor_breaks = NULL) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
@@ -1270,15 +1274,16 @@ p <- ggplot() +
 # target_b is obtained by evaluating a vector of b and picking those 
 # with expected effect 0 ~ 5
 
-target_b <- c(0.17, 0.23, 0.32, 0.46, 0.67, 1.04, 1.7, 3, 6.3, 16.2, 61)
+target_b <- c(0.54, 1.48, 4.02, 10.92, 29.68, 80.69, 219.33)
 
 # Calculate the effect size 
 es <- map_dbl(target_b, 
-              ~log(heter_model(a = 1, 
-                               b = .x, 
-                               x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))})$
-                     average_effect_size(n = 100, type = "simple")
-                   )
+              function(.x){
+                mod <- heter_model(a = 1, 
+                                   b = .x, 
+                                   x = {raw_x <- rand_normal(sigma = 0.3); closed_form(~stand_dist(raw_x))})
+                log(mod$sample_effect_size(mod$gen(100), type = "simple"))
+                }
               )
 ```
   
@@ -1315,9 +1320,9 @@ for (i in target_b) {
 }
 
 # Use area() to design layout
-map(1:11, ~patchwork::area(21, .x, 22, .x)) %>%
+map(1:7, ~patchwork::area(21, .x, 22, .x)) %>%
   reduce(c) %>%
-  c(patchwork::area(3, 1, 20, 11), .) %>%
+  c(patchwork::area(3, 1, 20, 7), .) %>%
 patchwork::wrap_plots(append(plist, list(p), after = 0), 
                       design = .)
 ```  
