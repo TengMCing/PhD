@@ -441,21 +441,19 @@ The effectiveness of lineup protocol for regression analysis is validated by @ma
 
 # Calculation of $p$-value and power
 
-## Hypotheses
+## hypotheses
 
-A paragraph on what hypothesis(es) are being tested.
+Before the discussion of the p-value and power, the difference in hypotheses between conventional tests and visual tests worth a clarification.
 
-Generally, by looking at the residuals we are concerned with 
+Generally, by examining the residuals we are concerned with 
 
-$H_o:$ The model specification is correct
+$$H_0: \text{The regression model is correctly specified}$$
 
-against a broad alternative that something is missing:
+against a broad alternative hypothesis that 
 
-$H_a:$ The model specification is not correct
+$$H_1: \text{The regression model is misspecified.}$$
 
-The conventional tests are only equipped to measure specific departures, and thus have a more specific hypotheses being tested:
-
-XXX
+The conventional tests are only equipped to measure specific residual departures, and thus have a more specific null and alternative hypotheses being tested. For instance, the RESET test with the auxiliary regression formulated as $$\boldsymbol{e} = \gamma_1\hat{\boldsymbol{y}}^2 + \gamma_2\hat{\boldsymbol{y}}^3 + \gamma_3\hat{\boldsymbol{y}}^4 + \boldsymbol{u}, \boldsymbol{u} \sim N(\boldsymbol{0}, \sigma_u^2\boldsymbol{I})$$ has $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ and $H_1: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$. In contrast, the visual test has the null hypothesis same as the general $H_0$ and $H_1$ provided above. Essentially, a visual test can be seen as a collection of tests targeting for different residual departures. 
 
 ## $p$-value
 
