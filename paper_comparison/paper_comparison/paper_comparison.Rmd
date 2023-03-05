@@ -439,23 +439,18 @@ Data used in the $m - 1$ null plots needs to be simulated. In regression diagnos
 
 The effectiveness of lineup protocol for regression analysis is validated by @majumder_validation_2013 under relatively simple settings with up to two regressors. Their results suggest that visual tests are capable of testing the significance of a single regressor with a similar power as a t-test, though they express that in general it is unnecessary to use visual inference if there exists a conventional test, and they do not expect the visual test to perform equally well as the conventional test. (contradict to our claim? expand?) In their third experiment, where there is not a conventional test, visual test outperforms the conventional test for a large margin. This is encouraging, as it promotes the use of visual inference in situations where there are no existing statistical testing procedures. Visual inference have also been integrated into diagnostic of hierarchical linear models by @loy2013diagnostic, @loy2014hlmdiag and @loy2015you. They use lineup protocols to judge the assumption of linearity, normality and constant error variance for both the level-1 and level-2 residuals. (expand?)
 
-# Calculation of $p$-value and power
+# Calculation of statistical significance and test power
 
-## hypotheses
+## What is being tested?
 
-Before the discussion of the p-value and power, the difference in hypotheses between conventional tests and visual tests worth a clarification.
+In diagnosing a model fit from residuals, we are generally interested in $H_0:$ *The regression model is correctly specified* against the broad alternative $H_a:$ *The regression model is misspecified*.
 
-Generally, by examining the residuals we are concerned with 
+However, it is practically impossible to test this specific $H_0$ with conventional tests, which are constructed to measure specific departures. For example, the RESET test is formulated as $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ against $H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$, from $e = \gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)$. 
+Similarly, the BP test is designed to specifically test $H_0:$ *error variances are all equal* ($\tau=0$) versus the alternative $H_a:$ *that the error variances are a multiplicative function of one or more variables* ($\tau\neq 0$) from $e^2 = \tau\hat{y} + u, ~ u\sim N(0,\sigma_u^2)$. 
 
-$$H_0: \text{The regression model is correctly specified}$$
+One of the potential benefits of the visual test, based on the lineup protocol, is that it should be able to detect a range of departures from good residuals. 
 
-against a broad alternative hypothesis that 
-
-$$H_1: \text{The regression model is misspecified.}$$
-
-The conventional tests are only equipped to measure specific residual departures, and thus have a more specific null and alternative hypotheses being tested. For instance, the RESET test with the auxiliary regression formulated as $$\boldsymbol{e} = \gamma_1\hat{\boldsymbol{y}}^2 + \gamma_2\hat{\boldsymbol{y}}^3 + \gamma_3\hat{\boldsymbol{y}}^4 + \boldsymbol{u}, \boldsymbol{u} \sim N(\boldsymbol{0}, \sigma_u^2\boldsymbol{I})$$ has $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ and $H_1: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$. In contrast, the visual test has the null hypothesis same as the general $H_0$ and $H_1$ provided above. Essentially, a visual test can be seen as a collection of tests targeting for different residual departures. 
-
-## $p$-value
+## Statistical significance
 
 In hypothesis testing, a $p$-value is defined as the probability of observing test results as least as extreme as the observed result given $H_0$ is true. Conventional hypothesis tests usually have an existing method to derive or compute $p$-value based on the null distribution. What we need to discuss in the following is the method to estimate $p$-value for a visual test.
 
@@ -503,7 +498,7 @@ E[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \c
 
 With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated using maximum likelihood estimation. But for precise estimate of $\alpha$, additional human responses to Rorschach lineups, which is a type of lineup that consists of plots constructed from the same null data generating mechanism, are required.
 
-## Power
+## Power of the tests
 
 The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified in a specific way. It is an important indicator
 when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.

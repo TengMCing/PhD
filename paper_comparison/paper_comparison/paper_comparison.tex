@@ -367,39 +367,36 @@ linear models by \citet{loy2013diagnostic}, \citet{loy2014hlmdiag} and
 linearity, normality and constant error variance for both the level-1
 and level-2 residuals. (expand?)
 
-\hypertarget{calculation-of-p-value-and-power}{%
-\section{\texorpdfstring{Calculation of \(p\)-value and
-power}{Calculation of p-value and power}}\label{calculation-of-p-value-and-power}}
+\hypertarget{calculation-of-statistical-significance-and-test-power}{%
+\section{Calculation of statistical significance and test
+power}\label{calculation-of-statistical-significance-and-test-power}}
 
-\hypertarget{hypotheses}{%
-\subsection{hypotheses}\label{hypotheses}}
+\hypertarget{what-is-being-tested}{%
+\subsection{What is being tested?}\label{what-is-being-tested}}
 
-Before the discussion of the p-value and power, the difference in
-hypotheses between conventional tests and visual tests worth a
-clarification.
+In diagnosing a model fit from residuals, we are generally interested in
+\(H_0:\) \emph{The regression model is correctly specified} against the
+broad alternative \(H_a:\) \emph{The regression model is misspecified}.
 
-Generally, by examining the residuals we are concerned with
+However, it is practically impossible to test this specific \(H_0\) with
+conventional tests, which are constructed to measure specific
+departures. For example, the RESET test is formulated as
+\(H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0\) against
+\(H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0\),
+from
+\(e = \gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)\).
+Similarly, the BP test is designed to specifically test \(H_0:\)
+\emph{error variances are all equal} (\(\tau=0\)) versus the alternative
+\(H_a:\) \emph{that the error variances are a multiplicative function of
+one or more variables} (\(\tau\neq 0\)) from
+\(e^2 = \tau\hat{y} + u, ~ u\sim N(0,\sigma_u^2)\).
 
-\[H_0: \text{The regression model is correctly specified}\]
+One of the potential benefits of the visual test, based on the lineup
+protocol, is that it should be able to detect a range of departures from
+good residuals.
 
-against a broad alternative hypothesis that
-
-\[H_1: \text{The regression model is misspecified.}\]
-
-The conventional tests are only equipped to measure specific residual
-departures, and thus have a more specific null and alternative
-hypotheses being tested. For instance, the RESET test with the auxiliary
-regression formulated as
-\[\boldsymbol{e} = \gamma_1\hat{\boldsymbol{y}}^2 + \gamma_2\hat{\boldsymbol{y}}^3 + \gamma_3\hat{\boldsymbol{y}}^4 + \boldsymbol{u}, \boldsymbol{u} \sim N(\boldsymbol{0}, \sigma_u^2\boldsymbol{I})\]
-has \(H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0\) and
-\(H_1: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0\).
-In contrast, the visual test has the null hypothesis same as the general
-\(H_0\) and \(H_1\) provided above. Essentially, a visual test can be
-seen as a collection of tests targeting for different residual
-departures.
-
-\hypertarget{p-value}{%
-\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
+\hypertarget{statistical-significance}{%
+\subsection{Statistical significance}\label{statistical-significance}}
 
 In hypothesis testing, a \(p\)-value is defined as the probability of
 observing test results as least as extreme as the observed result given
@@ -495,8 +492,8 @@ of \(\alpha\), additional human responses to Rorschach lineups, which is
 a type of lineup that consists of plots constructed from the same null
 data generating mechanism, are required.
 
-\hypertarget{power}{%
-\subsection{Power}\label{power}}
+\hypertarget{power-of-the-tests}{%
+\subsection{Power of the tests}\label{power-of-the-tests}}
 
 The power of a model misspecification test is the probability that the
 null hypothesis is rejected given the regression model is misspecified
