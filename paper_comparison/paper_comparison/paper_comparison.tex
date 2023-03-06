@@ -94,8 +94,16 @@ visulization is important in regression diagnostics? an explanation
 using visual inference) (a picture is worth a thousand word) (a plot is
 worth a thousand test: )
 
+(title refine - rank: low)
+
+(fix the tense issue - rank: low)
+
+(fix the notation issue (bold?) - rank: low)
+
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
+
+(introduction refine - rank: low)
 
 \begin{quote}
 \emph{``Since all models are wrong the scientist must be alert to what
@@ -177,7 +185,7 @@ plots}\label{departures-from-good-residual-plots}}
 \end{figure}
 
 Graphical summaries in which residuals are plotted against fitted values
-or other functions of the regressors that are approximately orthogonal
+or other functions of the predictors that are approximately orthogonal
 to residuals are referred to as standard residual plots in
 \citet{cook1982residuals}. The first panel of Figure
 \ref{fig:residual-plot-common-departures} shows an ideal residual plot
@@ -189,7 +197,7 @@ Non-linearity, heterskedasticity and non-normality are perhaps the three
 mostly checked departures.
 
 Non-linearity is a type of model misspecification caused by failing to
-include higher order terms of the regressors in the regression equation.
+include higher order terms of the predictors in the regression equation.
 Any non-linear functional form of residuals on fitted values in the
 residual plot could be indicative of non-linearity. An example residual
 plot containing visual pattern of non-linearity is given at the second
@@ -238,7 +246,7 @@ Lagrange multiplier test \citep{silvey1959lagrangian} principle that
 relies on the asymptotic properties of the null distribution. For
 testing non-linearity, one may apply the F-test as a model structural
 test to examine the significance of specific polynomial and non-linear
-forms of the regressors, or the significance of proxy variables as in
+forms of the predictors, or the significance of proxy variables as in
 the Ramsey Regression Equation Specification Error Test (RESET)
 \citep{ramsey_tests_1969}. The Shapiro-Wilk test
 \citep{shapiro1965analysis} is the most widely used test of
@@ -250,12 +258,12 @@ Example residual plots given in Figure
 \ref{fig:residual-plot-common-departures} are examined by the
 corresponding RESET test, Breusch-Pagan test and Shapiro-Wilk test as
 shown in Table \ref{tab:example-residual-plot-table}. In the example,
-the Breusch-Pagan test and the Shapiro--Wilk test both reject the null
-hypothesis \(H_0\) for departures that they do not intend to examine. As
-discussed in \citet{cook1982residuals}, most residual-based tests for a
-particular type of departure from model assumptions are also sensitive
-to other types of departures. It is likely \(H_0\) is correctly rejected
-but for the wrong reason, a phenomenon known as the ``Type III error''.
+the Breusch-Pagan test and the Shapiro--Wilk test both reject \(H_0\)
+for departures that they do not intend to examine. As discussed in
+\citet{cook1982residuals}, most residual-based tests for a particular
+type of departure from model assumptions are also sensitive to other
+types of departures. It is likely \(H_0\) is correctly rejected but for
+the wrong reason, a phenomenon known as the ``Type III error''.
 Additionally, outliers will often incorrectly trigger the rejection of
 \(H_0\) despite when majority of the residuals are well-behaved
 \citep{cook_applied_1999}. Furthermore, with a sufficiently large sample
@@ -308,13 +316,14 @@ the act of asking the eyewitness to identify criminal suspect from a
 group of irrelevant people. The protocol consists of \(m\) randomly
 placed plots, where one plot is the data plot, and the remaining
 \(m - 1\) null plots have the identical graphical procedure except the
-data has been replaced with data consistent with \(H_0\). Then, an
-observer who have not seen the data plot will be asked to point out the
-most different plot from the lineup. Under \(H_0\), it is expected that
-the data plot would have no distinguishable difference from the null
-plots, and the probability that the observer correctly picks the data
-plot is \(1/m\). If one rejects \(H_0\) as the observer correctly picks
-the data plot, then the Type I error of this test is \(1/m\).
+data has been replaced with data consistent with \(H_0\), that the model
+is correctly specified. Then, an observer who have not seen the data
+plot will be asked to point out the most different plot from the lineup.
+Under \(H_0\), it is expected that the data plot would have no
+distinguishable difference from the null plots, and the probability that
+the observer correctly picks the data plot is \(1/m\). If one rejects
+\(H_0\) as the observer correctly picks the data plot, then the Type I
+error of this test is \(1/m\).
 
 \begin{figure}
 
@@ -327,9 +336,9 @@ the data plot, then the Type I error of this test is \(1/m\).
 
 Figure \ref{fig:first-example-lineup} is an example of a lineup
 protocol. If the data plot at position \(2^2 + 2\) is identifiable, then
-it is evidence for the rejection of \(H_0\) that the regression model is
-correctly specified. In fact, the actual residual plot is obtained from
-a misspecified regression model with non-linearity defect.
+it is evidence for the rejection of \(H_0\). In fact, the actual
+residual plot is obtained from a misspecified regression model with
+missing non-linear terms.
 
 Data used in the \(m - 1\) null plots needs to be simulated. In
 regression diagnostics, sampling data consistent with \(H_0\) is
@@ -346,26 +355,25 @@ sampling. The conditional distribution given a minimal sufficient
 statistic is the best justified reference distribution among the three
 \citep{buja_statistical_2009}. Essentially, null residuals can be
 simulated by regressing \(N\) i.i.d standard normal random draws on the
-regressors, then rescaling it by the ratio of residual sum of square in
+predictors, then rescaling it by the ratio of residual sum of square in
 two regressions.
 
 The effectiveness of lineup protocol for regression analysis is
 validated by \citet{majumder_validation_2013} under relatively simple
-settings with up to two regressors. Their results suggest that visual
-tests are capable of testing the significance of a single regressor with
+settings with up to two predictors. Their results suggest that visual
+tests are capable of testing the significance of a single predictor with
 a similar power as a t-test, though they express that in general it is
 unnecessary to use visual inference if there exists a conventional test,
 and they do not expect the visual test to perform equally well as the
-conventional test. (contradict to our claim? expand?) In their third
-experiment, where there is not a conventional test, visual test
-outperforms the conventional test for a large margin. This is
-encouraging, as it promotes the use of visual inference in situations
-where there are no existing statistical testing procedures. Visual
-inference have also been integrated into diagnostic of hierarchical
-linear models by \citet{loy2013diagnostic}, \citet{loy2014hlmdiag} and
-\citet{loy2015you}. They use lineup protocols to judge the assumption of
-linearity, normality and constant error variance for both the level-1
-and level-2 residuals. (expand?)
+conventional test. In their third experiment, where there is not a
+conventional test, visual test outperforms the conventional test for a
+large margin. This is encouraging, as it promotes the use of visual
+inference in situations where there are no existing statistical testing
+procedures. Visual inference have also been integrated into diagnostic
+of hierarchical linear models by \citet{loy2013diagnostic},
+\citet{loy2014hlmdiag} and \citet{loy2015you}. They use lineup protocols
+to judge the assumption of linearity, normality and constant error
+variance for both the level-1 and level-2 residuals. (expand?)
 
 \hypertarget{calculation-of-statistical-significance-and-test-power}{%
 \section{Calculation of statistical significance and test
@@ -384,12 +392,13 @@ departures. For example, the RESET test is formulated as
 \(H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0\) against
 \(H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0\),
 from
-\(e = \gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)\).
-Similarly, the BP test is designed to specifically test \(H_0:\)
-\emph{error variances are all equal} (\(\tau=0\)) versus the alternative
-\(H_a:\) \emph{that the error variances are a multiplicative function of
-one or more variables} (\(\tau\neq 0\)) from
-\(e^2 = \tau\hat{y} + u, ~ u\sim N(0,\sigma_u^2)\).
+\(e = \tau_0 + \tau_1x_1 + ... + \tau_1 x_p +\gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)\).
+Similarly, the Breusch-Pagan test is designed to specifically test
+\(H_0:\) \emph{error variances are all equal}
+(\(\tau_i=0 \text{ for } i=1,..,p\)) versus the alternative \(H_a:\)
+\emph{that the error variances are a multiplicative function of one or
+more variables} (\(\text{at least one } \tau_i\neq 0\)) from
+\(e^2 = \tau_0 + \tau_1 x_1 + \cdots + \tau_1 x_p + u, ~ u\sim N(0,\sigma_u^2)\).
 
 One of the potential benefits of the visual test, based on the lineup
 protocol, is that it should be able to detect a range of departures from
@@ -495,13 +504,13 @@ data generating mechanism, are required.
 \hypertarget{power-of-the-tests}{%
 \subsection{Power of the tests}\label{power-of-the-tests}}
 
-The power of a model misspecification test is the probability that the
-null hypothesis is rejected given the regression model is misspecified
-in a specific way. It is an important indicator when one is concerned
-about whether model assumptions have been violated. Although in
-practice, one might be more interested in knowing how much the residuals
-deviate from the model assumptions, and whether this deviation is of
-practical significance.
+The power of a model misspecification test is the probability that
+\(H_0\) is rejected given the regression model is misspecified in a
+specific way. It is an important indicator when one is concerned about
+whether model assumptions have been violated. Although in practice, one
+might be more interested in knowing how much the residuals deviate from
+the model assumptions, and whether this deviation is of practical
+significance.
 
 The power of a conventional hypothesis test is affected by both the true
 parameter \(\boldsymbol{\theta}\) and the sample size \(n\). These two
@@ -510,13 +519,21 @@ of the residual departures from the model assumptions. Details about the
 effect size is provided in Section \ref{effect-size} after the
 introduction of the simulation model used in our human subject
 experiment. The theoretical power of a test is sometimes not a trival
-solution. For a given regression model under a specific effect size, if
-the data generating process is also known, the power of a conventional
-test can be estimated by counting the number of times the test rejects
-the null hypothesis in a repeated sampling exercise and divided by the
-number of times simulated from the known data generating process. This
-is the method we used to estimate the power of conventional tests in our
-experiment.
+solution, but it can be estimated if the data generating process is
+known. We use a predefined model to generate a large set of simulated
+data under different effect sizes, and record if the conventional test
+rejects \(H_0\). The probability of the conventional test rejects
+\(H_0\) is then fitted by a logistic regression formulated as
+
+\begin{equation} \label{eq:logistic-regression-1-1}
+Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
+\end{equation}
+
+\noindent where \(\Lambda(.)\) is the standard logistic function given
+as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size \(E\) is the only
+predictor and the intercept is fixed to \(log(0.05/0.95)\) so that
+\(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\), which is the desired
+significance level.
 
 The power of a visual test on the other hand, may additionally depend on
 the ability of the particular subject, as the skill of the individual
@@ -527,55 +544,39 @@ lineup \citep{majumder_validation_2013}. To address this issue,
 mixed-effect logistic regression, with subjects treated as random
 effect. Then, the estimated power of a visual test evaluated by a single
 subject is the predicted value obtained from the mix-effect model.
-
 However, this mix-effect model does not work with scenario where
-subjects are asked to select one or more ``most different'' plots. In
-this scenario, having the probability of a subject \(j\) correctly
-picking the data plot from a lineup \(l\) is insufficient to determine
-the power of a visual test because it does not provide information about
-the number of selections made by the subject for the calculation of the
-p-value (See Equation \ref{eq:pvalue-beta-binomial-approx}).
+subjects are asked to select one or more most different plots. In this
+scenario, having the probability of a subject \(j\) correctly picking
+the data plot from a lineup \(l\) is insufficient to determine the power
+of a visual test because it does not provide information about the
+number of selections made by the subject for the calculation of the
+p-value (See Equation \ref{eq:pvalue-beta-binomial-approx}). Therefore,
+we directly estimate the probability of a lineup being rejected by
+assuming that individual skill has negligible effect on the variation of
+the power. This assumption is not necessary true, but it helps
+simplifying the model structure, thereby obviate a costly large-scale
+experiment to estimate complex covariance matrices. The same model given
+in Equation \ref{eq:logistic-regression-1-1} is applied to model the
+power of a visual test.
 
-Therefore, we directly estimate the probability of a lineup being
-rejected by assuming that individual skill has negligible effect on the
-variation of the power. This assumption is not necessary true, but it
-helps simplifying the model structure, thereby obviate a costly
-large-scale experiment to estimate complex covariance matrices. There is
-a discussion provided in the Appendix about a potential solution to
-model individual effect in the multiple selections scenario.
-
-(should we just link the power together for conventional test?)
-
-We use the same logistic regression model to fit the power of
-conventional tests and visual tests formulated as
-
-\begin{equation} \label{eq:logistic-regression-1-1}
-Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),
-\end{equation}
-
-\noindent where \(\Lambda(.)\) is the standard logistic function given
-as \(\Lambda(z) = exp(z)/(1+exp(z))\). The effect size \(E\) is the only
-regressor and the intercept is fixed to \(log(0.05/0.95)\) so that
-\(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\).
-
-To study various factors contributing to the power of test, the same
-logistic regression model is fit on different subsets of the collated
-data grouped by levels of factors. These include the distribution of the
-regressor, type of the simulation model and the shape of the residual
-departures.
+To study various factors contributing to the power of both tests, the
+same logistic regression model is fit on different subsets of the
+collated data grouped by levels of factors. These include the
+distribution of the fitted values, type of the simulation model and the
+shape of the residual departures.
 
 \hypertarget{experimental-design}{%
 \section{Experimental design}\label{experimental-design}}
 
-To investigate the difference between conventional hypothesis testing
-and visual inference in the application of linear regression
-diagnostics, an experiment is conducted in three data collection
-periods. Two types of departures, non-linearity and heteroskedasticity,
-are primarily collected during data collection periods I and II. The
-data collection period III was designed primarily to measure human
-responses to null lineups so that the parameter \(\alpha\) in Equation
+An experiment is conducted in three data collection periods to
+investigate the difference between conventional hypothesis testing and
+visual inference in the application of linear regression diagnostics.
+Two types of departures, non-linearity and heteroskedasticity, are
+collected during data collection periods I and II. The data collection
+period III was designed primarily to measure human responses to null
+lineups so that the parameter \(\alpha\) in Equation
 \ref{eq:pvalue-beta-binomial} can be estimated. Additional lineups for
-both non-linearity and heteroskedasticity, using uniform \(X\)
+both non-linearity and heteroskedasticity, using uniform fitted value
 distribution, were included so that the participants were evaluating
 some lineups with signal also. It would be too frustrating for
 participants to only be assigned lineups with all null plots. Overall,
@@ -684,9 +685,9 @@ tends to be concealed by cluster of data points.
 
 Figure \ref{fig:example-poly-lineup} demonstrates one of the lineups
 used in non-linearity detection. This lineup is produced by the
-non-linearity model with \(j = 6\) and uniform fitted values. The data
-plot location is \(2^3 - 4\). All five subjects correctly identify the
-data plot from this lineup.
+non-linearity model with \(j = 6\). The data plot location is
+\(2^3 - 4\). All five subjects correctly identify the data plot from
+this lineup.
 
 \begin{figure}
 
@@ -694,7 +695,7 @@ data plot from this lineup.
 
 }
 
-\caption{Examining the effect of signal strength for the three different values of $n$ used in the experiment, for non-linear structure with fixed $\sigma = 1.5$, uniform $X$ distribution, and S shape. For these factor levels, only when $n=300$ is the S shape clearly visible.}\label{fig:different-n}
+\caption{Examining the effect of signal strength for the three different values of $n$ used in the experiment, for non-linear structure with fixed $\sigma = 1$, uniform fitted value distribution, and S shape. For these factor levels, only when $n = 300$ is the S shape clearly visible.}\label{fig:different-n}
 \end{figure}
 
 \begin{figure}
@@ -703,7 +704,7 @@ data plot from this lineup.
 
 }
 
-\caption{Examining the effect of $\sigma$ on the signal strength in the non-linearity detection, for $n=300$, uniform $X$ distribution and the U shape. As $\sigma$ increases the signal strength decreases, to the point that the U is almost unrecognisable when $\sigma=4$.}\label{fig:different-sigma}
+\caption{Examining the effect of $\sigma$ on the signal strength in the non-linearity detection, for $n=300$, uniform fitted value distribution and the U shape. As $\sigma$ increases the signal strength decreases, to the point that the U is almost unrecognisable when $\sigma=4$.}\label{fig:different-sigma}
 \end{figure}
 
 \begin{figure}
@@ -737,7 +738,7 @@ above model is formulated exactly the same as Equation
 \ref{eq:null-model}.
 
 For \(b \neq 0\), the variance-covariance matrix of the error term
-\(\boldsymbol{\varepsilon}\) is correlated with the regressor
+\(\boldsymbol{\varepsilon}\) is correlated with the predictor
 \(\boldsymbol{x}\), which will lead to the presence of
 heteroskedasticity. Visual patterns of heteroskedasticity are simulated
 using three different shapes (\(a\) = -1, 0, 1). (A summary of the
@@ -777,9 +778,9 @@ magnitude of residuals across different values of \(a\).
 \end{figure}
 
 An example lineup of this model used in data collection period II is
-shown in Figure \ref{fig:example-heter-lineup} with \(a = -1\) and
-\(X_{raw} \sim U(-1, 1)\). The data plot location is \(2^4 + 2\). Nine
-out of 11 subjects correctly identify the data plot from this lineup.
+shown in Figure \ref{fig:example-heter-lineup} with \(a = -1\). The data
+plot location is \(2^4 + 2\). Nine out of 11 subjects correctly identify
+the data plot from this lineup.
 
 \hypertarget{factors-common-to-both-data-collection-periods}{%
 \subsubsection{Factors common to both data collection
@@ -796,9 +797,11 @@ distribution may be relatively Gaussian, reflecting a linear combinatio
 of many predictors, adhering to the Central Limit Theorem. It is also
 common to see a skewed distribution of fitted values, if one or more of
 the predictors has a skewed distribution. This latter problem is usually
-corrected before modeling using a variable transformation. Our
-simulation asesses this by using four different distributions to
-represent the fitted values (\(X_{raw}\)): (1) \(U(-1, 1)\), (2)
+corrected before modelling using a variable transformation. Our
+simulation assess this by using four different distributions to
+represent fitted values: (1) uniform, (2) normal, (3) skewed and (4)
+discrete uniform. This is constructed by defining the raw predictor
+\(X_{raw}\) in four corresponding distributions: (1) \(U(-1, 1)\), (2)
 \(N(0, 0.3^2)\), (3) \(lognormal(0, 0.6^2)/3\) and (4) \(u\{1, 5\}\). We
 would expect that the best reading of residual plots occurs when the
 fitted values are uniformly distributed.
@@ -806,7 +809,7 @@ fitted values are uniformly distributed.
 Three different sample sizes are used, \(n=50, 100, 300\) across the
 experiments. We would expect considerable variation in the signal
 strength in the simulated data plots with smaller \(n\). A sample size
-of 300 is typically enough for structure to be visible in a scatterplot
+of 300 is typically enough for structure to be visible in a scatter plot
 reliably.
 
 \hypertarget{experimental-setup}{%
@@ -827,7 +830,7 @@ and II respectively. Figure \ref{fig:different-sigma} and
 large value of \(\sigma\) will increase the variation of the error of
 the non-linearity model and decrease the visibility of the visual
 pattern. The parameter \(b\) controls the standard deviation of the
-error across the support of the regressor. Given \(x \neq a\), a larger
+error across the support of the predictor. Given \(x \neq a\), a larger
 value of \(b\) will lead to a larger ratio of the variance at \(x\) to
 the variance at \(x - a = 0\), making the visual pattern more obvious.
 
@@ -839,20 +842,34 @@ plot, the visual pattern is more difficult to be detected.
 \hypertarget{effect-size}{%
 \subsubsection{Effect size}\label{effect-size}}
 
-(do we actually need the penalty term?)
-
 Effect size \(E\) can be defined as the difference of a parameter for a
 particular model or distribution, or a statistic derived from a sample.
 Importantly, it needs to reflect the treatment we try to measure.
 According to the underlying simulated model, we define the effect size
-\(E = \sqrt{n}/(\sigma k)\) for the non-linearity model and
-\(E = b\sqrt{n}/(|a| + 1)\) for the heteroskedasticity model. The
-parameter \(k\) is the number of turning points embedded in the residual
-plot. It is used as a penalty term to reduce the effect size for complex
-shapes. There are one, two, three and five turning points in ``U'',
-``S'', ``M'', ``Triple-U'' shape respectively. The denominator of the
-effect size of the heteroskedasticity model is \(|a| + 1\). It is used
-to
+
+\[E = \frac{1}{2}\left(\boldsymbol{\mu}_z'[diag(\boldsymbol{R}_a\sigma^2)]^{-1}\boldsymbol{\mu}_z\right)\]
+
+for the non-linearity model, and
+
+\[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
+for the heteroskedasticity model, where \(diag(.)\) is the diagonal
+matrix constructed from the diagonal elements of a matrix,
+\(\sigma^2\boldsymbol{I}\) is the assumed covariance matrix of the error
+term when \(H_0\) is true, \(\boldsymbol{V}\) is the actual covariance
+matrix of the error term,
+\(\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a\) is the
+residual operator,
+\(\boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\)
+is the hat matrix,
+\(\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})\) is the matrix of
+predictors including the intercept used in the regression equation, and
+\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
+is the expected values of residuals with \(\boldsymbol{Z}\) be any
+higher order terms of \(\boldsymbol{X}\) leave out by the regression
+equation and \(\boldsymbol{\beta}_z\) be the corresponding coefficients.
+
+Both equations above are derived from the Kullback-Leibler divergence
+(citation here?) and the details are provided in the appendix.
 
 \hypertarget{subject-allocation}{%
 \subsubsection{Subject allocation}\label{subject-allocation}}
@@ -878,10 +895,9 @@ the data plot is generated from a model with zero effect size, while the
 data of the 19 null plots are generated using the same simulation method
 discussed in Section \ref{sampling-from-the-null-distribution}. This
 generation procedure differs from the canonical Rorschach lineup
-procedure, which requires that all 20 plots are generated from the null
-hypothesis. However, these lineups serve the same fundamental purpose:
-to assess the number of visually interesting plots generated under the
-null hypothesis.
+procedure, which requires that all 20 plots are generated from \(H_0\).
+However, these lineups serve the same fundamental purpose: to assess the
+number of visually interesting plots generated under \(H_0\).
 
 To account for the fact that our simulation method for these lineups is
 not the Rorschach procedure, we use the method suggested in
@@ -988,10 +1004,10 @@ different powers of fitted values as proxies. According to
 \citet{ramsey_tests_1969}, there are no general rules for the power of
 the fitted values needed by the RESET test, but it finds power up to
 four is usually sufficient. Thus, we follow this guideline to conduct
-the RESET test. For the Breusch-Pagan test, the choice of regressors in
+the RESET test. For the Breusch-Pagan test, the choice of predictors in
 the auxiliary regression is left to the user
 \citep{breusch_simple_1979}. But as \citet{waldman1983note} suggested,
-it is a good choice for the set of auxiliary regressors in the
+it is a good choice for the set of auxiliary predictors in the
 Breusch-Pagan test be the same as the White test. Thus, we include both
 \(\boldsymbol{x}\) and \(\boldsymbol{x}^2\) in the auxiliary regression.
 
@@ -1006,12 +1022,12 @@ the power curves of appropriate conventional tests are constantly
 greater than the power curves of visual tests and other inappropriate
 conventional tests. At \(log(E) = 1\) for non-linearity model, where the
 residual departures are unnoticeable from the corresponding residual
-plot, the RESET test has above 25\% of chance of rejecting the null
-hypothesis, while only a few visual tests would result in a rejection.
-Similarly, at \(log(E) = 3\) for heteroskedasticity model, the BP test
-has around 25\% power but the non-constant variance visual pattern is
-almost unobserved from the residual plot and the power of the visual
-test is close to the significance level at this point.
+plot, the RESET test has above 25\% of chance of rejecting \(H_0\),
+while only a few visual tests would result in a rejection. Similarly, at
+\(log(E) = 3\) for heteroskedasticity model, the BP test has around 25\%
+power but the non-constant variance visual pattern is almost unobserved
+from the residual plot and the power of the visual test is close to the
+significance level at this point.
 
 Further, the power of all inappropriate tests show improvement as the
 effect increases but at a lower rate than the visual test in both
