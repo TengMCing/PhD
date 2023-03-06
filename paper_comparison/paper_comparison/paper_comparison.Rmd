@@ -281,12 +281,6 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
 ```
 
 ```{r}
-# rewrite effect size here (if needed)
-
-```
-
-
-```{r}
 # Borrow effect size from the survey
 poly_conv_sim <- poly_conv_sim %>%
   left_join(select(filter(vi_survey, type == "polynomial"), shape, e_sigma, n, x_dist, effect_size))
@@ -445,8 +439,8 @@ The effectiveness of lineup protocol for regression analysis is validated by @ma
 
 In diagnosing a model fit from residuals, we are generally interested in $H_0:$ *The regression model is correctly specified* against the broad alternative $H_a:$ *The regression model is misspecified*.
 
-However, it is practically impossible to test this specific $H_0$ with conventional tests, which are constructed to measure specific departures. For example, the RESET test is formulated as $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ against $H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$, from $e = \gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)$. 
-Similarly, the BP test is designed to specifically test $H_0:$ *error variances are all equal* ($\tau=0$) versus the alternative $H_a:$ *that the error variances are a multiplicative function of one or more variables* ($\tau\neq 0$) from $e^2 = \tau\hat{y} + u, ~ u\sim N(0,\sigma_u^2)$. 
+However, it is practically impossible to test this specific $H_0$ with conventional tests, which are constructed to measure specific departures. For example, the RESET test is formulated as $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ against $H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$, from $e = \tau_0 + \tau_1x_1 + \cdots + \tau_1 x_p +\gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)$. 
+Similarly, the Breusch-Pagan test is designed to specifically test $H_0:$ *error variances are all equal* ($\tau=0$) versus the alternative $H_a:$ *that the error variances are a multiplicative function of one or more variables* ($\tau\neq 0$) from $e^2 = \tau_0 + \tau_1 x_1 + \cdots + \tau_1 x_p + u, ~ u\sim N(0,\sigma_u^2)$. 
 
 One of the potential benefits of the visual test, based on the lineup protocol, is that it should be able to detect a range of departures from good residuals. 
 
