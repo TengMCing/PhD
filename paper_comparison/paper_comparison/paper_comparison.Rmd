@@ -93,7 +93,7 @@ if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
   {
     poly_conv_sim[[i]] <- 
       # Every sample contains 2000 lineups
-      map(1:200, function(i) {
+      map(1:2000, function(i) {
         
         # Sample a set of parameters
         shape <- sample(1:4, 1)
@@ -188,7 +188,7 @@ if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
   {
     heter_conv_sim[[i]] <-
       # Every sample contains 2000 lineups
-      map(1:200, function(x) {
+      map(1:2000, function(x) {
         
         # Sample a set of parameters
         a <- sample(c(-1, 0, 1), 1)
@@ -296,7 +296,11 @@ Title
 (a picture is worth a thousand word)
 (a plot is worth a thousand test: )
 
+(title refine - rank: low)
+
 # Introduction
+
+(introduction refine - rank: low)
 
 > *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@box1976science]
 
@@ -419,7 +423,7 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
 One may argue that reading diagnostic plots is to some extent subjective and indecisive compared to those rigorous statistical procedures as it relies on graphical perception - human ability to interpret and decode the information embedded in graph [@cleveland_graphical_1984]. Further, the degree of the presence of the visual features typically can not be measured quantitatively and objectively, which may lead to over or under-interpretations of the data. For instance, people 
 over-interpret the separation between gene groups in a two-dimensional projection from a linear discriminant analysis when in fact there are no differences in the expression levels between the gene groups and separation is not an uncommon occurrence [@roy_chowdhury_using_2015].
 
-Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the data plot, and the remaining $m - 1$ null plots have the identical graphical procedure except the data has been replaced with data consistent with $H_0$. Then, an observer who have not seen the data plot will be asked to point out the most different plot from the lineup. Under $H_0$, it is expected that the data plot would have no distinguishable difference from the null plots, and the probability that the observer correctly picks the data plot is $1/m$. If one rejects $H_0$ as the observer correctly picks the data plot, then the Type I error of this test is $1/m$.
+Visual inference was first introduced in a 1999 Joint Statistical Meetings (JSM) talk with the title "Inference for Data Visualization" by @buja_inference_1999 as an idea to address the issue of valid inference for visual discoveries of data plots. Later, @buja_statistical_2009 proposed the lineup protocol as a visual test inspired by the "police lineup" or "identity parade" which is the act of asking the eyewitness to identify criminal suspect from a group of irrelevant people. The protocol consists of $m$ randomly placed plots, where one plot is the data plot, and the remaining $m - 1$ null plots have the identical graphical procedure except the data has been replaced with data consistent with $H_0$, that the model is correctly specified. Then, an observer who have not seen the data plot will be asked to point out the most different plot from the lineup. Under $H_0$, it is expected that the data plot would have no distinguishable difference from the null plots, and the probability that the observer correctly picks the data plot is $1/m$. If one rejects $H_0$ as the observer correctly picks the data plot, then the Type I error of this test is $1/m$.
 
 ```{r first-example-lineup, fig.height = 7, fig.width = 7, fig.cap = "Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$."}
 
@@ -427,11 +431,11 @@ vi_lineup$poly_300$data %>%
   VI_MODEL$plot_lineup(theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
 ```
 
-Figure \ref{fig:first-example-lineup} is an example of a lineup protocol. If the data plot at position $2^2 + 2$ is identifiable, then it is evidence for the rejection of $H_0$ that the regression model is correctly specified. In fact, the actual residual plot is obtained from a misspecified regression model with non-linearity defect. 
+Figure \ref{fig:first-example-lineup} is an example of a lineup protocol. If the data plot at position $2^2 + 2$ is identifiable, then it is evidence for the rejection of $H_0$. In fact, the actual residual plot is obtained from a misspecified regression model with missing non-linear terms. 
 
 Data used in the $m - 1$ null plots needs to be simulated. In regression diagnostics, sampling data consistent with $H_0$ is equivalent to sampling data from the assumed model. As @buja_statistical_2009 suggested, $H_0$ is usually a composite hypothesis controlled by nuisance parameters. Since regression models can have various forms, there is no general solution to this problem, but it sometimes can be reduced to a so called "reference distribution" by applying one of the three methods: (i) sampling from a conditional distribution given a minimal sufficient statistic under $H_0$, (ii) parametric bootstrap sampling with nuisance parameters estimated under $H_0$, and (iii) Bayesian posterior predictive sampling. The conditional distribution given a minimal sufficient statistic is the best justified reference distribution among the three [@buja_statistical_2009]. Essentially, null residuals can be simulated by regressing $N$ i.i.d standard normal random draws on the regressors, then rescaling it by the ratio of residual sum of square in two regressions.
 
-The effectiveness of lineup protocol for regression analysis is validated by @majumder_validation_2013 under relatively simple settings with up to two regressors. Their results suggest that visual tests are capable of testing the significance of a single regressor with a similar power as a t-test, though they express that in general it is unnecessary to use visual inference if there exists a conventional test, and they do not expect the visual test to perform equally well as the conventional test. (contradict to our claim? expand?) In their third experiment, where there is not a conventional test, visual test outperforms the conventional test for a large margin. This is encouraging, as it promotes the use of visual inference in situations where there are no existing statistical testing procedures. Visual inference have also been integrated into diagnostic of hierarchical linear models by @loy2013diagnostic, @loy2014hlmdiag and @loy2015you. They use lineup protocols to judge the assumption of linearity, normality and constant error variance for both the level-1 and level-2 residuals. (expand?)
+The effectiveness of lineup protocol for regression analysis is validated by @majumder_validation_2013 under relatively simple settings with up to two regressors. Their results suggest that visual tests are capable of testing the significance of a single regressor with a similar power as a t-test, though they express that in general it is unnecessary to use visual inference if there exists a conventional test, and they do not expect the visual test to perform equally well as the conventional test. In their third experiment, where there is not a conventional test, visual test outperforms the conventional test for a large margin. This is encouraging, as it promotes the use of visual inference in situations where there are no existing statistical testing procedures. Visual inference have also been integrated into diagnostic of hierarchical linear models by @loy2013diagnostic, @loy2014hlmdiag and @loy2015you. They use lineup protocols to judge the assumption of linearity, normality and constant error variance for both the level-1 and level-2 residuals. (expand?)
 
 # Calculation of statistical significance and test power
 
@@ -440,7 +444,7 @@ The effectiveness of lineup protocol for regression analysis is validated by @ma
 In diagnosing a model fit from residuals, we are generally interested in $H_0:$ *The regression model is correctly specified* against the broad alternative $H_a:$ *The regression model is misspecified*.
 
 However, it is practically impossible to test this specific $H_0$ with conventional tests, which are constructed to measure specific departures. For example, the RESET test is formulated as $H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0$ against $H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0$, from $e = \tau_0 + \tau_1x_1 + ... + \tau_1 x_p +\gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)$. 
-Similarly, the Breusch-Pagan test is designed to specifically test $H_0:$ *error variances are all equal* ($\tau_i=0 \text{ for } i=1,..,p$) versus the alternative $H_a:$ *that the error variances are a multiplicative function of one or more variables* ($\text{At least one } \tau_i\neq 0$) from $e^2 = \tau_0 + \tau_1 x_1 + \cdots + \tau_1 x_p + u, ~ u\sim N(0,\sigma_u^2)$. 
+Similarly, the Breusch-Pagan test is designed to specifically test $H_0:$ *error variances are all equal* ($\tau_i=0 \text{ for } i=1,..,p$) versus the alternative $H_a:$ *that the error variances are a multiplicative function of one or more variables* ($\text{at least one } \tau_i\neq 0$) from $e^2 = \tau_0 + \tau_1 x_1 + \cdots + \tau_1 x_p + u, ~ u\sim N(0,\sigma_u^2)$. 
 
 One of the potential benefits of the visual test, based on the lineup protocol, is that it should be able to detect a range of departures from good residuals. 
 
@@ -497,7 +501,11 @@ With Equation \ref{eq:c-interesting-expectation}, $\alpha$ can be estimated usin
 The power of a model misspecification test is the probability that the null hypothesis is rejected given the regression model is misspecified in a specific way. It is an important indicator
 when one is concerned about whether model assumptions have been violated. Although in practice, one might be more interested in knowing how much the residuals deviate from the model assumptions, and whether this deviation is of practical significance.
 
-The power of a conventional hypothesis test is affected by both the true parameter $\boldsymbol{\theta}$ and the sample size $n$. These two can be quantified in terms of effect size $E$ to measure the strength of the residual departures from the model assumptions. Details about the effect size is provided in Section \ref{effect-size} after the introduction of the simulation model used in our human subject experiment. The theoretical power of a test is sometimes not a trival solution. For a given regression model under a specific effect size, if the data generating process is also known, the power of a conventional test can be estimated by counting the number of times the test rejects the null hypothesis in a repeated sampling exercise
+The power of a conventional hypothesis test is affected by both the true parameter $\boldsymbol{\theta}$ and the sample size $n$. These two can be quantified in terms of effect size $E$ to measure the strength of the residual departures from the model assumptions. Details about the effect size is provided in Section \ref{effect-size} after the introduction of the simulation model used in our human subject experiment. 
+
+
+
+The theoretical power of a test is sometimes not a trival solution. For a given regression model under a specific effect size, if the data generating process is also known, the power of a conventional test can be estimated by counting the number of times the test rejects the null hypothesis in a repeated sampling exercise
 and divided by the number of times simulated from the known data generating process. This is the method we used to estimate the power of conventional tests in our experiment. 
 
 The power of a visual test on the other hand, may additionally depend on the ability of the particular subject, as the skill of the individual may affect the number of observers who identify the data plot from the lineup [@majumder_validation_2013]. To address this issue, @majumder_validation_2013 models the probability of a subject $j$ correctly picking the data plot from a lineup $l$ using a mixed-effect logistic regression, with subjects treated as random effect. Then, the estimated power of a visual test evaluated by a single subject is the predicted value obtained from the mix-effect model.   
