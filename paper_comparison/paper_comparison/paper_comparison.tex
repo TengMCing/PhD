@@ -1012,7 +1012,7 @@ the auxiliary regression is left to the user
 \citep{breusch_simple_1979}. But as \citet{waldman1983note} suggested,
 it is a good choice for the set of auxiliary predictors in the
 Breusch-Pagan test be the same as the White test. Thus, we include both
-\(\boldsymbol{x}\) and \(\boldsymbol{x}^2\) in the auxiliary regression.
+\(x\) and \(x^2\) in the auxiliary regression.
 
 Figure \ref{fig:heterpower} is similar to Figure \ref{fig:polypower},
 but shows corresponding information on lineups produced by the
@@ -1020,22 +1020,35 @@ heteroskedasticity model. In this scenario, the visual test is compared
 to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
-For both the non-linearity pattern and the heteroskedasticity pattern,
-the power curves of appropriate conventional tests are constantly
-greater than the power curves of visual tests and other inappropriate
-conventional tests. At \(log(E) = 1\) for non-linearity model, where the
-residual departures are unnoticeable from the corresponding residual
-plot, the RESET test has above 25\% of chance of rejecting \(H_0\),
-while only a few visual tests would result in a rejection. Similarly, at
-\(log(E) = 3\) for heteroskedasticity model, the BP test has around 25\%
-power but the non-constant variance visual pattern is almost unobserved
-from the residual plot and the power of the visual test is close to the
-significance level at this point.
+For non-linearity patterns, the power curve of RESET test climbs
+aggressively from 7\% to 85\% as \(log_e(E)\) increases from 0 to 2.5,
+while power of other tests respond inactively to the change of effect,
+showing that RESET test is much more sensitive to weak non-linear
+structure. Meanwhile, no noticeable residual departures can be spotted
+from the example residual plots.
 
-Further, the power of all inappropriate tests show improvement as the
-effect increases but at a lower rate than the visual test in both
-scenarios. This coincides the point made by \citet{cook1982residuals}
-that residual-based tests for a specific type of model defect may be
+In terms of heteroskedasticity patterns, the power of Breusch-Pagan test
+is constantly greater than the power of visual test. At
+\(log_e(E) \approx 2.5\), where the power curve of the visual test
+remains at a low level, the Breusch-Pagan test has around 50\% chance of
+rejecting \(H_0\). Similarly, the visual feature is nearly unobservable
+from the example residual plots at this level of effect size.
+
+The power of visual test arises steadily as \(log_e(E)\) increases from
+3 to 5 for both non-linearity patterns and heteroskedasticity patterns,
+suggesting that the effect starts to make significant impact on the
+degree of the presence of the designed visual features. This can also be
+observed from the example residual plots that when \(log_e(E) = 3.5\), a
+weak ``S-shape'' and a weak ``right-triangle'' shape are presented in
+Figure \ref{fig:polypower} and Figure \ref{fig:heterpower} respectively.
+The visual pattern becomes clearer as \(log_e(E)\) increases. At
+\(log_e(E) = 5\), the power of visual tests for both patterns reaches
+almost 100\%.
+
+Power curves of inappropriate tests show improvement as the effect
+increases but at a lower rate than the visual test in both scenarios.
+This coincides the point made by \citet{cook1982residuals} that
+residual-based tests for a specific type of model defect may be
 sensitive to other types of model defects. The power curve of RESET test
 remains at around 5\% in Figure \ref{fig:heterpower} since there are no
 non-linear terms leave out in the heteroskedasticity model and \(H_0\)
@@ -1043,20 +1056,22 @@ of the test is always satisfied.
 
 Overall, the power comparison suggests that conventional tests differs
 significantly from visual tests in two regression diagnostics scenarios
-designed by us. Visual test have much higher tolerance of the residual
-departures than the conventional test. Since fail to reject \(H_0\) in a
-visual test usually means that there are no obvious visual discoveries
-found in the residual plot, analysts and the general public as the
-consumers of the output may not be convinced of the existence of
-significant residual departures in spite of the rejection of \(H_0\)
-given by the conventional test. Even if the rejection is accepted, the
-model violation may be considered as impactless due to the fact that
-they are not clearly visible. Besides, the sensitivity of the
-conventional test could also distract and discourage analysts from
-finding simple but good linear approximation to the data. The rejection
-of \(H_0\) because of human acceptable and negligible residual
-departures is not practically meaningful and useful. This may limit the
-popularity of conventional tests in residual diagnostics among analysts.
+designed in this paper. Visual test have much higher tolerance of the
+residual departures than the conventional test. Since fail to reject
+\(H_0\) in a visual test literally means that there are no obvious
+visual discoveries found in the residual plot, analysts and the general
+public as the consumers of the output may not be convinced of the
+existence of significant residual departures in spite of the rejection
+of \(H_0\) given by the conventional test. Even if the rejection is
+accepted, the model violation may be considered as impactless due to the
+fact that they are not clearly visible. Besides, the sensitivity of the
+conventional test to weak residual departures could also distract and
+discourage analysts from finding simple but good linear approximation to
+the data. The rejection of \(H_0\) because of human acceptable and
+negligible residual departures is not practically meaningful and useful
+to analysts and decision makers. In contrast, if the strict correctness
+of the model assumption is of particular interest, conducting a
+conventional test is still the recommended choice based on the findings.
 
 \begin{figure}
 
