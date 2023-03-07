@@ -50,9 +50,15 @@ The effect size can be calculated using Equation \ref{eq:effect-size} for each l
 
 ### Mapping of subjects to experimental factors
 
-Mapping of subjects to experimental factors 
+Mapping of subjects to experimental factors is an important part of experiment design. Essentially, we want to maximum the difference in factors exposed to a subject. For this purpose, we design an algorithm to conduct subject allocation. Let $L$ be a set of available lineups and $S$ be a set of available subjects. According to the experimental design, available means a lineup can be allocated to at most five different subjects (for lineups with uniform fitted value distribution, this value is 11) and a subject can view at most 18 different lineups.
+
+The algorithm starts from picking a random subject $s$ from $S$ with the minimum number of allocated lineups. It then computes a metric for every lineup $l$ in $L$ indicating the distance $D$ between lineup $l$ to the lineups already allocated to this subject $l_{allocated}$. Lineup with the highest distance $D$ will be allocated to the subject. The algorithm will repeatedly pick a subject, compute metrics, and allocate lineups until there is no available lineups or no available subjects.
+
+The distance $D$ is defined using the factor values used to generate lineup $l$ and lineups $l_{allocated}$. If there does not exist $l_{allocated}$, then the distance $D = 0$. Otherwise, distance $D$ is roughly the number of factors minus the number of factor values of lineup $l$ exists in a union of factor values of lineups $l_{allocated}$. The distance $D$ is further adjusted by the existence of $n$-factor combinations, where $n$ could be two to the number of factors. In this way, all factors values are exposed to every subject, and some even ensure all $2$-factor combinations are exposed to every subject. 
 
 ### Demographics
+
+
 
 ### Data collection interface
 
