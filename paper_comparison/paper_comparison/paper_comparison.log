@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.26)  8 MAR 2023 00:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.26)  8 MAR 2023 03:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -775,7 +775,7 @@ l.1274
 pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1308 
+l.1310 
         <./paper_comparison_files/figure-latex/different-x-dist-poly-power-1.png>] [25] (./paper_comparison.bbl [26]) [27] (./paper_comparison.aux)
 
 LaTeX Font Warning: Size substitutions with differences
@@ -785,18 +785,18 @@ Package rerunfilecheck Info: File `paper_comparison.out' has not changed.
 (rerunfilecheck)             Checksum: F87989EC2D343B2F00B806AC6C5B4F9C;5363.
  ) 
 Here is how much of TeX's memory you used:
- 13427 strings out of 477984
- 220694 string characters out of 5838233
+ 13425 strings out of 477984
+ 220682 string characters out of 5838233
  1871388 words of memory out of 5000000
  33211 multiletter control sequences out of 15000+600000
  525387 words of font info for 83 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  87i,12n,90p,797b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper_comparison.pdf (27 pages, 3323240 bytes).
+Output written on paper_comparison.pdf (27 pages, 3323330 bytes).
 PDF statistics:
- 759 PDF objects out of 1000 (max. 8388607)
- 643 compressed objects within 7 object streams
- 156 named destinations out of 1000 (max. 500000)
+ 757 PDF objects out of 1000 (max. 8388607)
+ 641 compressed objects within 7 object streams
+ 154 named destinations out of 1000 (max. 500000)
  310 words of extra memory for PDF output out of 10000 (max. 10000000)
 

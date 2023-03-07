@@ -1273,8 +1273,8 @@ visual inference. The experiment tested two primary departures from good
 residuals: non-linearity and heteroskedasticity.
 
 The experiment found that conventional residual-based statistical tests
-are more sensitive to departures from assumptions for residuals than
-visual tests as would be evaluated by humans. That is, conventional
+are more sensitive to weak residual departures from model assumptions
+than visual tests as would be evaluated by humans. That is, conventional
 tests conclude there are problems with the model fit almost twice as
 often as humans would. They often reject when departures in the form of
 non-linearity and heteroskedasticity are not visible to a human.
@@ -1288,19 +1288,29 @@ which reinforces the statements from regression experts that residual
 plots are an indispensible method for model diagnostics.
 
 Now it is important to note that residual plots need to be delivered as
-a lineup, where it is embedded in a field of null plots. This enables a
-careful calibration for reading structure in residual plots. XXX More
-here
+a lineup, where it is embedded in a field of null plots. A residual plot
+may contains many visual features, but some are caused by the
+characteristics of the predictors and the randomness of the error, not
+by the violation of the model assumptions. These irrelevant visual
+features have a chance to be filtered out by subjects with a comparison
+to null plots, results in a set of more accurate visual findings. This
+enables a careful calibration for reading structure in residual plots.
 
 However, human evaluation of residuals is expensive. It is
-time-consuming, and laborious. This is another reason why it often
-appears to be ignored. With the availability of sophisticated computer
-vision algorithms today, the goal of this work is to form the basis of
-providing automated residual plot reading. XXX More here
+time-consuming, laborious and unfriendly to vision-impaired people. This
+is another reason why it often appears to be ignored. With the
+availability of sophisticated computer vision algorithms today, the goal
+of this work is to form the basis of providing automated residual plot
+reading. The findings suggest the strong demand of graphical inspection
+in regression diagnostics, so developing an automatic visual inference
+system to evaluate lineups of residual plots is valuable. We plan to
+build a completed open-source system in an \texttt{R} package and
+provide a web interface such as a website for public to interact with.
+Details about this system will be discussed in our next paper.
 
 The experiment also revealed some interesting details about how residual
 plots are read. For the most part, the visual test performed very
-similarly to the (best) conventional test only with the power curve
+similarly to the appropriate conventional test only with the power curve
 shifted in the less sensitive direction. Unlike the conventional tests,
 where one needs to specifically test for non-linearity or
 heteroskedasticity the visual test operated effectively across the range
@@ -1308,28 +1318,10 @@ of departures from good residuals.
 
 As expected, if the fitted value distribution is not uniform, there is a
 loss of power in the visual test. Structure is hardest to detect if
-fitted values are lognormal. Also, a surprising find was that the
-direction of heteroskedasticity appears to affect the ability to
+fitted values are lognormal. Also, complex structure are generally
+harder to detect, but there are outliers. A surprising finding was that
+the direction of heteroskedasticity appears to affect the ability to
 visually detect it, with wedge to the right being less detectable.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  how does this apply more broadly than simple regression
-\end{enumerate}
-
-recommend residual vs fitted values a. measure uncertainty b.
-systemically miss some structure
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  where does this lead? Computer vision residual plot reading
-\end{enumerate}
 
 \hypertarget{acknowledgement}{%
 \section{Acknowledgement}\label{acknowledgement}}

@@ -1616,72 +1616,19 @@ dat_x_dist %>%
 
 # Conclusion
 
-<!--1. summarise paper content-->
-
 Motivated by the advice of regression analysis experts, that residual plots as opposed to conventional tests are an indispensible methods for assessing model fit, a human subjects experiment was conducted using visual inference. The experiment tested two primary departures from good residuals: non-linearity and heteroskedasticity. 
 
-<!-- This paper has demonstrated that conventional residual-based statistical tests are more sensitive to departures from assumptions for residuals than visual tests evaluated by humans in the diagnostics of linear regression models. An experiment is conducted in three data collection periods using two simulation models, one for for non-linearity and and the other for heteroskedasticity. Methods for obtaining the $p$-value of visual tests proposed by @vanderplas2021statistical are extended to allow for multiple selections in a lineup protocol.-->
-
-<!--2. briefly describe what was learned-->
-
-The experiment found that conventional residual-based statistical tests are more sensitive to departures from assumptions for residuals than visual tests as would be evaluated by humans. That is, conventional tests conclude there are problems with the model fit almost twice as often as humans would. They often reject when departures in the form of non-linearity and heteroskedasticity are not visible to a human. 
+The experiment found that conventional residual-based statistical tests are more sensitive to weak residual departures from model assumptions than visual tests as would be evaluated by humans. That is, conventional tests conclude there are problems with the model fit almost twice as often as humans would. They often reject when departures in the form of non-linearity and heteroskedasticity are not visible to a human. 
 
 One might say that this is correct behaviour, but it can be argued that the conventional tests are rejecting when it is not necessary. Many of these rejections happen even when downstream analysis and results would not be significantly affected by the small departures from a good fit. The results from human evaluations provide a more practical solution, which reinforces the statements from regression experts that residual plots are an indispensible method for model diagnostics.
 
-Now it is important to note that residual plots need to be delivered as a lineup, where it is embedded in a field of null plots. This enables a careful calibration for reading structure in residual plots. XXX More here
+Now it is important to note that residual plots need to be delivered as a lineup, where it is embedded in a field of null plots. A residual plot may contains many visual features, but some are caused by the characteristics of the predictors and the randomness of the error, not by the violation of the model assumptions. These irrelevant visual features have a chance to be filtered out by subjects with a comparison to null plots, results in a set of more accurate visual findings. This enables a careful calibration for reading structure in residual plots.
 
-However, human evaluation of residuals is expensive. It is time-consuming, and laborious. This is another reason why it often appears to be ignored. With the availability of sophisticated computer vision algorithms today, the goal of this work is to form the basis of providing automated residual plot reading. XXX More here
+However, human evaluation of residuals is expensive. It is time-consuming, laborious and unfriendly to vision-impaired people. This is another reason why it often appears to be ignored. With the availability of sophisticated computer vision algorithms today, the goal of this work is to form the basis of providing automated residual plot reading. The findings suggest the strong demand of graphical inspection in regression diagnostics, so developing an automatic visual inference system to evaluate lineups of residual plots is valuable. We plan to build a completed open-source system in an `R` package and provide a web interface such as a website for public to interact with. Details about this system will be discussed in our next paper.  
 
-The experiment also revealed some interesting details about how residual plots are read. For the most part, the visual test performed very similarly to the (best) conventional test only with the power curve shifted in the less sensitive direction. Unlike the conventional tests, where one needs to specifically test for non-linearity or heteroskedasticity the visual test operated effectively across the range of departures from good residuals. 
+The experiment also revealed some interesting details about how residual plots are read. For the most part, the visual test performed very similarly to the appropriate conventional test only with the power curve shifted in the less sensitive direction. Unlike the conventional tests, where one needs to specifically test for non-linearity or heteroskedasticity the visual test operated effectively across the range of departures from good residuals. 
 
-As expected, if the fitted value distribution is not uniform, there is a loss of power in the visual test. Structure is hardest to detect if fitted values are lognormal. Also, a surprising find was that the direction of heteroskedasticity appears to affect the ability to visually detect it, with wedge to the right being less detectable.
-
-<!--According to the data collected from the human subject experiment, residual plots rejected by visual tests are rarely not rejected by conventional tests, but departures of residuals that are of little practical sense to humans will often be alarmed by conventional tests, supporting the common guidance given by experts to utilize graphical representations of data in model diagnostics. -->
-
-<!-- We have also found that residual-based conventional tests relying on a user-parameterized test formula, such as the RESET test, will suffer from a significant decrease in power for detecting certain residual departures intended to be tested but not covered by the test formula. This can not be avoided without prior knowledge of their functional forms, which is usually obtained by plotting the residuals. On the other hand, visual tests do not rely on such information and a collection of departures can be tested simultaneously.
-
-
-Interestingly, the orientation of the visual pattern 
-
-fitted value distribution
-
-orientation of heter shape
--->
-
-<!-- Besides, the power of both tests vary for different fitted value distributions.  -->
-
-<!-- The ideal fitted value distribution for a visual test is the uniform distribution. If this can not be satisfied, a continuous -->
-
-<!-- continuous and symmetric -->
-
-<!-- distributions that are continuous, symmetric, or evenly distributed are also welcomed. -->
-
-<!-- properties that a uniform distribution holds, such as continuous, symmetric, and evenly distributed  -->
-
-<!-- Depending on the underlying residual departures embedded in the residual plot,  -->
-
-<!-- In the two controlled scenarios, the conventional tests favours discrete uniform distribution -->
-
-<!-- fitted value distributions have a strong impact on the  -->
-
-<!-- some residual departures are more difficult to be detected under a skewed fitted value distribution.  -->
-
-
-<!-- continuous, symmetric and evenly distributed. -->
-
-<!-- with different  -->
-
-<!-- symmetric, evenly  -->
-
-3. how does this apply more broadly than simple regression
-
-recommend residual vs fitted values
-a. measure uncertainty
-b. systemically miss some structure
-
-
-4. where does this lead? Computer vision residual plot reading
-
+As expected, if the fitted value distribution is not uniform, there is a loss of power in the visual test. Structure is hardest to detect if fitted values are lognormal. Also, complex structure are generally harder to detect, but there are outliers. A surprising finding was that the direction of heteroskedasticity appears to affect the ability to visually detect it, with wedge to the right being less detectable.
 
 
 # Acknowledgement
