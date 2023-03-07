@@ -11,7 +11,9 @@ library(visage)
 
 # Appendix
 
-## Effect size derivation and caculation
+## Effect size
+
+## Derivation
 
 Effect size is usually defined as the difference of a parameter or a statistic derived from a sample. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
 
@@ -24,7 +26,10 @@ $$KL = \frac{1}{2}\left(log\frac{|\Sigma_p|}{|\Sigma_q|} - n + tr(\Sigma_p^{-1}\
 
 Then, we can combine the two residual departures into one formula
 
-$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right).$$
+\begin{equation}
+\label{eq:effect-size}
+KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right).
+\end{equation}
 
 When there are omitted variables but constant error variance, the formula can be reduced to
 
@@ -37,9 +42,15 @@ Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of
 
 $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
 
+## Caculation
+
+The effect size can be calculated using Equation \ref{eq:effect-size} for each lineup by plugging in the data generated from the simulated model. However, since the term $\boldsymbol{R}_a$ will differ for each sample, the effect size will be different even if the parameter values are the same. To overcome this undesired property, for the same set of parameter values, we simulate a sufficient large number of samples, and take the average of the effect size as the final effect size.   
+
 ## Experiment setup
 
 ### Mapping of subjects to experimental factors
+
+Mapping of subjects to experimental factors 
 
 ### Demographics
 
