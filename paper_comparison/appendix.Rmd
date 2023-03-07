@@ -10,6 +10,244 @@ library(visage)
 library(tidyverse)
 ```
 
+```{r}
+# OOP supports needed by `visage`
+# remotes::install_github("TengMCing/bandicoot")
+# 
+# Visual inference models and p-value calculation
+# remotes::install_github("TengMCing/visage")
+
+library(tidyverse)
+library(visage)
+
+# To control the simulation in this file
+set.seed(10086)
+```
+
+```{r get-lineup-data}
+# Create the dir folder
+if (!dir.exists(here::here("data/"))) dir.create(here::here("data/"))
+
+# The lineup data used to draw residual plot needed to be downloaded
+# from the github repo. Cache it.
+if (!file.exists(here::here("data/vi_lineup.rds"))) {
+  vi_lineup <- get_vi_lineup()
+  saveRDS(vi_lineup, here::here("data/vi_lineup.rds"))
+} else {
+  vi_lineup <- readRDS(here::here("data/vi_lineup.rds"))
+}
+```
+
+```{r poly-conventional-simulation}
+# Ensure the support of the predictor is [-1, 1]
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+
+# Run simulations to get the behaviours of conventional tests
+if (!file.exists(here::here("data/poly_conventional_simulation.rds"))) {
+  poly_conv_sim <- list()
+  
+  # 100 bootstrap samples
+  for (i in 1:100)
+  {
+    poly_conv_sim[[i]] <- 
+      # Every sample contains 2000 lineups
+      map(1:2000, function(i) {
+        
+        # Sample a set of parameters
+        shape <- sample(1:4, 1)
+        e_sigma <- sample(c(0.5, 1, 2, 4), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- poly_model(shape, x = x, sigma = e_sigma)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(shape = shape,
+               e_sigma = e_sigma,
+               x_dist = x_dist,
+               n = n,
+               F_p_value = mod$test(tmp_dat)$p_value,
+               RESET3_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:3, 
+                                         power_type = "fitted")$p_value,
+               RESET4_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:4, 
+                                         power_type = "fitted")$p_value,
+               RESET5_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:5, 
+                                         power_type = "fitted")$p_value,
+               RESET6_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:6, 
+                                         power_type = "fitted")$p_value,
+               RESET7_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:7, 
+                                         power_type = "fitted")$p_value,
+               RESET8_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:8, 
+                                         power_type = "fitted")$p_value,
+               RESET9_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:9, 
+                                         power_type = "fitted")$p_value,
+               RESET10_p_value = mod$test(tmp_dat, 
+                                          test = "RESET", 
+                                          power = 2:10, 
+                                          power_type = "fitted")$p_value,
+               BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
+  reduce(bind_rows)
+  }
+  
+  poly_conv_sim <- poly_conv_sim %>%
+    reduce(bind_rows)
+  
+  saveRDS(poly_conv_sim, here::here("data/poly_conventional_simulation.rds"))
+} else {
+  poly_conv_sim <- readRDS(here::here("data/poly_conventional_simulation.rds"))
+}
+```
+
+```{r heter-conventional-simulation}
+# Run simulations to get the behaviours of conventional tests
+if (!file.exists(here::here("data/heter_conventional_simulation.rds"))) {
+  heter_conv_sim <- list()
+  
+  # 100 bootstrap samples
+  for (i in 1:100)
+  {
+    heter_conv_sim[[i]] <-
+      # Every sample contains 2000 lineups
+      map(1:2000, function(x) {
+        
+        # Sample a set of parameters
+        a <- sample(c(-1, 0, 1), 1)
+        b <- sample(c(0.25, 1, 4, 16, 64), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- heter_model(a = a, b = b, x = x)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(a = a,
+               b = b,
+               x_dist = x_dist,
+               n = n,
+               F_p_value = POLY_MODEL$test(
+                 
+                 # Create a pseudo z to be able to use F-test
+                 tmp_dat %>%
+                   mutate(z = poly_model()$
+                            gen(n, computed = select(tmp_dat, x)) %>%
+                            pull(z))
+                 )$p_value,
+               RESET3_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:3, 
+                                                power_type = "fitted")$p_value,
+               RESET4_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:4, 
+                                                power_type = "fitted")$p_value,
+               RESET5_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:5, 
+                                                power_type = "fitted")$p_value,
+               RESET6_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:6, 
+                                                power_type = "fitted")$p_value,
+               RESET7_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:7, 
+                                                power_type = "fitted")$p_value,
+               RESET8_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:8, 
+                                                power_type = "fitted")$p_value,
+               RESET9_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:9, 
+                                                power_type = "fitted")$p_value,
+               RESET10_p_value = POLY_MODEL$test(tmp_dat, 
+                                                 test = "RESET", 
+                                                 power = 2:10, 
+                                                 power_type = "fitted")$p_value,
+               BP_p_value = mod$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
+  reduce(bind_rows)
+  }
+  
+  heter_conv_sim <- heter_conv_sim %>%
+    reduce(bind_rows)
+  
+  saveRDS(heter_conv_sim, here::here("data/heter_conventional_simulation.rds"))
+} else {
+  heter_conv_sim <- readRDS(here::here("data/heter_conventional_simulation.rds"))
+}
+```
+
+```{r}
+# Borrow effect size from the survey
+poly_conv_sim <- poly_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "polynomial"), shape, e_sigma, n, x_dist, effect_size))
+
+heter_conv_sim <- heter_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "heteroskedasticity"), a, b, n, x_dist, effect_size))
+```
+
+
 # Appendix
 
 ## Effect size
@@ -87,9 +325,336 @@ vi_survey %>%
 
 ### Data collection interface
 
+
+
 ## Batch effect size
 
+
+
 ## Sensitivity analysis for $\alpha$
+
+The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja_statistical_2009. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
+
+The analysis is conducted by setting up two relatively extreme scenarios, where the $\alpha$ is under or overestimated by 25%. Using the inflated and deflated $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that $p$-value changes very little. It is very unlikely the findings will be affected because of the estimate of $\alpha$. 
+
+
+```{r}
+vi_survey_upper <- calc_p_value_multi(vi_survey %>%
+                                        mutate(alpha_upper = alpha * 1.25,
+                                               alpha_lower = alpha * 0.75),
+                                      lineup_id = unique_lineup_id,
+                                      detect = detect,
+                                      n_sel = num_selection,
+                                      alpha = alpha_upper) %>%
+  right_join(select(vi_survey, -p_value))
+  
+
+vi_survey_lower <- calc_p_value_multi(vi_survey %>%
+                                        mutate(alpha_upper = alpha * 1.25,
+                                               alpha_lower = alpha * 0.75),
+                                      lineup_id = unique_lineup_id,
+                                      detect = detect,
+                                      n_sel = num_selection,
+                                      alpha = alpha_lower) %>%
+  right_join(select(vi_survey, -p_value))
+```
+
+
+```{r cache = TRUE, eval = FALSE}
+# Define the minimum and maximum effect size
+min_poly_es <- vi_survey_upper %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_poly_es <- vi_survey_upper %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
+
+# The glm model for RESET test
+reset_poly_glmmod <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(reject = as.numeric(RESET4_p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(x_dist, effect_size, log_effect_size, offset0, reject) %>%
+  glm(reject ~ effect_size - 1, family = binomial(), data = ., offset = offset0)
+
+# The prediction for all conventional tests on poly model
+pred_conv_poly <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
+  rename(RESET_p_value = RESET4_p_value) %>%
+  pivot_longer(RESET_p_value:SW_p_value) %>%
+  mutate(name = gsub("_p_value", " test", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# Data needed by the visual test
+visual_poly_dat <- vi_survey_upper %>%
+  filter(!null_lineup, 
+         !attention_check, 
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(effect_size, offset0, reject)
+
+# The glm model for visual test
+visual_poly_glmmod <- glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = visual_poly_dat, 
+                          offset = offset0)
+
+# The prediction of the visual test
+pred_visual_poly <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                               offset0 = log(0.05/0.95)) %>%
+  mutate(power = predict(visual_poly_glmmod, 
+                         type = "response",
+                         newdata = data.frame(effect_size = effect_size,
+                                              offset0 = offset0))) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# The prediction of the boot visual test
+pred_visual_poly_boot <- map_df(1:500, function(boot_id) {
+  slice_sample(visual_poly_dat, n = nrow(visual_poly_dat), replace = TRUE) %>%
+    nest(dat = c(effect_size, offset0, reject)) %>%
+    mutate(mod = map(dat, 
+                     ~glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = .x,
+                          offset = offset0))) %>%
+    mutate(power = map(mod, function(mod) {
+      result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                           offset0 = log(0.05/0.95))
+      result$power <- predict(mod, type = "response", newdata = result)
+      result
+    })) %>%
+    select(-dat, -mod) %>%
+    unnest(power) %>%
+    mutate(log_effect_size = log(effect_size)) %>%
+    mutate(boot_id = boot_id)
+  })
+```
+
+```{r eval = FALSE}
+ggplot() +
+  
+  geom_point(data = visual_poly_dat,
+             aes(log(effect_size), reject),
+             alpha = 0.15) +
+  
+  # Draw conventional test power curve
+  geom_line(data = pred_conv_poly,
+            aes(log_effect_size, power, col = name),
+            size = 1) +
+  
+  # Draw boot visual test curves
+  geom_line(data = pred_visual_poly_boot,
+            aes(log_effect_size, power, col = "Visual test", group = boot_id),
+            size = 1,
+            alpha = 0.01) +
+  
+  # Draw visual test power curve
+  geom_line(data = pred_visual_poly,
+            aes(log_effect_size, power, col = "Visual test"), 
+            size = 1) +
+  
+  # Theme
+  theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  labs(col = "", size = "# lineups")
+```
+
+
+```{r sensitive, fig.cap = "Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value = first(p_value)) %>%
+  left_join(
+vi_survey_upper %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value_upper = first(p_value))) %>%
+  left_join(
+vi_survey_lower %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value_lower = first(p_value))) %>%
+  pivot_longer(p_value_upper:p_value_lower) %>%
+  mutate(name = ifelse(name == "p_value_upper", "+25%", "-25%")) %>%
+  ggplot() +
+  geom_point(aes(p_value, value), alpha = 0.2) +
+  geom_abline() +
+  scale_x_sqrt() +
+  scale_y_sqrt() +
+  facet_wrap(~name) +
+  ylab("Adjusted p-value") +
+  xlab("p-value")
+  
+```
+
+
+```{r cache = TRUE, eval = FALSE}
+# Define the minimum and maximum effect size
+min_heter_es <- vi_survey_upper %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_heter_es <- vi_survey_upper %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
+
+# The prediction for all conventional tests on heter model
+pred_conv_heter <- heter_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
+  rename(RESET_p_value = RESET4_p_value) %>%
+  pivot_longer(RESET_p_value:SW_p_value) %>%
+  mutate(name = gsub("_p_value", " test", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# Data needed by the visual test
+visual_heter_dat <- vi_survey_upper %>%
+  filter(!null_lineup, 
+         !attention_check, 
+         type == "heteroskedasticity", 
+         x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(effect_size, offset0, reject)
+
+# The glm model for visual test
+visual_heter_glmmod <- glm(reject ~ effect_size - 1, 
+                           family = binomial(), 
+                           data = visual_heter_dat, 
+                           offset = offset0)
+
+# The prediction of the visual test
+pred_visual_heter <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                                offset0 = log(0.05/0.95)) %>%
+  mutate(power = predict(visual_heter_glmmod, 
+                         type = "response",
+                         newdata = data.frame(effect_size = effect_size,
+                                              offset0 = offset0))) %>%
+  mutate(log_effect_size = log(effect_size))
+
+# The prediction of the boot visual test
+pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
+  slice_sample(visual_heter_dat, n = nrow(visual_heter_dat), replace = TRUE) %>%
+    nest(dat = c(effect_size, offset0, reject)) %>%
+    mutate(mod = map(dat, 
+                     ~glm(reject ~ effect_size - 1, 
+                          family = binomial(), 
+                          data = .x,
+                          offset = offset0))) %>%
+    mutate(power = map(mod, function(mod) {
+      result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
+                           offset0 = log(0.05/0.95))
+      result$power <- predict(mod, type = "response", newdata = result)
+      result
+    })) %>%
+    select(-dat, -mod) %>%
+    unnest(power) %>%
+    mutate(log_effect_size = log(effect_size)) %>%
+    mutate(boot_id = boot_id)
+  })
+```
+
+
+```{r eval = FALSE}
+# Analyse uniform heteroskedasticity data
+ggplot() +
+  
+  geom_point(data = visual_heter_dat,
+             aes(log(effect_size), reject),
+             alpha = 0.15) +
+  
+  # Draw conventional test power curve
+  geom_line(data = pred_conv_heter,
+            aes(log_effect_size, power, col = name),
+            size = 1) +
+  
+  # Draw boot visual test curves
+  geom_line(data = pred_visual_heter_boot,
+            aes(log_effect_size, power, col = "Visual test", group = boot_id),
+            size = 1,
+            alpha = 0.01) +
+  
+  # Draw visual test power curve
+  geom_line(data = pred_visual_heter,
+            aes(log_effect_size, power, col = "Visual test"), 
+            size = 1) +
+  
+  # Theme
+  theme_light(base_size = 5) +
+  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
+  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
+  # scale_size_manual(values = seq(1, 9)) +
+  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
+  xlab(expression(log[e] (Effect_size))) +
+  ylab("Power") +
+  labs(col = "", size = "# lineups")
+```  
+
+
+
+
 
 
 ## Other results
