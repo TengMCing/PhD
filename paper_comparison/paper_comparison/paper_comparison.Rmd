@@ -1388,7 +1388,7 @@ VI_MODEL$plot_lineup(vi_lineup$heter_331$data,
 
 ## Effect of shape of non-linearity
 
-A primary factor contributes to the non-linearity model is the shape of the non-linearity pattern. According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have higher power in testing shapes constructed from lower orders of Hermite polynomials. But the power of testing the "triple-U" shape drops significantly. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "triple-U" shape constructed from the Hermite polynomials use power up to 18. If the RESET test had been applied using a higher power no less than six, the power curve of "triple-U" shape will be only slight lower than the power curve of "M" shape. The recommendation of the polynomial power for the RESET should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data generating process in order to set the parameters for the test.
+A primary factor contributes to the non-linearity model is the shape of the non-linearity pattern. According to Figure \ref{fig:poly-power-uniform-j}, conventional tests have higher power in testing shapes constructed from lower orders of Hermite polynomials. But the chance of detecting the "triple-U" shape drops significantly compared to other shapes. To understand why this is, one needs to return to the way the RESET test is applied. It requires a parameter indicating degree of fitted values to test for, and the recommendation is to generically use four (@ramsey_tests_1969). However, the "triple-U" shape constructed from the Hermite polynomials use power up to 18. If the RESET test had been applied using a higher power no less than six, the power curve of "triple-U" shape will be only slight lower than the power curve of "M" shape. The recommendation of the polynomial power for the RESET test should be revised, perhaps. This illustrates the sensitivity of conventional testing to the parameters, and it also points to a limitation that one needs to know the data generating process in order to set the parameters for the test.
 
 For visual tests, based on the orders of the Hermite polynomials, we expect the "U" shape will be the easiest one to be detected by subjects followed by the "S", "M" and "triple-U" shape. From Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power curves are mostly aligned with our expectation, except for the "M" shape, which is as easy to be detected as the "S" shape. This implies, unlike the conventional test, the visibility of the shape do not strictly follow the degree of the polynomials.
 
@@ -1440,7 +1440,7 @@ dat_poly_j %>%
 
 ## Effect of shape of heteroskedasticity
 
-We have also investigated the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "left-triangle" and the "right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. Similarly, visual tests should have the same power in detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve for the "left-triangle" shape is higher than the one for the "right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies. Besides, the chance of detecting the "butterfly" shape are higher than other two shapes in both conventional and visual testing. 
+We have also investigated the impact of different heteroskedasticity shapes on power of conventional tests and visual tests. In theory, the "left-triangle" and the "right-triangle" shapes are functionally identical from the point of view of a Breusch-Pagan test. As shown in Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where little difference between the power curves can be perceived. Similarly, visual tests should have the same power in detecting these two shapes if they are equally likely to be identified. However, it can be observed from Figure \ref{fig:heter-power-uniform-a} that the power curve of the "left-triangle" shape is higher than the one of the "right-triangle" shape, indicating a potential favour of orientation by human, which is worth to be explored in future studies. Besides, the chance of detecting the "butterfly" shape are higher than other two shapes in both conventional and visual testing. 
 
 ```{r heter-power-uniform-a, fig.height = 4, fig.cap = 'Power of conventional tests and visual tests on lineups produced by the heteroskedasticity model with three different shapes controlled by the parameter $a$. The visual test has an asymmetric power in testing the "left-triangle" shape and "right-triangle" shape, while these two shapes are equivalent in conventional testing.'}
 
@@ -1493,16 +1493,10 @@ dat_heter_a %>%
 
 The prediction in a regression model is $E(Y|X)$, that is, it is conditional on observed values of the predictors. The distribution of $X$, or consequently $\hat{Y}$, may however affect the ability to read any patterns in the residuals. The four distributions of fitted values, used in this experiment, were designed to examine this.
 
-Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of visual tests and conventional tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. Note that we have collected more evaluations on lineup with uniform fitted value distribution, and the number of evaluations on a lineup will have an impact on the power of the visual test. To have a fair comparison, the five evaluations used in the power estimation are randomly sampled from the total eleven evaluations for each lineup with uniform fitted value distribution. The sampling process has been repeated 500 times to visualize the variation.
-
-For visual tests, the power curves for normal distribution and lognormal distribution are lower than other two distributions, which are all even. For non-linearity patterns, the power curve of normal distribution is slightly greater than the one for lognormal distribution. And the margin is even larger for heteroskedasticity patterns. This suggests skewness can affect the degree of presence of the visual pattern.
-
-For non-linearity patterns, we do not observe significant difference in power of visual test between uniform distribution and discrete uniform distribution, but the normal distribution and the lognoraml distribution have lower power than the previous two. In terms of conventional tests, the discrete uniform distribution is the one with the greatest power, followed by lognormal, uniform and the normal distribution.
+Figure \ref{fig:different-x-dist-poly-power} illustrates the change of power of visual tests for different fitted distributions used in the non-linearity model and the heteroskedasticity model. Note that we have collected more evaluations on lineup with uniform fitted value distribution, and the number of evaluations on a lineup will have an impact on the power of the visual test. To have a fair comparison, the five evaluations used in the power estimation are randomly sampled from the total eleven evaluations for each lineup with uniform fitted value distribution. The sampling process has been repeated 500 times to give an indication of the variation of the power.
 
 
-For heteroskedasticity patterns, the power of visual test on lineups with uniform distribution has the greatest power. This is as expected since other three distributions could reduce the chance of revealing the underlying visual pattern because of uneven data points. The power of visual test under the discrete uniform distribution has a relatively great. Considering for heteroskedasticity, the visual patterns are usually detected by connecting the maximum and minimum residuals separately at different fitted values. It will not be greatly affected by the discrete uniform distribution compared to the uniform distribution. Again, visual tests have low power on lineups with the normal distribution and the lognormal distribution. It indicates skewness and unevenness can reduce the detection rate of the visual pattern. In the case of conventional tests, the discrete uniform distribution consistently perform well, followed by uniform, normal and the lognormal distribution. 
-
-In regards of the type of the simulation model, the power of visual tests under different fitted value distributions are substantially lower than the corresponding conventional tests, which is consistent with the result reported in the previous sections.
+We do not observe significant difference between the power curve of the uniform distribution and the power curve of the discrete uniform distribution, but the power curves of normal and lognormal distributions are slightly lower. Same can be observed for heteroskedasticity patterns, where the gap between the power curve of the discrete uniform and the power curve of the normal distribution is even larger. This indicates that residual departures displayed with evenly distributed fitted values are visually more attractive. Besides, the power of detecting non-linearity or heteroskedasticity patterns from a lineup with lognormal fitted value distribution is the lowest among four distributions. This suggests the skewness of the fitted value distribution plays a role in the degree of presence of visual features, and a symmetric fitted value distribution can better reveal the underlying shape.  
 
 ```{r get-5-eval, cache = TRUE}
 dat_uniform_5 <- map_df(1:500, function(boot_id) {
@@ -1529,7 +1523,7 @@ dat_uniform_5 <- map_df(1:500, function(boot_id) {
 ```
 
 
-```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power on lineups with different fitted value distributions, for conventional tests and visual tests. For visual tests, all the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. For both types of tests power does change. The discrete fitted value distribution substantially lowers the power of visual tests for non-linearity patterns in residual plots. For heteroskedasticity patterns, normal and lognormal distributions produce lower power for both types of tests.", dev = 'png', dpi = 450}
+```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power on lineups with different fitted value distributions for visual tests. All the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. Uneven distributions including normal and lognormal distributions produce lower power for both types of residual departures. Meanwhile, the lognormal distribution as an asymmetric distribution produce the lowest power.", dev = 'png', dpi = 450}
 
 # Extract three datasets, one for poly conventional, one for heter conventional
 # and one for visual tests.
@@ -1543,7 +1537,7 @@ dat_x_dist <- vi_survey %>%
     mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
     mutate(reject = as.numeric(p_value <= 0.05)) %>%
     mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                           "Discrete", 
+                           "Discrete uniform", 
                            stringr::str_to_title(x_dist))) %>%
     mutate(offset0 = log(0.05/0.95)) %>%
     select(type, x_dist, effect_size, offset0, reject) %>%
@@ -1556,7 +1550,7 @@ dat_x_dist <- vi_survey %>%
                          levels = c("Uniform", 
                                     "Normal", 
                                     "Lognormal", 
-                                    "Discrete")))
+                                    "Discrete uniform")))
 
 dat_uniform_5_pred <- dat_uniform_5 %>%
   nest(dat = c(effect_size, offset0, reject)) %>%
@@ -1615,7 +1609,7 @@ dat_x_dist %>%
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", linetype = "Test") +
-  facet_grid(~type) +
+  facet_grid(~type, scales = "free_x") +
   theme(legend.position = "bottom")
 ```
 
