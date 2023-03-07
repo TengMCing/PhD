@@ -11,12 +11,9 @@ library(visage)
 
 # Appendix
 
-## Effect size derivation
+## Effect size derivation and caculation
 
-(discuss what happens if we switch to different effect size)
-(really need it? since the effect size formula is now)
-
-Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
+Effect size is usually defined as the difference of a parameter or a statistic derived from a sample. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
 
 Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
 
@@ -31,47 +28,26 @@ $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol
 
 When there are omitted variables but constant error variance, the formula can be reduced to
 
-$$KL = \frac{1}{2}\left(\boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\sigma^2)^{-1}\boldsymbol{\mu}_z\right).$$
+$$KL = \frac{1}{2}\left(\boldsymbol{\mu}_z^{T}(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right).$$
 
 And when the model equation is correctly specified but the error variance is non-constant, the formula can be reduced to
 
 $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2))\right).$$
+Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of the formula is 
 
-## $p$-value scatter plot
+$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
 
-```{r p-value-comparison-old, eval = FALSE, fig.height = 4, fig.cap = "Visual test p-value compared to conventional test p-value for lineups produced by heteroskedasticity and non-linearity model. The scatter plot is drawn on a square root scale. Every dot on the plot corresponds to a lineup. Most of the dots are fallen on the left of the y = x line indicating visual test p-value is almost always higher than conventional test p-value. The blue curve is a smoothing of the dots showing a positive trend. "}
-vi_survey %>%
-  filter(!null_lineup) %>%
-  filter(!attention_check) %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  left_join(vi_survey %>% 
-           count(unique_lineup_id) %>%
-           rename(num_subject = n)) %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  ggplot() +
-  geom_abline() +
-  geom_point(aes(conventional_p_value, p_value), alpha = 0.4) +
-  geom_smooth(aes(conventional_p_value, p_value), se = FALSE, span = 0.6) +
-  scale_x_sqrt() +
-  scale_y_sqrt() +
-  facet_wrap(~type) +
-  ylab("Visual test p-value on square root scale") +
-  xlab("Conventional test p-value on square root scale") +
-  theme_light()
-```
+## Experiment setup
 
-## A collection interesting lineups (unusual results)
+### Mapping of subjects to experimental factors
 
-why unusual? what is the possible explanations?
+### Demographics
 
-# targe journal
+### Data collection interface
 
-JRSSB: Journal of the Royal Statistical Society Series B (Statistical Methodology)
-Deadline: Jan 1, Apr 1
+## Batch effect size
 
-Reading: style of writing, author guideline (https://rss.onlinelibrary.wiley.com/hub/journal/14679868/author-guidelines)
+## Sensitivity analysis for $\alpha$
 
-JCGS
-JDSS
+
+## Other results
