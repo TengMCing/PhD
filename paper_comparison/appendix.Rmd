@@ -7,6 +7,7 @@ date: "2023-01-22"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(visage)
+library(tidyverse)
 ```
 
 # Appendix
@@ -57,6 +58,30 @@ The algorithm starts from picking a random subject $s$ from $S$ with the minimum
 The distance $D$ is defined using the factor values used to generate lineup $l$ and lineups $l_{allocated}$. If there does not exist $l_{allocated}$, then the distance $D = 0$. Otherwise, distance $D$ is roughly the number of factors minus the number of factor values of lineup $l$ exists in a union of factor values of lineups $l_{allocated}$. The distance $D$ is further adjusted by the existence of $n$-factor combinations, where $n$ could be two to the number of factors. In this way, all factors values are exposed to every subject, and some even ensure all $2$-factor combinations are exposed to every subject. 
 
 ### Demographics
+
+The education background of most participants have Diploma or Bachelor degrees, followed by High school or below. The survey data is gender balanced. Most of the participants are between 18 to 39.
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  ggplot() +
+  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
+  facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
+  xlab("Age group") +
+  ylab("Count")
+```
+
+Number of participants who have previous experience in experiment about reading data plots are not very different from the number of participants who haven’t. Age distributions are also similar for these two groups.
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  ggplot() +
+  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
+  facet_wrap(~previous_experience) +
+  xlab("Age group") +
+  ylab("Count")
+```
 
 
 
