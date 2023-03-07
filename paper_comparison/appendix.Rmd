@@ -299,7 +299,7 @@ The distance $D$ is defined using the factor values used to generate lineup $l$ 
 
 The education background of most participants have Diploma or Bachelor degrees, followed by High school or below. The survey data is gender balanced. Most of the participants are between 18 to 39.
 
-```{r}
+```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   ggplot() +
@@ -311,7 +311,7 @@ vi_survey %>%
 
 Number of participants who have previous experience in experiment about reading data plots are not very different from the number of participants who haven’t. Age distributions are also similar for these two groups.
 
-```{r}
+```{r experience, fig.cap = "\\label{fig:experience}Status of pervious experience of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   ggplot() +
@@ -329,7 +329,7 @@ vi_survey %>%
 
 ## Batch effect size
 
-```{r batch, fig.cap = "Boxplot of weighted propotion of detect for lineups over different data collection periods."}
+```{r batch, fig.cap = "\\label{fig:batch}Boxplot of weighted propotion of detect for lineups over different data collection periods."}
 vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
@@ -548,7 +548,7 @@ ggplot() +
 ```
 
 
-```{r sensitive, fig.cap = "Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
 vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
