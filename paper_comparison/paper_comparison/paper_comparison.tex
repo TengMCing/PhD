@@ -452,7 +452,7 @@ instead of one, where \(s_j\) is the number of plots subject \(j\)
 selected for \(j=1,...K\). This ensures \(\sum_{i}c_i=K\). Since we are
 only interested in the selections of the data plot \(i\), the marginal
 model can be simplified to a beta-binomial model and thus the visual
-p-value is given as
+\(p\)-value is given as
 
 \begin{equation} \label{eq:pvalue-beta-binomial}
 P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+
@@ -550,14 +550,14 @@ scenario, having the probability of a subject \(j\) correctly picking
 the data plot from a lineup \(l\) is insufficient to determine the power
 of a visual test because it does not provide information about the
 number of selections made by the subject for the calculation of the
-p-value (See Equation \ref{eq:pvalue-beta-binomial-approx}). Therefore,
-we directly estimate the probability of a lineup being rejected by
-assuming that individual skill has negligible effect on the variation of
-the power. This assumption is not necessary true, but it helps
-simplifying the model structure, thereby obviate a costly large-scale
-experiment to estimate complex covariance matrices. The same model given
-in Equation \ref{eq:logistic-regression-1-1} is applied to model the
-power of a visual test.
+\(p\)-value (See Equation \ref{eq:pvalue-beta-binomial-approx}).
+Therefore, we directly estimate the probability of a lineup being
+rejected by assuming that individual skill has negligible effect on the
+variation of the power. This assumption is not necessary true, but it
+helps simplifying the model structure, thereby obviate a costly
+large-scale experiment to estimate complex covariance matrices. The same
+model given in Equation \ref{eq:logistic-regression-1-1} is applied to
+model the power of a visual test.
 
 To study various factors contributing to the power of both tests, the
 same logistic regression model is fit on different subsets of the
@@ -639,7 +639,7 @@ orders of probabilist's Hermite polynomials (\(j = 2, 3, 6, 18\)). (A
 summary of the factors is given in Table \ref{tab:model-factor-table}.)
 The values of \(j\) is chosen so that distinct shapes of non-linearity
 are included in the residual plot. These include ``U'', ``S'', ``M'' and
-``Triple-U'' shape as shown in Figure
+``triple-U'' shape as shown in Figure
 \ref{fig:different-shape-of-herimite}. A greater value of \(j\) will
 result in a curve with more turning points. It is expected that the
 ``U'' shape will be the easiest one to detect because complex shape
@@ -686,7 +686,7 @@ this lineup.
 
 }
 
-\caption{Examining the effect of $\sigma$ on the signal strength in the non-linearity detection, for $n=300$, uniform fitted value distribution and the U shape. As $\sigma$ increases the signal strength decreases, to the point that the U is almost unrecognisable when $\sigma=4$.}\label{fig:different-sigma}
+\caption{Examining the effect of $\sigma$ on the signal strength in the non-linearity detection, for $n=300$, uniform fitted value distribution and the "U" shape. As $\sigma$ increases the signal strength decreases, to the point that the "U" is almost unrecognisable when $\sigma=4$.}\label{fig:different-sigma}
 \end{figure}
 
 \begin{figure}
@@ -738,7 +738,7 @@ magnitude of residuals across different values of \(a\).
 
 }
 
-\caption{Heteroskedasticity forms used in the experiment. Three different shapes ($a = -1, 0, 1$) are used in the experiment to create left-triangle, butterfly and right-triangle shapes, respectively.}\label{fig:different-shape-of-heter}
+\caption{Heteroskedasticity forms used in the experiment. Three different shapes ($a = -1, 0, 1$) are used in the experiment to create left-triangle, "butterfly" and "right-triangle" shapes, respectively.}\label{fig:different-shape-of-heter}
 \end{figure}
 
 \begin{figure}
@@ -809,7 +809,7 @@ reliably.
 
 }
 
-\caption{Examining the effect of signal strength for the three different values of $n$ used in the experiment, for non-linear structure with fixed $\sigma = 1.5$, uniform fitted value distribution, and S shape. For these factor levels, only when $n = 300$ is the S shape clearly visible.}\label{fig:different-n}
+\caption{Examining the effect of signal strength for the three different values of $n$ used in the experiment, for non-linear structure with fixed $\sigma = 1.5$, uniform fitted value distribution, and "S" shape. For these factor levels, only when $n = 300$ is the "S" shape clearly visible.}\label{fig:different-n}
 \end{figure}
 
 \hypertarget{experimental-setup}{%
@@ -1054,17 +1054,19 @@ remains at around 5\% in Figure \ref{fig:heterpower} since there are no
 non-linear terms leave out in the heteroskedasticity model and \(H_0\)
 of the test is always satisfied.
 
+(should the below p goes to conclusion as a discussion?)
+
 Overall, the power comparison suggests that conventional tests differs
 significantly from visual tests in two regression diagnostics scenarios
-designed in this paper. Visual test have much higher tolerance of the
-residual departures than the conventional test. Since fail to reject
-\(H_0\) in a visual test literally means that there are no obvious
-visual discoveries found in the residual plot, analysts and the general
-public as the consumers of the output may not be convinced of the
-existence of significant residual departures in spite of the rejection
-of \(H_0\) given by the conventional test. Even if the rejection is
-accepted, the model violation may be considered as impactless due to the
-fact that they are not clearly visible. Besides, the sensitivity of the
+designed by us. Visual test have much higher tolerance of the residual
+departures than the conventional test. Since fail to reject \(H_0\) in a
+visual test literally means that there are no obvious visual discoveries
+found in the residual plot, analysts and the general public as the
+consumers of the output may not be convinced of the existence of
+significant residual departures in spite of the rejection of \(H_0\)
+given by the conventional test. Even if the rejection is accepted, the
+model violation may be considered as impactless due to the fact that
+they are not clearly visible. Besides, the sensitivity of the
 conventional test to weak residual departures could also distract and
 discourage analysts from finding simple but good linear approximation to
 the data. The rejection of \(H_0\) because of human acceptable and
@@ -1079,7 +1081,7 @@ conventional test is still the recommended choice based on the findings.
 
 }
 
-\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2.5, but for the visual test it is around 3.5.}\label{fig:polypower}
+\caption{Comparison of power between different tests for non-linear patterns (uniform fitted values only). Main plot shows the power curves estimated using logistic regression, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by vertical lines in main plot. Where would you draw the line of too much non-linearity in the residuals? For the RESET test this is around log effect size 2, but for the visual test it is around 3.5.}\label{fig:polypower}
 \end{figure}
 
 \begin{figure}
@@ -1088,21 +1090,12 @@ conventional test is still the recommended choice based on the findings.
 
 }
 
-\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 1000 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by dashed lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5.}\label{fig:heterpower}
+\caption{Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). Main plot shows the power curves, with dots indicating human evaluations of lineups. Surrounding lines of the visual test show the estimated power of 500 bootstrap samples. Small row of plots shows typical residual plots corresponding to specific effect sizes, marked by vertical lines in main plot. Where would you draw the line of too much heteroskedasticity in the residuals? For the BP test this is around log effect size 2.5, but for the visual test it is around 3.5.}\label{fig:heterpower}
 \end{figure}
 
 \hypertarget{comparison-of-test-decisions-based-on-p-values}{%
 \subsection{\texorpdfstring{Comparison of test decisions based on
 \(p\)-values}{Comparison of test decisions based on p-values}}\label{comparison-of-test-decisions-based-on-p-values}}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
-
-}
-
-\caption{Rejection rate ($p$-value $\leq0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect that the visual test would only reject when the conventional test does. Surprisingly, there is one lineup in the heteroskedasticity study where this is not the case. }\label{fig:p-value-comparison}
-\end{figure}
 
 The power comparison illustrates that appropriate conventional tests
 will reject \(H_0\) more aggressively than visual tests. In this
@@ -1130,13 +1123,23 @@ Surprisingly, the visual test rejects 1 of the 33 (3\%) of lineups where
 the conventional test does not reject. Figure \ref{fig:heter-example}
 shows this lineup. The data plot in position seventeen displays a
 relatively strong heteroskedasticity pattern, and has a strong effect
-size (\(log_e E=4.02\)). This is reflected by the visual test
-\(p\text{-value} = 0.026\), but the Breusch-Pagan test
-\(p\text{-value} = 0.056\), slightly above the significance cutoff of
+size (\(log_e(E)=4.02\)). This is reflected by the visual test
+\(p\text{-value} = 0.026\). But the Breusch-Pagan test
+\(p\text{-value} = 0.056\), is slightly above the significance cutoff of
 \(0.05\). This lineup was evaluated by 11 subjects, it has experimental
-factors \(n=50\) (small sample size), \(\sigma=1\), and a uniform
-distribution for the fitted values. It must be the small sample size
-that may have resulted in the lack of detection.
+factors \(a = 0\) (``butterfly'' shape), \(b = 64\) (large variance
+ratio), \(n = 50\) (small sample size), and a uniform distribution for
+the fitted values. It must be the small sample size that may have
+resulted in the lack of detection.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{paper_comparison_files/figure-latex/p-value-comparison-1} 
+
+}
+
+\caption{Rejection rate ($p$-value $\leq0.05$) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test. We would generally expect the visual test to only reject when the conventional test does. Surprisingly, one lineup containing a heteroskedasticity pattern does not follow this rule. }\label{fig:p-value-comparison}
+\end{figure}
 
 \begin{figure}
 
@@ -1144,7 +1147,7 @@ that may have resulted in the lack of detection.
 
 }
 
-\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "Butterfly" shape. It has effect size $ = 3.76$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
+\caption{The single heteroskedasticity lineup that is rejected by the visual test but not by the BP test. The data plot at panel 17 contains a "butterfly" shape. It has effect size $ = 3.76$, somewhat surprising that it is not detected by the BP test.}\label{fig:heter-example}
 \end{figure}
 
 \hypertarget{effect-of-shape-of-non-linearity}{%
@@ -1153,30 +1156,30 @@ non-linearity}\label{effect-of-shape-of-non-linearity}}
 
 A primary factor contributes to the non-linearity model is the shape of
 the non-linearity pattern. According to Figure
-\ref{fig:poly-power-uniform-j}, conventional tests have roughly the same
-power in testing shapes constructed from low orders of Hermite
-polynomials. But the power in testing the ``Triple-U'' shape drops
-significantly. To understand why this is, one needs to return to the way
-the RESET test is applied. It requires a parameter indicating degree of
-fitted values to test for, and the recommendation is to generically use
-four (\citet{ramsey_tests_1969}). However, the ``Triple-U'' shape
-constructed from the Hermite polynomials use power up to 18. If the
-RESET test had been applied using a higher power no less than six, the
-power curve of ``Triple-U'' shape will only slight lower than the power
-curve of ``M'' shape. The recommendation of the polynomial power for the
-RESET should be revised, perhaps. This illustrates the sensitivity of
+\ref{fig:poly-power-uniform-j}, conventional tests have higher power in
+testing shapes constructed from lower orders of Hermite polynomials. But
+the power of testing the ``triple-U'' shape drops significantly. To
+understand why this is, one needs to return to the way the RESET test is
+applied. It requires a parameter indicating degree of fitted values to
+test for, and the recommendation is to generically use four
+(\citet{ramsey_tests_1969}). However, the ``triple-U'' shape constructed
+from the Hermite polynomials use power up to 18. If the RESET test had
+been applied using a higher power no less than six, the power curve of
+``triple-U'' shape will be only slight lower than the power curve of
+``M'' shape. The recommendation of the polynomial power for the RESET
+should be revised, perhaps. This illustrates the sensitivity of
 conventional testing to the parameters, and it also points to a
 limitation that one needs to know the data generating process in order
 to set the parameters for the test.
 
 For visual tests, based on the orders of the Hermite polynomials, we
 expect the ``U'' shape will be the easiest one to be detected by
-subjects followed by the ``S'', ``M'' and ``Triple-U'' shape. From
+subjects followed by the ``S'', ``M'' and ``triple-U'' shape. From
 Figure \ref{fig:poly-power-uniform-j}, it can be observed that the power
 curves are mostly aligned with our expectation, except for the ``M''
-shape, which is the easiest shape to be detected. This implies the
-visibility of the shape do not strictly follow the degree of the
-polynomials.
+shape, which is as easy to be detected as the ``S'' shape. This implies,
+unlike the conventional test, the visibility of the shape do not
+strictly follow the degree of the polynomials.
 
 \begin{figure}
 
@@ -1184,7 +1187,7 @@ polynomials.
 
 }
 
-\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "Triple-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.}\label{fig:poly-power-uniform-j}
+\caption{Power of conventional tests and visual tests on lineups containing four different non-linearity shapes. Power curves with higher order of non-linearity are drawn with deeper colours. The default RESET tests under-perform significantly in detecting "triple-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test. But this means the order needs to be known prior to testing.}\label{fig:poly-power-uniform-j}
 \end{figure}
 
 \hypertarget{effect-of-shape-of-heteroskedasticity}{%
@@ -1193,17 +1196,17 @@ heteroskedasticity}\label{effect-of-shape-of-heteroskedasticity}}
 
 We have also investigated the impact of different heteroskedasticity
 shapes on power of conventional tests and visual tests. In theory, the
-``Left-triangle'' and the ``Right-triangle'' shapes are functionally
+``left-triangle'' and the ``right-triangle'' shapes are functionally
 identical from the point of view of a Breusch-Pagan test. As shown in
 Figure \ref{fig:heter-power-uniform-a}, this is indeed the case where
 little difference between the power curves can be perceived. Similarly,
 visual tests should have the same power in detecting these two shapes if
 they are equally likely to be identified. However, it can be observed
 from Figure \ref{fig:heter-power-uniform-a} that the power curve for the
-``Left-triangle'' shape is higher than the one for the
-``Right-triangle'' shape, indicating a potential favour of orientation
+``left-triangle'' shape is higher than the one for the
+``right-triangle'' shape, indicating a potential favour of orientation
 by human, which is worth to be explored in future studies. Besides, the
-chance of detecting the ``Butterfly'' shape by both conventional and
+chance of detecting the ``butterfly'' shape by both conventional and
 visual tests are much higher than other two shapes.
 
 \begin{figure}
