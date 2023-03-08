@@ -299,7 +299,7 @@ The distance $D$ is defined using the factor values used to generate lineup $l$ 
 
 The education background of most participants have Diploma or Bachelor degrees, followed by High school or below. The survey data is gender balanced. Most of the participants are between 18 to 39.
 
-```{r}
+```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   ggplot() +
@@ -311,7 +311,7 @@ vi_survey %>%
 
 Number of participants who have previous experience in experiment about reading data plots are not very different from the number of participants who haven’t. Age distributions are also similar for these two groups.
 
-```{r}
+```{r experience, fig.cap = "\\label{fig:experience}Status of pervious experience of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   ggplot() +
@@ -329,7 +329,60 @@ vi_survey %>%
 
 ## Batch effect size
 
+```{r batch, fig.cap = "\\label{fig:batch}Boxplot of weighted propotion of detect for lineups over different data collection periods."}
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(exp = exp - 2) %>%
+  group_by(exp, unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  group_by(exp, unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  ggplot() +
+  geom_boxplot(aes(x = factor(exp), y = prop_detect)) +
+  facet_grid(~type) +
+  scale_x_discrete(labels = c("I", "II", "III")) +
+  ylab("Weighted propotion of detect") +
+  xlab("Data collection period")
+```
 
+```{r}
+t_test_poly <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(exp = exp - 2) %>%
+  group_by(exp, unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  group_by(exp, unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type == "non-linearity") %>%
+  t.test(prop_detect ~ exp, data = .)
+```
+
+
+```{r}
+t_test_heter <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(exp = exp - 2) %>%
+  group_by(exp, unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  group_by(exp, unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  filter(type != "non-linearity") %>%
+  t.test(prop_detect ~ exp, data = .)
+```
+
+We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect. Figure \ref{fig:batch} shows the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. According to the graph, the distribution for the heteroskedasticity patterns are almost identical in period II and III, while the distribution for the non-linearity patterns have a shift in the median. However, this difference is not statistically significance. The $p$-values of the t-test for testing the mean difference across data periods are `r round(t_test_poly$p.value, 2)` and `r round(t_test_heter$p.value, 2)` for non-linearity and heteroskedasticity patterns respectively. Both are much greater than 5%. Therefore, there is no clear evidence of batch effect.
 
 ## Sensitivity analysis for $\alpha$
 
@@ -495,7 +548,7 @@ ggplot() +
 ```
 
 
-```{r sensitive, fig.cap = "Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
 vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
