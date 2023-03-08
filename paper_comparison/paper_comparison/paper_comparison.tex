@@ -842,34 +842,52 @@ plot, the visual pattern is more difficult to be detected.
 \hypertarget{effect-size}{%
 \subsubsection{Effect size}\label{effect-size}}
 
-Effect size \(E\) can be defined as the difference of a parameter for a
-particular model or distribution, or a statistic derived from a sample.
-Importantly, it needs to reflect the treatment we try to measure.
-According to the underlying simulated model, we define the effect size
+Effect size in statistics measures the strength of the signal relative
+to the noise. It is surprisingly difficult to quantify in general, even
+for simulated data as used in this experiment.
 
-\[E = \frac{1}{2}\left(\boldsymbol{\mu}_z'[diag(\boldsymbol{R}_a\sigma^2)]^{-1}\boldsymbol{\mu}_z\right)\]
+For the non-linearity model, the key items defining effect size are
+sample size (\(n\)) and variance of the error term (\(\sigma^2\)), and
+so effect size would be roughly calculated as
+\(\frac{\sqrt(n)}{\sigma}\). As sample size increases the effect size
+would increase, but as variance increases the effect size decreases.
+However, it is not clear how the additional parameter for the model
+polynomial order, \(k\), should be incorporated. Intuitively, the large
+\(k\) means more complex pattern, which likely means effect size would
+decrease. For the purposes of our calculations we have chosen to use an
+approach based on Kullback-Leibler divergence
+\citep{kullback1951information}, coupled with simulation. This
+formulation defines effect size to be:
 
-for the non-linearity model, and
+\[E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right)\]
 
-\[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
-for the heteroskedasticity model, where \(diag(.)\) is the diagonal
-matrix constructed from the diagonal elements of a matrix,
-\(\sigma^2\boldsymbol{I}\) is the assumed covariance matrix of the error
-term when \(H_0\) is true, \(\boldsymbol{V}\) is the actual covariance
-matrix of the error term,
+\noindent where
+\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
+is the expected values of residuals with \(\boldsymbol{Z}\),
 \(\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a\) is the
 residual operator,
 \(\boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\)
-is the hat matrix,
-\(\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})\) is the matrix of
-predictors including the intercept used in the regression equation, and
-\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
-is the expected values of residuals with \(\boldsymbol{Z}\) be any
-higher order terms of \(\boldsymbol{X}\) leave out by the regression
-equation and \(\boldsymbol{\beta}_z\) be the corresponding coefficients.
+is the hat matrix. For the non-linearity model this can be rewritten as
 
-Both equations above are derived from the Kullback-Leibler divergence
-(citation here?) and the details are provided in the Appendix.
+\[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
+
+\noindent where \(\boldsymbol{V}\) is the covariance matrix of the error
+term.
+
+In the heteroskedasticity model, the key elements for measuring effect
+size are sample size, \(n\), and the ratio of the biggest variance to
+smallest variance, \(b\). Larger values of both would produce higher
+effect size. However, it is not clear how to incorporate the additional
+shape parameter, \(a\). Thus the same approach is used here, where the
+formula can be written as:
+
+\[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
+\noindent where \(diag(.)\) is the diagonal matrix constructed from the
+diagonal elements of a matrix.
+
+Derivations for these equations are provided in the Appendix.
+
+To compute the effect size for each lineup we simulate ??
 
 \hypertarget{subject-allocation}{%
 \subsubsection{Subject allocation}\label{subject-allocation}}
@@ -1021,7 +1039,7 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 7\% to 85\% as \(log_e(E)\) increases from 0 to 2.5,
+aggressively from 16\% to 100\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is much more sensitive to weak non-linear
 structure. Meanwhile, no noticeable residual departures can be spotted
