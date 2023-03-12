@@ -1,6 +1,6 @@
 ---
 title: |
-  Why is it that statistical tests for residuals are not widely used? An explanation using visual inference.
+  A plot is worth a thousand tests: assessing residual diagnostics with visual inference
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li

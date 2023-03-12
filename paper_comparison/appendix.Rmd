@@ -1,7 +1,7 @@
 ---
-title: "appendix"
+title: "Supplmentary material - A plot is worth a thousand tests: assessing residual diagnostics with visual inference"
 output: pdf_document
-date: "2023-01-22"
+author: ""
 ---
 
 ```{r setup, include=FALSE}
@@ -384,6 +384,8 @@ t_test_heter <- vi_survey %>%
 
 We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect. Figure \ref{fig:batch} shows the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. According to the graph, the distribution for the heteroskedasticity patterns are almost identical in period II and III, while the distribution for the non-linearity patterns have a shift in the median. However, this difference is not statistically significance. The $p$-values of the t-test for testing the mean difference across data periods are `r round(t_test_poly$p.value, 2)` and `r round(t_test_heter$p.value, 2)` for non-linearity and heteroskedasticity patterns respectively. Both are much greater than 5%. Therefore, there is no clear evidence of batch effect.
 
+(use LV plot `lvplot` `geom_lv`)
+
 ## Sensitivity analysis for $\alpha$
 
 The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja_statistical_2009. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
@@ -572,8 +574,8 @@ vi_survey_lower %>%
   scale_y_sqrt() +
   facet_wrap(~name) +
   ylab("Adjusted p-value") +
-  xlab("p-value")
-  
+  xlab("p-value") +
+  coord_fixed()
 ```
 
 
@@ -706,8 +708,6 @@ ggplot() +
 ```  
 
 
-
-
-
+## Curious effect of predictor distribution on conventional test power
 
 ## Other results
