@@ -892,7 +892,7 @@ $$E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{
 
 Derivations for these equations are provided in the Appendix. 
 
-To compute the effect size for each lineup we simulate ??
+To compute the effect size for each lineup we simulate a sufficient large number of samples from the same model, in each sample, the number of observations $n$ is fixed. We then compute the effect size for each sample and take the average as the final value. This ensures lineups constructed with the same experimental factors will share the same effect size.
 
 ### Subject allocation
 
