@@ -61,8 +61,8 @@
 
 \articletype{ARTICLE TEMPLATE}
 
-\title{Why is it that statistical tests for residuals are not widely
-used? An explanation using visual inference.}
+\title{A plot is worth a thousand tests: assessing residual diagnostics
+with visual inference}
 
 
 \author{\name{Weihao Li$^{a}$, Dianne Cook$^{a}$, Emi
@@ -88,13 +88,6 @@ Abstract to fill.
 data visualization; visual inference; hypothesis testing; residual
 plots;
 \end{keywords}
-
-Title (jokes: finding the pattern in residual tests) (why using
-visulization is important in regression diagnostics? an explanation
-using visual inference) (a picture is worth a thousand word) (a plot is
-worth a thousand test: )
-
-(title refine - rank: low)
 
 (fix the tense issue - rank: low)
 
@@ -860,19 +853,18 @@ approach based on Kullback-Leibler divergence
 formulation defines effect size to be:
 
 \[E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right)\]
-
-\noindent where
-\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
-is the expected values of residuals with \(\boldsymbol{Z}\),
+\noindent where \(diag(.)\) is the diagonal matrix constructed from the
+diagonal elements of a matrix,
 \(\boldsymbol{R}_a = \boldsymbol{I}_n - \boldsymbol{H}_a\) is the
 residual operator,
 \(\boldsymbol{H}_a = \boldsymbol{X}_a(\boldsymbol{X}_a'\boldsymbol{X}_a)^{-1}\boldsymbol{X}_a'\)
-is the hat matrix. For the non-linearity model this can be rewritten as
-
-\[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
-
-\noindent where \(\boldsymbol{V}\) is the covariance matrix of the error
-term.
+is the hat matrix,
+\(\boldsymbol{\mu}_z = \boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z\)
+is the expected values of residuals with \(\boldsymbol{Z}\) be any
+higher order terms of \(\boldsymbol{X}\) leave out by the regression
+equation and \(\boldsymbol{\beta}_z\) be the corresponding coefficients,
+and \(\sigma^2\boldsymbol{I}\) is the assumed covariance matrix of the
+error term when \(H_0\) is true.
 
 In the heteroskedasticity model, the key elements for measuring effect
 size are sample size, \(n\), and the ratio of the biggest variance to
@@ -882,12 +874,17 @@ shape parameter, \(a\). Thus the same approach is used here, where the
 formula can be written as:
 
 \[E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right)\]
-\noindent where \(diag(.)\) is the diagonal matrix constructed from the
-diagonal elements of a matrix.
+\noindent where \(\boldsymbol{V}\) is the actual covariance matrix of
+the error term.
 
 Derivations for these equations are provided in the Appendix.
 
-To compute the effect size for each lineup we simulate ??
+To compute the effect size for each lineup we simulate a sufficient
+large number of samples from the same model, in each sample, the number
+of observations \(n\) is fixed. We then compute the effect size for each
+sample and take the average as the final value. This ensures lineups
+constructed with the same experimental factors will share the same
+effect size.
 
 \hypertarget{subject-allocation}{%
 \subsubsection{Subject allocation}\label{subject-allocation}}
@@ -1039,7 +1036,7 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 16\% to 100\% as \(log_e(E)\) increases from 0 to 2.5,
+aggressively from 7\% to 84\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is much more sensitive to weak non-linear
 structure. Meanwhile, no noticeable residual departures can be spotted

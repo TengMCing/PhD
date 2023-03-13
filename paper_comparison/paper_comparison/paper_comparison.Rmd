@@ -289,15 +289,6 @@ heter_conv_sim <- heter_conv_sim %>%
   left_join(select(filter(vi_survey, type == "heteroskedasticity"), a, b, n, x_dist, effect_size))
 ```
 
-
-Title 
-(jokes: finding the pattern in residual tests) 
-(why using visulization is important in regression diagnostics? an explanation using visual inference)
-(a picture is worth a thousand word)
-(a plot is worth a thousand test: )
-
-(title refine - rank: low)
-
 (fix the tense issue - rank: low)
 
 (fix the notation issue (bold?) - rank: low)
