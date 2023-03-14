@@ -323,7 +323,7 @@ vi_survey %>%
   theme_light(base_size = 10)
 ```
 
-Figure \ref{fig:experience} shows that the number of participants who have previous experience is not very different from the number of those who haven't. Age distributions are also similar for these two groups.
+Figure \ref{fig:experience} shows no particular difference between the number of participants who have previous experience and the number of those who haven't. Age distributions are also similar for these two groups.
 
 ```{r experience, fig.cap = "\\label{fig:experience}Status of pervious experience of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
@@ -342,6 +342,29 @@ vi_survey %>%
 
 
 ### Data collection interface
+
+The survey data is collected via a self-hosted website designed by us. Once the participant is recruited from Prolific (ref here), it will be redirected to the entry page of our study website. An image of the entry page is provided in Figure \ref{fig:entry-page}. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in \ref{fig:consent_form} and \ref{fig:metadata} respectively. Before evaluating lineups, participant also need to read the training page as provide in Figure \ref{fig:training-page} to understand the process. An example of the lineup page is given in Figure \ref{fig:lineup-page}. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
+
+
+```{r entry-page, out.width = "100%", fig.cap = "The entry page of the study website."}
+knitr::include_graphics("img/message.png")
+```
+
+```{r consent-form, out.width = "100%", fig.cap = "The consent form provided in the study website."}
+knitr::include_graphics("img/consent_form.png")
+```
+
+```{r metadata, out.width = "100%", fig.cap = "The form to provide demographic information."}
+knitr::include_graphics("img/metadata.png")
+```
+
+```{r training-page, out.width = "100%", fig.cap = "The training page of the study website."}
+knitr::include_graphics("img/training.png")
+```
+
+```{r lineup-page, out.width = "100%", fig.cap = "The lineup page of the study website."}
+knitr::include_graphics("img/lineup1.png")
+```
 
 
 
@@ -727,5 +750,3 @@ ggplot() +
 
 
 ## Curious effect of predictor distribution on conventional test power
-
-## Other results
