@@ -286,7 +286,7 @@ $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol
 
 Mapping of subjects to experimental factors is an important part of experiment design. Essentially, we want to maximum the difference in factors exposed to a subject. For this purpose, we design an algorithm to conduct subject allocation. Let $L$ be a set of available lineups and $S$ be a set of available subjects. According to the experimental design, the availability of a lineup is associated with the number of subjects it can assign to. For lineups with uniform fitted value distribution, this value is 11. And other lineups can be allocated to at most five different subjects. The availability of a subject is associated with the number of lineups that being allocated to this subject. A subject can view at most 18 different lineups. 
 
-The algorithm starts from picking a random subject $s \in S$ with the minimum number of allocated lineups. It then tries to find a lineup $l \in L$ that can maximise the distance metric $D$ and allocate it to subject $s$. Set $L$ and $s$ will be updated and the picking process will be repeated until there is no available lineups or subjects. 
+The algorithm starts from picking a random subject $s \in S$ with the minimum number of allocated lineups. It then tries to find a lineup $l \in L$ that can maximise the distance metric $D$ and allocate it to subject $s$. Set $L$ and $S$ will be updated and the picking process will be repeated until there is no available lineups or subjects. 
 
 Let $F_1,...,F_q$ be $q$ experimental factors, and $f_1, ...,f_q$ be the corresponding factor values. We say $f_i$ exists in $L_{s}$ if any lineup in $L_{s}$ has this factor value. Similarly, $f_if_j$ exists in $L_{s}$ if any lineup in $L_{s}$ has this pair of factor values. And $f_if_jf_k$ exists in $L_{s}$ if any lineup in $L_{s}$ has this trio of factor values. The distance metric $D$ is defined between a lineup $l$ and a set of lineups $L_{s}$ allocated to a subject $s$ if $L_{s}$ is non-empty: 
 
@@ -300,32 +300,39 @@ C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i
 \normalsize
 where $C$ is a sufficiently large constant such that $D > 0$. If $L_{s}$ is empty, we define $D = 0$.
 
-The distance is measuring how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a subject.
+The distance measures how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a subject at each step.
 
 ### Demographics
 
-The education background of most participants have Diploma or Bachelor degrees, followed by High school or below. The survey data is gender balanced. Most of the participants are between 18 to 39.
+Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. Figure \ref{fig:education} and \ref{fig:experience} provide summary of the demographic data. 
+
+As shown in Figure \ref{fig:education}, most participants have Diploma or Bachelor degrees, followed by High school or below.
+The survey data is gender balanced and the majority of participants are between 18 to 39 years old.
 
 ```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
   ggplot() +
   geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
   facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
   xlab("Age group") +
-  ylab("Count")
+  ylab("Count") +
+  theme_light()
 ```
 
-Number of participants who have previous experience in experiment about reading data plots are not very different from the number of participants who haven’t. Age distributions are also similar for these two groups.
+Figure \ref{fig:experience} shows that the number of participants who have previous experience is not very different from the number of those who haven't. Age distributions are also similar for these two groups.
 
 ```{r experience, fig.cap = "\\label{fig:experience}Status of pervious experience of subjects recuritted in this study group by age and pronoun."}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
   ggplot() +
   geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
   facet_wrap(~previous_experience) +
   xlab("Age group") +
-  ylab("Count")
+  ylab("Count") +
+  theme_light()
 ```
 
 
