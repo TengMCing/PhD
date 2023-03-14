@@ -325,16 +325,16 @@ dat <- mod$gen(300)
 
 bind_rows(
   dat %>%
-    mutate(type = "Good residuals"),
+    mutate(type = "(A) Good residuals"),
   mod$set_prm("include_z", TRUE)$
     gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "Non-linearity"),
+    mutate(type = "(B) Non-linearity"),
   heter_model(b = 64)$
     gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "Heteroskedasticity"),
+    mutate(type = "(C) Heteroskedasticity"),
   heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
     gen(300, computed = select(dat, x)) %>%
-    mutate(type = "Non-normality")
+    mutate(type = "(D) Non-normality")
 ) %>%
   mod$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light()) +
   facet_wrap(~type, ncol = 4, scales = "free") +
@@ -342,15 +342,15 @@ bind_rows(
   ylab("Residuals")
 ```
 
-Graphical summaries in which residuals are plotted against fitted values or other functions of the predictors that are approximately orthogonal to residuals are referred to as standard residual plots in @cook1982residuals. The first panel of Figure \ref{fig:residual-plot-common-departures} shows an ideal residual plot with residuals evenly distributed at both sides of the horizontal zero line, with no noticeable patterns. 
+Graphical summaries in which residuals are plotted against fitted values or other functions of the predictors that are approximately orthogonal to the residuals are referred to as standard residual plots in @cook1982residuals. Figure \ref{fig:residual-plot-common-departures}A shows an ideal residual plot where the residuals are evenly distributed at both sides of the horizontal zero line, with no noticeable patterns. 
 
-There are various types of departures from an ideal residual plot. Non-linearity, heterskedasticity and non-normality are perhaps the three mostly checked departures. 
+There are various types of departures from an ideal residual plot. Non-linearity, heteroskedasticity and non-normality are perhaps the three mostly checked departures. 
 
-Non-linearity is a type of model misspecification caused by failing to include higher order terms of the predictors in the regression equation. Any non-linear functional form of residuals on fitted values in the residual plot could be indicative of non-linearity. An example residual plot containing visual pattern of non-linearity is given at the second panel of Figure \ref{fig:residual-plot-common-departures}. One can clearly observe the "S-shape" from the residual plot as the cubic term is not captured by the misspecified model.
+Non-linearity is a type of model misspecification caused by failing to include higher order terms of the predictors in the regression equation. Any non-linear functional form of residuals on fitted values in the residual plot could be indicative of non-linearity. An example residual plot containing visual pattern of non-linearity is shown in Figure \ref{fig:residual-plot-common-departures}B. One can clearly observe the "S-shape" from the residual plot as the cubic term is not captured by the misspecified model.
 
-Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in the third panel of Figure \ref{fig:residual-plot-common-departures}, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
+Heteroskedasticity refers to the presence of nonconstant error variance in a regression model. It is mostly due to the strict but false assumptions on the variance-covariance matrix of the error term. The usual pattern of heteroskedasticity on a residual plot is the inconsistent spread of the residuals across the horizontal axis. Visually, it sometimes results in the so-called "butterfly" shape as shown in Figure \ref{fig:residual-plot-common-departures}C, or the "left-triangle" and "right-triangle" shape where the smallest variance occurs at one side of the horizontal axis.
 
-Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since a scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. As we mainly discuss residual plots, non-normality will not be the focus of this paper. For a consistent comparison, the residual plot of this departure is still presented in the fourth panel of Figure \ref{fig:residual-plot-common-departures}. When the number residuals below and above the horizontal axis are uneven across the local regions along the $x$-axis, we expect that the normality assumption is violated. For example, given a skewed error distribution, there will be fewer data points and more outliers on one side of the horizontal axis as shown in the fourth panel of Figure \ref{fig:residual-plot-common-departures}.
+Compared to non-linearity and heteroskedasticity, non-normality is usually harder to detect from a residual plot since a scatter plot do not readily reveal the marginal distribution. A favourable graphical summary for this task is the quantile-quantile plot. As we mainly discuss residual plots, non-normality will not be the focus of this paper. For a consistent comparison, the residual plot of this departure is still presented in Figure \ref{fig:residual-plot-common-departures}D. When the number residuals below and above the horizontal axis are uneven across the local regions along the $x$-axis, we expect that the normality assumption is violated. For example, given a skewed error distribution, there will be fewer data points and more outliers on one side of the horizontal axis as shown in Figure \ref{fig:residual-plot-common-departures}D.
 
 ## Conventionally testing for departures
 
