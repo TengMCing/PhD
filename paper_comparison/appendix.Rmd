@@ -251,35 +251,6 @@ heter_conv_sim <- heter_conv_sim %>%
 
 # Appendix
 
-## Effect size derivation
-
-Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
-
-Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
-
-Let $\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})$ denotes the $p$ regressors with $n$ observations, $\boldsymbol{R}_a = \boldsymbol{I} -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'$ denotes the residual operator, and let $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0},\sigma^2\boldsymbol{I})$ denotes the error. Using the Frisch–Waugh–Lovell theorem, residuals $\boldsymbol{e} = \boldsymbol{R}_a\boldsymbol{\varepsilon}$. Because $rank(\boldsymbol{R}_a) = n - p < n$, $e$ follows a degenerate multivariate normal distribution and does not have a density. Since the Kullback-Leibler divergence requires a proper density function, we need to simplify the covariance matrix of $\boldsymbol{e}$ by setting all the off-diagonal elements to 0. Then, the residuals will assumed to follow $N(\boldsymbol{0}, diag(\boldsymbol{R}_a\sigma^2))$ under the null hypothesis that the model is correctly specified. If the model is however misspecified due to omitted variables $\boldsymbol{Z}$, or a non-constant variance $\boldsymbol{V}$, the distribution of residuals can be derived as $N(\boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z, diag(\boldsymbol{R}_a\sigma^2))$ and $N(\boldsymbol{0}, diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a'))$ respectively.
-
-By assuming both $P$ and $Q$ are multivariate normal density functions, the Kullback-Leibler divergence can be rewritten as 
-$$KL = \frac{1}{2}\left(log\frac{|\Sigma_p|}{|\Sigma_q|} - n + tr(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)'\Sigma_p^{-1}(\mu_p - \mu_q)\right).$$
-
-Then, we can combine the two residual departures into one formula
-
-\begin{equation}
-\label{eq:effect-size}
-KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right).
-\end{equation}
-
-When there are omitted variables but constant error variance, the formula can be reduced to
-
-$$KL = \frac{1}{2}\left(\boldsymbol{\mu}_z^{T}(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right).$$
-
-And when the model equation is correctly specified but the error variance is non-constant, the formula can be reduced to
-
-$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2))\right).$$
-Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of the formula is 
-
-$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
-
 ## Experiment setup
 
 ### Mapping of subjects to experimental factors
@@ -302,7 +273,43 @@ where $C$ is a sufficiently large constant such that $D > 0$. If $L_{s}$ is empt
 
 The distance measures how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a subject at each step.
 
-### Demographics
+
+
+### Data collection process
+
+
+The survey data is collected via a self-hosted website designed by us. 
+
+(desc of the tech layers)
+
+Once the participant is recruited from Prolific (ref here), it will be redirected to the entry page of our study website. An image of the entry page is provided in Figure \ref{fig:entry-page}. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in \ref{fig:consent_form} and \ref{fig:metadata} respectively. Before evaluating lineups, participant also need to read the training page as provide in Figure \ref{fig:training-page} to understand the process. An example of the lineup page is given in Figure \ref{fig:lineup-page}. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
+
+```{r tech, out.width = "100%", fig.cap = "Diagram of online experiment setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment."}
+knitr::include_graphics("img/experiment_tech.pdf")
+```
+
+
+```{r entry-page, out.width = "100%", fig.cap = "The entry page of the study website."}
+knitr::include_graphics("img/message.png")
+```
+
+```{r consent-form, out.width = "100%", fig.cap = "The consent form provided in the study website."}
+knitr::include_graphics("img/consent_form.png")
+```
+
+```{r metadata, out.width = "100%", fig.cap = "The form to provide demographic information."}
+knitr::include_graphics("img/metadata.png")
+```
+
+```{r training-page, out.width = "100%", fig.cap = "The training page of the study website."}
+knitr::include_graphics("img/training.png")
+```
+
+```{r lineup-page, out.width = "100%", fig.cap = "The lineup page of the study website."}
+knitr::include_graphics("img/lineup1.png")
+```
+
+## Demographics
 
 Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. Figure \ref{fig:education} and \ref{fig:experience} provide summary of the demographic data. 
 
@@ -341,43 +348,37 @@ vi_survey %>%
 
 
 
-### Data collection interface
+## Effect size derivation
+
+Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
+
+Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
+
+Let $\boldsymbol{X}_a = (\boldsymbol{1}, \boldsymbol{X})$ denotes the $p$ regressors with $n$ observations, $\boldsymbol{R}_a = \boldsymbol{I} -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'$ denotes the residual operator, and let $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0},\sigma^2\boldsymbol{I})$ denotes the error. Using the Frisch–Waugh–Lovell theorem, residuals $\boldsymbol{e} = \boldsymbol{R}_a\boldsymbol{\varepsilon}$. Because $rank(\boldsymbol{R}_a) = n - p < n$, $e$ follows a degenerate multivariate normal distribution and does not have a density. Since the Kullback-Leibler divergence requires a proper density function, we need to simplify the covariance matrix of $\boldsymbol{e}$ by setting all the off-diagonal elements to 0. Then, the residuals will assumed to follow $N(\boldsymbol{0}, diag(\boldsymbol{R}_a\sigma^2))$ under the null hypothesis that the model is correctly specified. If the model is however misspecified due to omitted variables $\boldsymbol{Z}$, or a non-constant variance $\boldsymbol{V}$, the distribution of residuals can be derived as $N(\boldsymbol{R}_a\boldsymbol{Z}\boldsymbol{\beta}_z, diag(\boldsymbol{R}_a\sigma^2))$ and $N(\boldsymbol{0}, diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a'))$ respectively.
+
+By assuming both $P$ and $Q$ are multivariate normal density functions, the Kullback-Leibler divergence can be rewritten as 
+$$KL = \frac{1}{2}\left(log\frac{|\Sigma_p|}{|\Sigma_q|} - n + tr(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)'\Sigma_p^{-1}(\mu_p - \mu_q)\right).$$
+
+Then, we can combine the two residual departures into one formula
+
+\begin{equation}
+\label{eq:effect-size}
+KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2)) + \boldsymbol{\mu}_z^{T}(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}\boldsymbol{\mu}_z\right).
+\end{equation}
+
+When there are omitted variables but constant error variance, the formula can be reduced to
+
+$$KL = \frac{1}{2}\left(\boldsymbol{\mu}_z^{T}(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right).$$
+
+And when the model equation is correctly specified but the error variance is non-constant, the formula can be reduced to
+
+$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a\sigma^2)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a\sigma^2))\right).$$
+Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of the formula is 
+
+$$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
 
 
-The survey data is collected via a self-hosted website designed by us. 
-
-(desc of the tech layers)
-
-Once the participant is recruited from Prolific (ref here), it will be redirected to the entry page of our study website. An image of the entry page is provided in Figure \ref{fig:entry-page}. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in \ref{fig:consent_form} and \ref{fig:metadata} respectively. Before evaluating lineups, participant also need to read the training page as provide in Figure \ref{fig:training-page} to understand the process. An example of the lineup page is given in Figure \ref{fig:lineup-page}. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
-
-```{r tech, out.width = "100%", fig.cap = "Diagram of online experiment setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment."}
-knitr::include_graphics("img/experiment_tech.pdf")
-```
-
-
-```{r entry-page, out.width = "100%", fig.cap = "The entry page of the study website."}
-knitr::include_graphics("img/message.png")
-```
-
-```{r consent-form, out.width = "100%", fig.cap = "The consent form provided in the study website."}
-knitr::include_graphics("img/consent_form.png")
-```
-
-```{r metadata, out.width = "100%", fig.cap = "The form to provide demographic information."}
-knitr::include_graphics("img/metadata.png")
-```
-
-```{r training-page, out.width = "100%", fig.cap = "The training page of the study website."}
-knitr::include_graphics("img/training.png")
-```
-
-```{r lineup-page, out.width = "100%", fig.cap = "The lineup page of the study website."}
-knitr::include_graphics("img/lineup1.png")
-```
-
-
-
-## Batch effect size
+## Batch effect
 
 ```{r poly-boxplot-lineup, fig.cap = '\\label{fig:poly-boxplot-lineup}A lineup of "letter-value" boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel $2^3 - 1$.'}
 library(lvplot)
@@ -852,6 +853,10 @@ ggplot() +
 
 
 ## Curious effect of predictor distribution on conventional test power
+
+
+1. put #eval in appendix
+3. compute the power of RESET test with different orders (considering dof) (focus on simple pattern possibly?)
 
 \newpage
 

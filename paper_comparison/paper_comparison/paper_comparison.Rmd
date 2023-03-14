@@ -32,10 +32,6 @@ header-includes: |
   \usepackage{hyperref}
   \usepackage[utf8]{inputenc}
   \def\tightlist{}
-  \usepackage{xcolor}
-  \definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
-  \newcommand{\svp}[1]{{\textcolor{orange-red}{#1}}}
-  \newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
 output: rticles::tf_article
 editor_options: 
   chunk_output_type: console
@@ -1630,12 +1626,11 @@ As expected, if the fitted value distribution is not uniform, there is a loss of
 
 # Acknowledgement
 
-1. software tools
-2. point to github repo (create a new one)
-3. summarise the supplementary material
+
+The article was created with rticles (ref here), knitr (ref here) and R Markdown (ref here). The project's Github repository (link here) contains all materials required to reproduce this article.
+
+# Supplementary material 
+
+The supplementary material is available at (link here). It includes more details about the experimental setup, the derivation of the effect size, the effect of data collection period, and the estimate of  $\alpha$.
 
 \newpage
-
-1. put #eval in appendix
-2. examine batch effect in appendix
-3. compute the power of RESET test with different orders (considering dof) (focus on simple pattern possibly?)
