@@ -1,6 +1,6 @@
 ---
 title: |
-  A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with Visual Inference
+  A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
@@ -26,7 +26,7 @@ bibliography: paper.bib
 abstract: |
   Abstract to fill.
 keywords: |
-  data visualization; visual inference; hypothesis testing; residual plots;
+  statistical graphics; data visualization; visual inference; hypothesis testing; reression analysis; cognitive perception; simulation; practical significance; effect size
 header-includes: |
   \usepackage{lscape}
   \usepackage{hyperref}
@@ -1626,6 +1626,8 @@ As expected, if the fitted value distribution is not uniform, there is a loss of
 
 # Acknowledgement
 
+This research is enabled by the use of the following `R` packages:
+cli, curl, dplyr, ggplot2, jsonlite, lmtest, mpoly, progress, tibble, ggmosaic, purrr, tidyr, readr, stringr, here, kableExtra, patchwork, rcartocolor. The study website is powered by pythonAnywhere and the Flask web framework. The jsPsych framework is used to create behavioral experiments that run in our study website. 
 
 The article was created with rticles (ref here), knitr (ref here) and R Markdown (ref here). The project's Github repository (link here) contains all materials required to reproduce this article.
 
