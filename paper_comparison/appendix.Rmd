@@ -309,16 +309,18 @@ Along with the responses to lineups, we have collected a series of demographic i
 As shown in Figure \ref{fig:education}, most participants have Diploma or Bachelor degrees, followed by High school or below.
 The survey data is gender balanced and the majority of participants are between 18 to 39 years old.
 
-```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun."}
+```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun.", fig.height = 4}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
   ggplot() +
   geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
   facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
   xlab("Age group") +
   ylab("Count") +
-  theme_light()
+  theme_light(base_size = 10)
 ```
 
 Figure \ref{fig:experience} shows that the number of participants who have previous experience is not very different from the number of those who haven't. Age distributions are also similar for these two groups.
@@ -327,6 +329,8 @@ Figure \ref{fig:experience} shows that the number of participants who have previ
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
   mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
   ggplot() +
   geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
   facet_wrap(~previous_experience) +
