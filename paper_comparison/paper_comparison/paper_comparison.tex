@@ -36,10 +36,6 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \def\tightlist{}
-\usepackage{xcolor}
-\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
-\newcommand{\svp}[1]{{\textcolor{orange-red}{#1}}}
-\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -109,13 +105,13 @@ from the model fit are commonly used. Residuals summarise what is not
 captured by the model, and thus provide the capacity to identify what
 might be wrong.
 
-We can assess residuals in multiple ways. Residuals might be plotted, as
-a histogram or quantile-quantile plot to examine the distribution. Using
+We can assess residuals in multiple ways. Residuals may be plotted as a
+histogram or quantile-quantile plot to examine the distribution. Using
 the classical normal linear regression model as an example, if the
-distribution is symmetric and unimodal, we consider it well-behaved. But
-if the distribution is skewed, bimodal, multimodal, or contains
-outliers, there is cause for concern. One could also inspect the
-distribution by conducting a goodness of fit test, such as the
+distribution is symmetric and unimodal, we consider it to be well
+behaved. However, if the distribution is skewed, bimodal, multimodal, or
+contains outliers, there is a cause for concern. One could also inspect
+the distribution by conducting a goodness of fit test, such as the
 Shapiro-Wilk Normality test \citep{shapiro1965analysis}.
 
 More typically, residuals will be plotted, as a scatter plot against the
@@ -124,41 +120,42 @@ their relationships. If there are any visually discoverable patterns,
 the model is potentially misspecified. In general, one looks for
 noticeable departures from the model like non-linear dependency or
 heteroskedasticity. However, correctly judging a residual plot where no
-pattern exists is a painstakingly difficult task for humans (?citation).
-It is especially common, particularly among new data analysts, to report
-patterns when an experienced one might quickly conclude that there are
-none. It is also possible to conduct hypothesis tests for non-linear
-dependence \citep{ramsey_tests_1969}, and use a Breusch-Pagan test
+pattern exists can be a painstakingly difficult task for humans
+(?citation). It is especially common, particularly among new data
+analysts, to report patterns when an experienced one might quickly
+conclude that there are none (ET: not sure if this is true). It is also
+possible to conduct hypothesis tests for non-linear dependence
+\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
 \citep{breusch_simple_1979} for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for
-linear regression: \citet{draper1998applied},
+linear regression, e.g. \citet{draper1998applied},
 \citet{montgomery1982introduction}, \citet{belsley_regression_1980},
-\citet{cook_applied_1999} and \citet{cook1982residuals}. All of these
-writings consider plotting of residuals to be a standard technique that
+\citet{cook_applied_1999} and \citet{cook1982residuals}. All these
+writings consider plotting residuals to be a standard technique that
 should be examined routinely in all regression modelling problems. In
 addition, \citet{draper1998applied} and \citet{belsley_regression_1980}
-believe that residual plots are usually very revealing when the
-assumptions are violated. \citet{cook_applied_1999} thinks formal tests
-and graphical procedures are complementary and both have a place in
-residual analysis, but they focus on graphical methods rather than on
-formal testing, as they are easier to use.
-\citet{montgomery1982introduction} even suggests that residual plots are
-more informative in most practical situations than corresponding formal
-tests, and statistical tests on regression model residuals are not
-widely used based on their experience.
+believe that residual plots are usually revealing when the assumptions
+are violated. \citet{cook_applied_1999} thinks formal tests and
+graphical procedures are complementary and both have a place in residual
+analysis, but they focus on graphical methods rather than on formal
+testing, as they are easier to use. \citet{montgomery1982introduction}
+even suggests that residual plots are more informative in most practical
+situations than the corresponding formal tests, and statistical tests on
+regression model residuals are not widely used based on their
+experience.
 
 A common guidance by experts is that optimal method for diagnosing model
 fits is by plotting the data. The persistence of this advice to check
 the plots is curious, and investigating why this might be common advice
 is the subject of this paper. The paper is structured as follows. The
-next background section describes the types of departures that one
-expects to detect, and outlines a formal statistical process for reading
-residual plots, called visual inference. Section
+next section describes the background on the types of departures that
+one expects to detect, and outlines a formal statistical process for
+reading residual plots, called visual inference. Section
 \ref{experimental-design} details the experimental design to compare the
-decision made by formal hypothesis testing, and how humans would read
+decisions made by formal hypothesis testing, and how humans would read
 diagnostic plots. The results are reported in Section \ref{results}. We
-finish with a discussion on future work, in particular how the
+conclude with a discussion of future work, in particular, how the
 responsibility for residual plot reading might be relieved.
 
 \hypertarget{background}{%
@@ -179,24 +176,24 @@ plots}\label{departures-from-good-residual-plots}}
 
 Graphical summaries in which residuals are plotted against fitted values
 or other functions of the predictors that are approximately orthogonal
-to residuals are referred to as standard residual plots in
-\citet{cook1982residuals}. The first panel of Figure
-\ref{fig:residual-plot-common-departures} shows an ideal residual plot
-with residuals evenly distributed at both sides of the horizontal zero
-line, with no noticeable patterns.
+to the residuals are referred to as standard residual plots in
+\citet{cook1982residuals}. Figure
+\ref{fig:residual-plot-common-departures}A shows an ideal residual plot
+where the residuals are evenly distributed at both sides of the
+horizontal zero line, with no noticeable patterns.
 
 There are various types of departures from an ideal residual plot.
-Non-linearity, heterskedasticity and non-normality are perhaps the three
-mostly checked departures.
+Non-linearity, heteroskedasticity and non-normality are perhaps the
+three mostly checked departures.
 
 Non-linearity is a type of model misspecification caused by failing to
 include higher order terms of the predictors in the regression equation.
 Any non-linear functional form of residuals on fitted values in the
 residual plot could be indicative of non-linearity. An example residual
-plot containing visual pattern of non-linearity is given at the second
-panel of Figure \ref{fig:residual-plot-common-departures}. One can
-clearly observe the ``S-shape'' from the residual plot as the cubic term
-is not captured by the misspecified model.
+plot containing visual pattern of non-linearity is shown in Figure
+\ref{fig:residual-plot-common-departures}B. One can clearly observe the
+``S-shape'' from the residual plot as the cubic term is not captured by
+the misspecified model.
 
 Heteroskedasticity refers to the presence of nonconstant error variance
 in a regression model. It is mostly due to the strict but false
@@ -204,10 +201,9 @@ assumptions on the variance-covariance matrix of the error term. The
 usual pattern of heteroskedasticity on a residual plot is the
 inconsistent spread of the residuals across the horizontal axis.
 Visually, it sometimes results in the so-called ``butterfly'' shape as
-shown in the third panel of Figure
-\ref{fig:residual-plot-common-departures}, or the ``left-triangle'' and
-``right-triangle'' shape where the smallest variance occurs at one side
-of the horizontal axis.
+shown in Figure \ref{fig:residual-plot-common-departures}C, or the
+``left-triangle'' and ``right-triangle'' shape where the smallest
+variance occurs at one side of the horizontal axis.
 
 Compared to non-linearity and heteroskedasticity, non-normality is
 usually harder to detect from a residual plot since a scatter plot do
@@ -215,44 +211,44 @@ not readily reveal the marginal distribution. A favourable graphical
 summary for this task is the quantile-quantile plot. As we mainly
 discuss residual plots, non-normality will not be the focus of this
 paper. For a consistent comparison, the residual plot of this departure
-is still presented in the fourth panel of Figure
-\ref{fig:residual-plot-common-departures}. When the number residuals
-below and above the horizontal axis are uneven across the local regions
-along the \(x\)-axis, we expect that the normality assumption is
-violated. For example, given a skewed error distribution, there will be
-fewer data points and more outliers on one side of the horizontal axis
-as shown in the fourth panel of Figure
-\ref{fig:residual-plot-common-departures}.
+is still presented in Figure \ref{fig:residual-plot-common-departures}D.
+When the number residuals below and above the horizontal axis are uneven
+across the local regions along the \(x\)-axis, we expect that the
+normality assumption is violated. For example, given a skewed error
+distribution, there will be fewer data points and more outliers on one
+side of the horizontal axis as shown in Figure
+\ref{fig:residual-plot-common-departures}D.
 
 \hypertarget{conventionally-testing-for-departures}{%
 \subsection{Conventionally testing for
 departures}\label{conventionally-testing-for-departures}}
 
 Other than checking diagnostic plots, analysts may perform formal
-hypothesis testing for detecting model defects. Depending on the
-alternative hypothesis that is focused on, a variety of tests can be
-applied. For example, the presence of heteroskedasticity can usually be
-tested by applying the White test
-\citep{white_heteroskedasticity-consistent_1980} or the Breusch-Pagan
-test \citep{breusch_simple_1979}, which are both derived from the
-Lagrange multiplier test \citep{silvey1959lagrangian} principle that
-relies on the asymptotic properties of the null distribution. For
-testing non-linearity, one may apply the F-test as a model structural
-test to examine the significance of specific polynomial and non-linear
-forms of the predictors, or the significance of proxy variables as in
-the Ramsey Regression Equation Specification Error Test (RESET)
-\citep{ramsey_tests_1969}. The Shapiro-Wilk test
-\citep{shapiro1965analysis} is the most widely used test of
-non-normality included by many of the statistical softwares. The
-Jarque--Bera test \citep{jarque1980efficient} is also used to directly
-checks if the sample skewness and kurtosis match a normal distribution.
+hypothesis testing to detect model defects. A variety of tests can be
+applied; each testing for a specific violation of the null hypothesis.
+For example, the presence of heteroskedasticity can usually be tested by
+applying the White test \citep{white_heteroskedasticity-consistent_1980}
+or the Breusch-Pagan test \citep{breusch_simple_1979}, which are both
+derived from the Lagrange multiplier test \citep{silvey1959lagrangian}
+principle that relies on the asymptotic properties of the null
+distribution. To test specific forms of non-linearity, one may apply the
+F-test as a model structural test to examine the significance of
+specific polynomial and non-linear forms of the predictors, or the
+significance of proxy variables as in the Ramsey Regression Equation
+Specification Error Test (RESET) \citep{ramsey_tests_1969}. The
+Shapiro-Wilk test \citep{shapiro1965analysis} is the most widely used
+test of non-normality included by many of the statistical software
+programs. The Jarque--Bera test \citep{jarque1980efficient} is also used
+to directly check whether the sample skewness and kurtosis match a
+normal distribution.
 
-Example residual plots given in Figure
-\ref{fig:residual-plot-common-departures} are examined by the
-corresponding RESET test, Breusch-Pagan test and Shapiro-Wilk test as
-shown in Table \ref{tab:example-residual-plot-table}. In the example,
-the Breusch-Pagan test and the Shapiro--Wilk test both reject \(H_0\)
-for departures that they do not intend to examine. As discussed in
+We apply the RESET test, Breusch-Pagan test and Shapiro-Wilk test to the
+residual plots shown in Figure
+\ref{fig:residual-plot-common-departures}; the results of this is shown
+in Table \ref{tab:example-residual-plot-table}. The Breusch-Pagan test
+and the Shapiro-Wilk test both reject \(H_0\) for residual plots that
+display non-linearity and heteroscedasticity, even though these are not
+the original intention of the test. As discussed in
 \citet{cook1982residuals}, most residual-based tests for a particular
 type of departure from model assumptions are also sensitive to other
 types of departures. It is likely \(H_0\) is correctly rejected but for
@@ -385,13 +381,13 @@ departures. For example, the RESET test is formulated as
 \(H_0:\gamma_1 = \gamma_2 = \gamma_3 = 0\) against
 \(H_a: \gamma_1 \neq 0 \text{ or } \gamma_2 \neq 0 \text{ or } \gamma_3 \neq 0\),
 from
-\(e = \tau_0 + \tau_1x_1 + ... + \tau_1 x_p +\gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)\).
+\(y = \tau_0 + \sum_{i=1}^{p}\tau_px_p +\gamma_1\hat{y}^2 + \gamma_2\hat{y}^3 + \gamma_3\hat{y}^4 + u, ~~u \sim N(0, \sigma_u^2)\).
 Similarly, the Breusch-Pagan test is designed to specifically test
 \(H_0:\) \emph{error variances are all equal}
-(\(\tau_i=0 \text{ for } i=1,..,p\)) versus the alternative \(H_a:\)
+(\(\zeta_i=0 \text{ for } i=1,..,p\)) versus the alternative \(H_a:\)
 \emph{that the error variances are a multiplicative function of one or
-more variables} (\(\text{at least one } \tau_i\neq 0\)) from
-\(e^2 = \tau_0 + \tau_1 x_1 + \cdots + \tau_1 x_p + u, ~ u\sim N(0,\sigma_u^2)\).
+more variables} (\(\text{at least one } \zeta_i\neq 0\)) from
+\(e^2 = \zeta_0 + \sum_{i=1}^{p}\zeta_i x_i + u, ~ u\sim N(0,\sigma_u^2)\).
 
 One of the potential benefits of the visual test, based on the lineup
 protocol, is that it should be able to detect a range of departures from
@@ -425,7 +421,7 @@ mass function and \(x\) is the realization of number of observers
 correctly picking the data plot \citep{majumder_validation_2013}.
 
 As pointed out by \citet{vanderplas2021statistical}, this basic binomial
-model doesn't take into account the possible dependencies in the visual
+model does not take into account the possible dependencies in the visual
 test due to repeated evaluations of the same lineup. And it is
 inapplicable to visual test where subjects are asked to select one or
 more ``most different'' plots from the lineup.
@@ -841,16 +837,15 @@ for simulated data as used in this experiment.
 
 For the non-linearity model, the key items defining effect size are
 sample size (\(n\)) and variance of the error term (\(\sigma^2\)), and
-so effect size would be roughly calculated as
-\(\frac{\sqrt(n)}{\sigma}\). As sample size increases the effect size
-would increase, but as variance increases the effect size decreases.
-However, it is not clear how the additional parameter for the model
-polynomial order, \(k\), should be incorporated. Intuitively, the large
-\(k\) means more complex pattern, which likely means effect size would
-decrease. For the purposes of our calculations we have chosen to use an
-approach based on Kullback-Leibler divergence
-\citep{kullback1951information}, coupled with simulation. This
-formulation defines effect size to be:
+so effect size would be roughly calculated as \(\sqrt{n}/{\sigma}\). As
+sample size increases the effect size would increase, but as variance
+increases the effect size decreases. However, it is not clear how the
+additional parameter for the model polynomial order, \(k\), should be
+incorporated. Intuitively, the large \(k\) means more complex pattern,
+which likely means effect size would decrease. For the purposes of our
+calculations we have chosen to use an approach based on Kullback-Leibler
+divergence \citep{kullback1951information}, coupled with simulation.
+This formulation defines effect size to be:
 
 \[E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}_a\sigma^2))^{-1}\boldsymbol{\mu}_z\right)\]
 \noindent where \(diag(.)\) is the diagonal matrix constructed from the
@@ -1341,30 +1336,25 @@ visually detect it, with wedge to the right being less detectable.
 \hypertarget{acknowledgement}{%
 \section{Acknowledgement}\label{acknowledgement}}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  software tools
-\item
-  point to github repo (create a new one)
-\item
-  summarise the supplementary material
-\end{enumerate}
+This research is enabled by the use of the following \texttt{R}
+packages: cli, curl, dplyr, ggplot2, jsonlite, lmtest, mpoly, progress,
+tibble, ggmosaic, purrr, tidyr, readr, stringr, here, kableExtra,
+patchwork, rcartocolor. The study website is powered by pythonAnywhere
+and the Flask web framework. The jsPsych framework is used to create
+behavioral experiments that run in our study website.
+
+The article was created with rticles (ref here), knitr (ref here) and R
+Markdown (ref here). The project's Github repository (link here)
+contains all materials required to reproduce this article.
+
+\hypertarget{supplementary-material}{%
+\section{Supplementary material}\label{supplementary-material}}
+
+The supplementary material is available at (link here). It includes more
+details about the experimental setup, the derivation of the effect size,
+the effect of data collection period, and the estimate of \(\alpha\).
 
 \newpage
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  put \#eval in appendix
-\item
-  examine batch effect in appendix
-\item
-  compute the power of RESET test with different orders (considering
-  dof) (focus on simple pattern possibly?)
-\end{enumerate}
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
