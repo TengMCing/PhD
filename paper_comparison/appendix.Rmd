@@ -1,7 +1,8 @@
 ---
 title: "Supplmentary material - A plot is worth a thousand tests: assessing residual diagnostics with visual inference"
 output: pdf_document
-author: ""
+author: "Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas"
+bibliography: "paper_comparison/paper.bib"
 ---
 
 ```{r setup, include=FALSE}
@@ -250,11 +251,9 @@ heter_conv_sim <- heter_conv_sim %>%
 
 # Appendix
 
-## Effect size
+## Effect size derivation
 
-## Derivation
-
-Effect size is usually defined as the difference of a parameter or a statistic derived from a sample. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
+Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
 
 Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
 
@@ -281,19 +280,27 @@ Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of
 
 $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
 
-## Caculation
-
-The effect size can be calculated using Equation \ref{eq:effect-size} for each lineup by plugging in the data generated from the simulated model. However, since the term $\boldsymbol{R}_a$ will differ for each sample, the effect size will be different even if the parameter values are the same. To overcome this undesired property, for the same set of parameter values, we simulate a sufficient large number of samples, and take the average of the effect size as the final effect size.   
-
 ## Experiment setup
 
 ### Mapping of subjects to experimental factors
 
-Mapping of subjects to experimental factors is an important part of experiment design. Essentially, we want to maximum the difference in factors exposed to a subject. For this purpose, we design an algorithm to conduct subject allocation. Let $L$ be a set of available lineups and $S$ be a set of available subjects. According to the experimental design, available means a lineup can be allocated to at most five different subjects (for lineups with uniform fitted value distribution, this value is 11) and a subject can view at most 18 different lineups.
+Mapping of subjects to experimental factors is an important part of experiment design. Essentially, we want to maximum the difference in factors exposed to a subject. For this purpose, we design an algorithm to conduct subject allocation. Let $L$ be a set of available lineups and $S$ be a set of available subjects. According to the experimental design, the availability of a lineup is associated with the number of subjects it can assign to. For lineups with uniform fitted value distribution, this value is 11. And other lineups can be allocated to at most five different subjects. The availability of a subject is associated with the number of lineups that being allocated to this subject. A subject can view at most 18 different lineups. 
 
-The algorithm starts from picking a random subject $s$ from $S$ with the minimum number of allocated lineups. It then computes a metric for every lineup $l$ in $L$ indicating the distance $D$ between lineup $l$ to the lineups already allocated to this subject $l_{allocated}$. Lineup with the highest distance $D$ will be allocated to the subject. The algorithm will repeatedly pick a subject, compute metrics, and allocate lineups until there is no available lineups or no available subjects.
+The algorithm starts from picking a random subject $s \in S$ with the minimum number of allocated lineups. It then tries to find a lineup $l \in L$ that can maximise the distance metric $D$ and allocate it to subject $s$. Set $L$ and $s$ will be updated and the picking process will be repeated until there is no available lineups or subjects. 
 
-The distance $D$ is defined using the factor values used to generate lineup $l$ and lineups $l_{allocated}$. If there does not exist $l_{allocated}$, then the distance $D = 0$. Otherwise, distance $D$ is roughly the number of factors minus the number of factor values of lineup $l$ exists in a union of factor values of lineups $l_{allocated}$. The distance $D$ is further adjusted by the existence of $n$-factor combinations, where $n$ could be two to the number of factors. In this way, all factors values are exposed to every subject, and some even ensure all $2$-factor combinations are exposed to every subject. 
+Let $F_1,...,F_q$ be $q$ experimental factors, and $f_1, ...,f_q$ be the corresponding factor values. We say $f_i$ exists in $L_{s}$ if any lineup in $L_{s}$ has this factor value. Similarly, $f_if_j$ exists in $L_{s}$ if any lineup in $L_{s}$ has this pair of factor values. And $f_if_jf_k$ exists in $L_{s}$ if any lineup in $L_{s}$ has this trio of factor values. The distance metric $D$ is defined between a lineup $l$ and a set of lineups $L_{s}$ allocated to a subject $s$ if $L_{s}$ is non-empty: 
+
+\footnotesize
+
+\begin{equation*}
+D =
+C - \sum_{i}I(f_i\text{ exists in }L_{s}) - \sum_{i}\sum_{j\neq i}I(f_if_j\text{ exists in }L_{s}) - \sum_{i}\sum_{j\neq i}\sum_{k\neq j}I(f_if_jf_k\text{ exists in }L_{s})
+\end{equation*}
+
+\normalsize
+where $C$ is a sufficient large constant such that $D > 0$. If $L_{s}$ is empty, we define $D = 0$.
+
+The distance is measuring how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm is trying to allocate the most different lineup to a subject.
 
 ### Demographics
 
