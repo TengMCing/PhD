@@ -499,13 +499,13 @@ Therefore, both the visual test and the conventional test, there is no clear evi
 
 The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja_statistical_2009. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
 
-The analysis is conducted by setting up two relatively extreme scenarios, where the $\alpha$ is under or overestimated by 25%. Using the inflated and deflated $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that $p$-value changes very little. It is very unlikely the findings will be affected because of the estimate of $\alpha$. 
+The analysis is conducted by setting up two relatively extreme scenarios, where the $\alpha$ is under or overestimated by 50%. Using the inflated and deflated $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is deflated. However, Figure \ref{fig:sensitive-barplot} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small number of cases (12 out of 558) where the rejection decision changes. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
 
 
 ```{r}
 vi_survey_upper <- calc_p_value_multi(vi_survey %>%
-                                        mutate(alpha_upper = alpha * 1.25,
-                                               alpha_lower = alpha * 0.75),
+                                        mutate(alpha_upper = alpha * 1.5,
+                                               alpha_lower = alpha * 0.5),
                                       lineup_id = unique_lineup_id,
                                       detect = detect,
                                       n_sel = num_selection,
@@ -514,8 +514,8 @@ vi_survey_upper <- calc_p_value_multi(vi_survey %>%
   
 
 vi_survey_lower <- calc_p_value_multi(vi_survey %>%
-                                        mutate(alpha_upper = alpha * 1.25,
-                                               alpha_lower = alpha * 0.75),
+                                        mutate(alpha_upper = alpha * 1.5,
+                                               alpha_lower = alpha * 0.5),
                                       lineup_id = unique_lineup_id,
                                       detect = detect,
                                       n_sel = num_selection,
@@ -659,7 +659,7 @@ ggplot() +
 ```
 
 
-```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ inflated by 25% and deflated by 25%."}
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ inflated by 50% and deflated by 50%."}
 vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
@@ -675,7 +675,7 @@ vi_survey_lower %>%
   group_by(unique_lineup_id) %>%
   summarise(p_value_lower = first(p_value))) %>%
   pivot_longer(p_value_upper:p_value_lower) %>%
-  mutate(name = ifelse(name == "p_value_upper", "+25%", "-25%")) %>%
+  mutate(name = ifelse(name == "p_value_upper", "+50%", "-50%")) %>%
   ggplot() +
   geom_point(aes(p_value, value), alpha = 0.2) +
   geom_abline() +
@@ -684,7 +684,32 @@ vi_survey_lower %>%
   facet_wrap(~name) +
   ylab("Adjusted p-value") +
   xlab("p-value") +
-  coord_fixed()
+  coord_fixed() +
+  theme_light()
+```
+
+```{r sensitive-barplot, fig.cap = "\\label{fig:sensitive-barplot}Change of rejection of the null hypothesis with $\\hat{\\alpha}$ inflated by 50% and deflated by 50%."}
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value = first(p_value)) %>%
+  left_join(
+vi_survey_upper %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value_upper = first(p_value))) %>%
+  left_join(
+vi_survey_lower %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value_lower = first(p_value))) %>%
+  pivot_longer(p_value_upper:p_value_lower) %>%
+  mutate(name = ifelse(name == "p_value_upper", "+50%", "-50%")) %>%
+  ggplot() +
+  geom_bar(aes(p_value < 0.05, fill = value < 0.05), position = "dodge") +
+  theme_light() +
+  xlab("p-value < 0.05") +
+  labs(fill = "Adjusted p-value < 0.05")
 ```
 
 
@@ -818,3 +843,7 @@ ggplot() +
 
 
 ## Curious effect of predictor distribution on conventional test power
+
+\newpage
+
+## References
