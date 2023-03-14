@@ -294,13 +294,13 @@ Let $F_1,...,F_q$ be $q$ experimental factors, and $f_1, ...,f_q$ be the corresp
 
 \begin{equation*}
 D =
-C - \sum_{i}I(f_i\text{ exists in }L_{s}) - \sum_{i}\sum_{j\neq i}I(f_if_j\text{ exists in }L_{s}) - \sum_{i}\sum_{j\neq i}\sum_{k\neq j}I(f_if_jf_k\text{ exists in }L_{s})
+C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q-1 \\ i < j \leq q}}I(f_if_j\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q - 2 \\ i < j \leq q - 1 \\ j < k \leq q}}I(f_if_jf_k\text{ exists in }L_{s})
 \end{equation*}
 
 \normalsize
-where $C$ is a sufficient large constant such that $D > 0$. If $L_{s}$ is empty, we define $D = 0$.
+where $C$ is a sufficiently large constant such that $D > 0$. If $L_{s}$ is empty, we define $D = 0$.
 
-The distance is measuring how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm is trying to allocate the most different lineup to a subject.
+The distance is measuring how different a lineup is from the set of lineups allocated to the subject in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a subject.
 
 ### Demographics
 
