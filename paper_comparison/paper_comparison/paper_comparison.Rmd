@@ -1,6 +1,6 @@
 ---
 title: |
-  A plot is worth a thousand tests: assessing residual diagnostics with visual inference
+  A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with Visual Inference
 type: ARTICLE TEMPLATE
 author:
   - name: Weihao Li
