@@ -1,0 +1,75 @@
+---
+title: "Milestone report"
+output: pdf_document
+date: "2023-03-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+A short report (5 - 10) pages
+
+Advances in Artificial Intelligence for Data Visualization: Automate Reading of Data Plots
+
+# Overview of the thesis
+
+1. background and motivation
+- the role of visual diagnostics in modelling
+- a brief introduction to visual inference
+- limitation of lineup protocol
+2. research questions
+-  a. study the use of visual inference in regression diagnostics with a comparison to conventional test
+-  b. build a computer vision system to evaluate residual plot
+-  c. make the system available to the public
+3. summarise the work in the first year
+- an experiment to compare visual test with conventional test 
+- a prototype model for lineup evaluation
+- points out the limitation of the work
+4. summarise the work in the second year
+- refine and reconduct the experiment
+5. main findings to date
+- findings from the first year
+- findings from the second year
+
+# Thesis structure
+
+topic
+
+chapter 1: Introduction
+
+chapter 2
+the first paper
+
+chapter 3
+build a computer vision system to evaluate residual plot
+
+chapter 4?
+software publication
+
+chapter 5
+discussion and future work
+
+# Timetable
+
+- April: submit abstract to ASC
+- May: submit paper
+- June: submit poster/short paper to IEEE vis conf, start working on computer vision model
+- July: leave for few weeks
+- Aug
+- Sep: finalize the computer vision model
+- Oct: IEEE vis conf
+- Nov: web interface development 
+- Dec: ASC
+
+- Jan, 2024: 
+- Feb, 2024: 
+- Mar, 2024: submit paper
+- Aug, 2024: submit thesis  
+
+# Difficulties
+
+things that are actually quite serious
+
+1. identified difficulties
+2. suggestions for overcoming these difficulties
