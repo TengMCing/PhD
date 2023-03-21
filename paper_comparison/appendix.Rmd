@@ -480,65 +480,8 @@ vi_survey %>%
   xlab("Data collection period")
 ```
 
-```{r batch, fig.cap = '\\label{fig:batch}A "letter-value" boxplot of weighted propotion of detect for lineups over different data collection periods.'}
-vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform") %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  mutate(exp = exp - 2) %>%
-  group_by(exp, unique_lineup_id) %>%
-  mutate(prop_detect = mean(weighted_detect)) %>%
-  group_by(exp, unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  ungroup() %>%
-ggplot() +
-  geom_lv(aes(x = factor(exp), y = prop_detect, fill = after_stat(LV)), varwidth = TRUE) +
-  # scale_fill_lv() +
-  facet_grid(~type) +
-  theme_light()
-```
-
-
-```{r}
-t_test_poly <- vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform") %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  mutate(exp = exp - 2) %>%
-  group_by(exp, unique_lineup_id) %>%
-  mutate(prop_detect = mean(weighted_detect)) %>%
-  group_by(exp, unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(type == "non-linearity") %>%
-  t.test(prop_detect ~ exp, data = .)
-```
-
-
-```{r}
-t_test_heter <- vi_survey %>%
-  filter(!attention_check) %>%
-  filter(!null_lineup) %>%
-  filter(x_dist == "uniform") %>%
-  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  mutate(exp = exp - 2) %>%
-  group_by(exp, unique_lineup_id) %>%
-  mutate(prop_detect = mean(weighted_detect)) %>%
-  group_by(exp, unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  filter(type != "non-linearity") %>%
-  t.test(prop_detect ~ exp, data = .)
-```
-
 We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect.
-Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the "letter-value" boxplot (ref here) which is an extension of the number of "letter value" statistics (ref here) to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in $p$-values much greater than $5$%. 
-
-Figure \ref{fig:batch} shows the data plot, where the distribution for the heteroskedasticity patterns are almost identical in period II and III, while the distribution for the non-linearity patterns have a shift in the median. The $p$-values of the t-test for testing the mean difference across data periods are `r round(t_test_poly$p.value, 2)` and `r round(t_test_heter$p.value, 2)` for non-linearity and heteroskedasticity patterns respectively. Both are much greater than 5%.
-Therefore, both the visual test and the conventional test, there is no clear evidence of batch effect.
+Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the "letter-value" boxplot (ref here) which is an extension of the number of "letter value" statistics (ref here) to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in $p$-values much greater than $5$%. Thus, there is no clear evidence of batch effect.
 
 ## Sensitivity analysis for $\alpha$
 
