@@ -316,10 +316,9 @@ knitr::include_graphics("img/lineup1.png")
 
 ## Demographics
 
-Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. Figure \ref{fig:education} and \ref{fig:experience} provide summary of the demographic data. 
+Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. Table \ref{tab:pronoun}, \ref{tab:age-group}, \ref{tab:education} and \ref{tab:experience} provide summary of the demographic data. 
 
-As shown in Figure \ref{fig:education}, most participants have Diploma or Bachelor degrees, followed by High school or below.
-The survey data is gender balanced and the majority of participants are between 18 to 39 years old.
+It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have. 
 
 ```{r}
 vi_survey %>%
@@ -332,7 +331,7 @@ vi_survey %>%
   pivot_wider(values_from = n, names_from = exp) %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   rename(Pronoun = pronoun) %>%
-  kableExtra::kable(format = "latex", booktabs = TRUE)
+  kableExtra::kable(format = "latex", booktabs = TRUE, label = "pronoun", caption = "Summary of pronoun distribution of subjects recuritted in this study.")
 ```
 
 
@@ -347,7 +346,7 @@ vi_survey %>%
   pivot_wider(values_from = n, names_from = exp) %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   rename(`Age group` = age_group) %>%
-  kableExtra::kable(format = "latex", booktabs = TRUE)
+  kableExtra::kable(format = "latex", booktabs = TRUE, label = "age-group", caption = "Summary of age distribution of subjects recuritted in this study.")
 ```
 
 ```{r}
@@ -362,7 +361,7 @@ vi_survey %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   slice(c(2, 1, 3, 4, 5)) %>%
   rename(`Education` = education) %>%
-  kableExtra::kable(format = "latex", booktabs = TRUE)
+  kableExtra::kable(format = "latex", booktabs = TRUE, label = "education", caption = "Summary of education distribution of subjects recuritted in this study.")
 ```
 
 ```{r}
@@ -376,40 +375,8 @@ vi_survey %>%
   pivot_wider(values_from = n, names_from = exp) %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   rename(`Previous experience` = previous_experience) %>%
-  kableExtra::kable(format = "latex", booktabs = TRUE)
+  kableExtra::kable(format = "latex", booktabs = TRUE, label = "experience", caption = "Summary of previous experience distribution of subjects recuritted in this study.")
 ```
-
-
-```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun.", fig.height = 4}
-vi_survey %>%
-  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
-  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
-  group_by(exp, set) %>%
-  summarise(across(everything(), first)) %>%
-  ggplot() +
-  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
-  facet_wrap(~fct_relevel(education, "High School or below", "Diploma and Bachelor Degree", "Honours Degree", "Masters Degree")) +
-  xlab("Age group") +
-  ylab("Count") +
-  theme_light(base_size = 10)
-```
-
-Figure \ref{fig:experience} shows no particular difference between the number of participants who have previous experience and the number of those who haven't. Age distributions are also similar for these two groups.
-
-```{r experience, fig.cap = "\\label{fig:experience}Status of pervious experience of subjects recuritted in this study group by age and pronoun."}
-vi_survey %>%
-  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
-  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
-  group_by(exp, set) %>%
-  summarise(across(everything(), first)) %>%
-  ggplot() +
-  geom_bar(aes(age_group, fill = pronoun), position = "dodge") +
-  facet_wrap(~previous_experience) +
-  xlab("Age group") +
-  ylab("Count") +
-  theme_light()
-```
-
 
 
 ## Effect size derivation
