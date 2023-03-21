@@ -725,19 +725,47 @@ map_df(seq(1, 11, 2), ~eval_n(.x, 1)) %>%
   geom_line(aes(log_effect_size, power, col = factor(n_eval)),
             size = 1) +
   theme_light() +
-  scale_color_brewer(palette = "PuBuGn")
+  scale_color_brewer(palette = "Reds")
 ```
 
 
 ## Power of a RESET test under different auxiliary regression formulas
 
-```{r}
-
+```{r cache = TRUE}
+reset_diff_dat <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  select(-F_p_value, -BP_p_value, -SW_p_value) %>%
+  pivot_longer(RESET3_p_value:RESET10_p_value) %>%
+  mutate(name = gsub("RESET(.*)_p_value", "\\1", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
 ```
 
+```{r}
+reset_diff_dat %>%
+  ggplot() +
+  geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
+            size = 1) +
+  theme_light() +
+  scale_color_brewer(palette = "Reds")
+```
 
-1. put #eval in appendix
-3. compute the power of RESET test with different orders (considering dof) (focus on simple pattern possibly?)
 
 \newpage
 
