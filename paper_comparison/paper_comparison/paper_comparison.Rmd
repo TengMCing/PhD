@@ -1167,7 +1167,7 @@ pred_conv_heter <- heter_conv_sim %>%
                         data = .x,
                         offset = offset0))) %>%
   mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
+    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
                          offset0 = log(0.05/0.95))
     result$power <- predict(mod, type = "response", newdata = result)
     result
