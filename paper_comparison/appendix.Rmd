@@ -1,8 +1,13 @@
 ---
 title: "Supplmentary material - A plot is worth a thousand tests: assessing residual diagnostics with visual inference"
-output: pdf_document
+output: 
+  pdf_document:
+    number_sections: true
 author: "Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas"
 bibliography: "paper_comparison/paper.bib"
+header-includes:
+  - \renewcommand\thesection{\Alph{section}}
+  - \renewcommand\thesubsection{\thesection.\arabic{subsection}}
 ---
 
 ```{r setup, include=FALSE}
@@ -854,6 +859,9 @@ ggplot() +
 
 ## Curious effect of predictor distribution on conventional test power
 
+## Effect of number of evaluations on the power of a visual test
+
+## Power of a RESET test under different auxiliary regression formulas
 
 1. put #eval in appendix
 3. compute the power of RESET test with different orders (considering dof) (focus on simple pattern possibly?)
