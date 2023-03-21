@@ -487,7 +487,7 @@ Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide 
 
 The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. With a greater value of $\hat{\alpha}$, the $p$-value will be smaller, resulting in more lineups being rejected. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja_statistical_2009. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
 
-The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, Table \ref{tab:sensitive} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small number of cases where the rejection decision change, considering there are a total of 279 lineups with uniform fitted value distribution. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
+The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, Table \ref{tab:sensitivity} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
 
 ```{r}
 upper_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
@@ -557,8 +557,9 @@ upper_lower_p %>%
   complete(adjusted_reject, reject, fill = list(n = 0)) %>%
   ungroup() %>%
   filter(adjusted_reject != reject) %>%
-  mutate(case = ifelse(!adjusted_reject, "p-value < 0.05 but adjusted p-value > 0.05", "p-value > 0.05 but adjusted p-value < 0.05")) %>%
+  mutate(case = ifelse(!adjusted_reject, "Propotion of lineups with p-value < 0.05 but adjusted p-value > 0.05", "Propotion of lineups with p-value > 0.05 but adjusted p-value < 0.05")) %>%
   rename(multiplier = modified) %>%
+  mutate(n = paste0(round(n/279 * 100, 2), "\\%")) %>%
   select(-adjusted_reject, -reject) %>%
   pivot_wider(names_from = case, values_from = n) %>%
   kableExtra::kable(format = "latex", booktabs = TRUE, label = "sensitivity", 
