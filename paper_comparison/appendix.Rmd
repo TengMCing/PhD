@@ -381,7 +381,7 @@ vi_survey %>%
 
 ## Effect size derivation
 
-Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
+Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
 
 Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
 
@@ -409,7 +409,7 @@ Since we assume $\sigma = 1$ for the heteroskedasticity model, the final form of
 $$KL = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')|}{|diag(\boldsymbol{R}_a)|} - n + tr(diag(\boldsymbol{R}_a\boldsymbol{V}\boldsymbol{R}_a')^{-1}diag(\boldsymbol{R}_a))\right).$$
 
 
-## Batch effect
+## Effect of data collection period
 
 ```{r poly-boxplot-lineup, fig.cap = '\\label{fig:poly-boxplot-lineup}A lineup of "letter-value" boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel $2^3 - 1$.'}
 library(lvplot)
@@ -440,11 +440,14 @@ vi_survey %>%
   mutate(exp = as.character(exp)) %>%
   sample_from_null(7) %>%
   ggplot() +
-  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE) +
+  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE, k = 4) +
+  scale_alpha_discrete(range = c(0.7, 0)) +
   # scale_fill_lv() +
   facet_wrap(~k, ncol = 5) +
   theme_light() +
   scale_x_discrete(labels = c("I", "III")) +
+  labs(fill = "Quantiles") +
+  scale_fill_discrete(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%")) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
 ```
@@ -467,11 +470,12 @@ vi_survey %>%
   mutate(exp = as.character(exp)) %>%
   sample_from_null(14) %>%
   ggplot() +
-  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE) +
-  # scale_fill_lv() +
+  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE, k = 4) +
   facet_wrap(~k, ncol = 5) +
   theme_light() +
   scale_x_discrete(labels = c("II", "III")) +
+  labs(fill = "Quantiles") +
+  scale_fill_discrete(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%")) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
 ```
