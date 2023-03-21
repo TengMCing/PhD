@@ -321,6 +321,65 @@ Along with the responses to lineups, we have collected a series of demographic i
 As shown in Figure \ref{fig:education}, most participants have Diploma or Bachelor degrees, followed by High school or below.
 The survey data is gender balanced and the majority of participants are between 18 to 39 years old.
 
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(pronoun) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(Pronoun = pronoun) %>%
+  kableExtra::kable(format = "latex", booktabs = TRUE)
+```
+
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(age_group) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(`Age group` = age_group) %>%
+  kableExtra::kable(format = "latex", booktabs = TRUE)
+```
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(education) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp, values_fill = 0) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  slice(c(2, 1, 3, 4, 5)) %>%
+  rename(`Education` = education) %>%
+  kableExtra::kable(format = "latex", booktabs = TRUE)
+```
+
+```{r}
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(previous_experience) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(`Previous experience` = previous_experience) %>%
+  kableExtra::kable(format = "latex", booktabs = TRUE)
+```
+
+
 ```{r education, fig.cap = "\\label{fig:education}Education distribution of subjects recuritted in this study group by age and pronoun.", fig.height = 4}
 vi_survey %>%
   mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
