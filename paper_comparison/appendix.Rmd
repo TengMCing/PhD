@@ -487,347 +487,86 @@ Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide 
 
 The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja_statistical_2009. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
 
-The analysis is conducted by setting up two relatively extreme scenarios, where the $\alpha$ is under or overestimated by 50%. Using the inflated and deflated $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is deflated. However, Figure \ref{fig:sensitive-barplot} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small number of cases (12 out of 558) where the rejection decision changes. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
+The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25%, 50% and 100%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitive}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is deflated. However, Figure \ref{fig:sensitive-barplot} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small number of cases (12 out of 558) where the rejection decision changes. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
 
 
 ```{r}
-vi_survey_upper <- calc_p_value_multi(vi_survey %>%
-                                        mutate(alpha_upper = alpha * 1.5,
-                                               alpha_lower = alpha * 0.5),
-                                      lineup_id = unique_lineup_id,
-                                      detect = detect,
-                                      n_sel = num_selection,
-                                      alpha = alpha_upper) %>%
-  right_join(select(vi_survey, -p_value))
-  
+upper_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
+  calc_p_value_multi(vi_survey %>%
+                       filter(!attention_check) %>%
+                       filter(!null_lineup) %>%
+                       filter(x_dist == "uniform") %>%
+                       mutate(alpha_upper = alpha * (1 + modified)),
+                     lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha_upper) %>%
+  mutate(modified = 1 + modified) %>%
+  mutate(adjusted_p_value = p_value)
+}) 
 
-vi_survey_lower <- calc_p_value_multi(vi_survey %>%
-                                        mutate(alpha_upper = alpha * 1.5,
-                                               alpha_lower = alpha * 0.5),
-                                      lineup_id = unique_lineup_id,
-                                      detect = detect,
-                                      n_sel = num_selection,
-                                      alpha = alpha_lower) %>%
-  right_join(select(vi_survey, -p_value))
+lower_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
+  calc_p_value_multi(vi_survey %>%
+                       filter(!attention_check) %>%
+                       filter(!null_lineup) %>%
+                       filter(x_dist == "uniform") %>%
+                       mutate(alpha_lower = alpha * (1 - modified)),
+                     lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha_lower) %>%
+  mutate(modified = modified) %>%
+  mutate(adjusted_p_value = p_value)
+})
+
+upper_lower_p <- upper_p %>%
+  bind_rows(lower_p) %>%
+  select(-p_value)
 ```
 
 
-```{r cache = TRUE, eval = FALSE}
-# Define the minimum and maximum effect size
-min_poly_es <- vi_survey_upper %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  min()
-max_poly_es <- vi_survey_upper %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  max()
-
-# The glm model for RESET test
-reset_poly_glmmod <- poly_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(reject = as.numeric(RESET4_p_value <= 0.05)) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  select(x_dist, effect_size, log_effect_size, offset0, reject) %>%
-  glm(reject ~ effect_size - 1, family = binomial(), data = ., offset = offset0)
-
-# The prediction for all conventional tests on poly model
-pred_conv_poly <- poly_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
-  rename(RESET_p_value = RESET4_p_value) %>%
-  pivot_longer(RESET_p_value:SW_p_value) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  mutate(reject = value <= 0.05) %>%
-  select(effect_size, name, reject) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  nest(dat = c(effect_size, offset0, reject)) %>%
-  mutate(mod = map(dat, 
-                   ~glm(reject ~ effect_size - 1, 
-                        family = binomial(), 
-                        data = .x,
-                        offset = offset0))) %>%
-  mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
-                         offset0 = log(0.05/0.95))
-    result$power <- predict(mod, type = "response", newdata = result)
-    result
-  })) %>%
-  select(-dat, -mod) %>%
-  unnest(power) %>%
-  mutate(log_effect_size = log(effect_size))
-
-# Data needed by the visual test
-visual_poly_dat <- vi_survey_upper %>%
-  filter(!null_lineup, 
-         !attention_check, 
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  select(effect_size, offset0, reject)
-
-# The glm model for visual test
-visual_poly_glmmod <- glm(reject ~ effect_size - 1, 
-                          family = binomial(), 
-                          data = visual_poly_dat, 
-                          offset = offset0)
-
-# The prediction of the visual test
-pred_visual_poly <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
-                               offset0 = log(0.05/0.95)) %>%
-  mutate(power = predict(visual_poly_glmmod, 
-                         type = "response",
-                         newdata = data.frame(effect_size = effect_size,
-                                              offset0 = offset0))) %>%
-  mutate(log_effect_size = log(effect_size))
-
-# The prediction of the boot visual test
-pred_visual_poly_boot <- map_df(1:500, function(boot_id) {
-  slice_sample(visual_poly_dat, n = nrow(visual_poly_dat), replace = TRUE) %>%
-    nest(dat = c(effect_size, offset0, reject)) %>%
-    mutate(mod = map(dat, 
-                     ~glm(reject ~ effect_size - 1, 
-                          family = binomial(), 
-                          data = .x,
-                          offset = offset0))) %>%
-    mutate(power = map(mod, function(mod) {
-      result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
-                           offset0 = log(0.05/0.95))
-      result$power <- predict(mod, type = "response", newdata = result)
-      result
-    })) %>%
-    select(-dat, -mod) %>%
-    unnest(power) %>%
-    mutate(log_effect_size = log(effect_size)) %>%
-    mutate(boot_id = boot_id)
-  })
-```
-
-```{r eval = FALSE}
-ggplot() +
-  
-  geom_point(data = visual_poly_dat,
-             aes(log(effect_size), reject),
-             alpha = 0.15) +
-  
-  # Draw conventional test power curve
-  geom_line(data = pred_conv_poly,
-            aes(log_effect_size, power, col = name),
-            size = 1) +
-  
-  # Draw boot visual test curves
-  geom_line(data = pred_visual_poly_boot,
-            aes(log_effect_size, power, col = "Visual test", group = boot_id),
-            size = 1,
-            alpha = 0.01) +
-  
-  # Draw visual test power curve
-  geom_line(data = pred_visual_poly,
-            aes(log_effect_size, power, col = "Visual test"), 
-            size = 1) +
-  
-  # Theme
-  theme_light(base_size = 5) +
-  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", size = "# lineups")
-```
-
-
-```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ inflated by 50% and deflated by 50%."}
-vi_survey %>%
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.125$, $0.25$, $0.5$, $1.125$, $1.25$ and $1.5$."}
+upper_lower_p %>%
+  left_join(vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
-  summarise(p_value = first(p_value)) %>%
-  left_join(
-vi_survey_upper %>%
-  group_by(unique_lineup_id) %>%
-  summarise(p_value_upper = first(p_value))) %>%
-  left_join(
-vi_survey_lower %>%
-  group_by(unique_lineup_id) %>%
-  summarise(p_value_lower = first(p_value))) %>%
-  pivot_longer(p_value_upper:p_value_lower) %>%
-  mutate(name = ifelse(name == "p_value_upper", "+50%", "-50%")) %>%
+  summarise(p_value = first(p_value))) %>%
   ggplot() +
-  geom_point(aes(p_value, value), alpha = 0.2) +
+  geom_point(aes(p_value, adjusted_p_value), alpha = 0.2) +
   geom_abline() +
+  facet_wrap(~modified) +
   scale_x_sqrt() +
   scale_y_sqrt() +
-  facet_wrap(~name) +
   ylab("Adjusted p-value") +
   xlab("p-value") +
   coord_fixed() +
   theme_light()
 ```
 
-```{r sensitive-barplot, fig.cap = "\\label{fig:sensitive-barplot}Change of rejection of the null hypothesis with $\\hat{\\alpha}$ inflated by 50% and deflated by 50%."}
-vi_survey %>%
+```{r}
+upper_lower_p %>%
+  left_join(vi_survey %>%
   filter(!attention_check) %>%
   filter(!null_lineup) %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
-  summarise(p_value = first(p_value)) %>%
-  left_join(
-vi_survey_upper %>%
-  group_by(unique_lineup_id) %>%
-  summarise(p_value_upper = first(p_value))) %>%
-  left_join(
-vi_survey_lower %>%
-  group_by(unique_lineup_id) %>%
-  summarise(p_value_lower = first(p_value))) %>%
-  pivot_longer(p_value_upper:p_value_lower) %>%
-  mutate(name = ifelse(name == "p_value_upper", "+50%", "-50%")) %>%
-  ggplot() +
-  geom_bar(aes(p_value < 0.05, fill = value < 0.05), position = "dodge") +
-  theme_light() +
-  xlab("p-value < 0.05") +
-  labs(fill = "Adjusted p-value < 0.05")
+  summarise(p_value = first(p_value))) %>%
+  group_by(modified) %>%
+  count(adjusted_reject = adjusted_p_value <= 0.05, reject = p_value <= 0.05) %>%
+  complete(adjusted_reject, reject, fill = list(n = 0)) %>%
+  ungroup() %>%
+  filter(adjusted_reject != reject) %>%
+  mutate(case = ifelse(!adjusted_reject, "p-value < 0.05 but adjusted p-value > 0.05", "p-value > 0.05 but adjusted p-value < 0.05")) %>%
+  rename(multiplier = modified) %>%
+  select(-adjusted_reject, -reject) %>%
+  pivot_wider(names_from = case, values_from = n) %>%
+  kableExtra::kable(format = "latex", booktabs = TRUE, label = "sensitivity", 
+                    escape = FALSE,
+                    caption = "Change of rejection decision because of the modification of $\\alpha$.")
 ```
 
-
-```{r cache = TRUE, eval = FALSE}
-# Define the minimum and maximum effect size
-min_heter_es <- vi_survey_upper %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "heteroskedasticity", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  min()
-max_heter_es <- vi_survey_upper %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "heteroskedasticity", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  max()
-
-# The prediction for all conventional tests on heter model
-pred_conv_heter <- heter_conv_sim %>%
-  filter(x_dist == "uniform") %>%
-  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
-  rename(RESET_p_value = RESET4_p_value) %>%
-  pivot_longer(RESET_p_value:SW_p_value) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  mutate(reject = value <= 0.05) %>%
-  select(effect_size, name, reject) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  nest(dat = c(effect_size, offset0, reject)) %>%
-  mutate(mod = map(dat, 
-                   ~glm(reject ~ effect_size - 1, 
-                        family = binomial(), 
-                        data = .x,
-                        offset = offset0))) %>%
-  mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 1),
-                         offset0 = log(0.05/0.95))
-    result$power <- predict(mod, type = "response", newdata = result)
-    result
-  })) %>%
-  select(-dat, -mod) %>%
-  unnest(power) %>%
-  mutate(log_effect_size = log(effect_size))
-
-# Data needed by the visual test
-visual_heter_dat <- vi_survey_upper %>%
-  filter(!null_lineup, 
-         !attention_check, 
-         type == "heteroskedasticity", 
-         x_dist == "uniform") %>%
-  group_by(unique_lineup_id) %>%
-  summarise(across(everything(), first)) %>%
-  mutate(reject = as.numeric(p_value <= 0.05)) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  select(effect_size, offset0, reject)
-
-# The glm model for visual test
-visual_heter_glmmod <- glm(reject ~ effect_size - 1, 
-                           family = binomial(), 
-                           data = visual_heter_dat, 
-                           offset = offset0)
-
-# The prediction of the visual test
-pred_visual_heter <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
-                                offset0 = log(0.05/0.95)) %>%
-  mutate(power = predict(visual_heter_glmmod, 
-                         type = "response",
-                         newdata = data.frame(effect_size = effect_size,
-                                              offset0 = offset0))) %>%
-  mutate(log_effect_size = log(effect_size))
-
-# The prediction of the boot visual test
-pred_visual_heter_boot <- map_df(1:500, function(boot_id) {
-  slice_sample(visual_heter_dat, n = nrow(visual_heter_dat), replace = TRUE) %>%
-    nest(dat = c(effect_size, offset0, reject)) %>%
-    mutate(mod = map(dat, 
-                     ~glm(reject ~ effect_size - 1, 
-                          family = binomial(), 
-                          data = .x,
-                          offset = offset0))) %>%
-    mutate(power = map(mod, function(mod) {
-      result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
-                           offset0 = log(0.05/0.95))
-      result$power <- predict(mod, type = "response", newdata = result)
-      result
-    })) %>%
-    select(-dat, -mod) %>%
-    unnest(power) %>%
-    mutate(log_effect_size = log(effect_size)) %>%
-    mutate(boot_id = boot_id)
-  })
-```
-
-
-```{r eval = FALSE}
-# Analyse uniform heteroskedasticity data
-ggplot() +
-  
-  geom_point(data = visual_heter_dat,
-             aes(log(effect_size), reject),
-             alpha = 0.15) +
-  
-  # Draw conventional test power curve
-  geom_line(data = pred_conv_heter,
-            aes(log_effect_size, power, col = name),
-            size = 1) +
-  
-  # Draw boot visual test curves
-  geom_line(data = pred_visual_heter_boot,
-            aes(log_effect_size, power, col = "Visual test", group = boot_id),
-            size = 1,
-            alpha = 0.01) +
-  
-  # Draw visual test power curve
-  geom_line(data = pred_visual_heter,
-            aes(log_effect_size, power, col = "Visual test"), 
-            size = 1) +
-  
-  # Theme
-  theme_light(base_size = 5) +
-  theme(panel.grid.major.x =  element_line(colour = "grey70", linewidth = 0.5)) +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  # scale_size_manual(values = seq(1, 9)) +
-  scale_x_continuous(breaks = seq(0, 5, 0.5), minor_breaks = NULL) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", size = "# lineups")
-```  
 
 
 ## Curious effect of predictor distribution on conventional test power
