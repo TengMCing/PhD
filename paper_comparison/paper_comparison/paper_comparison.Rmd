@@ -1530,7 +1530,8 @@ dat_uniform_5_pred <- dat_uniform_5 %>%
   })) %>%
   select(-dat, -mod) %>%
   unnest(power) %>%
-  mutate(log_effect_size = log(effect_size))
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(type = stringr::str_to_title(type))
 ```
 
 
@@ -1594,9 +1595,9 @@ diff_x_dist_power_pred %>%
   mutate(x_dist = ifelse(x_dist == "even_discrete", 
                            "Discrete", 
                            stringr::str_to_title(x_dist))) %>%
-  mutate(type = factor(type, 
-                       levels = c("non-linearity", 
-                                  "heteroskedasticity"))) %>%
+  mutate(type = factor(stringr::str_to_title(type), 
+                       levels = c("Non-Linearity", 
+                                  "Heteroskedasticity"))) %>%
   mutate(x_dist = factor(x_dist, 
                          levels = c("Uniform", 
                                     "Normal", 
