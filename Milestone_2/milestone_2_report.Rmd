@@ -12,6 +12,13 @@ A short report (5 - 10) pages
 
 Advances in Artificial Intelligence for Data Visualization: Automate Reading of Data Plots
 
+(exclude AI from title?)
+
+(include CV in title?)
+
+keywords:
+AI, data visualization, residual plot, visual inference, hypothesis testing, computer vision
+
 # Overview of the thesis
 
 1. background and motivation
