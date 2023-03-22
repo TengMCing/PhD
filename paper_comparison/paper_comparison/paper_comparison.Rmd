@@ -1535,7 +1535,7 @@ dat_uniform_5_pred <- dat_uniform_5 %>%
 ```
 
 
-```{r different-x-dist-poly-power, fig.height = 6, fig.cap = "Comparison of power on lineups with different fitted value distributions for visual tests. All the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. Uneven distributions including normal and lognormal distributions produce lower power for both types of residual departures. Meanwhile, the lognormal distribution as an asymmetric distribution produce the lowest power.", dev = 'png', dpi = 450}
+```{r different-x-dist-poly-power, fig.height = 6, fig.cap = "Comparison of power on lineups with different fitted value distributions for conventional tests and visual tests. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. The fitted value distribution has stronger impact on the power of conventional tests than visual tests. Meanwhile, uneven distributions including normal and lognormal distributions usually produce lower power.", dev = 'png', dpi = 450}
 
 
 diff_x_dist_power_pred <- list(
