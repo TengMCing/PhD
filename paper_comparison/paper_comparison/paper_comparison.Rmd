@@ -1508,42 +1508,10 @@ dat_uniform_5 <- map_df(1:500, function(boot_id) {
 }) %>%
   left_join(select(vi_survey, unique_lineup_id, effect_size, x_dist, type)) %>%
   mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
   mutate(reject = as.numeric(p_value <= 0.05)) %>%
   mutate(conv_or_not = "Visual") %>%
   mutate(offset0 = log(0.05/0.95)) %>%
   select(-unique_lineup_id, -p_value)
-```
-
-
-```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power on lineups with different fitted value distributions for visual tests. All the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. Uneven distributions including normal and lognormal distributions produce lower power for both types of residual departures. Meanwhile, the lognormal distribution as an asymmetric distribution produce the lowest power.", dev = 'png', dpi = 450}
-
-# Extract three datasets, one for poly conventional, one for heter conventional
-# and one for visual tests.
-
-dat_x_dist <- vi_survey %>%
-    filter(!null_lineup) %>%
-    filter(!attention_check) %>%
-    group_by(unique_lineup_id) %>%
-    summarise(across(everything(), first)) %>%
-    filter(x_dist != "uniform") %>%
-    mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
-    mutate(reject = as.numeric(p_value <= 0.05)) %>%
-    mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                           "Discrete uniform", 
-                           stringr::str_to_title(x_dist))) %>%
-    mutate(offset0 = log(0.05/0.95)) %>%
-    select(type, x_dist, effect_size, offset0, reject) %>%
-  
-  # Manually control factor ordering
-  mutate(type = factor(type, 
-                       levels = c("non-linearity", 
-                                  "heteroskedasticity"))) %>%
-  mutate(x_dist = factor(x_dist, 
-                         levels = c("Uniform", 
-                                    "Normal", 
-                                    "Lognormal", 
-                                    "Discrete uniform")))
 
 dat_uniform_5_pred <- dat_uniform_5 %>%
   nest(dat = c(effect_size, offset0, reject)) %>%
@@ -1563,9 +1531,46 @@ dat_uniform_5_pred <- dat_uniform_5 %>%
   select(-dat, -mod) %>%
   unnest(power) %>%
   mutate(log_effect_size = log(effect_size))
+```
 
-# Fit the model manually
-dat_x_dist %>%
+
+```{r different-x-dist-poly-power, fig.height = 4, fig.cap = "Comparison of power on lineups with different fitted value distributions for visual tests. All the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. Uneven distributions including normal and lognormal distributions produce lower power for both types of residual departures. Meanwhile, the lognormal distribution as an asymmetric distribution produce the lowest power.", dev = 'png', dpi = 450}
+
+
+diff_x_dist_power_pred <- list(
+  # Visual inference data
+  vi_survey %>%
+    filter(!null_lineup) %>%
+    filter(!attention_check) %>%
+    group_by(unique_lineup_id) %>%
+    summarise(across(everything(), first)) %>%
+    filter(x_dist != "uniform") %>%
+    mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+    mutate(reject = as.numeric(p_value <= 0.05)) %>%
+    mutate(offset0 = log(0.05/0.95)) %>%
+    select(type, x_dist, effect_size, offset0, reject) %>%
+    mutate(conv_or_not = "Visual"),
+  
+  # Conventional simulation (poly)
+  poly_conv_sim %>%
+    mutate(reject = RESET4_p_value < 0.05) %>%
+    mutate(offset0 = log(0.05/0.95)) %>%
+    mutate(type = "non-linearity") %>%
+    select(type, x_dist, effect_size, offset0, reject) %>%
+    mutate(conv_or_not = "Conventional"),
+  
+  # Conventional simulation (heter)
+  heter_conv_sim %>%
+    mutate(reject = BP_p_value < 0.05) %>%
+    mutate(offset0 = log(0.05/0.95)) %>%
+    mutate(type = "heteroskedasticity") %>%
+    select(type, x_dist, effect_size, offset0, reject) %>%
+    mutate(conv_or_not = "Conventional")
+) %>%
+  
+  # Bind rows
+  map_df(~.x) %>%
+  
   nest(dat = c(effect_size, offset0, reject)) %>%
   mutate(mod = map(dat, 
                    ~glm(reject ~ effect_size - 1, 
@@ -1582,9 +1587,27 @@ dat_x_dist %>%
   })) %>%
   select(-dat, -mod) %>%
   unnest(power) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(log_effect_size = log(effect_size))
+
+
+diff_x_dist_power_pred %>%
+  mutate(x_dist = ifelse(x_dist == "even_discrete", 
+                           "Discrete", 
+                           stringr::str_to_title(x_dist))) %>%
+  mutate(type = factor(type, 
+                       levels = c("non-linearity", 
+                                  "heteroskedasticity"))) %>%
+  mutate(x_dist = factor(x_dist, 
+                         levels = c("Uniform", 
+                                    "Normal", 
+                                    "Lognormal", 
+                                    "Discrete"))) %>%
   
   ggplot() +
+  
+  # Draw all smooth lines
+  geom_line(aes(log_effect_size, power, col = x_dist),
+            size = 1) +
   
   # Draw boot uniform (5 eval) lines
   geom_line(data = dat_uniform_5_pred,
@@ -1592,17 +1615,13 @@ dat_x_dist %>%
             size = 1,
             alpha = 0.01) +
   
-  # Draw all smooth lines
-  geom_line(aes(log_effect_size, power, col = x_dist),
-            size = 1) +
-  
   # Theme
   theme_light() +
-  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(2,1,3,4)]) +
+  scale_color_manual(values = rcartocolor::carto_pal(4, "Safe")[c(4,1,3,2)]) +
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", linetype = "Test") +
-  facet_grid(~type, scales = "free_x") +
+  facet_grid(type~conv_or_not, scales = "free_x") +
   theme(legend.position = "bottom")
 ```
 
