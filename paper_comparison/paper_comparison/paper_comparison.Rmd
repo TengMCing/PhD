@@ -1491,9 +1491,7 @@ Figure \ref{fig:different-x-dist-poly-power} illustrates the impact of fitted va
 In terms of visual tests, we do not observe significant difference between the power curve of the uniform distribution and the power curve of the discrete uniform distribution. Normal and lognormal distributions produce lower power than uniform and discrete uniform distributions in regards of residual departure patterns, but the gap is larger when the residual plot contains heteroskedasticity pattern. This suggests that residual departures displayed with evenly distributed fitted values are visually more attractive and effective. Besides, the skewness of the fitted value distribution plays a role in the degree of presence of visual features as lognormal distribution produce the lowest power for both non-linearity and heteroskedasticity patterns. A symmetric fitted value distribution can better reveal the underlying shape.
 
 
-Although it is unusual to consider fitted value distribution or predictor distribution in power analysis, it is not so surprised that the power of conventional tests vary because of fitted value distribution. For instance, the power of the RESET test which is effectively a F test depends on the realizations of the additional predictors included in the auxiliary regression equation [@jamshidian2007study]. And those additional predictors are linear transformation of random vectors following certain predictor distributions. What is truly unexpected is the huge variability in power compared to visual tests. 
-
-
+Although it is unusual to consider fitted value distribution or predictor distribution in power analysis, it is not so surprised that the power of conventional tests vary because of fitted value distribution. For instance, the power of the RESET test which is effectively a F test depends on the realizations of the additional predictors included in the auxiliary regression equation [@jamshidian2007study]. And those additional predictors are linear transformation of random vectors following certain predictor distributions. What is truly unexpected is the huge variability in power of conventional tests compared to visual tests. The discrete uniform distribution constantly produce the highest power while the normal distribution and the lognormal distribution produce the lowest power for non-linearity and heteroskedasticity pattern respectively. The difference in power corresponding to different distributions peak at around 90% when the effect size is at a moderate level. This huge difference is undesirable as is not uncommon for analysts to omit the factor of predictor distribution in power calculation and sample size calculation. It also suggests that, under the designed scenarios in the paper, the visual test is a more robust test.
 
 
 ```{r get-5-eval, cache = TRUE}
@@ -1541,7 +1539,7 @@ dat_uniform_5_pred <- dat_uniform_5 %>%
 ```
 
 
-```{r different-x-dist-poly-power, fig.height = 6, fig.cap = "Comparison of power on lineups with different fitted value distributions for conventional tests and visual tests. Power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and Breusch-Pagan tests respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. The fitted value distribution has stronger impact on the power of conventional tests than visual tests. Meanwhile, uneven distributions including normal and lognormal distributions genearlly produce lower power.", dev = 'png', dpi = 450}
+```{r different-x-dist-poly-power, fig.height = 6, fig.cap = "Comparison of power on lineups with different fitted value distributions for conventional tests and visual tests. Power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and Breusch-Pagan tests respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. The fitted value distribution has greater impact on the power of conventional tests than visual tests. Meanwhile, uneven distributions including normal and lognormal distributions genearlly produce lower power.", dev = 'png', dpi = 450}
 
 
 diff_x_dist_power_pred <- list(
@@ -1599,8 +1597,8 @@ diff_x_dist_power_pred <- list(
 
 diff_x_dist_power_pred %>%
   mutate(x_dist = ifelse(x_dist == "even_discrete", 
-                           "Discrete", 
-                           stringr::str_to_title(x_dist))) %>%
+                         "Discrete uniform", 
+                         stringr::str_to_title(x_dist))) %>%
   mutate(type = factor(stringr::str_to_title(type), 
                        levels = c("Non-Linearity", 
                                   "Heteroskedasticity"))) %>%
@@ -1608,7 +1606,7 @@ diff_x_dist_power_pred %>%
                          levels = c("Uniform", 
                                     "Normal", 
                                     "Lognormal", 
-                                    "Discrete"))) %>%
+                                    "Discrete uniform"))) %>%
   
   ggplot() +
   
