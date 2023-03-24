@@ -1032,7 +1032,7 @@ to an approximate test - Breusch-Pagan test, and two other inappropriate
 tests - RESET test and Shapiro-Wilk test.
 
 For non-linearity patterns, the power curve of RESET test climbs
-aggressively from 16\% to 100\% as \(log_e(E)\) increases from 0 to 2.5,
+aggressively from 7\% to 84\% as \(log_e(E)\) increases from 0 to 2.5,
 while power of other tests respond inactively to the change of effect,
 showing that RESET test is much more sensitive to weak non-linear
 structure. Meanwhile, no noticeable residual departures can be spotted
@@ -1239,31 +1239,52 @@ conditional on observed values of the predictors. The distribution of
 read any patterns in the residuals. The four distributions of fitted
 values, used in this experiment, were designed to examine this.
 
-Figure \ref{fig:different-x-dist-poly-power} illustrates the change of
-power of visual tests for different fitted distributions used in the
-non-linearity model and the heteroskedasticity model. Note that we have
-collected more evaluations on lineup with uniform fitted value
-distribution, and the number of evaluations on a lineup will have an
-impact on the power of the visual test. To have a fair comparison, the
-five evaluations used in the power estimation are randomly sampled from
-the total eleven evaluations for each lineup with uniform fitted value
-distribution. The sampling process has been repeated 500 times to give
-an indication of the variation of the power.
+Figure \ref{fig:different-x-dist-poly-power} illustrates the impact of
+fitted value distribution on the power of conventional tests and visual
+tests. For conventional tests, only the power curves of appropriate
+tests which are RESET tests and Breusch-Pagan tests for non-linearity
+pattern and heteroskedasticity pattern respectively are shown. For
+visual tests, note that we have collected more evaluations on lineup
+with uniform fitted value distribution, and the number of evaluations on
+a lineup will affect the power of the visual test. To have a fair
+comparison, for lineups with uniform fitted value distribution, we
+randomly sample five evaluations from the total eleven evaluations to
+estimate the power curves. The sampling process is repeated 500 times to
+produce an indication of the variation of the power.
 
-We do not observe significant difference between the power curve of the
-uniform distribution and the power curve of the discrete uniform
-distribution, but the power curves of normal and lognormal distributions
-are slightly lower. Same can be observed for heteroskedasticity
-patterns, where the gap between the power curve of the discrete uniform
-and the power curve of the normal distribution is even larger. This
-indicates that residual departures displayed with evenly distributed
-fitted values are visually more attractive. Besides, the power of
-detecting non-linearity or heteroskedasticity patterns from a lineup
-with lognormal fitted value distribution is the lowest among four
-distributions. This suggests the skewness of the fitted value
-distribution plays a role in the degree of presence of visual features,
-and a symmetric fitted value distribution can better reveal the
-underlying shape.
+In terms of visual tests, we do not observe significant difference
+between the power curve of the uniform distribution and the power curve
+of the discrete uniform distribution. Normal and lognormal distributions
+produce lower power than uniform and discrete uniform distributions in
+regards of residual departure patterns, but the gap is larger when the
+residual plot contains heteroskedasticity pattern. This suggests that
+residual departures displayed with evenly distributed fitted values are
+visually more attractive and effective. Besides, the skewness of the
+fitted value distribution plays a role in the degree of presence of
+visual features as lognormal distribution produce the lowest power for
+both non-linearity and heteroskedasticity patterns. A symmetric fitted
+value distribution can better reveal the underlying shape.
+
+Although it is unusual to consider fitted value distribution or
+predictor distribution in power analysis, it is not so surprised that
+the power of conventional tests vary because of fitted value
+distribution. For instance, the power of the RESET test which is
+effectively a F test depends on the realizations of the additional
+predictors included in the auxiliary regression equation
+\citep{jamshidian2007study}. And those additional predictors are linear
+transformation of random vectors following certain predictor
+distributions. What is truly unexpected is the huge variability in power
+of conventional tests compared to visual tests. The discrete uniform
+distribution constantly produce the highest power while the normal
+distribution and the lognormal distribution produce the lowest power for
+non-linearity and heteroskedasticity pattern respectively. The
+difference in power corresponding to different distributions peak at
+around 90\% when the effect size is at a moderate level. This huge
+difference is undesirable as is not uncommon for analysts to omit the
+factor of predictor distribution in power calculation and sample size
+calculation. It also suggests that, under the designed scenarios in this
+paper, the visual test is a more robust test against fitted value
+distributions than a conventional test.
 
 \begin{figure}
 
@@ -1271,7 +1292,7 @@ underlying shape.
 
 }
 
-\caption{Comparison of power on lineups with different fitted value distributions for visual tests. All the power curves are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. Uneven distributions including normal and lognormal distributions produce lower power for both types of residual departures. Meanwhile, the lognormal distribution as an asymmetric distribution produce the lowest power.}\label{fig:different-x-dist-poly-power}
+\caption{Comparison of power on lineups with different fitted value distributions for conventional tests and visual tests. Power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and Breusch-Pagan tests respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with uniform fitted value distribution, the five evaluations are randomly sampled from the total eleven evaluations. The sampling process has been repeated for 500 times and the corresponding power curves are drawn with transparent grey lines. The fitted value distribution has greater impact on the power of conventional tests than visual tests. Meanwhile, uneven distributions including normal and lognormal distributions genearlly produce lower power.}\label{fig:different-x-dist-poly-power}
 \end{figure}
 
 \hypertarget{conclusion}{%
@@ -1334,28 +1355,37 @@ harder to detect, but there are outliers. A surprising finding was that
 the direction of heteroskedasticity appears to affect the ability to
 visually detect it, with wedge to the right being less detectable.
 
-\hypertarget{acknowledgement}{%
-\section{Acknowledgement}\label{acknowledgement}}
+\hypertarget{acknowledgements}{%
+\section*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{section}{Acknowledgements}
 
-This research is enabled by the use of the following \texttt{R}
-packages: cli, curl, dplyr, ggplot2, jsonlite, lmtest, mpoly, progress,
-tibble, ggmosaic, purrr, tidyr, readr, stringr, here, kableExtra,
-patchwork, rcartocolor. The study website is powered by pythonAnywhere
-and the Flask web framework. The jsPsych framework is used to create
-behavioral experiments that run in our study website.
+These \texttt{R} packages are used for the work: \texttt{cli}
+\citep{cli}, \texttt{curl} \citep{curl}, \texttt{dplyr} \citep{dplyr},
+\texttt{ggplot2} \citep{ggplot2}, \texttt{jsonlite} \citep{jsonlite},
+\texttt{lmtest} \citep{lmtest}, \texttt{mpoly} \citep{mpoly},
+\texttt{progress} \citep{progress}, \texttt{tibble} \citep{tibble},
+\texttt{ggmosaic} \citep{ggmosaic}, \texttt{purrr} \citep{purrr},
+\texttt{tidyr} \citep{tidyr}, \texttt{readr} \citep{readr},
+\texttt{stringr} \citep{stringr}, \texttt{here} \citep{here},
+\texttt{kableExtra} \citep{kableextra}, \texttt{patchwork}
+\citep{patchwork}, \texttt{rcartocolor} \citep{rcartocolor}. The study
+website is powered by \texttt{PythonAnywhere} \citep{pythonanywhere} and
+the \texttt{Flask} web framework \citep{flask}. The \texttt{jsPsych}
+framework \citep{jspsych} is used to create behavioral experiments that
+run in our study website.
 
-The article was created with rticles (ref here), knitr (ref here) and R
-Markdown (ref here). The project's Github repository (link here)
-contains all materials required to reproduce this article.
+The article was created with R packages \texttt{rticles}
+\citep{rticles}, \texttt{knitr} \citep{knitr} and \texttt{rmarkdown}
+\citep{rmarkdown}. The project's Github repository (link here) contains
+all materials required to reproduce this article.
 
 \hypertarget{supplementary-material}{%
-\section{Supplementary material}\label{supplementary-material}}
+\section*{Supplementary material}\label{supplementary-material}}
+\addcontentsline{toc}{section}{Supplementary material}
 
 The supplementary material is available at (link here). It includes more
 details about the experimental setup, the derivation of the effect size,
 the effect of data collection period, and the estimate of \(\alpha\).
-
-\newpage
 
 \bibliographystyle{tfcad}
 \bibliography{paper.bib}
