@@ -1491,8 +1491,7 @@ Figure \ref{fig:different-x-dist-poly-power} illustrates the impact of fitted va
 In terms of visual tests, we do not observe significant difference between the power curve of the uniform distribution and the power curve of the discrete uniform distribution. Normal and lognormal distributions produce lower power than uniform and discrete uniform distributions in regards of residual departure patterns, but the gap is larger when the residual plot contains heteroskedasticity pattern. This suggests that residual departures displayed with evenly distributed fitted values are visually more attractive and effective. Besides, the skewness of the fitted value distribution plays a role in the degree of presence of visual features as lognormal distribution produce the lowest power for both non-linearity and heteroskedasticity patterns. A symmetric fitted value distribution can better reveal the underlying shape.
 
 
-Although it is unusual to consider fitted value distribution or predictor distribution in power analysis, it is not so surprised that the power of conventional tests vary because of fitted value distribution. For instance, the power of the RESET test which is effectively a F test depends on the realizations of the additional predictors included in the auxiliary regression equation [@jamshidian2007study]. And those additional predictors are linear transformation of random vectors following certain predictor distributions. What is truly unexpected is the huge variability in power compared to visual tests.  
-
+Although it is unusual to consider fitted value distribution or predictor distribution in power analysis, it is not so surprised that the power of conventional tests vary because of fitted value distribution. For instance, the power of the RESET test which is effectively a F test depends on the realizations of the additional predictors included in the auxiliary regression equation [@jamshidian2007study]. And those additional predictors are linear transformation of random vectors following certain predictor distributions. What is truly unexpected is the huge variability in power compared to visual tests. 
 
 
 
@@ -1629,7 +1628,7 @@ diff_x_dist_power_pred %>%
   xlab(expression(log[e] (Effect_size))) +
   ylab("Power") +
   labs(col = "", linetype = "Test") +
-  facet_grid(type~conv_or_not, scales = "free_x") +
+  facet_grid(conv_or_not~type, scales = "free_x") +
   theme(legend.position = "bottom")
 ```
 
