@@ -328,7 +328,27 @@ vi_survey %>%
   pivot_wider(values_from = n, names_from = exp) %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   rename(Pronoun = pronoun) %>%
-  kableExtra::kable(format = "latex", booktabs = TRUE, label = "pronoun", caption = "Summary of pronoun distribution of subjects recuritted in this study.")
+  add_row(Pronoun = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I %` = round(`Period I`/443*100, 1)) %>%
+  mutate(`Period II %` = round(`Period II`/443*100, 1)) %>%
+  mutate(`Period III %` = round(`Period III`/443*100, 1)) %>%
+  mutate(`Total %` = round(Total/443*100, 1)) %>%
+  select(Pronoun, 
+         `Period I`, `Period I %`, 
+         `Period II`, `Period II %`,
+         `Period III`, `Period III %`,
+         Total, `Total %`) %>%
+  kableExtra::kable(format = "latex", 
+                    col.names = c("Pronoun", 
+                                  "Period I", "%", 
+                                  "Period II", "%",
+                                  "Period III", "%",
+                                  "Total", "%"), 
+                    booktabs = TRUE, label = "pronoun", caption = "Summary of pronoun distribution of subjects recuritted in this study.")
 ```
 
 
@@ -358,6 +378,15 @@ vi_survey %>%
   mutate(Total = `Period I` + `Period II` + `Period III`) %>%
   slice(c(2, 1, 3, 4, 5)) %>%
   rename(`Education` = education) %>%
+  add_row(`Education` = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I` = paste0(`Period I`, " (", round(`Period I`/443*100, 1), "%)")) %>%
+  mutate(`Period II` = paste0(`Period II`, " (", round(`Period II`/443*100, 1), "%)")) %>%
+  mutate(`Period III` = paste0(`Period III`, " (", round(`Period III`/443*100, 1), "%)")) %>%
+  mutate(Total = paste0(Total, " (", round(Total/443*100, 1), "%)")) %>%
   kableExtra::kable(format = "latex", booktabs = TRUE, label = "education", caption = "Summary of education distribution of subjects recuritted in this study.")
 ```
 
