@@ -1,5 +1,6 @@
 ---
-title: "Milestone report"
+title: "Progress review report"
+subtitle: "Advances in Artificial Intelligence for Data Visualization: Automate Reading of Diagnostic Plots with Compute Vision Models"
 output: pdf_document
 date: "2023-03-14"
 ---
@@ -8,13 +9,7 @@ date: "2023-03-14"
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-A short report (5 - 10) pages
-
-Advances in Artificial Intelligence for Data Visualization: Automate Reading of Data Plots
-
-(exclude AI from title?)
-
-(include CV in title?)
+This is a temporary document. It perhaps needs to be transferred to a templated document. 
 
 keywords:
 AI, data visualization, residual plot, visual inference, hypothesis testing, computer vision
@@ -23,8 +18,19 @@ AI, data visualization, residual plot, visual inference, hypothesis testing, com
 
 1. background and motivation
 - the role of visual diagnostics in modelling
+
+Model diagnostics are important steps to validate model assumptions, examine goodness of fit and reveal uncaptured structure by the model. When diagnosing model, though numeric summaries are mostly available and some are even endorsed by finite or asymptotic properties, graphical representation of data is still preferred, or at least needed by data analysts, due to its intuitiveness and the possibility for unexpected discoveries which may be abstract and unquantifiable. For example, in regression diagnostics, it is common to plot residuals versus fitted values as the starting point of investigating the adequacy of the fit and checking the underlying assumptions.
+
+
 - a brief introduction to visual inference
+
+
+
+
 - limitation of lineup protocol
+
+
+
 2. research questions
 -  a. study the use of visual inference in regression diagnostics with a comparison to conventional test
 -  b. build a computer vision system to evaluate residual plot
