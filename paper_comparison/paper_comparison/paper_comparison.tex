@@ -93,8 +93,6 @@ significance; effect size
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-(introduction refine - rank: low)
-
 \begin{quote}
 \emph{``Since all models are wrong the scientist must be alert to what
 is importantly wrong.''} \citep{box1976science}
@@ -121,13 +119,12 @@ their relationships. If there are any visually discoverable patterns,
 the model is potentially misspecified. In general, one looks for
 noticeable departures from the model like non-linear dependency or
 heteroskedasticity. However, correctly judging a residual plot where no
-pattern exists can be a painstakingly difficult task for humans
-(?citation). It is especially common, particularly among new data
-analysts, to report patterns when an experienced one might quickly
-conclude that there are none (ET: not sure if this is true). It is also
-possible to conduct hypothesis tests for non-linear dependence
-\citep{ramsey_tests_1969}, and use a Breusch-Pagan test
-\citep{breusch_simple_1979} for heteroskedasticity.
+pattern exists can be a painstakingly difficult task for humans. It is
+especially common, particularly among students, to misinterpret patterns
+that are ``random noise'' and ``random deviation from a model''
+\citep{loy2021bringing}. It is also possible to conduct hypothesis tests
+for non-linear dependence \citep{ramsey_tests_1969}, and use a
+Breusch-Pagan test \citep{breusch_simple_1979} for heteroskedasticity.
 
 Abundance of literature describe appropriate diagnostic methods for
 linear regression, e.g. \citet{draper1998applied},
@@ -363,7 +360,7 @@ procedures. Visual inference have also been integrated into diagnostic
 of hierarchical linear models by \citet{loy2013diagnostic},
 \citet{loy2014hlmdiag} and \citet{loy2015you}. They use lineup protocols
 to judge the assumption of linearity, normality and constant error
-variance for both the level-1 and level-2 residuals. (expand?)
+variance for both the level-1 and level-2 residuals.
 
 \hypertarget{calculation-of-statistical-significance-and-test-power}{%
 \section{Calculation of statistical significance and test
@@ -1065,8 +1062,6 @@ remains at around 5\% in Figure \ref{fig:heterpower} since there are no
 non-linear terms leave out in the heteroskedasticity model and \(H_0\)
 of the test is always satisfied.
 
-(should the below p goes to conclusion as a discussion?)
-
 Overall, the power comparison suggests that conventional tests differs
 significantly from visual tests in two regression diagnostics scenarios
 designed by us. Visual test have much higher tolerance of the residual
@@ -1173,7 +1168,7 @@ the chance of detecting the ``triple-U'' shape drops significantly
 compared to other shapes. To understand why this is, one needs to return
 to the way the RESET test is applied. It requires a parameter indicating
 degree of fitted values to test for, and the recommendation is to
-generically use four (\citet{ramsey_tests_1969}). However, the
+generically use four \citep{ramsey_tests_1969}. However, the
 ``triple-U'' shape constructed from the Hermite polynomials use power up
 to 18. If the RESET test had been applied using a higher power no less
 than six, the power curve of ``triple-U'' shape will be only slight
@@ -1282,9 +1277,7 @@ difference in power corresponding to different distributions peak at
 around 90\% when the effect size is at a moderate level. This huge
 difference is undesirable as is not uncommon for analysts to omit the
 factor of predictor distribution in power calculation and sample size
-calculation. It also suggests that, under the designed scenarios in this
-paper, the visual test is a more robust test against fitted value
-distributions than a conventional test.
+calculation.
 
 \begin{figure}
 
@@ -1351,7 +1344,9 @@ of departures from good residuals.
 As expected, if the fitted value distribution is not uniform, there is a
 loss of power in the visual test. Structure is hardest to detect if
 fitted values are lognormal. Also, complex structure are generally
-harder to detect, but there are outliers. A surprising finding was that
+harder to detect, but there are outliers. Under the designed scenarios
+in this paper, we find the visual test to be a more robust test against
+the change of fitted value distributions. A surprising finding was that
 the direction of heteroskedasticity appears to affect the ability to
 visually detect it, with wedge to the right being less detectable.
 
