@@ -672,6 +672,8 @@ map_df(seq(1, 11, 2), ~eval_n(.x, 1)) %>%
 
 ## Power of a RESET test under different auxiliary regression formulas
 
+It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the "Triple-U" shape designed in this paper. Figure \ref{reset} illustrates the change of power of RESET test while testing the "U" shape and the "Triple-U" shape with different highest orders. Clearly, when testing a simple shape like the "U" shape, the highest order has very little impact on the power. But for testing the "Triple-U" shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six. 
+
 ```{r cache = TRUE}
 reset_diff_dat <- poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
