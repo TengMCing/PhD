@@ -597,6 +597,8 @@ upper_lower_p %>%
 
 ## Effect of number of evaluations on the power of a visual test
 
+When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in Figure \ref{n_eval} the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.
+
 ```{r}
 min_poly_es <- vi_survey %>% 
   filter(!null_lineup, 
@@ -615,7 +617,7 @@ max_poly_es <- vi_survey %>%
 ```
 
 
-```{r n_eval, fig.cap = "Change of power for different number of evalutions on a lineup with uniform fitted value distribution. The power will incrase as the number of evaluations increases, but the margin will decrase."}
+```{r n_eval, fig.cap = "Change of power of visual tests for different number of evalutions on lineups with uniform fitted value distribution. The power will incrase as the number of evaluations increases, but the margin will decrase."}
 eval_n <- function(n_eval, boot) {
   map_df(1:boot, function(boot_id) {
   vi_survey %>%
@@ -726,10 +728,10 @@ reset_diff_dat2 <- poly_conv_sim %>%
   mutate(shape = 1)
 ```
 
-```{r}
+```{r reset, fig.cap = 'Change of power of RESET tests for different orders of fitted values included in the auxiliary formula. The left panel is the power of testing the "U" shape and the right panel is the power of testing the "Triple-U" shape. The power will not be greatly affected by the highest order in the case of testing the "U" shape. In the case of testing the "Triple-U" shape, the highest order needs to be set to at least six to avoid the loss of power.', fig.height = 4}
 reset_diff_dat %>%
   bind_rows(reset_diff_dat2) %>%
-  mutate(shape = ifelse(shape == 1, "U", "Triple-U")) %>%
+  mutate(shape = factor(ifelse(shape == 1, "U", "Triple-U"), levels = c("U", "Triple-U"))) %>%
   ggplot() +
   geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
             size = 1) +
