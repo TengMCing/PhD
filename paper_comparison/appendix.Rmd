@@ -472,7 +472,7 @@ vi_survey %>%
   theme_light() +
   scale_x_discrete(labels = c("I", "III")) +
   labs(fill = "Quantiles") +
-  scale_fill_manual(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%"),
+  scale_fill_manual(labels = c("0.5", "[0.25, 0.75]", "[0.125, 0.875]", "[0.0625, 0.09375]"),
                     values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
@@ -501,7 +501,7 @@ vi_survey %>%
   theme_light() +
   scale_x_discrete(labels = c("II", "III")) +
   labs(fill = "Quantiles") +
-  scale_fill_manual(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%"),
+  scale_fill_manual(labels = c("0.5", "[0.25, 0.75]", "[0.125, 0.875]", "[0.0625, 0.09375]"),
                     values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
