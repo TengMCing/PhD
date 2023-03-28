@@ -584,7 +584,7 @@ upper_lower_p %>%
   complete(adjusted_reject, reject, fill = list(n = 0)) %>%
   ungroup() %>%
   filter(adjusted_reject != reject) %>%
-  mutate(case = ifelse(!adjusted_reject, "Propotion of lineups with $p$-value < 0.05 but adjusted $p$-value > 0.05", "Propotion of lineups with $p$-value > 0.05 but adjusted $p$-value < 0.05")) %>%
+  mutate(case = ifelse(!adjusted_reject, 'Proportion of lineups transforms to "not reject"', 'Proportion of lineups transforms to "reject"')) %>%
   rename(multiplier = modified) %>%
   mutate(n = paste0(round(n/279 * 100, 2), "\\%")) %>%
   select(-adjusted_reject, -reject) %>%
@@ -661,6 +661,8 @@ map_df(seq(1, 11, 2), ~eval_n(.x, 1)) %>%
   ggplot() +
   geom_line(aes(log_effect_size, power, col = factor(n_eval)),
             size = 1) +
+  labs(col = "Number of evalutaions") +
+  xlab(expression(log[e] (Effect_size))) +
   theme_light() +
   scale_color_brewer(palette = "Reds")
 ```
@@ -692,22 +694,12 @@ reset_diff_dat <- poly_conv_sim %>%
   })) %>%
   select(-dat, -mod) %>%
   unnest(power) %>%
-  mutate(log_effect_size = log(effect_size))
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(shape = 4)
 ```
-
-```{r}
-reset_diff_dat %>%
-  ggplot() +
-  geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
-            size = 1) +
-  theme_light() +
-  scale_color_brewer(palette = "Reds")
-```
-
-
 
 ```{r cache = TRUE}
-reset_diff_dat <- poly_conv_sim %>%
+reset_diff_dat2 <- poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
   filter(shape == 1) %>%
   select(-F_p_value, -BP_p_value, -SW_p_value) %>%
@@ -730,16 +722,22 @@ reset_diff_dat <- poly_conv_sim %>%
   })) %>%
   select(-dat, -mod) %>%
   unnest(power) %>%
-  mutate(log_effect_size = log(effect_size))
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(shape = 1)
 ```
 
 ```{r}
 reset_diff_dat %>%
+  bind_rows(reset_diff_dat2) %>%
+  mutate(shape = ifelse(shape == 1, "U", "Triple-U")) %>%
   ggplot() +
   geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
             size = 1) +
   theme_light() +
-  scale_color_brewer(palette = "Reds")
+  labs(col = "Highest order") +
+  xlab(expression(log[e] (Effect_size))) +
+  scale_color_brewer(palette = "Reds") +
+  facet_wrap(~shape)
 ```
 
 \newpage
