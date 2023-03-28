@@ -551,7 +551,7 @@ upper_lower_p <- upper_p %>%
 ```
 
 
-```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.5$, $0.75$, $0.875$, $1.125$, $1.25$ and $1.5$."}
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.5$, $0.75$, $0.875$, $1.125$, $1.25$ and $1.5$. The vertical dashed line is to indicate $p\\text{-value} = 0.05$. The x-axis is drawn on logarithmic scale. For multiplier smaller than $1$, the adjusted $p$-value will incrase then decrase as $p$-value increases. The trend is the opposite for multiplier greater than $1$, but the difference will eventually reach $0$."}
 upper_lower_p %>%
   left_join(vi_survey %>%
   filter(!attention_check) %>%
@@ -566,7 +566,7 @@ upper_lower_p %>%
   geom_point(aes(p_value, diff_p_value), alpha = 0.2) +
   scale_x_log10() +
   facet_wrap(~modified) +
-  ylab("Adjusted p-value") +
+  ylab("Difference between adjusted p-value and p-value") +
   xlab("p-value") +
   theme_light()
 ```
