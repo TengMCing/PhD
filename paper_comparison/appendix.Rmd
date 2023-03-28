@@ -514,7 +514,7 @@ lower_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
                      detect = detect,
                      n_sel = num_selection,
                      alpha = alpha_lower) %>%
-  mutate(modified = modified) %>%
+  mutate(modified = 1 - modified) %>%
   mutate(adjusted_p_value = p_value)
 })
 
@@ -565,114 +565,6 @@ upper_lower_p %>%
   kableExtra::kable(format = "latex", booktabs = TRUE, label = "sensitivity", 
                     escape = FALSE,
                     caption = "Change of rejection decision because of the modification of $\\hat{\\alpha}$.")
-```
-
-
-
-## Curious effect of predictor distribution on conventional test power
-
-```{r cache = TRUE}
-min_poly_es <- vi_survey %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  min()
-
-max_poly_es <- vi_survey %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "polynomial", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  max()
-
-min_heter_es <- vi_survey %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "heteroskedasticity", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  min()
-
-max_heter_es <- vi_survey %>% 
-  filter(!null_lineup, 
-         !attention_check,
-         type == "heteroskedasticity", 
-         x_dist == "uniform") %>%
-  pull(effect_size) %>%
-  max()
-
-poly_x_dist <- poly_conv_sim %>%
-  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
-  rename(RESET_p_value = RESET4_p_value) %>%
-  pivot_longer(RESET_p_value:SW_p_value) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  filter(name == "RESET test") %>%
-  mutate(reject = value <= 0.05) %>%
-  select(effect_size, name, x_dist, reject) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  nest(dat = c(effect_size, offset0, reject)) %>%
-  mutate(mod = map(dat, 
-                   ~glm(reject ~ effect_size - 1, 
-                        family = binomial(), 
-                        data = .x,
-                        offset = offset0))) %>%
-  mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
-                         offset0 = log(0.05/0.95))
-    result$power <- predict(mod, type = "response", newdata = result)
-    result
-  })) %>%
-  select(-dat, -mod) %>%
-  unnest(power) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(type = "non-linearity")
-
-heter_x_dist <- heter_conv_sim %>%
-  select(-RESET3_p_value, -(RESET5_p_value:RESET10_p_value), -F_p_value) %>%
-  rename(RESET_p_value = RESET4_p_value) %>%
-  pivot_longer(RESET_p_value:SW_p_value) %>%
-  mutate(name = gsub("_p_value", " test", name)) %>%
-  filter(name == "BP test") %>%
-  mutate(reject = value <= 0.05) %>%
-  select(effect_size, name, x_dist, reject) %>%
-  mutate(offset0 = log(0.05/0.95)) %>%
-  nest(dat = c(effect_size, offset0, reject)) %>%
-  mutate(mod = map(dat, 
-                   ~glm(reject ~ effect_size - 1, 
-                        family = binomial(), 
-                        data = .x,
-                        offset = offset0))) %>%
-  mutate(power = map(mod, function(mod) {
-    result <- data.frame(effect_size = seq(min_heter_es, max_heter_es, 0.1),
-                         offset0 = log(0.05/0.95))
-    result$power <- predict(mod, type = "response", newdata = result)
-    result
-  })) %>%
-  select(-dat, -mod) %>%
-  unnest(power) %>%
-  mutate(log_effect_size = log(effect_size)) %>%
-  mutate(type = "heteroskedasticity")
-```
-
-```{r conv-x-dist, fig.cap = "Change of power of conventional tests under different fitted value distribution for non-linearity model and heteroskedasticity model.", fig.height = 3}
-bind_rows(poly_x_dist, heter_x_dist) %>%
-  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
-  ggplot() +
-  
-  # Draw conventional test power curve
-  geom_line(aes(log_effect_size, power, col = x_dist),
-            size = 1) +
-  
-  # Theme
-  theme_light() +
-  scale_color_manual(values = rev(rcartocolor::carto_pal(4, "Vivid"))) +
-  xlab(expression(log[e] (Effect_size))) +
-  ylab("Power") +
-  labs(col = "", size = "# lineups") +
-  facet_wrap(~type, scales = "free_x")
 ```
 
 
@@ -734,6 +626,7 @@ map_df(seq(1, 11, 2), ~eval_n(.x, 1)) %>%
 ```{r cache = TRUE}
 reset_diff_dat <- poly_conv_sim %>%
   filter(x_dist == "uniform") %>%
+  filter(shape == 4) %>%
   select(-F_p_value, -BP_p_value, -SW_p_value) %>%
   pivot_longer(RESET3_p_value:RESET10_p_value) %>%
   mutate(name = gsub("RESET(.*)_p_value", "\\1", name)) %>%
@@ -766,6 +659,43 @@ reset_diff_dat %>%
   scale_color_brewer(palette = "Reds")
 ```
 
+
+
+```{r cache = TRUE}
+reset_diff_dat <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  filter(shape == 1) %>%
+  select(-F_p_value, -BP_p_value, -SW_p_value) %>%
+  pivot_longer(RESET3_p_value:RESET10_p_value) %>%
+  mutate(name = gsub("RESET(.*)_p_value", "\\1", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size))
+```
+
+```{r}
+reset_diff_dat %>%
+  ggplot() +
+  geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
+            size = 1) +
+  theme_light() +
+  scale_color_brewer(palette = "Reds")
+```
 
 \newpage
 

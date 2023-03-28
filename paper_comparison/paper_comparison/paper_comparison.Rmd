@@ -285,10 +285,6 @@ heter_conv_sim <- heter_conv_sim %>%
   left_join(select(filter(vi_survey, type == "heteroskedasticity"), a, b, n, x_dist, effect_size))
 ```
 
-(fix the tense issue - rank: low)
-
-(fix the notation issue (bold?) - rank: low)
-
 # Introduction
 
 > *"Since all models are wrong the scientist must be alert to what is importantly wrong."* [@box1976science]
