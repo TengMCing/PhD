@@ -508,7 +508,7 @@ vi_survey %>%
 ```
 
 We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect.
-Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the "letter-value" boxplot (ref here) which is an extension of the number of "letter value" statistics (ref here) to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in $p$-values much greater than $5$%. Thus, there is no clear evidence of batch effect.
+Figure \ref{fig:poly-boxplot-lineup} and \ref{fig:heter-boxplot-lineup} provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the "letter-value" boxplot [@hofmann2017value] which is an extension of the number of "letter value" statistics to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in $p$-values much greater than $5$%. Thus, there is no clear evidence of batch effect.
 
 ## Sensitivity analysis for $\alpha$
 
@@ -551,7 +551,7 @@ upper_lower_p <- upper_p %>%
 ```
 
 
-```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.125$, $0.25$, $0.5$, $1.125$, $1.25$ and $1.5$."}
+```{r sensitive, fig.cap = "\\label{fig:sensitive}Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.5$, $0.75$, $0.875$, $1.125$, $1.25$ and $1.5$."}
 upper_lower_p %>%
   left_join(vi_survey %>%
   filter(!attention_check) %>%
@@ -559,15 +559,15 @@ upper_lower_p %>%
   filter(x_dist == "uniform") %>%
   group_by(unique_lineup_id) %>%
   summarise(p_value = first(p_value))) %>%
+  mutate(diff_p_value = adjusted_p_value - p_value) %>%
   ggplot() +
-  geom_point(aes(p_value, adjusted_p_value), alpha = 0.2) +
-  geom_abline() +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0.05, col = "red", linetype = 2) +
+  geom_point(aes(p_value, diff_p_value), alpha = 0.2) +
+  scale_x_log10() +
   facet_wrap(~modified) +
-  scale_x_sqrt() +
-  scale_y_sqrt() +
   ylab("Adjusted p-value") +
   xlab("p-value") +
-  coord_fixed() +
   theme_light()
 ```
 
