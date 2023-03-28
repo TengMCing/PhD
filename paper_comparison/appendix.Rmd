@@ -468,12 +468,12 @@ vi_survey %>%
   ggplot() +
   geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE, k = 4) +
   scale_alpha_discrete(range = c(0.7, 0)) +
-  # scale_fill_lv() +
   facet_wrap(~k, ncol = 5) +
   theme_light() +
   scale_x_discrete(labels = c("I", "III")) +
   labs(fill = "Quantiles") +
-  scale_fill_discrete(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%")) +
+  scale_fill_manual(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%"),
+                    values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
 ```
@@ -501,7 +501,8 @@ vi_survey %>%
   theme_light() +
   scale_x_discrete(labels = c("II", "III")) +
   labs(fill = "Quantiles") +
-  scale_fill_discrete(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%")) +
+  scale_fill_manual(labels = c("50%", "25% - 75%", "12.5% - 87.5%", "6.25% - 93.75%"),
+                    values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
   ylab("Weighted propotion of detect") +
   xlab("Data collection period")
 ```
