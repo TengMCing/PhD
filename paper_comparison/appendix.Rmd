@@ -282,12 +282,9 @@ The distance measures how different a lineup is from the set of lineups allocate
 
 ### Data collection process
 
+The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in Figure \ref{fig:tech}. The website is built with the `Flask` [@flask] web framework and hosted on `PythonAnywhere` [@pythonanywhere]. It is configured to handle HTTP requests such that subjects can correctly receive webpages and submit responses. Embedded in the resources sent to subjects, the `jsPsych` front-end framework [@jspsych] instructs subjects' browsers to render an environment for running behavioral experiments. During the experiment, this framework will automatically collect common behavioral data such as response time and clicks on buttons. Subjects' responses are first validated by a scheduled `Python` script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by `Flask` and bundled in HTML files. 
 
-The survey data is collected via a self-hosted website designed by us. 
-
-(desc of the tech layers)
-
-Once the participant is recruited from Prolific (ref here), it will be redirected to the entry page of our study website. An image of the entry page is provided in Figure \ref{fig:entry-page}. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in \ref{fig:consent_form} and \ref{fig:metadata} respectively. Before evaluating lineups, participant also need to read the training page as provide in Figure \ref{fig:training-page} to understand the process. An example of the lineup page is given in Figure \ref{fig:lineup-page}. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
+Once the participant is recruited from Prolific [@palan2018prolific], it will be redirected to the entry page of our study website. An image of the entry page is provided in Figure \ref{fig:entry-page}. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in \ref{fig:consent_form} and \ref{fig:metadata} respectively. Before evaluating lineups, participant also need to read the training page as provide in Figure \ref{fig:training-page} to understand the process. An example of the lineup page is given in Figure \ref{fig:lineup-page}. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
 
 ```{r tech, out.width = "100%", fig.cap = "Diagram of online experiment setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment."}
 knitr::include_graphics("img/experiment_tech.pdf")
@@ -569,6 +566,24 @@ upper_lower_p %>%
 
 
 ## Effect of number of evaluations on the power of a visual test
+
+```{r}
+min_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
+```
+
 
 ```{r}
 eval_n <- function(n_eval, boot) {
