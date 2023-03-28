@@ -615,7 +615,7 @@ max_poly_es <- vi_survey %>%
 ```
 
 
-```{r}
+```{r n_eval, fig.cap = "Change of power for different number of evalutions on a lineup with uniform fitted value distribution. The power will incrase as the number of evaluations increases, but the margin will decrase."}
 eval_n <- function(n_eval, boot) {
   map_df(1:boot, function(boot_id) {
   vi_survey %>%
