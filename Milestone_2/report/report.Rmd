@@ -1,0 +1,126 @@
+---
+title: "Advances in Artificial Intelligence for Data Visualization: Automate Reading of Diagnostic Plots with Compute Vision Models"
+author:
+- familyname: Li
+  othernames: Weihao (Patrick)
+  address: Monash University
+  qualifications: PhD student
+email: weihao.li@monash.com
+phone: (04) 0459 1219
+department: Department of\newline Econometrics &\newline Business Statistics
+organization: "Progress review" 
+bibliography: report.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  monash::report:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache=TRUE, messages=FALSE, warning=FALSE)
+library(ggplot2)
+```
+
+
+
+keywords:
+AI, data visualization, residual plot, visual inference, hypothesis testing, computer vision
+
+# Overview of the thesis
+
+## Background and motivation
+
+Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions about the data, identification of outliers or anomalous observations that may have an exaggerated effect on the model, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
+
+When conducting model diagnostics, despite the availability of numeric summaries with finite or asymptotic properties that have been endorsed, data analysts prefer or require graphical representations of data. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
+
+In recent times, a novel statistical inferential framework known as visual inference [@buja_statistical_2009] has been developed, which relies on the use of graphical representations of data. The visual inference approach capitalizes on the innate capability of the human visual system to rapidly identify patterns and deviations from expected patterns. By exploiting visualization techniques, visual inference provides a more natural and easily comprehensible way of interpreting data and discerning relationships between variables, compared to conventional statistical techniques.
+This inferential framework can be applied to perform exploratory data analysis, model selection, and hypothesis testing. 
+
+In the same paper, @buja_statistical_2009 proposes the use of the lineup protocol as a visual hypothesis test, inspired by the police lineup technique employed in eyewitness identification of criminal suspects. The protocol comprises $m$ randomly positioned plots, where on of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data in them is consistent with the null hypothesis $H_0$. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If the data plot is correctly identified, it provides evidence against $H_0$.
+
+This method has gained increasing traction in recent years and has already been integrated into data analysis of various topics, such as diagnostics of hierarchical linear models [@loy2013diagnostic], geographical research [@widen_graphical_2016] and forensic examinations [@krishnan_hierarchical_2021].
+With the advent of sophisticated visualization software and tools, visual inference has the potential to revolutionize statistical analysis by providing an innovative alternative to traditional statistical approaches and enabling more lucid and effective communication of research findings.
+
+The incorporation of human judgment is a fundamental aspect of visual testing, but it may restrict its widespread usage. The reliance on human assessment, akin to handicraft production methods employed in pre-industrial societies, renders the lineup protocol unsuitable for large-scale applications, due to its high labor costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.
+
+The advancement of technology is essential to alleviate the workload of individuals by automating repetitive tasks and providing standardized results in a controlled environment. The evaluation of visual tests on a large scale is not feasible without the aid of machines and technology. Modern computer vision models offer a promising solution to this challenge. As a subfield of AI, computer vision with its modern deep learning architectures has successfully resolved numerous critical problems in automation. The development of the convolutional neural network (CNN) by @fukushima_neocognitron_1982 was inspired by the vision processing in living organisms. This architecture was first applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989, making it one of the earliest attempts at successfully extracting information from digital images via self-learning algorithms. The modern computer vision model typically utilizes deep neural networks with convolutional layers [@fukushima_neocognitron_1982], which leverage the hierarchical pattern in data and provide regularized versions of fully-connected layers. This approach downscales and transforms images by summarizing information in a small space. Numerous studies have shown that it can effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. The development of graphics processing units and the widespread availability of high-performance personal computers have made computer vision research a new trend in the 21st century. The remarkable achievements, such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018], and facial recognition [@emami_facial_2012], have significantly impacted our daily life.
+
+The utilization of computer vision models for reading data plots is not widely adopted. Nevertheless, certain fields have embraced this notion, as evidenced by the application of computer vision models in reading recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020], and pairwise causality analysis [@singh_deep_2017]. However, the assessment of lineups with computer vision models represents a relatively novel area of investigation.
+
+## Research questions
+
+The main objective of this research is to construct an automatic visual inference system to facilitate conducting regression diagnostics visual tests on a large scale. The study will concentrate on three specific projects, namely
+
+1. Exploring the application of visual inference in regression diagnostics and comparing its efficacy with conventional hypothesis tests.
+2. Designing an automated visual inference system to assess lineups of residual plots derived from the classical normal linear regression model.
+3. Deploying the automatic visual inference system as an online application and and making the pertinent open-source software accessible.
+
+## Current reserach outcomes
+
+
+
+3. summarise the work in the first year
+- an experiment to compare visual test with conventional test 
+- a prototype model for lineup evaluation
+- points out the limitation of the work
+4. summarise the work in the second year
+- refine and reconduct the experiment
+5. main findings to date
+- findings from the first year
+- findings from the second year
+
+# Thesis structure
+
+topic
+
+chapter 1: Introduction
+
+chapter 2
+the first paper
+
+chapter 3
+build a computer vision system to evaluate residual plot
+
+chapter 4?
+software publication
+
+chapter 5
+discussion and future work
+
+# Timetable
+
+- April: submit abstract to ASC
+- May: submit paper
+- June: submit poster/short paper to IEEE vis conf, start working on computer vision model
+- July: leave for few weeks
+- Aug
+- Sep: finalize the computer vision model
+- Oct: IEEE vis conf
+- Nov: web interface development 
+- Dec: ASC
+
+- Jan, 2024: 
+- Feb, 2024: 
+- Mar, 2024: submit paper
+- Aug, 2024: submit thesis  
+
+# Difficulties
+
+things that are actually quite serious
+
+1. identified difficulties
+2. suggestions for overcoming these difficulties
+
+# References
+
+
