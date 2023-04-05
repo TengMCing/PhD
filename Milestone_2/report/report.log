@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  5 APR 2023 10:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  5 APR 2023 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1338,6 +1338,12 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.74995pt}.
 
 [3]
+LaTeX Font Info:    Trying to load font information for TS1+mdbch on input line 344.
+(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/mathdesign/mdbch/ts1mdbch.fd
+File: ts1mdbch.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdbch.
+)
+LaTeX Font Info:    Font shape `TS1/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 344.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.74995pt, for example:
@@ -1347,15 +1353,9 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [4]
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 359.
+(Font)              scaled to size 7.68005pt on input line 365.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 359.
-LaTeX Font Info:    Trying to load font information for TS1+mdbch on input line 383.
-(/Users/patrickli/Library/TinyTeX/texmf-dist/tex/latex/mathdesign/mdbch/ts1mdbch.fd
-File: ts1mdbch.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdbch.
-)
-LaTeX Font Info:    Font shape `TS1/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 383.
+(Font)              scaled to size 5.76004pt on input line 365.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.74995pt, for example:
@@ -1373,9 +1373,9 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [6]
 LaTeX Font Info:    Font shape `T1/mdbch/m/it' will be
-(Font)              scaled to size 10.51207pt on input line 501.
+(Font)              scaled to size 10.51207pt on input line 507.
 LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 501.
+(Font)              scaled to size 10.51207pt on input line 507.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.74995pt, for example:
@@ -1401,24 +1401,24 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 
 [8] (./report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 1A600300DB790D4F6F3285C28EE2FE96;1119.
+(rerunfilecheck)             Checksum: CCCC771B3288C885147EE30F445F0665;1119.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26734 strings out of 477984
- 466427 string characters out of 5838233
+ 26737 strings out of 477984
+ 466459 string characters out of 5838233
  1863388 words of memory out of 5000000
- 46116 multiletter control sequences out of 15000+600000
- 628762 words of font info for 367 fonts, out of 8000000 for 9000
+ 46115 multiletter control sequences out of 15000+600000
+ 628997 words of font info for 370 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,14n,76p,1911b,1966s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,14n,76p,1622b,1966s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchbi8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chbi7m.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7t.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7y.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr8t.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri7m.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri8t.pfb>
-Output written on report.pdf (8 pages, 522458 bytes).
+Output written on report.pdf (8 pages, 522020 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 177 compressed objects within 2 object streams
+ 222 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  57 named destinations out of 1000 (max. 500000)
  94290 words of extra memory for PDF output out of 106986 (max. 10000000)
 
