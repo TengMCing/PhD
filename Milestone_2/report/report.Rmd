@@ -27,7 +27,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache=TRUE, messages=FALSE, warning=FALSE)
-library(ggplot2)
+library(visage)
+library(tidyverse)
 ```
 
 
@@ -39,27 +40,32 @@ AI, data visualization, residual plot, visual inference, hypothesis testing, com
 
 ## Background and motivation
 
-Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions about the data, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
+Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
 
-When conducting model diagnostics, despite the availability of numeric summaries endorsed by finite or asymptotic properties, data analysts prefer or require graphical representations of data. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
+When conducting model diagnostics, despite the availability of numeric summaries endorsed by finite or asymptotic properties, graphical representations of data are often preferred or required by data analysts. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
 
 Recently, a novel statistical inferential framework known as visual inference [@buja_statistical_2009] has been developed, which relies on the use of graphical representations of data. The visual inference approach makes use of the natural capability of the human visual system to identify patterns and deviations from expected patterns. It provides a more comprehensible way of interpreting data and conducting hypothesis testing compared to conventional statistical testing. 
 
-Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises $m$ randomly positioned plots, where on of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis $H_0$. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If the data plot is correctly identified, it provides evidence against $H_0$.
+Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises $m$ randomly positioned plots, where one of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis $H_0$. An example lineup is provided in Figure \ref{fig:lineup-example}. To compute the $p$-value of the visual test, the lineup will be independently presented to a number of participants, asking them to pick the most different plot. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If a large number of participants correctly identify the data plot, the corresponding $p$-value will be small, indicating strong evidence against $H_0$.
+
+```{r lineup-example, fig.pos="t!", fig.height = 7, fig.width = 7, fig.cap = "Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$."}
+vi_lineup <- get_vi_lineup()
+vi_lineup$poly_300$data %>%
+  VI_MODEL$plot_lineup(theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
+```
+
 
 This method has gained increasing traction in recent years and has already been integrated into data analysis of various topics, such as diagnostics of hierarchical linear models [@loy2013diagnostic], geographical research [@widen_graphical_2016] and forensic examinations [@krishnan_hierarchical_2021]. With the advent of sophisticated visualization techniques and tools, visual inference has the potential to provide an innovative alternative to traditional statistical approaches and enabling more effective communication of model findings.
 
 The reliance of human assessment is a fundamental aspect of visual tests, but it may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labor costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.
 
-The workload of individuals could be alleviated by automating repetitive tasks and providing standardized results in a controlled environment. The evaluation of visual tests on a large scale is not feasible without the aid of machines and technology. 
-
-Modern computer vision models offer a promising solution to this challenge. As a subfield of AI, computer vision with its modern deep learning architectures has successfully resolved numerous critical problems in automation. The development of the convolutional neural network (CNN) by @fukushima_neocognitron_1982 was inspired by the vision processing in living organisms. This architecture was first applied to hand-written number recognition trained with back-propagation by @lecun_backpropagation_1989, making it one of the earliest attempts at successfully extracting information from digital images via self-learning algorithms. The modern computer vision model typically utilizes deep neural networks with convolutional layers [@fukushima_neocognitron_1982], which leverage the hierarchical pattern in data and provide regularized versions of fully-connected layers. This approach downscales and transforms images by summarizing information in a small space. Numerous studies have shown that it can effectively tackle vision tasks, such as image recognition [@rawat_deep_2017]. With the development of graphics processing units and the widespread availability of high-performance personal computers, computer vision research become a new hype in the 21st century. Remarkable achievements, such as computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018], and facial recognition [@emami_facial_2012], have significantly impacted our daily life.
+Modern computer vision models offer a promising solution to this challenge. As a subfield of AI, computer vision with its modern deep learning architectures has successfully resolved numerous critical problems in automation. The development of the convolutional neural network (CNN) by @fukushima_neocognitron_1982 was inspired by the vision processing in living organisms. The modern computer vision model typically utilizes deep neural networks with convolutional layers, which leverage the hierarchical pattern in data and provide regularized versions of fully-connected layers. This approach downscales and transforms images by summarizing information in a small space. Numerous studies have shown that it can effectively tackle vision tasks, such as image recognition [@rawat_deep_2017], computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018], and facial recognition [@emami_facial_2012].
 
 Utilizing computer vision models in reading data plot is not a common choice. Nevertheless, certain fields have adopted this idea by applying computer vision models in reading recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020], and pairwise causality analysis [@singh_deep_2017]. However, the assessment of lineups with computer vision models is a relatively novel area of study.
 
 ## Research questions
 
-The main objective of this research is to construct an automatic visual inference system to enable the conduction of regression diagnostics visual tests on a large scale. The study will concentrate on three specific projects, namely
+The main objective of this research is to construct an automatic visual inference system capable of conducting visual tests on a large scale in the domain of regression diagnostics. The study will concentrate on three specific projects, namely
 
 1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.
 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
@@ -67,104 +73,72 @@ The main objective of this research is to construct an automatic visual inferenc
 
 ## Current research outcomes
 
-- cut this p down, we don't need that many details
+In order to examine the potential applicability of integrating visual inference techniques into regression diagnostics, a pilot study was conducted in the first year with the participation of 64 individuals, which was followed by a formal study involving 443 participants in the subsequent year. The participants were presented with lineups consisting of 20 plots, where a residual plot was embedded along with 19 null plots, drawn with data simulated using the residual rotation technique. The study considered two primary forms of residual departures in multiple linear regression, namely non-linearity and heteroskedasticity. To enrich the visual features, different fitted value distributions, including normal, uniform, lognormal, and discrete, were also incorporated. 
 
-In the initial phase of this research, a pilot investigation was undertaken to explore the viability of implementing visual inference in regression diagnostics. The pilot study involved 64 participants and focused on utilizing a lineup consisting of 20 plots, wherein a residual plot was embedded along with 19 null plots, simulated using the residual rotation technique. The study considered two primary forms of residual departures, namely non-linearity and heteroskedasticity, within a multiple linear regression context. To enrich the visual features, different fitted value distributions, including normal, uniform, lognormal, and discrete uniform, were also incorporated. 
+As shown in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower}, the study revealed that appropriate conventional residual-based statistical tests are more sensitive to weak residual departures from model assumptions compared to visual tests evaluated by humans, leading to excessive rejections even when downstream analysis and outcomes would not be significantly impacted by the small departures from a good fit. Specifically, conventional tests conclude that the model fit has issues nearly twice as frequently as humans would, and they frequently reject departures in the form of non-linearity and heteroskedasticity that are not visible to humans. For instance, based on the row of scatter plots at the bottom of Figure \ref{fig:polypower}, we might argue that the non-linearity is not sufficiently problematic until an effect size of around 3 or 3.5. The RESET test would reject closer to an effect size of 2, but the visual test would reject closer 3.25.
 
-The outcomes of this pilot study demonstrated that the power of visual tests in regression diagnostics increases proportionately with the number of lineup evaluations. Nevertheless, it was observed that conventional tests, such as the F-test for non-linearity and the Breusch-Pagan test for heteroskedasticity, exhibited significantly greater power than the visual tests. While the pilot study successfully provided a comparative analysis of the power of visual and conventional tests, the impact of various factors on the power of visual tests could not be fully analyzed due to inadequate data.
+![Comparison of power between different tests for detecting non-linearity. The power curves are estimated using logistic regression, and the horizontal lines of dots represent non-reject and reject results from human observers for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.\label{fig:polypower}](polypower-1.png)
 
-We acknowledge the limitations of this pilot study, particularly in the design of the simulated model, which made it challenging to explicate the involved factors. Furthermore, the methodology utilized for effect size calculation, p-value calculation, and power estimation was incipient. Hence, a follow-up study is necessary to address these limitations and obtain a more comprehensive understanding of the potential of visual inference in regression diagnostics.
+![Comparison of power between different tests for detecting heteroskedasticity. Main plot shows the power curves, with dots indicating non-reject and reject in visual testing of lineups. The multiple lines for the visual test arise from estimating the power on many bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.](heterpower-1.png)
 
-In the subsequent year, a similar study was conducted, utilizing simpler simulated models to elicit more distinct visual patterns. Specifically, the non-linearity model was formulated as
+These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in the attached paper.
 
-\begin{align} \label{eq:nonlinearity-model}
-\boldsymbol{y} &= 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
-\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1), \\
-\boldsymbol{z} &= g(\boldsymbol{z}_{raw}, 1), \\
-\boldsymbol{z}_{raw} &= He_j(g(\boldsymbol{x}, 2)),
-\end{align}
-
-\noindent where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vectors of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials, $\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
-
-\begin{equation} \label{eq:scaling-function}
-g(\boldsymbol{x}, k) = \frac{\boldsymbol{x} - min(\boldsymbol{x})}{max(\boldsymbol{x}) - min(\boldsymbol{x})}(2k - k), \quad \text{for} \quad k > 0. 
-\end{equation}
-
-The heteroskedasticity model was formulated as
-
-\begin{align} \label{eq:heter-model}
-\boldsymbol{y} &= 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
-\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1),\\
-\boldsymbol{\varepsilon} &\sim N(\boldsymbol{0}, 1 + (2 - |a|)(\boldsymbol{x} - a)^2b \boldsymbol{I}). 
-\end{align}
-
-The null regression model used to fit the realizations generated by the above models is formulated as
-
-\begin{equation} \label{eq:null-model}
-\boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},
-\end{equation}
-
-\noindent where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$.
-
-Since $z = O(x^j)$, for $j > 1$, $z$ is a higher order term leaves out by the null regression, which will violate the linearity model assumption. Similarly, for $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the predictor $\boldsymbol{x}$, which will lead to the presence of heteroskedasticity.
-
-- draft below
-
-The effect size was derived using the Kullback-Leibler divergence method, formulated as Equation 3. To account for the interdependence of lineups presented to different participants, p-value calculation, as suggested by VanderPlas et al. (2021), was adopted. Furthermore, power estimation was simplified through a logistic regression model that lacked an intercept but included a fixed offset to ensure that the power equated to 5% when the effect size was zero. A detailed description of the experimental design, effect size derivation, p-value calculation, and power estimation can be found in the attached paper.
-
-
-
-3. summarise the work in the first year
-- an experiment to compare visual test with conventional test 
-- a prototype model for lineup evaluation
-- points out the limitation of the work
-4. summarise the work in the second year
-- refine and reconduct the experiment
-5. main findings to date
-- findings from the first year
-- findings from the second year
+We have also tried to develop a prototype of the automatic visual inference system with pure simulated data. The model  
 
 # Thesis structure
 
-topic
+The thesis is structured as follows. The first chapter describes the background on regression diagnostics, visual inference and computer vision models. The second chapter will be identical to the attached paper which focuses on the comparative study between visual testing and conventional testing in the application of regression diagnostics. The third chapter will describe the development of the a computer vision system to evaluate residual plot
 
-chapter 1: Introduction
+The fourth chapter will detail the 
 
-chapter 2
-the first paper
+The fifth chapter will be the discussion of the thesis and future work.
 
-chapter 3
-build a computer vision system to evaluate residual plot
 
-chapter 4?
-software publication
 
-chapter 5
-discussion and future work
+The first chapter of the thesis will be the introduction
+The second chapter of thesis will be the 
+
+
+The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
+
+The second project aims to extend the automatic system to lineup protocol with no assumptions on the type of the data plot and the data generating process. It only requires the protocol to asks the evaluators to select the most different plot(s) from the lineup. The automatic system will be built upon image similarity produced by computer vision models. 
+
+The third projects aims to package and deploy the automatic system as an adaptive online application such that empirical data can be collected and used in improving the system. Online machine learning technique will be used to update the weights of computer vision models dynamically. 
+
 
 # Timetable
 
-- April: submit abstract to ASC
-- May: submit paper
-- June: submit poster/short paper to IEEE vis conf, start working on computer vision model
-- July: leave for few weeks
-- Aug
-- Sep: finalize the computer vision model
-- Oct: IEEE vis conf
-- Nov: web interface development 
-- Dec: ASC
+The timetable of my PhD study from April 2023 to August 2024 is provided in Table \ref{tab:timetable}.
 
-- Jan, 2024: 
-- Feb, 2024: 
-- Mar, 2024: submit paper
-- Aug, 2024: submit thesis  
+```{r}
+data.frame(Date = c("April", 
+                    "May",
+                    "June",
+                    "July",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                    "Mar",
+                    "Aug"), 
+           Event = c("Submit the abstract of the first paper to Australian Statistical Conference (ASC)", 
+                     "Submit the first paper",
+                     "Submit a poster for the first paper to Institute of Electrical and Electronics Engineers (IEEE) Visualization Conference",
+                     "Leave for a month",
+                     "Finalize the computer vision model",
+                     "Attend the IEEE Visualization Conference",
+                     "Start the web interface development",
+                     "Attend the ASC",
+                     "Submit the second paper",
+                     "Submit thesis")) %>%
+  kableExtra::kable(booktabs = TRUE,
+                    label = "timetable",
+                    caption = "Timetable till thesis submission") %>%
+  kableExtra::kable_styling(latex_options = "scale_down") %>%
+  kableExtra::group_rows("2023", 1, 8) %>%
+  kableExtra::group_rows("2024", 9, 10)
+```
 
-# Difficulties
-
-things that are actually quite serious
-
-1. identified difficulties
-2. suggestions for overcoming these difficulties
 
 # References
 
