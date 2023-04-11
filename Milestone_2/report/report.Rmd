@@ -65,7 +65,7 @@ Utilizing computer vision models in reading data plot is not a common choice. Ne
 
 ## Research questions
 
-The main objective of this research is to construct an automatic visual inference system capable of conducting visual tests on a large scale in the domain of model diagnostics, particularly regression diagnostics. The study will concentrate on three specific projects, namely
+The main objective of this research is to construct an automatic visual inference system capable of conducting visual tests on a large scale in the domain of regression diagnostics. The study will concentrate on three specific projects, namely
 
 1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.
 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
@@ -75,51 +75,70 @@ The main objective of this research is to construct an automatic visual inferenc
 
 In order to examine the potential applicability of integrating visual inference techniques into regression diagnostics, a pilot study was conducted in the first year with the participation of 64 individuals, which was followed by a formal study involving 443 participants in the subsequent year. The participants were presented with lineups consisting of 20 plots, where a residual plot was embedded along with 19 null plots, drawn with data simulated using the residual rotation technique. The study considered two primary forms of residual departures in multiple linear regression, namely non-linearity and heteroskedasticity. To enrich the visual features, different fitted value distributions, including normal, uniform, lognormal, and discrete, were also incorporated. 
 
-The study revealed that conventional residual-based statistical tests are more sensitive to weak residual departures from model assumptions compared to visual tests evaluated by humans, leading to excessive rejections even when downstream analysis and outcomes would not be significantly impacted by the small departures from a good fit. Specifically, conventional tests conclude that the model fit has issues nearly twice as frequently as humans would, and they frequently reject departures in the form of non-linearity and heteroskedasticity that are not visible to humans. These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in the attached paper.
+As shown in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower}, the study revealed that appropriate conventional residual-based statistical tests are more sensitive to weak residual departures from model assumptions compared to visual tests evaluated by humans, leading to excessive rejections even when downstream analysis and outcomes would not be significantly impacted by the small departures from a good fit. Specifically, conventional tests conclude that the model fit has issues nearly twice as frequently as humans would, and they frequently reject departures in the form of non-linearity and heteroskedasticity that are not visible to humans. For instance, based on the row of scatter plots at the bottom of Figure \ref{fig:polypower}, we might argue that the non-linearity is not sufficiently problematic until an effect size of around 3 or 3.5. The RESET test would reject closer to an effect size of 2, but the visual test would reject closer 3.25.
+
+![Comparison of power between different tests for detecting non-linearity. The power curves are estimated using logistic regression, and the horizontal lines of dots represent non-reject and reject results from human observers for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.\label{fig:polypower}](polypower-1.png)
+
+![Comparison of power between different tests for detecting heteroskedasticity. Main plot shows the power curves, with dots indicating non-reject and reject in visual testing of lineups. The multiple lines for the visual test arise from estimating the power on many bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.](heterpower-1.png)
+
+These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in the attached paper.
+
+We have also tried to develop a prototype of the automatic visual inference system with pure simulated data. The model  
 
 # Thesis structure
 
-The thesis is structured 
+The thesis is structured as follows. The first chapter describes the background on regression diagnostics, visual inference and computer vision models. The second chapter will be identical to the attached paper which focuses on the comparative study between visual testing and conventional testing in the application of regression diagnostics. The third chapter will describe the development of the a computer vision system to evaluate residual plot
 
-topic
+The fourth chapter will detail the 
 
-chapter 1: Introduction
+The fifth chapter will be the discussion of the thesis and future work.
 
-chapter 2
-the first paper
 
-chapter 3
-build a computer vision system to evaluate residual plot
 
-chapter 4?
-software publication
+The first chapter of the thesis will be the introduction
+The second chapter of thesis will be the 
 
-chapter 5
-discussion and future work
+
+The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
+
+The second project aims to extend the automatic system to lineup protocol with no assumptions on the type of the data plot and the data generating process. It only requires the protocol to asks the evaluators to select the most different plot(s) from the lineup. The automatic system will be built upon image similarity produced by computer vision models. 
+
+The third projects aims to package and deploy the automatic system as an adaptive online application such that empirical data can be collected and used in improving the system. Online machine learning technique will be used to update the weights of computer vision models dynamically. 
+
 
 # Timetable
 
-- April: submit abstract to ASC
-- May: submit paper
-- June: submit poster/short paper to IEEE vis conf, start working on computer vision model
-- July: leave for few weeks
-- Aug
-- Sep: finalize the computer vision model
-- Oct: IEEE vis conf
-- Nov: web interface development 
-- Dec: ASC
+The timetable of my PhD study from April 2023 to August 2024 is provided in Table \ref{tab:timetable}.
 
-- Jan, 2024: 
-- Feb, 2024: 
-- Mar, 2024: submit paper
-- Aug, 2024: submit thesis  
+```{r}
+data.frame(Date = c("April", 
+                    "May",
+                    "June",
+                    "July",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                    "Mar",
+                    "Aug"), 
+           Event = c("Submit the abstract of the first paper to Australian Statistical Conference (ASC)", 
+                     "Submit the first paper",
+                     "Submit a poster for the first paper to Institute of Electrical and Electronics Engineers (IEEE) Visualization Conference",
+                     "Leave for a month",
+                     "Finalize the computer vision model",
+                     "Attend the IEEE Visualization Conference",
+                     "Start the web interface development",
+                     "Attend the ASC",
+                     "Submit the second paper",
+                     "Submit thesis")) %>%
+  kableExtra::kable(booktabs = TRUE,
+                    label = "timetable",
+                    caption = "Timetable till thesis submission") %>%
+  kableExtra::kable_styling(latex_options = "scale_down") %>%
+  kableExtra::group_rows("2023", 1, 8) %>%
+  kableExtra::group_rows("2024", 9, 10)
+```
 
-# Difficulties
-
-things that are actually quite serious
-
-1. identified difficulties
-2. suggestions for overcoming these difficulties
 
 # References
 
