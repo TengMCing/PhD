@@ -1,5 +1,5 @@
 ---
-title: "Advances in Artificial Intelligence for Data Visualization: Automate Reading of Diagnostic Plots with Compute Vision Models"
+title: "Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision"
 author:
 - familyname: Li
   othernames: Weihao (Patrick)
