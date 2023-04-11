@@ -27,7 +27,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache=TRUE, messages=FALSE, warning=FALSE)
-library(ggplot2)
+library(visage)
+library(tidyverse)
 ```
 
 
@@ -39,13 +40,13 @@ AI, data visualization, residual plot, visual inference, hypothesis testing, com
 
 ## Background and motivation
 
-Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions about the data, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
+Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
 
-When conducting model diagnostics, despite the availability of numeric summaries endorsed by finite or asymptotic properties, data analysts prefer or require graphical representations of data. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
+When conducting model diagnostics, despite the availability of numeric summaries endorsed by finite or asymptotic properties, graphical representations of data are often preferred or required by data analysts. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
 
 Recently, a novel statistical inferential framework known as visual inference [@buja_statistical_2009] has been developed, which relies on the use of graphical representations of data. The visual inference approach makes use of the natural capability of the human visual system to identify patterns and deviations from expected patterns. It provides a more comprehensible way of interpreting data and conducting hypothesis testing compared to conventional statistical testing. 
 
-Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises $m$ randomly positioned plots, where on of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis $H_0$. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If the data plot is correctly identified, it provides evidence against $H_0$.
+Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises $m$ randomly positioned plots, where one of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis $H_0$. An example lineup is provided in Figure \ref{fig:lineup-example}. To compute the $p$-value of the visual test, the lineup will be independently presented to a number of participants, asking them to pick the most different plot. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If a large number of participants correctly identify the data plot, the corresponding $p$-value will be small, indicating strong evidence against $H_0$.
 
 This method has gained increasing traction in recent years and has already been integrated into data analysis of various topics, such as diagnostics of hierarchical linear models [@loy2013diagnostic], geographical research [@widen_graphical_2016] and forensic examinations [@krishnan_hierarchical_2021]. With the advent of sophisticated visualization techniques and tools, visual inference has the potential to provide an innovative alternative to traditional statistical approaches and enabling more effective communication of model findings.
 
