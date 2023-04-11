@@ -83,8 +83,6 @@ As shown in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower}, the stud
 
 These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in the attached paper.
 
-We have also tried to develop a prototype of the automatic visual inference system with pure simulated data. The model  
-
 # Thesis structure
 
 The thesis is structured as follows. The first chapter describes the background on regression diagnostics, visual inference and computer vision models. The second chapter will be identical to the attached paper which focuses on the comparative study between visual testing and conventional testing in the application of regression diagnostics. The third chapter will describe the development of the a computer vision system to evaluate residual plot
