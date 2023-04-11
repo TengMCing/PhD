@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  12 APR 2023 05:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.14)  12 APR 2023 09:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1358,15 +1358,12 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.74995pt}.
 
 [4]
-
-LaTeX Warning: Reference `fig:heterpower' on page 5 undefined on input line 356.
-
-<polypower-1.png, id=113, 2258.4375pt x 1355.0625pt>
+<polypower-1.png, id=114, 2258.4375pt x 1355.0625pt>
 File: polypower-1.png Graphic file (type png)
 <use polypower-1.png>
 Package pdftex.def Info: polypower-1.png  used on input line 360.
 (pdftex.def)             Requested size: 455.22897pt x 273.13739pt.
-<heterpower-1.png, id=114, 2258.4375pt x 1355.0625pt>
+<heterpower-1.png, id=115, 2258.4375pt x 1355.0625pt>
 File: heterpower-1.png Graphic file (type png)
 <use heterpower-1.png>
 Package pdftex.def Info: heterpower-1.png  used on input line 366.
@@ -1379,6 +1376,8 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.74995pt}.
 
 [5 <./polypower-1.png>]
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 9.24173pt on input line 386.
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 24.74995pt, for example:
@@ -1403,9 +1402,6 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-9.74995pt}.
 
 [8] (./report.aux)
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 388F135423698727AFCE3074974077FB;1004.
 Package logreq Info: Writing requests to 'report.run.xml'.
@@ -1413,18 +1409,18 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26727 strings out of 477984
- 466916 string characters out of 5838233
- 1861388 words of memory out of 5000000
- 46141 multiletter control sequences out of 15000+600000
- 622413 words of font info for 350 fonts, out of 8000000 for 9000
+ 26743 strings out of 477984
+ 467081 string characters out of 5838233
+ 1862388 words of memory out of 5000000
+ 46145 multiletter control sequences out of 15000+600000
+ 623268 words of font info for 355 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,14n,93p,1451b,1966s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7t.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7y.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri7m.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri8t.pfb>
-Output written on report.pdf (8 pages, 1666612 bytes).
+{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/Users/patrickli/Library/TinyTeX/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}</Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7t.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7y.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri7m.pfb></Users/patrickli/Library/TinyTeX/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri8t.pfb>
+Output written on report.pdf (8 pages, 1670196 bytes).
 PDF statistics:
- 201 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
+ 213 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
  84057 words of extra memory for PDF output out of 89155 (max. 10000000)
 

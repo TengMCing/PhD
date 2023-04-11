@@ -364,30 +364,29 @@ As shown in Figure \ref{fig:polypower} and Figure \ref{fig:heterpower}, the stud
 \begin{figure}
 \centering
 \includegraphics{heterpower-1.png}
-\caption{Comparison of power between different tests for detecting heteroskedasticity. Main plot shows the power curves, with dots indicating non-reject and reject in visual testing of lineups. The multiple lines for the visual test arise from estimating the power on many bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.}
+\caption{Comparison of power between different tests for detecting heteroskedasticity. Main plot shows the power curves, with dots indicating non-reject and reject in visual testing of lineups. The multiple lines for the visual test arise from estimating the power on many bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot.\label{fig:heterpower}}
 \end{figure}
 
 These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in the attached paper.
 
-We have also tried to develop a prototype of the automatic visual inference system with pure simulated data. The model
-
 \hypertarget{thesis-structure}{%
 \section{Thesis structure}\label{thesis-structure}}
 
-The thesis is structured as follows. The first chapter describes the background on regression diagnostics, visual inference and computer vision models. The second chapter will be identical to the attached paper which focuses on the comparative study between visual testing and conventional testing in the application of regression diagnostics. The third chapter will describe the development of the a computer vision system to evaluate residual plot
+The thesis will be structured as follows.
 
-The fourth chapter will detail the
-
-The fifth chapter will be the discussion of the thesis and future work.
-
-The first chapter of the thesis will be the introduction
-The second chapter of thesis will be the
-
-The first project develops a prototype of automatic visual inference system for evaluating lineups of residual plots, with a focus on the classical normal linear regression model given it is one of the simplest predictive models. The automatic system is identical to the lineup protocol except evaluators are replaced by computer vision models. The computer vision models are trained by using data simulated from linear models with violations of different classical assumptions, such as linearity and homoscedasticity. Data of human performance on evaluating residual plots generated under the same simulation setting is collected by conducting online human subject experiments, such that the comparison between the power of human subject-assessed visual tests and the system-assessed visual tests can be made. Moreover, factors that affect the performance of the automatic system are studied for improving the architecture and design of the computer vision models.
-
-The second project aims to extend the automatic system to lineup protocol with no assumptions on the type of the data plot and the data generating process. It only requires the protocol to asks the evaluators to select the most different plot(s) from the lineup. The automatic system will be built upon image similarity produced by computer vision models.
-
-The third projects aims to package and deploy the automatic system as an adaptive online application such that empirical data can be collected and used in improving the system. Online machine learning technique will be used to update the weights of computer vision models dynamically.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Chapter One provides an overview of regression diagnostics, visual inference, and computer vision models. This chapter serves as an introductory section of the thesis and forms the basis for subsequent discussions.
+\item
+  Chapter Two presents a comparative study between visual testing and conventional testing in the context of regression diagnostics. This chapter will be identical to the attached paper.
+\item
+  Chapter Three discusses the development of an automatic visual inference system for evaluating lineups of residual plots. The computer vision models used in this chapter are primarily trained on simulated data from linear models that violate classical assumptions such as linearity and homoscedasticity. The chapter concludes with an evaluation of the performance of the system, comparing the power and characteristics of human subject-assessed visual tests with computer-assessed visual tests.
+\item
+  Chapter Four provides detailed description of the open-source software developed during the course of the research. This includes the R package \texttt{bandicoot} for code maintenance with object-oriented programming, \texttt{visage} for running visual inference experiments on linear regression models, and one or multiple R packages for employment of the automatic visual inference system. Additionally, an online application of the automatic visual inference system is introduced. This chapter may be splitted into multiple chapters to provide a more in-depth description of each tool.
+\item
+  Chapter Five offers a comprehensive discussion of the thesis, emphasizing the implications and contributions of the research. The chapter also addresses the limitations of the research and outlines potential future research directions.
+\end{enumerate}
 
 \hypertarget{timetable}{%
 \section{Timetable}\label{timetable}}
