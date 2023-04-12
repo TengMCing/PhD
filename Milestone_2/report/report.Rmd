@@ -31,11 +31,6 @@ library(visage)
 library(tidyverse)
 ```
 
-
-
-keywords:
-AI, data visualization, residual plot, visual inference, hypothesis testing, computer vision
-
 # Overview of the thesis
 
 ## Background and motivation
