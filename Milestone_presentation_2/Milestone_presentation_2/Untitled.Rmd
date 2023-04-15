@@ -73,9 +73,9 @@ count: false
 <br>
 <br>
 
-<h3 class="myblue"> Weihao (Patrick) Li </h3>
+<h4 class="myblue"> Weihao (Patrick) Li </h3>
 
-<h3 class="myblue"> Supervised by Di Cook, Emi Tanaka and Susan VanderPlas </h3>
+<h4 class="myblue"> Supervised by Di Cook, Emi Tanaka and Susan VanderPlas </h3>
 
 <!-- <h3 class="myblue"> `r format(Sys.Date(), format="%B %d, %Y")` </h3> -->
 ]
@@ -84,21 +84,33 @@ count: false
 
 <br>
 
-![](images/159.png)
+![](images/505.png)
 ]
 
 ---
 
-# Thesis structure (project structure)
+.center[
+# 📚Thesis structure📚
+]
 
-Mention we will focus on the first chapter. (bold the chapter text)
+1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
+3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+
+<br>
+<br>
+
+This presentation will be focused on the **first project**. Parts of the second and third project have been done and will be mentioned later.
 
 ---
 
-# Regression diagnostics
+.center[
+# 🔍Regression diagnostics🔍
+]
 
-Why we need to perform regression diagnostics?
-Available methods.
+#### Diagnostics are the key to determining whether there is anything importantly wrong with a model. 
+
+#### In linear regression analysis, residuals from the model fit are commonly used. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong.
 
 ---
 
