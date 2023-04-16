@@ -33,6 +33,7 @@ knitr::opts_chunk$set(
 
 
 ```{r}
+set.seed(10086)
 library(RefManageR)
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -93,9 +94,11 @@ count: false
 # 📚Thesis structure📚
 ]
 
-1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
-2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
-3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+#### 1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+
+#### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
+
+#### 3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
 
 <br>
 <br>
@@ -104,13 +107,318 @@ This presentation will be focused on the **first project**. Parts of the second 
 
 ---
 
+class: center, middle
+
+# A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
+
+---
+
 .center[
 # 🔍Regression diagnostics🔍
 ]
 
-#### Diagnostics are the key to determining whether there is anything importantly wrong with a model. 
+.pull-left-center-80[
 
-#### In linear regression analysis, residuals from the model fit are commonly used. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong.
+.image-bottom-0[
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
+dat <- mod$gen(300)
+
+bind_rows(
+  dat %>%
+    mutate(type = "(A) Good residuals"),
+  mod$set_prm("include_z", TRUE)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(B) Non-linearity"),
+  heter_model(b = 64)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(C) Heteroskedasticity"),
+  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+    gen(300, computed = select(dat, x)) %>%
+    mutate(type = "(D) Non-normality")
+) %>%
+  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  facet_wrap(~type, ncol = 2, scales = "free") +
+  theme(axis.text = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+
+**Residuals** summarise what is **not captured by the regression model**.
+
+**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
+
+]
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-left-center-80[
+
+.image-bottom-0[
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
+dat <- mod$gen(300)
+
+bind_rows(
+  dat %>%
+    mutate(type = "(A) Good residuals"),
+  mod$set_prm("include_z", TRUE)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(B) Non-linearity"),
+  heter_model(b = 64)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(C) Heteroskedasticity"),
+  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+    gen(300, computed = select(dat, x)) %>%
+    mutate(type = "(D) Non-normality")
+) %>%
+  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  facet_wrap(~type, ncol = 2, scales = "free") +
+  theme(axis.text = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+Many different hypothesis tests are available to detect specific model defects.
+
+Non-linearity: 
+  - **F-test**
+  - **RESET test** (Ramsey 1969)
+
+Heteroskedasticity: 
+  - **White test** (White 1980)
+  - **BP test** (Breusch and Pagan 1979)
+
+Non-normality: 
+  - **SW test** (Shapiro and Wilk 1965)
+  - **Jarque–Bera test** (Jarque and Bera 1980)
+
+]
+
+
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-left-center-80[
+
+.image-bottom-0[
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
+dat <- mod$gen(300)
+
+bind_rows(
+  dat %>%
+    mutate(type = "(A) Good residuals"),
+  mod$set_prm("include_z", TRUE)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(B) Non-linearity"),
+  heter_model(b = 64)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(C) Heteroskedasticity"),
+  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+    gen(300, computed = select(dat, x)) %>%
+    mutate(type = "(D) Non-normality")
+) %>%
+  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  facet_wrap(~type, ncol = 2, scales = "free") +
+  theme(axis.text = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
+
+Most residual-based tests for particular types of departure are also sensitive to other types of departures (Cook and Weisberg 1982).
+
+
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
+dat0 <- mod$gen(300)
+
+# Replicate data in Figure 1
+dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat0, x, e))
+dat2 <- heter_model(b = 64)$gen(300, computed = select(dat0, x, e))
+dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+               gen(300, computed = select(dat0, x))
+
+dat_list <- list(dat0, dat1, dat2, dat3)
+
+table_dat <- data.frame(plot = c("A", "B", "C", "D"), 
+                        model = c("None", 
+                                  "Non-linearity", 
+                                  "Heteroskedasticity", 
+                                  "Non-normality"),
+                        r = map_dbl(dat_list, 
+                                    ~POLY_MODEL$test(.x, 
+                                                     test = "RESET", 
+                                                     power = 2:4)$p_value),
+                        b = map_dbl(dat_list, 
+                                    ~HETER_MODEL$test(.x)$p_value),
+                        
+                        # SW test has not been included by visage
+                        s = map_dbl(dat_list, 
+                                    ~shapiro.test(.x$.resid)$p.value)) %>%
+  
+  # 3 decimal points
+  mutate(across(r:s, ~ format(round(.x, digits = 3), nsmall = 3))) %>%
+  
+  # Italic if reject
+  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) <= 0.05)))
+
+  table_dat %>%
+  knitr::kable(col.names = c("Plot", 
+                             "Departures", 
+                             "RESET", 
+                             "BP", 
+                             "SW"),
+               align = "llrrr",
+               escape = FALSE,
+               format = "html",
+               booktabs = TRUE)
+```
+
+.center[
+.caption[
+Tab. 1: _Statistical significance testing for departures from good residuals. Shown are the \\(p\\)-values calculated for the RESET, the BP and the SW tests._
+]
+]
+
+]
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-right-center-80[
+
+.image-bottom-0[
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(sigma = 8)
+dat <- mod$gen(1000)
+this_p_value <- mod$test(dat, test = "RESET", power = 2:4)
+dat %>%
+mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  theme(axis.text = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$._
+]
+]
+
+]
+
+.pull-left[
+
+With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
+
+While such rejections may be **statistically correct**, their sensitivity may render the results **impractical**. 
+
+**Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
+
+Therefore, a key goal of **residual plot diagnostics** is to **identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
+
+
+]
+
+
+---
+
+.center[
+# 📜Liteature of regression diagnostics📜
+]
+
+### Plotting the data is the recommended method by experts for diagnosing model fits. 
+
+- Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
+> Residual plots are usually revealing when the assumptions are violated.
+
+- Cook and Weisberg (1982):
+> Formal tests and graphical procedures are complementary and both have a place in residual analysis, but graphical methods are easier to use.
+
+- Montgomery and Peck (1982):
+> Residual plots are more informative in most practical situations than the corresponding conventional hypothesis tests.
 
 ---
 

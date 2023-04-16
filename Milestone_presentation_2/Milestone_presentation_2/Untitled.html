@@ -4,7 +4,7 @@
     <title>Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision</title>
     <meta charset="utf-8" />
     <meta name="author" content="Weihao (Patrick) Li" />
-    <meta name="date" content="2023-04-16" />
+    <meta name="date" content="2023-04-17" />
     <script src="Untitled_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="mine.css" type="text/css" />
@@ -37,7 +37,7 @@ count: false
 
 &lt;h4 class="myblue"&gt; Supervised by Di Cook, Emi Tanaka and Susan VanderPlas &lt;/h3&gt;
 
-&lt;!-- &lt;h3 class="myblue"&gt; April 16, 2023 &lt;/h3&gt; --&gt;
+&lt;!-- &lt;h3 class="myblue"&gt; April 17, 2023 &lt;/h3&gt; --&gt;
 ]
 
 .pull-right[
@@ -53,9 +53,11 @@ count: false
 # 📚Thesis structure📚
 ]
 
-1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
-2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
-3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+#### 1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+
+#### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
+
+#### 3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
 
 &lt;br&gt;
 &lt;br&gt;
@@ -64,13 +66,216 @@ This presentation will be focused on the **first project**. Parts of the second 
 
 ---
 
+class: center, middle
+
+# A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
+
+---
+
 .center[
 # 🔍Regression diagnostics🔍
 ]
 
-#### Diagnostics are the key to determining whether there is anything importantly wrong with a model. 
+.pull-left-center-80[
 
-#### In linear regression analysis, residuals from the model fit are commonly used. Residuals summarise what is not captured by the model, and thus provide the capacity to identify what might be wrong.
+.image-bottom-0[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+
+**Residuals** summarise what is **not captured by the regression model**.
+
+**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
+
+]
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-left-center-80[
+
+.image-bottom-0[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+Many different hypothesis tests are available to detect specific model defects.
+
+Non-linearity: 
+  - **F-test**
+  - **RESET test** (Ramsey 1969)
+
+Heteroskedasticity: 
+  - **White test** (White 1980)
+  - **BP test** (Breusch and Pagan 1979)
+
+Non-normality: 
+  - **SW test** (Shapiro and Wilk 1965)
+  - **Jarque–Bera test** (Jarque and Bera 1980)
+
+]
+
+
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-left-center-80[
+
+.image-bottom-0[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+]
+]
+
+]
+
+.pull-right-120[
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
+
+Most residual-based tests for particular types of departure are also sensitive to other types of departures (Cook and Weisberg 1982).
+
+
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Plot &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Departures &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; RESET &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; BP &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; None &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.779&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.133&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.728&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Non-linearity &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.039&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Heteroskedasticity &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.658&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Non-normality &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.863&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.736&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.center[
+.caption[
+Tab. 1: _Statistical significance testing for departures from good residuals. Shown are the \\(p\\)-values calculated for the RESET, the BP and the SW tests._
+]
+]
+
+]
+
+---
+
+.center[
+# 🔍Regression diagnostics🔍
+]
+
+.pull-right-center-80[
+
+.image-bottom-0[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 1: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`._
+]
+]
+
+]
+
+.pull-left[
+
+With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
+
+While such rejections may be **statistically correct**, their sensitivity may render the results **impractical**. 
+
+**Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
+
+Therefore, a key goal of **residual plot diagnostics** is to **identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
+
+
+]
+
+
+---
+
+.center[
+# 📜Liteature of regression diagnostics📜
+]
+
+### Plotting the data is the recommended method by experts for diagnosing model fits. 
+
+- Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
+&gt; Residual plots are usually revealing when the assumptions are violated.
+
+- Cook and Weisberg (1982):
+&gt; Formal tests and graphical procedures are complementary and both have a place in residual analysis, but graphical methods are easier to use.
+
+- Montgomery and Peck (1982):
+&gt; Residual plots are more informative in most practical situations than the corresponding conventional hypothesis tests.
 
 ---
 

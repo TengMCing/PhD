@@ -25,9 +25,27 @@
   flex-direction: column;
 }
 
+.pull-left-center-60 {
+  float: left;
+  width: 28%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .pull-right-center {
   float: right;
   width: 47%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pull-right-center-80 {
+  float: right;
+  width: 37%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -51,4 +69,28 @@
 
 .image-50 img {
   width: 50%;
+}
+
+.image-80 img {
+  width: 50%;
+}
+
+.table-40 table {
+  width: 40%;
+}
+
+.table-50 table {
+  width: 50%;
+}
+
+.table-60 table {
+  width: 60%;
+}
+
+.table-center-header th {
+  text-align: center
+}
+
+.image-bottom-0 p {
+  margin-bottom: 0;
 }
