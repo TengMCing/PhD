@@ -62,9 +62,10 @@
   width: 28%;
 }
 
-.pull-right-33p {
-  float: right;
-  width: 33%;
+.pull-left-33p {
+  float: left;
+  padding: 1rem;
+  width: 27%;
 }
 
 .pull-left-140 {
