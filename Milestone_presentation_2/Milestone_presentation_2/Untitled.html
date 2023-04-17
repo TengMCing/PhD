@@ -4,7 +4,7 @@
     <title>Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision</title>
     <meta charset="utf-8" />
     <meta name="author" content="Weihao (Patrick) Li" />
-    <meta name="date" content="2023-04-17" />
+    <meta name="date" content="2023-04-18" />
     <script src="Untitled_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="mine.css" type="text/css" />
@@ -37,7 +37,7 @@ count: false
 
 &lt;h4 class="myblue"&gt; Supervised by Di Cook, Emi Tanaka and Susan VanderPlas &lt;/h3&gt;
 
-&lt;!-- &lt;h3 class="myblue"&gt; April 17, 2023 &lt;/h3&gt; --&gt;
+&lt;!-- &lt;h3 class="myblue"&gt; April 18, 2023 &lt;/h3&gt; --&gt;
 ]
 
 .pull-right[
@@ -50,7 +50,7 @@ count: false
 ---
 
 .center[
-# 📚Thesis structure📚
+# 📚Thesis Structure📚
 ]
 
 &lt;br&gt;
@@ -72,6 +72,49 @@ class: center, middle
 
 # A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
 
+#### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
+
+---
+
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+
+**Residuals** summarise what is **not captured by the regression model**. Many different residual-based hypothesis tests are available to detect specific model defects.
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.pull-right-33p[
+
+Non-linearity: 
+  - **F-test**
+  - **RESET test** (Ramsey 1969)
+]
+
+.pull-right-33p[
+
+Heteroskedasticity: 
+  - **White test** (White 1980)
+  - **BP test** (Breusch and Pagan 1979)
+  
+]
+
+.pull-right-33p[
+
+Non-normality: 
+  - **SW test** (Shapiro and Wilk 1965)
+  - **Jarque–Bera test** (Jarque and Bera 1980)
+  
+]
+
+
+
+  
 ---
 
 .pull-left-center[
@@ -92,7 +135,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 &lt;br&gt;
 
@@ -124,7 +167,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 &lt;br&gt;
 
@@ -166,12 +209,13 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 
 BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
 
 Most residual-based tests for particular types of departure are also sensitive to **other types of departures** (Cook and Weisberg 1982).
+
 
 
 
@@ -245,14 +289,14 @@ Fig. 2: _One classically good looking residual plot but rejected by the RESET te
 
 .pull-left[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 &lt;br&gt;
 &lt;br&gt;
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
+- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes. 
 
 Residual plot diagnostics:
   - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
@@ -263,10 +307,10 @@ Residual plot diagnostics:
 ---
 
 .center[
-# 📜Liteature of regression diagnostics📜
+# 📜Liteature of Regression Diagnostics📜
 ]
 
-### Plotting the data is the recommended method by experts for diagnosing model fits. 
+### Grahpical approaches (plots) are the recommended methods for diagnosing model fits. 
 
 - Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
 &gt; Residual plots are usually revealing when the assumptions are violated.
@@ -289,7 +333,7 @@ Residual plot diagnostics:
 
 .center[
 .caption[
-Fig. 3: _Residual plot of a simple linear regression._
+Fig. 3: _Residual plot of a simple linear regression (more meaningful)._
 ]
 ]
 
@@ -297,7 +341,7 @@ Fig. 3: _Residual plot of a simple linear regression._
 
 .pull-right[
 
-# 🤔False visual discoveries🤔
+# 🤔False Visual Discoveries🤔
 
 &lt;br&gt;
 &lt;br&gt;
@@ -316,9 +360,20 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 .pull-left[
 
-# Visual inference
+# 🔬Visual Inference🔬
 
-If we embed the residual plot in a matrix of **null plots**, we will find the visual discovery is 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+If we embed the residual plot in a matrix of **null plots**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- The visual pattern is **over-interpreted**! 
+
+&lt;br&gt;
+&lt;br&gt;
+
+### The visual discovery is calibrated via comparison.
 
 ]
 
@@ -332,6 +387,35 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 ]
 
 ]
+
+---
+
+.pull-left[
+
+# 🔬Visual Inference🔬
+
+&lt;br&gt;
+&lt;br&gt;
+
+**Visual inference** was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+
+A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **data plot** and the remaining `\(m − 1\)` plots (**null plots**) contain data consistent with the null hypothesis.
+
+To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup.
+
+]
+
+.pull-right-center[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+.center[
+.caption[
+Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
+]
+]
+
+]
+
 
 ---
 
@@ -437,7 +521,7 @@ Provide an overview of the collated data.
 <script src="scripts/my_macro.js"></script>
 <script>var slideshow = remark.create({
 "countIncrementalSlides": false,
-"slideNumberFormat": "%current%/%total%",
+"slideNumberFormat": "%current%",
 "highlightStyle": "github",
 "highlightLines": true,
 "ratio": "16:9"

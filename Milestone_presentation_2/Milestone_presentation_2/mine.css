@@ -62,6 +62,11 @@
   width: 28%;
 }
 
+.pull-right-33p {
+  float: right;
+  width: 33%;
+}
+
 .pull-left-140 {
   float: left;
   width: 66%;

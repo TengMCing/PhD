@@ -12,7 +12,7 @@ output:
       countdown: 55000
       beforeInit: "scripts/my_macro.js"
       countIncrementalSlides: false
-      slideNumberFormat: "%current%/%total%"
+      slideNumberFormat: "%current%"
       highlightStyle: github
       highlightLines: true
       ratio: 16:9
@@ -53,7 +53,7 @@ library(visage)
 style_solarized_light(
   background_color = "#FFFFFF",
   header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
+  text_font_google   = google_font("Montserrat", "300", "300i", "400i", "600"),
   code_font_google   = google_font("Fira Mono"),
   text_color = "#000000",
   text_font_size = "1.0rem",
@@ -92,7 +92,7 @@ count: false
 ---
 
 .center[
-# 📚Thesis structure📚
+# 📚Thesis Structure📚
 ]
 
 <br>
@@ -114,6 +114,49 @@ class: center, middle
 
 # A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
 
+#### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
+
+---
+
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+
+**Residuals** summarise what is **not captured by the regression model**. Many different residual-based hypothesis tests are available to detect specific model defects.
+
+
+<br>
+<br>
+<br>
+
+.pull-right-33p[
+
+Non-linearity: 
+  - **F-test**
+  - **RESET test** (Ramsey 1969)
+]
+
+.pull-right-33p[
+
+Heteroskedasticity: 
+  - **White test** (White 1980)
+  - **BP test** (Breusch and Pagan 1979)
+  
+]
+
+.pull-right-33p[
+
+Non-normality: 
+  - **SW test** (Shapiro and Wilk 1965)
+  - **Jarque–Bera test** (Jarque and Bera 1980)
+  
+]
+
+
+
+  
 ---
 
 .pull-left-center[
@@ -161,7 +204,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 <br>
 
@@ -220,7 +263,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 <br>
 
@@ -289,12 +332,13 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .pull-right[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 
 BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
 
 Most residual-based tests for particular types of departure are also sensitive to **other types of departures** (Cook and Weisberg 1982).
+
 
 
 
@@ -389,14 +433,14 @@ Fig. 2: _One classically good looking residual plot but rejected by the RESET te
 
 .pull-left[
 
-# 🔍Regression diagnostics🔍
+# 🔍Regression Diagnostics🔍
 
 <br>
 <br>
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
+- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes. 
 
 Residual plot diagnostics:
   - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
@@ -407,10 +451,10 @@ Residual plot diagnostics:
 ---
 
 .center[
-# 📜Liteature of regression diagnostics📜
+# 📜Liteature of Regression Diagnostics📜
 ]
 
-### Plotting the data is the recommended method by experts for diagnosing model fits. 
+### Grahpical approaches (plots) are the recommended methods for diagnosing model fits. 
 
 - Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
 > Residual plots are usually revealing when the assumptions are violated.
@@ -442,7 +486,7 @@ ori_dat %>%
 
 .center[
 .caption[
-Fig. 3: _Residual plot of a simple linear regression._
+Fig. 3: _Residual plot of a simple linear regression (more meaningful)._
 ]
 ]
 
@@ -450,7 +494,7 @@ Fig. 3: _Residual plot of a simple linear regression._
 
 .pull-right[
 
-# 🤔False visual discoveries🤔
+# 🤔False Visual Discoveries🤔
 
 <br>
 <br>
@@ -469,9 +513,20 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 .pull-left[
 
-# Visual inference
+# 🔬Visual Inference🔬
 
-If we embed the residual plot in a matrix of **null plots**, we will find the visual discovery is 
+<br>
+<br>
+<br>
+
+If we embed the residual plot in a matrix of **null plots**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- The visual pattern is **over-interpreted**! 
+
+<br>
+<br>
+
+### The visual discovery is calibrated via comparison.
 
 ]
 
@@ -493,6 +548,43 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 ]
 
 ]
+
+---
+
+.pull-left[
+
+# 🔬Visual Inference🔬
+
+<br>
+<br>
+
+**Visual inference** was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+
+A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) contain data consistent with the null hypothesis.
+
+To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup.
+
+]
+
+.pull-right-center[
+
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+.center[
+.caption[
+Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
+]
+]
+
+]
+
 
 ---
 
