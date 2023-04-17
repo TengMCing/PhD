@@ -240,7 +240,7 @@ Tab. 1: _Statistical significance testing for departures from good residuals. Sh
 
 .center[
 .caption[
-Fig. 1: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`._
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`._
 ]
 ]
 
@@ -250,7 +250,7 @@ Fig. 1: _One classically good looking residual plot but rejected by the RESET te
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-While such rejections may be **statistically correct**, their sensitivity may render the results **impractical**. 
+While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. 
 
 **Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
 
@@ -279,12 +279,52 @@ Therefore, a key goal of **residual plot diagnostics** is to **identify** potent
 
 ---
 
-# Reading residual plot vs. conventional statistical testing
+.center[
+# 💔False visual discoveries💔
+]
 
-(Use non-linearity as the example)
+.pull-left-center-80[
 
-How people read residual plot?
-How statistical testing detect residual departures?
+.image-bottom-0[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 3: _Residual plot of a simple linear regression._
+]
+]
+
+]
+
+.pull-right[
+
+Can you find the evidence on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
+
+**Unsecured** and **unconfirmed** visual discoveries will lead to **over or under-interpretations of the data**.
+
+]
+
+---
+
+# Visual inference
+
+.pull-right-center-80[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+.center[
+.caption[
+Fig. 4: _Lineup of residual plots._
+]
+]
+
+]
 
 ---
 

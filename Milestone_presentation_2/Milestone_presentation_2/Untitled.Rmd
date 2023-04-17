@@ -383,7 +383,7 @@ mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
 
 .center[
 .caption[
-Fig. 1: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$._
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$._
 ]
 ]
 
@@ -393,7 +393,7 @@ Fig. 1: _One classically good looking residual plot but rejected by the RESET te
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-While such rejections may be **statistically correct**, their sensitivity may render the results **impractical**. 
+While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. 
 
 **Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
 
@@ -422,12 +422,69 @@ Therefore, a key goal of **residual plot diagnostics** is to **identify** potent
 
 ---
 
-# Reading residual plot vs. conventional statistical testing
+.center[
+# 💔False visual discoveries💔
+]
 
-(Use non-linearity as the example)
+.pull-left-center-80[
 
-How people read residual plot?
-How statistical testing detect residual departures?
+.image-bottom-0[
+
+```{r}
+set.seed(10131)
+mod <- heter_model(b = 0, x = rand_lognormal())
+ori_dat <- mod$gen(300)
+
+ori_dat %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12)) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 3: _Residual plot of a simple linear regression._
+]
+]
+
+]
+
+.pull-right[
+
+Can you find the evidence on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
+
+**Unsecured** and **unconfirmed** visual discoveries will lead to **over or under-interpretations of the data**.
+
+]
+
+---
+
+# Visual inference
+
+.pull-right-center-80[
+
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+.center[
+.caption[
+Fig. 4: _Lineup of residual plots._
+]
+]
+
+]
 
 ---
 
