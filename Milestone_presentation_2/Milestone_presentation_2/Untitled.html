@@ -53,6 +53,8 @@ count: false
 # 📚Thesis structure📚
 ]
 
+&lt;br&gt;
+
 #### 1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
 
 #### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
@@ -72,11 +74,7 @@ class: center, middle
 
 ---
 
-.center[
-# 🔍Regression diagnostics🔍
-]
-
-.pull-left-center-80[
+.pull-left-center[
 
 .image-bottom-0[
 
@@ -92,7 +90,11 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 ]
 
-.pull-right-120[
+.pull-right[
+
+# 🔍Regression diagnostics🔍
+
+&lt;br&gt;
 
 **Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
 
@@ -104,11 +106,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 ---
 
-.center[
-# 🔍Regression diagnostics🔍
-]
-
-.pull-left-center-80[
+.pull-left-center[
 
 .image-bottom-0[
 
@@ -124,7 +122,11 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 ]
 
-.pull-right-120[
+.pull-right[
+
+# 🔍Regression diagnostics🔍
+
+&lt;br&gt;
 
 Many different hypothesis tests are available to detect specific model defects.
 
@@ -146,11 +148,7 @@ Non-normality:
 
 ---
 
-.center[
-# 🔍Regression diagnostics🔍
-]
-
-.pull-left-center-80[
+.pull-left-center[
 
 .image-bottom-0[
 
@@ -166,11 +164,14 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 ]
 
-.pull-right-120[
+.pull-right[
+
+# 🔍Regression diagnostics🔍
+
 
 BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
 
-Most residual-based tests for particular types of departure are also sensitive to other types of departures (Cook and Weisberg 1982).
+Most residual-based tests for particular types of departure are also sensitive to **other types of departures** (Cook and Weisberg 1982).
 
 
 
@@ -226,11 +227,7 @@ Tab. 1: _Statistical significance testing for departures from good residuals. Sh
 
 ---
 
-.center[
-# 🔍Regression diagnostics🔍
-]
-
-.pull-right-center-80[
+.pull-right-center[
 
 .image-bottom-0[
 
@@ -248,14 +245,17 @@ Fig. 2: _One classically good looking residual plot but rejected by the RESET te
 
 .pull-left[
 
+# 🔍Regression diagnostics🔍
+
+&lt;br&gt;
+&lt;br&gt;
+
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. 
+- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
 
-**Minor defects** in the model are **unlikely** to have a **significant impact** and may be best disregarded for practical purposes. 
-
-Therefore, a key goal of **residual plot diagnostics** is to **identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
-
+Residual plot diagnostics:
+  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
 
 ]
 
@@ -279,11 +279,7 @@ Therefore, a key goal of **residual plot diagnostics** is to **identify** potent
 
 ---
 
-.center[
-# 💔False visual discoveries💔
-]
-
-.pull-left-center-80[
+.pull-left-center[
 
 .image-bottom-0[
 
@@ -301,6 +297,11 @@ Fig. 3: _Residual plot of a simple linear regression._
 
 .pull-right[
 
+# 🤔False visual discoveries🤔
+
+&lt;br&gt;
+&lt;br&gt;
+
 Can you find the evidence on heteroskedasticity?
 
 - Vertical spread of the points varies with the fitted values.
@@ -313,14 +314,20 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 ---
 
+.pull-left[
+
 # Visual inference
 
-.pull-right-center-80[
+If we embed the residual plot in a matrix of **null plots**, we will find the visual discovery is 
+
+]
+
+.pull-right-center[
 
 &lt;img src="Untitled_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
 .center[
 .caption[
-Fig. 4: _Lineup of residual plots._
+Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
 ]
 ]
 
