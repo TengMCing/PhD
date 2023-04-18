@@ -242,20 +242,16 @@ But there are **drawbacks** of using them.
 
 ---
 
-
-.pull-left-center[
+.pull-left-center-80[
 
 .image-bottom-0[
 
 ```{r}
 set.seed(10086)
-
 # Base model
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
-
 # Base data
 dat <- mod$gen(300)
-
 bind_rows(
   dat %>%
     mutate(type = "(A) Good residuals"),
@@ -286,28 +282,29 @@ Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non
 
 ]
 
-.pull-right[
+.pull-right-120[
 
 # 🔍Regression Diagnostics🔍
+
+<br>
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
+
+<br>
 
 
 ```{r}
 set.seed(10086)
-
 # Base model
 mod <- poly_model(include_z = FALSE, sigma = 0.25)
-
 # Base data
 dat0 <- mod$gen(300)
-
 # Replicate data in Figure 1
 dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat0, x, e))
 dat2 <- heter_model(b = 64)$gen(300, computed = select(dat0, x, e))
 dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
                gen(300, computed = select(dat0, x))
-
 dat_list <- list(dat0, dat1, dat2, dat3)
-
 table_dat <- data.frame(plot = c("A", "B", "C", "D"), 
                         model = c("None", 
                                   "Non-linearity", 
@@ -328,8 +325,7 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
   mutate(across(r:s, ~ format(round(.x, digits = 3), nsmall = 3))) %>%
   
   # Italic if reject
-  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) <= 0.05)))
-
+  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) <= 0.05, color = ifelse(as.numeric(.x) <= 0.05, "red", "black"))))
   table_dat %>%
   knitr::kable(col.names = c("Plot", 
                              "Departures", 
@@ -374,7 +370,7 @@ mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
 
 .center[
 .caption[
-Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$._
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$. The model is misspecified but the departure from the model assumption is small._
 ]
 ]
 
@@ -389,7 +385,7 @@ Fig. 2: _One classically good looking residual plot but rejected by the RESET te
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes. 
+<!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  -->
 
 Residual plot diagnostics:
   - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
@@ -435,7 +431,7 @@ ori_dat %>%
 
 .center[
 .caption[
-Fig. 3: _Residual plot of a simple linear regression (more meaningful)._
+Fig. 3: _Residual plot of a correctly specified model exhibiting a heteroskedasticity pattern (triangle shape)._
 ]
 ]
 
@@ -454,7 +450,7 @@ Can you find the evidence on heteroskedasticity?
 
 However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
 
-**Unsecured** and **unconfirmed** visual discoveries will lead to **over or under-interpretations of the data**.
+**Unconfirmed** visual discoveries could result in **over or under-interpretations of the data**.
 
 ]
 
@@ -466,14 +462,14 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 <br>
 <br>
-<br>
 
-If we embed the residual plot in a matrix of **null plots**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
 
-- The visual pattern is **over-interpreted**! 
+- Can you find the **most different plot**? 
 
-<br>
-<br>
+- Is it the residual plot presented at the previous page?
+
+- If it is not, then the visual pattern is **over-interpreted**! 
 
 ### The visual discovery is calibrated via comparison.
 
@@ -507,7 +503,7 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 <br>
 <br>
 
-**Visual inference** was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+This procedure is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
 
 A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) contain data consistent with the null hypothesis.
 
@@ -533,15 +529,6 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 ]
 
 ]
-
-
----
-
-# Visual inference
-
-What is visual inference?
-
-Underline that it is a valid inferential framework. Highlights the difference from reading a residual plot.
 
 ---
 

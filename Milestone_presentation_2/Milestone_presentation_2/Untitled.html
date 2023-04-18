@@ -163,7 +163,7 @@ Non-normality:
 .float-left[
 But there are **drawbacks** of using them.
 
-- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, results in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
+- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
 
 - Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
 
@@ -172,8 +172,7 @@ But there are **drawbacks** of using them.
 
 ---
 
-
-.pull-left-center[
+.pull-left-center-80[
 
 .image-bottom-0[
 
@@ -189,9 +188,15 @@ Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non
 
 ]
 
-.pull-right[
+.pull-right-120[
 
 # 🔍Regression Diagnostics🔍
+
+&lt;br&gt;
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
+
+&lt;br&gt;
 
 
 &lt;table&gt;
@@ -208,30 +213,30 @@ Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; None &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.779&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.133&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.728&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.779&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.133&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.728&lt;/span&gt; &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Non-linearity &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.039&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.039&lt;/span&gt; &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Heteroskedasticity &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.658&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.658&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Non-normality &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.863&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     " &gt;0.736&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   " &gt;0.000&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.863&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.736&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -256,7 +261,7 @@ Tab. 1: _Statistical significance testing for departures from good residuals. Sh
 
 .center[
 .caption[
-Fig. 2: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`._
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`. The model is misspecified but the departure from the model assumption is small._
 ]
 ]
 
@@ -271,7 +276,7 @@ Fig. 2: _One classically good looking residual plot but rejected by the RESET te
 
 With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
 
-- While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes. 
+&lt;!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  --&gt;
 
 Residual plot diagnostics:
   - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
@@ -308,7 +313,7 @@ Residual plot diagnostics:
 
 .center[
 .caption[
-Fig. 3: _Residual plot of a simple linear regression (more meaningful)._
+Fig. 3: _Residual plot of a correctly specified model exhibiting a heteroskedasticity pattern (triangle shape)._
 ]
 ]
 
@@ -327,7 +332,7 @@ Can you find the evidence on heteroskedasticity?
 
 However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
 
-**Unsecured** and **unconfirmed** visual discoveries will lead to **over or under-interpretations of the data**.
+**Unconfirmed** visual discoveries could result in **over or under-interpretations of the data**.
 
 ]
 
@@ -339,14 +344,15 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 &lt;br&gt;
 &lt;br&gt;
-&lt;br&gt;
 
-If we embed the residual plot in a matrix of **null plots**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
 
-- The visual pattern is **over-interpreted**! 
+- Can you find the **most different plot**? 
 
-&lt;br&gt;
-&lt;br&gt;
+- Is it the residual plot presented at the previous page?
+
+- If it is not, then the visual pattern is **over-interpreted**! 
+
 
 ### The visual discovery is calibrated via comparison.
 
@@ -372,7 +378,7 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 &lt;br&gt;
 &lt;br&gt;
 
-**Visual inference** was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+This procedure is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
 
 A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **data plot** and the remaining `\(m − 1\)` plots (**null plots**) contain data consistent with the null hypothesis.
 

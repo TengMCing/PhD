@@ -16,6 +16,15 @@
   flex-direction: column;
 }
 
+.pull-left-center-90 {
+  float: left;
+  width: 42%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .pull-left-center-80 {
   float: left;
   width: 37%;
@@ -55,6 +64,11 @@
 .pull-right-120 {
   float: right;
   width: 57%;
+}
+
+.pull-right-110 {
+  float: right;
+  width: 52%;
 }
 
 .pull-right-60 {
@@ -99,6 +113,12 @@
 
 .image-bottom-0 p {
   margin-bottom: 0;
+}
+
+
+.table-top-0 table {
+  margin-top: 0;
+  font-size: 80%;
 }
 
 .caption p {

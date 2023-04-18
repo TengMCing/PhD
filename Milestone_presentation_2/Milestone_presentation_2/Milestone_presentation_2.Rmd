@@ -128,6 +128,7 @@ Fig. 1: *Residual plot of a simple linear regression.*
 count: false
 
 .pull-left-center[
+
 ```{r}
 filter(eval_data, id == 9586, null == TRUE) %>%
   VI_MODEL$plot(theme = theme_light(base_size = 12), size = 1) +
