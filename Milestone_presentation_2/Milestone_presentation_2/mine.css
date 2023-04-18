@@ -115,6 +115,11 @@
   margin-bottom: 0;
 }
 
+.image-center img {
+  display: block;
+  margin: auto;
+}
+
 
 .table-top-0 table {
   margin-top: 0;
