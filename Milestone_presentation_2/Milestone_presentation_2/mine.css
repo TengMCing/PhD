@@ -111,7 +111,8 @@
   text-align: center
 }
 
-.image-bottom-0 p {
+.image-top-bottom-0 p {
+  margin-top: 0;
   margin-bottom: 0;
 }
 

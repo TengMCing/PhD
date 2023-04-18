@@ -140,7 +140,7 @@ class: center, middle
 
 --
 
-.image-bottom-0[
+.image-top-bottom-0[
 
 ```{r fig.height = 2.5, fig.width = 10}
 set.seed(10086)
@@ -244,7 +244,7 @@ But there are **drawbacks** of using them.
 
 .pull-left-center-80[
 
-.image-bottom-0[
+.image-top-bottom-0[
 
 ```{r}
 set.seed(10086)
@@ -350,7 +350,7 @@ Tab. 1: _Statistical significance testing for departures from good residuals. Sh
 
 .pull-right-center[
 
-.image-bottom-0[
+.image-top-bottom-0[
 
 ```{r}
 set.seed(10086)
@@ -414,7 +414,7 @@ Residual plot diagnostics:
 
 .pull-left-center[
 
-.image-bottom-0[
+.image-top-bottom-0[
 
 ```{r}
 set.seed(10131)
@@ -888,8 +888,11 @@ Fig. 5: _Four different distribution of fitted values that might affect percepti
 # 📏Effect size📏
 ]
 
+--
 
 We have chosen to use an approach based on **Kullback-Leibler divergence** (Kullback and Leibler 1951).
+
+--
 
 The effect size of the **non-linearity model** is
 
@@ -898,10 +901,98 @@ $$E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}\sigma^2))^{-1}\bo
 where $diag(.)$ is the diagonal matrix constructed from the diagonal elements of a matrix,
 $\boldsymbol{R} = \boldsymbol{I}_n - \boldsymbol{H}$ is the residual operator, $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'$ is the hat matrix, $\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z$ is the expected values of residuals with $\boldsymbol{Z}$ be any higher order terms of $\boldsymbol{X}$ leave out by the regression equation and $\boldsymbol{\beta}_z$ be the corresponding coefficients, and $\sigma^2\boldsymbol{I}$ is the assumed covariance matrix of the error term when $H_0$ is true.
 
+--
+
 And the effect size of the **heteroskedasticity model** is
 
 $$E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|diag(\boldsymbol{R})|} - n + tr(diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}diag(\boldsymbol{R}))\right),$$
 where $\boldsymbol{V}$ is the actual covariance matrix of the error term.
+
+---
+
+.center[
+# 🛠️Experimental Setup🛠️
+]
+
+We recruited 443 subjects from an crowd-sourcing platform called **Prolific** (Palan and Schitter 2018) throughout **three data collection periods**. 
+- 160 subjects for period I
+- 160 subjects for period II
+- 123 subjects for period III
+
+--
+
+During the experiment, every subject is presented with **a block of 20 lineups**.
+
+--
+
+The subject is asked to:
+- Select **one or more** plots that are **most different** from others.
+- Provide **a reason** for their selections.
+- Evaluate **how different** they think the selected plots are from others. 
+
+--
+
+If there is **no noticeable difference** between plots in a lineup, subjects are permitted to **select zero plots** without providing the reason.
+
+--
+
+A subject’s submission is only accepted if the data plot is identified for **at least one attention check**.
+
+---
+
+![](images/lineup1.png)
+
+.center[
+.caption[
+Fig. 5: _Screenshot of the study website._
+]
+]
+
+---
+
+class: center, middle
+
+# ⚖️Results - Power Comparison of the Tests⚖️
+
+---
+
+.image-top-bottom-0[
+
+.image-center[
+
+```{r out.width = "80%"}
+knitr::include_graphics("images/polypower-1.png")
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _Comparison of power between different tests for non-linear patterns (uniform fitted values only). The horizontal lines of dots represent non-reject and reject results from visual tests for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot._
+]
+]
+
+---
+
+.image-top-bottom-0[
+
+.image-center[
+
+```{r out.width = "80%"}
+knitr::include_graphics("images/heterpower-1.png")
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). The horizontal lines of dots represent non-reject and reject results from visual tests for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot._
+]
+]
 
 ---
 
