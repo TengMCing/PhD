@@ -106,7 +106,7 @@ count: false
 <br>
 <br>
 
-This presentation will be focused on the **first project**. Parts of the second and third project have been done and will be mentioned later.
+This presentation will be focused on the **first project**. 
 
 ---
 
@@ -996,91 +996,151 @@ Fig. 5: _Comparison of power between different tests for heteroskedasticity patt
 
 ---
 
-# Integrate visual tests into regression diagnostics
+.center[
+# ⚖️Results - Comparison of Test Decisions⚖️
+]
 
-(Still use non-linearity as the example)
+.image-top-bottom-0[
 
-How to perform a visual test in the context of regression diagnostics. 
+.image-center[
 
-Show the $p$-value by assuming the responses.
+```{r out.width = "70%"}
+magick::image_read_pdf("images/p-value-comparison-1.pdf", pages = 1)
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _Rejection rate (\\(p\\)-value \\(\leq0.05\\)) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test, and (almost) only rejects when the conventional test does. Surprisingly, one lineup in the heteroskedasticity group is rejected by the visual test but NOT the conventional test._
+]
+]
+
+---
+
+.center[
+# ⚖️Results - Effect of Amount of Non-linearity⚖️
+]
+
+.image-top-bottom-0[
+
+.image-center[
+
+```{r out.width = "80%"}
+magick::image_read_pdf("images/poly-power-uniform-j-1.pdf", pages = 1)
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _The effect of the order of the polynomial on the power of conventional and visual tests. Deeper colour indicates higher order. The default RESET tests under-performs significantly in detecting the "triple-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test, but this higher than the recommended value._
+]
+]
+
+---
+
+.center[
+# ⚖️Results - Effect of Shape of Heteroskedasticity⚖️
+]
+
+.image-top-bottom-0[
+
+.image-center[
+
+```{r out.width = "80%"}
+magick::image_read_pdf("images/heter-power-uniform-a-1.pdf", pages = 1)
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _The effect of heteroskedasticity shape (parameter \\(a\\)) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has slightly higher power for the "left-triangle" than the "right-triangle" shape, when it would be expected that they should be identical, which is observed in conventional testing._
+]
+]
+
+---
+
+class: middle, center
+
+# ⚖️Results - Effect of Fitted Value Distributions⚖️
+
+---
+
+.image-top-bottom-0[
+
+.image-center[
+
+
+```{r out.width = "60%"}
+knitr::include_graphics("images/different-x-dist-poly-power-1.png")
+```
+
+]
+
+]
+
+.center[
+.caption[
+Fig. 5: _Comparison of power on lineups with different fitted value distributions for conventional and visual tests for non-linearity and heteroskedasticity patterns. The power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and BP tests, respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with a uniform fitted value distribution, the five evaluations are repeatedly sampled from the total eleven evaluations to give multiple power curves (grey). Surprisingly, the fitted value distribution has produces more variability in the power of conventional tests than visual tests. Uneven distributions, normal and lognormal distributions, tend to yield lower power._
+]
+]
+
+---
+
+.center[
+# 🧐Conclusion🧐
+]
 
 
 ---
 
-# Limitations of visual inference
+.center[
+# 📅Timetable📅
+]
 
-Discuss the limitations of visual inference.
 
----
-
-# Computer vision models
-
-Briefly mention the potential solution to the problem.
-
----
-
-# A compartative study
-
-Provide the motivation and main objective of conducting such an experiment.
-
----
-
-# Experiment design
-
-Outlines the model used to simulate the experiment data.
-
----
-
-# Effect size
-
-Describe the effect size calculation.
-
----
-
-# $P$-value calculation
-
-Briefly discuss the $p$-value calculation.
+```{r}
+data.frame(Date = c("April", 
+                    "May",
+                    "June",
+                    "July",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                    "Mar",
+                    "Aug"), 
+           Event = c("Submit the abstract of the first paper to Australian Statistical Conference (ASC)", 
+                     "Submit the first paper",
+                     "Submit a poster for the first paper to Institute of Electrical and Electronics Engineers (IEEE) Visualization Conference",
+                     "Leave for a month",
+                     "Finalize the computer vision model",
+                     "Attend the IEEE Visualization Conference",
+                     "Start the web interface development",
+                     "Attend the ASC",
+                     "Submit the second paper",
+                     "Submit thesis")) %>%
+  kableExtra::kable(booktabs = TRUE) %>%
+  kableExtra::group_rows("2023", 1, 8) %>%
+  kableExtra::group_rows("2024", 9, 10)
+```
 
 ---
 
-# Power estimation
+class: center, middle
 
-Write down the model used to estimate the power.
-
----
-
-# Study website
-
-Provide screenshots/examples of the study website.
+# Thanks!
 
 ---
 
-# Results
-
-Provide an overview of the collated data.
-
----
-
-# Power comparison of the tests
-
----
-
-# Comparison of test decisions based on $p$-values
-
----
-
-# Effect of amount of non-linearity
-
----
-
-# Effect of shape of heteroskedasticity
-
----
-
-# Effect of fitted value distributions
-
-
-
----
-
-# Timetable
+.center[
+# 📖Bibliography📖
+]
