@@ -664,6 +664,42 @@ Fig. 5: _Heteroskedasticity forms generated for the residual plots are controlle
 ]
 ]
 
+---
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
+
+.image-center[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-15-1.png" width="70%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 5: _Four different distribution of fitted values that might affect perception of residual plots are used. Three differnet values of \\(n\\) are used to control the signal strength._
+]
+]
+
+---
+
+.center[
+# 📏Effect size📏
+]
+
+
+We have chosen to use an approach based on **Kullback-Leibler divergence** (Kullback and Leibler 1951).
+
+The effect size of the **non-linearity model** is
+
+`$$E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}\sigma^2))^{-1}\boldsymbol{\mu}_z\right),$$`
+
+where `\(diag(.)\)` is the diagonal matrix constructed from the diagonal elements of a matrix,
+`\(\boldsymbol{R} = \boldsymbol{I}_n - \boldsymbol{H}\)` is the residual operator, `\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\)` is the hat matrix, `\(\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z\)` is the expected values of residuals with `\(\boldsymbol{Z}\)` be any higher order terms of `\(\boldsymbol{X}\)` leave out by the regression equation and `\(\boldsymbol{\beta}_z\)` be the corresponding coefficients, and `\(\sigma^2\boldsymbol{I}\)` is the assumed covariance matrix of the error term when `\(H_0\)` is true.
+
+And the effect size of the **heteroskedasticity model** is
+
+`$$E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|diag(\boldsymbol{R})|} - n + tr(diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}diag(\boldsymbol{R}))\right),$$`
+where `\(\boldsymbol{V}\)` is the actual covariance matrix of the error term.
 
 ---
 
