@@ -532,6 +532,30 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 
 ---
 
+.center[
+# 🎲Simulate Residuals from the Assumed Model🎲
+]
+
+
+Data used in the $m − 1$ null plots needs to be simulated.
+
+For classical normal linear regression model, the **residual rotation** technique (Buja, et al. 2009) can be applied:
+
+<br>
+
+<p> 1. Generate independent random draws \(w_i, i=1,...,N\) from \(N(0, 1)\). </p>
+
+<br>
+
+<p> 2. Regress \(w\) on \(x\) and obtain the residuals \(r_i, i=1,...,N\). </p>
+
+<br>
+
+<p> 3. Rescale \(r_i\) by \(\sqrt{RSS_{old}/RSS_{new}}\) to obtain the simulated residuals, where \(RSS_{old}\) is the residual sum of square of the original regression, and \(RSS_{new}\) is the residual sum of square of the regression fitted on step 2. </p>
+
+
+---
+
 # Integrate visual tests into regression diagnostics
 
 (Still use non-linearity as the example)

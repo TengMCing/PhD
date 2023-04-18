@@ -353,7 +353,6 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 - If it is not, then the visual pattern is **over-interpreted**! 
 
-
 ### The visual discovery is calibrated via comparison.
 
 ]
@@ -397,14 +396,29 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 
 ]
 
-
 ---
 
-# Visual inference
+.center[
+# 🎲Simulate Residuals from the Assumed Model🎲
+]
 
-What is visual inference?
 
-Underline that it is a valid inferential framework. Highlights the difference from reading a residual plot.
+Data used in the `\(m − 1\)` null plots needs to be simulated.
+
+For classical normal linear regression model, the **residual rotation** technique (Buja, et al. 2009) can be applied:
+
+&lt;br&gt;
+
+&lt;p&gt; 1. Generate independent random draws \(w_i, i=1,...,N\) from \(N(0, 1)\). &lt;/p&gt;
+
+&lt;br&gt;
+
+&lt;p&gt; 2. Regress \(w\) on \(x\) and obtain the residuals \(r_i, i=1,...,N\). &lt;/p&gt;
+
+&lt;br&gt;
+
+&lt;p&gt; 3. Rescale \(r_i\) by \(\sqrt{RSS_{old}/RSS_{new}}\) to obtain the simulated residuals, where \(RSS_{old}\) is the residual sum of square of the original regression, and \(RSS_{new}\) is the residual sum of square of the regression fitted on step 2. &lt;/p&gt;
+
 
 ---
 
