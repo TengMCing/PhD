@@ -100,3 +100,11 @@
 .image-bottom-0 p {
   margin-bottom: 0;
 }
+
+.caption p {
+  font-size: 80%;
+}
+
+.float-left {
+  float: left;
+}

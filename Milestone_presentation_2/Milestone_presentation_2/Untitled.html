@@ -74,59 +74,29 @@ class: center, middle
 
 #### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
 
+
 ---
 
 .center[
+
 # 🔍Regression Diagnostics🔍
+
 ]
 
-&lt;br&gt;
+--
+
 
 **Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
 
-**Residuals** summarise what is **not captured by the regression model**. Many different residual-based hypothesis tests are available to detect specific model defects.
+--
 
+**Residuals** summarise what is **not captured by the regression model**.
 
-&lt;br&gt;
-&lt;br&gt;
+--
 
-.pull-left-33p[
+**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
 
-*Non-linearity*: 
-
-- **F-test**
-
-- **RESET test** (Ramsey 1969)
-
-]
-
-.pull-left-33p[
-
-*Heteroskedasticity*: 
-
-
-- **White test** (White 1980)
-
-- **BP test** (Breusch and Pagan 1979)
-  
-]
-
-.pull-left-33p[
-
-*Non-normality*: 
-
-- **SW test** (Shapiro and Wilk 1965)
-
-- **Jarque–Bera test** (Jarque and Bera 1980)
-  
-]
-
-
-
-  
----
-
-.pull-left-center[
+--
 
 .image-bottom-0[
 
@@ -136,27 +106,72 @@ class: center, middle
 
 .center[
 .caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
 ]
 ]
 
-]
-
-.pull-right[
-
-# 🔍Regression Diagnostics🔍
-
-&lt;br&gt;
-
-**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
-
-**Residuals** summarise what is **not captured by the regression model**.
-
-**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
-
-]
 
 ---
+
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+--
+
+Many different **residual-based hypothesis tests** are available to detect specific model defects.
+
+--
+
+.pull-left-33p[
+
+Non-linearity: 
+
+- **F-test**
+
+- **RESET test** (Ramsey 1969)
+
+]
+
+--
+
+.pull-left-33p[
+
+Heteroskedasticity: 
+
+
+- **White test** (White 1980)
+
+- **BP test** (Breusch and Pagan 1979)
+  
+]
+
+--
+
+.pull-left-33p[
+
+Non-normality: 
+
+- **SW test** (Shapiro and Wilk 1965)
+
+- **Jarque–Bera test** (Jarque and Bera 1980)
+  
+]
+
+--
+
+.float-left[
+But there are **drawbacks** of using them.
+
+- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, results in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
+
+- Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
+
+]
+
+
+---
+
 
 .pull-left-center[
 
@@ -168,7 +183,7 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 
 .center[
 .caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
 ]
 ]
 
@@ -177,55 +192,6 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 .pull-right[
 
 # 🔍Regression Diagnostics🔍
-
-&lt;br&gt;
-
-Many different hypothesis tests are available to detect specific model defects.
-
-Non-linearity: 
-  - **F-test**
-  - **RESET test** (Ramsey 1969)
-
-Heteroskedasticity: 
-  - **White test** (White 1980)
-  - **BP test** (Breusch and Pagan 1979)
-
-Non-normality: 
-  - **SW test** (Shapiro and Wilk 1965)
-  - **Jarque–Bera test** (Jarque and Bera 1980)
-
-]
-
-
-
----
-
-.pull-left-center[
-
-.image-bottom-0[
-
-&lt;img src="Untitled_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
-
-]
-
-.center[
-.caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
-]
-]
-
-]
-
-.pull-right[
-
-# 🔍Regression Diagnostics🔍
-
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
-
-Most residual-based tests for particular types of departure are also sensitive to **other types of departures** (Cook and Weisberg 1982).
-
-
 
 
 &lt;table&gt;
@@ -284,7 +250,7 @@ Tab. 1: _Statistical significance testing for departures from good residuals. Sh
 
 .image-bottom-0[
 
-&lt;img src="Untitled_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
 
 ]
 
@@ -336,7 +302,7 @@ Residual plot diagnostics:
 
 .image-bottom-0[
 
-&lt;img src="Untitled_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
 
 ]
 
@@ -388,7 +354,7 @@ If we embed the residual plot in a matrix of **null plots**, we will find that i
 
 .pull-right-center[
 
-&lt;img src="Untitled_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
 .center[
 .caption[
 Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
@@ -416,7 +382,7 @@ To perform a **visual test**, observer(s) will be asked to select the **most dif
 
 .pull-right-center[
 
-&lt;img src="Untitled_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
 .center[
 .caption[
 Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
@@ -530,7 +496,7 @@ Provide an overview of the collated data.
 <script src="scripts/my_macro.js"></script>
 <script>var slideshow = remark.create({
 "countIncrementalSlides": false,
-"slideNumberFormat": "%current%",
+"slideNumberFormat": "<%current%>",
 "highlightStyle": "github",
 "highlightLines": true,
 "ratio": "16:9"

@@ -12,7 +12,7 @@ output:
       countdown: 55000
       beforeInit: "scripts/my_macro.js"
       countIncrementalSlides: false
-      slideNumberFormat: "%current%"
+      slideNumberFormat: "<%current%>"
       highlightStyle: github
       highlightLines: true
       ratio: 16:9
@@ -116,25 +116,86 @@ class: center, middle
 
 #### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
 
+
+---
+
+.center[
+
+# 🔍Regression Diagnostics🔍
+
+]
+
+--
+
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+
+--
+
+**Residuals** summarise what is **not captured by the regression model**.
+
+--
+
+**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
+
+--
+
+.image-bottom-0[
+
+```{r fig.height = 2.5, fig.width = 10}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(include_z = FALSE, sigma = 0.25)
+
+# Base data
+dat <- mod$gen(300)
+
+bind_rows(
+  dat %>%
+    mutate(type = "(A) Good residuals"),
+  mod$set_prm("include_z", TRUE)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(B) Non-linearity"),
+  heter_model(b = 64)$
+    gen(300, computed = select(dat, x, e)) %>%
+    mutate(type = "(C) Heteroskedasticity"),
+  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
+    gen(300, computed = select(dat, x)) %>%
+    mutate(type = "(D) Non-normality")
+) %>%
+  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  facet_wrap(~type, ncol = 4, scales = "free") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
+]
+]
+
+
 ---
 
 .center[
 # 🔍Regression Diagnostics🔍
 ]
 
-<br>
+--
 
-**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
+Many different **residual-based hypothesis tests** are available to detect specific model defects.
 
-**Residuals** summarise what is **not captured by the regression model**. Many different residual-based hypothesis tests are available to detect specific model defects.
-
-
-<br>
-<br>
+--
 
 .pull-left-33p[
 
-*Non-linearity*: 
+Non-linearity: 
 
 - **F-test**
 
@@ -142,9 +203,11 @@ class: center, middle
 
 ]
 
+--
+
 .pull-left-33p[
 
-*Heteroskedasticity*: 
+Heteroskedasticity: 
 
 
 - **White test** (White 1980)
@@ -153,9 +216,11 @@ class: center, middle
   
 ]
 
+--
+
 .pull-left-33p[
 
-*Non-normality*: 
+Non-normality: 
 
 - **SW test** (Shapiro and Wilk 1965)
 
@@ -163,10 +228,20 @@ class: center, middle
   
 ]
 
+--
+
+.float-left[
+But there are **drawbacks** of using them.
+
+- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
+
+- Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
+
+]
 
 
-  
 ---
+
 
 .pull-left-center[
 
@@ -205,7 +280,7 @@ bind_rows(
 
 .center[
 .caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
+Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
 ]
 ]
 
@@ -214,141 +289,6 @@ Fig. 1: _One classically good looking residual plot and three residual plots wit
 .pull-right[
 
 # 🔍Regression Diagnostics🔍
-
-<br>
-
-**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
-
-**Residuals** summarise what is **not captured by the regression model**.
-
-**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
-
-]
-
----
-
-.pull-left-center[
-
-.image-bottom-0[
-
-```{r}
-set.seed(10086)
-
-# Base model
-mod <- poly_model(include_z = FALSE, sigma = 0.25)
-
-# Base data
-dat <- mod$gen(300)
-
-bind_rows(
-  dat %>%
-    mutate(type = "(A) Good residuals"),
-  mod$set_prm("include_z", TRUE)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(B) Non-linearity"),
-  heter_model(b = 64)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(C) Heteroskedasticity"),
-  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-    gen(300, computed = select(dat, x)) %>%
-    mutate(type = "(D) Non-normality")
-) %>%
-  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
-  facet_wrap(~type, ncol = 2, scales = "free") +
-  theme(axis.text = element_blank()) +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-]
-
-.center[
-.caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
-]
-]
-
-]
-
-.pull-right[
-
-# 🔍Regression Diagnostics🔍
-
-<br>
-
-Many different hypothesis tests are available to detect specific model defects.
-
-Non-linearity: 
-  - **F-test**
-  - **RESET test** (Ramsey 1969)
-
-Heteroskedasticity: 
-  - **White test** (White 1980)
-  - **BP test** (Breusch and Pagan 1979)
-
-Non-normality: 
-  - **SW test** (Shapiro and Wilk 1965)
-  - **Jarque–Bera test** (Jarque and Bera 1980)
-
-]
-
-
-
----
-
-.pull-left-center[
-
-.image-bottom-0[
-
-```{r}
-set.seed(10086)
-
-# Base model
-mod <- poly_model(include_z = FALSE, sigma = 0.25)
-
-# Base data
-dat <- mod$gen(300)
-
-bind_rows(
-  dat %>%
-    mutate(type = "(A) Good residuals"),
-  mod$set_prm("include_z", TRUE)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(B) Non-linearity"),
-  heter_model(b = 64)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(C) Heteroskedasticity"),
-  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-    gen(300, computed = select(dat, x)) %>%
-    mutate(type = "(D) Non-normality")
-) %>%
-  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
-  facet_wrap(~type, ncol = 2, scales = "free") +
-  theme(axis.text = element_blank()) +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-]
-
-.center[
-.caption[
-Fig. 1: _One classically good looking residual plot and three residual plots with model defects._
-]
-]
-
-]
-
-.pull-right[
-
-# 🔍Regression Diagnostics🔍
-
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
-
-Most residual-based tests for particular types of departure are also sensitive to **other types of departures** (Cook and Weisberg 1982).
-
-
 
 
 ```{r}
