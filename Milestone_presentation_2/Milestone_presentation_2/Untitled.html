@@ -4,7 +4,7 @@
     <title>Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision</title>
     <meta charset="utf-8" />
     <meta name="author" content="Weihao (Patrick) Li" />
-    <meta name="date" content="2023-04-18" />
+    <meta name="date" content="2023-04-19" />
     <script src="Untitled_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="mine.css" type="text/css" />
@@ -37,7 +37,7 @@ count: false
 
 &lt;h4 class="myblue"&gt; Supervised by Di Cook, Emi Tanaka and Susan VanderPlas &lt;/h3&gt;
 
-&lt;!-- &lt;h3 class="myblue"&gt; April 18, 2023 &lt;/h3&gt; --&gt;
+&lt;!-- &lt;h3 class="myblue"&gt; April 19, 2023 &lt;/h3&gt; --&gt;
 ]
 
 .pull-right[
@@ -402,23 +402,146 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 # 🎲Simulate Residuals from the Assumed Model🎲
 ]
 
+&lt;br&gt;
+
+--
 
 Data used in the `\(m − 1\)` null plots needs to be simulated.
+
+--
 
 For classical normal linear regression model, the **residual rotation** technique (Buja, et al. 2009) can be applied:
 
 &lt;br&gt;
 
-&lt;p&gt; 1. Generate independent random draws \(w_i, i=1,...,N\) from \(N(0, 1)\). &lt;/p&gt;
+--
+
+
+&lt;p&gt; 1. Generate independent random draws \(w_i, i=1,...,n\) from \(N(0, 1)\). &lt;/p&gt;
+
+--
 
 &lt;br&gt;
 
-&lt;p&gt; 2. Regress \(w\) on \(x\) and obtain the residuals \(r_i, i=1,...,N\). &lt;/p&gt;
+&lt;p&gt; 2. Regress \(w\) on \(x\) and obtain the residuals \(r_i, i=1,...,n\). &lt;/p&gt;
+
+--
 
 &lt;br&gt;
 
 &lt;p&gt; 3. Rescale \(r_i\) by \(\sqrt{RSS_{old}/RSS_{new}}\) to obtain the simulated residuals, where \(RSS_{old}\) is the residual sum of square of the original regression, and \(RSS_{new}\) is the residual sum of square of the regression fitted on step 2. &lt;/p&gt;
 
+
+---
+
+.center[
+# 📈Statistical Significance📈
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+--
+
+Under the null hypothesis, it is expected that the data plot would have **no distinguishable difference** with the null plots. 
+
+&lt;br&gt;
+
+--
+
+Suppose observers are allowed to **select only one plot**. The probability of the observer correctly picks the actual data plot is `\(1/m\)`.
+
+&lt;br&gt;
+
+--
+
+However, if we involve `\(K\)` **independent observers** in a visual test, and show them the **same lineup**, there will be possible **dependencies** in the visual test due to **repeated evaluations** of the same lineup.
+
+---
+
+.pull-left[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+
+.center[
+.caption[
+Fig. 5: _Example of the probability of each plot being selected \\(\theta_i\\) under the null hypothesis with parameter \\(\alpha = 1\\)._
+]
+]
+
+]
+
+.pull-right[
+
+# 📈Statistical Significance📈
+
+&lt;br&gt;
+
+VanderPlas et al. (2021) addresses this by modelling the probability of a plot `\(i\)` being selected from a lineup as `\(\theta_i\)`: 
+
+`$$\theta_i \sim Dirichlet(\alpha) \text{ for } i=1,...,m \text{ and } \alpha &gt; 0.$$` 
+
+- This assumes the **attractiveness distribution** of each plot.
+
+For **small** `\(\alpha\)`:
+- Only **a few plots** are attractive and tend to be selected. 
+
+For **large** `\(\alpha\)`:
+- The distribution of the probability of each plot being selected is more **even**.
+
+]
+
+---
+
+
+.pull-left[
+
+&lt;img src="Untitled_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+
+.center[
+.caption[
+Fig. 5: _Example of the number of times a plot being selected \\(c_i\\). The sum of all \\(c_i\\) is 11 because the lineup is evaluated by 11 subjects._
+]
+]
+
+]
+
+
+.pull-right[
+
+# 📈Statistical Significance📈
+
+&lt;br&gt;
+&lt;br&gt;
+
+The **number of times** plot `\(i\)` being selected in `\(K\)` evaluations is denoted as `\(c_i\)`. 
+
+- In case subject `\(j\)` makes **multiple selections**, `\(1/s_j\)` will be added to `\(c_i\)` instead of one, where `\(s_j\)` is the **number of plots subject `\(j\)` selected** for `\(j=1,...K\)`. 
+- This ensures `\(\sum_{i}c_i=K\)`.
+
+]
+
+---
+
+
+.center[
+# 📈Statistical Significance📈
+]
+
+&lt;br&gt;
+
+Since we are only interested in the **selections of the data plot `\(i\)`**, the **marginal model** can be simplified to a **beta-binomial model**. VanderPlas et al. (2021) derives the visual `\(p\)`-value as
+
+`$$P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\text{ for } c_i \in \mathbb{Z}_0^+$$`
+
+where `\(B(.)\)` is the beta function defined as
+
+`$$B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\text{ where } a,b&gt;0.$$`
+We extend the equation to **non-negative real number `\(c_i\)`** by applying a linear approximation
+
+$$
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \text{ for } c_i \in \mathbb{R}_0^+.
+$$
 
 ---
 
