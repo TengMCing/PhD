@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Weihao (Patrick) Li" />
+    <meta name="date" content="2023-04-20" />
+    <script src="Milestone_presentation_2_files/header-attrs/header-attrs.js"></script>
+    <script src="Milestone_presentation_2_files/kePrint/kePrint.js"></script>
+    <link href="Milestone_presentation_2_files/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="mine.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+
+count: false
+
+&lt;!-- need a backaground image --&gt;
+
+.pull-left-full[
+&lt;h2 class="myblue"&gt; Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision &lt;/h2&gt;
+
+&lt;h3 class="myblue"&gt; Progress Review Presentation &lt;/h3&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;h4 class="myblue"&gt; Weihao (Patrick) Li &lt;/h3&gt;
+
+&lt;h4 class="myblue"&gt; Supervised by Di Cook, Emi Tanaka and Susan VanderPlas &lt;/h3&gt;
+
+&lt;!-- &lt;h3 class="myblue"&gt; April 20, 2023 &lt;/h3&gt; --&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+![](images/505.png)
+]
+
+---
+
+.center[
+# 📚Thesis Structure📚
+]
+
+&lt;br&gt;
+
+#### **1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+
+#### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
+
+#### 3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+
+&lt;br&gt;
+&lt;br&gt;
+
+This presentation will be focused on the **first project**. 
+
+---
+
+class: center, middle
+
+# A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol
+
+#### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
+
+---
+
+.center[
+
+# 🔍Regression Diagnostics🔍
+
+]
+
+--
+
+
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model. **Residuals** summarise what is **not captured by the regression model**.
+
+--
+
+**Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
+
+--
+
+&lt;br&gt;
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+
+]
+
+
+---
+
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+--
+
+&lt;br&gt;
+&lt;br&gt;
+
+Many different **residual-based hypothesis tests** are available to detect specific model defects.
+
+--
+
+.pull-left-33p[
+
+Non-linearity: 
+
+- **F-test**
+
+- **RESET test** (Ramsey 1969)
+
+]
+
+--
+
+.pull-left-33p[
+
+Heteroskedasticity: 
+
+
+- **White test** (White 1980)
+
+- **BP test** (Breusch and Pagan 1979)
+  
+]
+
+--
+
+.pull-left-33p[
+
+Non-normality: 
+
+- **SW test** (Shapiro and Wilk 1965)
+
+- **Jarque–Bera test** (Jarque and Bera 1980)
+  
+]
+
+---
+
+.center[
+# 📜Liteature of Regression Diagnostics📜
+]
+
+--
+
+### Graphical approaches (plots) are the recommended methods for diagnosing model fits. 
+
+--
+
+- Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
+&gt; Residual plots are usually revealing when the assumptions are violated.
+
+--
+
+- Cook and Weisberg (1982):
+&gt; Formal tests and graphical procedures are complementary and both have a place in residual analysis, but graphical methods are easier to use.
+
+--
+
+- Montgomery and Peck (1982):
+&gt; Residual plots are more informative in most practical situations than the corresponding conventional hypothesis tests.
+
+---
+
+.center[
+
+# 🔍Motivation and Research Questions🔍
+
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+#### Regression experts **consistently recommend plotting residuals for regression diagnostics**, despite the existence of numerous hypothesis test procedures. 
+
+#### We would like to **provide evidence** for why this is good advice, using data from a **visual inference experiment**.
+
+#### We would also want to show how **visual inference** can be used to yield reliable and consistent reading of residual plots for better regression diagnostics.
+
+---
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+]
+
+]
+
+--
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+Can you find the **evidence** on heteroskedasticity?
+
+]
+
+---
+
+count: false
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+]
+
+]
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+Can you find the **evidence** on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+]
+
+---
+
+count: false
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
+
+]
+
+]
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+Can you find the **evidence** on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
+
+]
+
+
+
+---
+
+count: false
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+
+]
+
+]
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+Can you find the **evidence** on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
+
+**Unconfirmed** visual discoveries could result in **over or under-interpretations of the data**.
+
+]
+
+---
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+
+]
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+
+]
+
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+
+]
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+- If it is not, then the visual pattern is **over-interpreted**! You can not distinguish it from other plots!
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+
+]
+
+
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+- If it is not, then the visual pattern is **over-interpreted**! You can not distinguish it from other plots!
+
+### The visual discovery is calibrated via comparison.
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;
+
+]
+
+---
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+
+This framework is called **visual inference** (Buja, et al. 2009).
+
+A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **data plot** and the remaining `\(m − 1\)` plots (**null plots**) containing data **consistent with the null hypothesis**.
+
+To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup. And we check if the data plot is identified.
+
+]
+
+.pull-right-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-12-1.png" width="100%" /&gt;
+.center[
+.caption[
+Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
+]
+]
+
+]
+
+---
+
+.center[
+# 🎲Simulate Residuals from the Assumed Model🎲
+]
+
+&lt;br&gt;
+
+--
+
+Data used in the `\(m − 1\)` null plots needs to be simulated. For **classical normal linear regression model**, the **residual rotation technique** (Buja, et al. 2009) can be applied:
+
+&lt;br&gt;
+
+--
+
+
+&lt;p&gt; 1. Generate independent random draws \(w_i, i=1,...,n\) from \(N(0, 1)\). &lt;/p&gt;
+
+--
+
+&lt;br&gt;
+
+&lt;p&gt; 2. Regress \(w\) on \(x\) and obtain the residuals \(r_i, i=1,...,n\). &lt;/p&gt;
+
+--
+
+&lt;br&gt;
+
+&lt;p&gt; 3. Rescale \(r_i\) by \(\sqrt{RSS_{old}/RSS_{new}}\) to obtain the simulated residuals, where \(RSS_{old}\) is the residual sum of square of the original regression, and \(RSS_{new}\) is the residual sum of square of the regression fitted on step 2. &lt;/p&gt;
+
+
+---
+
+.center[
+# 📈Statistical Significance📈
+]
+
+&lt;br&gt;
+
+--
+
+If we involve `\(K\)` **independent observers** in a visual test, and show them the **same lineup**, there will be possible **dependencies** in the visual test due to **repeated evaluations** of the same lineup.
+
+--
+
+VanderPlas et al. (2021) addresses this by modelling the **probability of a plot `\(i\)` being selected** from a lineup as `\(\theta_i\)`: 
+
+`$$\theta_i \sim Dirichlet(\alpha) \text{ for } i=1,...,m \text{ and } \alpha &gt; 0.$$` 
+
+--
+
+- This assumes the **attractiveness distribution** of each plot.
+
+--
+
+The **number of times plot `\(i\)` being selected** in `\(K\)` evaluations is denoted as `\(c_i\)`. 
+
+--
+
+- In case subject `\(j\)` makes **multiple selections**, `\(1/s_j\)` will be added to `\(c_i\)` instead of one, where `\(s_j\)` is the **number of plots subject `\(j\)` selected** for `\(j=1,...K\)`. 
+- This ensures `\(\sum_{i}c_i=K\)`.
+
+---
+
+
+.center[
+# 📈Statistical Significance📈
+]
+
+&lt;br&gt;
+
+--
+
+Since we are only interested in the **selections of the data plot `\(i\)`**, the **marginal model** can be simplified to a **beta-binomial model**. VanderPlas et al. (2021) derives the visual `\(p\)`-value as
+
+`$$P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\text{ for } c_i \in \mathbb{Z}_0^+$$`
+
+where `\(B(.)\)` is the beta function defined as
+
+`$$B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\text{ where } a,b&gt;0.$$`
+
+--
+
+We extend the equation to **non-negative real number `\(c_i\)`** by applying a linear approximation
+
+$$
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \text{ for } c_i \in \mathbb{R}_0^+.
+$$
+
+
+---
+
+.center[
+# 🧪Experimental Design🧪
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+--
+
+An experiment is conducted to investigate the difference between **conventional hypothesis testing** and **visual testing** in the application of **linear regression diagnostics**.
+
+--
+
+&lt;br&gt;
+
+We focus on two types of residual departures - **Non-linearity** and **Heteroskedasticity**.
+
+--
+
+&lt;br&gt;
+
+Overall, we collected **7974 evaluations** on **1152 unique lineups** performed by **443 subjects** throughout three data collection periods.
+
+---
+
+.center[
+# 🧪Experimental Design🧪
+]
+
+**Non-linearity model**:
+
+`$$\begin{aligned} \boldsymbol{y} &amp;= 1 + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\ \boldsymbol{x} &amp;= g(\boldsymbol{x}_{raw}, 1), \\ \boldsymbol{z} &amp;= g(\boldsymbol{z}_{raw}, 1), \\ \boldsymbol{z}_{raw} &amp;= He_j(g(\boldsymbol{x}, 2)), \end{aligned}$$`
+where `\(\boldsymbol{y}\)`, `\(\boldsymbol{x}\)`, `\(\boldsymbol{\varepsilon}\)`, `\(\boldsymbol{x}_{raw}\)`, `\(\boldsymbol{z}_{raw}\)` are length `\(n\)` vectors, `\(He_{j}(.)\)` is the `\(j\)`th-order probabilist's Hermite polynomials, `\(\varepsilon \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\)`, and `\(g(\boldsymbol{x}, k)\)` is a scaling function to enforce the support of the random vector to be `\([-k, k]^n\)` defined as
+
+$$g(\boldsymbol{x}, k) = (\boldsymbol{x} - min(\boldsymbol{x}))/max(\boldsymbol{x} - min(\boldsymbol{x}))2k - k, \text{ for }  k &gt; 0. $$
+
+The null regression model used to fit the realizations generated by the above model is formulated as
+
+`$$\boldsymbol{y} = \beta_0 + \beta_1 \boldsymbol{x} + \boldsymbol{u},$$`
+
+where `\(\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)\)`.
+
+---
+
+
+.center[
+# 🧪Experimental Design🧪
+]
+
+**Heteroskedasticity model**:
+
+`$$\begin{aligned} \label{eq:heter-model} \boldsymbol{y} &amp;= 1 + \boldsymbol{x} + \boldsymbol{\varepsilon},\\ \boldsymbol{x} &amp;= g(\boldsymbol{x}_{raw}, 1),\\ \boldsymbol{\varepsilon} &amp;\sim N(\boldsymbol{0}, 1 + (2 - |a|)(\boldsymbol{x} - a)^2b \boldsymbol{I}), \end{aligned}$$`
+
+where `\(\boldsymbol{y}\)`, `\(\boldsymbol{x}\)`, `\(\boldsymbol{x}_{raw}\)`, `\(\boldsymbol{\varepsilon}\)` are length `\(n\)` vectors and `\(g(.)\)` is the scaling function defined in the previous slide.
+
+
+The null regression model is also provided in the previous slide.
+
+---
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-2.png" width="100%" /&gt;
+
+---
+
+.image-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-14-1.png" width="80%" /&gt;
+
+]
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-15-1.png" width="100%" /&gt;
+
+
+---
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-16-1.png" width="100%" /&gt;
+
+.image-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-17-1.png" width="80%" /&gt;
+
+]
+
+
+---
+
+.center[
+# 📏Effect size📏
+]
+
+--
+
+We have chosen to use an approach based on **Kullback-Leibler divergence** (Kullback and Leibler 1951).
+
+--
+
+The effect size of the **non-linearity model** is
+
+`$$E = \frac{1}{2}\left(\boldsymbol{\mu}_z'(diag(\boldsymbol{R}\sigma^2))^{-1}\boldsymbol{\mu}_z\right),$$`
+
+where `\(diag(.)\)` is the diagonal matrix constructed from the diagonal elements of a matrix,
+`\(\boldsymbol{R} = \boldsymbol{I}_n - \boldsymbol{H}\)` is the residual operator, `\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\)` is the hat matrix, `\(\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z\)` is the expected values of residuals with `\(\boldsymbol{Z}\)` be any higher order terms of `\(\boldsymbol{X}\)` leave out by the regression equation and `\(\boldsymbol{\beta}_z\)` be the corresponding coefficients, and `\(\sigma^2\boldsymbol{I}\)` is the assumed covariance matrix of the error term when `\(H_0\)` is true.
+
+--
+
+And the effect size of the **heteroskedasticity model** is
+
+`$$E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|diag(\boldsymbol{R})|} - n + tr(diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}diag(\boldsymbol{R}))\right),$$`
+where `\(\boldsymbol{V}\)` is the actual covariance matrix of the error term.
+
+
+---
+
+.center[
+# 💪Power of Visual Tests💪
+]
+
+--
+
+&lt;br&gt;
+
+The power of a visual test may depend on the **ability of the particular subject** (Majumder, Hofmann, and Cook 2013).
+
+--
+
+- We assume the **individual skill has negligible effect** to **simplify the model structure**, thereby **avoid a costly large-scale experiment** to estimate complex covariance matrices.
+
+--
+
+We use the **logistic regression** to estimate the power:
+
+`$$Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),$$`
+
+where `\(\Lambda(.)\)` is the standard logistic function given as `\(\Lambda(z) = exp(z)/(1+exp(z))\)`. 
+
+--
+
+- The **effect size `\(E\)`** is the only predictor.
+
+--
+
+
+- The intercept is fixed to `\(log(0.05/0.95)\)` so that `\(\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05\)`.
+
+---
+
+.center[
+# 🛠️Experimental Setup🛠️
+]
+
+We recruited 443 subjects from an crowd-sourcing platform called **Prolific** (Palan and Schitter 2018) throughout **three data collection periods**. 
+- 160 subjects for period I
+- 160 subjects for period II
+- 123 subjects for period III
+
+--
+
+During the experiment, every subject is presented with **a block of 20 lineups**.
+
+--
+
+The subject is asked to:
+- Select **one or more** plots that are **most different** from others.
+- Provide **a reason** for their selections.
+- Evaluate **how different** they think the selected plots are from others. 
+
+--
+
+If there is **no noticeable difference** between plots in a lineup, subjects are permitted to **select zero plots** without providing the reason.
+
+--
+
+A subject’s submission is only accepted if the data plot is identified for **at least one attention check**.
+
+---
+
+.center[
+# 🌐Study Website🌐
+]
+
+.image-center[
+
+&lt;img src="images/lineup1.png" width="90%" /&gt;
+
+]
+
+---
+
+class: center, middle
+
+# ⚖️Results - Power Comparison of the Tests⚖️
+
+
+
+---
+
+### Non-linearity Patterns
+
+.image-top-bottom-0[
+
+.image-center[
+
+&lt;img src="images/polypower-1.png" width="80%" /&gt;
+
+]
+
+]
+
+---
+
+### Heteroskedasticity Patterns
+
+.image-top-bottom-0[
+
+.image-center[
+
+&lt;img src="images/heterpower-1.png" width="80%" /&gt;
+
+]
+
+]
+
+---
+
+.center[
+# ⚖️Results - Power Comparison of the Tests⚖️
+
+]
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+
+The data plot (No.1) is **undistinguishable** from other plots with an extremely small effect size (\\(log_e(E) = -0.48\\)).
+
+The non-linearity pattern is **totally undetectable**. 
+
+However, the BP test rejects the pattern with a very small `\(p\text{-value} = 0.004\)`. In contrast, the `\(p\text{-value}\)` produced by the visual test is `\(0.813\)`.
+
+]
+
+.pull-right[
+
+&lt;img src="images/230.png" width="100%" /&gt;
+
+]
+
+---
+
+.center[
+# ⚖️Results - Power Comparison of the Tests⚖️
+
+]
+
+--
+
+Conventional tests are **more sensitive** than the visual test. This is **not necessarily a good feature** for the purposes of diagnosing model defects.
+
+--
+
+Visual tests:
+
+--
+
+- Do not require specifying the pattern **ahead of time**.
+
+--
+
+- Rely purely on **whether the data plot is distinguishable** from "good" residual plots.
+
+--
+
+- Perform **equally well** regardless of the type of residual departures.
+
+--
+
+- **Remove any subjective arguments** about whether a pattern is visible or not.
+
+--
+
+The lineup protocol provides the **calibration for detecting patterns**: that if the pattern in the data plot **can not be distinguished** from patterns in good residual plots, then **no discernible problem** with the model exists.
+
+---
+
+.center[
+# ⚖️Results - Comparison of Test Decisions⚖️
+
+]
+
+The visual test rejects **less frequently** than the conventional test, and (almost) **only rejects when the conventional test does**.
+
+.image-top-bottom-0[
+
+.image-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-22-1.png" width="80%" /&gt;
+
+]
+
+]
+
+---
+
+.center[
+# ⚖️Results - Comparison of Test Decisions⚖️
+
+]
+
+
+.pull-left[
+
+&lt;img src="images/331.png" width="100%" /&gt;
+
+]
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+The data plot (No.17) displays a relatively strong heteroskedasticity pattern, and has a strong effect size (\\(log_e(E)=4.02\\)). 
+
+This is reflected by the visual test `\(p\text{-value} = 0.026\)`. 
+
+But the BP test `\(p\text{-value} = 0.056\)`, is slightly above the significance cutoff of `\(0.05\)`. 
+
+Possible reasons:
+- Small sample size
+- Presence of a few outliers
+- Others
+
+]
+
+---
+
+.center[
+# ⚖️Results - Effect of Amount of Non-linearity⚖️
+
+]
+
+The default RESET tests **under-performs significantly** in detecting the "triple-U" shape. 
+
+To achieve a similar power as other shapes, a **higher order polynomial parameter** needs to be used for the RESET test, but this higher than the recommended value (4).
+
+.image-top-bottom-0[
+
+.image-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-24-1.png" width="80%" /&gt;
+
+]
+
+]
+
+---
+
+.center[
+# ⚖️Results - Effect of Shape of Heteroskedasticity⚖️
+
+]
+
+The butterfly shape has higher power in both tests.
+
+Curiously, the visual test has **slightly higher power** for the "left-triangle" than the "right-triangle" shape.
+
+.image-top-bottom-0[
+
+.image-center[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-25-1.png" width="80%" /&gt;
+
+]
+
+]
+
+---
+
+.center[
+
+# ⚖️Results - Effect of Fitted Value Distributions⚖️
+
+]
+
+.pull-left-center-60[
+
+&lt;br&gt;
+&lt;br&gt;
+
+Surprisingly, the fitted value distribution has produces **more variability** in the power of conventional tests than visual tests. 
+
+**Uneven distributions** (normal and lognormal distributions) tend to yield lower power.
+
+]
+
+.pull-right-140[
+
+.image-top-bottom-0[
+
+.image-center[
+
+
+&lt;img src="images/different-x-dist-poly-power-1.png" width="100%" /&gt;
+
+]
+
+]
+
+]
+
+---
+
+.center[
+# 🧐Conclusion🧐
+]
+
+&lt;br&gt;
+
+--
+
+1. Conventional residual-based statistical tests are **more sensitive to weak departures** from model assumptions than visual tests as would be evaluated by humans. 
+
+--
+
+2. Conventional tests often reject when departures in the form of non-linearity and heteroskedasticity **are not visibly different** from null residual plots.
+
+--
+
+3. While conventional tests are correctly detecting the **small but real effects**, human evaluations provide a more **practical** result.
+
+--
+
+4. Residual plots need to be **delivered as a lineup** to enables a **careful calibration**.
+
+--
+
+5. Power of the conventional test are **quite sensitive** to **how the predictors are sampled**.
+
+--
+
+6. The **direction of heteroskedasticity** appears to affect the ability to visually detect it.
+
+---
+.center[
+
+# ⏳Future Works⏳
+
+]
+
+.pull-left[
+## Automatic Visual Statistical Inference System
+
+
+Develop an automatic visual inference system for evaluating lineups of residual plots. 
+
+Computer vision models will be trained on simulated data from linear models that violate classical assumptions such as linearity and homoscedasticity. 
+
+The performance of the system will be evaluated using the data collected for the first paper.
+
+]
+
+.pull-right[
+## OAVIS: An online automatic visual inference system
+
+Deploy the automatic visual inference as an online application and publish relevant open-source software packages developed during the course of the research. 
+]
+
+
+
+
+
+---
+
+.center[
+# 📅Timetable📅
+]
+
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr grouplength="8"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;2023&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; April &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Submit the abstract of the first paper to Australian Statistical Conference (ASC) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; May &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Submit the first paper &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; June &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Submit a poster for the first paper to Institute of Electrical and Electronics Engineers (IEEE) Visualization Conference &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; July &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Leave for a month &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Sep &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Finalize the computer vision model &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Oct &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Attend the IEEE Visualization Conference &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Nov &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Start the web interface development &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Dec &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Attend the ASC &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;2024&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Mar &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Submit the second paper &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Aug &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Submit thesis &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+class: center, middle
+
+# Thanks!
+
+---
+
+.center[
+# 📖Bibliography📖
+]
+
+.font-70-p[
+
+Belsley, David A, Edwin Kuh, and Roy E Welsch. 1980. Regression diagnostics: Identifying influential data and sources of collinearity. John Wiley &amp; Sons.
+
+Breusch, T. S., and A. R. Pagan. 1979. “A Simple Test for Heteroscedasticity and Random Coefficient Variation.” Econometrica 47 (5): 1287–1294.
+
+Buja, Andreas, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-Kyung Lee, Deborah F. Swayne, and Hadley Wickham. 2009. “Statistical inference for exploratory data analysis and model diagnostics.” Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 367 (1906): 4361–4383.
+
+
+Cook, R Dennis, and Sanford Weisberg. 1982. Residuals and influence in regression. New York: Chapman and Hall.
+
+Cook, R Dennis, and Sanford Weisberg. 1999. Applied regression including computing and graphics. John Wiley &amp; Sons.
+
+
+Draper, Norman R, and Harry Smith. 1998. Applied regression analysis. Vol. 326. John Wiley &amp; Sons.
+
+Jarque, Carlos M, and Anil K Bera. 1980. “Efficient tests for normality, homoscedasticity and serial independence of regression residuals.” Economics letters 6 (3): 255–259.
+
+Kullback, Solomon, and Richard A Leibler. 1951. “On information and sufficiency.” The annals
+of mathematical statistics 22 (1): 79–86.
+
+Ramsey, J. B. 1969. “Tests for Specification Errors in Classical Linear Least-Squares Regression
+Analysis.” Journal of the Royal Statistical Society. Series B (Methodological) 31 (2): 350–
+371.
+
+Shapiro, Samuel Sanford, and Martin B Wilk. 1965. “An analysis of variance test for normality (complete samples).” Biometrika 52 (3/4): 591–611.
+
+VanderPlas, Susan, Christian R ̈ottger, Dianne Cook, and Heike Hofmann. 2021. “Statistical significance calculations for scenarios in visual inference.” Stat 10 (1): e337.
+
+White, Halbert. 1980. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.” Econometrica 48 (4): 817–838.
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="scripts/my_macro.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+(function(time) {
+  var d2 = function(number) {
+    return ('0' + number).slice(-2); // left-pad 0 to minutes/seconds
+  },
+
+  time_format = function(total) {
+    var secs = Math.abs(total) / 1000;
+    var h = Math.floor(secs / 3600);
+    var m = Math.floor(secs % 3600 / 60);
+    var s = Math.round(secs % 60);
+    var res = d2(m) + ':' + d2(s);
+    if (h > 0) res = h + ':' + res;
+    return res;  // [hh:]mm:ss
+  },
+
+  slide_number_div = function(i) {
+    return document.getElementsByClassName('remark-slide-number').item(i);
+  },
+
+  current_page_number = function(i) {
+    return slide_number_div(i).firstChild.textContent;  // text "i / N"
+  };
+
+  var timer = document.createElement('span'); timer.id = 'slide-time-left';
+  var time_left = time, k = slideshow.getCurrentSlideIndex(),
+      last_page_number = current_page_number(k);
+
+  setInterval(function() {
+    time_left = time_left - 1000;
+    timer.innerHTML = ' ' + time_format(time_left);
+    if (time_left < 0) timer.style.color = 'red';
+  }, 1000);
+
+  slide_number_div(k).appendChild(timer);
+
+  slideshow.on('showSlide', function(slide) {
+    var i = slide.getSlideIndex(), n = current_page_number(i);
+    // reset timer when a new slide is shown and the page number is changed
+    if (last_page_number !== n) {
+      time_left = time; last_page_number = n;
+      timer.innerHTML = ' ' + time_format(time); timer.style.color = null;
+    }
+    slide_number_div(i).appendChild(timer);
+  });
+})(55000);
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
