@@ -399,7 +399,7 @@ Residual plot diagnostics:
 # 📜Liteature of Regression Diagnostics📜
 ]
 
-### Grahpical approaches (plots) are the recommended methods for diagnosing model fits. 
+### Graphical approaches (plots) are the recommended methods for diagnosing model fits. 
 
 - Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
 > Residual plots are usually revealing when the assumptions are violated.
