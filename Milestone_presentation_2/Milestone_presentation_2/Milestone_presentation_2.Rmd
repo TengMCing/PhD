@@ -116,7 +116,6 @@ class: center, middle
 
 #### Weihao Li, Dianne Cook, Emi Tanaka and Susan VanderPlas (2023)
 
-
 ---
 
 .center[
@@ -226,7 +225,19 @@ Non-normality:
 
 They are **very good at detecting violations of model assumptions**, but there are some **unexpected usages**.
 
+]
+
+--
+
+.float-left[
+
 - Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
+
+]
+
+--
+
+.float-left[
 
 - Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
 
@@ -334,24 +345,168 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
 
 ]
 
+
 ---
 
 .center[
 # 📜Liteature of Regression Diagnostics📜
 ]
 
+--
+
 ### Graphical approaches (plots) are the recommended methods for diagnosing model fits. 
+
+--
 
 - Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
 > Residual plots are usually revealing when the assumptions are violated.
 
+--
+
 - Cook and Weisberg (1982):
 > Formal tests and graphical procedures are complementary and both have a place in residual analysis, but graphical methods are easier to use.
+
+--
 
 - Montgomery and Peck (1982):
 > Residual plots are more informative in most practical situations than the corresponding conventional hypothesis tests.
 
 ---
+
+.center[
+
+# 🔍Motivation and Research Questions🔍
+
+]
+
+<br>
+<br>
+
+#### Regression experts **consistently recommend plotting residuals for regression diagnostics**, despite the existence of numerous hypothesis test procedures. 
+
+#### We would like to **provide evidence** for why this is good advice, using data from a **visual inference experiment**.
+
+#### We would also want to show how **visual inference** can be used to yield reliable and consistent reading of residual plots for better regression diagnostics.
+
+---
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+```{r}
+set.seed(10131)
+mod <- heter_model(b = 0, x = rand_lognormal())
+ori_dat <- mod$gen(300)
+
+ori_dat %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12)) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+]
+
+--
+
+.pull-right[
+
+<br>
+<br>
+
+Can you find the **evidence** on heteroskedasticity?
+
+]
+
+---
+
+count: false
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+```{r}
+set.seed(10131)
+mod <- heter_model(b = 0, x = rand_lognormal())
+ori_dat <- mod$gen(300)
+
+ori_dat %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12)) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+]
+
+.pull-right[
+
+<br>
+<br>
+
+Can you find the **evidence** on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+]
+
+---
+
+count: false
+
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
+.pull-left-center[
+
+.image-top-bottom-0[
+
+```{r}
+set.seed(10131)
+mod <- heter_model(b = 0, x = rand_lognormal())
+ori_dat <- mod$gen(300)
+
+ori_dat %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 12)) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+]
+
+.pull-right[
+
+<br>
+<br>
+
+Can you find the **evidence** on heteroskedasticity?
+
+- Vertical spread of the points varies with the fitted values.
+
+However, the residuals are actually obtained from a **correctly specified classical normal linear model**!
+
+]
+
+
+
+---
+
+count: false
 
 .center[
 # 🤔False Visual Discoveries🤔
@@ -393,20 +548,156 @@ However, the residuals are actually obtained from a **correctly specified classi
 
 ---
 
+.center[
+# 🔬Visual Inference🔬
+]
+
 .pull-left[
 
-# 🔬Visual Inference🔬
-
-<br>
 <br>
 
 If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
 
-- Can you find the **most different plot**? 
+]
 
-- Is it the residual plot presented at the previous page?
+.pull-right-center[
 
-- If it is not, then the visual pattern is **over-interpreted**! 
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+
+]
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+<br>
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+]
+
+.pull-right-center[
+
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+
+]
+
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+<br>
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+]
+
+.pull-right-center[
+
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+
+]
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+<br>
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+- If it is not, then the visual pattern is **over-interpreted**! You can not distinguish it from other plots!
+
+]
+
+.pull-right-center[
+
+```{r}
+set.seed(10131)
+mod$gen_lineup(300, k = 20, pos = 8) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 8, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+
+]
+
+
+
+---
+
+count: false
+
+.center[
+# 🔬Visual Inference🔬
+]
+
+.pull-left[
+
+<br>
+
+If we embed the residual plot in **a matrix of plots containing residuals simulated from the fitted model**, we will find that it is **not uncommon** for residual plots to exhibit a triangle shape.
+
+- Please pick the **most different plot**. 
+
+- Is it plot No.8?
+
+- If it is not, then the visual pattern is **over-interpreted**! You can not distinguish it from other plots!
 
 ### The visual discovery is calibrated via comparison.
 
@@ -423,28 +714,24 @@ mod$gen_lineup(300, k = 20, pos = 8) %>%
                        remove_grid_line = TRUE,
                        remove_axis = TRUE)
 ```
-.center[
-.caption[
-Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
-]
-]
 
 ]
 
 ---
 
+.center[
+# 🔬Visual Inference🔬
+]
+
 .pull-left[
 
-# 🔬Visual Inference🔬
-
-<br>
 <br>
 
-This procedure is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+This framework is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
 
-A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) contain data consistent with the null hypothesis.
+A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) containing data consistent with the null hypothesis.
 
-To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup.
+To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup. And we check if the data plot is identified.
 
 ]
 
@@ -477,11 +764,7 @@ Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8
 
 --
 
-Data used in the $m − 1$ null plots needs to be simulated.
-
---
-
-For classical normal linear regression model, the **residual rotation** technique (Buja, et al. 2009) can be applied:
+Data used in the $m − 1$ null plots needs to be simulated. For **classical normal linear regression model**, the **residual rotation technique** (Buja, et al. 2009) can be applied:
 
 <br>
 
@@ -510,111 +793,29 @@ For classical normal linear regression model, the **residual rotation** techniqu
 ]
 
 <br>
-<br>
 
 --
 
-Under the null hypothesis, it is expected that the data plot would have **no distinguishable difference** with the null plots. 
-
-<br>
+If we involve $K$ **independent observers** in a visual test, and show them the **same lineup**, there will be possible **dependencies** in the visual test due to **repeated evaluations** of the same lineup.
 
 --
 
-Suppose observers are allowed to **select only one plot**. The probability of the observer correctly picks the actual data plot is $1/m$.
-
-<br>
-
---
-
-However, if we involve $K$ **independent observers** in a visual test, and show them the **same lineup**, there will be possible **dependencies** in the visual test due to **repeated evaluations** of the same lineup.
-
----
-
-.pull-left[
-
-```{r}
-alpha_sample <- rgamma(10, 1, 1)
-data.frame(x = 0, y = 0, k = 1:20, alpha = alpha_sample/sum(alpha_sample)) %>%
-ggplot() +
-  geom_text(aes(x, y, label = paste0("theta[", k, "]~'='~", round(alpha, 2))), parse = TRUE, size = 5) +
-  facet_wrap(~k) +
-  theme_light(base_size = 12) +
-  theme(panel.grid = element_blank(),
-        axis.line = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank())
-```
-
-.center[
-.caption[
-Fig. 5: _Example of the probability of each plot being selected \\(\theta_i\\) under the null hypothesis with parameter \\(\alpha = 1\\)._
-]
-]
-
-]
-
-.pull-right[
-
-# 📈Statistical Significance📈
-
-<br>
-
-VanderPlas et al. (2021) addresses this by modelling the probability of a plot $i$ being selected from a lineup as $\theta_i$: 
+VanderPlas et al. (2021) addresses this by modelling the **probability of a plot $i$ being selected** from a lineup as $\theta_i$: 
 
 $$\theta_i \sim Dirichlet(\alpha) \text{ for } i=1,...,m \text{ and } \alpha > 0.$$ 
 
+--
+
 - This assumes the **attractiveness distribution** of each plot.
 
-For **small** $\alpha$:
-- Only **a few plots** are attractive and tend to be selected. 
+--
 
-For **large** $\alpha$:
-- The distribution of the probability of each plot being selected is more **even**.
+The **number of times plot $i$ being selected** in $K$ evaluations is denoted as $c_i$. 
 
-]
-
----
-
-
-.pull-left[
-
-```{r}
-data.frame(k = 1:20, 
-           ci = c(1, 0, 0.25, 0, 0, 0.2, 0.45, 0, 5.95, 0, 0, 0, 0, 1.7, 0, 0.2, 0, 1, 0, 0.25)) %>%
-ggplot() +
-  geom_text(aes(0, 0, label = paste0("c[", k, "]~'='~", ci)), parse = TRUE, size = 5) +
-  facet_wrap(~k) +
-  theme_light(base_size = 12) +
-  theme(panel.grid = element_blank(),
-        axis.line = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank())
-```
-
-.center[
-.caption[
-Fig. 5: _Example of the number of times a plot being selected \\(c_i\\). The sum of all \\(c_i\\) is 11 because the lineup is evaluated by 11 subjects._
-]
-]
-
-]
-
-
-.pull-right[
-
-# 📈Statistical Significance📈
-
-<br>
-<br>
-
-The **number of times** plot $i$ being selected in $K$ evaluations is denoted as $c_i$. 
+--
 
 - In case subject $j$ makes **multiple selections**, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the **number of plots subject $j$ selected** for $j=1,...K$. 
 - This ensures $\sum_{i}c_i=K$.
-
-]
 
 ---
 
@@ -643,34 +844,6 @@ $$
 P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \text{ for } c_i \in \mathbb{R}_0^+.
 $$
 
----
-
-.center[
-# 💪Power of Visual Tests💪
-]
-
---
-
-<br>
-
-The power of a visual test may depend on the **ability of the particular subject** (Majumder, Hofmann, and Cook 2013).
-
---
-
-- We assume the **individual skill has negligible effect** on the variation of the power to **simplify the model structure**, thereby **obviate a costly large-scale experiment** to estimate complex covariance matrices.
-
-<br>
-
---
-
-We use the **logistic regression** to estimate the power:
-
-$$Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),$$
-
-where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. 
-
-- The **effect size $E$** is the only predictor.
-- The intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
 
 ---
 
@@ -739,17 +912,11 @@ magick::image_read_pdf("images/different-shape-of-herimite-1.pdf", pages = 1)
 magick::image_read_pdf("images/different-sigma-1.pdf", pages = 1)
 ```
 
-.center[
-.caption[
-Fig. 5: _Non-linearity forms generated for the residual plots are controlled by the parameter \\(j\\). And the strength of the signal of the non-linearity model is controlled by \\(\sigma\\)._
-]
-]
-
 ---
 
 .image-center[
 
-```{r out.width = "70%", fig.height = 2.67, fig.width = 8}
+```{r out.width = "80%", fig.height = 2.67, fig.width = 8}
 set.seed(10086)
 
 stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
@@ -793,12 +960,6 @@ magick::image_read_pdf("images/different-b-1.pdf", pages = 1)
 ```
 
 
-.center[
-.caption[
-Fig. 5: _Heteroskedasticity forms generated for the residual plots are controlled by the parameter \\(a\\). And the strength of the signal of the heteroskedasticity model is controlled by \\(b\\)._
-]
-]
-
 ---
 
 ```{r}
@@ -807,17 +968,12 @@ magick::image_read_pdf("images/different-dist-1.pdf", pages = 1)
 
 .image-center[
 
-```{r out.width = "70%"}
+```{r out.width = "80%"}
 magick::image_read_pdf("images/different-n-1.pdf", pages = 1)
 ```
 
 ]
 
-.center[
-.caption[
-Fig. 5: _Four different distribution of fitted values that might affect perception of residual plots are used. Three differnet values of \\(n\\) are used to control the signal strength._
-]
-]
 
 ---
 
@@ -844,6 +1000,40 @@ And the effect size of the **heteroskedasticity model** is
 
 $$E = \frac{1}{2}\left(log\frac{|diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|diag(\boldsymbol{R})|} - n + tr(diag(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}diag(\boldsymbol{R}))\right),$$
 where $\boldsymbol{V}$ is the actual covariance matrix of the error term.
+
+
+---
+
+.center[
+# 💪Power of Visual Tests💪
+]
+
+--
+
+<br>
+
+The power of a visual test may depend on the **ability of the particular subject** (Majumder, Hofmann, and Cook 2013).
+
+--
+
+- We assume the **individual skill has negligible effect** to **simplify the model structure**, thereby **avoid a costly large-scale experiment** to estimate complex covariance matrices.
+
+--
+
+We use the **logistic regression** to estimate the power:
+
+$$Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(log\left(\frac{0.05}{0.95}\right) + \beta_1 E\right),$$
+
+where $\Lambda(.)$ is the standard logistic function given as $\Lambda(z) = exp(z)/(1+exp(z))$. 
+
+--
+
+- The **effect size $E$** is the only predictor.
+
+--
+
+
+- The intercept is fixed to $log(0.05/0.95)$ so that $\hat{Pr}(\text{reject}~H_0|H_1,E = 0) = 0.05$.
 
 ---
 
@@ -877,12 +1067,16 @@ A subject’s submission is only accepted if the data plot is identified for **a
 
 ---
 
-![](images/lineup1.png)
-
 .center[
-.caption[
-Fig. 5: _Screenshot of the study website._
+# 🌐Study Website🌐
 ]
+
+.image-center[
+
+```{r out.width = "90%"}
+knitr::include_graphics("images/lineup1.png")
+```
+
 ]
 
 ---
@@ -891,7 +1085,11 @@ class: center, middle
 
 # ⚖️Results - Power Comparison of the Tests⚖️
 
+### (uniform fitted values only)
+
 ---
+
+### Non-linearity Patterns
 
 .image-top-bottom-0[
 
@@ -905,13 +1103,9 @@ knitr::include_graphics("images/polypower-1.png")
 
 ]
 
-.center[
-.caption[
-Fig. 5: _Comparison of power between different tests for non-linear patterns (uniform fitted values only). The horizontal lines of dots represent non-reject and reject results from visual tests for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot._
-]
-]
-
 ---
+
+### Heteroskedasticity Patterns
 
 .image-top-bottom-0[
 
@@ -925,10 +1119,85 @@ knitr::include_graphics("images/heterpower-1.png")
 
 ]
 
+---
+
 .center[
-.caption[
-Fig. 5: _Comparison of power between different tests for heteroskedasticity patterns (uniform fitted values only). The horizontal lines of dots represent non-reject and reject results from visual tests for each lineup. The visual test has multiple power curves estimated from bootstrap samples. The row of scatterplots at the bottom are examples of residual plots corresponding to the specific effect sizes marked by vertical lines in the main plot._
+# ⚖️Results - Power Comparison of the Tests⚖️
 ]
+
+.pull-left[
+
+<br>
+<br>
+
+The data plot (No.1) is **undistinguishable** from other plots with an extremely small effect size (\\(log_e(E) = -0.48\\)).
+
+The non-linearity pattern is **totally undetectable**. 
+
+However, the BP test rejects the pattern with a very small $p\text{-value} = 0.004$. In contrast, the $p\text{-value}$ produced by the visual test is $0.813$.
+
+]
+
+.pull-right[
+
+```{r}
+knitr::include_graphics("images/230.png")
+```
+
+]
+
+---
+
+.center[
+# ⚖️Results - Power Comparison of the Tests⚖️
+]
+
+--
+
+Conventional tests are **more sensitive** than the visual test. This is **not necessarily a good feature** for the purposes of diagnosing model defects.
+
+--
+
+Visual tests:
+
+--
+
+- Do not require specifying the pattern **ahead of time**.
+
+--
+
+- Rely purely on **whether the data plot is distinguishable** from "good" residual plots.
+
+--
+
+- Perform **equally well** regardless of the type of residual departures.
+
+--
+
+- **Remove any subjective arguments** about whether a pattern is visible or not.
+
+--
+
+The lineup protocol provides the **calibration for detecting patterns**: that if the pattern in the data plot **can not be distinguished** from patterns in good residual plots, then **no discernible problem** with the model exists.
+
+---
+
+.center[
+# ⚖️Results - Comparison of Test Decisions⚖️
+]
+
+The visual test rejects **less frequently** than the conventional test, and (almost) **only rejects when the conventional test does**.
+
+.image-top-bottom-0[
+
+.image-center[
+
+```{r out.width = "80%"}
+magick::image_read_pdf("images/p-value-comparison-1.pdf", pages = 1)
+```
+
+]
+
 ]
 
 ---
@@ -937,77 +1206,42 @@ Fig. 5: _Comparison of power between different tests for heteroskedasticity patt
 # ⚖️Results - Comparison of Test Decisions⚖️
 ]
 
-.image-top-bottom-0[
-
-.image-center[
-
-```{r out.width = "70%"}
-magick::image_read_pdf("images/p-value-comparison-1.pdf", pages = 1)
-```
-
-]
-
-]
-
-.center[
-.caption[
-Fig. 5: _Rejection rate (\\(p\\)-value \\(\leq0.05\\)) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test, and (almost) only rejects when the conventional test does. Surprisingly, one lineup in the heteroskedasticity group is rejected by the visual test but NOT the conventional test._
-]
-]
-
----
-
-.pull-right-center[
-
-.image-top-bottom-0[
-
-```{r}
-set.seed(10086)
-
-# Base model
-mod <- poly_model(sigma = 8)
-dat <- mod$gen(1000)
-this_p_value <- mod$test(dat, test = "RESET", power = 2:4)
-dat %>%
-mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
-  theme(axis.text = element_blank()) +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-]
-
-.center[
-.caption[
-Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$. The model is misspecified but the departure from the model assumption is small._
-]
-]
-
-]
 
 .pull-left[
 
-# 🔍Regression Diagnostics🔍
-
-<br>
-<br>
-
-With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
-
-<!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  -->
-
-Residual plot diagnostics:
-  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
+```{r}
+knitr::include_graphics("images/331.png")
+```
 
 ]
 
+.pull-right[
 
+<br>
+<br>
+
+The data plot (No.17) displays a relatively strong heteroskedasticity pattern, and has a strong effect size (\\(log_e(E)=4.02\\)). 
+
+This is reflected by the visual test $p\text{-value} = 0.026$. 
+
+But the BP test $p\text{-value} = 0.056$, is slightly above the significance cutoff of $0.05$. 
+
+Possible reasons:
+- Small sample size
+- Presence of a few outliers
+- Others
+
+]
 
 ---
 
 .center[
 # ⚖️Results - Effect of Amount of Non-linearity⚖️
 ]
+
+The default RESET tests **under-performs significantly** in detecting the "triple-U" shape. 
+
+To achieve a similar power as other shapes, a **higher order polynomial parameter** needs to be used for the RESET test, but this higher than the recommended value (4).
 
 .image-top-bottom-0[
 
@@ -1021,17 +1255,15 @@ magick::image_read_pdf("images/poly-power-uniform-j-1.pdf", pages = 1)
 
 ]
 
-.center[
-.caption[
-Fig. 5: _The effect of the order of the polynomial on the power of conventional and visual tests. Deeper colour indicates higher order. The default RESET tests under-performs significantly in detecting the "triple-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test, but this higher than the recommended value._
-]
-]
-
 ---
 
 .center[
 # ⚖️Results - Effect of Shape of Heteroskedasticity⚖️
 ]
+
+The butterfly shape has higher power in both tests.
+
+Curiously, the visual test has **slightly higher power** for the "left-triangle" than the "right-triangle" shape.
 
 .image-top-bottom-0[
 
@@ -1045,26 +1277,33 @@ magick::image_read_pdf("images/heter-power-uniform-a-1.pdf", pages = 1)
 
 ]
 
-.center[
-.caption[
-Fig. 5: _The effect of heteroskedasticity shape (parameter \\(a\\)) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has slightly higher power for the "left-triangle" than the "right-triangle" shape, when it would be expected that they should be identical, which is observed in conventional testing._
-]
-]
-
 ---
 
-class: middle, center
+.center[
 
 # ⚖️Results - Effect of Fitted Value Distributions⚖️
 
----
+]
+
+.pull-left-center-60[
+
+<br>
+<br>
+
+Surprisingly, the fitted value distribution has produces **more variability** in the power of conventional tests than visual tests. 
+
+**Uneven distributions** (normal and lognormal distributions) tend to yield lower power.
+
+]
+
+.pull-right-140[
 
 .image-top-bottom-0[
 
 .image-center[
 
 
-```{r out.width = "60%"}
+```{r}
 knitr::include_graphics("images/different-x-dist-poly-power-1.png")
 ```
 
@@ -1072,10 +1311,6 @@ knitr::include_graphics("images/different-x-dist-poly-power-1.png")
 
 ]
 
-.center[
-.caption[
-Fig. 5: _Comparison of power on lineups with different fitted value distributions for conventional and visual tests for non-linearity and heteroskedasticity patterns. The power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and BP tests, respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with a uniform fitted value distribution, the five evaluations are repeatedly sampled from the total eleven evaluations to give multiple power curves (grey). Surprisingly, the fitted value distribution has produces more variability in the power of conventional tests than visual tests. Uneven distributions, normal and lognormal distributions, tend to yield lower power._
-]
 ]
 
 ---
@@ -1083,6 +1318,60 @@ Fig. 5: _Comparison of power on lineups with different fitted value distribution
 .center[
 # 🧐Conclusion🧐
 ]
+
+<br>
+
+--
+
+1. Conventional residual-based statistical tests are **more sensitive to weak departures** from model assumptions than visual tests as would be evaluated by humans. 
+
+--
+
+2. Conventional tests often reject when departures in the form of non-linearity and heteroskedasticity **are not visibly different** from null residual plots.
+
+--
+
+3. While conventional tests are correctly detecting the **small but real effects**, human evaluations provide a more **practical** result.
+
+--
+
+4. Residual plots need to be **delivered as a lineup** to enables a **careful calibration**.
+
+--
+
+5. Power of the conventional test are **quite sensitive** to **how the predictors are sampled**.
+
+--
+
+6. The **direction of heteroskedasticity** appears to affect the ability to visually detect it.
+
+---
+.center[
+
+# ⏳Future Works⏳
+
+]
+
+.pull-left[
+## Automatic Visual Statistical Inference System
+
+
+Develop an automatic visual inference system for evaluating lineups of residual plots. 
+
+Computer vision models will be trained on simulated data from linear models that violate classical assumptions such as linearity and homoscedasticity. 
+
+The performance of the system will be evaluated using the data collected for the first paper.
+
+]
+
+.pull-right[
+## OAVIS: An online automatic visual inference system
+
+Deploy the automatic visual inference as an online application and publish relevant open-source software packages developed during the course of the research. 
+]
+
+
+
 
 
 ---

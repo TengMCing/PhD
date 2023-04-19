@@ -61,6 +61,11 @@
   flex-direction: column;
 }
 
+.pull-right-140 {
+  float: right;
+  width: 66%;
+}
+
 .pull-right-120 {
   float: right;
   width: 57%;
