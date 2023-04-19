@@ -112,6 +112,9 @@ class: center, middle
 
 --
 
+&lt;br&gt;
+&lt;br&gt;
+
 Many different **residual-based hypothesis tests** are available to detect specific model defects.
 
 --
@@ -150,105 +153,6 @@ Non-normality:
 - **Jarque–Bera test** (Jarque and Bera 1980)
   
 ]
-
---
-
-.float-left[
-
-They are **very good at detecting violations of model assumptions**, but there are some **unexpected usages**.
-
-]
-
---
-
-.float-left[
-
-- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
-
-]
-
---
-
-.float-left[
-
-- Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
-
-]
-
-
----
-
-.center[
-# 🔍Regression Diagnostics🔍
-]
-
-.pull-left-center[
-
-.image-top-bottom-0[
-
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
-
-]
-
-
-
-]
-
-.pull-right[
-
-
-All the hypothesis tests **correctly reject** the correspoding model defects, and **correctly not reject** the structure in residual plot (A).
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for**.
-
-&lt;br&gt;
-&lt;br&gt;
-
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Plot &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Departures &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; RESET &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; BP &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; SW &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; None &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.779&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.133&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.728&lt;/span&gt; &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Non-linearity &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.039&lt;/span&gt; &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Heteroskedasticity &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.658&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Non-normality &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.863&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="     color: black !important;" &gt;0.736&lt;/span&gt; &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; &lt;span style="  font-style: italic;   color: red !important;" &gt;0.000&lt;/span&gt; &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-]
-
 
 ---
 
@@ -302,7 +206,7 @@ BP and SW tests reject the residual plots exhibiting structure that **they weren
 
 .image-top-bottom-0[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
 
 ]
 
@@ -331,7 +235,7 @@ count: false
 
 .image-top-bottom-0[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
 
 ]
 
@@ -360,7 +264,7 @@ count: false
 
 .image-top-bottom-0[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
 
 ]
 
@@ -393,7 +297,7 @@ count: false
 
 .image-top-bottom-0[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
 
 ]
 
@@ -430,7 +334,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
 
 ]
 
@@ -454,7 +358,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
 
 ]
 
@@ -481,7 +385,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
 
 ]
 
@@ -509,7 +413,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-12-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
 
 ]
 
@@ -541,7 +445,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;
 
 ]
 
@@ -554,10 +458,11 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 .pull-left[
 
 &lt;br&gt;
+&lt;br&gt;
 
-This framework is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+This framework is called **visual inference** (Buja, et al. 2009).
 
-A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **data plot** and the remaining `\(m − 1\)` plots (**null plots**) containing data consistent with the null hypothesis.
+A **lineup** consists of `\(m\)` randomly placed plots, where one plot is the **data plot** and the remaining `\(m − 1\)` plots (**null plots**) containing data **consistent with the null hypothesis**.
 
 To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup. And we check if the data plot is identified.
 
@@ -565,7 +470,7 @@ To perform a **visual test**, observer(s) will be asked to select the **most dif
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-12-1.png" width="100%" /&gt;
 .center[
 .caption[
 Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
@@ -727,26 +632,26 @@ The null regression model is also provided in the previous slide.
 
 ---
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-15-1.png" width="100%" /&gt;&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-15-2.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-2.png" width="100%" /&gt;
 
 ---
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-16-1.png" width="80%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-14-1.png" width="80%" /&gt;
 
 ]
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-17-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-15-1.png" width="100%" /&gt;
 
 
 ---
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-16-1.png" width="100%" /&gt;
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-19-1.png" width="80%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-17-1.png" width="80%" /&gt;
 
 ]
 
@@ -859,7 +764,7 @@ class: center, middle
 
 # ⚖️Results - Power Comparison of the Tests⚖️
 
-### (uniform fitted values only)
+
 
 ---
 
@@ -893,6 +798,7 @@ class: center, middle
 
 .center[
 # ⚖️Results - Power Comparison of the Tests⚖️
+
 ]
 
 .pull-left[
@@ -918,6 +824,7 @@ However, the BP test rejects the pattern with a very small `\(p\text{-value} = 0
 
 .center[
 # ⚖️Results - Power Comparison of the Tests⚖️
+
 ]
 
 --
@@ -952,6 +859,7 @@ The lineup protocol provides the **calibration for detecting patterns**: that if
 
 .center[
 # ⚖️Results - Comparison of Test Decisions⚖️
+
 ]
 
 The visual test rejects **less frequently** than the conventional test, and (almost) **only rejects when the conventional test does**.
@@ -960,7 +868,7 @@ The visual test rejects **less frequently** than the conventional test, and (alm
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-24-1.png" width="80%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-22-1.png" width="80%" /&gt;
 
 ]
 
@@ -970,6 +878,7 @@ The visual test rejects **less frequently** than the conventional test, and (alm
 
 .center[
 # ⚖️Results - Comparison of Test Decisions⚖️
+
 ]
 
 
@@ -1001,6 +910,7 @@ Possible reasons:
 
 .center[
 # ⚖️Results - Effect of Amount of Non-linearity⚖️
+
 ]
 
 The default RESET tests **under-performs significantly** in detecting the "triple-U" shape. 
@@ -1011,7 +921,7 @@ To achieve a similar power as other shapes, a **higher order polynomial paramete
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-26-1.png" width="80%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-24-1.png" width="80%" /&gt;
 
 ]
 
@@ -1021,6 +931,7 @@ To achieve a similar power as other shapes, a **higher order polynomial paramete
 
 .center[
 # ⚖️Results - Effect of Shape of Heteroskedasticity⚖️
+
 ]
 
 The butterfly shape has higher power in both tests.
@@ -1031,7 +942,7 @@ Curiously, the visual test has **slightly higher power** for the "left-triangle"
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-27-1.png" width="80%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-25-1.png" width="80%" /&gt;
 
 ]
 
@@ -1202,6 +1113,39 @@ class: center, middle
 
 .center[
 # 📖Bibliography📖
+]
+
+.font-70-p[
+
+Belsley, David A, Edwin Kuh, and Roy E Welsch. 1980. Regression diagnostics: Identifying influential data and sources of collinearity. John Wiley &amp; Sons.
+
+Breusch, T. S., and A. R. Pagan. 1979. “A Simple Test for Heteroscedasticity and Random Coefficient Variation.” Econometrica 47 (5): 1287–1294.
+
+Buja, Andreas, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-Kyung Lee, Deborah F. Swayne, and Hadley Wickham. 2009. “Statistical inference for exploratory data analysis and model diagnostics.” Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 367 (1906): 4361–4383.
+
+
+Cook, R Dennis, and Sanford Weisberg. 1982. Residuals and influence in regression. New York: Chapman and Hall.
+
+Cook, R Dennis, and Sanford Weisberg. 1999. Applied regression including computing and graphics. John Wiley &amp; Sons.
+
+
+Draper, Norman R, and Harry Smith. 1998. Applied regression analysis. Vol. 326. John Wiley &amp; Sons.
+
+Jarque, Carlos M, and Anil K Bera. 1980. “Efficient tests for normality, homoscedasticity and serial independence of regression residuals.” Economics letters 6 (3): 255–259.
+
+Kullback, Solomon, and Richard A Leibler. 1951. “On information and sufficiency.” The annals
+of mathematical statistics 22 (1): 79–86.
+
+Ramsey, J. B. 1969. “Tests for Specification Errors in Classical Linear Least-Squares Regression
+Analysis.” Journal of the Royal Statistical Society. Series B (Methodological) 31 (2): 350–
+371.
+
+Shapiro, Samuel Sanford, and Martin B Wilk. 1965. “An analysis of variance test for normality (complete samples).” Biometrika 52 (3/4): 591–611.
+
+VanderPlas, Susan, Christian R ̈ottger, Dianne Cook, and Heike Hofmann. 2021. “Statistical significance calculations for scenarios in visual inference.” Stat 10 (1): e337.
+
+White, Halbert. 1980. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.” Econometrica 48 (4): 817–838.
+
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

@@ -139,3 +139,7 @@
 .float-left {
   float: left;
 }
+
+.font-70-p p {
+  font-size: 70%;
+}

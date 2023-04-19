@@ -180,6 +180,9 @@ bind_rows(
 
 --
 
+<br>
+<br>
+
 Many different **residual-based hypothesis tests** are available to detect specific model defects.
 
 --
@@ -218,133 +221,6 @@ Non-normality:
 - **Jarque–Bera test** (Jarque and Bera 1980)
   
 ]
-
---
-
-.float-left[
-
-They are **very good at detecting violations of model assumptions**, but there are some **unexpected usages**.
-
-]
-
---
-
-.float-left[
-
-- Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
-
-]
-
---
-
-.float-left[
-
-- Other problems such as **outliers** can trigger the rejection (Cook and Weisberg 1999).
-
-]
-
-
----
-
-.center[
-# 🔍Regression Diagnostics🔍
-]
-
-.pull-left-center[
-
-.image-top-bottom-0[
-
-```{r}
-set.seed(10086)
-# Base model
-mod <- poly_model(include_z = FALSE, sigma = 0.25)
-# Base data
-dat <- mod$gen(300)
-bind_rows(
-  dat %>%
-    mutate(type = "(A) Good residuals"),
-  mod$set_prm("include_z", TRUE)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(B) Non-linearity"),
-  heter_model(b = 64)$
-    gen(300, computed = select(dat, x, e)) %>%
-    mutate(type = "(C) Heteroskedasticity"),
-  heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-    gen(300, computed = select(dat, x)) %>%
-    mutate(type = "(D) Non-normality")
-) %>%
-  mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
-  facet_wrap(~type, ncol = 2, scales = "free") +
-  theme(axis.text = element_blank(),
-        axis.ticks = element_blank()) +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-]
-
-
-
-]
-
-.pull-right[
-
-
-All the hypothesis tests **correctly reject** the correspoding model defects, and **correctly not reject** the structure in residual plot (A).
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for**.
-
-<br>
-<br>
-
-
-```{r}
-set.seed(10086)
-# Base model
-mod <- poly_model(include_z = FALSE, sigma = 0.25)
-# Base data
-dat0 <- mod$gen(300)
-# Replicate data in Figure 1
-dat1 <- mod$set_prm("include_z", TRUE)$gen(300, computed = select(dat0, x, e))
-dat2 <- heter_model(b = 64)$gen(300, computed = select(dat0, x, e))
-dat3 <- heter_model(b = 0, e = rand_lognormal(sigma = 0.5))$
-               gen(300, computed = select(dat0, x))
-dat_list <- list(dat0, dat1, dat2, dat3)
-table_dat <- data.frame(plot = c("A", "B", "C", "D"), 
-                        model = c("None", 
-                                  "Non-linearity", 
-                                  "Heteroskedasticity", 
-                                  "Non-normality"),
-                        r = map_dbl(dat_list, 
-                                    ~POLY_MODEL$test(.x, 
-                                                     test = "RESET", 
-                                                     power = 2:4)$p_value),
-                        b = map_dbl(dat_list, 
-                                    ~HETER_MODEL$test(.x)$p_value),
-                        
-                        # SW test has not been included by visage
-                        s = map_dbl(dat_list, 
-                                    ~shapiro.test(.x$.resid)$p.value)) %>%
-  
-  # 3 decimal points
-  mutate(across(r:s, ~ format(round(.x, digits = 3), nsmall = 3))) %>%
-  
-  # Italic if reject
-  mutate(across(r:s, ~ kableExtra::cell_spec(.x, italic = as.numeric(.x) <= 0.05, color = ifelse(as.numeric(.x) <= 0.05, "red", "black"))))
-  table_dat %>%
-  knitr::kable(col.names = c("Plot", 
-                             "Departures", 
-                             "RESET", 
-                             "BP", 
-                             "SW"),
-               align = "llrrr",
-               escape = FALSE,
-               format = "html",
-               booktabs = TRUE)
-```
-
-]
-
 
 ---
 
@@ -726,10 +602,11 @@ mod$gen_lineup(300, k = 20, pos = 8) %>%
 .pull-left[
 
 <br>
+<br>
 
-This framework is called **visual inference**. It was introduced by Buja, et al. (2009) as an inferential framework to extend confirmatory statistics to visual discoveries.
+This framework is called **visual inference** (Buja, et al. 2009).
 
-A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) containing data consistent with the null hypothesis.
+A **lineup** consists of $m$ randomly placed plots, where one plot is the **data plot** and the remaining $m − 1$ plots (**null plots**) containing data **consistent with the null hypothesis**.
 
 To perform a **visual test**, observer(s) will be asked to select the **most different plot(s)** from the lineup. And we check if the data plot is identified.
 
@@ -1085,7 +962,7 @@ class: center, middle
 
 # ⚖️Results - Power Comparison of the Tests⚖️
 
-### (uniform fitted values only)
+
 
 ---
 
@@ -1123,6 +1000,7 @@ knitr::include_graphics("images/heterpower-1.png")
 
 .center[
 # ⚖️Results - Power Comparison of the Tests⚖️
+
 ]
 
 .pull-left[
@@ -1150,6 +1028,7 @@ knitr::include_graphics("images/230.png")
 
 .center[
 # ⚖️Results - Power Comparison of the Tests⚖️
+
 ]
 
 --
@@ -1184,6 +1063,7 @@ The lineup protocol provides the **calibration for detecting patterns**: that if
 
 .center[
 # ⚖️Results - Comparison of Test Decisions⚖️
+
 ]
 
 The visual test rejects **less frequently** than the conventional test, and (almost) **only rejects when the conventional test does**.
@@ -1204,6 +1084,7 @@ magick::image_read_pdf("images/p-value-comparison-1.pdf", pages = 1)
 
 .center[
 # ⚖️Results - Comparison of Test Decisions⚖️
+
 ]
 
 
@@ -1237,6 +1118,7 @@ Possible reasons:
 
 .center[
 # ⚖️Results - Effect of Amount of Non-linearity⚖️
+
 ]
 
 The default RESET tests **under-performs significantly** in detecting the "triple-U" shape. 
@@ -1259,6 +1141,7 @@ magick::image_read_pdf("images/poly-power-uniform-j-1.pdf", pages = 1)
 
 .center[
 # ⚖️Results - Effect of Shape of Heteroskedasticity⚖️
+
 ]
 
 The butterfly shape has higher power in both tests.
@@ -1417,4 +1300,37 @@ class: center, middle
 
 .center[
 # 📖Bibliography📖
+]
+
+.font-70-p[
+
+Belsley, David A, Edwin Kuh, and Roy E Welsch. 1980. Regression diagnostics: Identifying influential data and sources of collinearity. John Wiley & Sons.
+
+Breusch, T. S., and A. R. Pagan. 1979. “A Simple Test for Heteroscedasticity and Random Coefficient Variation.” Econometrica 47 (5): 1287–1294.
+
+Buja, Andreas, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-Kyung Lee, Deborah F. Swayne, and Hadley Wickham. 2009. “Statistical inference for exploratory data analysis and model diagnostics.” Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 367 (1906): 4361–4383.
+
+
+Cook, R Dennis, and Sanford Weisberg. 1982. Residuals and influence in regression. New York: Chapman and Hall.
+
+Cook, R Dennis, and Sanford Weisberg. 1999. Applied regression including computing and graphics. John Wiley & Sons.
+
+
+Draper, Norman R, and Harry Smith. 1998. Applied regression analysis. Vol. 326. John Wiley & Sons.
+
+Jarque, Carlos M, and Anil K Bera. 1980. “Efficient tests for normality, homoscedasticity and serial independence of regression residuals.” Economics letters 6 (3): 255–259.
+
+Kullback, Solomon, and Richard A Leibler. 1951. “On information and sufficiency.” The annals
+of mathematical statistics 22 (1): 79–86.
+
+Ramsey, J. B. 1969. “Tests for Specification Errors in Classical Linear Least-Squares Regression
+Analysis.” Journal of the Royal Statistical Society. Series B (Methodological) 31 (2): 350–
+371.
+
+Shapiro, Samuel Sanford, and Martin B Wilk. 1965. “An analysis of variance test for normality (complete samples).” Biometrika 52 (3/4): 591–611.
+
+VanderPlas, Susan, Christian R ̈ottger, Dianne Cook, and Heike Hofmann. 2021. “Statistical significance calculations for scenarios in visual inference.” Stat 10 (1): e337.
+
+White, Halbert. 1980. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.” Econometrica 48 (4): 817–838.
+
 ]
