@@ -57,7 +57,7 @@ count: false
 
 &lt;br&gt;
 
-#### 1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+#### **1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
 
 #### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
 
@@ -88,11 +88,7 @@ class: center, middle
 --
 
 
-**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
-
---
-
-**Residuals** summarise what is **not captured by the regression model**.
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model. **Residuals** summarise what is **not captured by the regression model**.
 
 --
 
@@ -100,16 +96,12 @@ class: center, middle
 
 --
 
+&lt;br&gt;
+
 .image-top-bottom-0[
 
 &lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
 
-]
-
-.center[
-.caption[
-Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
-]
 ]
 
 
@@ -163,7 +155,8 @@ Non-normality:
 --
 
 .float-left[
-But there are **drawbacks** of using them.
+
+They are **very good at detecting violations of model assumptions**, but there are some **unexpected usages**.
 
 - Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
 
@@ -174,7 +167,11 @@ But there are **drawbacks** of using them.
 
 ---
 
-.pull-left-center-80[
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+.pull-left-center[
 
 .image-top-bottom-0[
 
@@ -182,22 +179,18 @@ But there are **drawbacks** of using them.
 
 ]
 
-.center[
-.caption[
-Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
-]
-]
+
 
 ]
 
-.pull-right-120[
+.pull-right[
 
-# 🔍Regression Diagnostics🔍
+
+All the hypothesis tests **correctly reject** the correspoding model defects, and **correctly not reject** the structure in residual plot (A).
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for**.
 
 &lt;br&gt;
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
-
 &lt;br&gt;
 
 
@@ -243,48 +236,7 @@ BP and SW tests reject the residual plots exhibiting structure that **they weren
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-.center[
-.caption[
-Tab. 1: _Statistical significance testing for departures from good residuals. Shown are the \\(p\\)-values calculated for the RESET, the BP and the SW tests._
 ]
-]
-
-]
-
----
-
-.pull-right-center[
-
-.image-top-bottom-0[
-
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
-
-]
-
-.center[
-.caption[
-Fig. 2: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`. The model is misspecified but the departure from the model assumption is small._
-]
-]
-
-]
-
-.pull-left[
-
-# 🔍Regression Diagnostics🔍
-
-&lt;br&gt;
-&lt;br&gt;
-
-With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
-
-&lt;!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  --&gt;
-
-Residual plot diagnostics:
-  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
-
-]
-
 
 ---
 
@@ -292,7 +244,7 @@ Residual plot diagnostics:
 # 📜Liteature of Regression Diagnostics📜
 ]
 
-### Grahpical approaches (plots) are the recommended methods for diagnosing model fits. 
+### Graphical approaches (plots) are the recommended methods for diagnosing model fits. 
 
 - Draper and Smith (1998) and Belsley, Kuh, and Welsch (1980):
 &gt; Residual plots are usually revealing when the assumptions are violated.
@@ -305,30 +257,26 @@ Residual plot diagnostics:
 
 ---
 
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
 .pull-left-center[
 
 .image-top-bottom-0[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
 
-]
-
-.center[
-.caption[
-Fig. 3: _Residual plot of a correctly specified model exhibiting a heteroskedasticity pattern (triangle shape)._
-]
 ]
 
 ]
 
 .pull-right[
 
-# 🤔False Visual Discoveries🤔
-
 &lt;br&gt;
 &lt;br&gt;
 
-Can you find the evidence on heteroskedasticity?
+Can you find the **evidence** on heteroskedasticity?
 
 - Vertical spread of the points varies with the fitted values.
 
@@ -361,7 +309,7 @@ If we embed the residual plot in **a matrix of plots containing residuals simula
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
 .center[
 .caption[
 Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
@@ -389,7 +337,7 @@ To perform a **visual test**, observer(s) will be asked to select the **most dif
 
 .pull-right-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
 .center[
 .caption[
 Fig. 4: _A lineup of 20 residual plots of a simple linear regression. (Plot No.8 is Fig.3) Can you find the most different one?_
@@ -463,7 +411,7 @@ However, if we involve `\(K\)` **independent observers** in a visual test, and s
 
 .pull-left[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
 
 .center[
 .caption[
@@ -498,7 +446,7 @@ For **large** `\(\alpha\)`:
 
 .pull-left[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
 
 .center[
 .caption[
@@ -641,7 +589,7 @@ The null regression model is also provided in the previous slide.
 
 ---
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-2.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-10-2.png" width="100%" /&gt;
 
 .center[
 .caption[
@@ -653,11 +601,11 @@ Fig. 5: _Non-linearity forms generated for the residual plots are controlled by 
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-12-1.png" width="70%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-11-1.png" width="70%" /&gt;
 
 ]
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-12-1.png" width="100%" /&gt;
 
 
 .center[
@@ -668,11 +616,11 @@ Fig. 5: _Heteroskedasticity forms generated for the residual plots are controlle
 
 ---
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-15-1.png" width="70%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-14-1.png" width="70%" /&gt;
 
 ]
 
@@ -800,7 +748,7 @@ Fig. 5: _Comparison of power between different tests for heteroskedasticity patt
 
 .image-center[
 
-&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-18-1.png" width="70%" /&gt;
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-17-1.png" width="70%" /&gt;
 
 ]
 
@@ -811,6 +759,42 @@ Fig. 5: _Comparison of power between different tests for heteroskedasticity patt
 Fig. 5: _Rejection rate (\\(p\\)-value \\(\leq0.05\\)) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test, and (almost) only rejects when the conventional test does. Surprisingly, one lineup in the heteroskedasticity group is rejected by the visual test but NOT the conventional test._
 ]
 ]
+
+---
+
+.pull-right-center[
+
+.image-top-bottom-0[
+
+&lt;img src="Milestone_presentation_2_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
+
+]
+
+.center[
+.caption[
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with `\(p\text{-value} = 0.022\)`. The model is misspecified but the departure from the model assumption is small._
+]
+]
+
+]
+
+.pull-left[
+
+# 🔍Regression Diagnostics🔍
+
+&lt;br&gt;
+&lt;br&gt;
+
+With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
+
+&lt;!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  --&gt;
+
+Residual plot diagnostics:
+  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
+
+]
+
+
 
 ---
 

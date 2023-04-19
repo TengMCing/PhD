@@ -128,17 +128,15 @@ class: center, middle
 --
 
 
-**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model.
-
---
-
-**Residuals** summarise what is **not captured by the regression model**.
+**Diagnostics** are the key to determining whether there is anything **importantly wrong** with a model. **Residuals** summarise what is **not captured by the regression model**.
 
 --
 
 **Residual plots** are commonly used to diagnose **non-linearity** and **heteroskedasticity**. **Non-normality** is usually harder to detect from a residual plot. A favourable graphical summary for this task is the **quantile-quantile plot**.
 
 --
+
+<br>
 
 .image-top-bottom-0[
 
@@ -172,12 +170,6 @@ bind_rows(
   ylab("Residuals")
 ```
 
-]
-
-.center[
-.caption[
-Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
-]
 ]
 
 
@@ -231,7 +223,8 @@ Non-normality:
 --
 
 .float-left[
-But there are **drawbacks** of using them.
+
+They are **very good at detecting violations of model assumptions**, but there are some **unexpected usages**.
 
 - Most residual-based tests for particular types of departure are also sensitive to **other types of departures**, resulting in a phenomenon known as the "**Type III error**" (Cook and Weisberg 1982).
 
@@ -242,7 +235,11 @@ But there are **drawbacks** of using them.
 
 ---
 
-.pull-left-center-80[
+.center[
+# 🔍Regression Diagnostics🔍
+]
+
+.pull-left-center[
 
 .image-top-bottom-0[
 
@@ -267,29 +264,26 @@ bind_rows(
 ) %>%
   mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
   facet_wrap(~type, ncol = 2, scales = "free") +
-  theme(axis.text = element_blank()) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) +
   xlab("Fitted values") +
   ylab("Residuals")
 ```
 
 ]
 
-.center[
-.caption[
-Fig. 1: _Example residual plots: (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0._
-]
-]
+
 
 ]
 
-.pull-right-120[
+.pull-right[
 
-# 🔍Regression Diagnostics🔍
+
+All the hypothesis tests **correctly reject** the correspoding model defects, and **correctly not reject** the structure in residual plot (A).
+
+BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for**.
 
 <br>
-
-BP and SW tests reject the residual plots exhibiting structure that **they weren’t designed for** (**type III error**).
-
 <br>
 
 
@@ -338,60 +332,7 @@ table_dat <- data.frame(plot = c("A", "B", "C", "D"),
                booktabs = TRUE)
 ```
 
-.center[
-.caption[
-Tab. 1: _Statistical significance testing for departures from good residuals. Shown are the \\(p\\)-values calculated for the RESET, the BP and the SW tests._
 ]
-]
-
-]
-
----
-
-.pull-right-center[
-
-.image-top-bottom-0[
-
-```{r}
-set.seed(10086)
-
-# Base model
-mod <- poly_model(sigma = 8)
-dat <- mod$gen(1000)
-this_p_value <- mod$test(dat, test = "RESET", power = 2:4)
-dat %>%
-mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
-  theme(axis.text = element_blank()) +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-]
-
-.center[
-.caption[
-Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$. The model is misspecified but the departure from the model assumption is small._
-]
-]
-
-]
-
-.pull-left[
-
-# 🔍Regression Diagnostics🔍
-
-<br>
-<br>
-
-With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
-
-<!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  -->
-
-Residual plot diagnostics:
-  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
-
-]
-
 
 ---
 
@@ -412,6 +353,10 @@ Residual plot diagnostics:
 
 ---
 
+.center[
+# 🤔False Visual Discoveries🤔
+]
+
 .pull-left-center[
 
 .image-top-bottom-0[
@@ -429,22 +374,14 @@ ori_dat %>%
 
 ]
 
-.center[
-.caption[
-Fig. 3: _Residual plot of a correctly specified model exhibiting a heteroskedasticity pattern (triangle shape)._
-]
-]
-
 ]
 
 .pull-right[
 
-# 🤔False Visual Discoveries🤔
-
 <br>
 <br>
 
-Can you find the evidence on heteroskedasticity?
+Can you find the **evidence** on heteroskedasticity?
 
 - Vertical spread of the points varies with the fitted values.
 
@@ -1017,6 +954,54 @@ magick::image_read_pdf("images/p-value-comparison-1.pdf", pages = 1)
 Fig. 5: _Rejection rate (\\(p\\)-value \\(\leq0.05\\)) of visual test conditional on the conventional test decision on non-linearity (left) and heteroskedasticity (right) lineups (uniform fitted values only) displayed using a mosaic plot. The visual test rejects less frequently than the conventional test, and (almost) only rejects when the conventional test does. Surprisingly, one lineup in the heteroskedasticity group is rejected by the visual test but NOT the conventional test._
 ]
 ]
+
+---
+
+.pull-right-center[
+
+.image-top-bottom-0[
+
+```{r}
+set.seed(10086)
+
+# Base model
+mod <- poly_model(sigma = 8)
+dat <- mod$gen(1000)
+this_p_value <- mod$test(dat, test = "RESET", power = 2:4)
+dat %>%
+mod$plot(remove_grid_line = TRUE, theme = theme_light(base_size = 12)) +
+  theme(axis.text = element_blank()) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+]
+
+.center[
+.caption[
+Fig. 2: _One classically good looking residual plot but rejected by the RESET test with $p\text{-value} = `r format(round(this_p_value$p_value, digits = 3), nsmall = 3)`$. The model is misspecified but the departure from the model assumption is small._
+]
+]
+
+]
+
+.pull-left[
+
+# 🔍Regression Diagnostics🔍
+
+<br>
+<br>
+
+With **large sample sizes**, hypothesis tests may reject a residual plot when there is only a **slight departure** (Belsley, Kuh, and Welsch 1980). 
+
+<!-- - While such rejections may be **statistically correct**, their **sensitivity** may render the results **impractical**. **Minor defects** in the model are **unlikely** to have a **material impact** and may be best disregarded for practical purposes.  -->
+
+Residual plot diagnostics:
+  - **Identify** potential issues that could lead to **incorrect conclusions or errors in subsequent analyses**.
+
+]
+
+
 
 ---
 
