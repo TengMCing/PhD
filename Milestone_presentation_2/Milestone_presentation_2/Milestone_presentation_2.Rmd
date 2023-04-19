@@ -12,7 +12,7 @@ output:
       countdown: 55000
       beforeInit: "scripts/my_macro.js"
       countIncrementalSlides: false
-      slideNumberFormat: "<%current%>"
+      slideNumberFormat: "%current%/%total%"
       highlightStyle: github
       highlightLines: true
       ratio: 16:9
@@ -97,7 +97,7 @@ count: false
 
 <br>
 
-#### 1. **Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
+#### **1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.**
 
 #### 2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
 
