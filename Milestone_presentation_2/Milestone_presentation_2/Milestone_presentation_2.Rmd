@@ -65,7 +65,7 @@ style_solarized_light(
 
 count: false
 
-<!-- need a backaground image -->
+<!-- need a background image -->
 
 .pull-left-full[
 <h2 class="myblue"> Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision </h2>
