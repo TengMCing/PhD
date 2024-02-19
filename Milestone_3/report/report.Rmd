@@ -1,0 +1,130 @@
+---
+title: "Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision"
+author:
+- familyname: Li
+  othernames: Weihao (Patrick)
+  address: Monash University
+  qualifications: PhD student
+email: weihao.li@monash.com
+phone: (04) 0459 1219
+department: Department of\newline Econometrics &\newline Business Statistics
+organization: "Pre-submission review" 
+bibliography: report.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  monash::report:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache=FALSE, messages=FALSE, warning=FALSE)
+library(visage)
+library(tidyverse)
+```
+
+# Overview of the thesis
+
+## Background and motivation
+
+Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model's assumptions, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model's performance.
+
+When conducting model diagnostics, graphical representations of data are often preferred or required by data analysts. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Other visualization techniques such as histograms, Q-Q plots and box plots can be used to identify potential issues with assumptions made about the data, such as linearity, normality, or homoscedasticity.
+
+Recently, a novel statistical inferential framework known as visual inference [@buja_statistical_2009] has been developed, which relies on the use of graphical representations of data. The visual inference approach makes use of the natural capability of the human visual system to identify patterns and deviations from expected patterns. It provides a more comprehensible way of interpreting data and conducting hypothesis testing compared to conventional statistical testing. 
+
+Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises $m$ randomly positioned plots, where one of them represents the data plot, while the remaining $m - 1$ plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis $H_0$. An example lineup is provided in Figure \ref{fig:lineup-example}. To compute the $p$-value of the visual test, the lineup will be independently presented to a number of participants, asking them to pick the most different plot. Under $H_0$, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is $1/m$. If a large number of participants correctly identify the data plot, the corresponding $p$-value will be small, indicating strong evidence against $H_0$.
+
+```{r lineup-example, fig.pos="t!", fig.height = 7, fig.width = 7, fig.cap = "Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data (plot $2^2 + 2$, exhibiting non-linearity) is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting plot $2^2 + 2$."}
+vi_lineup <- get_vi_lineup()
+vi_lineup$poly_300$data %>%
+  VI_MODEL$plot_lineup(theme = theme_light(), remove_axis = TRUE, remove_grid_line = TRUE)
+```
+
+
+This method has gained increasing traction in recent years and has already been integrated into data analysis of various topics, such as diagnostics of hierarchical linear models [@loy2013diagnostic], geographical research [@widen_graphical_2016] and forensic examinations [@krishnan_hierarchical_2021]. With the advent of sophisticated visualization techniques and tools, visual inference has the potential to provide an innovative alternative to traditional statistical approaches and enabling more effective communication of model findings.
+
+The reliance of human assessment is a fundamental aspect of visual tests, but it may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.
+
+Modern computer vision models are well-suited for addressing this challenge. They rely on deep neural networks with convolutional layers [@fukushima_neocognitron_1982]. These layers leverage hierarchical patterns in data, downsizing and transforming images by summarizing information in a small space. Numerous studies have demonstrated the efficacy of convolutional layers in addressing various vision tasks, including image recognition [@rawat_deep_2017]. Despite the widespread use of computer vision models in fields like computer-aided diagnosis [@lee_image_2015], pedestrian detection [@brunetti_computer_2018], and facial recognition [@emami_facial_2012], their application in reading data plots remains limited. While some studies have explored the use of computer vision models for tasks such as reading recurrence plots for time series regression [@ojeda_multivariate_2020], time series classification [@chu_automatic_2019; @hailesilassie_financial_2019; @hatami_classification_2018; @zhang_encoding_2020], anomaly detection [@chen_convolutional_2020], and pairwise causality analysis [@singh_deep_2017], the application of reading residual plots with computer vision models represents a relatively new field of study.
+
+## Research questions
+
+The main objective of this research is to construct an automatic visual inference system capable of conducting visual tests on a large scale in the domain of regression diagnostics. The study will concentrate on three specific projects, namely
+
+1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.
+2. Designing an automated visual inference system to assess lineups of residual plots of classical normal linear regression model.
+3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+
+## Current research outcomes
+
+### A plot is worth a thousand tests: assessing residual diagnostics with the lineup protocol
+
+In order to collect data of human performance on reading residual plot of linear regression model and examine the potential applicability of integrating visual inference techniques into regression diagnostics, a pilot study was conducted in the first year with the participation of 64 individuals, which was followed by a formal study involving 443 participants in the subsequent year. The participants were presented with lineups consisting of 20 plots, where a residual plot was embedded along with 19 null plots, drawn with data simulated using the residual rotation technique. The study considered two primary forms of residual departures in multiple linear regression, namely non-linearity and heteroskedasticity. To enrich the visual features, different fitted value distributions, including normal, uniform, log-normal, and discrete, were also incorporated. 
+
+The study revealed that appropriate conventional residual-based statistical tests are more sensitive to weak residual departures from model assumptions compared to visual tests evaluated by humans, leading to excessive rejections even when downstream analysis and outcomes would not be significantly impacted by the small departures from a good fit. Specifically, conventional tests conclude that the model fit has issues nearly twice as frequently as humans would, and they frequently reject departures in the form of non-linearity and heteroskedasticity that are not visible to humans. 
+
+These findings emphasize the crucial role of graphical diagnostics and support the integration of visual inference into regression diagnostics. Moreover, they provide a compelling rationale for the development of an automated visual inference system to evaluate lineups of residual plots. The comprehensive details of the research methodology, along with other intriguing findings can be found in @li2023plot.
+
+### Automated assessment of residual plots with computer vision models
+
+In the third year of the project, a series of endeavors were undertaken to develop a computer vision model for assessing residual plots. To properly train such a model, a distance measure based on Kullback-Leibler divergence was introduced. This distance aimed to quantify the disparity between the residual distribution of a fitted linear regression model and the reference residual distribution assumed under correct model specification. It effectively captured the magnitude of model violations in a misspecified model.
+
+Subsequently, the computer vision model was devised to approximate this distance by taking a residual plot of the fitted model as input. The resulting approximated distance predicted by the model could be utilized to construct a Model Violation Index for quantifying various model violations. Additionally, a formal statistical testing procedure was developed based on the approximated distance. This procedure produced critical values by evaluating a large number of null plots generated from the fitted model and estimating the sample quantiles of the distribution of the approximated distance. Furthermore, a bootstrapping technique was developed to measure how frequently the fitted model was considered misspecified if data were repeatedly obtained from the same data generating process. 
+
+The proposed computer vision model was trained exclusively on synthetic data, encompassing residual plots featuring non-linearity, heteroskedasticity, and non-normality issues. The trained model exhibited strong performance on both training and test sets. Statistical tests relying on the approximated distance predicted by the computer vision model showcased lower sensitivity compared to conventional tests but higher sensitivity compared to visual tests conducted by humans. The approximated distance generally aligned with the strength of the visual signal perceived by humans.
+
+Through various examples, the effectiveness of the proposed method were illustrated across diverse scenarios, highlighting the similarity between visual tests and tests based on approximated distance. Furthermore, cases where conventional tests might fail, whereas visual tests and tests based on approximated distance remain effective were underscored.
+
+This method holds significant value as it alleviates a portion of analysts' workload associated with assessing residual plots. While plotting residuals and evaluating them by analysts are still recommend for their invaluable insights, the trained computer vision model provided in this study can serve as a tool for automating the diagnostic process or for supplementary purposes as needed. The comprehensive details of the distance definition, model training process, along with other results can be found in the attached paper.
+
+
+# Thesis structure
+
+The thesis will be structured as follows. 
+
+1. Chapter One provides an overview of regression diagnostics, visual inference, and computer vision models. This chapter serves as an introductory section of the thesis and forms the basis for subsequent discussions.
+
+2. Chapter Two presents a comparative study between visual testing and conventional testing in the context of regression diagnostics. The corresponding paper is already accepted by the Journal of Computational and Graphical Statistics.
+
+3. Chapter Three discusses the development of an automatic visual inference system for evaluating lineups of residual plots. The computer vision models used in this chapter are primarily trained on simulated data from linear models that violate classical assumptions such as linearity and homoscedasticity. The chapter concludes with an evaluation of the performance of the system, comparing the power and characteristics of human subject-assessed visual tests with computer-assessed visual tests. This chapter will be identical to the attached paper.
+
+4. Chapter Four provides detailed description of the open-source software developed during the course of the research. This includes the R package `bandicoot` for code maintenance with object-oriented programming, `visage` for running visual inference experiments on linear regression models, and `autovi` for assessing residual plots with trained computer vision models. Additionally, an online application of the automatic visual inference system is introduced. 
+
+5. Chapter Five offers a comprehensive discussion of the thesis, emphasizing the implications and contributions of the research. The chapter also addresses the limitations of the research and outlines potential future research directions.
+
+# Timetable
+
+The timetable of my PhD study from Mar 2024 to August 2024 is provided in Table \ref{tab:timetable}.
+
+```{r}
+data.frame(Date = c("Mar",
+                    "April", 
+                    "May",
+                    "July",
+                    "",
+                    "Aug"), 
+           Event = c("Finish and submit the second paper",
+                     "Develop a web interface for the automatic visual inference system",
+                     "Clean and publish R packages to CRAN",
+                     "Finish the third paper",
+                     "Attend the useR! conference",
+                     "Submit thesis")) %>%
+  kableExtra::kable(booktabs = TRUE,
+                    label = "timetable",
+                    caption = "Timetable till thesis submission") %>%
+  kableExtra::kable_styling(latex_options = "scale_down") 
+```
+
+
+# References
+
+
