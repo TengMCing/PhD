@@ -1,0 +1,31 @@
+strong {
+  color: #C8008F;
+}
+
+.reveal blockquote {
+    border-left: solid 5px #cb4b16;
+    padding-left: 1em;
+    display: block;
+    margin-inline-start: 2em;
+}
+
+.reveal h2 {
+  color: #006DAE
+}
+
+.reveal .footer a {
+  color: #006DAE
+}
+
+body > div.reveal.has-logo.focused.has-horizontal-slides.ready.fade > img {
+  height: 2em;
+  max-height: 100em;
+}
+
+th {
+  background: #eee8d5;
+}
+
+tr:nth-child(even) {
+    background: #eee8d5;
+}

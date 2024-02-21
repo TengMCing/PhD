@@ -1,0 +1,1191 @@
+---
+format: 
+  revealjs:
+    transition-speed: fast
+    slide-number: c/t
+    css: custom.css
+    transition: fade
+    incremental: true 
+    theme: default
+    footer: "Slides URL: <https://patrickli-milestone-3.netlify.app>"
+    logo: figures/monash-stacked-blue-rgb.png
+    self-contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE
+)
+
+library(tidyverse)
+```
+
+## Advances in Artificial Intelligence for Data Visualization: Automated Reading of Residual Plots with Computer Vision {.center style="text-align: right;"}
+
+::: {style="color: #5A5A5A"}
+
+Pre-submission Review
+
+:::
+
+
+#### Weihao (Patrick) Li {style="margin-top: 40px; font-size: 0.9em"}
+
+::: {style="font-size: 0.9em"}
+
+Monash University
+
+:::
+
+---
+
+## ✍️Supervisors
+
+::: {.columns style="font-size:50%"}
+
+::: {.column width="25%"}
+
+![](figures/dicook.jpg){style="object-fit: cover; width: 100%; aspect-ratio: 1 / 1;"}
+
+Professor Dianne Cook, Department of Econometrics and Business Statistics, Melbourne, Monash University, Australia
+
+:::
+
+::: {.column width="25%"}
+
+![](figures/emitanaka.jpg){style="object-fit: cover; width: 100%; aspect-ratio: 1 / 1;"}
+
+Dr. Emi Tanaka, Biological Data Science Institute, Australian National University, Canberra, Australia
+
+:::
+
+
+::: {.column width="25%"}
+
+![](figures/susan.jpg){style="object-fit: cover; width: 100%; aspect-ratio: 1 / 1;"}
+
+Assistant Professor Susan VanderPlas, Statistics Department, University of Nebraska, Lincoln, USA
+
+:::
+
+::: {.column width="25%"}
+
+![](figures/klaus.jpeg){style="object-fit: cover; width: 100%; aspect-ratio: 1 / 1;"}
+
+Senior Lecturer Klaus Ackermann, Department of Econometrics and Business Statistics, Melbourne, Monash University, Australia
+
+:::
+
+:::
+
+---
+
+## 📚Thesis Structure
+
+1. Exploring the application of visual inference in regression diagnostics and comparing it with conventional hypothesis tests.
+
+2. **Designing an automated visual inference system to assess residual plots of classical normal linear regression model.**
+
+3. Deploying the automatic visual inference system as an online application and publishing the relevant open-source software.
+
+::: {.fragment}
+
+This presentation will be focused on the **second project**. 
+
+:::
+
+---
+
+## 🔍Regression Diagnostics
+
+Diagnostics are the key to determining whether there is anything **importantly wrong** with a regression model. 
+
+<br>
+
+$$\underbrace{\boldsymbol{e}}_\textrm{Residuals} = \underbrace{\boldsymbol{y}}_\textrm{Observations} - \underbrace{f(\boldsymbol{x})}_\textrm{Fitted values}$$
+
+**Graphical approaches (plots)** are the recommended methods for diagnosing residuals.
+
+
+---
+
+## 🤔Challenges
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r fig.width=5, fig.height=5, fig.retina=3, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(visage)
+set.seed(452)
+ori_x <- rand_lognormal()
+mod <- heter_model(b = 0, x = closed_form(~-ori_x))
+ori_dat <- mod$gen(300)
+
+ori_dat %>%
+  VI_MODEL$plot(theme = theme_light(base_size = 18), size = 1, remove_grid_line = TRUE, ) +
+  # geom_line(aes(x = .fitted, y = (3.5 + 0.3 * .fitted)), col = "red") +
+  # geom_line(aes(x = .fitted, y = -(3.5 + 0.3 * .fitted)), col = "red") +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+:::
+
+
+::: {.column width="60%"}
+
+- Vertical spread of the points varies with the fitted values indicates **the existence of heteroskedasticity**.
+
+- However, this is an **over-interpretation**.
+
+- The visual pattern is caused by a **skewed distribution of the predictor**.
+
+
+
+:::
+
+::::
+
+
+---
+
+## 🔬Visual Inference
+
+::: {style="font-size:70%"}
+
+The reading of residual plots can be **calibrated** by an **inferential framework** called **visual inference** (Buja, et al. 2009).
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
+```{r fig.width=5, fig.height=5, fig.retina=3}
+set.seed(452)
+mod$gen_lineup(300, k = 20, pos = 11) %>%
+  filter(null != FALSE) %>%
+  bind_rows(ori_dat %>% mutate(k = 11, null = FALSE)) %>%
+  VI_MODEL$plot_lineup(theme = theme_light(base_size = 12),
+                       remove_grid_line = TRUE,
+                       remove_axis = TRUE)
+```
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+Typically, a **lineup** of residual plots consists of 
+
+<!-- - $m$ randomly placed plots -->
+- one **data plot**
+- $19$ **null plots** containing residuals **simulated from the fitted model**.
+
+:::
+
+::: {.fragment}
+
+To perform a visual test
+
+- Observer(s) will be asked to select the **most different plot(s)**.
+- The p-value can be calculated using the **beta-binomial model** (VanderPlas et al., 2021).
+
+:::
+
+:::
+
+
+::::
+
+:::
+
+
+---
+
+## 🚫Limitations of Lineup Protocol
+
+::: {.fragment}
+1. Human can not 
+
+- evaluate lineup consisted of a **large number of plots**.
+- evaluate a **large number of lineups**.
+:::
+
+::: {.fragment}
+2. Evaluation of lineup is **high in labour cost** and **time consuming**.
+:::
+
+---
+
+## 🤖Computer Vision Model
+
+Modern **computer vision models** are well-suited for addressing this challenge. 
+
+It is usually built on a **deep neural network** called **convolutional neural network** (CNN).
+
+![Source: https://en.wikipedia.org/wiki/Convolutional_neural_network](figures/Typical_cnn.png)
+
+---
+
+## 📏Measure the Difference
+
+To develop a computer vision model for assessing lineups of residual plots, we need to define a **numerical measure** of **"difference"** or **"distance"** between plots.
+
+- pixel-wise sum of square differences
+- Structural Similarity Index Measure (SSIM)
+- scagnostics
+- metric learning
+- ...
+
+---
+
+## 🎲Residual Distribution
+
+Consider the **classical normal linear regression model**
+
+$$\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n).$$
+
+By the **Frisch-Waugh-Lowell theorem**,
+
+$$\boldsymbol{e} = \boldsymbol{R}\boldsymbol{\varepsilon},$$
+where $\boldsymbol{R}=\boldsymbol{I}_n -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'$.
+
+We treat $\boldsymbol{e}$ as **a vector of random variables** here.
+
+---
+
+
+## 🎲Residual Distribution
+
+::: {style="font-size:80%"}
+
+The **minimization of the sum of square residuals** implies  
+$$\sum_{i=1}^{n} e_i = 0 \quad\text{and}\quad \text{rank}(\boldsymbol{R}) = n - 1.$$
+
+Thus, $\boldsymbol{e}$ follows a **degenerate multivariate distribution**.
+
+For simplicity, we will replace $\text{cov}(\boldsymbol{e}, \boldsymbol{e}) = \boldsymbol{R}\sigma^2\boldsymbol{R}' = \boldsymbol{R}\sigma^2$ with a **full-rank diagonal matrix** $\text{diag}(\boldsymbol{R}\sigma^2)$.
+
+Then for a **correctly specified model**, $$\boldsymbol{e} \sim N(\boldsymbol{0}_n, \text{diag}(\boldsymbol{R}\sigma^2)).$$ 
+
+Symbol $Q$ will be used to represent this **reference residual distribution**. 
+
+:::
+
+
+---
+
+## 🎲Residual Distribution
+
+However, if the model is **misspecified**, then the **actual residual distribution** denoted as $P$, will be **different** from $Q$.
+
+- For example, if $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n,\boldsymbol{V})$, where $\boldsymbol{V} \neq \sigma^2\boldsymbol{I}_n$,  $$\boldsymbol{e} \sim N(\boldsymbol{0}_n, \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R})) \implies \text{Heteroskedasticity}.$$
+
+- And if some necessary higher-order predictors $\boldsymbol{Z}$ are also omitted, $$\boldsymbol{e} \sim N(\boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z, \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R})) \implies \text{Non-linearity}~ \& ~\text{Heteroskedasticity}.$$
+
+---
+
+## 📏KL Divergence of $P$ from $Q$
+
+We defined a **distance measure** based on **Kullback-Leibler divergence** to quantify the **extent of model violations**
+
+\begin{align}
+\label{eq:kl-0}
+D &= \log\left(1 + D_{KL}\right), \\
+\label{eq:kl-1}
+D_{KL} &= \int_{\mathbb{R}^{n}}\log\frac{p(\boldsymbol{e})}{q(\boldsymbol{e})}p(\boldsymbol{e})d\boldsymbol{e},
+\end{align}
+
+\noindent where $p(.)$ and $q(.)$ are the probability density functions for distribution $P$ and $Q$ respectively.
+
+- $D = 0$ if and only if $P \equiv Q$.
+
+
+---
+
+## 📝Evaluation of $D$ for Normal $\boldsymbol{\varepsilon}$
+
+::: {style="font-size:80%"}
+
+For a **classical normal linear regression model** that omits necessary higher-order predictors $\boldsymbol{Z}$, and incorrectly assumes $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n,\sigma^2\boldsymbol{I}_n)$ while in fact $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \boldsymbol{V})$ with $\boldsymbol{V} \neq \sigma^2\boldsymbol{I}_n$, the KL divergence can be further expanded to
+
+
+\begin{align}
+\label{eq:kl-2}
+D_{KL} &= \frac{1}{2}\left(\log\frac{|\boldsymbol{W}|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\boldsymbol{W}^{-1}\text{diag}(\boldsymbol{R}\sigma^2)) + \boldsymbol{\mu}_z'\boldsymbol{W}^{-1}\boldsymbol{\mu}_z\right),
+\end{align}
+
+where $\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z$, and $\boldsymbol{W} = \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R})$. 
+
+- The assumed error variance $\sigma^2$ is set to be $\text{tr}(\boldsymbol{V})/n$, which is the expectation of the estimated variance.
+
+:::
+
+
+---
+
+## 📝Evaluation of $D$ for Non-normal $\boldsymbol{\varepsilon}$
+
+
+
+For non-normal $\boldsymbol{\varepsilon}$, $P$ is **unlikely to be a well-known distribution**.
+
+- difficult to compute $p(\boldsymbol{e})$. 
+- difficult to do numerical integration over the $n$ dimensional space, because $n$ could be **potentially very large**.  
+
+::: {.fragment}
+
+Therefore, the elements of $\boldsymbol{e}$ are assumed to be **independent of each other**.
+
+:::
+
+---
+
+
+## 📝Evaluation of $D$ for Non-normal $\boldsymbol{\varepsilon}$
+
+::: {style="font-size:80%"}
+
+Under the independence assumption, the **integration becomes a summation**
+
+\begin{align}
+\label{eq:kl-3}
+D_{KL} &\approx \sum_{i = 1}^{n} \hat{D_{KL}^{(i)}}, \\
+\hat{D_{KL}^{(i)}} &= \frac{1}{m}\sum_{j = 1}^{m} log\frac{\hat{p_i}(B_{ij})}{q(B_{ij})},
+\end{align}
+
+where $B$ is a matrix with $n$ rows and $m$ columns, and **each column is a set of simulated residuals**, $m$ is the **number of simulations**, $\hat{p_i}(.)$ is the **kernel density estimator** of $p_i(.)$ using simulated residuals in $B_i$.
+
+- The assumed variance for $q(.)$ is set to be $\sum_{b \in vec(B)}(b - \sum_{b \in vec(B)} b/nm)^2/(nm - 1)$.
+
+:::
+
+---
+
+## 🎯Approximation of the Distance
+
+::: {style="font-size:80%"}
+
+Let's get back to the **original problem**. We have a fitted model on hand, and we want to know **how different the residuals are from a set of good residuals**. 
+
+- **However, the data generating process is typically unknown!** 
+
+  - The distance can not be computed!
+
+::: {.fragment}
+
+We can train a **computer vision model** to approximate $D$ with **a residual plot**
+
+\begin{equation}
+\label{eq:d-approx}
+\widehat{D} = f_{CV}(V_{h \times w}(\boldsymbol{e}, \boldsymbol{\hat{y}})),
+\end{equation}
+
+where $V_{h \times w}(.)$ is a **plotting function** that saves a residual plot as an image with $h \times w$ pixels, and  $f_{CV}(.)$ is a **computer vision model** which predicts distance in $[0, +\infty)$.
+
+:::
+
+:::
+
+---
+
+## 🔄Generation of Training Data
+
+::: {style="font-size:80%"}
+
+### **Data generating process**
+
+\begin{align}
+\label{eq:data-sim}
+\boldsymbol{y} &= \boldsymbol{1}_n + \boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 + \beta_2(\boldsymbol{z} + \beta_1\boldsymbol{w}) + \boldsymbol{k} \odot \boldsymbol{\varepsilon}, \\
+\boldsymbol{z} &\propto \text{He}_j(\boldsymbol{x}_1), \\
+\boldsymbol{w} &\propto \text{He}_j(\boldsymbol{x}_2), \\
+\boldsymbol{k} &= \sqrt{\boldsymbol{1}_n + b(2 - |a|)(\boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 - a\boldsymbol{1}_n)^2},
+\end{align}
+
+where $\text{He}_j(.)$ is the $j$th-order **probabilist's Hermite polynomials**, and the $\sqrt{(.)}$ and $(.)^2$ operators are element-wise operators.
+
+- The residuals are obtained by **regressing $y$ on $x_1$**. If $\beta_1 \neq 0$, $x_2$ will also be included as a predictor.
+
+:::
+
+
+---
+
+## 💡Non-linearity
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+
+**Factor $j$**
+
+:::
+
+::: {.column width="70%"}
+
+```{r fig.width=10, fig.height=4}
+set.seed(10086)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(j = 2, include_x2 = FALSE, sigma = 0.05)$gen(500) %>%
+  mutate(j = 2)
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+map_df(3:11, function(j) {
+  phn_model(j = j, include_x2 = FALSE, sigma = 0.05)$
+    gen(500, computed = select(dat_shape_1, x1, e)) %>%
+  mutate(j = j)
+}) %>%
+  
+# Combined with data for shape 1
+bind_rows(dat_shape_1) %>%
+  mutate(j = factor(j)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~j, scales = "free", labeller = label_parsed, ncol = 5)
+```
+
+:::
+
+:::
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+**Factor $\sigma_\varepsilon$**
+
+:::
+
+::: {.column width="70%"}
+
+```{r fig.width=8, fig.height=2}
+set.seed(10086)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(j = 2, include_x2 = FALSE, sigma = 0.05)$gen(500) %>%
+  mutate(e_sigma = 0.2)
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+map_df(c(0.4, 0.8, 1.6, 3.2), function(e_sigma) {
+  phn_model(j = 2, include_x2 = FALSE, sigma = e_sigma)$
+    gen(500, computed = select(dat_shape_1, x1, e) %>% mutate(e = e/0.2*e_sigma)) %>%
+  mutate(e_sigma = e_sigma)
+}) %>%
+  
+# Combined with data for shape 1
+bind_rows(dat_shape_1) %>%
+  mutate(e_sigma = factor(e_sigma)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~e_sigma, scales = "free", labeller = label_parsed, ncol = 5)
+```
+
+:::
+
+:::
+
+---
+
+
+## 💡Heteroskedasticity
+
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+
+**Factor $a$**
+
+:::
+
+::: {.column width="70%"}
+
+```{r fig.width=10, fig.height=4}
+set.seed(10085)
+
+# Generate data for a = -1
+dat_a_n1 <- phn_model(include_z = FALSE,
+                      include_x2 = FALSE,
+                      a = -1,
+                      b = 100)$gen(500) %>%
+  mutate(a = -1)
+
+# Generate data for other a
+map(c(-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1), function(a) {
+  phn_model(include_z = FALSE,
+            include_x2 = FALSE,
+            a = a,
+            b = 100)$gen(500) %>%
+  mutate(a = a)
+}) %>%
+  
+  # Combined with data for a = -1
+  bind_rows(dat_a_n1) %>%
+  mutate(a = factor(a)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~a, scales = "free", ncol = 5) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+:::
+
+:::
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+**Factor $b$**
+
+:::
+
+::: {.column width="70%"}
+
+```{r fig.width=8, fig.height=2}
+set.seed(10085)
+
+# Generate data for a = -1
+dat_a_n1 <- phn_model(include_z = FALSE,
+                      include_x2 = FALSE,
+                      a = -1,
+                      b = 6)$gen(500) %>%
+  mutate(b = 6)
+
+# Generate data for other a
+map(c(3, 1.5, 1, 0.5), function(b) {
+  phn_model(include_z = FALSE,
+            include_x2 = FALSE,
+            a = -1,
+            b = b)$gen(500) %>%
+  mutate(b = b)
+}) %>%
+  
+  # Combined with data for a = -1
+  bind_rows(dat_a_n1) %>%
+  mutate(b = factor(b)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~b, scales = "free", ncol = 5) +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+:::
+
+:::
+
+---
+
+## 💡Non-normality
+
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+
+**Distribution of $\varepsilon$**
+
+:::
+
+::: {.column width="70%"}
+
+```{r fig.width=8, fig.height=6}
+set.seed(10086)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(include_z = FALSE, include_x2 = FALSE, e = rand_uniform(-1.4, 1.4))$gen(500) %>%
+  mutate(e_dist = "uniform")
+
+dat_shape_2 <- phn_model(include_z = FALSE, include_x2 = FALSE, sigma = 0.8)$gen(500) %>%
+  mutate(e_dist = "normal")
+
+dat_shape_3 <- phn_model(include_z = FALSE, include_x2 = FALSE, e = rand_lognormal(sigma = 0.6))$gen(500) %>%
+  mutate(e_dist = "lognormal")
+
+dat_shape_4 <- phn_model(include_z = FALSE, include_x2 = FALSE, e = rand_uniform_d(-1.4, 1.4, even = TRUE))$gen(500) %>%
+  mutate(e_dist = "discrete")
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+bind_rows(dat_shape_1, dat_shape_2, dat_shape_3, dat_shape_4) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~e_dist, scales = "free", labeller = label_parsed, ncol = 2)
+```
+
+:::
+
+:::
+
+
+---
+
+
+## 💡Multiple Model Violations
+
+::: {.columns}
+
+::: {.column width="30%"}
+
+**Non-linearity + Heteroskedasticity**
+
+:::
+
+::: {.column width="70%"}
+
+
+```{r fig.width=10, fig.height=4}
+set.seed(10086)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(j = 2, a = -1, b = 100, include_x2 = FALSE, sigma = 0.05)$gen(500) %>%
+  mutate(j = 2)
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+map_df(3:11, function(j) {
+  phn_model(j = j, a = -1, b = 100, include_x2 = FALSE, sigma = 0.05)$
+    gen(500, computed = select(dat_shape_1, x1, e)) %>%
+  mutate(j = j)
+}) %>%
+  
+  # Combined with data for shape 1
+  bind_rows(dat_shape_1) %>%
+  mutate(j = factor(j)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~j, scales = "free", labeller = label_parsed, ncol = 5)
+```
+
+:::
+
+:::
+
+
+::: {.columns}
+
+::: {.column width="30%"}
+
+**Non-normality + Heteroskedasticity**
+
+:::
+
+::: {.column width="70%"}
+
+
+```{r fig.width=8, fig.height=2}
+set.seed(10085)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(a = -1, b = 100, include_z = FALSE, include_x2 = FALSE, e = rand_uniform(-1.4, 1.4))$gen(500) %>%
+  mutate(e_dist = "uniform")
+
+dat_shape_2 <- phn_model(a = -1, b = 100, include_z = FALSE, include_x2 = FALSE, sigma = 0.8)$gen(500) %>%
+  mutate(e_dist = "normal")
+
+dat_shape_3 <- phn_model(a = -1, b = 100, include_z = FALSE, include_x2 = FALSE, e = rand_lognormal(sigma = 0.6))$gen(500) %>%
+  mutate(e_dist = "lognormal")
+
+dat_shape_4 <- phn_model(a = -1, b = 100, include_z = FALSE, include_x2 = FALSE, e = rand_uniform_d(-1.4, 1.4, even = TRUE))$gen(500) %>%
+  mutate(e_dist = "discrete")
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+bind_rows(dat_shape_1, dat_shape_2, dat_shape_3, dat_shape_4) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~e_dist, scales = "free", labeller = label_parsed, ncol = 4)
+```
+
+:::
+
+:::
+
+---
+
+## 💡Predictor Distribution
+
+
+::: {.columns}
+
+::: {.column width="30%"}
+
+**Distribution of predictor**
+
+:::
+
+::: {.column width="70%"}
+
+
+```{r fig.width=8, fig.height=6}
+set.seed(10086)
+
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+
+# Data for uniform distribution
+dat_dist_1 <- poly_model(shape = 1, 
+                      x = {
+                        raw_x <- rand_uniform(-1, 1);
+                        closed_form(~stand_dist(raw_x))
+                        }, 
+                      sigma = 0.5)$gen(300) %>%
+  mutate(x_dist = "uniform")
+
+# Generate data for other distributions
+dat_dist_2 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_normal(sigma = 0.3); 
+                           closed_form(~stand_dist(raw_x))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "normal")
+
+dat_dist_3 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_lognormal(sigma = 0.6); 
+                           closed_form(~stand_dist(raw_x/3 - 1))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "lognormal")
+
+dat_dist_4 <- poly_model(shape = 1,
+                         x = {
+                           raw_x <- rand_uniform_d(k = 5, even = TRUE); 
+                           closed_form(~stand_dist(raw_x))
+                           }, 
+                         sigma = 0.5)$
+  gen(300, computed = select(dat_dist_1, e)) %>%
+  mutate(x_dist = "discrete")
+
+# Generate and plot data for discrete uniform distribution
+bind_rows(dat_dist_1, dat_dist_2, dat_dist_3, dat_dist_4) %>%
+  mutate(x_dist = factor(x_dist, 
+                         levels = c("discrete", 
+                                    "lognormal", 
+                                    "normal", 
+                                    "uniform"))) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  xlab("Fitted values") +
+  ylab("Residuals") +
+  facet_wrap(~x_dist, ncol = 2, scales = "free")
+```
+
+:::
+
+:::
+
+---
+
+## 💡Second Predictor
+
+
+
+
+::: {.columns}
+
+::: {.column width="30%"}
+
+**Non-linearity + Second predictor**
+
+:::
+
+::: {.column width="70%"}
+
+
+```{r fig.width=10, fig.height=4}
+set.seed(10086)
+
+# Data for shape 1
+dat_shape_1 <- phn_model(j = 2, include_x2 = TRUE, sigma = 0.05)$gen(500) %>%
+  mutate(j = 2)
+
+# Generate data for shape 2, 3 and 4. Reuse x and e.
+map_df(3:11, function(j) {
+  phn_model(j = j, include_x2 = TRUE, sigma = 0.05)$
+    gen(500, computed = select(dat_shape_1, x1, e)) %>%
+  mutate(j = j)
+}) %>%
+  
+  # Combined with data for shape 1
+  bind_rows(dat_shape_1) %>%
+  mutate(j = factor(j)) %>%
+  VI_MODEL$plot(remove_axis = TRUE, remove_grid_line = TRUE, theme = theme_light(base_size = 15)) +
+  facet_wrap(~j, scales = "free", labeller = label_parsed, ncol = 5)
+```
+
+:::
+
+:::
+
+
+
+---
+
+## 🏛️Model Architecture
+
+The architecture of the computer vision model is adapted from **VGG16** (Simonyan and Zisserman 2014).
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/cvm.pdf", pages = 1)
+```
+
+
+---
+
+## 🏋️‍♂️Model Training
+
+The computer vision model is trained on the **M3 high-performance computing platform** (www.massive.org.au), using **TensorFlow** (Abadi et al. 2016) and **Keras** (Chollet et al. 2015).
+
+- The training, validation and test set contains 64000, 16000 and 8000 images respectively.
+
+- The distribution of the target variable $D$ is controlled such that it roughly follows a uniform distribution.
+
+- Multiple models with different image resolutions are trained, the optimized model has input size $32 \times 32$. 
+
+---
+
+
+## 🌐Overview of Model Performance
+
+::: {.columns}
+
+::: {.column width="40%"}
+
+
+::: {style="font-size:80%"}
+
+The model performs 
+
+- better for non-normality
+- worse for non-linearity
+- consistently across different datasets
+
+::: {.fragment}
+
+The model performs worst on null plots (D = 0) as expected.
+
+:::
+
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+
+
+```{r}
+library(glue)
+test_pred <- readr::read_csv(here::here("data/test_pred.csv"))
+train_pred <- readr::read_csv(here::here("data/train_pred.csv"))
+meta <- readr::read_csv(here::here("data/meta.csv"))
+
+model_pred <- train_pred %>% 
+  left_join(meta) %>%
+  mutate(type = "train") %>%
+  bind_rows(test_pred %>% 
+              left_join(meta) %>%
+              mutate(type = "test")) %>%
+  filter(res == 32L)
+
+model_pred %>%
+  group_by(type, include_non_normal, include_heter, include_z) %>%
+  summarise(n = n(), 
+            RMSE = yardstick::rmse_vec(effect_size, vss)) %>%
+  mutate(violations = ifelse(include_z, "non-linearity", "null")) %>%
+  mutate(violations = ifelse(include_heter, glue("{violations} + heteroskedasticity"), violations)) %>%
+  mutate(violations = ifelse(include_non_normal, glue("{violations} + non-normality"), violations)) %>%
+  mutate(violations = gsub("null \\+ ", "", violations)) -> model_pred_plot_dat
+
+```
+
+
+```{r fig.height=6, fig.width=7.2}
+
+grey_grid <- expand.grid(c(0,1,2,3,4,5,6), c(1,2,3))
+
+model_pred_plot_dat <- model_pred_plot_dat %>%
+  mutate(violations = factor(violations, levels = c("null", 
+                                                    "non-linearity",
+                                                    "heteroskedasticity",
+                                                    "non-normality",
+                                                    "non-linearity + heteroskedasticity",
+                                                    "non-linearity + non-normality",
+                                                    "heteroskedasticity + non-normality",
+                                                    "non-linearity + heteroskedasticity + non-normality")))
+
+ggplot() +
+  geom_ribbon(aes(x = seq(-0.5, 7.5, 0.5), ymin = 0.5, ymax = 1.5), fill = "grey90") +
+  geom_ribbon(aes(x = seq(-0.5, 7.5, 0.5), ymin = 2.5, ymax = 3.5), fill = "grey90") +
+  geom_point(aes(grey_grid$Var1, grey_grid$Var2), col = "grey", size = 5) +
+  geom_point(aes(c(1,2,3), c(1,2,3)), size = 5) +
+  geom_point(aes(c(4,4,5,5,6,6,7,7,7), c(1,2,1,3,2,3,1,2,3)), size = 5) +
+  geom_segment(aes(x = c(4,5,6,7,7), xend = c(4,5,6,7,7), y = c(1,1,2,1,2), yend = c(2,3,3,2,3)), size = 1) +
+  geom_text(aes(c(-2, -2, -2), c(1, 2, 3), label = c("Non-linearity", "Heteroskedasticity", "Non-normality"))) +
+  geom_segment(aes(x = -0.5, xend = 7.5, y = 3.5, yend = 3.5)) +
+  geom_segment(aes(x = -0.5, xend = -0.5, y = 3.5, yend = 3.5 + 1.5 * 5)) +
+  geom_segment(aes(x = rep(-0.6, 4), xend = rep(-0.5, 4), y = 3.5 + seq(0, 1.5, 0.5) * 5, yend = 3.5 + seq(0, 1.5, 0.5) * 5)) +
+  geom_text(aes(x = rep(-1, 4), y = 3.5 + seq(0, 1.5, 0.5) * 5, label = c("  0", "0.5", "  1", "1.5")), size = 4) +
+  geom_point(data = model_pred_plot_dat, aes(as.numeric(violations) - 1, RMSE * 5 + 3.5, col = type), size = 3) +
+  geom_text(aes(-1.5, 0.75 * 5 + 3.5, label = "RMSE"), angle = 90) +
+  theme_light(base_size = 15) +
+  theme(panel.grid = element_blank(), 
+        axis.text = element_blank(), 
+        axis.ticks = element_blank()) +
+  xlab("") +
+  ylab("") +
+  xlim(c(-4, 8)) +
+  labs(col = "Dataset")
+```
+
+:::
+
+:::
+
+---
+
+## 📈Model Violations Index
+
+::: {style="font-size:80%"}
+
+For a consistent data generating process, $D$ typically **increases logarithmically with the number of observations**.
+
+This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
+
+Therefore, the **Model Violations Index** (MVI) for determining the **extent of model violations** can be proposed as
+
+\begin{equation}
+\label{eq:mvi}
+\text{MVI} = C + \widehat{D} - log(n),
+\end{equation}
+
+where $C$ is a large enough constant keeping the result positive. 
+
+
+:::
+
+---
+
+
+## 📈Model Violations Index
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/poly-index-1.pdf", pages = 1)
+```
+
+---
+
+
+## 📈Model Violations Index
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/heter-index-1.pdf", pages = 1)
+```
+
+---
+
+## 🔬Statistical Testing Based on the Approximated Distance
+
+::: {style="font-size:80%"}
+
+We have proposed a statistical test based on the approximated distance
+
+- The **null distribution** can be estimated by predicting approximated distance for **a large number of null plots**. 
+
+- The **critical value** can be estimated by the **sample quantile** (e.g. $Q_{null}(0.95)$) of the null distribution.
+
+- The **$p$-value** is the proportion of null plots having approximated distance **greater than or equal to** the observed one.
+
+:::
+
+
+---
+
+## 🔬Statistical Testing Based on the Approximated Distance
+
+
+
+::: {.columns}
+
+::: {.column width="100%"}
+
+```{r}
+my_vi <- autovi::auto_vi(lm(mpg ~ ., data = mtcars))
+my_vi$check_result <- readRDS("data/test.rds")
+
+p1 <- my_vi$plot_resid()
+p2 <- my_vi$summary_plot() +
+  ggtitle("", subtitle = glue("P-value = {my_vi$check_result$p_value}")) +
+  theme(legend.position = "bottom", legend.box = "vertical") +
+  labs(linetype = "") +
+  xlab(expression(hat(D))) +
+  scale_linetype(labels = c("95% quantile of the null distribution", expression(hat(D))))
+
+patchwork::wrap_plots(p1, p2)
+```
+
+:::
+
+:::
+
+
+---
+
+## 🧪Human Subject Experiment
+
+We have collected $7974$ responses to $1152$ lineups in a **human subject experiment** conducted in the first project (Li et al. 2023). 
+
+Differences:
+
+- non-linearity and heteroskedasticity **do not co-exist in one lineup**.
+- non-normality and multiple predictors **are not considered** in the experimental design.
+
+---
+
+## 🧪Compared to Visual Tests
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/human-mosaic-1.pdf", pages = 1)
+```
+
+---
+
+## 🧪Compared to RESET and BP Tests
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/conv-mosaic-1.pdf", pages = 1)
+```
+
+---
+
+## 🧪Power Comparison
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/power-1.pdf", pages = 1)
+```
+
+---
+
+## 💡Example: Left-triangle
+
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/false-check-1.pdf", pages = 1)
+```
+
+## 💡Example: Left-triangle
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/false-lineup-1.pdf", pages = 1)
+```
+
+## 💡Example: Boston Housing
+
+$MEDV = \beta_0 + \beta_1RM + \beta_2LSTAT + \beta_3PTRATIO + \varepsilon$
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/boston-check-1.pdf", pages = 1)
+```
+
+## 💡Example: Boston Housing
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/boston-lineup-1.pdf", pages = 1)
+```
+
+## 💡Example: Dinosaur
+
+$y = \beta_0 + \beta_1x + \varepsilon$
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/dino-check-1.pdf", pages = 1)
+```
+
+## 💡Example: Dinosaur
+
+```{r fig.align='center'}
+magick::image_read_pdf("figures/dino-lineup-1.pdf", pages = 1)
+```
+
+---
+
+## 🎬Conclusions
+
+::: {style="font-size:80%"}
+
+In this study, we have
+
+- introduced a **distance measure** to effectively **captures the magnitude of model violations**
+
+- proposed and trained a **computer vision model** to **approximate this distance**
+
+- developed a **statistical testing procedure** and a **Model Violations Index** based on the approximated distance
+
+
+:::
+
+---
+
+## 🎬Conclusions
+
+::: {style="font-size:80%"}
+
+- The proposed test shows **comparable power** to conventional ones, but there's room for further **enhancing its robustness** against **minor deviations** from model assumptions.
+
+- Our method offers significant value by **easing analysts' workload** in **assessing residual plots**. 
+
+- While we encourage **continued manual review of residual plots** for **insightful analysis**, our approach serves as a valuable tool for **automating** or **supplementing** the diagnostic process.
+
+:::
+
+---
+
+
+## 📅Timeline
+
+```{r}
+data.frame(Date = c("Mar",
+                    "April", 
+                    "May",
+                    "July",
+                    "",
+                    "Aug"), 
+           Event = c("Finish and submit the second paper",
+                     "Develop a web interface for the automatic visual inference system",
+                     "Clean and publish R packages to CRAN",
+                     "Finish the third paper",
+                     "Attend the useR! conference",
+                     "Submit thesis")) %>%
+  kableExtra::kable(booktabs = TRUE) %>%
+  kableExtra::kable_styling() 
+```
+
+## Thanks! Any questions? {.center}
+
+<br>
+
+### 🔗Relevant links
+
+::: {.nonincremental}
+
+- 📦 R Packages
+  - [`visage`: Visual Inference for Linear Regression Diagnostics](https://github.com/TengMCing/visage){target="_blank"}
+  - [`autovi`: Automated Visual Inference with Computer Vision Models](https://github.com/TengMCing/autovi){target="_blank"}
+
+- ![](figures/github-mark/github-mark.png){height=1em width=1em style="vertical-align:middle"} [Slides](https://github.com/TengMCing/PhD/Milestone_presentation_3){target="_blank"}
+
+
+:::
+
+
