@@ -1,0 +1,31 @@
+project:
+  type: book
+
+execute:
+  keep-md: true
+
+book:
+  title: "Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics"
+  author: "Weihao Li"
+  chapters:
+    - text: "Front matter"
+      file: index.qmd
+    - "01-chap1.qmd"
+    - "02-chap2.qmd"
+    - "03-chap3.qmd"
+    - "refs.qmd"
+  appendices:
+    - "A-appA.qmd"
+  sidebar:
+    style: "docked"
+
+bibliography: thesisrefs.bib
+csl: american-statistical-association.csl
+degreetype: Doctor of Philosophy
+submitted: 2024
+affiliation: Department of Econometrics & Business Statistics
+degrees: 'PhD, Monash University'
+
+format:
+  monashthesis-html: default
+  monashthesis-pdf: default

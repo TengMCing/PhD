@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - Appendix A — Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./refs.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+</head>
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-appA.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A-appA.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to "A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol"</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Front matter</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-chap1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-chap2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-chap3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">03-chap3.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./refs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-appA.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title"><b>Sections</b></h2>
+   
+  <ul class="collapse">
+<li><a href="#sec-appendix-a-1" id="toc-sec-appendix-a-1" class="nav-link active" data-scroll-target="#sec-appendix-a-1"><span class="header-section-number">A.1</span> Additional Details of Testing Procedures</a></li>
+  <li><a href="#sec-appendix-a-2" id="toc-sec-appendix-a-2" class="nav-link" data-scroll-target="#sec-appendix-a-2"><span class="header-section-number">A.2</span> Additional Details of Experimental Setup</a></li>
+  <li><a href="#analysis-of-results-relative-to-data-collection-process" id="toc-analysis-of-results-relative-to-data-collection-process" class="nav-link" data-scroll-target="#analysis-of-results-relative-to-data-collection-process"><span class="header-section-number">A.3</span> Analysis of Results Relative to Data Collection Process</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-appendix-a" class="quarto-section-identifier">Appendix A — Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="sec-appendix-a-1" class="level2" data-number="A.1"><h2 data-number="A.1" class="anchored" data-anchor-id="sec-appendix-a-1">
+<span class="header-section-number">A.1</span> Additional Details of Testing Procedures</h2>
+<section id="statistical-significance" class="level3" data-number="A.1.1"><h3 data-number="A.1.1" class="anchored" data-anchor-id="statistical-significance">
+<span class="header-section-number">A.1.1</span> Statistical Significance</h3>
+<p>Within the context of visual inference, with <span class="math inline">K</span> independent observers, the visual <span class="math inline">p</span>-value can be seen as the probability of having as many or more participants detect the data plot than the observed result.</p>
+<p>The approach used in <span class="citation" data-cites="majumder2013validation">Majumder et al. (<a href="refs.html#ref-majumder2013validation" role="doc-biblioref">2013</a>)</span> is as follows. Define <span class="math inline">X_j = \{0,1\}</span> to be a Bernoulli random variable measuring whether participant <span class="math inline">j</span> detected the data plot, and <span class="math inline">X = \sum_{j=1}^{K}X_j</span> be the total number of observers who detected the data plot. Then, by imposing a relatively strong assumption that all <span class="math inline">K</span> evaluations are fully independent, under <span class="math inline">H_0</span> <span class="math inline">X \sim \mathrm{Binom}_{K,1/m}</span>. Therefore, the <span class="math inline">p</span>-value of a lineup of size <span class="math inline">m</span> evaluated by <span class="math inline">K</span> observer is estimated with <span class="math inline">P(X \geq x) = 1 - F(x) + f(x)</span>, where <span class="math inline">F(.)</span> is the binomial cumulative distribution function, <span class="math inline">f(.)</span> is the binomial probability mass function and <span class="math inline">x</span> is the realization of number of observers choosing the data plot.</p>
+<p>As pointed out by <span class="citation" data-cites="vanderplas2021statistical">VanderPlas et al. (<a href="refs.html#ref-vanderplas2021statistical" role="doc-biblioref">2021</a>)</span>, this basic binomial model is deficient. It does not take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup, or account for when participants are offered the option to select one or more “most different” plots, or none, from a lineup. They suggest three common lineup scenarios: (1) <span class="math inline">K</span> different lineups are shown to <span class="math inline">K</span> participants, (2) <span class="math inline">K</span> lineups with different null plots but the same data plot are shown to <span class="math inline">K</span> participants, and (3) the same lineup is shown to <span class="math inline">K</span> participants. Scenario 3 is the most feasible to apply, but has the most dependencies to accommodate for the <span class="math inline">p</span>-value calculation. For Scenario 3, VanderPlas et al propose modelling the probability of plot <span class="math inline">i</span> being selected from a lineup as <span class="math inline">\theta_i</span>, where <span class="math inline">\theta_i \sim \text{Dirichlet}(\alpha)</span> for <span class="math inline">i=1,...,m</span> and <span class="math inline">\alpha &gt; 0</span>. The number of times plot <span class="math inline">i</span> being selected in <span class="math inline">K</span> evaluations is denoted as <span class="math inline">c_i</span>. In case participant <span class="math inline">j</span> makes multiple selections, <span class="math inline">1/s_j</span> will be added to <span class="math inline">c_i</span> instead of one, where <span class="math inline">s_j</span> is the number of plots participant <span class="math inline">j</span> selected for <span class="math inline">j=1,...K</span>. This ensures <span class="math inline">\sum_{i}c_i=K</span>. Since we are only interested in the selections of the data plot <span class="math inline">i</span>, the marginal model can be simplified to a beta-binomial model and thus the visual <span class="math inline">p</span>-value is given as</p>
+<p><span id="eq-pvalue-beta-binomial"><span class="math display">
+P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+
+\tag{A.1}</span></span></p>
+<p>where <span class="math inline">B(.)</span> is the beta function defined as</p>
+<p><span id="eq-betafunction"><span class="math display">
+B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b&gt;0.
+\tag{A.2}</span></span></p>
+<p>We extend the equation to non-negative real number <span class="math inline">c_i</span> by applying a linear approximation</p>
+<p><span id="eq-pvalue-beta-binomial-approx"><span class="math display">
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+,
+\tag{A.3}</span></span></p>
+<p>where <span class="math inline">P(C \geq \lceil c_i \rceil)</span> is calculated using <a href="#eq-pvalue-beta-binomial">Equation&nbsp;<span>A.1</span></a> and <span class="math inline">P(C = \lfloor c_i \rfloor)</span> is calculated by</p>
+<p><span id="eq-pmf-beta-binomial"><span class="math display">
+P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+.
+\tag{A.4}</span></span></p>
+<p>The parameter <span class="math inline">\alpha</span> used in <a href="#eq-pvalue-beta-binomial">Equation&nbsp;<span>A.1</span></a> and <a href="#eq-pmf-beta-binomial">Equation&nbsp;<span>A.4</span></a> is usually unknown and will need to be estimated from the survey data. An interpretation of <span class="math inline">\alpha</span> is that when it is low only a few plots are attractive to the observers and tend to be selected, and when high, most plots are equally likely to be chosen. VanderPlas et al define <span class="math inline">c</span>-interesting plot to be if <span class="math inline">c</span> or more participants select the plot as the most different. The expected number of plots selected at least <span class="math inline">c</span> times, <span class="math inline">\mathrm{E}[Z_c]</span>, is then calculated as</p>
+<p><span id="eq-c-interesting-expectation"><span class="math display">
+\mathrm{E}[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).
+\tag{A.5}</span></span></p>
+<p>With <a href="#eq-c-interesting-expectation">Equation&nbsp;<span>A.5</span></a>, <span class="math inline">\alpha</span> can be estimated using maximum likelihood estimation. Precise estimation of <span class="math inline">\alpha</span>, is aided by evaluation of Rorschach lineups, where all plots are null plots. In a Rorschach, in theory all plots should be equally likely, but in practice some (irrelevant) visual elements may be more eye-catching than others. This is what <span class="math inline">\alpha</span> captures, the capacity for extraneous features to distract the observer for a particular type of plot display.</p>
+</section><section id="effect-size-derivation" class="level3" data-number="A.1.2"><h3 data-number="A.1.2" class="anchored" data-anchor-id="effect-size-derivation">
+<span class="header-section-number">A.1.2</span> Effect Size Derivation</h3>
+<p>Effect size can be defined as the difference of a parameter for a particular model or distribution, or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence <span class="citation" data-cites="kullback1951information">(<a href="refs.html#ref-kullback1951information" role="doc-biblioref">Kullback and Leibler 1951</a>)</span> is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.</p>
+<p>Following the terminology introduced by <span class="citation" data-cites="kullback1951information">Kullback and Leibler (<a href="refs.html#ref-kullback1951information" role="doc-biblioref">1951</a>)</span>, <span class="math inline">P</span> represents the measured probability distribution, and <span class="math inline">Q</span> represents the assumed probability distribution. The Kullback-Leibler divergence is defined as <span class="math inline">\int_{-\infty}^{\infty}\log(p(x)/q(x))p(x)dx</span>, where <span class="math inline">p(.)</span> and <span class="math inline">q(.)</span> denote probability densities of <span class="math inline">P</span> and <span class="math inline">Q</span>.</p>
+<p>Let <span class="math inline">\boldsymbol{X}</span> denotes the <span class="math inline">p + 1</span> predictors with <span class="math inline">n</span> observations, <span class="math inline">\boldsymbol{b} = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y}</span> denotes the OLS solution, <span class="math inline">\boldsymbol{R} = \boldsymbol{I}_n -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'</span> denotes the residual operator, and let <span class="math inline">\boldsymbol{\varepsilon} \sim N(\boldsymbol{0},\sigma^2\boldsymbol{I})</span> denotes the error. The residual vector</p>
+<p><span class="math display">\begin{align*}
+\boldsymbol{e} &amp;= \boldsymbol{y} - \boldsymbol{X}\boldsymbol{b} \\
+               &amp;= \boldsymbol{y} - \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y} \\
+               &amp;= (\boldsymbol{I} -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}')\boldsymbol{y} \\
+               &amp;= \boldsymbol{R}\boldsymbol{y} \\
+               &amp;= \boldsymbol{R}(\boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}) \\
+               &amp;= \boldsymbol{R}\boldsymbol{\varepsilon}.
+\end{align*}</span></p>
+<p>Because <span class="math inline">\text{rank}(\boldsymbol{R}) = n - p - 1 &lt; n</span>, <span class="math inline">\boldsymbol{e}</span> follows a degenerate multivariate normal distribution and does not have a density. Since the Kullback-Leibler divergence requires a proper density function, we need to simplify the covariance matrix of <span class="math inline">\boldsymbol{e}</span> by setting all the off-diagonal elements to 0. Then, the residuals will be assumed to follow <span class="math inline">N(\boldsymbol{0}, diag(\boldsymbol{R}\sigma^2))</span> under the null hypothesis that the model is correctly specified. If the model is however misspecified due to omitted variables <span class="math inline">\boldsymbol{Z}</span>, or a non-constant variance <span class="math inline">\boldsymbol{V}</span>, the distribution of residuals can be derived as <span class="math inline">N(\boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z, \text{diag}(\boldsymbol{R}\sigma^2))</span> and <span class="math inline">N(\boldsymbol{0}, \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}'))</span> respectively.</p>
+<p>By assuming both <span class="math inline">P</span> and <span class="math inline">Q</span> are multivariate normal density functions, the Kullback-Leibler divergence can be rewritten as <span class="math display">KL = \frac{1}{2}\left(\log\frac{|\Sigma_p|}{|\Sigma_q|} - n + \text{tr}(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)'\Sigma_p^{-1}(\mu_p - \mu_q)\right).</span></p>
+<p>Then, we can combine the two residual departures into one formula</p>
+<p><span class="math display">
+KL = \frac{1}{2}\left(\log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}\text{diag}(\boldsymbol{R}\sigma^2)) + \boldsymbol{\mu}_z'(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}\boldsymbol{\mu}_z\right).
+</span></p>
+<p>When there are omitted variables but constant error variance, the formula can be reduced to</p>
+<p><span class="math display">KL = \frac{1}{2}\left(\boldsymbol{\mu}_z'(\text{diag}(\boldsymbol{R}\sigma^2))^{-1}\boldsymbol{\mu}_z\right).</span></p>
+<p>And when the model equation is correctly specified but the error variance is non-constant, the formula can be reduced to</p>
+<p><span class="math display">KL = \frac{1}{2}\left(log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}
+\text{diag}(\boldsymbol{R}\sigma^2))\right).</span></p>
+<p>To compute the effect size for each lineup we simulate a sufficiently large number of samples from the same model with the number of observations <span class="math inline">n</span> fixed for each sample. We then compute the effect size for each sample and take the average as the final value. This ensures lineups constructed with the same experimental factors will share the same effect size.</p>
+</section><section id="sensitivity-analysis-for-alpha" class="level3" data-number="A.1.3"><h3 data-number="A.1.3" class="anchored" data-anchor-id="sensitivity-analysis-for-alpha">
+<span class="header-section-number">A.1.3</span> Sensitivity Analysis for <span class="math inline">\alpha</span>
+</h3>
+<p>The parameter <span class="math inline">\alpha</span> used for the <span class="math inline">p</span>-value calculation needs to be estimated from responses to null lineups. With a greater value of <span class="math inline">\hat{\alpha}</span>, the <span class="math inline">p</span>-value will be smaller, resulting in more lineups being rejected. However, The way we generate Rorschach lineup is not strictly the same as what suggested in <span class="citation" data-cites="vanderplas2021statistical">VanderPlas et al. (<a href="refs.html#ref-vanderplas2021statistical" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="buja2009statistical">Buja et al. (<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">2009</a>)</span>. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator <span class="math inline">\alpha</span> on our primary findings.</p>
+<p>The analysis is conducted by setting up several scenarios, where the <span class="math inline">\alpha</span> is under or overestimated by 12.5%, 25% and 50%. Using the adjusted <span class="math inline">\hat{\alpha}</span>, we recalculate the <span class="math inline">p</span>-value for every lineup and show the results in Figure . It can be observed that there are some changes to <span class="math inline">p</span>-values, especially when the <span class="math inline">\hat{\alpha}</span> is multiplied by 50%. However, Table shows that adjusting <span class="math inline">\hat{\alpha}</span> will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of <span class="math inline">\alpha</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sensitivity" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-sensitivity-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.1: Change of <span class="math inline">p</span>-values with <span class="math inline">\hat{\alpha}</span> multiplied by <span class="math inline">0.5</span>, <span class="math inline">0.75</span>, <span class="math inline">0.875</span>, <span class="math inline">1.125</span>, <span class="math inline">1.25</span> and <span class="math inline">1.5</span>. Only lineups with uniform fitted value distribution is used. The vertical dashed line indicates <span class="math inline">p\text{-value} = 0.05</span>. The area coloured in red indicates <span class="math inline">\text{adjusted }p\text{-value} &lt; 0.05</span>. The x-axis is drawn on logarithmic scale. For multipliers smaller than 1, the adjusted <span class="math inline">p\text{-value}</span> will initially increase and decline when the <span class="math inline">p\text{-value}</span> increases. The trend is opposite with multipliers greater than <span class="math inline">1</span>, but the difference eventually reaches <span class="math inline">0</span>.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+</div>
+</div>
+</section><section id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test" class="level3" data-number="A.1.4"><h3 data-number="A.1.4" class="anchored" data-anchor-id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test">
+<span class="header-section-number">A.1.4</span> Effect of Number of Evaluations on the Power of a Visual Test</h3>
+<p>When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in <a href="#fig-n_eval">Figure&nbsp;<span>A.2</span></a> the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-n_eval" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-n_eval-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.2: Change of power of visual tests for different number of evalutions on lineups with uniform fitted value distribution. The power will increase as the number of evaluations increases, but the margin will decrease.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="power-of-a-reset-test-under-different-auxiliary-regression-formulas" class="level3" data-number="A.1.5"><h3 data-number="A.1.5" class="anchored" data-anchor-id="power-of-a-reset-test-under-different-auxiliary-regression-formulas">
+<span class="header-section-number">A.1.5</span> Power of a RESET Test under Different Auxiliary Regression Formulas</h3>
+<p>It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the “triple-U” shape designed in this paper. <a href="#fig-reset">Figure&nbsp;<span>A.3</span></a> illustrates the change of power of RESET test while testing the “U” shape and the “triple-U” shape with different highest orders. Clearly, when testing a simple shape like the “U” shape, the highest order has very little impact on the power. But for testing the “triple-U” shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-reset" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-reset-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.3: Change of power of RESET tests for different orders of fitted values included in the auxiliary formula. The left panel is the power of testing the “U” shape and the right panel is the power of testing the “triple-U” shape. The power will not be greatly affected by the highest order in the case of testing the “U” shape. In the case of testing the “triple-U” shape, the highest order needs to be set to at least six to avoid the loss of power.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="conventional-test-rejection-rate-for-varying-significance-levels" class="level3" data-number="A.1.6"><h3 data-number="A.1.6" class="anchored" data-anchor-id="conventional-test-rejection-rate-for-varying-significance-levels">
+<span class="header-section-number">A.1.6</span> Conventional Test Rejection Rate for Varying Significance Levels</h3>
+<p>In the main paper, <a href="02-chap2.html#sec-power-analysis"><span>Section&nbsp;2.5.1</span></a> and <a href="02-chap2.html#sec-p-value"><span>Section&nbsp;2.5.2</span></a> compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, … will have the effect of rejecting fewer of the residual plots.</p>
+<p>It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. Figure examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-rej-rates" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-rej-rates-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.4: Changing the significance level of the conventional test will change the rejection rate. A: Percentage of conventional tests also rejected by the visual test: rejected (solid), not rejected (dashed). As the significance level is reduced, the percentage rejected by the visual test that has been rejected by the conventional test approaches 100. The percentage of tests not rejected by the conventional test also increases, as expected, but the percentage of these that are rejected by the visual test increases too. B: ROC curve shows that forcing the conventional test to not reject creates a discrepancy with the visual test. Many of the residual plots not rejected by the conventional test are rejected by the visual test. It is not possible to vary the significance level of the conventional test to match the decisions made by the visual test.</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="sec-appendix-a-2" class="level2" data-number="A.2"><h2 data-number="A.2" class="anchored" data-anchor-id="sec-appendix-a-2">
+<span class="header-section-number">A.2</span> Additional Details of Experimental Setup</h2>
+<section id="non-linearity-model" class="level3" data-number="A.2.1"><h3 data-number="A.2.1" class="anchored" data-anchor-id="non-linearity-model">
+<span class="header-section-number">A.2.1</span> Non-linearity Model</h3>
+<p>The non-linearity model used in the experiment includes a non-linear term <span class="math inline">\boldsymbol{z}</span> constructed using Hermite polynomials on random vector <span class="math inline">\boldsymbol{x}</span> formulated as</p>
+<p><span class="math display">\begin{align*}
+\boldsymbol{y} &amp;= \boldsymbol{1}_n + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &amp;= g(\boldsymbol{x}_{raw}, 1), \\
+\boldsymbol{z} &amp;= g(\boldsymbol{z}_{raw}, 1), \\
+\boldsymbol{z}_{raw} &amp;= He_j(g(\boldsymbol{x}, 2)),
+\end{align*}</span></p>
+<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}</span>, <span class="math inline">\boldsymbol{\varepsilon}</span>, <span class="math inline">\boldsymbol{x}_{raw}</span>, <span class="math inline">\boldsymbol{z}_{raw}</span> are vectors of size <span class="math inline">n</span>, <span class="math inline">\boldsymbol{1}_n</span> is a vector of ones of size <span class="math inline">n</span>, <span class="math inline">He_{j}(.)</span> is the <span class="math inline">j</span>th-order probabilist’s Hermite polynomials <span class="citation" data-cites="hermite1864nouveau de1820theorie">(<a href="refs.html#ref-hermite1864nouveau" role="doc-biblioref">Hermite 1864</a>; originally by <a href="refs.html#ref-de1820theorie" role="doc-biblioref">Laplace 1820</a>)</span>, <span class="math inline">\varepsilon \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)</span>, and <span class="math inline">g(\boldsymbol{x}, k)</span> is a scaling function to enforce the support of the random vector to be <span class="math inline">[-k, k]^n</span> defined as</p>
+<p><span id="eq-scaling-function"><span class="math display">
+g(\boldsymbol{x}, k) = 2k\cdot\frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n}{x_{max} - x_{min}} - k, \quad \text{for} \quad k &gt; 0.
+\tag{A.6}</span></span></p>
+<p>where <span class="math inline">\displaystyle x_{min} = \min_{i\in \{1, ..., n\}} x_i</span>, <span class="math inline">\displaystyle x_{max} = \max_{i\in \{1, ..., n\}} x_i</span> and <span class="math inline">x_i</span> is the <span class="math inline">i</span>-th entry of <span class="math inline">\boldsymbol{x}</span>. The function <code>hermite</code> from the R package <code>mpoly</code> <span class="citation" data-cites="mpoly">(<a href="refs.html#ref-mpoly" role="doc-biblioref">Kahle 2013</a>)</span> is used to simulate <span class="math inline">\boldsymbol{z}_{raw}</span> to generate Hermite polynomials.</p>
+<p>The null regression model used to fit the realizations generated by the above model is formulated as</p>
+<p><span id="eq-null-model"><span class="math display">
+\boldsymbol{y} = \beta_0\boldsymbol{1}_n + \beta_1 \boldsymbol{x} + \boldsymbol{u},
+\tag{A.7}</span></span></p>
+<p>where <span class="math inline">\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)</span>. Here <span class="math inline">\boldsymbol{z}</span> is a higher order term of <span class="math inline">\boldsymbol{x}</span> and leaving it out in the null regression results in model misspecification.</p>
+</section><section id="heteroskedasticity-model" class="level3" data-number="A.2.2"><h3 data-number="A.2.2" class="anchored" data-anchor-id="heteroskedasticity-model">
+<span class="header-section-number">A.2.2</span> Heteroskedasticity Model</h3>
+<p>The heteroskedasticity model used in the experiment is formulated as</p>
+<p><span class="math display">\begin{align*}
+\boldsymbol{y} &amp;= \boldsymbol{1}_n + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &amp;= g(\boldsymbol{x}_{raw}, 1),\\
+\boldsymbol{\varepsilon} &amp;\sim N(\boldsymbol{0}_n, \boldsymbol{1}_n + (2 - |a|)(\boldsymbol{x} - a\boldsymbol{1}_n)'(\boldsymbol{x} - a\boldsymbol{1}_n) b \boldsymbol{I}_n),
+\end{align*}</span></p>
+<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}</span>, <span class="math inline">\boldsymbol{\varepsilon}</span> are vectors of size <span class="math inline">n</span> and <span class="math inline">g(.)</span> is the scaling function defined in <a href="#eq-scaling-function">Equation&nbsp;<span>A.6</span></a>. The null regression model used to fit the realizations generated by the above model is formulated exactly the same as <a href="#eq-null-model">Equation&nbsp;<span>A.7</span></a>.</p>
+<p>For <span class="math inline">b \neq 0</span>, the variance-covariance matrix of the error term <span class="math inline">\boldsymbol{\varepsilon}</span> is correlated with the predictor <span class="math inline">\boldsymbol{x}</span>, which will lead to the presence of heteroskedasticity.</p>
+<p>Since <span class="math inline">\text{supp}(X) = [-1, 1]</span>, choosing <span class="math inline">a</span> to be <span class="math inline">-1</span>, <span class="math inline">0</span> and <span class="math inline">1</span> can generate “left-triangle”, “butterfly” and “right-triangle” shapes. The term <span class="math inline">(2 - |a|)</span> maintains the magnitude of residuals across different values of <span class="math inline">a</span>.</p>
+</section><section id="controlling-the-signal-strength" class="level3" data-number="A.2.3"><h3 data-number="A.2.3" class="anchored" data-anchor-id="controlling-the-signal-strength">
+<span class="header-section-number">A.2.3</span> Controlling the Signal Strength</h3>
+<p>The three parameters <span class="math inline">n</span>, <span class="math inline">\sigma</span> and <span class="math inline">b</span> are important for controlling the strength of the signal to generate lineups with a variety difficulty levels. This will ensure that estimated power curves will be smooth and continuous, and that participants are allocated a set of lineups with a range of difficulty.</p>
+<p>Parameter <span class="math inline">\sigma \in \{0.5, 1, 2, 4\}</span> and <span class="math inline">b \in \{0.25, 1, 4, 16, 64\}</span> are used in data collection periods I and II respectively. A large value of <span class="math inline">\sigma</span> will increase the variation of the error of the non-linearity model and decrease the visibility of the visual pattern. The parameter <span class="math inline">b</span> controls the variation in the standard deviation of the error across the support of the predictor. A larger value of <span class="math inline">b</span> generates a larger ratio between it is smallest and highest values, making the visual pattern more obvious. The sample size <span class="math inline">n</span> sharpens (or blurs) a pattern when it is larger (or smaller).</p>
+</section><section id="lineup-allocation-to-participants" class="level3" data-number="A.2.4"><h3 data-number="A.2.4" class="anchored" data-anchor-id="lineup-allocation-to-participants">
+<span class="header-section-number">A.2.4</span> Lineup Allocation to Participants</h3>
+<p>There are a total of <span class="math inline">4 \times 4 \times 3 \times 4 = 192</span> and <span class="math inline">3 \times 5 \times 3 \times 4 = 180</span> combinations of parameter values for the non-linearity model and heteroskedasticity models respectively. Three replications for each combination results in <span class="math inline">192 \times 3 = 576</span> and <span class="math inline">180 \times 3 = 540</span> lineups, respectively.</p>
+<p>Each lineup needs to be evaluated by at least five participants. From previous work, and additional pilot studies for this experiment, we decided to record evaluations from 20 lineups for each participant. Two of the 20 lineups with clear visual patterns were used as attention checks, to ensure quality data. Thus, <span class="math inline">576 \times 5 / (20-2) = 160</span> and <span class="math inline">540 \times 5 / (20-2) = 150</span> participants were needed to cover the experimental design for the data collection periods I and II, respectively. The factor levels and range of difficulty was assigned relatively equally among participants.</p>
+<p>Data collection period III was primarily to obtain Rorschach lineup evaluations to estimate <span class="math inline">\alpha</span>, and also to obtain additional evaluations of lineups made with uniform fitted value distribution to ensure consistency in the results. To construct a Rorschach lineup, the data is generated from a model with zero effect size, while the null data are generated using the residual rotation technique. This procedure differs from that of the canonical Rorschach lineup, where all 20 plots are generated directly from the null model, so the method suggested in <span class="citation" data-cites="vanderplas2021statistical">VanderPlas et al. (<a href="refs.html#ref-vanderplas2021statistical" role="doc-biblioref">2021</a>)</span> for typical lineups containing a data plot is used to estimate <span class="math inline">\alpha</span>. The <span class="math inline">3 \times 4 = 12</span> treatment levels of the common factors, replicated three times results in 36 lineups. And 6 more evaluations on the 279 lineups with uniform fitted value distribution, results in at least <span class="math inline">(36 \times 20 + 279 \times 3 \times 6) / (20-2) = 133</span> participants needed.</p>
+</section><section id="mapping-of-participants-to-experimental-factors" class="level3" data-number="A.2.5"><h3 data-number="A.2.5" class="anchored" data-anchor-id="mapping-of-participants-to-experimental-factors">
+<span class="header-section-number">A.2.5</span> Mapping of Participants to Experimental Factors</h3>
+<p>Mapping of participants to experimental factors is an important part of experimental design. Essentially, we want to maximum the difference in factors exposed to a participant. For this purpose, we design an algorithm to conduct participant allocation. Let <span class="math inline">L</span> be a set of available lineups and <span class="math inline">S</span> be a set of available participants. According to the experimental design, the availability of a lineup is associated with the number of participants it can assign to. For lineups with uniform fitted value distribution, this value is 11. And other lineups can be allocated to at most five different participants. The availability of a participant is associated with the number of lineups that being allocated to this participant. A participant can view at most 18 different lineups.</p>
+<p>The algorithm starts from picking a random participant <span class="math inline">s \in S</span> with the minimum number of allocated lineups. It then tries to find a lineup <span class="math inline">l \in L</span> that can maximise the distance metric <span class="math inline">D</span> and allocate it to participant <span class="math inline">s</span>. Set <span class="math inline">L</span> and <span class="math inline">S</span> will be updated and the picking process will be repeated until there is no available lineups or participants.</p>
+<p>Let <span class="math inline">F_1,...,F_q</span> be <span class="math inline">q</span> experimental factors, and <span class="math inline">f_1, ...,f_q</span> be the corresponding factor values. We say <span class="math inline">f_i</span> exists in <span class="math inline">L_{s}</span> if any lineup in <span class="math inline">L_{s}</span> has this factor value. Similarly, <span class="math inline">f_if_j</span> exists in <span class="math inline">L_{s}</span> if any lineup in <span class="math inline">L_{s}</span> has this pair of factor values. And <span class="math inline">f_if_jf_k</span> exists in <span class="math inline">L_{s}</span> if any lineup in <span class="math inline">L_{s}</span> has this trio of factor values. The distance metric <span class="math inline">D</span> is defined between a lineup <span class="math inline">l</span> and a set of lineups <span class="math inline">L_{s}</span> allocated to a participant <span class="math inline">s</span> if <span class="math inline">L_{s}</span> is non-empty:</p>
+<p><span class="math display">\begin{equation*}
+D =
+C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q-1 \\ i &lt; j \leq q}}I(f_if_j\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q - 2 \\ i &lt; j \leq q - 1 \\ j &lt; k \leq q}}I(f_if_jf_k\text{ exists in }L_{s})
+\end{equation*}</span></p>
+<p>where <span class="math inline">C</span> is a sufficiently large constant such that <span class="math inline">D &gt; 0</span>. If <span class="math inline">L_{s}</span> is empty, we define <span class="math inline">D = 0</span>.</p>
+<p>The distance measures how different a lineup is from the set of lineups allocated to the participant in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a participant at each step.</p>
+<p>In <a href="#fig-poly-allocate">Figure&nbsp;<span>A.5</span></a> and <a href="#fig-heter-allocate">Figure&nbsp;<span>A.6</span></a>, we present examples of lineup allocations generated by our algorithm for data collection periods I and II, respectively. These figures illustrate the factor values presented to the first 20 participants recruited during each period. It can be observed that the algorithm effectively distributed almost all possible one-way and two-way factor combinations among the participants, thereby ensuring a diverse set of lineups for each participant.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-poly-allocate" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-poly-allocate-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.5: Factor values assigned to the first 20 participants recruited during data collection period I, with data points slightly jittered to prevent overlap. Each participant have been exposed to all one-way and two-way factor combinations.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-heter-allocate" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-heter-allocate-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.6: Factor values assigned to the first 20 participants recruited during data collection period II, with data points slightly jittered to prevent overlap. Each participant appears to have been exposed to almost all one-way and two-way factor combinations. However, two participants, namely participant 16 and participant 18, were not presented with lineups containing a butterfly shape with <span class="math inline">b = 4</span>. Additionally, participant 7 did not encounter a lineup featuring a butterfly shape with <span class="math inline">b = 1</span>.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="data-collection-process" class="level3" data-number="A.2.6"><h3 data-number="A.2.6" class="anchored" data-anchor-id="data-collection-process">
+<span class="header-section-number">A.2.6</span> Data Collection Process</h3>
+<p>The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in <a href="#fig-tech">Figure&nbsp;<span>A.7</span></a>. The website is built with the <code>Flask</code> <span class="citation" data-cites="flask">(<a href="refs.html#ref-flask" role="doc-biblioref">Grinberg 2018</a>)</span> web framework and hosted on <code>PythonAnywhere</code> <span class="citation" data-cites="pythonanywhere">(<a href="refs.html#ref-pythonanywhere" role="doc-biblioref">PythonAnywhere LLP 2023</a>)</span>. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the <code>jsPsych</code> front-end framework <span class="citation" data-cites="jspsych">(<a href="refs.html#ref-jspsych" role="doc-biblioref">De Leeuw 2015</a>)</span> instructs participants’ browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants’ responses are first validated by a scheduled <code>Python</code> script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by <code>Flask</code> and bundled in HTML files.</p>
+<p>Once the participant is recruited from Prolific <span class="citation" data-cites="palan2018prolific">(<a href="refs.html#ref-palan2018prolific" role="doc-biblioref">Palan and Schitter 2018</a>)</span>, it will be redirected to the entry page of our study website. An image of the entry page is provided in <a href="#fig-entry-page">Figure&nbsp;<span>A.8</span></a>. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in <a href="#fig-consent-form">Figure&nbsp;<span>A.9</span></a> and <a href="#fig-metadata">Figure&nbsp;<span>A.10</span></a> respectively. Before evaluating lineups, participant also need to read the training page as provide in <a href="#fig-training-page">Figure&nbsp;<span>A.11</span></a> to understand the process. An example of the lineup page is given in <a href="#fig-lineup-page">Figure&nbsp;<span>A.12</span></a>. A half of the page is taken by the lineup image to attract participant’s attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.</p>
+<div id="fig-tech" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><embed src="figures/experiment_tech.pdf" class="img-fluid" style="width:0%; display:none"><p><embed src="figures/experiment_tech.pdf#toolbar=0" style="width:100.0%" height="953"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.7: Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.</figcaption></figure>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-entry-page" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="figures/message.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.8: The entry page of the study website.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-consent-form" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="figures/consent_form.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.9: The consent form provided in the study website.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-metadata" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="figures/metadata.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.10: The form to provide demographic information.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-training-page" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="figures/training.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.11: The training page of the study website.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-lineup-page" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="figures/lineup1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.12: The lineup page of the study website.</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="analysis-of-results-relative-to-data-collection-process" class="level2" data-number="A.3"><h2 data-number="A.3" class="anchored" data-anchor-id="analysis-of-results-relative-to-data-collection-process">
+<span class="header-section-number">A.3</span> Analysis of Results Relative to Data Collection Process</h2>
+<section id="demographics" class="level3" data-number="A.3.1"><h3 data-number="A.3.1" class="anchored" data-anchor-id="demographics">
+<span class="header-section-number">A.3.1</span> Demographics</h3>
+<p>Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. <a href="#tbl-count-lineup">Table&nbsp;<span>A.1</span></a> gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-count-lineup" class="anchored">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<caption>Table&nbsp;A.1: Count of lineups, evaluations and participants over departure types and data collection periods.</caption>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Non-linearity
+</div></th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Heteroskedasticity
+</div></th>
+<th data-quarto-table-cell-role="th" style="text-align: right; empty-cells: hide; border-bottom: hidden;"></th>
+</tr>
+<tr class="odd">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Number</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">III</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lineups</td>
+<td style="text-align: right;">576</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">144</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">540</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">1116</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Evaluations</td>
+<td style="text-align: right;">2880</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">864</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2700</td>
+<td style="text-align: right;">810</td>
+<td style="text-align: right;">7254</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Participants</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">443</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. <a href="#tbl-pronoun">Table&nbsp;<span>A.2</span></a>, <a href="#tbl-age-group">Table&nbsp;<span>A.3</span></a>, <a href="#tbl-education">Table&nbsp;<span>A.4</span></a> and <a href="#tbl-experience">Table&nbsp;<span>A.5</span></a> provide summary of the demographic data.</p>
+<p>It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-pronoun" class="anchored">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;A.2: Summary of pronoun distribution of participants recruited in this study.</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Pronoun</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period III</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">He</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">13.8</td>
+<td style="text-align: right;">217</td>
+<td style="text-align: right;">49.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">She</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">17.6</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">13.8</td>
+<td style="text-align: right;">216</td>
+<td style="text-align: right;">48.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-age-group" class="anchored">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;A.3: Summary of age distribution of participants recruited in this study.</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Age group</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period III</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">18-24</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">19.4</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">49.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25-39</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">15.6</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">44.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">40-54</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-education" class="anchored">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;A.4: Summary of education distribution of participants recruited in this study.</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Education</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period III</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">High School or below</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">9.3</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">12.0</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">7.4</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">28.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diploma and Bachelor Degree</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">20.8</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">14.9</td>
+<td style="text-align: right;">237</td>
+<td style="text-align: right;">53.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Honours Degree</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">6.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Masters Degree</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">4.7</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3.6</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">11.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Doctoral Degree</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-experience" class="anchored">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;A.5: Summary of previous experience distribution of participants recruited in this study.</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Previous experience</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period II</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Period III</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: right;">21.7</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">19.9</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">15.1</td>
+<td style="text-align: right;">251</td>
+<td style="text-align: right;">56.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">14.4</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">16.3</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">12.6</td>
+<td style="text-align: right;">192</td>
+<td style="text-align: right;">43.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">36.1</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+</section><section id="data-collection-periods" class="level3" data-number="A.3.2"><h3 data-number="A.3.2" class="anchored" data-anchor-id="data-collection-periods">
+<span class="header-section-number">A.3.2</span> Data Collection Periods</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-poly-boxplot-lineup" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-poly-boxplot-lineup-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.13: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^3 - 1</span>.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-heter-boxplot-lineup" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-heter-boxplot-lineup-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;A.14: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for heteroskedasticity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^4 - 2</span>.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect. <a href="#fig-poly-boxplot-lineup">Figure&nbsp;<span>A.13</span></a> and <a href="#fig-heter-boxplot-lineup">Figure&nbsp;<span>A.14</span></a> provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the “letter-value” boxplot <span class="citation" data-cites="hofmann2017value">(<a href="refs.html#ref-hofmann2017value" role="doc-biblioref">Hofmann et al. 2017</a>)</span> which is an extension of the number of “letter value” statistics to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of <span class="math inline">c_i</span> of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in <span class="math inline">p</span>-values much greater than <span class="math inline">5</span>%. Thus, there is no clear evidence of batch effect.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-buja2009statistical" class="csl-entry" role="listitem">
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F., and Wickham, H. (2009), <span>“Statistical inference for exploratory data analysis and model diagnostics,”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, The Royal Society Publishing, 367, 4361–4383.
+</div>
+<div id="ref-jspsych" class="csl-entry" role="listitem">
+De Leeuw, J. R. (2015), <span>“jsPsych: A JavaScript library for creating behavioral experiments in a web browser,”</span> <em>Behavior Research Methods</em>, Springer, 47, 1–12.
+</div>
+<div id="ref-flask" class="csl-entry" role="listitem">
+Grinberg, M. (2018), <em>Flask web development: Developing web applications with python</em>, " O’Reilly Media, Inc.".
+</div>
+<div id="ref-hermite1864nouveau" class="csl-entry" role="listitem">
+Hermite, M. (1864), <em>Sur un nouveau d<span>é</span>veloppement en s<span>é</span>rie des fonctions</em>, Imprimerie de Gauthier-Villars.
+</div>
+<div id="ref-hofmann2017value" class="csl-entry" role="listitem">
+Hofmann, H., Wickham, H., and Kafadar, K. (2017), <span>“Value plots: Boxplots for large data,”</span> <em>Journal of Computational and Graphical Statistics</em>, Taylor &amp; Francis, 26, 469–477.
+</div>
+<div id="ref-mpoly" class="csl-entry" role="listitem">
+Kahle, D. (2013), <span>“Mpoly: Multivariate polynomials in <span>R</span>,”</span> <em>The R Journal</em>, 5, 162–170.
+</div>
+<div id="ref-kullback1951information" class="csl-entry" role="listitem">
+Kullback, S., and Leibler, R. A. (1951), <span>“On information and sufficiency,”</span> <em>The Annals of Mathematical Statistics</em>, JSTOR, 22, 79–86.
+</div>
+<div id="ref-de1820theorie" class="csl-entry" role="listitem">
+Laplace, P.-S. (1820), <em>Th<span>é</span>orie analytique des probabilit<span>é</span>s</em>, Courcier.
+</div>
+<div id="ref-majumder2013validation" class="csl-entry" role="listitem">
+Majumder, M., Hofmann, H., and Cook, D. (2013), <span>“Validation of visual statistical inference, applied to linear models,”</span> <em>Journal of the American Statistical Association</em>, Taylor &amp; Francis, 108, 942–956.
+</div>
+<div id="ref-palan2018prolific" class="csl-entry" role="listitem">
+Palan, S., and Schitter, C. (2018), <span>“Prolific. Ac—a subject pool for online experiments,”</span> <em>Journal of Behavioral and Experimental Finance</em>, Elsevier, 17, 22–27.
+</div>
+<div id="ref-pythonanywhere" class="csl-entry" role="listitem">
+PythonAnywhere LLP (2023), <span>“<a href="https://www.pythonanywhere.com">PythonAnywhere</a>.”</span>
+</div>
+<div id="ref-vanderplas2021statistical" class="csl-entry" role="listitem">
+VanderPlas, S., Röttger, C., Cook, D., and Hofmann, H. (2021), <span>“Statistical significance calculations for scenarios in visual inference,”</span> <em>Stat</em>, Wiley Online Library, 10, e337.
+</div>
+</div>
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./refs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bibliography</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

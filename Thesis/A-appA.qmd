@@ -1,0 +1,1307 @@
+# Appendix to "A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol" {#sec-appendix-a}
+
+
+
+```{r}
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+# OOP supports needed by `visage`
+if (!requireNamespace("bandicoot", quietly = TRUE)) {
+  remotes::install_github("TengMCing/bandicoot")
+}
+
+# Visual inference models and p-value calculation
+if (!requireNamespace("visage", quietly = TRUE)) {
+  remotes::install_url("https://github.com/TengMCing/visage/raw/master/built/visage_0.1.2.tar.gz")
+} else {
+  if (packageVersion("visage") < "0.1.2") {
+    remotes::install_url("https://github.com/TengMCing/visage/raw/master/built/visage_0.1.2.tar.gz")
+  }
+}
+
+if (!requireNamespace("tidyverse", quietly = TRUE)) {
+  install.packages("tidyverse")
+}
+
+if (!requireNamespace("here", quietly = TRUE)) {
+  install.packages("here")
+}
+
+if (!requireNamespace("ggmosaic", quietly = TRUE)) {
+  install.packages("ggmosaic")
+}
+
+if (!requireNamespace("rcartocolor", quietly = TRUE)) {
+  install.packages("rcartocolor")
+}
+
+if (!requireNamespace("kableExtra", quietly = TRUE)) {
+  install.packages("kableExtra")
+}
+
+if (!requireNamespace("patchwork", quietly = TRUE)) {
+  install.packages("patchwork")
+}
+
+
+library(tidyverse)
+library(visage)
+
+# To control the simulation in this file
+set.seed(10086)
+```
+
+```{r get-lineup-data}
+# Create the dir folder
+if (!dir.exists(here::here("cached_data/"))) dir.create(here::here("cached_data/"))
+
+# The lineup data used to draw residual plot needed to be downloaded
+# from the github repo. Cache it.
+if (!file.exists(here::here("cached_data/vi_lineup.rds"))) {
+  vi_lineup <- get_vi_lineup()
+  saveRDS(vi_lineup, here::here("cached_data/vi_lineup.rds"))
+} else {
+  vi_lineup <- readRDS(here::here("cached_data/vi_lineup.rds"))
+}
+```
+
+```{r poly-conventional-simulation}
+# Ensure the support of the predictor is [-1, 1]
+stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+
+# Run simulations to get the behaviours of conventional tests
+if (!file.exists(here::here("cached_data/poly_conventional_simulation.rds"))) {
+  poly_conv_sim <- list()
+  
+  # 100 bootstrap samples
+  for (i in 1:100)
+  {
+    poly_conv_sim[[i]] <- 
+      # Every sample contains 2000 lineups
+      map(1:2000, function(i) {
+        
+        # Sample a set of parameters
+        shape <- sample(1:4, 1)
+        e_sigma <- sample(c(0.5, 1, 2, 4), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- poly_model(shape, x = x, sigma = e_sigma)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(shape = shape,
+               e_sigma = e_sigma,
+               x_dist = x_dist,
+               n = n,
+               F_p_value = mod$test(tmp_dat)$p_value,
+               RESET3_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:3, 
+                                         power_type = "fitted")$p_value,
+               RESET4_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:4, 
+                                         power_type = "fitted")$p_value,
+               RESET5_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:5, 
+                                         power_type = "fitted")$p_value,
+               RESET6_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:6, 
+                                         power_type = "fitted")$p_value,
+               RESET7_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:7, 
+                                         power_type = "fitted")$p_value,
+               RESET8_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:8, 
+                                         power_type = "fitted")$p_value,
+               RESET9_p_value = mod$test(tmp_dat, 
+                                         test = "RESET", 
+                                         power = 2:9, 
+                                         power_type = "fitted")$p_value,
+               RESET10_p_value = mod$test(tmp_dat, 
+                                          test = "RESET", 
+                                          power = 2:10, 
+                                          power_type = "fitted")$p_value,
+               BP_p_value = HETER_MODEL$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
+  reduce(bind_rows)
+  }
+  
+  poly_conv_sim <- poly_conv_sim %>%
+    reduce(bind_rows)
+  
+  saveRDS(poly_conv_sim, here::here("cached_data/poly_conventional_simulation.rds"))
+} else {
+  poly_conv_sim <- readRDS(here::here("cached_data/poly_conventional_simulation.rds"))
+}
+```
+
+```{r heter-conventional-simulation}
+# Run simulations to get the behaviours of conventional tests
+if (!file.exists(here::here("cached_data/heter_conventional_simulation.rds"))) {
+  heter_conv_sim <- list()
+  
+  # 100 bootstrap samples
+  for (i in 1:100)
+  {
+    heter_conv_sim[[i]] <-
+      # Every sample contains 2000 lineups
+      map(1:2000, function(x) {
+        
+        # Sample a set of parameters
+        a <- sample(c(-1, 0, 1), 1)
+        b <- sample(c(0.25, 1, 4, 16, 64), 1)
+        x_dist <- sample(c("uniform", 
+                           "normal", 
+                           "lognormal", 
+                           "even_discrete"), 1)
+        x <- switch(x_dist,
+                    uniform = rand_uniform(-1, 1),
+                    normal = {
+                      raw_x <- rand_normal(sigma = 0.3)
+                      closed_form(~stand_dist(raw_x))
+                      },
+                    lognormal = {
+                      raw_x <- rand_lognormal(sigma = 0.6)
+                      closed_form(~stand_dist(raw_x/3 - 1))
+                      },
+                    even_discrete = rand_uniform_d(-1, 1, k = 5, even = TRUE))
+        
+        # Build the model
+        mod <- heter_model(a = a, b = b, x = x)
+        
+        # Sample the number of observations
+        n <- sample(c(50, 100, 300), 1)
+        
+        # Generate data from the model 
+        tmp_dat <- mod$gen(n)
+        
+        # Return a data frame containing p-values of
+        # F, RESET, BP and SW tests
+        tibble(a = a,
+               b = b,
+               x_dist = x_dist,
+               n = n,
+               F_p_value = POLY_MODEL$test(
+                 
+                 # Create a pseudo z to be able to use F-test
+                 tmp_dat %>%
+                   mutate(z = poly_model()$
+                            gen(n, computed = select(tmp_dat, x)) %>%
+                            pull(z))
+                 )$p_value,
+               RESET3_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:3, 
+                                                power_type = "fitted")$p_value,
+               RESET4_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:4, 
+                                                power_type = "fitted")$p_value,
+               RESET5_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:5, 
+                                                power_type = "fitted")$p_value,
+               RESET6_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:6, 
+                                                power_type = "fitted")$p_value,
+               RESET7_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:7, 
+                                                power_type = "fitted")$p_value,
+               RESET8_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:8, 
+                                                power_type = "fitted")$p_value,
+               RESET9_p_value = POLY_MODEL$test(tmp_dat, 
+                                                test = "RESET", 
+                                                power = 2:9, 
+                                                power_type = "fitted")$p_value,
+               RESET10_p_value = POLY_MODEL$test(tmp_dat, 
+                                                 test = "RESET", 
+                                                 power = 2:10, 
+                                                 power_type = "fitted")$p_value,
+               BP_p_value = mod$test(tmp_dat)$p_value,
+               SW_p_value = shapiro.test(tmp_dat$.resid)$p.value,
+               boot_id = i)
+        }) %>%
+  reduce(bind_rows)
+  }
+  
+  heter_conv_sim <- heter_conv_sim %>%
+    reduce(bind_rows)
+  
+  saveRDS(heter_conv_sim, here::here("cached_data/heter_conventional_simulation.rds"))
+} else {
+  heter_conv_sim <- readRDS(here::here("cached_data/heter_conventional_simulation.rds"))
+}
+```
+
+```{r}
+# Borrow effect size from the survey
+poly_conv_sim <- poly_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "polynomial"), shape, e_sigma, n, x_dist, effect_size))
+
+heter_conv_sim <- heter_conv_sim %>%
+  left_join(select(filter(vi_survey, type == "heteroskedasticity"), a, b, n, x_dist, effect_size))
+```
+
+## Additional Details of Testing Procedures {#sec-appendix-a-1}
+
+
+### Statistical Significance
+
+Within the context of visual inference, with $K$ independent observers, the visual $p$-value can be seen as the probability of having as many or more participants detect the data plot than the observed result.
+
+The approach used in @majumder2013validation is as follows. Define $X_j = \{0,1\}$ to be a Bernoulli random variable measuring whether participant $j$ detected the data plot, and $X = \sum_{j=1}^{K}X_j$ be the total number of observers who detected the data plot. Then, by imposing a relatively strong assumption that all $K$ evaluations are fully independent, under $H_0$ $X \sim \mathrm{Binom}_{K,1/m}$. Therefore, the $p$-value of a lineup of size $m$ evaluated by $K$ observer is estimated with $P(X \geq x) = 1 - F(x) + f(x)$, where $F(.)$ is the binomial cumulative distribution function, $f(.)$ is the binomial probability mass function and $x$ is the realization of number of observers choosing the data plot.
+
+As pointed out by @vanderplas2021statistical, this basic binomial model is deficient. It does not take into account the possible dependencies in the visual test due to repeated evaluations of the same lineup, or account for when participants are offered the option to select one or more "most different" plots, or none, from a lineup. They suggest three common lineup scenarios: (1) $K$ different lineups are shown to $K$ participants, (2) $K$ lineups with different null plots but the same data plot are shown to $K$ participants, and (3) the same lineup is shown to $K$ participants. Scenario 3 is the most feasible to apply, but has the most dependencies to accommodate for the $p$-value calculation. For Scenario 3, VanderPlas et al propose modelling the probability of plot $i$ being selected from a lineup as $\theta_i$, where $\theta_i \sim \text{Dirichlet}(\alpha)$ for $i=1,...,m$ and $\alpha > 0$. The number of times plot $i$ being selected in $K$ evaluations is denoted as $c_i$. In case participant $j$ makes multiple selections, $1/s_j$ will be added to $c_i$ instead of one, where $s_j$ is the number of plots participant $j$ selected for $j=1,...K$. This ensures $\sum_{i}c_i=K$. Since we are only interested in the selections of the data plot $i$, the marginal model can be simplified to a beta-binomial model and thus the visual $p$-value is given as
+
+
+$$
+P(C \geq c_i) = \sum_{x=c_i}^{K}{K \choose x}\frac{B(x + \alpha, K - x + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+
+$$ {#eq-pvalue-beta-binomial}
+
+\noindent where $B(.)$ is the beta function defined as
+
+$$
+B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b>0.
+$$ {#eq-betafunction}
+
+\noindent We extend the equation to non-negative real number $c_i$ by applying a linear approximation
+
+$$
+P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+,
+$$ {#eq-pvalue-beta-binomial-approx}
+
+\noindent where $P(C \geq \lceil c_i \rceil)$ is calculated using @eq-pvalue-beta-binomial and $P(C = \lfloor c_i \rfloor)$ is calculated by
+
+$$
+P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+.
+$$ {#eq-pmf-beta-binomial}
+
+The parameter $\alpha$ used in @eq-pvalue-beta-binomial and @eq-pmf-beta-binomial is usually unknown and will need to be estimated from the survey data. An interpretation of $\alpha$ is that when it is low only a few plots are attractive to the observers and tend to be selected, and when high, most plots are equally likely to be chosen. VanderPlas et al define $c$-interesting plot to be if $c$ or more participants select the plot as the most different. The expected number of plots selected at least $c$ times, $\mathrm{E}[Z_c]$, is then calculated as
+
+$$
+\mathrm{E}[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).
+$$ {#eq-c-interesting-expectation}
+
+With @eq-c-interesting-expectation, $\alpha$ can be estimated using maximum likelihood estimation. Precise estimation of $\alpha$, is aided by evaluation of Rorschach lineups, where all plots are null plots. In a Rorschach, in theory all plots should be equally likely, but in practice some (irrelevant) visual elements may be more eye-catching than others. This is what $\alpha$ captures, the capacity for extraneous features to distract the observer for a particular type of plot display.
+
+### Effect Size Derivation
+
+Effect size can be defined as the difference of a parameter for a particular model or distribution,  or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence [@kullback1951information] is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.
+
+Following the terminology introduced by @kullback1951information, $P$ represents the measured probability distribution, and $Q$ represents the assumed probability distribution. The Kullback-Leibler divergence is defined as $\int_{-\infty}^{\infty}\log(p(x)/q(x))p(x)dx$, where $p(.)$ and $q(.)$ denote probability densities of $P$ and $Q$. 
+
+Let $\boldsymbol{X}$ denotes the $p + 1$ predictors with $n$ observations, $\boldsymbol{b} = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y}$ denotes the OLS solution, $\boldsymbol{R} = \boldsymbol{I}_n -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'$ denotes the residual operator, and let $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0},\sigma^2\boldsymbol{I})$ denotes the error. The residual vector 
+
+\begin{align*}
+\boldsymbol{e} &= \boldsymbol{y} - \boldsymbol{X}\boldsymbol{b} \\
+               &= \boldsymbol{y} - \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y} \\
+               &= (\boldsymbol{I} -\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}')\boldsymbol{y} \\
+               &= \boldsymbol{R}\boldsymbol{y} \\
+               &= \boldsymbol{R}(\boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}) \\
+               &= \boldsymbol{R}\boldsymbol{\varepsilon}.
+\end{align*}
+
+Because $\text{rank}(\boldsymbol{R}) = n - p - 1 < n$, $\boldsymbol{e}$ follows a degenerate multivariate normal distribution and does not have a density. Since the Kullback-Leibler divergence requires a proper density function, we need to simplify the covariance matrix of $\boldsymbol{e}$ by setting all the off-diagonal elements to 0. Then, the residuals will be assumed to follow $N(\boldsymbol{0}, diag(\boldsymbol{R}\sigma^2))$ under the null hypothesis that the model is correctly specified. If the model is however misspecified due to omitted variables $\boldsymbol{Z}$, or a non-constant variance $\boldsymbol{V}$, the distribution of residuals can be derived as $N(\boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z, \text{diag}(\boldsymbol{R}\sigma^2))$ and $N(\boldsymbol{0}, \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}'))$ respectively.
+
+By assuming both $P$ and $Q$ are multivariate normal density functions, the Kullback-Leibler divergence can be rewritten as 
+$$KL = \frac{1}{2}\left(\log\frac{|\Sigma_p|}{|\Sigma_q|} - n + \text{tr}(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)'\Sigma_p^{-1}(\mu_p - \mu_q)\right).$$
+
+Then, we can combine the two residual departures into one formula
+
+\small
+
+$$
+KL = \frac{1}{2}\left(\log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}\text{diag}(\boldsymbol{R}\sigma^2)) + \boldsymbol{\mu}_z'(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}\boldsymbol{\mu}_z\right).
+$$
+
+\normalsize
+
+When there are omitted variables but constant error variance, the formula can be reduced to
+
+$$KL = \frac{1}{2}\left(\boldsymbol{\mu}_z'(\text{diag}(\boldsymbol{R}\sigma^2))^{-1}\boldsymbol{\mu}_z\right).$$
+
+And when the model equation is correctly specified but the error variance is non-constant, the formula can be reduced to
+
+$$KL = \frac{1}{2}\left(log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R}')^{-1}
+\text{diag}(\boldsymbol{R}\sigma^2))\right).$$
+
+To compute the effect size for each lineup we simulate a sufficiently large number of samples from the same model with the number of observations $n$ fixed for each sample. We then compute the effect size for each sample and take the average as the final value. This ensures lineups constructed with the same experimental factors will share the same effect size.
+
+
+### Sensitivity Analysis for $\alpha$
+
+The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. With a greater value of $\hat{\alpha}$, the $p$-value will be smaller, resulting in more lineups being rejected. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja2009statistical. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
+
+The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitivity}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, Table \ref{tab:sensitivity} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
+
+```{r}
+upper_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
+  calc_p_value_multi(vi_survey %>%
+                       filter(!attention_check) %>%
+                       filter(!null_lineup) %>%
+                       filter(x_dist == "uniform") %>%
+                       mutate(alpha_upper = alpha * (1 + modified)),
+                     lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha_upper) %>%
+  mutate(modified = 1 + modified) %>%
+  mutate(adjusted_p_value = p_value)
+}) 
+
+lower_p <- map_df(c(0.125, 0.25, 0.5), function(modified) {
+  calc_p_value_multi(vi_survey %>%
+                       filter(!attention_check) %>%
+                       filter(!null_lineup) %>%
+                       filter(x_dist == "uniform") %>%
+                       mutate(alpha_lower = alpha * (1 - modified)),
+                     lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha_lower) %>%
+  mutate(modified = 1 - modified) %>%
+  mutate(adjusted_p_value = p_value)
+})
+
+upper_lower_p <- upper_p %>%
+  bind_rows(lower_p) %>%
+  select(-p_value)
+```
+
+
+```{r fig-sensitivity, fig.cap = "Change of $p$-values with $\\hat{\\alpha}$ multiplied by $0.5$, $0.75$, $0.875$, $1.125$, $1.25$ and $1.5$. Only lineups with uniform fitted value distribution is used. The vertical dashed line indicates $p\\text{-value} = 0.05$. The area coloured in red indicates $\\text{adjusted }p\\text{-value} < 0.05$. The x-axis is drawn on logarithmic scale. For multipliers smaller than 1, the adjusted $p\\text{-value}$ will initially increase and decline when the $p\\text{-value}$ increases. The trend is opposite with multipliers greater than $1$, but the difference eventually reaches $0$."}
+
+smallest_p_value <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  pull(p_value) %>%
+  min()
+
+upper_lower_p %>%
+  left_join(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value = first(p_value))) %>%
+  mutate(diff_p_value = adjusted_p_value - p_value) %>%
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0.05, col = "black", linetype = 2, alpha = 0.7) +
+  geom_ribbon(data = expand.grid(x = 10^seq(-10, 0, 0.01),
+                                y = seq(-0.1, 0.1, 0.0001)) %>%
+              filter(x + y < 0.05) %>%
+              group_by(x) %>%
+              summarise(y = max(y)),
+            aes(x, ymax = y, ymin = -0.06),
+            fill = "red",
+            alpha = 0.2) +
+  geom_point(aes(p_value, diff_p_value), alpha = 0.2) +
+  facet_wrap(~modified) +
+  ylab(expression("Adjusted"~italic(p)*"-value minus"~italic(p)*"-value")) +
+  xlab(expression(italic(p)*"-value")) +
+  theme_light() +
+  scale_x_continuous(breaks = c(0.0001, 0.001, 0.01, 0.1, 1),
+                     minor_breaks = NULL,
+                     trans = "log10",
+                     labels = c("0.01%", "0.1%", "1%", "10%", "100%"),
+                     limits = c(smallest_p_value, 1)) +
+  scale_y_continuous(limits = c(-0.06, 0.06))
+```
+
+```{r}
+upper_lower_p %>%
+  left_join(vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  group_by(unique_lineup_id) %>%
+  summarise(p_value = first(p_value))) %>%
+  group_by(modified) %>%
+  count(adjusted_reject = adjusted_p_value <= 0.05, reject = p_value <= 0.05) %>%
+  complete(adjusted_reject, reject, fill = list(n = 0)) %>%
+  ungroup() %>%
+  filter(adjusted_reject != reject) %>%
+  mutate(case = ifelse(!adjusted_reject, "reject to not reject", "not reject to reject")) %>%
+  rename(multiplier = modified) %>%
+  select(-adjusted_reject, -reject) %>%
+  pivot_wider(names_from = case, values_from = n) %>%
+  mutate(reject_not_reject_per = round(`reject to not reject`/279*100, 2)) %>%
+  mutate(not_reject_reject_per = round(`not reject to reject`/279*100, 2)) %>%
+  select(multiplier,
+         `reject to not reject`,
+         reject_not_reject_per,
+         `not reject to reject`,
+         not_reject_reject_per) %>%
+  kableExtra::kable(format = "latex", 
+                    booktabs = TRUE,
+                    col.names = c("Multiplier",
+                                  "Reject to not reject",
+                                  "%",
+                                  "Not reject to reject",
+                                  "%"),
+                    label = "sensitivity", 
+                    caption = "Examining how decisions might change if $\\hat{\\alpha}$ was different. Percentage of lineups that where the $p$-value would switch to above or below 0.05, when $\\hat{\\alpha}$ is multiplied by a multiplier.",
+                    linesep = c("", "", "\\addlinespace"))
+```
+
+
+### Effect of Number of Evaluations on the Power of a Visual Test
+
+When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in @fig-n_eval the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.
+
+```{r}
+min_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  min()
+max_poly_es <- vi_survey %>% 
+  filter(!null_lineup, 
+         !attention_check,
+         type == "polynomial", 
+         x_dist == "uniform") %>%
+  pull(effect_size) %>%
+  max()
+```
+
+
+```{r fig-n_eval, fig.cap = "Change of power of visual tests for different number of evalutions on lineups with uniform fitted value distribution. The power will increase as the number of evaluations increases, but the margin will decrease.", fig.width=6, fig.height=4, out.width="70%"}
+eval_n <- function(n_eval, boot) {
+  map_df(1:boot, function(boot_id) {
+  vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  filter(x_dist == "uniform") %>%
+  filter(type == "polynomial") %>%
+  group_by(unique_lineup_id) %>%
+  slice_sample(n = n_eval) %>%
+  ungroup() %>%
+  calc_p_value_multi(lineup_id = unique_lineup_id,
+                     detect = detect,
+                     n_sel = num_selection,
+                     alpha = alpha) %>%
+  mutate(boot_id = boot_id)
+}) %>%
+  left_join(select(vi_survey, unique_lineup_id, effect_size)) %>%
+  mutate(reject = as.numeric(p_value <= 0.05)) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  select(-unique_lineup_id, -p_value) %>%
+  mutate(n_eval = n_eval)
+}
+
+
+
+map_df(seq(1, 11, 2), ~eval_n(.x, 1)) %>%
+  select(-boot_id) %>%
+  nest(c(effect_size, reject, offset0)) %>%
+  mutate(mod = map(data, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-data, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  ggplot() +
+  geom_line(aes(log_effect_size, power, col = factor(n_eval)),
+            size = 1) +
+  labs(col = "#Evaluations") +
+  ylab("Power") +
+  xlab(expression(log[e] (Effect_size))) +
+  theme_light() +
+  scale_color_brewer(palette = "Reds")
+```
+
+
+### Power of a RESET Test under Different Auxiliary Regression Formulas
+
+It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the "triple-U" shape designed in this paper. @fig-reset illustrates the change of power of RESET test while testing the "U" shape and the "triple-U" shape with different highest orders. Clearly, when testing a simple shape like the "U" shape, the highest order has very little impact on the power. But for testing the "triple-U" shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six. 
+
+```{r cache = TRUE}
+reset_diff_dat <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  filter(shape == 4) %>%
+  select(-F_p_value, -BP_p_value, -SW_p_value) %>%
+  pivot_longer(RESET3_p_value:RESET10_p_value) %>%
+  mutate(name = gsub("RESET(.*)_p_value", "\\1", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(shape = 4)
+```
+
+```{r cache = TRUE}
+reset_diff_dat2 <- poly_conv_sim %>%
+  filter(x_dist == "uniform") %>%
+  filter(shape == 1) %>%
+  select(-F_p_value, -BP_p_value, -SW_p_value) %>%
+  pivot_longer(RESET3_p_value:RESET10_p_value) %>%
+  mutate(name = gsub("RESET(.*)_p_value", "\\1", name)) %>%
+  mutate(reject = value <= 0.05) %>%
+  select(effect_size, name, reject) %>%
+  mutate(offset0 = log(0.05/0.95)) %>%
+  nest(dat = c(effect_size, offset0, reject)) %>%
+  mutate(mod = map(dat, 
+                   ~glm(reject ~ effect_size - 1, 
+                        family = binomial(), 
+                        data = .x,
+                        offset = offset0))) %>%
+  mutate(power = map(mod, function(mod) {
+    result <- data.frame(effect_size = seq(min_poly_es, max_poly_es, 0.1),
+                         offset0 = log(0.05/0.95))
+    result$power <- predict(mod, type = "response", newdata = result)
+    result
+  })) %>%
+  select(-dat, -mod) %>%
+  unnest(power) %>%
+  mutate(log_effect_size = log(effect_size)) %>%
+  mutate(shape = 1)
+```
+
+```{r fig-reset, fig.cap = 'Change of power of RESET tests for different orders of fitted values included in the auxiliary formula. The left panel is the power of testing the "U" shape and the right panel is the power of testing the "triple-U" shape. The power will not be greatly affected by the highest order in the case of testing the "U" shape. In the case of testing the "triple-U" shape, the highest order needs to be set to at least six to avoid the loss of power.', fig.height = 4}
+reset_diff_dat %>%
+  bind_rows(reset_diff_dat2) %>%
+  mutate(shape = factor(ifelse(shape == 1, "U", "triple-U"), levels = c("U", "triple-U"))) %>%
+  ggplot() +
+  geom_line(aes(log_effect_size, power, col = as.factor(as.integer(name))),
+            size = 1) +
+  theme_light() +
+  labs(col = "Highest order") +
+  xlab(expression(log[e] (Effect_size))) +
+  scale_color_brewer(palette = "Reds") +
+  facet_wrap(~shape) +
+  ylab("Power")
+```
+
+### Conventional Test Rejection Rate for Varying Significance Levels
+
+In the main paper, @sec-power-analysis and @sec-p-value compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, ... will have the effect of rejecting fewer of the residual plots. 
+
+It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. Figure \ref{fig:rej-rates} examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.
+
+
+```{r fig-rej-rates, fig.pos="t!", fig.width=8, fig.height=5, out.width="100%", fig.cap="Changing the significance level of the conventional test will change the rejection rate. A: Percentage of conventional tests also rejected by the visual test: rejected (solid), not rejected (dashed). As the significance level is reduced, the percentage rejected by the visual test that has been rejected by the conventional test approaches 100. The percentage of tests not rejected by the conventional test also increases, as expected, but the percentage of these that are rejected by the visual test increases too. B: ROC curve shows that forcing the conventional test to not reject creates a discrepancy with the visual test. Many of the residual plots not rejected by the conventional test are rejected by the visual test. It is not possible to vary the significance level of the conventional test to match the decisions made by the visual test."}
+# compute rejection rate for different significance levels, holding visual test constant
+library(ggpubr)
+
+nl_rates <- NULL
+h_rates <- NULL
+
+for (i in c(0.1, 0.05, 0.01, 0.001, 0.0001, 0.00001, 0.000001, 0.0000001, 0.00000001, 0.000000001,
+            0.0000000001, 0.00000000001)) {
+  
+p_value_cmp_dat <- vi_survey %>%
+  filter(!null_lineup) %>%
+  filter(!attention_check) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(conv_reject = ifelse(conventional_p_value <= i, "Reject", "Not"),
+         reject = ifelse(p_value <= 0.05, "Reject", "Not")) %>%
+  mutate(conv_reject = factor(conv_reject, levels = c("Reject", "Not")),
+         reject = factor(reject, levels = c("Reject", "Not"))) %>%
+  select(type, conv_reject, reject) 
+
+nl <- p_value_cmp_dat %>% 
+  filter(type == "non-linearity") %>% 
+  count(conv_reject, reject, .drop=FALSE) %>%
+  summarise(rej_pct = round(n[1]/(n[1]+n[2])*100, 0),
+            nrej_pct = round(n[3]/(n[3]+n[4])*100, 0)) %>%
+  bind_cols(alpha = i)
+  
+nl_rates <- bind_rows(nl_rates, nl)
+  
+# Heteroskedasticity 
+h <- p_value_cmp_dat %>% 
+  filter(type == "heteroskedasticity") %>% 
+  count(conv_reject, reject, .drop = FALSE) %>%
+  summarise(rej_pct = round(n[1]/(n[1]+n[2])*100, 0),
+            nrej_pct = round(n[3]/(n[3]+n[4])*100, 0)) %>%
+  bind_cols(alpha = i)
+
+h_rates <- bind_rows(h_rates, h)
+}
+
+nl_rates <- nl_rates %>% mutate(type = "non-linearity")
+h_rates <- h_rates %>% mutate(type = "heteroskedasticity")
+rates <- bind_rows(nl_rates, h_rates) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity")))
+
+rej_by_sig <- ggplot(rates) +
+  geom_vline(xintercept = 0.05, colour = "grey50") +
+  geom_line(aes(x = alpha, y = rej_pct, colour = type), alpha = 0.8) +
+  geom_line(aes(x = alpha, y = nrej_pct, colour = type), linetype = 2) +
+  scale_x_log10(breaks = c(0.1, 0.001, 0.00001, 0.0000001, 0.000000001, 0.00000000001)) + 
+  ylab("Visual test rejects (%)") + xlab("Significance level") +
+  scale_colour_brewer("", palette = "Dark2") +
+  ggtitle("A") +
+  theme_light()
+
+roc <- ggplot(rates) +
+  geom_path(aes(x = nrej_pct, y = rej_pct, colour=type)) +
+  ylab("Reject | Reject (%)") + xlab("Reject | Fail to reject (%)") +
+  ylim(0, 100) +
+  scale_colour_brewer("", palette = "Dark2") +
+  coord_equal() +
+  ggtitle("B") +
+  theme_light()
+
+ggarrange(rej_by_sig, roc, ncol = 2, common.legend = TRUE, legend = "bottom")
+```
+
+
+## Additional Details of Experimental Setup {#sec-appendix-a-2}
+
+
+
+### Non-linearity Model
+
+The non-linearity model used in the experiment includes a non-linear term $\boldsymbol{z}$ constructed using Hermite polynomials on random vector $\boldsymbol{x}$ formulated as
+
+\begin{align*}
+\boldsymbol{y} &= \boldsymbol{1}_n + \boldsymbol{x} + \boldsymbol{z} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1), \\
+\boldsymbol{z} &= g(\boldsymbol{z}_{raw}, 1), \\
+\boldsymbol{z}_{raw} &= He_j(g(\boldsymbol{x}, 2)),
+\end{align*}
+
+\noindent where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$, $\boldsymbol{x}_{raw}$, $\boldsymbol{z}_{raw}$ are vectors of size $n$, $\boldsymbol{1}_n$ is a vector of ones of size $n$, $He_{j}(.)$ is the $j$th-order probabilist's Hermite polynomials [@hermite1864nouveau; originally by @de1820theorie], $\varepsilon \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)$, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
+
+$$
+g(\boldsymbol{x}, k) = 2k\cdot\frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n}{x_{max} - x_{min}} - k, \quad \text{for} \quad k > 0. 
+$$ {#eq-scaling-function}
+
+\noindent where $\displaystyle x_{min} = \min_{i\in \{1, ..., n\}} x_i$, $\displaystyle x_{max} = \max_{i\in \{1, ..., n\}} x_i$ and $x_i$ is the $i$-th entry of $\boldsymbol{x}$. The function `hermite` from the R package `mpoly` [@mpoly] is used to simulate $\boldsymbol{z}_{raw}$ to generate Hermite polynomials. 
+
+The null regression model used to fit the realizations generated by the above model is formulated as
+
+$$
+\boldsymbol{y} = \beta_0\boldsymbol{1}_n + \beta_1 \boldsymbol{x} + \boldsymbol{u},
+$$ {#eq-null-model}
+
+\noindent where $\boldsymbol{u} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$. Here $\boldsymbol{z}$ is a higher order term of $\boldsymbol{x}$ and leaving it out in the null regression results in model misspecification.
+
+### Heteroskedasticity Model
+
+The heteroskedasticity model used in the experiment is formulated as
+
+\begin{align*}
+\boldsymbol{y} &= \boldsymbol{1}_n + \boldsymbol{x} + \boldsymbol{\varepsilon},\\
+\boldsymbol{x} &= g(\boldsymbol{x}_{raw}, 1),\\
+\boldsymbol{\varepsilon} &\sim N(\boldsymbol{0}_n, \boldsymbol{1}_n + (2 - |a|)(\boldsymbol{x} - a\boldsymbol{1}_n)'(\boldsymbol{x} - a\boldsymbol{1}_n) b \boldsymbol{I}_n), 
+\end{align*}
+
+\noindent where $\boldsymbol{y}$, $\boldsymbol{x}$, $\boldsymbol{\varepsilon}$ are vectors of size $n$ and $g(.)$ is the scaling function defined in @eq-scaling-function. The null regression model used to fit the realizations generated by the above model is formulated exactly the same as @eq-null-model.
+
+For $b \neq 0$, the variance-covariance matrix of the error term $\boldsymbol{\varepsilon}$ is correlated with the predictor $\boldsymbol{x}$, which will lead to the presence of heteroskedasticity. 
+
+Since $\text{supp}(X) = [-1, 1]$, choosing $a$ to be $-1$, $0$ and $1$ can generate "left-triangle", "butterfly" and "right-triangle" shapes. The term $(2 - |a|)$ maintains the magnitude of residuals across different values of $a$. 
+
+### Controlling the Signal Strength 
+
+The three parameters $n$, $\sigma$ and $b$ are important for controlling the strength of the signal to generate lineups with a variety difficulty levels. This will ensure that  estimated power curves will be smooth and continuous, and that participants are allocated a set of lineups with a range of difficulty. 
+
+Parameter $\sigma \in \{0.5, 1, 2, 4\}$ and $b \in \{0.25, 1, 4, 16, 64\}$ are used in data collection periods I and II respectively. A large value of $\sigma$ will increase the variation of the error of the non-linearity model and decrease the visibility of the visual pattern. 
+The parameter $b$ controls the variation in the standard deviation of the error across the support of the predictor. A larger value of $b$ generates a larger ratio between it is smallest and highest values, making the visual pattern more obvious. 
+The sample size $n$ sharpens (or blurs) a pattern when it is larger (or smaller). 
+
+### Lineup Allocation to Participants
+
+There are a total of $4 \times 4 \times 3 \times 4 = 192$ and $3 \times 5 \times 3 \times 4 = 180$ combinations of parameter values for the non-linearity model and heteroskedasticity models respectively. Three replications for each combination results in $192 \times 3 = 576$ and $180 \times 3 = 540$ lineups, respectively. 
+
+Each lineup needs to be evaluated by at least five participants. From previous work, and additional pilot studies for this experiment, we decided to record evaluations from 20 lineups for each participant. Two of the 20 lineups with clear visual patterns were used as attention checks, to ensure quality data. Thus, $576 \times 5 / (20-2) = 160$ and $540 \times 5 / (20-2) = 150$ participants were needed to cover the experimental design for the data collection periods I and II, respectively. The factor levels and range of difficulty was assigned relatively equally among participants. 
+
+Data collection period III was primarily to obtain Rorschach lineup evaluations to estimate $\alpha$, and also to obtain additional evaluations of lineups made with uniform fitted value distribution to ensure consistency in the results. To construct a Rorschach lineup, the data is generated from a model with zero effect size, while the null data are generated using the residual rotation technique. This procedure differs from that of the canonical Rorschach lineup, where all 20 plots are generated directly from the null model, so the method suggested in @vanderplas2021statistical for typical lineups containing a data plot is used to estimate $\alpha$. The $3 \times 4 = 12$ treatment levels of the common factors, replicated three times results in 36 lineups. And 6 more evaluations on the 279 lineups with uniform fitted value distribution, results in at least $(36 \times 20 + 279 \times 3 \times 6) / (20-2) = 133$ participants needed.
+
+
+### Mapping of Participants to Experimental Factors
+
+Mapping of participants to experimental factors is an important part of experimental design. Essentially, we want to maximum the difference in factors exposed to a participant. For this purpose, we design an algorithm to conduct participant allocation. Let $L$ be a set of available lineups and $S$ be a set of available participants. According to the experimental design, the availability of a lineup is associated with the number of participants it can assign to. For lineups with uniform fitted value distribution, this value is 11. And other lineups can be allocated to at most five different participants. The availability of a participant is associated with the number of lineups that being allocated to this participant. A participant can view at most 18 different lineups. 
+
+The algorithm starts from picking a random participant $s \in S$ with the minimum number of allocated lineups. It then tries to find a lineup $l \in L$ that can maximise the distance metric $D$ and allocate it to participant $s$. Set $L$ and $S$ will be updated and the picking process will be repeated until there is no available lineups or participants. 
+
+Let $F_1,...,F_q$ be $q$ experimental factors, and $f_1, ...,f_q$ be the corresponding factor values. We say $f_i$ exists in $L_{s}$ if any lineup in $L_{s}$ has this factor value. Similarly, $f_if_j$ exists in $L_{s}$ if any lineup in $L_{s}$ has this pair of factor values. And $f_if_jf_k$ exists in $L_{s}$ if any lineup in $L_{s}$ has this trio of factor values. The distance metric $D$ is defined between a lineup $l$ and a set of lineups $L_{s}$ allocated to a participant $s$ if $L_{s}$ is non-empty: 
+
+\footnotesize
+
+\begin{equation*}
+D =
+C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q-1 \\ i < j \leq q}}I(f_if_j\text{ exists in }L_{s}) - \sum_{\substack{1\leq i \leq q - 2 \\ i < j \leq q - 1 \\ j < k \leq q}}I(f_if_jf_k\text{ exists in }L_{s})
+\end{equation*}
+
+\normalsize
+where $C$ is a sufficiently large constant such that $D > 0$. If $L_{s}$ is empty, we define $D = 0$.
+
+The distance measures how different a lineup is from the set of lineups allocated to the participant in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a participant at each step.
+
+In @fig-poly-allocate and @fig-heter-allocate, we present examples of lineup allocations generated by our algorithm for data collection periods I and II, respectively. These figures illustrate the factor values presented to the first 20 participants recruited during each period. It can be observed that the algorithm effectively distributed almost all possible one-way and two-way factor combinations among the participants, thereby ensuring a diverse set of lineups for each participant.
+
+```{r fig-poly-allocate, fig.cap = 'Factor values assigned to the first 20 participants recruited during data collection period I, with data points slightly jittered to prevent overlap. Each participant have been exposed to all one-way and two-way factor combinations.'}
+vi_survey %>%
+  filter(exp == 3) %>%
+  filter(!attention_check) %>%
+  filter(set <= 20) %>%
+  mutate(shape = c("U", "S", "M", "triple-U")[shape]) %>%
+  mutate(shape = factor(shape, levels = c("U", "S", "M", "triple-U"))) %>%
+  mutate(e_sigma = factor(e_sigma)) %>%
+  mutate(n = factor(n)) %>%
+  ggplot() +
+  geom_jitter(aes(e_sigma, shape, col = n),
+             width = 0.2,
+             height = 0.2,
+             alpha = 0.5,
+             size = 3) +
+  facet_wrap(~set) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_light() +
+  ylab("Non-linearity pattern") +
+  xlab(expression(sigma)) +
+  labs(col = "Sample size")
+```
+
+
+```{r fig-heter-allocate, fig.cap = 'Factor values assigned to the first 20 participants recruited during data collection period II, with data points slightly jittered to prevent overlap. Each participant appears to have been exposed to almost all one-way and two-way factor combinations. However, two participants, namely participant 16 and participant 18, were not presented with lineups containing a butterfly shape with $b = 4$. Additionally, participant 7 did not encounter a lineup featuring a butterfly shape with $b = 1$.'}
+vi_survey %>%
+  filter(exp == 4) %>%
+  filter(!attention_check, !null_lineup) %>%
+  filter(set <= 20) %>%
+  mutate(a = c("left-triangle", "butterfly", "right-triangle")[a + 2]) %>%
+  mutate(a = factor(a, levels = c("left-triangle", "butterfly", "right-triangle"))) %>%
+  mutate(b = factor(b)) %>%
+  mutate(n = factor(n)) %>%
+  ggplot() +
+  geom_jitter(aes(b, a, col = n),
+             width = 0.2,
+             height = 0.2,
+             alpha = 0.5,
+             size = 3) +
+  facet_wrap(~set) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_light() +
+  ylab("Heteroskedasticity pattern") +
+  xlab("b") +
+  labs(col = "Sample size")
+```
+
+
+### Data Collection Process
+
+The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in @fig-tech. The website is built with the `Flask` [@flask] web framework and hosted on `PythonAnywhere` [@pythonanywhere]. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the `jsPsych` front-end framework [@jspsych] instructs participants' browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants' responses are first validated by a scheduled `Python` script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by `Flask` and bundled in HTML files. 
+
+Once the participant is recruited from Prolific [@palan2018prolific], it will be redirected to the entry page of our study website. An image of the entry page is provided in @fig-entry-page. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in @fig-consent-form and @fig-metadata respectively. Before evaluating lineups, participant also need to read the training page as provide in @fig-training-page to understand the process. An example of the lineup page is given in @fig-lineup-page. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
+
+::: {.content-visible when-format="html"}
+
+::: {#fig-tech}
+
+<embed src="figures/experiment_tech.pdf" class="img-fluid" style="width:0%; display:none"/>
+
+![](figures/experiment_tech.pdf#toolbar=0){width=100.0% height=953px}
+
+Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.
+:::
+
+:::
+
+::: {.content-visible when-format="pdf"}
+
+```{r fig-tech, out.width = "100%", fig.cap = "Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment."}
+knitr::include_graphics("figures/experiment_tech.pdf")
+```
+
+:::
+
+```{r fig-entry-page, out.width = "100%", fig.cap = "The entry page of the study website."}
+knitr::include_graphics("figures/message.png")
+```
+
+```{r fig-consent-form, out.width = "100%", fig.cap = "The consent form provided in the study website."}
+knitr::include_graphics("figures/consent_form.png")
+```
+
+```{r fig-metadata, out.width = "100%", fig.cap = "The form to provide demographic information."}
+knitr::include_graphics("figures/metadata.png")
+```
+
+```{r fig-training-page, out.width = "100%", fig.cap = "The training page of the study website."}
+knitr::include_graphics("figures/training.png")
+```
+
+```{r fig-lineup-page, out.width = "100%", fig.cap = "The lineup page of the study website."}
+knitr::include_graphics("figures/lineup1.png")
+```
+
+
+## Analysis of Results Relative to Data Collection Process
+
+### Demographics
+
+Throughout the study, we have collected `r vi_survey %>% filter(!attention_check, !null_lineup) %>% nrow()` evaluations on `r vi_survey %>% filter(!attention_check, !null_lineup) %>% count(unique_lineup_id) %>% nrow()` non-null lineups. @tbl-count-lineup gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods. 
+
+
+```{r}
+#| label: tbl-count-lineup
+#| tbl-cap: 'Count of lineups, evaluations and participants over departure types and data collection periods.'
+
+
+# Calculate these numbers
+a1 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 3) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a2 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 4) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a3 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 5) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a4 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 3) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a5 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 4) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a6 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 5) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+a7 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  count(unique_lineup_id) %>%
+  nrow()
+
+b1 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 3) %>%
+  nrow()
+
+b2 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 4) %>%
+  nrow()
+
+b3 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 5) %>%
+  nrow()
+
+b4 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 3) %>%
+  nrow()
+
+b5 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 4) %>%
+  nrow()
+
+b6 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 5) %>%
+  nrow()
+
+b7 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  nrow()
+
+c1 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 3) %>%
+  count(set) %>%
+  nrow()
+
+c2 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 4) %>%
+  count(set) %>%
+  nrow()
+
+c3 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type == "polynomial") %>%
+  filter(exp == 5) %>%
+  count(set) %>%
+  nrow()
+
+c4 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 3) %>%
+  count(set) %>%
+  nrow()
+
+c5 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 4) %>%
+  count(set) %>%
+  nrow()
+
+c6 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(type != "polynomial") %>%
+  filter(exp == 5) %>%
+  count(set) %>%
+  nrow()
+
+c7 <- vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  count(exp, set) %>%
+  nrow()
+
+matrix(c(c(a1, a2, a3, a4, a5, a6, a7),
+         c(b1, b2, b3, b4, b5, b6, b7),
+         c(c1, c2, c3, c4, c5, c6, c7)),
+       ncol = 7,
+       byrow = TRUE) %>%
+  data.frame() %>%
+  add_column(name = c("Lineups", "Evaluations", "Participants"), .before = 1) %>%
+  kableExtra::kable(booktabs = TRUE,
+                    col.names = c("Number", "I", "II", "III", "I", "II", "II", "Total")) %>%
+  kableExtra::add_header_above(c(" " = 1, "Non-linearity" = 3, "Heteroskedasticity" = 3, " " = 1))
+```
+
+Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. @tbl-pronoun, @tbl-age-group, @tbl-education and @tbl-experience provide summary of the demographic data. 
+
+It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have. 
+
+```{r}
+#| label: tbl-pronoun
+#| tbl-cap: 'Summary of pronoun distribution of participants recruited in this study.'
+
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(pronoun) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(Pronoun = pronoun) %>%
+  add_row(Pronoun = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I %` = round(`Period I`/443*100, 1)) %>%
+  mutate(`Period II %` = round(`Period II`/443*100, 1)) %>%
+  mutate(`Period III %` = round(`Period III`/443*100, 1)) %>%
+  mutate(`Total %` = round(Total/443*100, 1)) %>%
+  select(Pronoun, 
+         `Period I`, `Period I %`, 
+         `Period II`, `Period II %`,
+         `Period III`, `Period III %`,
+         Total, `Total %`) %>%
+  kableExtra::kable(col.names = c("Pronoun", 
+                                  "Period I", "%", 
+                                  "Period II", "%",
+                                  "Period III", "%",
+                                  "Total", "%"), 
+                    booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
+```
+
+```{r}
+#| label: tbl-age-group
+#| tbl-cap: 'Summary of age distribution of participants recruited in this study.'
+
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(age_group) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(`Age group` = age_group) %>%
+  add_row(`Age group` = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I %` = round(`Period I`/443*100, 1)) %>%
+  mutate(`Period II %` = round(`Period II`/443*100, 1)) %>%
+  mutate(`Period III %` = round(`Period III`/443*100, 1)) %>%
+  mutate(`Total %` = round(Total/443*100, 1)) %>%
+  select(`Age group`, 
+         `Period I`, `Period I %`, 
+         `Period II`, `Period II %`,
+         `Period III`, `Period III %`,
+         Total, `Total %`) %>%
+  kableExtra::kable(col.names = c("Age group", 
+                                  "Period I", "%", 
+                                  "Period II", "%",
+                                  "Period III", "%",
+                                  "Total", "%"),
+                    booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
+```
+
+
+
+```{r}
+#| label: tbl-education
+#| tbl-cap: 'Summary of education distribution of participants recruited in this study.'
+
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(education) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp, values_fill = 0) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  slice(c(2, 1, 3, 4, 5)) %>%
+  rename(`Education` = education) %>%
+  add_row(Education = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I %` = round(`Period I`/443*100, 1)) %>%
+  mutate(`Period II %` = round(`Period II`/443*100, 1)) %>%
+  mutate(`Period III %` = round(`Period III`/443*100, 1)) %>%
+  mutate(`Total %` = round(Total/443*100, 1)) %>%
+  select(Education, 
+         `Period I`, `Period I %`, 
+         `Period II`, `Period II %`,
+         `Period III`, `Period III %`,
+         Total, `Total %`) %>%
+  kableExtra::kable(col.names = c("Education", 
+                                  "Period I", "%", 
+                                  "Period II", "%",
+                                  "Period III", "%",
+                                  "Total", "%"),
+                    booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
+```
+
+
+```{r}
+#| label: tbl-experience
+#| tbl-cap: 'Summary of previous experience distribution of participants recruited in this study.'
+
+vi_survey %>%
+  mutate(pronoun = ifelse(pronoun == "They", "Other", pronoun)) %>%
+  mutate(pronoun = factor(pronoun, levels = c("He", "She", "Other"))) %>%
+  group_by(exp, set) %>%
+  summarise(across(everything(), first)) %>%
+  count(previous_experience) %>%
+  mutate(exp = paste("Period", c("I", "II", "III")[exp - 2])) %>%
+  pivot_wider(values_from = n, names_from = exp) %>%
+  mutate(Total = `Period I` + `Period II` + `Period III`) %>%
+  rename(`Previous experience` = previous_experience) %>%
+  add_row(`Previous experience` = "",
+          `Period I` = sum(.$`Period I`),
+          `Period II` = sum(.$`Period II`),
+          `Period III` = sum(.$`Period III`),
+          Total = sum(.$Total)) %>%
+  mutate(`Period I %` = round(`Period I`/443*100, 1)) %>%
+  mutate(`Period II %` = round(`Period II`/443*100, 1)) %>%
+  mutate(`Period III %` = round(`Period III`/443*100, 1)) %>%
+  mutate(`Total %` = round(Total/443*100, 1)) %>%
+  select(`Previous experience`, 
+         `Period I`, `Period I %`, 
+         `Period II`, `Period II %`,
+         `Period III`, `Period III %`,
+         Total, `Total %`) %>%
+  kableExtra::kable(col.names = c("Previous experience", 
+                                  "Period I", "%", 
+                                  "Period II", "%",
+                                  "Period III", "%",
+                                  "Total", "%"),
+                    booktabs = TRUE) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
+```
+
+### Data Collection Periods
+
+```{r fig-poly-boxplot-lineup, fig.cap = 'A lineup of "letter-value" boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel $2^3 - 1$.'}
+library(lvplot)
+sample_from_null <- function(dat, true_position) {
+  dat %>%
+    mutate(k = true_position) %>%
+    bind_rows(map_df((1:20)[-true_position], function(k) {
+    dat %>%
+      mutate(exp = sample(exp),
+             k = k)
+  }))
+}
+
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(exp = exp - 2) %>%
+  group_by(exp, unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  group_by(exp, unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  ungroup() %>%
+  filter(type == "non-linearity") %>%
+  select(type, exp, prop_detect) %>%
+  mutate(exp = as.character(exp)) %>%
+  sample_from_null(7) %>%
+  ggplot() +
+  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE, k = 4) +
+  facet_wrap(~k, ncol = 5) +
+  theme_light() +
+  scale_x_discrete(labels = c("I", "III")) +
+  labs(fill = "Quantiles") +
+  scale_fill_manual(labels = c("0.5", "[0.25, 0.75]", "[0.125, 0.875]", "[0.0625, 0.09375]"),
+                    values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
+  ylab("Weighted propotion of detect") +
+  xlab("Data collection period") +
+  theme(legend.key = element_rect(colour = "black"))
+```
+
+```{r fig-heter-boxplot-lineup, fig.cap = 'A lineup of "letter-value" boxplots of weighted propotion of detect for lineups over different data collection periods for heteroskedasticity model. Can you find the most different boxplot? The data plot is positioned in panel $2^4 - 2$.'}
+vi_survey %>%
+  filter(!attention_check) %>%
+  filter(!null_lineup) %>%
+  filter(x_dist == "uniform") %>%
+  mutate(type = ifelse(type == "polynomial", "non-linearity", type)) %>%
+  mutate(type = factor(type, levels = c("non-linearity", "heteroskedasticity"))) %>%
+  mutate(exp = exp - 2) %>%
+  group_by(exp, unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  group_by(exp, unique_lineup_id) %>%
+  summarise(across(everything(), first)) %>%
+  ungroup() %>%
+  filter(type != "non-linearity") %>%
+  select(type, exp, prop_detect) %>%
+  mutate(exp = as.character(exp)) %>%
+  sample_from_null(14) %>%
+  ggplot() +
+  geom_lv(aes(x = exp, y = prop_detect, fill = after_stat(LV)), varwidth = TRUE, k = 4) +
+  facet_wrap(~k, ncol = 5) +
+  theme_light() +
+  scale_x_discrete(labels = c("II", "III")) +
+  labs(fill = "Quantiles") +
+  scale_fill_manual(labels = c("0.5", "[0.25, 0.75]", "[0.125, 0.875]", "[0.0625, 0.09375]"),
+                    values = c("white", rev(RColorBrewer::brewer.pal(5, "Blues")))) +
+  ylab("Weighted propotion of detect") +
+  xlab("Data collection period") +
+  theme(legend.key = element_rect(colour = "black"))
+```
+
+We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect.
+@fig-poly-boxplot-lineup and @fig-heter-boxplot-lineup provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the "letter-value" boxplot [@hofmann2017value] which is an extension of the number of "letter value" statistics to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of $c_i$ of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in $p$-values much greater than $5$%. Thus, there is no clear evidence of batch effect.
+
