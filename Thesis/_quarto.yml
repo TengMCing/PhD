@@ -5,8 +5,7 @@ execute:
   keep-md: true
 
 book:
-  title: "Advances in Artificial Intelligence for Data Visualization"
-  subtitle: "Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics"
+  title: "Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics"
   author: "Weihao Li"
   chapters:
     - text: "Front matter"

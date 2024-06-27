@@ -3,9 +3,11 @@
 Plotting residuals is a standard practice in linear regression diagnostics, essential for identifying deviations from model assumptions such as linearity, homoscedasticity, and normality. Visual inference provides an inferential framework to assess whether residual plots contain patterns inconsistent with model assumptions, typically using a lineup protocol. However, the lineup protocol's reliance on human judgment limits its scalability. This study addresses this limitation by automating the interpretation of residual plots using computer vision models. We develop a distance measure based on Kullback-Leibler divergence to quantify the disparity between the residual distribution of a fitted classical normal linear regression model and the reference distribution. We propose a computer vision model to estimate this distance from residual plots, facilitating formal statistical testing and bootstrapping techniques to assess model specification. Our computer vision model shows strong performance, though it performs slightly less effectively on non-linearity visual patterns. The statistical tests based on the estimated distance exhibit lower sensitivity than conventional tests but higher sensitivity than human visual tests. Examples demonstrate the method's effectiveness across different scenarios, highlighting its value in automating the diagnostic process and supplementing traditional methods.
 
 
+
 ::: {.cell}
 
 :::
+
 
 
 ## Introduction
@@ -26,12 +28,13 @@ The utilization of computers to interpret data plots has a rich history, with ea
 
 Modern computer vision models are well-suited for addressing this challenge. They rely on deep neural networks with convolutional layers [@fukushima1982neocognitron]. These layers leverage hierarchical patterns in data, downsizing and transforming images by summarizing information in a small space. Numerous studies have demonstrated the efficacy of convolutional layers in addressing various vision tasks, including image recognition [@rawat2017deep]. Despite the widespread use of computer vision models in fields like computer-aided diagnosis [@lee2015image], pedestrian detection [@brunetti2018computer], and facial recognition [@emami2012facial], their application in reading data plots remains limited. While some studies have explored the use of computer vision models for tasks such as reading recurrence plots for time series regression [@ojeda2020multivariate], time series classification [@chu2019automatic; @hailesilassie2019financial; @hatami2018classification; @zhang2020encoding], anomaly detection [@chen2020convolutional], and pairwise causality analysis [@singh2017deep], the application of reading residual plots with computer vision models represents a relatively new field of study.
 
-In this paper, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for automated visual inference. The paper is structured as follows.  @sec-model-specifications discusses various specifications of the computer vision models.  @sec-distance-between-residual-plots defines the distance measure used to measure model violations.  @sec-distance-estimation explains how the computer vision models estimate this distance measure.  @sec-statistical-testing covers the statistical testing based on the estimated distance. Sections [-@sec-data-generation], [-@sec-model-architecture], and [-@sec-model-training] detail the data preparation, model architecture, and training process, respectively. The results are presented in @sec-results. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.
+In this paper, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for automated visual inference. The paper is structured as follows. @sec-model-specifications discusses various specifications of the computer vision models. @sec-distance-between-residual-plots defines the distance measure used to measure model violations. @sec-distance-estimation explains how the computer vision models estimate this distance measure. @sec-statistical-testing covers the statistical testing based on the estimated distance. Sections [-@sec-data-generation], [-@sec-model-architecture], and [-@sec-model-training] detail the data preparation, model architecture, and training process, respectively. The results are presented in @sec-model-results. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.
+
 
 
 
 ::: {.cell}
 ::: {.cell-output-display}
-![An example residual vs fitted values plot (red line indicates 0). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-html/fig-false-finding-1.png){#fig-false-finding fig-pos='!h' width=768}
+![An example residual vs fitted values plot (red line indicates 0). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-pdf/fig-false-finding-1.pdf){#fig-false-finding fig-pos='!h'}
 :::
 :::
