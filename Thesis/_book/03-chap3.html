@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics – chap3</title>
+<title>Advances in Artificial Intelligence for Data Visualization - 3&nbsp; Automated assessment of residual plots with computer vision models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,8 +17,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
-
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -40,8 +55,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -60,37 +74,41 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<link href="https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather|Source Code Pro" rel="stylesheet">
-
-
+}</script><link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 </head>
-
-<body class="nav-sidebar docked fullcontent">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-chap3.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">03-chap3.html</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-chap3.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated assessment of residual plots with computer vision models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
+      <a href="./">Advances in Artificial Intelligence for Data Visualization</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -100,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Front matter</span></a>
@@ -121,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-chap3.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">03-chap3.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated assessment of residual plots with computer vision models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,31 +156,140 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-appA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title"><b>Sections</b></h2>
+   
+  <ul class="collapse">
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated assessment of residual plots with computer vision models</span>
+</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Plotting residuals is a standard practice in linear regression diagnostics, essential for identifying deviations from model assumptions such as linearity, homoscedasticity, and normality. Visual inference provides an inferential framework to assess whether residual plots contain patterns inconsistent with model assumptions, typically using a lineup protocol. However, the lineup protocol’s reliance on human judgment limits its scalability. This study addresses this limitation by automating the interpretation of residual plots using computer vision models. We develop a distance measure based on Kullback-Leibler divergence to quantify the disparity between the residual distribution of a fitted classical normal linear regression model and the reference distribution. We propose a computer vision model to estimate this distance from residual plots, facilitating formal statistical testing and bootstrapping techniques to assess model specification. Our computer vision model shows strong performance, though it performs slightly less effectively on non-linearity visual patterns. The statistical tests based on the estimated distance exhibit lower sensitivity than conventional tests but higher sensitivity than human visual tests. Examples demonstrate the method’s effectiveness across different scenarios, highlighting its value in automating the diagnostic process and supplementing traditional methods.</p>
+<section id="introduction" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="introduction">
+<span class="header-section-number">3.1</span> Introduction</h2>
+<p>Plotting residuals is commonly regarded as a standard practice in linear regression diagnostics <span class="citation" data-cites="belsley1980regression cook1982residuals">(see <a href="refs.html#ref-belsley1980regression" role="doc-biblioref">Belsley et al. 1980</a>; <a href="refs.html#ref-cook1982residuals" role="doc-biblioref">Cook and Weisberg 1982</a>)</span>. This visual assessment plays a crucial role in identifying deviations from model assumptions, such as linearity, homoscedasticity, and normality. It also helps in understanding the goodness of fit and various characteristics of the model.</p>
+<p>Generating a residual plot in most statistical software is often as straightforward as executing a line of code or clicking a button. However, accurately interpreting a residual plot can be challenging. A residual plot can exhibit various visual features, but it is crucial to recognize that some may arise from the characteristics of predictors and the inherent randomness of the error, rather than indicating a violation of model assumptions <span class="citation" data-cites="li2023plot">(<a href="refs.html#ref-li2023plot" role="doc-biblioref">Li et al. 2023</a>)</span>. Consider <a href="#fig-false-finding">Figure&nbsp;<span>3.1</span></a> as an example, the residuals display a triangular shape pointing to the left. While this might suggest heteroskedasticity, it is important to avoid over-interpreting this visual pattern. In this case, the fitted regression model is correctly specified, and the triangular shape is actually a result of the skewed distribution of the predictors, rather than indicating a flaw in the model.</p>
+<p>The concept of visual inference, as proposed by <span class="citation" data-cites="buja2009statistical">Buja et al. (<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">2009</a>)</span>, provides an inferential framework to assess whether residual plots indeed contain visual patterns inconsistent with the model assumptions. The fundamental idea involves testing whether the true residual plot visually differs significantly from null plots, where null plots are plotted with residuals generated from the residual rotation distribution <span class="citation" data-cites="langsrud2005rotation">(<a href="refs.html#ref-langsrud2005rotation" role="doc-biblioref">Langsrud 2005</a>)</span>, which is a distribution consistent with the null hypothesis <span class="math inline">H_0</span> that the linear regression model is correctly specified. Typically, the visual test is accomplished through the lineup protocol, where the real residual plot is embedded within a lineup alongside several null plots. If the real residual plot can be distinguished from the lineup, it provides evidence for rejecting <span class="math inline">H_0</span>.</p>
+<p>The practice of delivering a residual plot as a lineup is generally regarded as a valuable approach. Beyond its application in residual diagnostics, the lineup protocol has integrated into the analysis of diverse subjects. For instance, Loy and Hofmann <span class="citation" data-cites="loy2013diagnostic loy2014hlmdiag loy2015you">(<a href="refs.html#ref-loy2013diagnostic" role="doc-biblioref">2013</a>, <a href="refs.html#ref-loy2014hlmdiag" role="doc-biblioref">2014</a>, <a href="refs.html#ref-loy2015you" role="doc-biblioref">2015</a>)</span> illustrated its applicability in diagnosing hierarchical linear models. Additionally, <span class="citation" data-cites="widen2016graphical">Widen et al. (<a href="refs.html#ref-widen2016graphical" role="doc-biblioref">2016</a>)</span> demonstrated its utility in geographical research, while <span class="citation" data-cites="krishnan2021hierarchical">Krishnan and Hofmann (<a href="refs.html#ref-krishnan2021hierarchical" role="doc-biblioref">2021</a>)</span> explored its effectiveness in forensic examinations.</p>
+<p>However, as pointed out by <span class="citation" data-cites="li2023plot">Li et al. (<a href="refs.html#ref-li2023plot" role="doc-biblioref">2023</a>)</span>, a primary limitation of the lineup protocol lies in its reliance on human judgments. Unlike conventional statistical tests that can be performed computationally in statistical software, the lineup protocol requires human evaluation of images. This characteristic makes it less suitable for large-scale applications, given the associated high labour costs and time requirements.</p>
+<p>There is a substantial need to develop an approach that alleviates analysts’ workload by automating repetitive tasks and providing standardized results in a controlled environment. The large-scale evaluation of lineups is impractical without the use of technology and machines.</p>
+<p>The utilization of computers to interpret data plots has a rich history, with early efforts such as “Scagnostics” by <span class="citation" data-cites="tukey1985computer">Tukey and Tukey (<a href="refs.html#ref-tukey1985computer" role="doc-biblioref">1985</a>)</span>, focusing on scatter plot diagnostics. <span class="citation" data-cites="wilkinson2005graph">Wilkinson et al. (<a href="refs.html#ref-wilkinson2005graph" role="doc-biblioref">2005</a>)</span> expanded on this work, introducing graph theoretic scagnostics, which encompassed computable measures applied to planar proximity graphs. These measures, including, but not limited to, “Outlying”, “Skinny”, “Stringy”, “Straight”, “Monotonic”, “Skewed”, “Clumpy”, and “Striated” aimed to characterize outliers, shape, density, trend, coherence and other characteristics of the data. While this approach has been inspiring, there is a recognition <span class="citation" data-cites="buja2009statistical">(<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">Buja et al. 2009</a>)</span> that it may not capture all the necessary visual features that differentiate true residual plots from null plots. A more promising alternative entails enabling machines to learn the function for extracting visual features from residual plots. Essentially, this means empowering computers to discern the crucial visual features for residual diagnostics and determining the method to extract them.</p>
+<p>Modern computer vision models are well-suited for addressing this challenge. They rely on deep neural networks with convolutional layers <span class="citation" data-cites="fukushima1982neocognitron">(<a href="refs.html#ref-fukushima1982neocognitron" role="doc-biblioref">Fukushima and Miyake 1982</a>)</span>. These layers leverage hierarchical patterns in data, downsizing and transforming images by summarizing information in a small space. Numerous studies have demonstrated the efficacy of convolutional layers in addressing various vision tasks, including image recognition <span class="citation" data-cites="rawat2017deep">(<a href="refs.html#ref-rawat2017deep" role="doc-biblioref">Rawat and Wang 2017</a>)</span>. Despite the widespread use of computer vision models in fields like computer-aided diagnosis <span class="citation" data-cites="lee2015image">(<a href="refs.html#ref-lee2015image" role="doc-biblioref">Lee and Chen 2015</a>)</span>, pedestrian detection <span class="citation" data-cites="brunetti2018computer">(<a href="refs.html#ref-brunetti2018computer" role="doc-biblioref">Brunetti et al. 2018</a>)</span>, and facial recognition <span class="citation" data-cites="emami2012facial">(<a href="refs.html#ref-emami2012facial" role="doc-biblioref">Emami and Suciu 2012</a>)</span>, their application in reading data plots remains limited. While some studies have explored the use of computer vision models for tasks such as reading recurrence plots for time series regression <span class="citation" data-cites="ojeda2020multivariate">(<a href="refs.html#ref-ojeda2020multivariate" role="doc-biblioref">Ojeda et al. 2020</a>)</span>, time series classification <span class="citation" data-cites="chu2019automatic hailesilassie2019financial hatami2018classification zhang2020encoding">(<a href="refs.html#ref-chu2019automatic" role="doc-biblioref">Chu et al. 2019</a>; <a href="refs.html#ref-hailesilassie2019financial" role="doc-biblioref">Hailesilassie 2019</a>; <a href="refs.html#ref-hatami2018classification" role="doc-biblioref">Hatami et al. 2018</a>; <a href="refs.html#ref-zhang2020encoding" role="doc-biblioref">Zhang et al. 2020</a>)</span>, anomaly detection <span class="citation" data-cites="chen2020convolutional">(<a href="refs.html#ref-chen2020convolutional" role="doc-biblioref">Chen et al. 2020</a>)</span>, and pairwise causality analysis <span class="citation" data-cites="singh2017deep">(<a href="refs.html#ref-singh2017deep" role="doc-biblioref">Singh et al. 2017</a>)</span>, the application of reading residual plots with computer vision models represents a relatively new field of study.</p>
+<p>In this paper, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for automated visual inference. The paper is structured as follows. <span class="quarto-unresolved-ref">?sec-model-specifications</span> discusses various specifications of the computer vision models. <span class="quarto-unresolved-ref">?sec-distance-between-residual-plots</span> defines the distance measure used to measure model violations. <span class="quarto-unresolved-ref">?sec-distance-estimation</span> explains how the computer vision models estimate this distance measure. <span class="quarto-unresolved-ref">?sec-statistical-testing</span> covers the statistical testing based on the estimated distance. Sections <span class="quarto-unresolved-ref">?sec-data-generation</span>, <span class="quarto-unresolved-ref">?sec-model-architecture</span>, and <span class="quarto-unresolved-ref">?sec-model-training</span> detail the data preparation, model architecture, and training process, respectively. The results are presented in <a href="02-chap2.html#sec-results"><span>Section&nbsp;2.5</span></a>. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-false-finding" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="03-chap3_files/figure-html/fig-false-finding-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.1: An example residual vs fitted values plot (red line indicates 0). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95% significance level (<span class="math inline">p\text{-value} = 0.046</span>).</figcaption></figure>
+</div>
+</div>
+</div>
 
 
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-belsley1980regression" class="csl-entry" role="listitem">
+Belsley, D. A., Kuh, E., and Welsch, R. E. (1980), <em>Regression diagnostics: Identifying influential data and sources of collinearity</em>, John Wiley &amp; Sons.
+</div>
+<div id="ref-brunetti2018computer" class="csl-entry" role="listitem">
+Brunetti, A., Buongiorno, D., Trotta, G. F., and Bevilacqua, V. (2018), <span>“Computer vision and deep learning techniques for pedestrian detection and tracking: A survey,”</span> <em>Neurocomputing</em>, Elsevier, 300, 17–33.
+</div>
+<div id="ref-buja2009statistical" class="csl-entry" role="listitem">
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F., and Wickham, H. (2009), <span>“Statistical inference for exploratory data analysis and model diagnostics,”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, The Royal Society Publishing, 367, 4361–4383.
+</div>
+<div id="ref-chen2020convolutional" class="csl-entry" role="listitem">
+Chen, Y., Su, S., and Yang, H. (2020), <span>“Convolutional neural network analysis of recurrence plots for anomaly detection,”</span> <em>International Journal of Bifurcation and Chaos</em>, World Scientific, 30, 2050002.
+</div>
+<div id="ref-chu2019automatic" class="csl-entry" role="listitem">
+Chu, H., Liao, X., Dong, P., Chen, Z., Zhao, X., and Zou, J. (2019), <span>“An automatic classification method of well testing plot based on convolutional neural network (CNN),”</span> <em>Energies</em>, MDPI, 12, 2846.
+</div>
+<div id="ref-cook1982residuals" class="csl-entry" role="listitem">
+Cook, R. D., and Weisberg, S. (1982), <em>Residuals and influence in regression</em>, New York: Chapman; Hall.
+</div>
+<div id="ref-emami2012facial" class="csl-entry" role="listitem">
+Emami, S., and Suciu, V. P. (2012), <span>“Facial recognition using OpenCV,”</span> <em>Journal of Mobile, Embedded and Distributed Systems</em>, 4, 38–43.
+</div>
+<div id="ref-fukushima1982neocognitron" class="csl-entry" role="listitem">
+Fukushima, K., and Miyake, S. (1982), <span>“Neocognitron: A new algorithm for pattern recognition tolerant of deformations and shifts in position,”</span> <em>Pattern recognition</em>, Elsevier, 15, 455–469.
+</div>
+<div id="ref-hailesilassie2019financial" class="csl-entry" role="listitem">
+Hailesilassie, T. (2019), <span>“Financial market prediction using recurrence plot and convolutional neural network,”</span> Preprints.
+</div>
+<div id="ref-hatami2018classification" class="csl-entry" role="listitem">
+Hatami, N., Gavet, Y., and Debayle, J. (2018), <span>“Classification of time-series images using deep convolutional neural networks,”</span> in <em>Tenth international conference on machine vision (ICMV 2017)</em>, SPIE, pp. 242–249.
+</div>
+<div id="ref-krishnan2021hierarchical" class="csl-entry" role="listitem">
+Krishnan, G., and Hofmann, H. (2021), <span>“Hierarchical decision ensembles-an inferential framework for uncertain human-AI collaboration in forensic examinations,”</span> <em>arXiv preprint arXiv:2111.01131</em>.
+</div>
+<div id="ref-langsrud2005rotation" class="csl-entry" role="listitem">
+Langsrud, Ø. (2005), <span>“Rotation tests,”</span> <em>Statistics and computing</em>, Springer, 15, 53–60.
+</div>
+<div id="ref-lee2015image" class="csl-entry" role="listitem">
+Lee, H., and Chen, Y.-P. P. (2015), <span>“Image based computer aided diagnosis system for cancer detection,”</span> <em>Expert Systems with Applications</em>, Elsevier, 42, 5356–5365.
+</div>
+<div id="ref-li2023plot" class="csl-entry" role="listitem">
+Li, W., Cook, D., Tanaka, E., and VanderPlas, S. (2023), <span>“A plot is worth a thousand tests: Assessing residual diagnostics with the lineup protocol,”</span> <em>arXiv preprint arXiv:2308.05964</em>.
+</div>
+<div id="ref-loy2013diagnostic" class="csl-entry" role="listitem">
+Loy, A., and Hofmann, H. (2013), <span>“Diagnostic tools for hierarchical linear models,”</span> <em>Wiley Interdisciplinary Reviews: Computational Statistics</em>, Wiley Online Library, 5, 48–61.
+</div>
+<div id="ref-loy2014hlmdiag" class="csl-entry" role="listitem">
+Loy, A., and Hofmann, H. (2014), <span>“HLMdiag: A suite of diagnostics for hierarchical linear models in r,”</span> <em>Journal of Statistical Software</em>, 56, 1–28.
+</div>
+<div id="ref-loy2015you" class="csl-entry" role="listitem">
+Loy, A., and Hofmann, H. (2015), <span>“Are you normal? The problem of confounded residual structures in hierarchical linear models,”</span> <em>Journal of Computational and Graphical Statistics</em>, Taylor &amp; Francis, 24, 1191–1209.
+</div>
+<div id="ref-ojeda2020multivariate" class="csl-entry" role="listitem">
+Ojeda, S. A. A., Solano, G. A., and Peramo, E. C. (2020), <span>“Multivariate time series imaging for short-term precipitation forecasting using convolutional neural networks,”</span> in <em>2020 international conference on artificial intelligence in information and communication (ICAIIC)</em>, IEEE, pp. 33–38.
+</div>
+<div id="ref-rawat2017deep" class="csl-entry" role="listitem">
+Rawat, W., and Wang, Z. (2017), <span>“Deep convolutional neural networks for image classification: A comprehensive review,”</span> <em>Neural computation</em>, MIT Press, 29, 2352–2449.
+</div>
+<div id="ref-singh2017deep" class="csl-entry" role="listitem">
+Singh, K., Gupta, G., Vig, L., Shroff, G., and Agarwal, P. (2017), <span>“Deep convolutional neural networks for pairwise causality,”</span> <em>arXiv preprint arXiv:1701.00597</em>.
+</div>
+<div id="ref-tukey1985computer" class="csl-entry" role="listitem">
+Tukey, J. W., and Tukey, P. A. (1985), <span>“Computer graphics and exploratory data analysis: An introduction,”</span> in <em>Proceedings of the sixth annual conference and exposition: Computer graphics</em>, pp. 773–785.
+</div>
+<div id="ref-widen2016graphical" class="csl-entry" role="listitem">
+Widen, H. M., Elsner, J. B., Pau, S., and Uejio, C. K. (2016), <span>“Graphical inference in geographical research,”</span> <em>Geographical Analysis</em>, Wiley Online Library, 48, 115–131.
+</div>
+<div id="ref-wilkinson2005graph" class="csl-entry" role="listitem">
+Wilkinson, L., Anand, A., and Grossman, R. (2005), <span>“Graph-theoretic scagnostics,”</span> in <em>Information visualization, IEEE symposium on</em>, IEEE Computer Society, pp. 21–21.
+</div>
+<div id="ref-zhang2020encoding" class="csl-entry" role="listitem">
+Zhang, Y., Hou, Y., Zhou, S., and Ouyang, K. (2020), <span>“Encoding time series as multi-scale signed recurrence plots for classification using fully convolutional networks,”</span> <em>Sensors</em>, MDPI, 20, 3818.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -394,9 +521,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./02-chap2.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</span></span>
       </a>          
