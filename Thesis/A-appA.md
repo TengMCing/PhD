@@ -324,34 +324,15 @@ The survey data is collected via a self-hosted website designed by us. The compl
 
 Once the participant is recruited from Prolific [@palan2018prolific], it will be redirected to the entry page of our study website. An image of the entry page is provided in @fig-entry-page. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in @fig-consent-form and @fig-metadata respectively. Before evaluating lineups, participant also need to read the training page as provide in @fig-training-page to understand the process. An example of the lineup page is given in @fig-lineup-page. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
 
-::: {.content-visible when-format="html"}
 
-::: {#fig-tech}
-
-<embed src="figures/experiment_tech.pdf" class="img-fluid" style="width:0%; display:none"/>
-
-![](figures/experiment_tech.pdf#toolbar=0){width=100.0% height=953px}
-
-Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.
-:::
-
-:::
-
-::: {.content-visible when-format="pdf"}
 
 
 
 ::: {.cell}
 ::: {.cell-output-display}
-![Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.](figures/experiment_tech.pdf){#fig-tech width=100%}
+![Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.](A-appA_files/figure-pdf/fig-tech-1.png){#fig-tech width=100%}
 :::
 :::
-
-
-
-:::
-
-
 
 ::: {.cell}
 ::: {.cell-output-display}

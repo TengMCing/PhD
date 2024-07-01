@@ -16,6 +16,7 @@ book:
     - "refs.qmd"
   appendices:
     - "A-appA.qmd"
+    - "B-appB.qmd"
   sidebar:
     style: "docked"
 

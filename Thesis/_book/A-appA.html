@@ -45,6 +45,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./B-appB.html" rel="next">
 <link href="./refs.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -139,7 +140,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-chap3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated assessment of residual plots with computer vision models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated Assessment of Residual Plots with Computer Vision Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -161,6 +162,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./A-appA.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-appB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix to “Automated Assessment of Residual Plots with Computer vision Models”</span></span></a>
   </div>
 </li>
       </ul>
@@ -370,9 +377,13 @@ C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i
 <span class="header-section-number">A.2.6</span> Data Collection Process</h3>
 <p>The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in <a href="#fig-tech">Figure&nbsp;<span>A.7</span></a>. The website is built with the <code>Flask</code> <span class="citation" data-cites="flask">(<a href="refs.html#ref-flask" role="doc-biblioref">Grinberg 2018</a>)</span> web framework and hosted on <code>PythonAnywhere</code> <span class="citation" data-cites="pythonanywhere">(<a href="refs.html#ref-pythonanywhere" role="doc-biblioref">PythonAnywhere LLP 2023</a>)</span>. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the <code>jsPsych</code> front-end framework <span class="citation" data-cites="jspsych">(<a href="refs.html#ref-jspsych" role="doc-biblioref">De Leeuw 2015</a>)</span> instructs participants’ browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants’ responses are first validated by a scheduled <code>Python</code> script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by <code>Flask</code> and bundled in HTML files.</p>
 <p>Once the participant is recruited from Prolific <span class="citation" data-cites="palan2018prolific">(<a href="refs.html#ref-palan2018prolific" role="doc-biblioref">Palan and Schitter 2018</a>)</span>, it will be redirected to the entry page of our study website. An image of the entry page is provided in <a href="#fig-entry-page">Figure&nbsp;<span>A.8</span></a>. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in <a href="#fig-consent-form">Figure&nbsp;<span>A.9</span></a> and <a href="#fig-metadata">Figure&nbsp;<span>A.10</span></a> respectively. Before evaluating lineups, participant also need to read the training page as provide in <a href="#fig-training-page">Figure&nbsp;<span>A.11</span></a> to understand the process. An example of the lineup page is given in <a href="#fig-lineup-page">Figure&nbsp;<span>A.12</span></a>. A half of the page is taken by the lineup image to attract participant’s attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.</p>
+<div class="cell">
+<div class="cell-output-display">
 <div id="fig-tech" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><embed src="figures/experiment_tech.pdf" class="img-fluid" style="width:0%; display:none"><p><embed src="figures/experiment_tech.pdf#toolbar=0" style="width:100.0%" height="953"></p>
+<figure class="figure"><p><img src="A-appA_files/figure-html/fig-tech-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;A.7: Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.</figcaption></figure>
+</div>
+</div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1087,6 +1098,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./B-appB.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix to “Automated Assessment of Residual Plots with Computer vision Models”</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
