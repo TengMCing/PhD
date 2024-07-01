@@ -1542,7 +1542,7 @@ Perhaps surprisingly, the visual tests have more consistent power across the dif
 
 The variation in power in the conventional tests is at first sight, shocking. However, it is discussed, albeit rarely, in the testing literature. See, for example, @jamshidian2007study, @olvera2019relationship and  @zhang2018practical which show derivations and use simulation to assess the effect of the observed distribution of the predictors on test power. The big differences in the power curves seen in @fig-different-x-dist-poly-power is echoed in the results reported in these articles.
 
-# Limitations and Practicality
+## Limitations and Practicality
 
 One of the primary limitations of the lineup protocol lies in its reliance on human judgements. In this context, the effectiveness of a single lineup evaluation can be dependent on the perceptual ability and visual skills of the individual. However, when results from multiple individuals are combined the outcome is encouragingly high-quality and robust. For simple plots and strong patterns just a few individuals are needed to arrive at a clear answer, but more individuals will be needed when the plot design is complex, or the signal strength is weak. 
 
@@ -1552,7 +1552,7 @@ The lineup protocol can be used cheaply and informally with the R package `nulla
 
 For this study, simulated data was used to provide a precisely controlled environment within which to compare results from conventional testing to those from visual testing. We also explored only the most commonly used, the residual vs fitted value plots. However, we expect the behaviour of the conventional test and the visual test to be similar when observed residuals are diagnosed with this type of plot or other residual plots. The conventional tests will be more sensitive to small departures from the null. They will also fail to detect departures when residuals have some contamination, like outliers or anomalies, as is often encountered when working with data. The lineup approach is well-suited for generally interpreting data plots, and also detecting unexpected patterns not related to the model. This is supported by earlier research [e.g. @loy2016variations; @loy2015you; @roy2015using; @VanderPlas2015; @wickham2010].
 
-# Conclusions
+## Conclusions
 
 This paper has described experimental evidence providing support for the advice of regression analysis experts *that residual plots are indispensable methods for assessing model fit*, using the formal framework of the lineup protocol. We conducted a perceptual experiment on scatterplots of residuals vs fitted values, with two primary departures from good residuals: non-linearity and heteroskedasticity. We found that conventional residual-based statistical tests are more sensitive to weak departures from model assumptions than visual tests. That is, a conventional test concludes there are problems with the model fit almost twice as often as a human. Conventional tests often reject the null hypothesis when departures in the form of non-linearity and heteroskedasticity are not visibly different from null residual plots. 
 
