@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - Appendix A — Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</title>
 <style>
@@ -21,6 +21,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -61,7 +62,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -70,6 +77,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -90,24 +98,50 @@ div.csl-indent {
    });
 }}});
   </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-appA.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A-appA.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to "A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol"</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-appA.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A-appA.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
     </div>
@@ -174,7 +208,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title"><b>Sections</b></h2>
@@ -186,7 +220,7 @@ div.csl-indent {
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-appA.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A-appA.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-appendix-a" class="quarto-section-identifier">Appendix A — Appendix to “A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol”</span></h1>
 </div>
 
@@ -199,6 +233,7 @@ div.csl-indent {
     
   </div>
   
+
 
 </header><section id="sec-appendix-a-1" class="level2" data-number="A.1"><h2 data-number="A.1" class="anchored" data-anchor-id="sec-appendix-a-1">
 <span class="header-section-number">A.1</span> Additional Details of Testing Procedures</h2>
@@ -218,15 +253,15 @@ B(a, b) = \int_{0}^{1}t^{\alpha - 1}(1-t)^{b-1}dt,\quad \text{where}\quad a,b&gt
 <p><span id="eq-pvalue-beta-binomial-approx"><span class="math display">
 P(C \geq c_i) = P(C \geq \lceil c_i \rceil) + (\lceil c_i \rceil - c_i) P(C = \lfloor c_i \rfloor), \quad \text{for}\quad c_i \in \mathbb{R}_0^+,
 \tag{A.3}</span></span></p>
-<p>where <span class="math inline">P(C \geq \lceil c_i \rceil)</span> is calculated using <a href="#eq-pvalue-beta-binomial">Equation&nbsp;<span>A.1</span></a> and <span class="math inline">P(C = \lfloor c_i \rfloor)</span> is calculated by</p>
+<p>where <span class="math inline">P(C \geq \lceil c_i \rceil)</span> is calculated using <a href="#eq-pvalue-beta-binomial" class="quarto-xref">Equation&nbsp;<span>A.1</span></a> and <span class="math inline">P(C = \lfloor c_i \rfloor)</span> is calculated by</p>
 <p><span id="eq-pmf-beta-binomial"><span class="math display">
 P(C = c_i) = {K \choose c_i}\frac{B(c_i + \alpha, K - c_i + (m - 1)\alpha)}{B(\alpha, (m-1)\alpha)},\quad \text{for} \quad c_i \in \mathbb{Z}_0^+.
 \tag{A.4}</span></span></p>
-<p>The parameter <span class="math inline">\alpha</span> used in <a href="#eq-pvalue-beta-binomial">Equation&nbsp;<span>A.1</span></a> and <a href="#eq-pmf-beta-binomial">Equation&nbsp;<span>A.4</span></a> is usually unknown and will need to be estimated from the survey data. An interpretation of <span class="math inline">\alpha</span> is that when it is low only a few plots are attractive to the observers and tend to be selected, and when high, most plots are equally likely to be chosen. VanderPlas et al define <span class="math inline">c</span>-interesting plot to be if <span class="math inline">c</span> or more participants select the plot as the most different. The expected number of plots selected at least <span class="math inline">c</span> times, <span class="math inline">\mathrm{E}[Z_c]</span>, is then calculated as</p>
+<p>The parameter <span class="math inline">\alpha</span> used in <a href="#eq-pvalue-beta-binomial" class="quarto-xref">Equation&nbsp;<span>A.1</span></a> and <a href="#eq-pmf-beta-binomial" class="quarto-xref">Equation&nbsp;<span>A.4</span></a> is usually unknown and will need to be estimated from the survey data. An interpretation of <span class="math inline">\alpha</span> is that when it is low only a few plots are attractive to the observers and tend to be selected, and when high, most plots are equally likely to be chosen. VanderPlas et al define <span class="math inline">c</span>-interesting plot to be if <span class="math inline">c</span> or more participants select the plot as the most different. The expected number of plots selected at least <span class="math inline">c</span> times, <span class="math inline">\mathrm{E}[Z_c]</span>, is then calculated as</p>
 <p><span id="eq-c-interesting-expectation"><span class="math display">
 \mathrm{E}[Z_c(\alpha)] = \frac{m}{B(\alpha, (m-1)\alpha)}\sum_{\lceil c \rceil}^{K}{K \choose x} B(x + \alpha, K - x + (m-1)\alpha).
 \tag{A.5}</span></span></p>
-<p>With <a href="#eq-c-interesting-expectation">Equation&nbsp;<span>A.5</span></a>, <span class="math inline">\alpha</span> can be estimated using maximum likelihood estimation. Precise estimation of <span class="math inline">\alpha</span>, is aided by evaluation of Rorschach lineups, where all plots are null plots. In a Rorschach, in theory all plots should be equally likely, but in practice some (irrelevant) visual elements may be more eye-catching than others. This is what <span class="math inline">\alpha</span> captures, the capacity for extraneous features to distract the observer for a particular type of plot display.</p>
+<p>With <a href="#eq-c-interesting-expectation" class="quarto-xref">Equation&nbsp;<span>A.5</span></a>, <span class="math inline">\alpha</span> can be estimated using maximum likelihood estimation. Precise estimation of <span class="math inline">\alpha</span>, is aided by evaluation of Rorschach lineups, where all plots are null plots. In a Rorschach, in theory all plots should be equally likely, but in practice some (irrelevant) visual elements may be more eye-catching than others. This is what <span class="math inline">\alpha</span> captures, the capacity for extraneous features to distract the observer for a particular type of plot display.</p>
 </section><section id="effect-size-derivation" class="level3" data-number="A.1.2"><h3 data-number="A.1.2" class="anchored" data-anchor-id="effect-size-derivation">
 <span class="header-section-number">A.1.2</span> Effect Size Derivation</h3>
 <p>Effect size can be defined as the difference of a parameter for a particular model or distribution, or a statistic derived from a sample. Importantly, it needs to reflect the treatment we try to measure. Centred on a conventional statistical test, we usually can deduce the effect size from the test statistic by substituting the null parameter value. When considering the diagnostics of residual departures, there exist many possibilities of test statistics for a variety of model assumptions. Meanwhile, diagnostic plots such as the residual plot have no general agreement on measuring how strong a model violation pattern is. To build a bridge between various residual-based tests, and the visual test, we focus on the shared information embedded in the testing procedures, which is the distribution of residuals. When comes to comparison of distribution, Kullback-Leibler divergence <span class="citation" data-cites="kullback1951information">(<a href="refs.html#ref-kullback1951information" role="doc-biblioref">Kullback and Leibler 1951</a>)</span> is a classical way to represent the information loss or entropy increase caused by the approximation to the true distribution, which in our case, the inefficiency due to the use of false model assumptions.</p>
@@ -259,9 +294,13 @@ KL = \frac{1}{2}\left(\log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsy
 <p>The analysis is conducted by setting up several scenarios, where the <span class="math inline">\alpha</span> is under or overestimated by 12.5%, 25% and 50%. Using the adjusted <span class="math inline">\hat{\alpha}</span>, we recalculate the <span class="math inline">p</span>-value for every lineup and show the results in Figure . It can be observed that there are some changes to <span class="math inline">p</span>-values, especially when the <span class="math inline">\hat{\alpha}</span> is multiplied by 50%. However, Table shows that adjusting <span class="math inline">\hat{\alpha}</span> will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of <span class="math inline">\alpha</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sensitivity" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-sensitivity-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.1: Change of <span class="math inline">p</span>-values with <span class="math inline">\hat{\alpha}</span> multiplied by <span class="math inline">0.5</span>, <span class="math inline">0.75</span>, <span class="math inline">0.875</span>, <span class="math inline">1.125</span>, <span class="math inline">1.25</span> and <span class="math inline">1.5</span>. Only lineups with uniform fitted value distribution is used. The vertical dashed line indicates <span class="math inline">p\text{-value} = 0.05</span>. The area coloured in red indicates <span class="math inline">\text{adjusted }p\text{-value} &lt; 0.05</span>. The x-axis is drawn on logarithmic scale. For multipliers smaller than 1, the adjusted <span class="math inline">p\text{-value}</span> will initially increase and decline when the <span class="math inline">p\text{-value}</span> increases. The trend is opposite with multipliers greater than <span class="math inline">1</span>, but the difference eventually reaches <span class="math inline">0</span>.</figcaption></figure>
+<div id="fig-sensitivity" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-sensitivity-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.1: Change of <span class="math inline">p</span>-values with <span class="math inline">\hat{\alpha}</span> multiplied by <span class="math inline">0.5</span>, <span class="math inline">0.75</span>, <span class="math inline">0.875</span>, <span class="math inline">1.125</span>, <span class="math inline">1.25</span> and <span class="math inline">1.5</span>. Only lineups with uniform fitted value distribution is used. The vertical dashed line indicates <span class="math inline">p\text{-value} = 0.05</span>. The area coloured in red indicates <span class="math inline">\text{adjusted }p\text{-value} &lt; 0.05</span>. The x-axis is drawn on logarithmic scale. For multipliers smaller than 1, the adjusted <span class="math inline">p\text{-value}</span> will initially increase and decline when the <span class="math inline">p\text{-value}</span> increases. The trend is opposite with multipliers greater than <span class="math inline">1</span>, but the difference eventually reaches <span class="math inline">0</span>.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -272,35 +311,47 @@ KL = \frac{1}{2}\left(\log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsy
 </div>
 </section><section id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test" class="level3" data-number="A.1.4"><h3 data-number="A.1.4" class="anchored" data-anchor-id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test">
 <span class="header-section-number">A.1.4</span> Effect of Number of Evaluations on the Power of a Visual Test</h3>
-<p>When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in <a href="#fig-n_eval">Figure&nbsp;<span>A.2</span></a> the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.</p>
+<p>When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in <a href="#fig-n_eval" class="quarto-xref">Figure&nbsp;<span>A.2</span></a> the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-n_eval" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-n_eval-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.2: Change of power of visual tests for different number of evalutions on lineups with uniform fitted value distribution. The power will increase as the number of evaluations increases, but the margin will decrease.</figcaption></figure>
+<div id="fig-n_eval" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-n_eval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-n_eval-1.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-n_eval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.2: Change of power of visual tests for different number of evalutions on lineups with uniform fitted value distribution. The power will increase as the number of evaluations increases, but the margin will decrease.
+</figcaption></figure>
 </div>
 </div>
 </div>
 </section><section id="power-of-a-reset-test-under-different-auxiliary-regression-formulas" class="level3" data-number="A.1.5"><h3 data-number="A.1.5" class="anchored" data-anchor-id="power-of-a-reset-test-under-different-auxiliary-regression-formulas">
 <span class="header-section-number">A.1.5</span> Power of a RESET Test under Different Auxiliary Regression Formulas</h3>
-<p>It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the “triple-U” shape designed in this paper. <a href="#fig-reset">Figure&nbsp;<span>A.3</span></a> illustrates the change of power of RESET test while testing the “U” shape and the “triple-U” shape with different highest orders. Clearly, when testing a simple shape like the “U” shape, the highest order has very little impact on the power. But for testing the “triple-U” shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six.</p>
+<p>It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the “triple-U” shape designed in this paper. <a href="#fig-reset" class="quarto-xref">Figure&nbsp;<span>A.3</span></a> illustrates the change of power of RESET test while testing the “U” shape and the “triple-U” shape with different highest orders. Clearly, when testing a simple shape like the “U” shape, the highest order has very little impact on the power. But for testing the “triple-U” shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-reset" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-reset-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.3: Change of power of RESET tests for different orders of fitted values included in the auxiliary formula. The left panel is the power of testing the “U” shape and the right panel is the power of testing the “triple-U” shape. The power will not be greatly affected by the highest order in the case of testing the “U” shape. In the case of testing the “triple-U” shape, the highest order needs to be set to at least six to avoid the loss of power.</figcaption></figure>
+<div id="fig-reset" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-reset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-reset-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.3: Change of power of RESET tests for different orders of fitted values included in the auxiliary formula. The left panel is the power of testing the “U” shape and the right panel is the power of testing the “triple-U” shape. The power will not be greatly affected by the highest order in the case of testing the “U” shape. In the case of testing the “triple-U” shape, the highest order needs to be set to at least six to avoid the loss of power.
+</figcaption></figure>
 </div>
 </div>
 </div>
 </section><section id="conventional-test-rejection-rate-for-varying-significance-levels" class="level3" data-number="A.1.6"><h3 data-number="A.1.6" class="anchored" data-anchor-id="conventional-test-rejection-rate-for-varying-significance-levels">
 <span class="header-section-number">A.1.6</span> Conventional Test Rejection Rate for Varying Significance Levels</h3>
-<p>In the main paper, <a href="02-chap2.html#sec-power-analysis"><span>Section&nbsp;2.5.1</span></a> and <a href="02-chap2.html#sec-p-value"><span>Section&nbsp;2.5.2</span></a> compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, … will have the effect of rejecting fewer of the residual plots.</p>
+<p>In the main paper, <a href="02-chap2.html#sec-power-analysis" class="quarto-xref"><span>Section 2.5.1</span></a> and <a href="02-chap2.html#sec-p-value" class="quarto-xref"><span>Section 2.5.2</span></a> compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, … will have the effect of rejecting fewer of the residual plots.</p>
 <p>It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. Figure examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-rej-rates" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-rej-rates-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.4: Changing the significance level of the conventional test will change the rejection rate. A: Percentage of conventional tests also rejected by the visual test: rejected (solid), not rejected (dashed). As the significance level is reduced, the percentage rejected by the visual test that has been rejected by the conventional test approaches 100. The percentage of tests not rejected by the conventional test also increases, as expected, but the percentage of these that are rejected by the visual test increases too. B: ROC curve shows that forcing the conventional test to not reject creates a discrepancy with the visual test. Many of the residual plots not rejected by the conventional test are rejected by the visual test. It is not possible to vary the significance level of the conventional test to match the decisions made by the visual test.</figcaption></figure>
+<div id="fig-rej-rates" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="t!">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rej-rates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-rej-rates-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="t!">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rej-rates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.4: Changing the significance level of the conventional test will change the rejection rate. A: Percentage of conventional tests also rejected by the visual test: rejected (solid), not rejected (dashed). As the significance level is reduced, the percentage rejected by the visual test that has been rejected by the conventional test approaches 100. The percentage of tests not rejected by the conventional test also increases, as expected, but the percentage of these that are rejected by the visual test increases too. B: ROC curve shows that forcing the conventional test to not reject creates a discrepancy with the visual test. Many of the residual plots not rejected by the conventional test are rejected by the visual test. It is not possible to vary the significance level of the conventional test to match the decisions made by the visual test.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -333,7 +384,7 @@ g(\boldsymbol{x}, k) = 2k\cdot\frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n}{x_
 \boldsymbol{x} &amp;= g(\boldsymbol{x}_{raw}, 1),\\
 \boldsymbol{\varepsilon} &amp;\sim N(\boldsymbol{0}_n, \boldsymbol{1}_n + (2 - |a|)(\boldsymbol{x} - a\boldsymbol{1}_n)'(\boldsymbol{x} - a\boldsymbol{1}_n) b \boldsymbol{I}_n),
 \end{align*}</span></p>
-<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}</span>, <span class="math inline">\boldsymbol{\varepsilon}</span> are vectors of size <span class="math inline">n</span> and <span class="math inline">g(.)</span> is the scaling function defined in <a href="#eq-scaling-function">Equation&nbsp;<span>A.6</span></a>. The null regression model used to fit the realizations generated by the above model is formulated exactly the same as <a href="#eq-null-model">Equation&nbsp;<span>A.7</span></a>.</p>
+<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}</span>, <span class="math inline">\boldsymbol{\varepsilon}</span> are vectors of size <span class="math inline">n</span> and <span class="math inline">g(.)</span> is the scaling function defined in <a href="#eq-scaling-function" class="quarto-xref">Equation&nbsp;<span>A.6</span></a>. The null regression model used to fit the realizations generated by the above model is formulated exactly the same as <a href="#eq-null-model" class="quarto-xref">Equation&nbsp;<span>A.7</span></a>.</p>
 <p>For <span class="math inline">b \neq 0</span>, the variance-covariance matrix of the error term <span class="math inline">\boldsymbol{\varepsilon}</span> is correlated with the predictor <span class="math inline">\boldsymbol{x}</span>, which will lead to the presence of heteroskedasticity.</p>
 <p>Since <span class="math inline">\text{supp}(X) = [-1, 1]</span>, choosing <span class="math inline">a</span> to be <span class="math inline">-1</span>, <span class="math inline">0</span> and <span class="math inline">1</span> can generate “left-triangle”, “butterfly” and “right-triangle” shapes. The term <span class="math inline">(2 - |a|)</span> maintains the magnitude of residuals across different values of <span class="math inline">a</span>.</p>
 </section><section id="controlling-the-signal-strength" class="level3" data-number="A.2.3"><h3 data-number="A.2.3" class="anchored" data-anchor-id="controlling-the-signal-strength">
@@ -356,72 +407,104 @@ C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i
 \end{equation*}</span></p>
 <p>where <span class="math inline">C</span> is a sufficiently large constant such that <span class="math inline">D &gt; 0</span>. If <span class="math inline">L_{s}</span> is empty, we define <span class="math inline">D = 0</span>.</p>
 <p>The distance measures how different a lineup is from the set of lineups allocated to the participant in terms of factor values. Thus, the algorithm will try to allocate the most different lineup to a participant at each step.</p>
-<p>In <a href="#fig-poly-allocate">Figure&nbsp;<span>A.5</span></a> and <a href="#fig-heter-allocate">Figure&nbsp;<span>A.6</span></a>, we present examples of lineup allocations generated by our algorithm for data collection periods I and II, respectively. These figures illustrate the factor values presented to the first 20 participants recruited during each period. It can be observed that the algorithm effectively distributed almost all possible one-way and two-way factor combinations among the participants, thereby ensuring a diverse set of lineups for each participant.</p>
+<p>In <a href="#fig-poly-allocate" class="quarto-xref">Figure&nbsp;<span>A.5</span></a> and <a href="#fig-heter-allocate" class="quarto-xref">Figure&nbsp;<span>A.6</span></a>, we present examples of lineup allocations generated by our algorithm for data collection periods I and II, respectively. These figures illustrate the factor values presented to the first 20 participants recruited during each period. It can be observed that the algorithm effectively distributed almost all possible one-way and two-way factor combinations among the participants, thereby ensuring a diverse set of lineups for each participant.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-allocate" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-poly-allocate-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.5: Factor values assigned to the first 20 participants recruited during data collection period I, with data points slightly jittered to prevent overlap. Each participant have been exposed to all one-way and two-way factor combinations.</figcaption></figure>
+<div id="fig-poly-allocate" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-poly-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-poly-allocate-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.5: Factor values assigned to the first 20 participants recruited during data collection period I, with data points slightly jittered to prevent overlap. Each participant have been exposed to all one-way and two-way factor combinations.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-heter-allocate" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-heter-allocate-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.6: Factor values assigned to the first 20 participants recruited during data collection period II, with data points slightly jittered to prevent overlap. Each participant appears to have been exposed to almost all one-way and two-way factor combinations. However, two participants, namely participant 16 and participant 18, were not presented with lineups containing a butterfly shape with <span class="math inline">b = 4</span>. Additionally, participant 7 did not encounter a lineup featuring a butterfly shape with <span class="math inline">b = 1</span>.</figcaption></figure>
+<div id="fig-heter-allocate" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-heter-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-heter-allocate-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heter-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.6: Factor values assigned to the first 20 participants recruited during data collection period II, with data points slightly jittered to prevent overlap. Each participant appears to have been exposed to almost all one-way and two-way factor combinations. However, two participants, namely participant 16 and participant 18, were not presented with lineups containing a butterfly shape with <span class="math inline">b = 4</span>. Additionally, participant 7 did not encounter a lineup featuring a butterfly shape with <span class="math inline">b = 1</span>.
+</figcaption></figure>
 </div>
 </div>
 </div>
 </section><section id="data-collection-process" class="level3" data-number="A.2.6"><h3 data-number="A.2.6" class="anchored" data-anchor-id="data-collection-process">
 <span class="header-section-number">A.2.6</span> Data Collection Process</h3>
-<p>The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in <a href="#fig-tech">Figure&nbsp;<span>A.7</span></a>. The website is built with the <code>Flask</code> <span class="citation" data-cites="flask">(<a href="refs.html#ref-flask" role="doc-biblioref">Grinberg 2018</a>)</span> web framework and hosted on <code>PythonAnywhere</code> <span class="citation" data-cites="pythonanywhere">(<a href="refs.html#ref-pythonanywhere" role="doc-biblioref">PythonAnywhere LLP 2023</a>)</span>. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the <code>jsPsych</code> front-end framework <span class="citation" data-cites="jspsych">(<a href="refs.html#ref-jspsych" role="doc-biblioref">De Leeuw 2015</a>)</span> instructs participants’ browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants’ responses are first validated by a scheduled <code>Python</code> script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by <code>Flask</code> and bundled in HTML files.</p>
-<p>Once the participant is recruited from Prolific <span class="citation" data-cites="palan2018prolific">(<a href="refs.html#ref-palan2018prolific" role="doc-biblioref">Palan and Schitter 2018</a>)</span>, it will be redirected to the entry page of our study website. An image of the entry page is provided in <a href="#fig-entry-page">Figure&nbsp;<span>A.8</span></a>. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in <a href="#fig-consent-form">Figure&nbsp;<span>A.9</span></a> and <a href="#fig-metadata">Figure&nbsp;<span>A.10</span></a> respectively. Before evaluating lineups, participant also need to read the training page as provide in <a href="#fig-training-page">Figure&nbsp;<span>A.11</span></a> to understand the process. An example of the lineup page is given in <a href="#fig-lineup-page">Figure&nbsp;<span>A.12</span></a>. A half of the page is taken by the lineup image to attract participant’s attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.</p>
+<p>The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in <a href="#fig-tech" class="quarto-xref">Figure&nbsp;<span>A.7</span></a>. The website is built with the <code>Flask</code> <span class="citation" data-cites="flask">(<a href="refs.html#ref-flask" role="doc-biblioref">Grinberg 2018</a>)</span> web framework and hosted on <code>PythonAnywhere</code> <span class="citation" data-cites="pythonanywhere">(<a href="refs.html#ref-pythonanywhere" role="doc-biblioref">PythonAnywhere LLP 2023</a>)</span>. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the <code>jsPsych</code> front-end framework <span class="citation" data-cites="jspsych">(<a href="refs.html#ref-jspsych" role="doc-biblioref">De Leeuw 2015</a>)</span> instructs participants’ browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants’ responses are first validated by a scheduled <code>Python</code> script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by <code>Flask</code> and bundled in HTML files.</p>
+<p>Once the participant is recruited from Prolific <span class="citation" data-cites="palan2018prolific">(<a href="refs.html#ref-palan2018prolific" role="doc-biblioref">Palan and Schitter 2018</a>)</span>, it will be redirected to the entry page of our study website. An image of the entry page is provided in <a href="#fig-entry-page" class="quarto-xref">Figure&nbsp;<span>A.8</span></a>. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in <a href="#fig-consent-form" class="quarto-xref">Figure&nbsp;<span>A.9</span></a> and <a href="#fig-metadata" class="quarto-xref">Figure&nbsp;<span>A.10</span></a> respectively. Before evaluating lineups, participant also need to read the training page as provide in <a href="#fig-training-page" class="quarto-xref">Figure&nbsp;<span>A.11</span></a> to understand the process. An example of the lineup page is given in <a href="#fig-lineup-page" class="quarto-xref">Figure&nbsp;<span>A.12</span></a>. A half of the page is taken by the lineup image to attract participant’s attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-tech" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-tech-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.7: Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.</figcaption></figure>
+<div id="fig-tech" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-tech-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-entry-page" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/message.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.8: The entry page of the study website.</figcaption></figure>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tech-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.7: Diagram of online experimental setup. The server-side of the study website uses Flask as backend hosted on PythonAnywhere. And the client-side uses jsPsych to run experiment.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-consent-form" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/consent_form.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.9: The consent form provided in the study website.</figcaption></figure>
+<div id="fig-entry-page" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-entry-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/message.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-entry-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.8: The entry page of the study website.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-metadata" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/metadata.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.10: The form to provide demographic information.</figcaption></figure>
+<div id="fig-consent-form" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-consent-form-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/consent_form.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-consent-form-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.9: The consent form provided in the study website.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-training-page" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/training.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.11: The training page of the study website.</figcaption></figure>
+<div id="fig-metadata" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-metadata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/metadata.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metadata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.10: The form to provide demographic information.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-lineup-page" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="figures/lineup1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.12: The lineup page of the study website.</figcaption></figure>
+<div id="fig-training-page" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-training-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/training.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-training-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.11: The training page of the study website.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-lineup-page" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lineup-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/lineup1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineup-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.12: The lineup page of the study website.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -429,12 +512,14 @@ C - \sum_{1\leq i \leq q}I(f_i\text{ exists in }L_{s}) - \sum_{\substack{1\leq i
 <span class="header-section-number">A.3</span> Analysis of Results Relative to Data Collection Process</h2>
 <section id="demographics" class="level3" data-number="A.3.1"><h3 data-number="A.3.1" class="anchored" data-anchor-id="demographics">
 <span class="header-section-number">A.3.1</span> Demographics</h3>
-<p>Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. <a href="#tbl-count-lineup">Table&nbsp;<span>A.1</span></a> gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods.</p>
+<p>Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. <a href="#tbl-count-lineup" class="quarto-xref">Table&nbsp;<span>A.1</span></a> gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods.</p>
 <div class="cell">
+<div id="tbl-count-lineup" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-count-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.1: Count of lineups, evaluations and participants over departure types and data collection periods.
+</figcaption><div aria-describedby="tbl-count-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-count-lineup" class="anchored">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Table&nbsp;A.1: Count of lineups, evaluations and participants over departure types and data collection periods.</caption>
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 12%">
 <col style="width: 12%">
@@ -501,17 +586,19 @@ Heteroskedasticity
 </tbody>
 </table>
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
-<p>Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. <a href="#tbl-pronoun">Table&nbsp;<span>A.2</span></a>, <a href="#tbl-age-group">Table&nbsp;<span>A.3</span></a>, <a href="#tbl-education">Table&nbsp;<span>A.4</span></a> and <a href="#tbl-experience">Table&nbsp;<span>A.5</span></a> provide summary of the demographic data.</p>
+<p>Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. <a href="#tbl-pronoun" class="quarto-xref">Table&nbsp;<span>A.2</span></a>, <a href="#tbl-age-group" class="quarto-xref">Table&nbsp;<span>A.3</span></a>, <a href="#tbl-education" class="quarto-xref">Table&nbsp;<span>A.4</span></a> and <a href="#tbl-experience" class="quarto-xref">Table&nbsp;<span>A.5</span></a> provide summary of the demographic data.</p>
 <p>It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have.</p>
 <div class="cell">
+<div id="tbl-pronoun" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pronoun-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.2: Summary of pronoun distribution of participants recruited in this study.
+</figcaption><div aria-describedby="tbl-pronoun-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-pronoun" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;A.2: Summary of pronoun distribution of participants recruited in this study.</caption>
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Pronoun</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
@@ -571,15 +658,17 @@ Heteroskedasticity
 </tbody>
 </table>
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 <div class="cell">
+<div id="tbl-age-group" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-age-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.3: Summary of age distribution of participants recruited in this study.
+</figcaption><div aria-describedby="tbl-age-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-age-group" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;A.3: Summary of age distribution of participants recruited in this study.</caption>
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Age group</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
@@ -650,15 +739,17 @@ Heteroskedasticity
 </tbody>
 </table>
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 <div class="cell">
+<div id="tbl-education" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.4: Summary of education distribution of participants recruited in this study.
+</figcaption><div aria-describedby="tbl-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-education" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;A.4: Summary of education distribution of participants recruited in this study.</caption>
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Education</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
@@ -740,15 +831,17 @@ Heteroskedasticity
 </tbody>
 </table>
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 <div class="cell">
+<div id="tbl-experience" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-experience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.5: Summary of previous experience distribution of participants recruited in this study.
+</figcaption><div aria-describedby="tbl-experience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-experience" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;A.5: Summary of previous experience distribution of participants recruited in this study.</caption>
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Previous experience</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Period I</th>
@@ -797,32 +890,40 @@ Heteroskedasticity
 </tbody>
 </table>
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 </section><section id="data-collection-periods" class="level3" data-number="A.3.2"><h3 data-number="A.3.2" class="anchored" data-anchor-id="data-collection-periods">
 <span class="header-section-number">A.3.2</span> Data Collection Periods</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-boxplot-lineup" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-poly-boxplot-lineup-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.13: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^3 - 1</span>.</figcaption></figure>
+<div id="fig-poly-boxplot-lineup" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-poly-boxplot-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-poly-boxplot-lineup-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-boxplot-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.13: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for non-linearity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^3 - 1</span>.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-heter-boxplot-lineup" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="A-appA_files/figure-html/fig-heter-boxplot-lineup-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption class="figure-caption">Figure&nbsp;A.14: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for heteroskedasticity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^4 - 2</span>.</figcaption></figure>
+<div id="fig-heter-boxplot-lineup" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-heter-boxplot-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-appA_files/figure-html/fig-heter-boxplot-lineup-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heter-boxplot-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.14: A lineup of “letter-value” boxplots of weighted propotion of detect for lineups over different data collection periods for heteroskedasticity model. Can you find the most different boxplot? The data plot is positioned in panel <span class="math inline">2^4 - 2</span>.
+</figcaption></figure>
 </div>
 </div>
 </div>
-<p>We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect. <a href="#fig-poly-boxplot-lineup">Figure&nbsp;<span>A.13</span></a> and <a href="#fig-heter-boxplot-lineup">Figure&nbsp;<span>A.14</span></a> provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the “letter-value” boxplot <span class="citation" data-cites="hofmann2017value">(<a href="refs.html#ref-hofmann2017value" role="doc-biblioref">Hofmann et al. 2017</a>)</span> which is an extension of the number of “letter value” statistics to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of <span class="math inline">c_i</span> of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in <span class="math inline">p</span>-values much greater than <span class="math inline">5</span>%. Thus, there is no clear evidence of batch effect.</p>
+<p>We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect. <a href="#fig-poly-boxplot-lineup" class="quarto-xref">Figure&nbsp;<span>A.13</span></a> and <a href="#fig-heter-boxplot-lineup" class="quarto-xref">Figure&nbsp;<span>A.14</span></a> provide two lineups to examine whether there is an actual difference across data collection periods for non-linearity model and heteroskedasticity model respectively. To emphasize the tail behaviour and display fewer outliers, we use the “letter-value” boxplot <span class="citation" data-cites="hofmann2017value">(<a href="refs.html#ref-hofmann2017value" role="doc-biblioref">Hofmann et al. 2017</a>)</span> which is an extension of the number of “letter value” statistics to check the weighed proportion of detect over different data collection period. The weighted proportion of detect is calculated by taking the average of <span class="math inline">c_i</span> of a lineup over a data collection period. Within our research team, we can not identify the data plot from the null plots for these two lineups, result in <span class="math inline">p</span>-values much greater than <span class="math inline">5</span>%. Thus, there is no clear evidence of batch effect.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-buja2009statistical" class="csl-entry" role="listitem">
 Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F., and Wickham, H. (2009), <span>“Statistical inference for exploratory data analysis and model diagnostics,”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, The Royal Society Publishing, 367, 4361–4383.
 </div>
@@ -939,10 +1040,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -952,8 +1070,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -965,7 +1092,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1009,6 +1259,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1034,6 +1285,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1093,12 +1370,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./refs.html" class="pagination-link">
+      <a href="./refs.html" class="pagination-link" aria-label="Bibliography">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bibliography</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./B-appB.html" class="pagination-link">
+      <a href="./B-appB.html" class="pagination-link" aria-label="Appendix to &quot;Automated Assessment of Residual Plots with Computer vision Models&quot;">
         <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix to “Automated Assessment of Residual Plots with Computer vision Models”</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

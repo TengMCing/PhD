@@ -1,16 +1,70 @@
-# autovi.web: A Web-Based Tool for Residual Plot Diagnostics
+# Developing Efficient Tools for Automated Residual Plot Assessment: autovi and autovi.web
 
 ## Introduction {#sec-web-introduction}
 
-Most statistical software provides graphical approaches for diagnosing regression models. Typically, this involves generating statistical graphics such as density plots and scatter plots. However, very few of these tools also offer diagnostics for these plots. Users often need to manually inspect and interpret the plots, which can lead to inconsistent conclusions due to varying levels of domain and statistical knowledge. This variability makes it challenging to achieve standardized results from plot diagnostics.
+Most statistical software offers graphical tools for diagnosing regression models. For example, the base R package `stats` (citation here) automatically generates four diagnostic plots for linear models (lm objects): a residuals vs. fitted values plot, a Scale-Location plot (square root of absolute residuals vs. fitted values), a normal Q-Q plot (citation here), and a residuals vs. leverage plot. Additionally, packages hosted on The Comprehensive R Archive Network (CRAN) (citation here) such as `jtools` provide a more comprehensive and aesthetically enhanced set of diagnostic plots. However, very few of them offer automated assessment for these plots. Users often need to manually inspect and interpret the plots, which can lead to inconsistent conclusions due to varying levels of domain and statistical knowledge. This variability makes it challenging to achieve standardized results from plot diagnostics.
 
-The R package `autovi` addresses this problem by leveraging the visual inference framework to build computer vision models that automatically perform visual statistical testing on residual plots. To make the algorithm and the trained computer vision model widely accessible, we developed a web-based tool called `autovi.web`. This tool provides a user-friendly web interface that allows users to diagnose their residual plots without needing to install any dependencies required by the `autovi` package.
+The R package `autovi` was developed to address this issue by performing visual statistical testing on residual plots using computer vision. To make its algorithm and trained computer vision model widely accessible, we also developed a web-based tool called `autovi.web`. This tool provides a user-friendly web interface that allows users to diagnose their residual plots without needing to install any dependencies required by the `autovi` package.
 
-This paper documents the pipeline and the design of the web interface for `autovi.web`. It aims to provide a comprehensive overview of how the tool works, from data upload to the presentation of diagnostic results. The rest of the paper is structured as follows: ...
+This paper documents the design of the R package `autovi` and the web interface `autovi.web`. The rest of the paper is structured as follows: ...
 
 ## Background
 
-The R package `autovi` is designed to provide rejection decisions and $p$-values for testing the null hypothesis that a regression model is correctly specified. To construct a checker with `autovi`, one needs to supply a regression model object—typically an `lm` object representing the result of a linear regression model—and a trained computer vision model compatible with the `Keras` API.
+- current stage of residual diagnostics (optional)
+- brief introduction to visual inference
+- brief overview of the second paper
+- a sentence or two about why we want to develop autovi and autovi.web
+
+## autovi
+
+The primary goal of `autovi` is to provide rejection decisions and $p$-values for testing the null hypothesis that a regression model is correctly specified. While the classical normal linear regression model is popular and widely used, it represents a limited class of models. Therefore, the R package `autovi` is designed to be highly modular and customizable, allowing it to handle a variety of residual diagnostic tasks.
+
+### Modularized Data Pipeline
+
+In this section, we will discuss the data pipeline of `autovi`. It begins with the user providing a regression model and concludes with the delivery of assessment results to the user. An overview diagram of the data pipeline can be found in Figure . 
+
+To allow the package to adapt to various scenarios, the data pipeline is designed to be modular, with each module making minimal assumptions about the inputs from previous modules. This modularity ensures that any customizations by the user can be made without affecting the rest of the data pipeline.
+
+The data pipeline consists of eight core modules: 'Initialize', 'Get Fitted Values and Residuals', 'Get Data', 'Run Null Method', 'Plot', 'Save Plots', 'Compute Auxiliary', and 'Check'. The first and last modules are predefined methods that can not be overridden. However, users can interact with them directly and influence their behaviour through arguments passed to these functions. The remaining six modules are designed to be customizable, allowing users to override them to meet their specific needs.
+
+#### Initialize
+
+In the initialization step, the user needs to construct a checker by supplying a regression model object - typically an `lm` object representing the result of a linear regression model and a trained computer vision model compatible with the `Keras` API.
+
+Example code: 
+
+```r
+library(autovi)
+checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars), 
+                   keras_model = get_keras_model("vss_phn_32"))
+```
+
+#### Get Data, Fitted values, and Residuals 
+
+We did not make any assumptions about the type of regression model object provided to the checker since  
+
+#### Run Null Method
+
+#### Plot
+
+#### Save Plots
+
+#### Compute Auxiliary
+
+#### Check
+
+### Assessment Result Presentation
+
+### Keras Model Wrapper
+
+### Trained Model Hosting
+
+### Dependency Considerations
+
+## autovi.web
+
+
+The R package `autovi` is designed to provide rejection decisions and $p$-values for testing the null hypothesis that a regression model is correctly specified. To construct a checker with `autovi`, one needs to supply a regression model object—typically an `lm` object representing the result of a linear regression model and a trained computer vision model compatible with the `Keras` API.
 
 The regression model object is used to extract the fitted values and residuals for creating a residual plot. Additionally, a residual rotation technique is applied to the model object to generate null residuals, which are residuals consistent with the null hypothesis. For a linear regression model, this is conventionally achieved by simulating new random standard normal draws and using them as responses to refit the linear regression model.
 
@@ -26,11 +80,11 @@ A significant portion of our web interface is dedicated to managing this data pi
 
 <!-- Our web interface simplifies this process for the user by automating the necessary steps to transform their data into the appropriate input format. Users can upload their CSV files, and the interface handles the extraction of residuals, the creation of residual plots, and the formatting of these plots into 4D tensors. This seamless integration allows users to focus on interpreting the results rather than on the technical details of data preparation. -->
 
-## Data Pipeline
+### Data Pipeline
 
 In this section, we will describe the entire data pipeline, including handling uploaded data, creating and saving fixed-aesthetic residual plots, loading and transforming images to the desired input format, and predicting visual signal strength.
 
-### Input File Format
+#### Input File Format
 
 As described in Section \ref{background}, the `autovi` package requires a regression model object to initialize the diagnostics. However, it is impractical to ask users to upload an R regression model object for inspection. There are several reasons for this: 
 
@@ -38,11 +92,11 @@ As described in Section \ref{background}, the `autovi` package requires a regres
 2. **Data Sensitivity**: The regression model object may contain sensitive, non-shareable data.
 3. **File Size**: The R object is often unnecessarily large because it contains extra information not needed for diagnostics.
 
-To simplify the process, the web interface instead requests a CSV file. This CSV file should contain at least two columns: `.fitted`, representing the fitted values, and `.resid`, representing the residuals. Additionally, it can contain an optional column `k` to indicate the ID of the residual plot. This is particularly useful if the user wants to evaluate a lineup of residual plots.
+To simplify the process, the web interface instead requests a CSV file. This CSV file should contain at least two columns: `.fitted`, representing the fitted values, and `.resid`, representing the residuals. Additionally, it can contain an optional column `.sample` to indicate the ID of the residual plot. This is particularly useful if the user wants to evaluate a lineup of residual plots.
 
 Compared to an R model object, a CSV file can be easily generated by various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. CSV files are generally less sensitive than raw data because most information about the predictors is excluded. 
 
-### Plot Drawing and Image Loading
+#### Plot Drawing and Image Loading
 
 The training data for the computer vision models consist of $32 \times 32$ RGB residual plots. These plots display fitted values on the x-axis and residuals on the y-axis. All labels, including axis texts, are excluded, and no background grid lines are included in the plots. Residual points are drawn in black with a size of 0.5 points, where there are 72.27 points per inch. Additionally, a horizontal red line is drawn at $y = 0$ to help the computer vision model determine if the residual points are uniformly distributed on both sides of the line. The plot is then saved as a PNG file with a resolution of $420 \times 525$ pixels. This resolution mimics a typical lineup residual plot, which has a resolution of $2100 \times 2100$ pixels and is arranged in four rows and five columns.
 
@@ -54,9 +108,9 @@ The saved PNG plot is loaded as an array, where each entry contains a pixel valu
 
 Finally, the processed image array will be fed into the computer vision model, and returned a vector of visual signal strength which are numerical values always greater than zero.
  
-## Software Stack
+### Software Stack
 
-### Backend
+#### Backend
 
 To utilize the `autovi` R package, the server hosting our web interface must have a functional R interpreter. A static HTML page cannot accomplish this task, as it only serves static resources to the client and lacks the capability to execute R code. The alternative option would be WebR, a version of R designed to run within a web browser. However, integrating WebR introduces complexities into the design of the web interface, which we will explore further in Section XXX. Additionally, 
 The resizing of the image is originally done by the Python `Pillow` library. To maintain the same data pipeline, we also need a working Python interpreter. Given the required conditions, we have three options: (1) Use a traditional backend like the `Spring` framework written in Java for handling all the income and outcome traffic of the web interface. Meanwhile, install R and Python in the server and call them when needed. (2) Use a Python backend framework like `Flask` so that the `Pillow` library can be used natively. Still, R needs to be installed and correctly configured in the server and called when needed. (3) Use a R backend framework like `Shiny`. This is similar to the second option, but requires to install and configure Python separately.
@@ -74,13 +128,14 @@ Option one requires a good understanding
 <!-- The saved PNG file  -->
 
 
-### Frontend
+#### Frontend
 
 
 
-### Communications between Software
+#### Communications between Software
 
-## Distribute Keras Model Files
+### Distribute Keras Model Files
 
-## Performance Optimization
+### Performance Optimization
 
+## Conclusions
