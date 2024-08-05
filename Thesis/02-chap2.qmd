@@ -1346,7 +1346,7 @@ dat_poly_j %>%
 
 @fig-heter-power-uniform-a examines the impact of the shape of the heteroskedasticity on the power of of both tests. The butterfly shape has higher power on both types of tests. The "left-triangle" and the "right-triangle" shapes are functionally identical, and this is observed for the conventional test, where the power curves are identical. Interestingly there is a difference for the visual test: the power curve of the "left-triangle" shape is slightly higher than that of the "right-triangle" shape. This indicates a bias in perceiving heteroskedasticity depending on the direction, and may be worth investigating further. 
 
-```{r fig-heter-power-uniform-a, fig.height = 4, fig.cap = 'The effect of heteroskedasticity shape (parameter $a$) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has a slightly higher power for the ``left-triangle" than the ``right-triangle" shape, when it would be expected that they should be similar, which is observed in conventional testing.'}
+```{r fig-heter-power-uniform-a, fig.height = 4, fig.cap = 'The effect of heteroskedasticity shape (parameter $a$) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has a slightly higher power for the "left-triangle" than the "right-triangle" shape, when it would be expected that they should be similar, which is observed in conventional testing.'}
 
 dat_heter_a <- heter_conv_sim %>%
   filter(x_dist == "uniform") %>%
