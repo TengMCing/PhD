@@ -33,7 +33,7 @@ In this paper, we develop computer vision models and integrate them into the res
 
 ::: {.cell}
 ::: {.cell-output-display}
-![An example residual vs fitted values plot (red line indicates 0). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-pdf/fig-false-finding-1.pdf){#fig-false-finding fig-pos='!h'}
+![An example residual vs fitted values plot (red line indicates 0 corresponds to the x-intercept, i.e. $y=0$). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity, however, here the result is due to skewed distribution of the predictors rather than heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-pdf/fig-false-finding-1.pdf){#fig-false-finding fig-pos='!h'}
 :::
 :::
 
@@ -70,13 +70,13 @@ The binary outcome can represent whether the input image is consistent with a nu
 
 Alternatively, the output could be a meaningful and interpretable numerical measure useful for assessing residual plots, such as the strength of suspicious visual patterns reflecting the extent of model violations, or the difficulty index for identifying whether a residual plot has no issues. However, these numeric measures are often informally used in daily communication but are not typically formalized or rigorously defined. For the purpose of training a model, this numeric measure has to be quantifiable. 
 
-In this study, we chose to define and use a distance between a true residual plot and a theoretical "good" residual plot. This is further explained in @sec-model-distance-between-residual-plots. @vo2016localizing have also demonstrated that defining a proper distance between images can enhance the matching accuracy in image search compared to a binary outcome model.
+In this study, we chose to define and use a distance between a true residual plot and a theoretically "good" residual plot. This is further explained in @sec-model-distance-between-residual-plots. @vo2016localizing have also demonstrated that defining a proper distance between images can enhance the matching accuracy in image search compared to a binary outcome model.
 
-## Distance from a Theoretical "Good" Residual Plot  {#sec-model-distance-between-residual-plots}
+## Distance from a Theoretically "Good" Residual Plot  {#sec-model-distance-between-residual-plots}
 
 To develop a computer vision model for assessing residual plots within the visual inference framework, it is important to precisely define a numerical measure of "difference" or "distance" between plots. This distance can take the form of a basic statistical operation on pixels, such as the sum of square differences, however, a pixel-to-pixel comparison makes little sense in comparing residual plots where the main interest would be structural patterns. Alternatively, it could involve established image similarity metrics like the Structural Similarity Index Measure [@wang2004image] which compares images by integrating three perception features of an image: contrast, luminance, and structure (related to average, standard deviation and correlation of pixel values over a window, respectively). These image similarity metrics are tailored for image comparison in vastly different tasks to evaluating data plots, where only essential plot elements require assessment [@chowdhury2018measuring]. We can alternatively define a notion of distance by integrating key plot elements (instead of key perception features like luminance, contrast, and structure), such as those captured by scagnostics mentioned in @sec-model-introduction, but the functional form still needs to be carefully refined to accurately reflect the extent of the violations.
 
-In this section, we introduce a distance measure between a true residual plot and a theoretical 'good' residual plot. This measure quantifies the divergence between the residual distribution of a given fitted regression model and that of a correctly specified model. The computation assumes knowledge of the data generating processes for predictors and response variables. Since these processes are often unknown in practice, we will discuss a method to estimate this distance using a computer vision model in Section @sec-model-distance-estimation.
+In this section, we introduce a distance measure between a true residual plot and a theoretically 'good' residual plot. This measure quantifies the divergence between the residual distribution of a given fitted regression model and that of a correctly specified model. The computation assumes knowledge of the data generating processes for predictors and response variables. Since these processes are often unknown in practice, we will discuss a method to estimate this distance using a computer vision model in Section @sec-model-distance-estimation.
 
 ### Residual Distribution
 
@@ -110,22 +110,22 @@ Since both $P$ and $Q$ are adjusted to be multivariate normal distributions, @eq
 
 $$
 \begin{aligned}
-D_{KL} &= \frac{1}{2}\left(\log\frac{|\boldsymbol{W}|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\boldsymbol{W}^{-1}\text{diag}(\boldsymbol{R}\sigma^2)) + \boldsymbol{\mu}_z^\top(\boldsymbol{W})^{-1}\boldsymbol{\mu}_z\right),
+D_{KL} &= \frac{1}{2}\left(\log\frac{|\boldsymbol{W}|}{|\text{diag}(\boldsymbol{R}\sigma^2)|} - n + \text{tr}(\boldsymbol{W}^{-1}\text{diag}(\boldsymbol{R}\sigma^2)) + \boldsymbol{\mu}_z^\top\boldsymbol{W}^{-1}\boldsymbol{\mu}_z\right),
 \end{aligned}
 $$ {#eq-kl-2}
 
-\noindent where $\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z$, and $\boldsymbol{W} = \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R})$. The assumed error variance $\sigma^2$ is set to be $tr(\boldsymbol{V})/n$, which is the expectation of the estimated variance.
+\noindent where $\boldsymbol{\mu}_z = \boldsymbol{R}\boldsymbol{Z}\boldsymbol{\beta}_z$, and $\boldsymbol{W} = \text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsymbol{R})$. The assumed error variance $\sigma^2$ is set to be $\text{tr}(\boldsymbol{V})/n$, which is the expectation of the estimated variance.
 
 
 ### Non-normal $P$
 
 For non-normal error $\boldsymbol{\varepsilon}$, the true residual distribution $P$ is unlikely to be a multivariate normal distribution. Thus, @eq-kl-2 given in @li2023plot will not be applicable to models violating the normality assumption. 
 
-To evaluate the Kullback-Leibler divergence of non-normal $P$ from $Q$, the fallback is to solve @eq-kl-1 numerically. However, since $\boldsymbol{e}$ is a linear transformation of non-normal random variables, it is very common that the general form of $P$ is unknown, meaning that we can not easily compute $p(\boldsymbol{e})$ using a well-known probability density function. Additionally, even if $p(\boldsymbol{e})$ can be calculated for any $\boldsymbol{e} \in \mathbb{R}^n$, it will be very difficult to do numerical integration over the $n$ dimensional space, because $n$ could be potentially very large.   
+To evaluate the Kullback-Leibler divergence of non-normal $P$ from $Q$, the fallback is to solve @eq-kl-1 numerically. However, since $\boldsymbol{e}$ is a linear transformation of non-normal random variables, it is very common that the general form of $P$ is unknown, meaning that we can not easily compute $p(\boldsymbol{e})$ using a well-known probability density function. Additionally, even if $p(\boldsymbol{e})$ can be calculated for any $\boldsymbol{e} \in \mathbb{R}^n$, it will be very difficult to do numerical integration over the $n$-dimensional space, because $n$ could be potentially very large.   
 
 In order to approximate $D_{KL}$ in a practically computable manner, the elements of $\boldsymbol{e}$ are assumed to be independent of each other. This assumption solves both of the issues mentioned above. First, we no longer need to integrate over $n$ random variables. The result of @eq-kl-1 is now the sum of the Kullback-Leibler divergence evaluated for each individual residual due to the assumption of independence between observations. Second, it is not required to know the joint probability density $p(\boldsymbol{e})$ any more. Instead, the evaluation of Kullback-Leibler divergence for an individual residual relies on the knowledge of the marginal density $p_i(e_i)$, where $e_i$ is the $i$-th residual for $i = 1, ..., n$. This is much easier to approximate through simulation. It is also worth mentioning that this independence assumption generally will not hold if $\text{cov}(e_i, e_j) \neq 0$ for any $1 \leq i < j \leq n$, but its existence is essential for reducing the computational cost.
 
-Given $\boldsymbol{X}$ and $\boldsymbol{\beta}$, the algorithm for approximating @eq-kl-1 starts from simulating $m$ sets of observed values $\boldsymbol{y}$ according to the data generating process. The observed values are stored in a matrix $\boldsymbol{A}$ with $n$ rows and $m$ columns, where each column of $\boldsymbol{A}$ is a set of observed values. Then, we can get $m$ sets of realized values of $\boldsymbol{e}$ stored in the matrix $\boldsymbol{B}$ by applying the residual operator $\boldsymbol{B} = \boldsymbol{R}\boldsymbol{A}$. Furthermore, kernel density estimation (KDE) with Gaussian kernel and optimal bandwidth selected by the Silverman's rule of thumb [@silverman2018density] is applied on each row of $B$ to estimate $p_i(e_i)$ for $i = 1, ..., n$. The KDE computation can be done by the `density` function in R. 
+Given $\boldsymbol{X}$ and $\boldsymbol{\beta}$, the algorithm for approximating @eq-kl-1 starts from simulating $m$ sets of observed values $\boldsymbol{y}$ according to the data generating process. The observed values are stored in a matrix $\boldsymbol{A}$ with $n$ rows and $m$ columns, where each column of $\boldsymbol{A}$ is a set of observed values. Then, we can get $m$ sets of realized values of $\boldsymbol{e}$ stored in the matrix $\boldsymbol{B}$ by applying the residual operator $\boldsymbol{B} = \boldsymbol{R}\boldsymbol{A}$. Furthermore, kernel density estimation (KDE) with Gaussian kernel and optimal bandwidth selected by the Silverman's rule of thumb [@silverman2018density] is applied on each row of $\boldsymbol{B}$ to estimate $p_i(e_i)$ for $i = 1, ..., n$. The KDE computation can be done by the `density` function in R. 
 
 Since the Kullback-Leibler divergence can be viewed as the expectation of the log-likelihood ratio between distribution $P$ and distribution $Q$ evaluated on distribution $P$, we can reuse the simulated residuals in matrix $\boldsymbol{B}$ to estimate the expectation by the sample mean. With the independence assumption, for non-normal $P$, $D_{KL}$ can be approximated by
 
@@ -137,12 +137,12 @@ D_{KL} &\approx \sum_{i = 1}^{n} \hat{D}_{KL}^{(i)}, \\
 $$ {#eq-kl-3}
 
 
-\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $B_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $B$, $\hat{p_i}(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\widehat{\sigma^2} = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
+\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $\boldsymbol{B}_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $\boldsymbol{B}$, $\hat{p_i}(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\widehat{\sigma^2} = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
 
 
 ## Distance Estimation {#sec-model-distance-estimation}
 
-In the previous sections, we have defined a distance measure given in @eq-kl-0 for quantifying the difference between the true residual distribution $P$ and an ideal reference distribution $Q$. It can be noticed that this distance measure can only be computed when the data generating process is known. In reality, we often have no knowledge about the data generating process, otherwise we do not need to do a residual diagnostic in the first place.
+In the previous sections, we have defined a distance measure given in @eq-kl-0 for quantifying the difference between the true residual distribution $P$ and an ideal reference distribution $Q$. However, this distance measure can only be computed when the data generating process is known. In reality, we often have no knowledge about the data generating process, otherwise we do not need to do a residual diagnostic in the first place.
 
 We use a computer vision model to estimate this distance measure with a residual plot. Let $D$ be the result of @eq-kl-0, and our estimator $\hat{D}$ is formulated as 
 
@@ -152,7 +152,7 @@ $$ {#eq-d-approx}
 
 \noindent where $V_{h \times w}(.)$ is a plotting function that saves a residuals vs fitted values plot with fixed aesthetic as an image with $h \times w$ pixels in three channels (RGB), $f_{CV}(.)$ is a computer vision model which takes an $h \times w$ image as input and predicts the distance in the domain $[0, +\infty)$.
 
-With the estimated distance $\hat{D}$, we will be able to know how different the underlying distribution of the residuals is from a theoretical "good" residual distribution. $\hat{D}$ can also be used as an index of the model violations indicating the strength of the visual signal embedded in the residual plot. 
+With the estimated distance $\hat{D}$, we can compare the underlying distribution of the residuals to a theoretically "good" residual distribution. $\hat{D}$ can also be used as an index of the model violations indicating the strength of the visual signal embedded in the residual plot. 
 
 It is not expected that $\hat{D}$ will be equal to original distance $D$. This is largely because information contained in a single residual plot is limited and it may not be able to summarise all the important characteristics of the residual distribution. For a given residual distribution $P$, many different residual plots can be simulated, where many will share similar visual patterns, but some of them could be visually very different from the rest, especially for regression models with small $n$. This suggests the error of the estimation will vary depends on whether the input residual plot is representative or not.
 
@@ -160,9 +160,9 @@ It is not expected that $\hat{D}$ will be equal to original distance $D$. This i
 
 $\hat{D}$ is an estimator of the difference between the true residual distribution and the reference residual distribution. This difference primarily arises from deviations in model assumptions. The magnitude of $D$ directly reflects the degree of these deviations, thus making $\hat{D}$ instrumental in forming a model violations index (MVI).
 
-Note that @eq-kl-0 might be influenced by the number of random variables involved in its evaluation. Generally, a larger number of observations will lead to a greater distance $D$. However, this does not imply that $\hat{D}$ fails to accurately represent the extent of model violations. In fact, when examining residual plots with more observations, we often observe a stronger visual signal strength, as the underlying patterns are more likely to be revealed, except in cases of significant overlapping. 
+Note that if more observations are used for estimating the linear regression, the result of @eq-kl-1 will increase, as the integration will be performed over a higher-dimensional space. For a consistent data generating process, $D$ typically increases logarithmically with the number of observations. This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
 
-For a consistent data generating process, $D$ typically increases logarithmically with the number of observations. This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
+Since $\hat{D}$ is an estimate of $D$, it is expected that a larger number of observations will also lead to a higher $\hat{D}$. However, this does not imply that $\hat{D}$ fails to accurately represent the extent of model violations. In fact, when examining residual plots with more observations, we often observe a stronger visual signal strength, as the underlying patterns are more likely to be revealed, except in cases of significant overlapping.
 
 Therefore, the Model Violations Index (MVI) can be proposed as
 
@@ -1231,7 +1231,7 @@ Violations & \#Samples & \#Agreements & Agreement rate\\
 
 ::: {.cell}
 ::: {.cell-output-display}
-![A weighted detection rate vs $\delta$-differnence plot. The brown line is smoothing curve produced by fitting gnealized additive models](03-chap3_files/figure-pdf/fig-delta-1.pdf){#fig-delta fig-pos='!h'}
+![A weighted detection rate vs $\delta$-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models](03-chap3_files/figure-pdf/fig-delta-1.pdf){#fig-delta fig-pos='!h'}
 :::
 :::
 

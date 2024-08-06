@@ -487,7 +487,7 @@ For visual tests, we expect the "U" shape to be detected more readily, followed 
 
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
-![The effect of heteroskedasticity shape (parameter $a$) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has a slightly higher power for the ``left-triangle" than the ``right-triangle" shape, when it would be expected that they should be similar, which is observed in conventional testing.](02-chap2_files/figure-pdf/fig-heter-power-uniform-a-1.pdf){#fig-heter-power-uniform-a fig-align='center' width=100%}
+![The effect of heteroskedasticity shape (parameter $a$) on the power of conventional and visual tests. The butterfly has higher power in both tests. Curiously, the visual test has a slightly higher power for the "left-triangle" than the "right-triangle" shape, when it would be expected that they should be similar, which is observed in conventional testing.](02-chap2_files/figure-pdf/fig-heter-power-uniform-a-1.pdf){#fig-heter-power-uniform-a fig-align='center' width=100%}
 :::
 :::
 

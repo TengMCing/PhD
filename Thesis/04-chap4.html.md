@@ -38,53 +38,27 @@ checker
 
 
 ::: {.cell}
-
-:::
-
-::: {.cell}
-::: {.cell-output .cell-output-stderr}
-
-```
-
-```
-
-
-:::
-
-::: {.cell-output .cell-output-stderr}
-
-```
-── <AUTO_VI object>
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
-    - Output node index: 1
- - Result:
-    - Observed visual signal strength: 3.162 (p-value = 0.03)
-    - Null visual signal strength: [100 draws]
-       - Mean: 1.274
-       - Quantiles: 
-          ╔═════════════════════════════════════════════════╗
-          ║   25%    50%    75%    80%    90%    95%    99% ║
-          ║0.8021 1.1109 1.5751 1.6656 1.9199 2.6564 3.3491 ║
-          ╚═════════════════════════════════════════════════╝
-    - Bootstrapped visual signal strength: [100 draws]
-       - Mean: 2.786 (p-value = 0.05)
-       - Quantiles: 
-          ╔══════════════════════════════════════════╗
-          ║  25%   50%   75%   80%   90%   95%   99% ║
-          ║2.452 2.925 3.173 3.285 3.463 3.505 3.652 ║
-          ╚══════════════════════════════════════════╝
-    - Likelihood ratio: 0.7275 (boot) / 0.06298 (null) = 11.55 
-```
-
-
-:::
-:::
-
-::: {.cell}
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-4-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-2-1.png){width=768}
+:::
+:::
+
+::: {.cell}
+
+:::
+
+::: {.cell}
+
+:::
+
+::: {.cell}
+
+```{.r .cell-code}
+checker$summary_plot()
+```
+
+::: {.cell-output-display}
+![](04-chap4_files/figure-html/unnamed-chunk-5-1.png){width=768}
 :::
 :::
 
@@ -125,29 +99,6 @@ checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars),
                    keras_model = get_keras_model("vss_phn_32"))
 checker
 ```
-
-::: {.cell-output .cell-output-stderr}
-
-```
-
-```
-
-
-:::
-
-::: {.cell-output .cell-output-stderr}
-
-```
-── <AUTO_VI object>
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
-    - Output node index: 1
- - Result: UNKNOWN 
-```
-
-
-:::
 :::
 
 
@@ -311,7 +262,7 @@ checker$plot_resid()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-11-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-12-1.png){width=768}
 :::
 :::
 
@@ -333,7 +284,7 @@ checker$plot_resid() |> checker$save_plot()
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpgQJ0eC/file2cd74e001f6.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpJWG0SY/file8c2b7f790e4.png"
 ```
 
 
@@ -461,7 +412,7 @@ The result of the module will be passed to the "P-value Computation" module for 
 
 #### P-value Computation
 
-For a visual test conducted by a single observer using the lineup protocol, the minimum $p$-value is $1/m$, where $m$ is the number of residual plots in a lineup. This is because the Type-I error of this test is $1/m$. Similarly, when performing a lineup check via the `lineup_check` method, the checker generates $m−1$ null plots to combine with the true residual plot, forming a lineup. It then calculates the $p$-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The $p$-value of this test is also bounded by $1/m$.
+For a visual test conducted by a single observer using the lineup protocol, the minimum $p$-value is $1/m$, where $m$ is the number of residual plots in a lineup. This is because the Type-I error of this test is $1/m$. Similarly, when performing a lineup check via the `lineup_check` method, the checker generates $m-1$ null plots to combine with the true residual plot, forming a lineup. It then calculates the $p$-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The $p$-value of this test is also bounded by $1/m$.
 
 Another way to perform a visual test is to assume a null distribution for visual signal strength and then estimate quantiles of this null distribution as critical values. The $p$-value in this case is the ratio of null plots with visual signal strength greater than or equal to that of the true residual plot. This method typically requires evaluating a large number of null residual plots, as done in the `check` method.
 
@@ -511,45 +462,6 @@ checker$p_value()
 ```{.r .cell-code}
 checker
 ```
-
-::: {.cell-output .cell-output-stderr}
-
-```
-
-```
-
-
-:::
-
-::: {.cell-output .cell-output-stderr}
-
-```
-── <AUTO_VI object>
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
-    - Output node index: 1
- - Result:
-    - Observed visual signal strength: 3.162 (p-value = 0.01)
-    - Null visual signal strength: [100 draws]
-       - Mean: 1.303
-       - Quantiles: 
-          ╔═════════════════════════════════════════════════╗
-          ║   25%    50%    75%    80%    90%    95%    99% ║
-          ║0.8469 1.1012 1.6525 1.7563 1.9991 2.4538 3.1508 ║
-          ╚═════════════════════════════════════════════════╝
-    - Bootstrapped visual signal strength: [100 draws]
-       - Mean: 2.58 (p-value = 0.04)
-       - Quantiles: 
-          ╔══════════════════════════════════════════╗
-          ║  25%   50%   75%   80%   90%   95%   99% ║
-          ║2.144 2.762 3.105 3.208 3.351 3.452 3.542 ║
-          ╚══════════════════════════════════════════╝
-    - Likelihood ratio: 0.5767 (boot) / 0.04987 (null) = 11.56 
-```
-
-
-:::
 :::
 
 
@@ -566,7 +478,7 @@ checker$summary_plot()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-20-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-21-1.png){width=768}
 :::
 :::
 
@@ -578,7 +490,7 @@ checker$summary_plot()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-21-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-22-1.png){width=768}
 :::
 :::
 

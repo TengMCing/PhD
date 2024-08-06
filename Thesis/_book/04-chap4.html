@@ -301,38 +301,18 @@ window.Quarto = {
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── &lt;AUTO_VI object&gt;
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
-    - Output node index: 1
- - Result:
-    - Observed visual signal strength: 3.162 (p-value = 0.03)
-    - Null visual signal strength: [100 draws]
-       - Mean: 1.274
-       - Quantiles: 
-          ╔═════════════════════════════════════════════════╗
-          ║   25%    50%    75%    80%    90%    95%    99% ║
-          ║0.8021 1.1109 1.5751 1.6656 1.9199 2.6564 3.3491 ║
-          ╚═════════════════════════════════════════════════╝
-    - Bootstrapped visual signal strength: [100 draws]
-       - Mean: 2.786 (p-value = 0.05)
-       - Quantiles: 
-          ╔══════════════════════════════════════════╗
-          ║  25%   50%   75%   80%   90%   95%   99% ║
-          ║2.452 2.925 3.173 3.285 3.463 3.505 3.652 ║
-          ╚══════════════════════════════════════════╝
-    - Likelihood ratio: 0.7275 (boot) / 0.06298 (null) = 11.55 </code></pre>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -358,28 +338,17 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 <p>An <code>autovi</code> checker can be initialized by supplying two primary inputs, including a regression model object, such as an <code>lm</code> object representing the result of a linear regression model, and a trained computer vision model compatible with the <code>Keras</code> Application Programming Interface (API).</p>
 <p>The corresponding function for this step is <code>auto_vi</code> as used in the following example code. The <code>get_keras_model</code> is a helper function for retrieving trained <code>Keras</code> model from the web. We will further discuss it in <a href="#sec-trained-model-hosting" class="quarto-xref"><span>Section 4.3.5</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/autovi/">autovi</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/autovi/">autovi</a></span><span class="op">)</span></span>
 <span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/AUTO_VI.html">auto_vi</a></span><span class="op">(</span>fitted_model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span>, </span>
 <span>                   keras_model <span class="op">=</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/get_keras_model.html">get_keras_model</a></span><span class="op">(</span><span class="st">"vss_phn_32"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── &lt;AUTO_VI object&gt;
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
-    - Output node index: 1
- - Result: UNKNOWN </code></pre>
-</div>
 </div>
 <p>Optionally, the user may specify the node index of the output layer of the trained computer vision model to be monitored by the checker via the <code>node_index</code> argument if there are multiple output nodes. This is particularly useful for multiclass classifiers when the user wants to use one of the nodes as a visual signal strength indicator.</p>
 </section><section id="fitted-values-and-residuals-extraction" class="level4"><h4 class="anchored" data-anchor-id="fitted-values-and-residuals-extraction">Fitted Values and Residuals Extraction</h4>
 <p>To create a residual plot, both fitted values and residuals are required. By convention, statistical models in R, such as <code>lm</code> (linear model) and <code>glm</code> (generalized linear model), support the use of the generic functions <code>fitted</code> and <code>resid</code> for extracting these values. The “Fitted Values and Residuals Extraction” module uses the same set of generic functions by default. However, since generic functions only work with classes that have appropriate method implementations, users can override the <code>get_fitted_and_resid</code> method if their model class does not support these generic functions.</p>
 <p>The following code example will returns a <code>tibble</code> of two columns: <code>.fitted</code> and <code>.resid</code> for fitted values and residuals, respectively</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">get_fitted_and_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">get_fitted_and_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
    .fitted .resid
@@ -402,7 +371,7 @@ Status:
 <p>The “Data Extraction” module involves extracting the model frame from the model object. This is typically done using the <code>model.frame</code> generic function, as implemented in the default method <code>get_data</code>. Alternatively, users can provide the data used for fitting the regression model via the <code>data</code> argument when constructing the checker, or they can override the method to suit their needs. It is worth noting that this module is not necessary if bootstrapping is not required by the user, as the model frame is not used in other steps.</p>
 <p>The following code example will returns a <code>data.frame</code> representing the model frame of the fitted regression model</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  dist speed
 1    2     4
@@ -419,7 +388,7 @@ Status:
 <p>Sometimes, a residual plot alone may not be sufficient for determining visual signal strength. For example, when the residual plot has significant overlapping, the trend and shape of the residual pattern can be difficult to identify. It can be helpful to include auxiliary variables, such as the number of observations, as inputs to the computer vision model. <code>autovi</code> addresses this need with internal functions built into the checker that automatically detect the number of inputs required by the provided Keras model. If multiple inputs are needed, the checker invokes the <code>auxiliary</code> method to compute auxiliary inputs. By default, this method calculates four scagnostics, “Monotonic”, “Sparse”, “Striped”, and “Splines, using the <code>cassowaryr</code> package, as well as the number of observations. This approach aligns with the training process of our trained computer vision models</p>
 <p>The following code example returns a <code>data.frame</code> with five columns: four for the scagnostics and one for the number of observations</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   measure_monotonic measure_sparse measure_splines measure_striped     n
@@ -432,7 +401,7 @@ Status:
 <p>The “Null Residual Simulation” module, as its name suggests, is responsible for simulating null residuals consistent with the model assumptions. For linear regression models, this assumes the model is correctly specified and simulates random draws from the residual rotation distribution <span class="citation" data-cites="buja2009statistical">(<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">Buja et al. 2009</a>)</span>. Other types of regression models, such as <code>glm</code> (generalized linear model) and <code>gam</code> (generalized additive model), generally can not use the same method to efficiently simulate null residuals. Therefore, it is highly recommended that users override the <code>null_method</code> for this module to suit their specific model.</p>
 <p>The following code example returns a <code>tibble</code> of two columns: <code>.fitted</code> and <code>.resid</code> for fitted values and null residuals, respectively</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
    .fitted  .resid
@@ -455,10 +424,10 @@ Status:
 <p>Plotting is a crucial aspect of residual plot diagnostics because aesthetic elements like marker size, marker color, and auxiliary lines impact the presentation of information. There are computer vision models trained to handle images captured in various scenarios. For example, the VGG16 model can classify objects in images taken under different lighting conditions and is robust to image rotation. However, data plots are a special type of image as the plotting style can always be consistent if controlled properly. Therefore, we assume computer vision models built for reading residual plots will be trained with residual plots of a specific aesthetic style. In this case, it is best to predict plots using the same style for optimal performance. The “Plotting” module handles this aspect. By default, it replicates the style we used to generate the training samples for the computer vision models. In brief, the residual plot omits axis text and ticks, titles, and background grid lines, featuring only a red line at <span class="math inline">y = 0</span>. Essentially, it retains only the necessary components of a residual plot. If the computer vision model is trained with a different but consistent plot style, the corresponding method <code>plot_resid</code> should be overridden.</p>
 <p>The following code example generates a <code>ggplot</code> object with the described aesthetic style</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -467,9 +436,9 @@ Status:
 <p>Another aspect of a standardized residual plot is its resolution. The original image format we used was 420 pixels in height and 525 pixels in width. This resolution was chosen because the original lineup, containing 20 residual plots in a 4x5 grid, is represented by an image of 2100 by 2100 pixels. If a different image size is required, the corresponding method <code>save_plot</code> can be overridden.</p>
 <p>The following code example saves a residual plot to a temporary file and returns the path to that file as a string</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpgQJ0eC/file2cd74e001f6.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpJWG0SY/file8c2b7f790e4.png"</code></pre>
 </div>
 </div>
 <p>The result of this module will be passed to the “Image Reading and Resizing” module to be converted to a Numpy array.</p>
@@ -478,7 +447,7 @@ Status:
 <p>To construct a <code>KERAS_WRAPPER</code> object, you need to provide the Keras model as the main argument. However, users typically do not need to use this class directly, as the <code>autovi</code> checker can automatically call its methods when performing visual signal strength predictions.</p>
 <p>The following code example reads an image of a residual plot and resizes it to 32 by 32 pixels to make it compatible with the computer vision model’s input shape.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span>keras_model <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span>  </span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span>keras_model <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span>  </span>
 <span><span class="va">input_array</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span></span>
@@ -494,7 +463,7 @@ Status:
 <p>Another way to obtain visual signal strength is by calling the <code>check</code> and <code>lineup_check</code> methods. These comprehensive methods perform extensive diagnostics on the true residual plot and store the visual signal strength in the <code>check_result</code> field of the checker. Additionally, for obtaining visual signal strength for null residual plots and bootstrapped residual plots, there are two specialized methods, <code>null_vss</code> and <code>boot_vss</code>, designed for this purpose respectively.</p>
 <p>The following code example predicts the visual signal strength for the residual plot of the fitted regression model</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
     vss
@@ -504,7 +473,7 @@ Status:
 </div>
 <p>The following code example predicts the visual signal strength for five null residual plots</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_vss</span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_vss</span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
     vss
@@ -531,11 +500,11 @@ Status:
 </div>
 <p>The result of the module will be passed to the “P-value Computation” module for calculating <span class="math inline">p</span>-value and making a rejection decision.</p>
 </section><section id="p-value-computation" class="level4"><h4 class="anchored" data-anchor-id="p-value-computation">P-value Computation</h4>
-<p>For a visual test conducted by a single observer using the lineup protocol, the minimum <span class="math inline">p</span>-value is <span class="math inline">1/m</span>, where <span class="math inline">m</span> is the number of residual plots in a lineup. This is because the Type-I error of this test is <span class="math inline">1/m</span>. Similarly, when performing a lineup check via the <code>lineup_check</code> method, the checker generates <span class="math inline">m−1</span> null plots to combine with the true residual plot, forming a lineup. It then calculates the <span class="math inline">p</span>-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The <span class="math inline">p</span>-value of this test is also bounded by <span class="math inline">1/m</span>.</p>
+<p>For a visual test conducted by a single observer using the lineup protocol, the minimum <span class="math inline">p</span>-value is <span class="math inline">1/m</span>, where <span class="math inline">m</span> is the number of residual plots in a lineup. This is because the Type-I error of this test is <span class="math inline">1/m</span>. Similarly, when performing a lineup check via the <code>lineup_check</code> method, the checker generates <span class="math inline">m-1</span> null plots to combine with the true residual plot, forming a lineup. It then calculates the <span class="math inline">p</span>-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The <span class="math inline">p</span>-value of this test is also bounded by <span class="math inline">1/m</span>.</p>
 <p>Another way to perform a visual test is to assume a null distribution for visual signal strength and then estimate quantiles of this null distribution as critical values. The <span class="math inline">p</span>-value in this case is the ratio of null plots with visual signal strength greater than or equal to that of the true residual plot. This method typically requires evaluating a large number of null residual plots, as done in the <code>check</code> method.</p>
 <p>The following code example performs a lineup check with <span class="math inline">m = 20</span>. The <code>p_value</code> method will use the correct formula to compute <span class="math inline">p</span>-value according to the check type. Note that the result is subject to randomness due to the small lineup size.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">p_value</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1</code></pre>
@@ -543,56 +512,19 @@ Status:
 </div>
 <p>The following code example evaluates 100 null residual plots and 100 bootstrapped residual plots, such that the null distribution and bootstrapped distribution of visual signal strength can be estimated accurately. It then computes the <span class="math inline">p</span>-value and prints the checker to get detailed breakdown of the check result.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">p_value</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── &lt;AUTO_VI object&gt;
-Status:
- - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
-    - Output node index: 1
- - Result:
-    - Observed visual signal strength: 3.162 (p-value = 0.01)
-    - Null visual signal strength: [100 draws]
-       - Mean: 1.303
-       - Quantiles: 
-          ╔═════════════════════════════════════════════════╗
-          ║   25%    50%    75%    80%    90%    95%    99% ║
-          ║0.8469 1.1012 1.6525 1.7563 1.9991 2.4538 3.1508 ║
-          ╚═════════════════════════════════════════════════╝
-    - Bootstrapped visual signal strength: [100 draws]
-       - Mean: 2.58 (p-value = 0.04)
-       - Quantiles: 
-          ╔══════════════════════════════════════════╗
-          ║  25%   50%   75%   80%   90%   95%   99% ║
-          ║2.144 2.762 3.105 3.208 3.351 3.452 3.542 ║
-          ╚══════════════════════════════════════════╝
-    - Likelihood ratio: 0.5767 (boot) / 0.04987 (null) = 11.56 </code></pre>
-</div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="summary-plots" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="summary-plots">
 <span class="header-section-number">4.3.3</span> Summary Plots</h3>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
-<span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -601,10 +533,20 @@ Status:
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
+<span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
 </section><section id="keras-model-wrapper" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="keras-model-wrapper">
 <span class="header-section-number">4.3.4</span> Keras Model Wrapper</h3>
 <div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
 <span><span class="va">wrapper</span><span class="op">$</span><span class="fu">list_layer_name</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "input_1"                  "tf.__operators__.getitem"
@@ -640,7 +582,7 @@ Status:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span>auxiliary <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

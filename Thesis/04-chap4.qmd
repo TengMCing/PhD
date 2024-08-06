@@ -38,15 +38,20 @@ checker
 library(autovi)
 checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars), 
                    keras_model = get_keras_model("vss_phn_32"))
+checker$plot_resid()
+```
+
+
+```{r}
 checker$check()
 ```
 
 
-```{r message=TRUE}
+```{r}
 checker
 ```
 
-```{r}
+```{r echo=TRUE}
 checker$summary_plot()
 ```
 
@@ -75,7 +80,7 @@ The corresponding function for this step is `auto_vi` as used in the following e
 
 
 
-```{r echo=TRUE, message=TRUE}
+```{r echo=TRUE}
 library(autovi)
 checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars), 
                    keras_model = get_keras_model("vss_phn_32"))
@@ -210,7 +215,7 @@ The result of the module will be passed to the "P-value Computation" module for 
 
 #### P-value Computation
 
-For a visual test conducted by a single observer using the lineup protocol, the minimum $p$-value is $1/m$, where $m$ is the number of residual plots in a lineup. This is because the Type-I error of this test is $1/m$. Similarly, when performing a lineup check via the `lineup_check` method, the checker generates $m−1$ null plots to combine with the true residual plot, forming a lineup. It then calculates the $p$-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The $p$-value of this test is also bounded by $1/m$.
+For a visual test conducted by a single observer using the lineup protocol, the minimum $p$-value is $1/m$, where $m$ is the number of residual plots in a lineup. This is because the Type-I error of this test is $1/m$. Similarly, when performing a lineup check via the `lineup_check` method, the checker generates $m-1$ null plots to combine with the true residual plot, forming a lineup. It then calculates the $p$-value as the ratio of plots with visual signal strength greater than or equal to that of the true plot. The $p$-value of this test is also bounded by $1/m$.
 
 Another way to perform a visual test is to assume a null distribution for visual signal strength and then estimate quantiles of this null distribution as critical values. The $p$-value in this case is the ratio of null plots with visual signal strength greater than or equal to that of the true residual plot. This method typically requires evaluating a large number of null residual plots, as done in the `check` method.
 
@@ -228,7 +233,7 @@ checker$check(boot_draws = 100L, null_draws = 100L)
 checker$p_value()
 ```
 
-```{r echo=TRUE, message=TRUE}
+```{r echo=TRUE}
 checker
 ```
 
