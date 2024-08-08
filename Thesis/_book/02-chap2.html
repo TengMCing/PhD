@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 2&nbsp; A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</title>
+<title>2&nbsp; A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script><link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
-<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -96,7 +96,7 @@ div.csl-indent {
     fleqn: false
    });
 }}});
-  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -128,13 +128,13 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-chap2.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -143,6 +143,10 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/TengMCing/PhD/tree/master/Thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Advances-in-Artificial-Intelligence-for-Data-Visualization--Developing-Computer-Vision-Models-to-Automate-Reading-of-Data-Plots,-with-Application-to-Regression-Diagnostics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -190,9 +194,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -226,7 +230,7 @@ window.Quarto = {
   <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">2.5</span> Results</a></li>
   <li><a href="#limitations-and-practicality" id="toc-limitations-and-practicality" class="nav-link" data-scroll-target="#limitations-and-practicality"><span class="header-section-number">2.6</span> Limitations and Practicality</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">2.7</span> Conclusions</a></li>
-  </ul></nav>
+  </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/02-chap2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -259,7 +263,7 @@ window.Quarto = {
 <p>The paper is structured as follows. <a href="#sec-background" class="quarto-xref"><span>Section 2.2</span></a> describes the background on the types of departures that one expects to detect, and outlines a formal statistical process for reading residual plots, called visual inference. <a href="#sec-significance-calculation" class="quarto-xref"><span>Section 2.3</span></a> describes the calculation of the statistical significance and power of the test. <a href="#sec-experimental-design" class="quarto-xref"><span>Section 2.4</span></a> details the experimental design to compare the decisions made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in <a href="#sec-results" class="quarto-xref"><span>Section 2.5</span></a>. We conclude with a discussion of the presented work, and ideas for future directions.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-first-example-lineup" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="t!">
+<div id="fig-first-example-lineup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="t!">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-first-example-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-first-example-lineup-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="t!">
 </div>
@@ -276,7 +280,7 @@ Figure&nbsp;2.1: Visual testing is conducted using a lineup, as in the example h
 <p>Graphical summaries where residuals are plotted against fitted values, or other functions of the predictors (expected to be approximately orthogonal to the residuals) are considered to be the most important residual plots by <span class="citation" data-cites="cook1999applied">Cook and Weisberg (<a href="refs.html#ref-cook1999applied" role="doc-biblioref">1999</a>)</span>. <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>A shows an example of an ideal residual plot where points are symmetrically distributed around the horizontal zero line (red), with no discernible patterns. There can be various types of departures from this ideal pattern. Non-linearity, heteroskedasticity and non-normality, shown in <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>B, <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>C, and <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>D, respectively, are three commonly checked departures.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-residual-plot-common-departures" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="t!">
+<div id="fig-residual-plot-common-departures" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="t!">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-residual-plot-common-departures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-residual-plot-common-departures-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="t!">
 </div>
@@ -296,7 +300,7 @@ Figure&nbsp;2.2: Example residual vs fitted value plots (horizontal line indicat
 <p>For residual plots in <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, we would expect the RESET test for non-linearity to reject residual plot B, the BP test for heteroskedasticity to reject the residual plot C, and the SW test for non-normality to reject residual plot D, which they all do and all tests also correctly fail to reject residual plot A. Interestingly, the BP and SW tests also reject the residual plots exhibiting structure that they were not designed for. <span class="citation" data-cites="cook1982residuals">Cook and Weisberg (<a href="refs.html#ref-cook1982residuals" role="doc-biblioref">1982</a>)</span> explain that most residual-based tests for a particular departure from the model assumptions are also sensitive to other types of departures. This could be considered a Type III error <span class="citation" data-cites="kimball1957errors">(<a href="refs.html#ref-kimball1957errors" role="doc-biblioref">Kimball 1957</a>)</span>, where the null hypothesis of good residuals is correctly rejected but for the wrong reason. Also, some types of departure can have elements of other types of departure, for example, non-linearity can appear like heteroskedasticity. Additionally, other data problems such as outliers can trigger rejection (or not) of the null hypothesis <span class="citation" data-cites="cook1999applied">(<a href="refs.html#ref-cook1999applied" role="doc-biblioref">Cook and Weisberg 1999</a>)</span>.</p>
 <p>With large sample sizes, hypothesis tests may reject the null hypothesis when there is only a small effect. (A good discussion can be found in <span class="citation" data-cites="kirk1996practical">Kirk (<a href="refs.html#ref-kirk1996practical" role="doc-biblioref">1996</a>)</span>.) While such rejections may be statistically correct, their sensitivity may render the results impractical. A key goal of residual plot diagnostics is to identify potential issues that could lead to incorrect conclusions or errors in subsequent analyses, but minor defects in the model are unlikely to have a significant impact and may be best disregarded for practical purposes. The experiment discussed in this paper specifically addresses this tension between statistical significance and practical significance.</p>
 <div class="cell" data-layout-align="center">
-<div id="tbl-example-residual-plot-table" class="cell quarto-float anchored" data-layout-align="center">
+<div id="tbl-example-residual-plot-table" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-example-residual-plot-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.1: Statistical significance testing for departures from good residuals for plots in <a href="#fig-residual-plot-common-departures" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>. Shown are the <span class="math inline">p</span>-values calculated for the RESET, the BP and the SW tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.
 </figcaption><div aria-describedby="tbl-example-residual-plot-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -378,7 +382,7 @@ Pr(\text{reject}~H_0|H_1,E) = \Lambda\left(\log\left(\frac{0.05}{0.95}\right) + 
 <p>In each lineup evaluation, the participant was asked to select one or more plots that are most different from others, provide a reason for their selections, and evaluate how different they think the selected plots are from others. If there is no noticeable difference between plots in a lineup, participants had the option to select zero plots without the need to provide a reason. During the process of recording the responses, a zero selection was considered to be equivalent to selecting all 20 plots. No participant was shown the same lineup twice. Information about preferred pronouns, age group, education, and previous experience in visual experiments were also collected. A participant’s submission was only included in the analysis if the data plot is identified for at least one attention check.</p>
 <p>Overall, we collected 7974 evaluations on 1152 unique lineups performed by 443 participants. A summary of the factors used in the experiment can be found in <a href="#tbl-model-factor-table" class="quarto-xref">Table&nbsp;<span>2.2</span></a>. There were four levels of the non-linear structure, and three levels of heteroskedastic structure. The signal strength was controlled by error variance (<span class="math inline">\sigma</span>) for the non-linear pattern, and by a ratio (<span class="math inline">b</span>) parameter for the heteroskedasticity. Additionally, three levels of sample size (<span class="math inline">n</span>) and four different fitted value distributions were incorporated.</p>
 <div class="cell" data-layout-align="center">
-<div id="tbl-model-factor-table" class="cell quarto-float anchored" data-layout-align="center">
+<div id="tbl-model-factor-table" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-model-factor-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.2: Levels of the factors used in data collection periods I, II, and III.
 </figcaption><div aria-describedby="tbl-model-factor-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -468,7 +472,7 @@ Common
 <p>Data collection period II was similar to period I but focuses on heteroskedasticity departures. We generated the heteroskedasticity departures by setting the variance-covariance matrix of the error term as a function of the predictor, but fitted the data with the simple linear regression model, intentionally violated the constant variance assumption. Visual patterns of heteroskedasticity are simulated using three different shapes (<span class="math inline">a</span> = -1, 0, 1) including “left-triangle”, “butterfly” and “right-triangle” shapes as displayed in <a href="#fig-different-shape-of-heter" class="quarto-xref">Figure&nbsp;<span>2.5</span></a>. <a href="#fig-different-b" class="quarto-xref">Figure&nbsp;<span>2.6</span></a> shows the butterfly shape as the ratio parameter (<span class="math inline">b</span>) is changed. More details about the simulation process are provided in Appendix <a href="A-appA.html#sec-appendix-a-2" class="quarto-xref"><span>A.2</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-shape-of-herimite" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="!h">
+<div id="fig-different-shape-of-herimite" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-shape-of-herimite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-shape-of-herimite-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="!h">
 </div>
@@ -480,7 +484,7 @@ Figure&nbsp;2.3: Polynomial forms generated for the residual plots used to asses
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-sigma" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="!h">
+<div id="fig-different-sigma" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-sigma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-sigma-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="!h">
 </div>
@@ -492,7 +496,7 @@ Figure&nbsp;2.4: Examining the effect of <span class="math inline">\sigma</span>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-shape-of-heter" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="!h">
+<div id="fig-different-shape-of-heter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-shape-of-heter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-shape-of-heter-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="!h">
 </div>
@@ -504,7 +508,7 @@ Figure&nbsp;2.5: Heteroskedasticity forms used in the experiment. Three differen
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-b" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="!h">
+<div id="fig-different-b" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-b-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="!h">
 </div>
@@ -520,7 +524,7 @@ Figure&nbsp;2.6: Five different values of <span class="math inline">b</span> are
 <p>Three different sample sizes were used in our experiment: <span class="math inline">n = 50, 100, 300</span>. <a href="#fig-different-n" class="quarto-xref">Figure&nbsp;<span>2.8</span></a> shows the non-linear “S” shape for different sample sizes. We expect signal strength to decline in the simulated data plots with smaller <span class="math inline">n</span>. We chose 300 as the upper limit, because it is typically enough for structure to be visible in a scatterplot reliably. Beyond 300, the scatterplot should probably be used with transparency or replaced with a density or binned plot as scatterplots suffer from over-plotting.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-dist" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-different-dist" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-dist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -532,7 +536,7 @@ Figure&nbsp;2.7: Variations in fitted values, that might affect perception of re
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-n" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-different-n" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-n-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-n-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -559,7 +563,7 @@ Figure&nbsp;2.8: Examining the effect of signal strength for the three different
 <p><a href="#fig-nonlinearheterpower" class="quarto-xref">Figure&nbsp;<span>2.9</span></a> present the power curves of various tests plotted against the effect size in the residuals for non-linearity and heteroskedasticity. In each case the power of visual test is calculated for multiple bootstrap samples leading to the many (solid orange) curves. The effect size was computed at a 5% significance level and plotted on a natural logarithmic scale. To facilitate visual calibration of effect size values with the corresponding diagnostic plots, a sequence of example residual plots with increasing effect sizes is provided at the bottom of these figures. These plots serve as a visual aid to help readers understand how different effect size values translate to changes in the diagnostic plots. The horizontal lines of dots at 0 and 1 represent the non-rejection or rejection decisions made by visual tests for each lineup.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-nonlinearheterpower" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-nonlinearheterpower" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-nonlinearheterpower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-nonlinearheterpower-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -580,7 +584,7 @@ Figure&nbsp;2.9: Comparison of power between different tests for (A) non-linear 
 <p>Surprisingly, the visual test rejects 1 of the 33 (3%) of lineups where the conventional test does not reject. <a href="#fig-heter-example" class="quarto-xref">Figure&nbsp;<span>2.11</span></a> shows this lineup. The data plot in position seventeen displays a relatively strong heteroskedasticity pattern, and has a strong effect size (<span class="math inline">\log_e(E)=4.02</span>), which is reflected by the visual test <span class="math inline">p\text{-value} = 0.026</span>. But the BP test <span class="math inline">p\text{-value} = 0.056</span>, is slightly above the significance cutoff of <span class="math inline">0.05</span>. This lineup was evaluated by 11 participants, it has experimental factors <span class="math inline">a = 0</span> (“butterfly” shape), <span class="math inline">b = 64</span> (large variance ratio), <span class="math inline">n = 50</span> (small sample size), and a uniform distribution for the predictor. It may have been the small sample size and the presence of a few outliers that may have resulted in the lack of detection by the conventional test.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-p-value-comparison" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-p-value-comparison" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-p-value-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-p-value-comparison-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -592,7 +596,7 @@ Figure&nbsp;2.10: Rejection rate (<span class="math inline">p</span>-value <span
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-heter-example" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="t!">
+<div id="fig-heter-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="t!">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-heter-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-heter-example-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="t!">
 </div>
@@ -609,7 +613,7 @@ Figure&nbsp;2.11: The single heteroskedasticity lineup that is rejected by the v
 <p>For visual tests, we expect the “U” shape to be detected more readily, followed by the “S”, “M” and “triple-U” shape. From <a href="#fig-poly-power-uniform-j" class="quarto-xref">Figure&nbsp;<span>2.12</span></a>, it can be observed that the power curves mostly align with these expectations, except for the “M” shape, which is as easily detected as the “S” shape. This suggests a benefit of the visual test: knowing the shape ahead of time is <em>not</em> needed for its application.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-poly-power-uniform-j" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-poly-power-uniform-j" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-poly-power-uniform-j-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-poly-power-uniform-j-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -624,7 +628,7 @@ Figure&nbsp;2.12: The effect of the order of the polynomial on the power of conv
 <p><a href="#fig-heter-power-uniform-a" class="quarto-xref">Figure&nbsp;<span>2.13</span></a> examines the impact of the shape of the heteroskedasticity on the power of of both tests. The butterfly shape has higher power on both types of tests. The “left-triangle” and the “right-triangle” shapes are functionally identical, and this is observed for the conventional test, where the power curves are identical. Interestingly there is a difference for the visual test: the power curve of the “left-triangle” shape is slightly higher than that of the “right-triangle” shape. This indicates a bias in perceiving heteroskedasticity depending on the direction, and may be worth investigating further.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-heter-power-uniform-a" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<div id="fig-heter-power-uniform-a" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-heter-power-uniform-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-heter-power-uniform-a-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
@@ -639,7 +643,7 @@ Figure&nbsp;2.13: The effect of heteroskedasticity shape (parameter <span class=
 <p>In regression analysis, predictions are conditional on the observed values of the predictors, that is, the conditional mean of the dependent variable <span class="math inline">Y</span> given the value of the independent variable <span class="math inline">X</span>, <span class="math inline">\text{E}(Y|X)</span>. This is an often forgotten element of regression analysis but it is important. Where <span class="math inline">X</span> is observed, the distribution of the <span class="math inline">X</span> values in the sample, or consequently <span class="math inline">\hat{Y}</span>, may affect the ability to read any patterns in the residual plots. The effect of fitted value distribution on test performance is assess using four different distributions of fitted values stemming from the predictor distributions: uniform, normal, discrete and lognormal (skewed). We expect that if all predictors have a uniform distribution, it is easier to read the relationship with the residuals.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-different-x-dist-poly-power" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" data-fig-pos="t!">
+<div id="fig-different-x-dist-poly-power" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="t!">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-x-dist-poly-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-chap2_files/figure-html/fig-different-x-dist-poly-power-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-pos="t!">
 </div>
@@ -818,18 +822,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -861,7 +854,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -869,7 +884,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1206,4 +1221,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/02-chap2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

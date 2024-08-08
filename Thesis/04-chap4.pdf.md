@@ -23,9 +23,15 @@ The primary goal of `autovi` is to provide rejection decisions and $p$-values fo
 
 
 
+
+
+
 ::: {.cell}
 
 :::
+
+
+
 
 
 
@@ -37,6 +43,9 @@ checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars),
 checker$check()
 checker
 ```
+
+
+
 
 
 
@@ -68,7 +77,13 @@ checker$summary_plot()
 
 
 
+
+
+
 ### Modularized Workflow
+
+
+
 
 
 
@@ -77,6 +92,9 @@ checker$summary_plot()
 ![Diagram illustrating the workflow of the R package autovi. The modules in green are primary inputs provided by users. Modules in blue are overridable methods that can be modified to accommodate users' specific needs. The module in yellow is a pre-defined non-overridable method. The modules in red are primary outputs of the package.](04-chap4_files/figure-pdf/fig-autovi-diag-1.png){#fig-autovi-diag width=100%}
 :::
 :::
+
+
+
 
 
 
@@ -98,6 +116,9 @@ The corresponding function for this step is `auto_vi` as used in the following e
 
 
 
+
+
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -110,6 +131,9 @@ checker
 
 
 
+
+
+
 Optionally, the user may specify the node index of the output layer of the trained computer vision model to be monitored by the checker via the `node_index` argument if there are multiple output nodes. This is particularly useful for multiclass classifiers when the user wants to use one of the nodes as a visual signal strength indicator.
 
 #### Fitted Values and Residuals Extraction
@@ -117,6 +141,9 @@ Optionally, the user may specify the node index of the output layer of the train
 To create a residual plot, both fitted values and residuals are required. By convention, statistical models in R, such as `lm` (linear model) and `glm` (generalized linear model), support the use of the generic functions `fitted` and `resid` for extracting these values. The "Fitted Values and Residuals Extraction" module uses the same set of generic functions by default. However, since generic functions only work with classes that have appropriate method implementations, users can override the `get_fitted_and_resid` method if their model class does not support these generic functions.
 
 The following code example will returns a `tibble` of two columns: `.fitted` and `.resid` for fitted values and residuals, respectively 
+
+
+
 
 
 
@@ -151,6 +178,9 @@ checker$get_fitted_and_resid()
 
 
 
+
+
+
 The result of the module will be passed to "Auxiliary Computation" for computing auxiliary inputs of computer vision model, and "Plotting" modules for generating residual plots.
 
 
@@ -159,6 +189,9 @@ The result of the module will be passed to "Auxiliary Computation" for computing
 The "Data Extraction" module involves extracting the model frame from the model object. This is typically done using the `model.frame` generic function, as implemented in the default method `get_data`. Alternatively, users can provide the data used for fitting the regression model via the `data` argument when constructing the checker, or they can override the method to suit their needs. It is worth noting that this module is not necessary if bootstrapping is not required by the user, as the model frame is not used in other steps.
 
 The following code example will returns a `data.frame` representing the model frame of the fitted regression model
+
+
+
 
 
 
@@ -186,6 +219,9 @@ checker$get_data() |> head()
 
 
 
+
+
+
 The result of the module will be passed to "Bootstrapping and Model Refitting" for getting bootstrapped regression models.
 
 #### Bootstrapping and Model Refitting
@@ -195,6 +231,9 @@ The result of the module will be passed to "Bootstrapping and Model Refitting" f
 Sometimes, a residual plot alone may not be sufficient for determining visual signal strength. For example, when the residual plot has significant overlapping, the trend and shape of the residual pattern can be difficult to identify. It can be helpful to include auxiliary variables, such as the number of observations, as inputs to the computer vision model. `autovi` addresses this need with internal functions built into the checker that automatically detect the number of inputs required by the provided Keras model. If multiple inputs are needed, the checker invokes the `auxiliary` method to compute auxiliary inputs. By default, this method calculates four scagnostics, "Monotonic", "Sparse", "Striped", and "Splines, using the `cassowaryr` package, as well as the number of observations. This approach aligns with the training process of our trained computer vision models
 
 The following code example returns a `data.frame` with five columns: four for the scagnostics and one for the number of observations
+
+
+
 
 
 
@@ -219,6 +258,9 @@ checker$auxiliary()
 
 
 
+
+
+
 The result of this module will be passed to the Keras model as part of the inputs.
 
 
@@ -227,6 +269,9 @@ The result of this module will be passed to the Keras model as part of the input
 The "Null Residual Simulation" module, as its name suggests, is responsible for simulating null residuals consistent with the model assumptions. For linear regression models, this assumes the model is correctly specified and simulates random draws from the residual rotation distribution [@buja2009statistical]. Other types of regression models, such as `glm` (generalized linear model) and `gam` (generalized additive model), generally can not use the same method to efficiently simulate null residuals. Therefore, it is highly recommended that users override the `null_method` for this module to suit their specific model.
 
 The following code example returns a `tibble` of two columns: `.fitted` and `.resid` for fitted values and null residuals, respectively
+
+
+
 
 
 
@@ -261,6 +306,9 @@ checker$null_method()
 
 
 
+
+
+
 The result of this module will be passed to the "Plotting" module for generating residual plots.
 
 #### Plotting
@@ -269,6 +317,9 @@ Plotting is a crucial aspect of residual plot diagnostics because aesthetic elem
 
 
 The following code example generates a `ggplot` object with the described aesthetic style
+
+
+
 
 
 
@@ -286,11 +337,17 @@ checker$plot_resid()
 
 
 
+
+
+
 #### Plot Saving
 
 Another aspect of a standardized residual plot is its resolution. The original image format we used was 420 pixels in height and 525 pixels in width. This resolution was chosen because the original lineup, containing 20 residual plots in a 4x5 grid, is represented by an image of 2100 by 2100 pixels. If a different image size is required, the corresponding method `save_plot` can be overridden.
 
 The following code example saves a residual plot to a temporary file and returns the path to that file as a string
+
+
+
 
 
 
@@ -303,12 +360,15 @@ checker$plot_resid() |> checker$save_plot()
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpmZYtvO/file8d0a9707888.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmphsrIJN/file158576acb1ba.png"
 ```
 
 
 :::
 :::
+
+
+
 
 
 
@@ -321,6 +381,9 @@ When training computer vision models, it is common practice to test multiple inp
 To construct a `KERAS_WRAPPER` object, you need to provide the Keras model as the main argument. However, users typically do not need to use this class directly, as the `autovi` checker can automatically call its methods when performing visual signal strength predictions.
 
 The following code example reads an image of a residual plot and resizes it to 32 by 32 pixels to make it compatible with the computer vision model's input shape.
+
+
+
 
 
 
@@ -346,6 +409,9 @@ input_array$shape
 
 
 
+
+
+
 The result of this module will be passed to the "Visual Signal Strength Prediction" module as input.
 
 #### Visual Signal Strength Prediction
@@ -357,6 +423,9 @@ There are multiple ways to obtain visual signal strength from the checker, with 
 Another way to obtain visual signal strength is by calling the `check` and `lineup_check` methods. These comprehensive methods perform extensive diagnostics on the true residual plot and store the visual signal strength in the `check_result` field of the checker. Additionally, for obtaining visual signal strength for null residual plots and bootstrapped residual plots, there are two specialized methods, `null_vss` and `boot_vss`, designed for this purpose respectively.
 
 The following code example predicts the visual signal strength for the residual plot of the fitted regression model
+
+
+
 
 
 
@@ -382,7 +451,13 @@ checker$vss()
 
 
 
+
+
+
 The following code example predicts the visual signal strength for five null residual plots
+
+
+
 
 
 
@@ -411,7 +486,13 @@ checker$null_vss(5L)
 
 
 
+
+
+
 The following code example predicts the visual signal strength for five bootstrapped residual plots
+
+
+
 
 
 
@@ -436,6 +517,9 @@ The following code example predicts the visual signal strength for five bootstra
 
 
 
+
+
+
 The result of the module will be passed to the "P-value Computation" module for calculating $p$-value and making a rejection decision.
 
 #### P-value Computation
@@ -445,6 +529,9 @@ For a visual test conducted by a single observer using the lineup protocol, the 
 Another way to perform a visual test is to assume a null distribution for visual signal strength and then estimate quantiles of this null distribution as critical values. The $p$-value in this case is the ratio of null plots with visual signal strength greater than or equal to that of the true residual plot. This method typically requires evaluating a large number of null residual plots, as done in the `check` method.
 
 The following code example performs a lineup check with $m = 20$. The `p_value` method will use the correct formula to compute $p$-value according to the check type. Note that the result is subject to randomness due to the small lineup size.
+
+
+
 
 
 
@@ -467,7 +554,13 @@ checker$p_value()
 
 
 
+
+
+
 The following code example evaluates 100 null residual plots and 100 bootstrapped residual plots, such that the null distribution and bootstrapped distribution of visual signal strength can be estimated accurately. It then computes the $p$-value and prints the checker to get detailed breakdown of the check result.
+
+
+
 
 
 
@@ -481,7 +574,7 @@ checker$p_value()
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] 0.01
+[1] 0.01980198
 ```
 
 
@@ -493,13 +586,58 @@ checker$p_value()
 ```{.r .cell-code}
 checker
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+-- <AUTO_VI object>
+Status:
+ - Fitted model: lm
+ - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
+    - Output node index: 1
+ - Result:
+    - Observed visual signal strength: 3.162 (p-value = 0.0198)
+    - Null visual signal strength: [100 draws]
+       - Mean: 1.303
+       - Quantiles: 
+          ╔═════════════════════════════════════════════════╗
+          ║   25%    50%    75%    80%    90%    95%    99% ║
+          ║0.8469 1.1012 1.6525 1.7563 1.9991 2.4538 3.1508 ║
+          ╚═════════════════════════════════════════════════╝
+    - Bootstrapped visual signal strength: [100 draws]
+       - Mean: 2.58 (p-value = 0.0495049504950495)
+       - Quantiles: 
+          ╔══════════════════════════════════════════╗
+          ║  25%   50%   75%   80%   90%   95%   99% ║
+          ║2.144 2.762 3.105 3.208 3.351 3.452 3.542 ║
+          ╚══════════════════════════════════════════╝
+    - Likelihood ratio: 0.5767 (boot) / 0.04987 (null) = 11.56 
+```
+
+
+:::
 :::
 
 
 
 
 
+
+
+
 ### Summary Plots
+
+
+
 
 
 
@@ -530,7 +668,13 @@ checker$summary_plot()
 
 
 
+
+
+
 ### Keras Model Wrapper
+
+
+
 
 
 
@@ -601,6 +745,9 @@ checker$plot_resid() |>
 
 :::
 :::
+
+
+
 
 
 

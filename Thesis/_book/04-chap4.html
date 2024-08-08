@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 4&nbsp; Developing Efficient Tools for Automated Residual Plot Assessment: autovi and autovi.web</title>
+<title>4&nbsp; Developing Efficient Tools for Automated Residual Plot Assessment: autovi and autovi.web – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -117,7 +117,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script><link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
-<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -130,7 +130,7 @@ div.csl-indent {
     fleqn: false
    });
 }}});
-  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -162,13 +162,13 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-chap4.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Developing Efficient Tools for Automated Residual Plot Assessment: autovi and autovi.web</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -177,6 +177,10 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/TengMCing/PhD/tree/master/Thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Advances-in-Artificial-Intelligence-for-Data-Visualization--Developing-Computer-Vision-Models-to-Automate-Reading-of-Data-Plots,-with-Application-to-Regression-Diagnostics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -224,9 +228,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -258,7 +262,7 @@ window.Quarto = {
   <li><a href="#autovi" id="toc-autovi" class="nav-link" data-scroll-target="#autovi"><span class="header-section-number">4.3</span> autovi</a></li>
   <li><a href="#autovi.web" id="toc-autovi.web" class="nav-link" data-scroll-target="#autovi.web"><span class="header-section-number">4.4</span> autovi.web</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">4.5</span> Conclusions</a></li>
-  </ul></nav>
+  </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/04-chap4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -321,7 +325,7 @@ window.Quarto = {
 <span class="header-section-number">4.3.2</span> Modularized Workflow</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-diag" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="04-chap4_files/figure-html/fig-autovi-diag-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -438,7 +442,7 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpJWG0SY/file8c2b7f790e4.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmp9nPFj0/file157d67f67d852.png"</code></pre>
 </div>
 </div>
 <p>The result of this module will be passed to the “Image Reading and Resizing” module to be converted to a Numpy array.</p>
@@ -515,16 +519,43 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">p_value</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01</code></pre>
+<pre><code>[1] 0.01980198</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── &lt;AUTO_VI object&gt;
+Status:
+ - Fitted model: lm
+ - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
+    - Output node index: 1
+ - Result:
+    - Observed visual signal strength: 3.162 (p-value = 0.0198)
+    - Null visual signal strength: [100 draws]
+       - Mean: 1.303
+       - Quantiles: 
+          ╔═════════════════════════════════════════════════╗
+          ║   25%    50%    75%    80%    90%    95%    99% ║
+          ║0.8469 1.1012 1.6525 1.7563 1.9991 2.4538 3.1508 ║
+          ╚═════════════════════════════════════════════════╝
+    - Bootstrapped visual signal strength: [100 draws]
+       - Mean: 2.58 (p-value = 0.0495049504950495)
+       - Quantiles: 
+          ╔══════════════════════════════════════════╗
+          ║  25%   50%   75%   80%   90%   95%   99% ║
+          ║2.144 2.762 3.105 3.208 3.351 3.452 3.542 ║
+          ╚══════════════════════════════════════════╝
+    - Likelihood ratio: 0.5767 (boot) / 0.04987 (null) = 11.56 </code></pre>
+</div>
 </div>
 </section></section><section id="summary-plots" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="summary-plots">
 <span class="header-section-number">4.3.3</span> Summary Plots</h3>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -534,7 +565,7 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">lineup_check</span><span class="op">(</span>lineup_size <span class="op">=</span> <span class="fl">20L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -546,7 +577,7 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 </section><section id="keras-model-wrapper" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="keras-model-wrapper">
 <span class="header-section-number">4.3.4</span> Keras Model Wrapper</h3>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
 <span><span class="va">wrapper</span><span class="op">$</span><span class="fu">list_layer_name</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "input_1"                  "tf.__operators__.getitem"
@@ -582,7 +613,7 @@ Figure&nbsp;4.1: Diagram illustrating the workflow of the R package autovi. The 
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span>auxiliary <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -692,18 +723,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -735,7 +755,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -743,7 +785,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1080,4 +1122,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/04-chap4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

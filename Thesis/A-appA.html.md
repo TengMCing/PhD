@@ -3,13 +3,9 @@
 
 
 
-::: {.cell}
 
-:::
 
-::: {.cell}
 
-:::
 
 ::: {.cell}
 
@@ -22,6 +18,18 @@
 ::: {.cell}
 
 :::
+
+::: {.cell}
+
+:::
+
+::: {.cell}
+
+:::
+
+
+
+
 
 
 ## Additional Details of Testing Procedures {#sec-appendix-a-1}
@@ -117,6 +125,10 @@ The parameter $\alpha$ used for the $p$-value calculation needs to be estimated 
 The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitivity}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, Table \ref{tab:sensitivity} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
 
 
+
+
+
+
 ::: {.cell}
 
 :::
@@ -154,9 +166,17 @@ Multiplier & Reject to not reject & \% & Not reject to reject & \%\\
 
 
 
+
+
+
+
 ### Effect of Number of Evaluations on the Power of a Visual Test
 
 When comparing power of visual tests across different fitted value distributions, we have discussed the number of evaluations on a lineup will affect the power of the visual test. Using the lineups with uniform fitted value distribution, we show in @fig-n_eval the change of power of visual tests due to different number of evaluations. It can be learned that as the number of evaluations increases, the power will increase but the margin will decrease. Considering we have eleven evaluations on lineups with uniform fitted value distribution, and five evaluations on other lineups, it is necessary to use the same number of evaluations for each lineup in comparison.
+
+
+
+
 
 
 ::: {.cell}
@@ -171,9 +191,17 @@ When comparing power of visual tests across different fitted value distributions
 
 
 
+
+
+
+
 ### Power of a RESET Test under Different Auxiliary Regression Formulas
 
 It is found in the result that the power of a RESET test will be affected by the highest order of fitted values included in the auxiliary formula. And we suspect that the current recommendation of the highest order - four, is insufficient to test complex non-linear structures such as the "triple-U" shape designed in this paper. @fig-reset illustrates the change of power of RESET test while testing the "U" shape and the "triple-U" shape with different highest orders. Clearly, when testing a simple shape like the "U" shape, the highest order has very little impact on the power. But for testing the "triple-U" shape, there will be a loss of power if the recommended order is used. To avoid the loss of power, the highest order needs to be set to at least six. 
+
+
+
+
 
 
 ::: {.cell}
@@ -191,6 +219,10 @@ It is found in the result that the power of a RESET test will be affected by the
 :::
 
 
+
+
+
+
 ### Conventional Test Rejection Rate for Varying Significance Levels
 
 In the main paper, @sec-power-analysis and @sec-p-value compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, ... will have the effect of rejecting fewer of the residual plots. 
@@ -199,11 +231,19 @@ It would be interesting if a different conventional test significance level resu
 
 
 
+
+
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![Changing the significance level of the conventional test will change the rejection rate. A: Percentage of conventional tests also rejected by the visual test: rejected (solid), not rejected (dashed). As the significance level is reduced, the percentage rejected by the visual test that has been rejected by the conventional test approaches 100. The percentage of tests not rejected by the conventional test also increases, as expected, but the percentage of these that are rejected by the visual test increases too. B: ROC curve shows that forcing the conventional test to not reject creates a discrepancy with the visual test. Many of the residual plots not rejected by the conventional test are rejected by the visual test. It is not possible to vary the significance level of the conventional test to match the decisions made by the visual test.](A-appA_files/figure-html/fig-rej-rates-1.png){#fig-rej-rates fig-pos='t!' width=100%}
 :::
 :::
+
+
+
+
 
 
 
@@ -294,6 +334,10 @@ The distance measures how different a lineup is from the set of lineups allocate
 In @fig-poly-allocate and @fig-heter-allocate, we present examples of lineup allocations generated by our algorithm for data collection periods I and II, respectively. These figures illustrate the factor values presented to the first 20 participants recruited during each period. It can be observed that the algorithm effectively distributed almost all possible one-way and two-way factor combinations among the participants, thereby ensuring a diverse set of lineups for each participant.
 
 
+
+
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![Factor values assigned to the first 20 participants recruited during data collection period I, with data points slightly jittered to prevent overlap. Each participant have been exposed to all one-way and two-way factor combinations.](A-appA_files/figure-html/fig-poly-allocate-1.png){#fig-poly-allocate width=768}
@@ -308,11 +352,19 @@ In @fig-poly-allocate and @fig-heter-allocate, we present examples of lineup all
 
 
 
+
+
+
+
 ### Data Collection Process
 
 The survey data is collected via a self-hosted website designed by us. The complete architecture is provided in @fig-tech. The website is built with the `Flask` [@flask] web framework and hosted on `PythonAnywhere` [@pythonanywhere]. It is configured to handle HTTP requests such that participants can correctly receive webpages and submit responses. Embedded in the resources sent to participants, the `jsPsych` front-end framework [@jspsych] instructs participants' browsers to render an environment for running behavioural experiments. During the experiment, this framework will automatically collect common behavioural data such as response time and clicks on buttons. participants' responses are first validated by a scheduled `Python` script run on the server, then push to a Github repository. Lineup images shown to users are saved in multiple Github repositories and hosted in corresponding Github pages. The URLs to these images are resolved by `Flask` and bundled in HTML files. 
 
 Once the participant is recruited from Prolific [@palan2018prolific], it will be redirected to the entry page of our study website. An image of the entry page is provided in @fig-entry-page. Then, the participant needs to submit the online consent form and fill in the demographic information as shown in @fig-consent-form and @fig-metadata respectively. Before evaluating lineups, participant also need to read the training page as provide in @fig-training-page to understand the process. An example of the lineup page is given in @fig-lineup-page. A half of the page is taken by the lineup image to attract participant's attention. The button to skip the selections for the current lineup is intentionally put in the corner of the bounding box with smaller font size, such that participants will not misuse this functionality.
+
+
+
+
 
 
 
@@ -355,11 +407,19 @@ Once the participant is recruited from Prolific [@palan2018prolific], it will be
 
 
 
+
+
+
+
 ## Analysis of Results Relative to Data Collection Process
 
 ### Demographics
 
 Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. @tbl-count-lineup gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods. 
+
+
+
+
 
 
 
@@ -426,9 +486,17 @@ Throughout the study, we have collected 7254 evaluations on 1116 non-null lineup
 :::
 
 
+
+
+
+
 Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. @tbl-pronoun, @tbl-age-group, @tbl-education and @tbl-experience provide summary of the demographic data. 
 
 It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have. 
+
+
+
+
 
 
 ::: {#tbl-pronoun .cell tbl-cap='Summary of pronoun distribution of participants recruited in this study.'}
@@ -738,7 +806,15 @@ It can be observed from the tables that most participants have Diploma or Bachel
 :::
 
 
+
+
+
+
 ### Data Collection Periods
+
+
+
+
 
 
 ::: {.cell}
@@ -752,6 +828,10 @@ It can be observed from the tables that most participants have Diploma or Bachel
 ![A lineup of "letter-value" boxplots of weighted propotion of detect for lineups over different data collection periods for heteroskedasticity model. Can you find the most different boxplot? The data plot is positioned in panel $2^4 - 2$.](A-appA_files/figure-html/fig-heter-boxplot-lineup-1.png){#fig-heter-boxplot-lineup width=768}
 :::
 :::
+
+
+
+
 
 
 We have the same type of model collected over different data collection periods, that may lead to unexpected batch effect.

@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 3&nbsp; Automated Assessment of Residual Plots with Computer Vision Models</title>
+<title>3&nbsp; Automated Assessment of Residual Plots with Computer Vision Models – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -118,7 +118,7 @@ div.csl-indent {
   }
 }</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
-<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -131,7 +131,7 @@ div.csl-indent {
     fleqn: false
    });
 }}});
-  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -163,13 +163,13 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-chap3.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated Assessment of Residual Plots with Computer Vision Models</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -178,6 +178,10 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/TengMCing/PhD/tree/master/Thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Advances-in-Artificial-Intelligence-for-Data-Visualization--Developing-Computer-Vision-Models-to-Automate-Reading-of-Data-Plots,-with-Application-to-Regression-Diagnostics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -225,9 +229,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -267,7 +271,7 @@ window.Quarto = {
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">3.11</span> Examples</a></li>
   <li><a href="#limitations-and-future-work" id="toc-limitations-and-future-work" class="nav-link" data-scroll-target="#limitations-and-future-work"><span class="header-section-number">3.12</span> Limitations and Future Work</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.13</span> Conclusion</a></li>
-  </ul></nav>
+  </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/03-chap3.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -300,7 +304,7 @@ window.Quarto = {
 <p>In this paper, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for an automated visual inference. The paper is structured as follows. <a href="#sec-model-specifications" class="quarto-xref"><span>Section 3.2</span></a> discusses various specifications of the computer vision models. <a href="#sec-model-distance-between-residual-plots" class="quarto-xref"><span>Section 3.3</span></a> defines the distance measure used to measure model violations. <a href="#sec-model-distance-estimation" class="quarto-xref"><span>Section 3.4</span></a> explains how the computer vision models estimate this distance measure. <a href="#sec-model-statistical-testing" class="quarto-xref"><span>Section 3.6</span></a> covers the statistical testing based on the estimated distance. Sections <a href="#sec-model-data-generation" class="quarto-xref"><span>3.7</span></a>, <a href="#sec-model-architecture" class="quarto-xref"><span>3.8</span></a>, and <a href="#sec-model-training" class="quarto-xref"><span>3.9</span></a> detail the data preparation, model architecture, and training process, respectively. The results are presented in <a href="#sec-model-results" class="quarto-xref"><span>Section 3.10</span></a>. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-false-finding" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-false-finding" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-false-finding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-false-finding-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="384">
 </div>
@@ -328,6 +332,10 @@ Figure&nbsp;3.1: An example residual vs fitted values plot (red line indicates 0
 <p>The binary outcome can represent whether the input image is consistent with a null plot as determined by either (1) the data generating process or (2) the result of a visual test based on human judgement. Training a model following the latter option requires data from prior human subject experiments, presenting difficulties in controlling the quality of data due to variations in experimental settings across different studies. Additionally, some visual inference experiments are unrelated to linear regression models or residual plot diagnostics, resulting in a limited amount of available training data.</p>
 <p>Alternatively, the output could be a meaningful and interpretable numerical measure useful for assessing residual plots, such as the strength of suspicious visual patterns reflecting the extent of model violations, or the difficulty index for identifying whether a residual plot has no issues. However, these numeric measures are often informally used in daily communication but are not typically formalized or rigorously defined. For the purpose of training a model, this numeric measure has to be quantifiable.</p>
 <p>In this study, we chose to define and use a distance between a true residual plot and a theoretically “good” residual plot. This is further explained in <a href="#sec-model-distance-between-residual-plots" class="quarto-xref"><span>Section 3.3</span></a>. <span class="citation" data-cites="vo2016localizing">Vo and Hays (<a href="refs.html#ref-vo2016localizing" role="doc-biblioref">2016</a>)</span> have also demonstrated that defining a proper distance between images can enhance the matching accuracy in image search compared to a binary outcome model.</p>
+</section><section id="auxiliary-information-with-scagnostics" class="level3" data-number="3.2.3"><h3 data-number="3.2.3" class="anchored" data-anchor-id="auxiliary-information-with-scagnostics">
+<span class="header-section-number">3.2.3</span> Auxiliary Information with Scagnostics</h3>
+<p>In <a href="#sec-model-introduction" class="quarto-xref"><span>Section 3.1</span></a>, we mentioned that scagnostics consist of a set of manually designed visual feature extraction functions. While our computer vision model will learn its own feature extraction function during training, leveraging additional information from scagnostics can enhance the model’s predictive accuracy.</p>
+<p>For each residual plot used as an input image, we computed four scagnostics – “Monotonic”, “Sparse”, “Splines”, and “Striped” – using the <code>cassowaryr</code> R package <span class="citation" data-cites="mason2022cassowaryr">(<a href="refs.html#ref-mason2022cassowaryr" role="doc-biblioref">Mason et al. 2022</a>)</span>. These computed measures, along with the number of observations from the fitted model, were provided as the second input for the computer vision model. While other scagnostics provide valuable insights, they come with high computational costs and are not suitable for quick inference.</p>
 </section></section><section id="sec-model-distance-between-residual-plots" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="sec-model-distance-between-residual-plots">
 <span class="header-section-number">3.3</span> Distance from a Theoretically “Good” Residual Plot</h2>
 <p>To develop a computer vision model for assessing residual plots within the visual inference framework, it is important to precisely define a numerical measure of “difference” or “distance” between plots. This distance can take the form of a basic statistical operation on pixels, such as the sum of square differences, however, a pixel-to-pixel comparison makes little sense in comparing residual plots where the main interest would be structural patterns. Alternatively, it could involve established image similarity metrics like the Structural Similarity Index Measure <span class="citation" data-cites="wang2004image">(<a href="refs.html#ref-wang2004image" role="doc-biblioref">Wang et al. 2004</a>)</span> which compares images by integrating three perception features of an image: contrast, luminance, and structure (related to average, standard deviation and correlation of pixel values over a window, respectively). These image similarity metrics are tailored for image comparison in vastly different tasks to evaluating data plots, where only essential plot elements require assessment <span class="citation" data-cites="chowdhury2018measuring">(<a href="refs.html#ref-chowdhury2018measuring" role="doc-biblioref">Chowdhury et al. 2018</a>)</span>. We can alternatively define a notion of distance by integrating key plot elements (instead of key perception features like luminance, contrast, and structure), such as those captured by scagnostics mentioned in <a href="#sec-model-introduction" class="quarto-xref"><span>Section 3.1</span></a>, but the functional form still needs to be carefully refined to accurately reflect the extent of the violations.</p>
@@ -386,16 +394,16 @@ D_{KL} &amp;\approx \sum_{i = 1}^{n} \hat{D}_{KL}^{(i)}, \\
 </section><section id="sec:model-violations-index" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="sec:model-violations-index">
 <span class="header-section-number">3.5</span> Model Violations Index</h2>
 <p><span class="math inline">\hat{D}</span> is an estimator of the difference between the true residual distribution and the reference residual distribution. This difference primarily arises from deviations in model assumptions. The magnitude of <span class="math inline">D</span> directly reflects the degree of these deviations, thus making <span class="math inline">\hat{D}</span> instrumental in forming a model violations index (MVI).</p>
-<p>Note that if more observations are used for estimating the linear regression, the result of <a href="#eq-kl-1" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> will increase, as the integration will be performed over a higher-dimensional space. For a consistent data generating process, <span class="math inline">D</span> typically increases logarithmically with the number of observations. This behaviour comes from the relationship <span class="math inline">D = \text{log}(1 + D_{KL})</span>, where <span class="math inline">D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}</span> under the assumption of independence.</p>
+<p>Note that if more observations are used for estimating the linear regression, the result of <a href="#eq-kl-1" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> will increase, as the integration will be performed over a higher-dimensional space. For a given data generating process, <span class="math inline">D</span> typically increases logarithmically with the number of observations. This behaviour comes from the relationship <span class="math inline">D = \text{log}(1 + D_{KL})</span>, where <span class="math inline">D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}</span> under the assumption of independence.</p>
 <p>Since <span class="math inline">\hat{D}</span> is an estimate of <span class="math inline">D</span>, it is expected that a larger number of observations will also lead to a higher <span class="math inline">\hat{D}</span>. However, this does not imply that <span class="math inline">\hat{D}</span> fails to accurately represent the extent of model violations. In fact, when examining residual plots with more observations, we often observe a stronger visual signal strength, as the underlying patterns are more likely to be revealed, except in cases of significant overlapping.</p>
 <p>Therefore, the Model Violations Index (MVI) can be proposed as</p>
 <p><span id="eq-mvi"><span class="math display">
 \text{MVI} = C + \hat{D} - \log(n),
 \tag{3.6}</span></span></p>
-<p>where <span class="math inline">C</span> is a large enough constant keeping the result positive.</p>
-<p><a href="#fig-poly-index" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> and <a href="#fig-heter-index" class="quarto-xref">Figure&nbsp;<span>3.3</span></a> display the residual plots for fitted models exhibiting varying degrees of non-linearity and heteroskedasticity. Each residual plot’s MVI is computed using <a href="#eq-mvi" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> with <span class="math inline">C = 10</span>. When <span class="math inline">\text{MVI} &gt; 8</span>, the visual patterns are notably strong and easily discernible by humans. In the range <span class="math inline">6 &lt; \text{MVI} &lt; 8</span>, the visibility of the visual pattern diminishes as MVI decreases. Conversely, when <span class="math inline">\text{MVI} &lt; 6</span>, the visual pattern tends to become relatively faint and challenging to observe. <a href="#tbl-mvi" class="quarto-xref">Table&nbsp;<span>3.1</span></a> provides a summary of the MVI usage and it is applicable to other linear regression models.</p>
+<p>where <span class="math inline">C</span> is a large enough constant keeping the result positive and the term <span class="math inline">-\log(n)</span> is used to offset the increase in <span class="math inline">D</span> due to sample size.</p>
+<p><a href="#fig-poly-heter-index" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> displays the residual plots for fitted models exhibiting varying degrees of non-linearity and heteroskedasticity. Each residual plot’s MVI is computed using <a href="#eq-mvi" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> with <span class="math inline">C = 10</span>. When <span class="math inline">\text{MVI} &gt; 8</span>, the visual patterns are notably strong and easily discernible by humans. In the range <span class="math inline">6 &lt; \text{MVI} &lt; 8</span>, the visibility of the visual pattern diminishes as MVI decreases. Conversely, when <span class="math inline">\text{MVI} &lt; 6</span>, the visual pattern tends to become relatively faint and challenging to observe. <a href="#tbl-mvi" class="quarto-xref">Table&nbsp;<span>3.1</span></a> provides a summary of the MVI usage and it is applicable to other linear regression models.</p>
 <div class="cell">
-<div id="tbl-mvi" class="cell quarto-float anchored">
+<div id="tbl-mvi" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mvi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.1: Degree of model violations or the strength of the visual signals according to the Model Violation Index (MVI). The constant <span class="math inline">C</span> is set to be 10.
 </figcaption><div aria-describedby="tbl-mvi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -403,20 +411,20 @@ Table&nbsp;3.1: Degree of model violations or the strength of the visual signals
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Degree of Model Violations</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Range (<span class="math inline">C</span> = 10)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Range (<span class="math inline">C</span> = 10)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Strong</td>
-<td style="text-align: left;"><span class="math inline">\text{MVI} &gt; 8</span></td>
+<td style="text-align: center;"><span class="math inline">\text{MVI} &gt; 8</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Moderate</td>
-<td style="text-align: left;"><span class="math inline">6 &lt; \text{MVI} &lt; 8</span></td>
+<td style="text-align: center;"><span class="math inline">6 &lt; \text{MVI} &lt; 8</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Weak</td>
-<td style="text-align: left;"><span class="math inline">\text{MVI} &lt; 6</span></td>
+<td style="text-align: center;"><span class="math inline">\text{MVI} &lt; 6</span></td>
 </tr>
 </tbody>
 </table>
@@ -427,24 +435,12 @@ Table&nbsp;3.1: Degree of model violations or the strength of the visual signals
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-poly-index" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-poly-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="03-chap3_files/figure-html/fig-poly-index-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
+<div id="fig-poly-heter-index" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-poly-heter-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-chap3_files/figure-html/fig-poly-heter-index-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.2: Residual plots generated from fitted models exhibiting varying degrees of non-linearity violations. The Model violations index (MVI) is displayed atop each residual plot. The non-linearity patterns are relatively strong for <span class="math inline">MVI &gt; 8</span>, and relatively weak for <span class="math inline">MVI &lt; 6</span>.
-</figcaption></figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-heter-index" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-heter-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="03-chap3_files/figure-html/fig-heter-index-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heter-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.3: Residual plots generated from fitted models exhibiting varying degrees of heteroskedasticity violations. The Model violations index (MVI) is displayed atop each residual plot. The heteroskedasticity patterns are relatively strong for <span class="math inline">MVI &gt; 8</span>, and relatively weak for <span class="math inline">MVI &lt; 6</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poly-heter-index-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Residual plots generated from fitted models exhibiting varying degrees of (A) non-linearity and (B) heteroskedasticity violations. The model violations index (MVI) is displayed atop each residual plot. The non-linearity patterns are relatively strong for <span class="math inline">MVI &gt; 8</span>, and relatively weak for <span class="math inline">MVI &lt; 6</span>, while the heteroskedasticity patterns are relatively strong for <span class="math inline">MVI &gt; 8</span>, and relatively weak for <span class="math inline">MVI &lt; 6</span>.
 </figcaption></figure>
 </div>
 </div>
@@ -455,33 +451,34 @@ Figure&nbsp;3.3: Residual plots generated from fitted models exhibiting varying 
 <span class="header-section-number">3.6.1</span> Lineup Evaluation</h3>
 <p>Theoretically, the distance <span class="math inline">D</span> for a correctly specified model is <span class="math inline">0</span>, because <span class="math inline">P</span> will be the same as <span class="math inline">Q</span>. However, the computer vision model may not necessary predict <span class="math inline">0</span> for a null plot. Using <a href="#fig-false-finding" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> as an example, it contains a visual pattern which is an indication of heteroskedasticity. We would not expect the model to be able to magically tell if the suspicious pattern is caused by the skewed distribution of the fitted values or the existence of heteroskedasticity. Additionally, some null plots could have outliers or strong visual patterns due to randomness, and a reasonable model will try to summarise those information into the prediction, resulting in <span class="math inline">\hat{D} &gt; 0</span>.</p>
 <p>This property is not an issue if <span class="math inline">\hat{D} \gg 0</span> for which the visual signal of the residual plot is very strong, and we usually do not need any further examination of the significance of the result. However, if the visual pattern is weak or moderate, having <span class="math inline">\hat{D}</span> will not be sufficient to determine if <span class="math inline">H_0</span> should be rejected.</p>
-<p>To address this issue while adhering to the principle of visual inference, we can compare the estimated distance <span class="math inline">\hat{D}</span> to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis <span class="math inline">H_0</span> will be rejected if <span class="math inline">\hat{D}</span> exceeds the maximum estimated distance among the <span class="math inline">m - 1</span> null plots, denoted as <span class="math inline">\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}</span>, where <span class="math inline">\hat{D}_{null}^{(i)}</span> represents the estimated distance for the <span class="math inline">i</span>-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where <span class="math inline">H_0</span> is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.</p>
-<p>For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising <span class="math inline">20t</span> plots, where <span class="math inline">t</span> is a positive integer, we reject <span class="math inline">H_0</span> if <span class="math inline">\hat{D}</span> exceeds 95% <span class="math inline">{\hat{D}_{null}^{(i)}}</span> for <span class="math inline">i = 1, \ldots, 20t-1</span>. The <span class="math inline">p</span>-value in this case is given by <span class="math inline">\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} &gt; \hat{D}\right)</span>, where <span class="math inline">I(\cdot)</span> is the indicator function.</p>
-<p>Moreover, if the number of plots in a lineup, denoted by <span class="math inline">m</span>, is sufficiently large, the empirical distribution of <span class="math inline">{\hat{D}_{null}^{(i)}}</span> can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles available in statistical software such as R, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in <span class="citation" data-cites="hyndman1996sample">Hyndman and Fan (<a href="refs.html#ref-hyndman1996sample" role="doc-biblioref">1996</a>)</span>. For instance, if <span class="math inline">\hat{D}</span> is greater than or equal to the 95% sample quantile, denoted as <span class="math inline">Q_{null}(0.95)</span>, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, <span class="math inline">n_{null}</span>, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a <span class="math inline">p</span>-value can be used to represent the probability of observing an event equally or more extreme than the given event under the null hypothesis <span class="math inline">H_0</span>, and it can be estimated by <span class="math inline">\frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)</span>.</p>
-<p>If precision in sample quantiles is not the main priority, using a pre-calculated table of quantiles is an available option. Such a table offers pre-determined quantiles for a specified number of observations. It is generated by assessing numerous null plots derived from various simulated regression models and averaging them. Essentially, this shifts the computational burden from the user to the developer.</p>
+<p>To address this issue we can adhere to the paradigm of visual inference, by comparing the estimated distance <span class="math inline">\hat{D}</span> to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis <span class="math inline">H_0</span> will be rejected if <span class="math inline">\hat{D}</span> exceeds the maximum estimated distance among the <span class="math inline">m - 1</span> null plots, denoted as <span class="math inline">\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}</span>, where <span class="math inline">\hat{D}_{null}^{(i)}</span> represents the estimated distance for the <span class="math inline">i</span>-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where <span class="math inline">H_0</span> is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.</p>
+<!-- For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising $20t$ plots, where $t$ is a positive integer, we reject $H_0$ if $\hat{D}$ exceeds 95% ${\hat{D}_{null}^{(i)}}$ for $i = 1, \ldots, 20t-1$. The $p$-value in this case is given by $\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} > \hat{D}\right)$, where $I(\cdot)$ is the indicator function. -->
+<p>Moreover, if the number of plots in a lineup, denoted by <span class="math inline">m</span>, is sufficiently large, the empirical distribution of <span class="math inline">{\hat{D}_{null}^{(i)}}</span> can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in <span class="citation" data-cites="hyndman1996sample">Hyndman and Fan (<a href="refs.html#ref-hyndman1996sample" role="doc-biblioref">1996</a>)</span>. For instance, if <span class="math inline">\hat{D}</span> is greater than or equal to the 95% sample quantile, denoted as <span class="math inline">Q_{null}(0.95)</span>, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, <span class="math inline">n_{null}</span>, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a <span class="math inline">p</span>-value is the probability of observing a distance equally or greater than <span class="math inline">\hat{D}</span> under the null hypothesis <span class="math inline">H_0</span>, and it can be estimated by <span class="math inline">\frac{1}{m} + \frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)</span>.</p>
+<p>To alleviate computation burden, a lattice of quantiles for <span class="math inline">\hat{D}</span> under <span class="math inline">H_0</span> with specified sample sizes can be precomputed. We can then map the <span class="math inline">\hat{D}</span> and sample size to the closet quantile and sample size in lattice to calculate the corresponding <span class="math inline">p</span>-value. This approach lose precision in <span class="math inline">p</span>-value calculation, however, significantly improves computational efficiency.</p>
 </section><section id="bootstrapping" class="level3" data-number="3.6.2"><h3 data-number="3.6.2" class="anchored" data-anchor-id="bootstrapping">
 <span class="header-section-number">3.6.2</span> Bootstrapping</h3>
-<p>Bootstrap is often employed in linear regression when conducting inference for estimated parameters. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.</p>
+<p>Bootstrap is often employed in linear regression when conducting inference for estimated parameters <span class="citation" data-cites="davison1997bootstrap">Efron and Tibshirani (<a href="refs.html#ref-efron1994introduction" role="doc-biblioref">1994</a>)</span>. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.</p>
 <p>Similarly, bootstrap can be applied on the estimated distance <span class="math inline">\hat{D}</span>. For each refitted model <span class="math inline">M_{boot}^{(i)}</span>, there will be an associated residual plot <span class="math inline">V_{boot}^{(i)}</span> which can be fed into the computer vision model to obtain <span class="math inline">\hat{D}_{boot}^{(i)}</span>, where <span class="math inline">i = 1,...,n_{boot}</span>, and <span class="math inline">n_{boot}</span> is the number of bootstrapped samples. If we are interested in the variation of <span class="math inline">\hat{D}</span>, we can use <span class="math inline">\hat{D}_{boot}^{(i)}</span> to estimate a confidence interval.</p>
 <p>Alternatively, since each <span class="math inline">M_{boot}^{(i)}</span> has a set of estimated coefficients <span class="math inline">\hat{\boldsymbol{\beta}}_{boot}^{(i)}</span> and an estimated variance <span class="math inline">\hat{\sigma^2}_{boot}^{(i)}</span>, a new approximated null distribution can be construed and the corresponding 95% sample quantile <span class="math inline">Q_{boot}^{(i)}(0.95)</span> can be computed. Then, if <span class="math inline">\hat{D}_{boot}^{(i)} \geq Q_{boot}^{(i)}(0.95)</span>, <span class="math inline">H_0</span> will be rejected for <span class="math inline">M_{boot}^{(i)}</span>. The ratio of rejected <span class="math inline">M_{boot}^{(i)}</span> among all the refitted models provides an indication of how often the assumed regression model are considered to be incorrect if the data can be obtained repetitively from the same data generating process. But this approach is computationally very expensive because it requires <span class="math inline">n_{boot} \times n_{null}</span> times of residual plot assessment. In practice, <span class="math inline">Q_{null}(0.95)</span> can be used to replace <span class="math inline">Q_{boot}^{(i)}(0.95)</span> in the computation.</p>
 </section></section><section id="sec-model-data-generation" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="sec-model-data-generation">
 <span class="header-section-number">3.7</span> Data Generation</h2>
 <section id="simulation-scheme" class="level3" data-number="3.7.1"><h3 data-number="3.7.1" class="anchored" data-anchor-id="simulation-scheme">
 <span class="header-section-number">3.7.1</span> Simulation Scheme</h3>
-<p>While observational data is frequently employed in training models for real-world applications, the data generating process of observational data often remains unknown, making computation for our target variable <span class="math inline">D</span> unattainable. Consequently, the computer vision models developed in this study were trained using synthetic data, including 80000 training images and 8000 test images. This approach provided us with precise label annotations. Additionally, it ensured a large and diverse training dataset, as we had control over the data generating process, and the simulation of the training data was relatively cost-effective.</p>
+<p>While observational data is frequently employed in training models for real-world applications, the data generating process of observational data often remains unknown, making computation for our target variable <span class="math inline">D</span> unattainable. Consequently, the computer vision models developed in this study were trained using synthetic data, including 80,000 training images and 8,000 test images. This approach provided us with precise label annotations. Additionally, it ensured a large and diverse training dataset, as we had control over the data generating process, and the simulation of the training data was relatively cost-effective.</p>
 <p>We have incorporated three types of residual departures of linear regression model in the training data, including non-linearity, heteroskedasticity and non-normality. All three departures can be summarised by the data generating process formulated as</p>
 <p><span id="eq-data-sim"><span class="math display">
 \begin{aligned}
 \boldsymbol{y} &amp;= \boldsymbol{1}_n + \boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 + \beta_2(\boldsymbol{z} + \beta_1\boldsymbol{w}) + \boldsymbol{k} \odot \boldsymbol{\varepsilon}, \\
 \boldsymbol{z} &amp;= \text{He}_j(g(\boldsymbol{x}_1, 2)), \\
 \boldsymbol{w} &amp;= \text{He}_j(g(\boldsymbol{x}_2, 2)), \\
-\boldsymbol{k} &amp;= \sqrt{\boldsymbol{1}_n + b(2 - |a|)(\boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 - a\boldsymbol{1}_n)^2},
+\boldsymbol{k} &amp;= \left[\boldsymbol{1}_n + b(2 - |a|)(\boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 - a\boldsymbol{1}_n)^{\circ2}\right]^{\circ1/2},
 \end{aligned}
 \tag{3.7}</span></span></p>
-<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}_1</span>, <span class="math inline">\boldsymbol{x}_2</span>, <span class="math inline">\boldsymbol{z}</span>, <span class="math inline">\boldsymbol{w}</span>, <span class="math inline">\boldsymbol{k}</span> and <span class="math inline">\boldsymbol{\varepsilon}</span> are vectors of size <span class="math inline">n</span>, <span class="math inline">\boldsymbol{1}_n</span> is a vector of ones of size <span class="math inline">n</span>, <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span> are two independent predictors, <span class="math inline">\text{He}_j(.)</span> is the <span class="math inline">j</span>th-order probabilist’s Hermite polynomials <span class="citation" data-cites="hermite1864nouveau">(<a href="refs.html#ref-hermite1864nouveau" role="doc-biblioref">Hermite 1864</a>)</span>, the <span class="math inline">\sqrt{(.)}</span> and <span class="math inline">(.)^2</span> operators are element-wise operators, <span class="math inline">\odot</span> is the Hadamard product, and <span class="math inline">g(\boldsymbol{x}, k)</span> is a scaling function to enforce the support of the random vector to be <span class="math inline">[-k, k]^n</span> defined as</p>
-<p><span class="math display">g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n}{x_{max} - x_{min}} - k\boldsymbol{1}_n,~for~k &gt; 0,</span> where <span class="math inline">x_{min} = \underset{i \in \{ 1,...,n\}}{min} x_i</span>, <span class="math inline">x_{max} = \underset{i \in \{ 1,...,n\}}{max} x_i</span> and <span class="math inline">x_i</span> is the <span class="math inline">i</span>-th entry of <span class="math inline">\boldsymbol{x}</span>.</p>
+<p>where <span class="math inline">\boldsymbol{y}</span>, <span class="math inline">\boldsymbol{x}_1</span>, <span class="math inline">\boldsymbol{x}_2</span>, <span class="math inline">\boldsymbol{z}</span>, <span class="math inline">\boldsymbol{w}</span>, <span class="math inline">\boldsymbol{k}</span> and <span class="math inline">\boldsymbol{\varepsilon}</span> are vectors of size <span class="math inline">n</span>, <span class="math inline">\boldsymbol{1}_n</span> is a vector of ones of size <span class="math inline">n</span>, <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span> are two independent predictors, <span class="math inline">\text{He}_j(.)</span> is the <span class="math inline">j</span>th-order probabilist’s Hermite polynomials <span class="citation" data-cites="hermite1864nouveau">(<a href="refs.html#ref-hermite1864nouveau" role="doc-biblioref">Hermite 1864</a>)</span>, <span class="math inline">(.)^{\circ2}</span> and <span class="math inline">(.)^{\circ1/2}</span> are Hadamard square and square root, <span class="math inline">\odot</span> is the Hadamard product, and <span class="math inline">g(\boldsymbol{x}, k)</span> is a scaling function to enforce the support of the random vector to be <span class="math inline">[-k, k]^n</span> defined as</p>
+<p><span class="math display">A^{\circ\frac12}</span></p>
+<p><span class="math display">g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_n}{x_{\max} - x_{\min}} - k\boldsymbol{1}_n,~for~k &gt; 0,</span> where <span class="math inline">x_{\min} = \underset{i \in \{ 1,...,n\}}{\min} x_i</span>, <span class="math inline">x_{\max} = \underset{i \in \{ 1,...,n\}}{\max} x_i</span> and <span class="math inline">x_i</span> is the <span class="math inline">i</span>-th entry of <span class="math inline">\boldsymbol{x}</span>.</p>
 <div class="cell">
-<div id="tbl-factor" class="cell quarto-float anchored">
+<div id="tbl-factor" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.2: Factors used in the data generating process for synthetic data simulation. Factor <span class="math inline">j</span> and <span class="math inline">a</span> controls the non-linearity shape and the heteroskedasticity shape respectively. Factor <span class="math inline">b</span>, <span class="math inline">\sigma_\varepsilon</span> and <span class="math inline">n</span> control the signal strength. Factor <span class="math inline">\text{dist}_\varepsilon</span>, <span class="math inline">\text{dist}_{x1}</span> and <span class="math inline">\text{dist}_{x2}</span> specifies the distribution of <span class="math inline">\varepsilon</span>, <span class="math inline">X_1</span> and <span class="math inline">X_2</span> respectively.
 </figcaption><div aria-describedby="tbl-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -548,124 +545,120 @@ Table&nbsp;3.2: Factors used in the data generating process for synthetic data s
 </div>
 </div>
 <p>The residuals and fitted values of the fitted model were obtained by regressing <span class="math inline">\boldsymbol{y}</span> on <span class="math inline">\boldsymbol{x}_1</span>. If <span class="math inline">\beta_1 \neq 0</span>, <span class="math inline">\boldsymbol{x}_2</span> was also included in the design matrix. This data generation process was adapted from <span class="citation" data-cites="li2023plot">Li et al. (<a href="refs.html#ref-li2023plot" role="doc-biblioref">2023</a>)</span>, where it was utilized to simulate residual plots exhibiting non-linearity and heteroskedasticity visual patterns for human subject experiments. A summary of the factors utilized in <a href="#eq-data-sim" class="quarto-xref">Equation&nbsp;<span>3.7</span></a> is provided in <a href="#tbl-factor" class="quarto-xref">Table&nbsp;<span>3.2</span></a>.</p>
-<p>In <a href="#eq-data-sim" class="quarto-xref">Equation&nbsp;<span>3.7</span></a>, <span class="math inline">\boldsymbol{z}</span> and <span class="math inline">\boldsymbol{w}</span> represent higher-order terms of <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span>, respectively. If <span class="math inline">\beta_2 \neq 0</span>, the regression model will encounter non-linearity issues. Parameter <span class="math inline">j</span> serves as a shape parameter that controls the number of tuning points in the non-linear pattern. Typically, higher values of <span class="math inline">j</span> lead to an increase in the number of tuning points, as illustrated in <a href="#fig-different-j" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>.</p>
+<p>In <a href="#eq-data-sim" class="quarto-xref">Equation&nbsp;<span>3.7</span></a>, <span class="math inline">\boldsymbol{z}</span> and <span class="math inline">\boldsymbol{w}</span> represent higher-order terms of <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span>, respectively. If <span class="math inline">\beta_2 \neq 0</span>, the regression model will encounter non-linearity issues. Parameter <span class="math inline">j</span> serves as a shape parameter that controls the number of tuning points in the non-linear pattern. Typically, higher values of <span class="math inline">j</span> lead to an increase in the number of tuning points, as illustrated in <a href="#fig-different-j" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-j" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-j" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-j-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-j-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-j-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.4: Non-linearity forms generated for the synthetic data simulation. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>.
+Figure&nbsp;3.3: Non-linearity forms generated for the synthetic data simulation. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Additionally, Scaling factor <span class="math inline">\boldsymbol{k}</span> directly affects the error distribution and it is correlated with <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span>. If <span class="math inline">b \neq 0</span> and <span class="math inline">\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)</span>, the constant variance assumption will be violated. Parameter <span class="math inline">a</span> is a shape parameter controlling the location of the smallest variance in a residual plot as shown in <a href="#fig-different-a" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>.</p>
+<p>Additionally, scaling factor <span class="math inline">\boldsymbol{k}</span> directly affects the error distribution and it is correlated with <span class="math inline">\boldsymbol{x}_1</span> and <span class="math inline">\boldsymbol{x}_2</span>. If <span class="math inline">b \neq 0</span> and <span class="math inline">\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)</span>, the constant variance assumption will be violated. Parameter <span class="math inline">a</span> is a shape parameter controlling the location of the smallest variance in a residual plot as shown in <a href="#fig-different-a" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-a" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-a" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-a-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="921">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.5: Heteroskedasticity forms generated for the synthetic data simulation. Different shapes are controlled by the continuous factor <span class="math inline">a</span> between -1 and 1. For <span class="math inline">a = -1</span>, the residual plot exhibits a “left-triangle” shape. And for <span class="math inline">a = 1</span>, the residual plot exhibits a “right-triangle” shape.
+Figure&nbsp;3.4: Heteroskedasticity forms generated for the synthetic data simulation. Different shapes are controlled by the continuous factor <span class="math inline">a</span> between -1 and 1. For <span class="math inline">a = -1</span>, the residual plot exhibits a “left-triangle” shape. And for <span class="math inline">a = 1</span>, the residual plot exhibits a “right-triangle” shape.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-e" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-e" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-e-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.6: Non-normality forms generated for the synthetic data simulation. Four different error distributions including discrete, lognormal, normal and uniform are considered.
+Figure&nbsp;3.5: Non-normality forms generated for the synthetic data simulation. Four different error distributions including discrete, lognormal, normal and uniform are considered.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Non-normality violations arise from specifying a non-normal distribution for <span class="math inline">\boldsymbol{\varepsilon}</span>. In the synthetic data simulation, four distinct error distributions are considered, including discrete, uniform, normal, and lognormal distributions, as presented in <a href="#fig-different-e" class="quarto-xref">Figure&nbsp;<span>3.6</span></a>. Each distribution imparts unique characteristics to the residuals. The discrete error distribution introduces discreteness in residuals, while the lognormal distribution typically yields outliers. Uniform error distribution may result in residuals filling the entire space of the residual plot. All of these distributions exhibit visual distinctions from the normal error distribution.</p>
+<p>Non-normality violations arise from specifying a non-normal distribution for <span class="math inline">\boldsymbol{\varepsilon}</span>. In the synthetic data simulation, four distinct error distributions are considered, including discrete, uniform, normal, and lognormal distributions, as presented in <a href="#fig-different-e" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>. Each distribution imparts unique characteristics in the residual plot. The discrete error distribution introduces discrete clusters in residuals, while the lognormal distribution typically yields outliers. Uniform error distribution may result in residuals filling the entire space of the residual plot. All of these distributions exhibit visual distinctions from the normal error distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-j-x2" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-j-x2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-j-x2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-j-x2-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-j-x2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.7: Residual plots of multiple linear regression models with non-linearity issues. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>. A second predictor <span class="math inline">\boldsymbol{x}_2</span> is introduced to the regression model to create complex shapes.
+Figure&nbsp;3.6: Residual plots of multiple linear regression models with non-linearity issues. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>. A second predictor <span class="math inline">\boldsymbol{x}_2</span> is introduced to the regression model to create complex shapes.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-j-heter" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-j-heter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-j-heter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-j-heter-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-j-heter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.8: Residual plots of models violating both the non-linearity and the heteroskedasticity assumptions. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>, and the “left-triangle” shape is introduced by setting <span class="math inline">a = -1</span>.
+Figure&nbsp;3.7: Residual plots of models violating both the non-linearity and the heteroskedasticity assumptions. The 17 shapes are generated by varying the order of polynomial given by <span class="math inline">j</span> in <span class="math inline">He_j(.)</span>, and the “left-triangle” shape is introduced by setting <span class="math inline">a = -1</span>.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-different-e-heter" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-different-e-heter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-different-e-heter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-different-e-heter-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-different-e-heter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.9: Residual plots of models violating both the non-normality and the heteroskedasticity assumptions. The four shapes are generated by using four different error distributions including discrete, lognormal, normal and uniform, and the “left-triangle” shape is introduced by setting <span class="math inline">a = -1</span>.
+Figure&nbsp;3.8: Residual plots of models violating both the non-normality and the heteroskedasticity assumptions. The four shapes are generated by using four different error distributions including discrete, lognormal, normal and uniform, and the “left-triangle” shape is introduced by setting <span class="math inline">a = -1</span>.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p><a href="#eq-data-sim" class="quarto-xref">Equation&nbsp;<span>3.7</span></a> accommodates the incorporation of the second predictor <span class="math inline">\boldsymbol{x}_2</span>. Introducing it into the data generation process by setting <span class="math inline">\beta_1 = 1</span> significantly enhances the complexity of the shapes, as illustrated in <a href="#fig-different-j-x2" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>. In comparison to <a href="#fig-different-j" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>, <a href="#fig-different-j-x2" class="quarto-xref">Figure&nbsp;<span>3.7</span></a> demonstrates that the non-linear shape resembles a surface rather than a single curve. This augmentation can facilitate the computer vision model in learning visual patterns from residual plots of the multiple linear regression model.</p>
-<p>In real-world analysis, it’s not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. <a href="#fig-different-j-heter" class="quarto-xref">Figure&nbsp;<span>3.8</span></a> and <a href="#fig-different-e-heter" class="quarto-xref">Figure&nbsp;<span>3.9</span></a> show the visual patterns of models with multiple model violations.</p>
-</section><section id="scagnostics" class="level3" data-number="3.7.2"><h3 data-number="3.7.2" class="anchored" data-anchor-id="scagnostics">
-<span class="header-section-number">3.7.2</span> Scagnostics</h3>
-<p>In <a href="#sec-model-introduction" class="quarto-xref"><span>Section 3.1</span></a>, we mentioned that scagnostics consist of a set of manually designed visual feature extraction functions. While our computer vision model will learn its own feature extraction function during training, leveraging additional information from scagnostics can enhance the model’s predictive accuracy.</p>
-<p>For each generated residual plot, we computed four scagnostics – “Monotonic”, “Sparse”, “Splines”, and “Striped” – using the <code>cassowaryr</code> R package <span class="citation" data-cites="mason2022cassowaryr">(<a href="refs.html#ref-mason2022cassowaryr" role="doc-biblioref">Mason et al. 2022</a>)</span>. These computed measures, along with the number of observations from the fitted model, were provided as the second input for the computer vision model. While other scagnostics provide valuable insights, they come with high computational costs and are not suitable for quick inference.</p>
-</section><section id="balanced-dataset" class="level3" data-number="3.7.3"><h3 data-number="3.7.3" class="anchored" data-anchor-id="balanced-dataset">
-<span class="header-section-number">3.7.3</span> Balanced Dataset</h3>
+<p><a href="#eq-data-sim" class="quarto-xref">Equation&nbsp;<span>3.7</span></a> accommodates the incorporation of the second predictor <span class="math inline">\boldsymbol{x}_2</span>. Introducing it into the data generation process by setting <span class="math inline">\beta_1 = 1</span> significantly enhances the complexity of the shapes, as illustrated in <a href="#fig-different-j-x2" class="quarto-xref">Figure&nbsp;<span>3.6</span></a>. In comparison to <a href="#fig-different-j" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>, <a href="#fig-different-j-x2" class="quarto-xref">Figure&nbsp;<span>3.6</span></a> demonstrates that the non-linear shape resembles a surface rather than a single curve. This augmentation can facilitate the computer vision model in learning visual patterns from residual plots of the multiple linear regression model.</p>
+<p>In real-world analysis, it is not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. <a href="#fig-different-j-heter" class="quarto-xref">Figure&nbsp;<span>3.7</span></a> and <a href="#fig-different-e-heter" class="quarto-xref">Figure&nbsp;<span>3.8</span></a> show the visual patterns of models with multiple model violations.</p>
+</section><section id="balanced-dataset" class="level3" data-number="3.7.2"><h3 data-number="3.7.2" class="anchored" data-anchor-id="balanced-dataset">
+<span class="header-section-number">3.7.2</span> Balanced Dataset</h3>
 <p>To train a robust computer vision model, we deliberately controlled the distribution of the target variable <span class="math inline">D</span> in the training data. We ensured that it followed a uniform distribution between <span class="math inline">0</span> and <span class="math inline">7</span>. This was achieved by organizing <span class="math inline">50</span> buckets, each exclusively accepting training samples with <span class="math inline">D</span> falling within the range <span class="math inline">[7(i - 1)/49, 7i/49)</span> for <span class="math inline">i &lt; 50</span>, where <span class="math inline">i</span> represents the index of the <span class="math inline">i</span>-th bucket. For the <span class="math inline">50</span>-th bucket, any training samples with <span class="math inline">D \geq 7</span> were accepted.</p>
-<p>With 80000 training images prepared, each bucket accommodated a maximum of <span class="math inline">80000 \div 50 = 1600</span> training samples. The simulator iteratively sampled parameter values from the parameter space, generated residuals and fitted values using the data generation process, computed the distance, and checked if the sample fitted within the corresponding bucket. This process continued until all buckets were filled.</p>
-<p>Similarly, we adopted the same methodology to prepare 8000 test images for performance evaluation and model diagnostics.</p>
+<p>With 80,000 training images prepared, each bucket accommodated a maximum of <span class="math inline">80000/ 50 = 1600</span> training samples. The simulator iteratively sampled parameter values from the parameter space, generated residuals and fitted values using the data generation process, computed the distance, and checked if the sample fitted within the corresponding bucket. This process continued until all buckets were filled.</p>
+<p>Similarly, we adopted the same methodology to prepare 8,000 test images for performance evaluation and model diagnostics.</p>
 </section></section><section id="sec-model-architecture" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="sec-model-architecture">
 <span class="header-section-number">3.8</span> Model Architecture</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-cnn-diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-cnn-diag" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cnn-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-cnn-diag-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cnn-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.10: Diagram of the architecture of the optimized computer vision model. Numbers at the bottom of each box show the shape of the output of each layer. The band of each box drawn in a darker colour indicates the use of the rectified linear unit activation function. Yellow boxes are 2D convolutional layers, orange boxes are pooling layers, the grey box is the concatenation layer, and the purple boxes are dense layers.
+Figure&nbsp;3.9: Diagram of the architecture of the optimized computer vision model. Numbers at the bottom of each box show the shape of the output of each layer. The band of each box drawn in a darker colour indicates the use of the rectified linear unit activation function. Yellow boxes are 2D convolutional layers, orange boxes are pooling layers, the grey box is the concatenation layer, and the purple boxes are dense layers.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>The architecture of the computer vision model is adapted from a well-established architecture known as VGG16, which has demonstrated high performance in image classification <span class="citation" data-cites="simonyan2014very">(<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">Simonyan and Zisserman 2014</a>)</span>. <a href="#fig-cnn-diag" class="quarto-xref">Figure&nbsp;<span>3.10</span></a> provides a diagram of the architecture. More details about the neural network layers used in this study are provided in <a href="B-appB.html" class="quarto-xref"><span>Appendix B</span></a>.</p>
+<p>The architecture of the computer vision model is adapted from a well-established architecture known as VGG16, which has demonstrated high performance in image classification <span class="citation" data-cites="simonyan2014very">(<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">Simonyan and Zisserman 2014</a>)</span>. <a href="#fig-cnn-diag" class="quarto-xref">Figure&nbsp;<span>3.9</span></a> provides a diagram of the architecture. More details about the neural network layers used in this study are provided in <a href="B-appB.html" class="quarto-xref"><span>Appendix B</span></a>.</p>
 <p>The model begins with an input layer of shape <span class="math inline">n \times h \times w \times 3</span>, capable of handling <span class="math inline">n</span> RGB images. This is followed by a grayscale conversion layer utilizing the luma formula under the Rec. 601 standard, which converts the colour image to grayscale. Grayscale suffices for our task since data points are plotted in black. We experiment with three combinations of <span class="math inline">h</span> and <span class="math inline">w</span>: <span class="math inline">32 \times 32</span>, <span class="math inline">64 \times 64</span>, and <span class="math inline">128 \times 128</span>, aiming to achieve sufficiently high image resolution for the problem at hand.</p>
 <p>The processed image is used as the input for the first convolutional block. The model comprises at most five consecutive convolutional blocks, mirroring the original VGG16 architecture. Within each block, there are two 2D convolutional layers followed by two activation layers, respectively. Subsequently, a 2D max-pooling layer follows the second activation layer. The 2D convolutional layer convolves the input with a fixed number of <span class="math inline">3 \times 3</span> convolution filters, while the 2D max-pooling layer downsamples the input along its spatial dimensions by taking the maximum value over a <span class="math inline">2 \times 2</span> window for each channel of the input. The activation layer employs the rectified linear unit (ReLU) activation function, a standard practice in deep learning, which introduces a non-linear transformation of the output of the 2D convolutional layer. Additionally, to regularize training, a batch normalization layer is added after each 2D convolutional layer and before the activation layer. Finally, a dropout layer is appended at the end of each convolutional block to randomly set some inputs to zero during training, further aiding in regularization.</p>
 <p>The output of the last convolutional block is summarized by either a global max pooling layer or a global average pooling layer, resulting in a two-dimensional tensor. To leverage the information contained in scagnostics, this tensor is concatenated with an additional <span class="math inline">n \times 5</span> tensor, which contains the “Monotonic”, “Sparse”, “Splines”, and “Striped” measures, along with the number of observations for <span class="math inline">n</span> residual plots.</p>
 <p>The concatenated tensor is then fed into the final prediction block. This block consists of two fully-connected layers. The first layer contains at least <span class="math inline">128</span> units, followed by a dropout layer. Occasionally, a batch normalization layer is inserted between the fully-connected layer and the dropout layer for regularization purposes. The second fully-connected layer consists of only one unit, serving as the output of the model.</p>
-<p>The model weights <span class="math inline">\boldsymbol{\theta}</span> were randomly initialized and they were optimized by the Adam optimizer with the mean square error loss function</p>
-<p><span class="math display">\hat{\boldsymbol{\theta}} = \underset{\boldsymbol{\theta}}{argmin}\frac{1}{n_{train}}\sum_{i=1}^{n_{train}}(D_i - f_{\boldsymbol{\theta}}(V_i, S_i))^2,</span></p>
-<p>where <span class="math inline">n_{train}</span> is the number of training samples, <span class="math inline">V_i</span> is the <span class="math inline">i</span>-th residual plot and <span class="math inline">S_i</span> is the additional information about the <span class="math inline">i</span>-th residual plot including four scagnostics and the number of observations.</p>
+<p>The model weights <span class="math inline">\boldsymbol{\theta}</span> were randomly initialized and they were optimized by the Adam optimizer <span class="citation" data-cites="kingma2014adam">(<a href="refs.html#ref-kingma2014adam" role="doc-biblioref">Kingma and Ba 2014</a>)</span> with the mean square error loss function</p>
+<p><span class="math display">\hat{\boldsymbol{\theta}} = \underset{\boldsymbol{\theta}}{\text{arg min}}\frac{1}{n_{\text{train}}}\sum_{i=1}^{n_{\text{train}}}(D_i - f_{\boldsymbol{\theta}}(V_i, S_i))^2,</span></p>
+<p>where <span class="math inline">n_{\text{train}}</span> is the number of training samples, <span class="math inline">V_i</span> is the <span class="math inline">i</span>-th residual plot and <span class="math inline">S_i</span> is the additional information about the <span class="math inline">i</span>-th residual plot including four scagnostics and the number of observations.</p>
 </section><section id="sec-model-training" class="level2" data-number="3.9"><h2 data-number="3.9" class="anchored" data-anchor-id="sec-model-training">
 <span class="header-section-number">3.9</span> Model Training</h2>
 <p>To achieve a near-optimal deep learning model, hyperparameters like the learning rate often need to be fine-tuned using a tuner. In our study, we utilized the Bayesian optimization tuner from the <code>KerasTuner</code> Python library <span class="citation" data-cites="omalley2019kerastuner">(<a href="refs.html#ref-omalley2019kerastuner" role="doc-biblioref">O’Malley et al. 2019</a>)</span> for this purpose. A comprehensive list of hyperparameters is provided in <a href="#tbl-hyperparameter" class="quarto-xref">Table&nbsp;<span>3.3</span></a>.</p>
-<p>The “number of base filters” determines the number of filters for the first 2D convolutional layer. In the VGG16 architecture, the number of filters for the 2D convolutional layer in a block is typically twice the number in the previous block, except for the last block, which maintains the same number of convolution filters as the previous one. This hyperparameter aids in controlling the complexity of the computer vision model. Higher numbers of base filters result in more trainable parameters. Likewise, the “number of units for the fully-connected layer” determines the complexity of the final prediction block. Increasing the number of units enhances model complexity, resulting in more trainable parameters.</p>
-<p>The dropout rate and batch normalization are flexible hyperparameters that work in conjunction with other parameters to facilitate smooth training. A higher dropout rate is necessary when the model tends to overfit the training dataset by learning too much noise. Conversely, a lower dropout rate is preferred when the model is complex and challenging to converge. Batch normalization, on the other hand, addresses the internal covariate shift problem arising from the randomness in weight initialization and input data. It helps stabilize and accelerate the training process by normalizing the activations of each layer.</p>
-<p>Additionally, incorporating additional inputs such as scagnostics and the number of observations can potentially enhance prediction accuracy. Therefore, we allowed the tuner to determine whether these inputs were necessary for optimal model performance.</p>
+<p>The number of base filters determines the number of filters for the first 2D convolutional layer. In the VGG16 architecture, the number of filters for the 2D convolutional layer in a block is typically twice the number in the previous block, except for the last block, which maintains the same number of convolution filters as the previous one. This hyperparameter aids in controlling the complexity of the computer vision model. A higher number of base filters results in more trainable parameters. Likewise, the number of units for the fully-connected layer determines the complexity of the final prediction block. Increasing the number of units enhances model complexity, resulting in more trainable parameters.</p>
+<p>The dropout rate and batch normalization are flexible hyperparameters that work in conjunction with other parameters to facilitate smooth training. A higher dropout rate is necessary when the model tends to overfit the training dataset by learning too much noise <span class="citation" data-cites="srivastava2014dropout">(<a href="refs.html#ref-srivastava2014dropout" role="doc-biblioref">Srivastava et al. 2014</a>)</span>. Conversely, a lower dropout rate is preferred when the model is complex and challenging to converge. Batch normalization, on the other hand, addresses the internal covariate shift problem arising from the randomness in weight initialization and input data <span class="citation" data-cites="goodfellow2016deep">(<a href="refs.html#ref-goodfellow2016deep" role="doc-biblioref">Goodfellow et al. 2016</a>)</span>. It helps stabilize and accelerate the training process by normalizing the activations of each layer.</p>
+<p>Additionally, incorporating additional inputs such as scagnostics and the number of observations can potentially enhance prediction accuracy. Therefore, we allow the tuner to determine whether these inputs were necessary for optimal model performance.</p>
 <p>The learning rate is a crucial hyperparameter, as it dictates the step size of the optimization algorithm. A high learning rate can help the model avoid local minima but risks overshooting and missing the global minimum. Conversely, a low learning rate smoothens the training process but makes the convergence time longer and increases the likelihood of getting trapped in local minima.</p>
-<p>Our model was trained on the MASSIVE M3 high-performance computing platform <span class="citation" data-cites="goscinski2014multi">(<a href="refs.html#ref-goscinski2014multi" role="doc-biblioref">Goscinski et al. 2014</a>)</span>, using TensorFlow <span class="citation" data-cites="abadi2016tensorflow">(<a href="refs.html#ref-abadi2016tensorflow" role="doc-biblioref">Abadi et al. 2016</a>)</span> and Keras <span class="citation" data-cites="chollet2015keras">(<a href="refs.html#ref-chollet2015keras" role="doc-biblioref">Chollet et al. 2015</a>)</span>. During training, 80% of the training data was utilized for actual training, while the remaining 20% was used as validation data. The Bayesian optimization tuner conducted 100 trials to identify the best hyperparameter values based on validation root mean square error. The tuner then restored the best epoch of the best model from the trials. Additionally, we applied early stopping, terminating the training process if the validation root mean square error fails to improve for 50 epochs. The maximum allowed epochs was set at 2000, although no models reached this threshold.</p>
+<p>Our model was trained on the MASSIVE M3 high-performance computing platform <span class="citation" data-cites="goscinski2014multi">(<a href="refs.html#ref-goscinski2014multi" role="doc-biblioref">Goscinski et al. 2014</a>)</span>, using TensorFlow <span class="citation" data-cites="abadi2016tensorflow">(<a href="refs.html#ref-abadi2016tensorflow" role="doc-biblioref">Abadi et al. 2016</a>)</span> and Keras <span class="citation" data-cites="chollet2015keras">(<a href="refs.html#ref-chollet2015keras" role="doc-biblioref">Chollet et al. 2015</a>)</span>. During training, 80% of the training data was utilized for actual training, while the remaining 20% was used as validation data. The Bayesian optimization tuner conducted 100 trials to identify the best hyperparameter values based on validation root mean square error. The tuner then restored the best epoch of the best model from the trials. Additionally, we applied early stopping, terminating the training process if the validation root mean square error fails to improve for 50 epochs. The maximum allowed epochs was set at 2,000, although no models reached this threshold.</p>
 <div class="cell">
-<div id="tbl-hyperparameter" class="cell quarto-float anchored">
+<div id="tbl-hyperparameter" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hyperparameter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.3: Name of hyperparameters and their correspoding domain for the computer vision model.
 </figcaption><div aria-describedby="tbl-hyperparameter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -710,7 +703,7 @@ Table&nbsp;3.3: Name of hyperparameters and their correspoding domain for the co
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Learning rate</td>
-<td style="text-align: left;">[1e-8, 1e-1]</td>
+<td style="text-align: left;">[$10^{-8}$, $10^{-1}$]</td>
 </tr>
 </tbody>
 </table>
@@ -720,9 +713,9 @@ Table&nbsp;3.3: Name of hyperparameters and their correspoding domain for the co
 </div>
 </div>
 <p>Based on the tuning process described above, the optimized hyperparameter values are presented in <a href="#tbl-best-hyperparameter" class="quarto-xref">Table&nbsp;<span>3.4</span></a>. It was observable that a minimum of <span class="math inline">32</span> base filters was necessary, with the preferable choice being <span class="math inline">64</span> base filters for both the <span class="math inline">64 \times 64</span> and <span class="math inline">128 \times 128</span> models, mirroring the original VGG16 architecture. The optimized dropout rate for convolutional blocks hovered around <span class="math inline">0.4</span>, and incorporating batch normalization for convolutional blocks proved beneficial for performance.</p>
-<p>All optimized models chose to retain the additional inputs, contributing to the reduction of validation error. The number of units required for the fully-connected layer was <span class="math inline">256</span>, a relatively modest number compared to the VGG16 classifier, suggesting that the problem at hand was less complex. The optimized learning rates were smaller than the default value recommended by Keras, which is 0.001.</p>
+<p>All optimized models chose to retain the additional inputs, contributing to the reduction of validation error. The number of units required for the fully-connected layer was <span class="math inline">256</span>, a relatively modest number compared to the VGG16 classifier, suggesting that the problem at hand was less complex. The optimized learning rates were higher for models with higher resolution input, likely because models with more parameters are more prone to getting stuck in local minima, requiring a higher learning rate.</p>
 <div class="cell">
-<div id="tbl-best-hyperparameter" class="cell quarto-float anchored">
+<div id="tbl-best-hyperparameter" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-best-hyperparameter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.4: Hyperparameters values for the optimized computer vision models with different input sizes.
 </figcaption><div aria-describedby="tbl-best-hyperparameter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -801,12 +794,12 @@ Table&nbsp;3.4: Hyperparameters values for the optimized computer vision models 
 <section id="model-performance" class="level3" data-number="3.10.1"><h3 data-number="3.10.1" class="anchored" data-anchor-id="model-performance">
 <span class="header-section-number">3.10.1</span> Model Performance</h3>
 <p>The training and test performance for the optimized models with three different input sizes are summarized in <a href="#tbl-performance" class="quarto-xref">Table&nbsp;<span>3.5</span></a>. Among these models, the <span class="math inline">64 \times 64</span> model and the <span class="math inline">32 \times 32</span> model consistently exhibited the best training and test performance, respectively. The mean absolute error indicated that the difference between <span class="math inline">\hat{D}</span> and <span class="math inline">D</span> was approximately <span class="math inline">0.43</span> on the test set, a negligible deviation considering the normal range of <span class="math inline">D</span> typically falls between <span class="math inline">0</span> and <span class="math inline">7</span>. The high <span class="math inline">R^2</span> values also suggested that the predictions were largely linearly correlated with the target.</p>
-<p><a href="#fig-model-performance" class="quarto-xref">Figure&nbsp;<span>3.11</span></a> presents a hexagonal heatmap for <span class="math inline">D - \hat{D}</span> versus <span class="math inline">\hat{D}</span>. The red smoothing curves, fitted by generalized additive models <span class="citation" data-cites="hastie2017generalized">(<a href="refs.html#ref-hastie2017generalized" role="doc-biblioref">Hastie 2017</a>)</span>, demonstrate that all the optimized models perform admirably on both the training and test sets. No structural issues are noticeable in <a href="#fig-model-performance" class="quarto-xref">Figure&nbsp;<span>3.11</span></a>, but some minor issues regarding over-prediction and under-prediction are observed.</p>
-<p>The figure highlights that most under-predictions occurred when <span class="math inline">\hat{D} &lt; 3</span>, while over-predictions occurred predominantly when <span class="math inline">3 &lt; \hat{D} &lt; 6</span>. For input images representing null plots, it was expected that the models will over-predict the distance, as explained in <a href="#sec-model-lineup-evaluation" class="quarto-xref"><span>Section 3.6.1</span></a>. However, it can not explain the under-prediction issue. Therefore, we analysed the relationship between residuals and all the factors involved in the data generating process. We found that most issues actually arose from non-linearity problems and the presence of a second predictor in the regression model as illustrated in <a href="#fig-over-under" class="quarto-xref">Figure&nbsp;<span>3.12</span></a>. When the variance for the error distribution was small, the optimized model tended to under-predict the distance. Conversely, when the error distribution had a large variance, the model tended to over-predict the distance.</p>
+<p><a href="#fig-model-performance" class="quarto-xref">Figure&nbsp;<span>3.10</span></a> presents a hexagonal heatmap for <span class="math inline">D - \hat{D}</span> versus <span class="math inline">\hat{D}</span>. The red smoothing curves, fitted by generalized additive models <span class="citation" data-cites="hastie2017generalized">(<a href="refs.html#ref-hastie2017generalized" role="doc-biblioref">Hastie 2017</a>)</span>, demonstrate that all the optimized models perform admirably on both the training and test sets. No structural issues are noticeable in <a href="#fig-model-performance" class="quarto-xref">Figure&nbsp;<span>3.10</span></a>, but some minor issues regarding over-prediction and under-prediction are observed.</p>
+<p>The figure highlights that most under-predictions occurred when <span class="math inline">\hat{D} &lt; 3</span>, while over-predictions occurred predominantly when <span class="math inline">3 &lt; \hat{D} &lt; 6</span>. For input images representing null plots, it was expected that the models will over-predict the distance, as explained in <a href="#sec-model-lineup-evaluation" class="quarto-xref"><span>Section 3.6.1</span></a>. However, it can not explain the under-prediction issue. Therefore, we analysed the relationship between residuals and all the factors involved in the data generating process. We found that most issues actually arose from non-linearity problems and the presence of a second predictor in the regression model as illustrated in <a href="#fig-over-under" class="quarto-xref">Figure&nbsp;<span>3.11</span></a>. When the variance for the error distribution was small, the optimized model tended to under-predict the distance. Conversely, when the error distribution had a large variance, the model tended to over-predict the distance.</p>
 <p>Since most of the deviation stemmed from the presence of non-linearity violations, to further investigate this, we split the test set based on violation types and re-evaluated the performance, as detailed in <a href="#tbl-performance-sub" class="quarto-xref">Table&nbsp;<span>3.6</span></a>. It was evident that metrics for null plots were notably worse compared to other categories. Furthermore, residual plots solely exhibiting non-normality issues were the easiest to predict, with very low test root mean square error (RMSE) at around <span class="math inline">0.3</span>. Residual plots with non-linearity issues were more challenging to assess than those with heteroskedasticity or non-normality issues. Assessing residual plots with heteroskedasticity was not as difficult as assessing those with non-linearity issues. When multiple violations were introduced to a residual plot, the performance metrics typically lay between the metrics for each individual violation.</p>
 <p>Based on the model performance metrics, we chose to use the best-performing model evaluated on the test set, namely the <span class="math inline">32 \times 32</span> model, for the subsequent analysis.</p>
 <div class="cell">
-<div id="tbl-performance" class="cell quarto-float anchored">
+<div id="tbl-performance" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.5: The training and test performance of three optimized models with different input sizes.
 </figcaption><div aria-describedby="tbl-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -877,30 +870,30 @@ Table&nbsp;3.5: The training and test performance of three optimized models with
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-model-performance" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-model-performance" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-model-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-model-performance-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.11: Hexagonal heatmap for residuals vs predicted distance on training and test data for three optimized models with different input sizes. The brown lines are smoothing curves produced by fitting gnealized additive models. The area over the zero line in light yellow indicates under-prediction, and the area under the zero line in light green indicates over-prediction.
+Figure&nbsp;3.10: Hexagonal heatmap for residuals vs predicted distance on training and test data for three optimized models with different input sizes. The brown lines are smoothing curves produced by fitting gnealized additive models. The area over the zero line in light yellow indicates under-prediction, and the area under the zero line in light green indicates over-prediction.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-over-under" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-over-under" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-over-under-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-over-under-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-over-under-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.12: Scatter plots for residuals vs <span class="math inline">\sigma</span> on test data for the <span class="math inline">32 \times 32</span> optimized model. The data is grouped by whether the regression has only non-linearity violation, and whether it includes a second predictor in the regression formula. The brown lines are smoothing curves produced by fitting gnealized additive models. The area over the zero line in light yellow indicates under-prediction, and the area under the zero line in light green indicates over-prediction.
+Figure&nbsp;3.11: Scatter plots for residuals vs <span class="math inline">\sigma</span> on test data for the <span class="math inline">32 \times 32</span> optimized model. The data is grouped by whether the regression has only non-linearity violation, and whether it includes a second predictor in the regression formula. The brown lines are smoothing curves produced by fitting gnealized additive models. The area over the zero line in light yellow indicates under-prediction, and the area under the zero line in light green indicates over-prediction.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div id="tbl-performance-sub" class="cell quarto-float anchored">
+<div id="tbl-performance-sub" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-performance-sub-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.6: The training and test performance of the <span class="math inline">32 \times 32</span> model presented with different model violations.
 </figcaption><div aria-describedby="tbl-performance-sub-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -990,7 +983,7 @@ Table&nbsp;3.6: The training and test performance of the <span class="math inlin
 </section><section id="model-performance-on-the-human-data" class="level3" data-number="3.10.4"><h3 data-number="3.10.4" class="anchored" data-anchor-id="model-performance-on-the-human-data">
 <span class="header-section-number">3.10.4</span> Model performance on the human data</h3>
 <div class="cell">
-<div id="tbl-experiment-performance" class="cell quarto-float anchored">
+<div id="tbl-experiment-performance" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-experiment-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.7: The performance of the <span class="math inline">32 \times 32</span> model on the data used in the human subject experiment.
 </figcaption><div aria-describedby="tbl-experiment-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1027,17 +1020,17 @@ Table&nbsp;3.7: The performance of the <span class="math inline">32 \times 32</s
 </div>
 <p>For each lineup used in <span class="citation" data-cites="li2023plot">Li et al. (<a href="refs.html#ref-li2023plot" role="doc-biblioref">2023</a>)</span>, there is one true residual plot and 19 null plots. While the distance <span class="math inline">D</span> for the true residual plot depends on the underlying data generating process, the distance <span class="math inline">D</span> for the null plots is zero. We have used our optimized computer vision model to estimate distance for both the true residual plots and the null plots. To have a fair comparison, <span class="math inline">H_0</span> will be rejected if the true residual plot has the greatest approximated distance among all plots in a lineup. Additionally, the appropriate conventional tests including the Ramsey Regression Equation Specification Error Test (RESET) <span class="citation" data-cites="ramsey1969tests">(<a href="refs.html#ref-ramsey1969tests" role="doc-biblioref">Ramsey 1969</a>)</span> for non-linearity and the Breusch-Pagan test <span class="citation" data-cites="breusch1979simple">(<a href="refs.html#ref-breusch1979simple" role="doc-biblioref">Breusch and Pagan 1979</a>)</span> for heteroskedasticity were applied on the same data for comparison.</p>
 <p>The performance metrics of <span class="math inline">\hat{D}</span> for true residual plots are outlined in <a href="#tbl-experiment-performance" class="quarto-xref">Table&nbsp;<span>3.7</span></a>. It’s notable that all performance metrics are slightly worse than those evaluated on the test data. Nevertheless, the mean absolute error remains at a low level, and the linear correlation between the prediction and the true value remains very high. Lineups with non-linearity issues are more challenging to predict than those with heteroskedasticity issues.</p>
-<p><a href="#tbl-human-conv-table" class="quarto-xref">Table&nbsp;<span>3.8</span></a> provides a summary of the agreement between decisions made by the computer vision model and conventional tests. The agreement rates between conventional tests and the computer vision model are 85.95% and 79.69% for residual plots containing heteroskedasticity and non-linearity patterns, respectively. These figures are higher than those calculated for visual tests conducted by human, indicating that the computer vision model exhibits behaviour more akin to the best available conventional tests. However, <a href="#fig-conv-mosaic" class="quarto-xref">Figure&nbsp;<span>3.13</span></a> shows that the computer vision model does not always reject when the conventional tests reject. And a small number of plots will be rejected by computer vision model but not by conventional tests. This suggests that conventional tests are more sensitive than the computer vision model.</p>
-<p><a href="#fig-pcp" class="quarto-xref">Figure&nbsp;<span>3.15</span></a> further illustrates the decisions made by visual tests conducted by human, computer vision models, and conventional tests, using a parallel coordinate plots. It can be observed that all three tests will agree with each other for around 50% of the cases. When visual tests conducted by human do not reject, there are substantial amount of cases where computer vision model also not reject but conventional tests reject. There are much fewer cases that do not reject by visual tests and conventional tests, but reject by computer vision models. This indicates computer vision model can behave like visual tests conducted by human better than conventional tests. Moreover, there are great proportion of cases where visual tests conducted by human is the only test who does not reject, .</p>
-<p>When plotting the decision against the distance, as illustrated in <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>3.14</span></a>, several observations emerge. Firstly, for the computer vision model, when the distance <span class="math inline">D &gt; 4</span>, almost all residual plots are rejected. However, for visual tests conducted by humans, the threshold is higher, set at <span class="math inline">D &gt; 5</span>. And conventional tests exhibit some non-rejection cases for <span class="math inline">D &gt; 3</span>. Moreover, the computer vision model tends to have fewer rejected cases than conventional tests when <span class="math inline">D &lt; 2</span>. However, visual tests demonstrate the lowest sensitivity to residual plots with small distances. Therefore, tests based on the computer vision model are less sensitive to small deviations from model assumptions than conventional tests but more sensitive to moderate deviations. Rejection decisions are fitted by logistic regression models with no intercept terms but an offset equals to <span class="math inline">\text{log}(0.05/0/95)</span>. The fitting curves for the computer vision model fall between those of conventional tests and visual tests for both non-linearity and heteroskedasticity. There is still potential to refine the computer vision model to better align its behaviour with visual tests.</p>
+<p><a href="#tbl-human-conv-table" class="quarto-xref">Table&nbsp;<span>3.8</span></a> provides a summary of the agreement between decisions made by the computer vision model and conventional tests. The agreement rates between conventional tests and the computer vision model are 85.95% and 79.69% for residual plots containing heteroskedasticity and non-linearity patterns, respectively. These figures are higher than those calculated for visual tests conducted by human, indicating that the computer vision model exhibits behaviour more akin to the best available conventional tests. However, <a href="#fig-conv-mosaic" class="quarto-xref">Figure&nbsp;<span>3.12</span></a> shows that the computer vision model does not always reject when the conventional tests reject. And a small number of plots will be rejected by computer vision model but not by conventional tests. This suggests that conventional tests are more sensitive than the computer vision model.</p>
+<p><a href="#fig-pcp" class="quarto-xref">Figure&nbsp;<span>3.14</span></a> further illustrates the decisions made by visual tests conducted by human, computer vision models, and conventional tests, using a parallel coordinate plots. It can be observed that all three tests will agree with each other for around 50% of the cases. When visual tests conducted by human do not reject, there are substantial amount of cases where computer vision model also not reject but conventional tests reject. There are much fewer cases that do not reject by visual tests and conventional tests, but reject by computer vision models. This indicates computer vision model can behave like visual tests conducted by human better than conventional tests. Moreover, there are great proportion of cases where visual tests conducted by human is the only test who does not reject, .</p>
+<p>When plotting the decision against the distance, as illustrated in <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>3.13</span></a>, several observations emerge. Firstly, for the computer vision model, when the distance <span class="math inline">D &gt; 4</span>, almost all residual plots are rejected. However, for visual tests conducted by humans, the threshold is higher, set at <span class="math inline">D &gt; 5</span>. And conventional tests exhibit some non-rejection cases for <span class="math inline">D &gt; 3</span>. Moreover, the computer vision model tends to have fewer rejected cases than conventional tests when <span class="math inline">D &lt; 2</span>. However, visual tests demonstrate the lowest sensitivity to residual plots with small distances. Therefore, tests based on the computer vision model are less sensitive to small deviations from model assumptions than conventional tests but more sensitive to moderate deviations. Rejection decisions are fitted by logistic regression models with no intercept terms but an offset equals to <span class="math inline">\text{log}(0.05/0/95)</span>. The fitting curves for the computer vision model fall between those of conventional tests and visual tests for both non-linearity and heteroskedasticity. There is still potential to refine the computer vision model to better align its behaviour with visual tests.</p>
 <p>In the experiment conducted in <span class="citation" data-cites="li2023plot">Li et al. (<a href="refs.html#ref-li2023plot" role="doc-biblioref">2023</a>)</span>, participants were allowed to make multiple selections for a lineup. The weighted detection rate is computed by assigning weights to each detection. If the participant selects zero plots, the corresponding weight is 0.05; otherwise, the weight is 1 divided by the number of selections. The <span class="math inline">\delta</span>-difference is defined by <span class="citation" data-cites="chowdhury2018measuring">Chowdhury et al. (<a href="refs.html#ref-chowdhury2018measuring" role="doc-biblioref">2018</a>)</span> as</p>
 <p><span class="math display">\begin{equation}
 \delta = \hat{D} - \underset{j}{max}\left(\hat{D}_{null}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
 \end{equation}</span></p>
 <p>where <span class="math inline">\hat{D}_{null}^{(j)}</span> is the approximated distance for the <span class="math inline">j</span>-th null plot, and <span class="math inline">m</span> is the number of plots in a lineup.</p>
-<p><a href="#fig-delta" class="quarto-xref">Figure&nbsp;<span>3.16</span></a> displays the scatter plot of the weighted detection rate vs the <span class="math inline">\delta</span>-difference. It indicates that the weighted detection rate increases as the <span class="math inline">\delta</span>-difference increases, particularly when the <span class="math inline">\delta</span>-difference is greater than zero. A negative <span class="math inline">\delta</span>-difference suggests that there is at least one null plot in the lineup with a stronger visual signal than the true residual plot. In some instances, the weighted detection rate is close to one, yet the <span class="math inline">\delta</span>-difference is negative. This discrepancy implies that the distance measure, or the estimated distance, may not perfectly reflect actual human behaviour.</p>
+<p><a href="#fig-delta" class="quarto-xref">Figure&nbsp;<span>3.15</span></a> displays the scatter plot of the weighted detection rate vs the <span class="math inline">\delta</span>-difference. It indicates that the weighted detection rate increases as the <span class="math inline">\delta</span>-difference increases, particularly when the <span class="math inline">\delta</span>-difference is greater than zero. A negative <span class="math inline">\delta</span>-difference suggests that there is at least one null plot in the lineup with a stronger visual signal than the true residual plot. In some instances, the weighted detection rate is close to one, yet the <span class="math inline">\delta</span>-difference is negative. This discrepancy implies that the distance measure, or the estimated distance, may not perfectly reflect actual human behaviour.</p>
 <div class="cell">
-<div id="tbl-human-conv-table" class="cell quarto-float anchored">
+<div id="tbl-human-conv-table" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-human-conv-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.8: Summary of the comparison of decisions made by computer vision model with decisions made by conventional tests and visual tests conducted by human.
 </figcaption><div aria-describedby="tbl-human-conv-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1089,48 +1082,48 @@ Table&nbsp;3.8: Summary of the comparison of decisions made by computer vision m
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-conv-mosaic" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-conv-mosaic" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-conv-mosaic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-conv-mosaic-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conv-mosaic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.13: Rejection rate (<span class="math inline">p</span>-value <span class="math inline">\leq0.05</span>) of computer vision models conditional on conventional tests on non-linearity (left) and heteroskedasticity (right) lineups displayed using a mosaic plot.
+Figure&nbsp;3.12: Rejection rate (<span class="math inline">p</span>-value <span class="math inline">\leq0.05</span>) of computer vision models conditional on conventional tests on non-linearity (left) and heteroskedasticity (right) lineups displayed using a mosaic plot.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-power" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-power-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.14: Comparison of power of visual tests, conventional tests and the computer vision model. Marks along the x-axis at the bottom of the plot represent rejections made by each type of test. Marks at the top of the plot represent acceptances. Power curves are fitted by logistic regression models with no intercept but an offset equals to <span class="math inline">\text{log}(0.05/0.95)</span>.
+Figure&nbsp;3.13: Comparison of power of visual tests, conventional tests and the computer vision model. Marks along the x-axis at the bottom of the plot represent rejections made by each type of test. Marks at the top of the plot represent acceptances. Power curves are fitted by logistic regression models with no intercept but an offset equals to <span class="math inline">\text{log}(0.05/0.95)</span>.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pcp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-pcp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-pcp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-pcp-1.png" class="img-fluid figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pcp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.15: Parallel coordinate plots of decisions made by computer vision model, conventional tests and visual tests made by human.
+Figure&nbsp;3.14: Parallel coordinate plots of decisions made by computer vision model, conventional tests and visual tests made by human.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-delta" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-delta" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-delta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-delta-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.16: A weighted detection rate vs <span class="math inline">\delta</span>-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models
+Figure&nbsp;3.15: A weighted detection rate vs <span class="math inline">\delta</span>-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models
 </figcaption></figure>
 </div>
 </div>
@@ -1152,28 +1145,28 @@ Figure&nbsp;3.16: A weighted detection rate vs <span class="math inline">\delta<
 <p>When invoking the <code>check()</code> method to execute the assessment, users can specify the number of null plots and bootstrapped samples using the <code>null_draws</code> and <code>boot_draws</code> arguments, respectively. The diagnostic results can be viewed by directly printing the object. Alternatively, a summary plot of the assessment can be generated using the <code>summary_plot()</code> method.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>null_draws <span class="op">=</span> <span class="fl">200L</span>, boot_draws <span class="op">=</span> <span class="fl">200L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.17</span></a> presents the results of the assessment by the computer vision model. Notably, the observed visual signal strength is considerably lower than the 95% sample quantile of the null distribution. Moreover, the bootstrapped distribution suggests that it is highly improbable for the fitted model to be misspecified as the majority of bootstrapped fitted models will not be rejected. Thus, for this particular fitted model, both the visual test and the computer vision model will not reject <span class="math inline">H_0</span>. However, the Breusch-Pagan test will reject <span class="math inline">H_0</span> because it can not effectively utilize information from null plots.</p>
-<p>The attention map at <a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.17</span></a>B suggests that the estimation is highly influenced by the top-right and bottom-right part of the residual plot, as it forms two vertices of the triangular shape. A principle component analysis is also performed on the output of the global pooling layer of the computer vision model. As mentioned in <span class="citation" data-cites="simonyan2014very">Simonyan and Zisserman (<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">2014</a>)</span>, a computer vision model built upon the convolutional blocks can be viewed as a feature extractor. For the <span class="math inline">32 \times 32</span> model, there are 256 features outputted from the global pooling layer, which can be further used for different visual tasks not limited to distance prediction. To see if these features can be effectively used for distinguishing null plots and true residual plot, we linearly project them into the PC1 vs PC2 space as shown in <a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.17</span></a>. It can be observed that because the bootstrapped plots are mostly similar to the null plots, the points drawn in different colours are mixed together. The true residual plot is also covered by both the cluster of null plots and cluster of bootstrapped plots. This accurately reflects our understanding of <a href="#fig-false-lineup" class="quarto-xref">Figure&nbsp;<span>3.18</span></a>.</p>
+<p><a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.16</span></a> presents the results of the assessment by the computer vision model. Notably, the observed visual signal strength is considerably lower than the 95% sample quantile of the null distribution. Moreover, the bootstrapped distribution suggests that it is highly improbable for the fitted model to be misspecified as the majority of bootstrapped fitted models will not be rejected. Thus, for this particular fitted model, both the visual test and the computer vision model will not reject <span class="math inline">H_0</span>. However, the Breusch-Pagan test will reject <span class="math inline">H_0</span> because it can not effectively utilize information from null plots.</p>
+<p>The attention map at <a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.16</span></a>B suggests that the estimation is highly influenced by the top-right and bottom-right part of the residual plot, as it forms two vertices of the triangular shape. A principle component analysis is also performed on the output of the global pooling layer of the computer vision model. As mentioned in <span class="citation" data-cites="simonyan2014very">Simonyan and Zisserman (<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">2014</a>)</span>, a computer vision model built upon the convolutional blocks can be viewed as a feature extractor. For the <span class="math inline">32 \times 32</span> model, there are 256 features outputted from the global pooling layer, which can be further used for different visual tasks not limited to distance prediction. To see if these features can be effectively used for distinguishing null plots and true residual plot, we linearly project them into the PC1 vs PC2 space as shown in <a href="#fig-false-check" class="quarto-xref">Figure&nbsp;<span>3.16</span></a>. It can be observed that because the bootstrapped plots are mostly similar to the null plots, the points drawn in different colours are mixed together. The true residual plot is also covered by both the cluster of null plots and cluster of bootstrapped plots. This accurately reflects our understanding of <a href="#fig-false-lineup" class="quarto-xref">Figure&nbsp;<span>3.17</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-false-check" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-false-check" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-false-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-false-check-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-false-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.17: A summary of the residual plot assessment evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “left-triangle” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will not be rejected since <span class="math inline">\hat{D} &lt; Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
+Figure&nbsp;3.16: A summary of the residual plot assessment evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “left-triangle” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will not be rejected since <span class="math inline">\hat{D} &lt; Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-false-lineup" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-false-lineup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-false-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-false-lineup-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-false-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.18: A lineup of residual plots displaying “left-triangle” visual patterns. The true residual plot occupies position 10, yet there are no discernible visual patterns that distinguish it from the other plots.
+Figure&nbsp;3.17: A lineup of residual plots displaying “left-triangle” visual patterns. The true residual plot occupies position 10, yet there are no discernible visual patterns that distinguish it from the other plots.
 </figcaption></figure>
 </div>
 </div>
@@ -1181,27 +1174,27 @@ Figure&nbsp;3.18: A lineup of residual plots displaying “left-triangle” visu
 </section><section id="boston-housing" class="level3" data-number="3.11.2"><h3 data-number="3.11.2" class="anchored" data-anchor-id="boston-housing">
 <span class="header-section-number">3.11.2</span> Boston housing</h3>
 <p>The Boston housing dataset, originally published by <span class="citation" data-cites="harrison1978hedonic">Harrison Jr and Rubinfeld (<a href="refs.html#ref-harrison1978hedonic" role="doc-biblioref">1978</a>)</span>, offers insights into housing in the Boston, Massachusetts area. For illustration purposes, we will utilize a reduced version from Kaggle, comprising 489 rows and 4 columns: average number of rooms per dwelling (RM), percentage of lower status of the population (LSTAT), pupil-teacher ratio by town (PTRATIO), and Median value of owner-occupied homes in $1000’s (MEDV). In our analysis, MEDV will serve as the response variable, while the other columns will function as predictors in a linear regression model. Our primary focus is to detect non-linearity, because the relationships between RM and MEDV or LSTAT and MEDV are non-linear.</p>
-<p><a href="#fig-boston-check" class="quarto-xref">Figure&nbsp;<span>3.19</span></a> displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a “U” shape is shown in the plot A. Furthermore, the RESET test yields a very small <span class="math inline">p</span>-value. The estimated distance <span class="math inline">\hat{D}</span> significantly exceeds <span class="math inline">Q_{null}(0.95)</span>, leading to rejection of <span class="math inline">H_0</span>. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the “U” shape. The principal component analysis provided in plot D shows two distinct clusters of data points, further underlines the visual differences between bootstrapped plots and null plots. This coincides the findings from <a href="#fig-boston-lineup" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>, where the true plot exhibiting a “U” shape is visually distinctive from null plots. If a visual test is conducted by human, <span class="math inline">H_0</span> will also be rejected.</p>
+<p><a href="#fig-boston-check" class="quarto-xref">Figure&nbsp;<span>3.18</span></a> displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a “U” shape is shown in the plot A. Furthermore, the RESET test yields a very small <span class="math inline">p</span>-value. The estimated distance <span class="math inline">\hat{D}</span> significantly exceeds <span class="math inline">Q_{null}(0.95)</span>, leading to rejection of <span class="math inline">H_0</span>. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the “U” shape. The principal component analysis provided in plot D shows two distinct clusters of data points, further underlines the visual differences between bootstrapped plots and null plots. This coincides the findings from <a href="#fig-boston-lineup" class="quarto-xref">Figure&nbsp;<span>3.19</span></a>, where the true plot exhibiting a “U” shape is visually distinctive from null plots. If a visual test is conducted by human, <span class="math inline">H_0</span> will also be rejected.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-boston-check" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-boston-check" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boston-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-boston-check-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boston-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.19: A summary of the residual plot assessment for the Boston housing fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “U” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since <span class="math inline">\hat{D} \geq Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
+Figure&nbsp;3.18: A summary of the residual plot assessment for the Boston housing fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “U” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since <span class="math inline">\hat{D} \geq Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-boston-lineup" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-boston-lineup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boston-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-boston-lineup-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boston-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.20: A lineup of residual plots for the Boston housing fitted model. The true residual plot is at position 7. It can be easily identified as the most different plot.
+Figure&nbsp;3.19: A lineup of residual plots for the Boston housing fitted model. The true residual plot is at position 7. It can be easily identified as the most different plot.
 </figcaption></figure>
 </div>
 </div>
@@ -1209,31 +1202,31 @@ Figure&nbsp;3.20: A lineup of residual plots for the Boston housing fitted model
 </section><section id="datasaurus" class="level3" data-number="3.11.3"><h3 data-number="3.11.3" class="anchored" data-anchor-id="datasaurus">
 <span class="header-section-number">3.11.3</span> Datasaurus</h3>
 <p>The computer vision model possesses the capability to detect not only typical issues like non-linearity, heteroskedasticity, and non-normality but also artifact visual patterns resembling real-world objects, as long as they do not appear in null plots. These visual patterns can be challenging to categorize in terms of model violations. Therefore, we will employ the RESET test, the Breusch-Pagan test, and the Shapiro-Wilk test <span class="citation" data-cites="shapiro1965analysis">(<a href="refs.html#ref-shapiro1965analysis" role="doc-biblioref">Shapiro and Wilk 1965</a>)</span> for comparison.</p>
-<p>The “dino” dataset within the <code>datasaurus</code> R package exemplifies this scenario. With only two columns, x and y, fitting a regression model to this data yields a residual plot resembling a “dinosaur,” as displayed in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>A. Unsurprisingly, this distinct residual plot stands out in a lineup, as shown in <a href="#fig-dino-lineup" class="quarto-xref">Figure&nbsp;<span>3.22</span></a>. A visual test conducted by humans would undoubtedly reject <span class="math inline">H_0</span>.</p>
+<p>The “dino” dataset within the <code>datasaurus</code> R package exemplifies this scenario. With only two columns, x and y, fitting a regression model to this data yields a residual plot resembling a “dinosaur,” as displayed in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>A. Unsurprisingly, this distinct residual plot stands out in a lineup, as shown in <a href="#fig-dino-lineup" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>. A visual test conducted by humans would undoubtedly reject <span class="math inline">H_0</span>.</p>
 <p>According to the residual plot assessment by the computer vision model, <span class="math inline">\hat{D}</span> exceeds <span class="math inline">Q_{null}(0.95)</span>, warranting a rejection of <span class="math inline">H_0</span>. Additionally, most of the bootstrapped fitted models will be rejected, indicating an misspecified model. However, both the RESET test and the Breusch-Pagan test yield <span class="math inline">p</span>-values greater than 0.3, leading to a non-rejection of <span class="math inline">H_0</span>. Only the Shapiro-Wilk test rejects the normality assumption with a small <span class="math inline">p</span>-value.</p>
-<p>More importantly, the attention map in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>B clearly exhibits a “dinosaur” shape, strongly suggesting the prediction of the distance is based on human perceptible visual patterns. The computer vision model is also capable of capturing the contour or the outline of the embedded shape, just like human being reading residual plots. The principle component analysis in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>D also shows that the cluster of bootstrapped plots is at the corner of the cluster of null plots.</p>
-<p>More importantly, the attention map in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>B clearly exhibits a “dinosaur” shape, strongly suggesting that the distance prediction is based on human-perceptible visual patterns. The computer vision model effectively captures the contour or outline of the embedded shape, similar to how humans interpret residual plots. Additionally, the principal component analysis in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.21</span></a>D demonstrates that the cluster of bootstrapped plots is positioned at the corner of the cluster of null plots.</p>
+<p>More importantly, the attention map in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>B clearly exhibits a “dinosaur” shape, strongly suggesting the prediction of the distance is based on human perceptible visual patterns. The computer vision model is also capable of capturing the contour or the outline of the embedded shape, just like human being reading residual plots. The principle component analysis in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>D also shows that the cluster of bootstrapped plots is at the corner of the cluster of null plots.</p>
+<p>More importantly, the attention map in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>B clearly exhibits a “dinosaur” shape, strongly suggesting that the distance prediction is based on human-perceptible visual patterns. The computer vision model effectively captures the contour or outline of the embedded shape, similar to how humans interpret residual plots. Additionally, the principal component analysis in <a href="#fig-dino-check" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>D demonstrates that the cluster of bootstrapped plots is positioned at the corner of the cluster of null plots.</p>
 <p>In practice, without accessing the residual plot, it would be challenging to identify the artificial pattern of the residuals. Moreover, conducting a normality test for a fitted regression model is not always standard practice among analysts. Even when performed, violating the normality assumption is sometimes deemed acceptable, especially considering the application of quasi-maximum likelihood estimation in linear regression. This example underscores the importance of evaluating residual plots and highlights how the proposed computer vision model can facilitate this process.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dino-check" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-dino-check" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dino-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-dino-check-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dino-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.21: A summary of the residual plot assessment for the Datasaurus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “dinosaur” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since <span class="math inline">\hat{D} \geq Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
+Figure&nbsp;3.20: A summary of the residual plot assessment for the Datasaurus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a “dinosaur” shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input. (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since <span class="math inline">\hat{D} \geq Q_{null}(0.95)</span>. (D) PC2 vs PC1 plot for features extracted from the global pooling layer of the computer vision model.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dino-lineup" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="!h">
+<div id="fig-dino-lineup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="!h">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dino-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-chap3_files/figure-html/fig-dino-lineup-1.png" class="img-fluid figure-img" data-fig-pos="!h" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dino-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.22: A lineup of residual plots for the fitted model on the “dinosaur” dataset. The true residual plot is at position 17. It can be easily identified as the most different plot as the visual pattern is extremly artificial.
+Figure&nbsp;3.21: A lineup of residual plots for the fitted model on the “dinosaur” dataset. The true residual plot is at position 17. It can be easily identified as the most different plot as the visual pattern is extremly artificial.
 </figcaption></figure>
 </div>
 </div>
@@ -1286,6 +1279,12 @@ Chu, H., Liao, X., Dong, P., Chen, Z., Zhao, X., and Zou, J. (2019), <span>“An
 <div id="ref-cook1982residuals" class="csl-entry" role="listitem">
 Cook, R. D., and Weisberg, S. (1982), <em>Residuals and influence in regression</em>, New York: Chapman; Hall.
 </div>
+<div id="ref-davison1997bootstrap" class="csl-entry" role="listitem">
+Davison, A. C., and Hinkley, D. V. (1997), <em>Bootstrap methods and their application</em>, Cambridge university press.
+</div>
+<div id="ref-efron1994introduction" class="csl-entry" role="listitem">
+Efron, B., and Tibshirani, R. J. (1994), <em>An introduction to the bootstrap</em>, Chapman; Hall/CRC.
+</div>
 <div id="ref-emami2012facial" class="csl-entry" role="listitem">
 Emami, S., and Suciu, V. P. (2012), <span>“Facial recognition using OpenCV,”</span> <em>Journal of Mobile, Embedded and Distributed Systems</em>, 4, 38–43.
 </div>
@@ -1297,6 +1296,9 @@ Frisch, R., and Waugh, F. V. (1933), <span>“Partial time regressions as compar
 </div>
 <div id="ref-fukushima1982neocognitron" class="csl-entry" role="listitem">
 Fukushima, K., and Miyake, S. (1982), <span>“Neocognitron: A new algorithm for pattern recognition tolerant of deformations and shifts in position,”</span> <em>Pattern recognition</em>, Elsevier, 15, 455–469.
+</div>
+<div id="ref-goodfellow2016deep" class="csl-entry" role="listitem">
+Goodfellow, I., Bengio, Y., and Courville, A. (2016), <em>Deep learning</em>, MIT press.
 </div>
 <div id="ref-goscinski2014multi" class="csl-entry" role="listitem">
 Goscinski, W. J., McIntosh, P., Felzmann, U., Maksimenko, A., Hall, C. J., Gureyev, T., Thompson, D., Janke, A., Galloway, G., Killeen, N. E., and others (2014), <span>“The multi-modal australian ScienceS imaging and visualization environment (MASSIVE) high performance computing infrastructure: Applications in neuroscience and neuroinformatics research,”</span> <em>Frontiers in Neuroinformatics</em>, Frontiers Media SA, 8, 30.
@@ -1318,6 +1320,9 @@ Hermite, M. (1864), <em>Sur un nouveau d<span>é</span>veloppement en s<span>é<
 </div>
 <div id="ref-hyndman1996sample" class="csl-entry" role="listitem">
 Hyndman, R. J., and Fan, Y. (1996), <span>“Sample quantiles in statistical packages,”</span> <em>The American Statistician</em>, Taylor &amp; Francis, 50, 361–365.
+</div>
+<div id="ref-kingma2014adam" class="csl-entry" role="listitem">
+Kingma, D. P., and Ba, J. (2014), <span>“Adam: A method for stochastic optimization,”</span> <em>arXiv preprint arXiv:1412.6980</em>.
 </div>
 <div id="ref-krishnan2021hierarchical" class="csl-entry" role="listitem">
 Krishnan, G., and Hofmann, H. (2021), <span>“Hierarchical decision ensembles-an inferential framework for uncertain human-AI collaboration in forensic examinations,”</span> <em>arXiv preprint arXiv:2111.01131</em>.
@@ -1369,6 +1374,9 @@ Simonyan, K., and Zisserman, A. (2014), <span>“Very deep convolutional network
 </div>
 <div id="ref-singh2017deep" class="csl-entry" role="listitem">
 Singh, K., Gupta, G., Vig, L., Shroff, G., and Agarwal, P. (2017), <span>“Deep convolutional neural networks for pairwise causality,”</span> <em>arXiv preprint arXiv:1701.00597</em>.
+</div>
+<div id="ref-srivastava2014dropout" class="csl-entry" role="listitem">
+Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., and Salakhutdinov, R. (2014), <span>“Dropout: A simple way to prevent neural networks from overfitting,”</span> <em>The journal of machine learning research</em>, JMLR. org, 15, 1929–1958.
 </div>
 <div id="ref-tukey1985computer" class="csl-entry" role="listitem">
 Tukey, J. W., and Tukey, P. A. (1985), <span>“Computer graphics and exploratory data analysis: An introduction,”</span> in <em>Proceedings of the sixth annual conference and exposition: Computer graphics</em>, pp. 773–785.
@@ -1424,18 +1432,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1467,7 +1464,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1475,7 +1494,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1812,4 +1831,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TengMCing/PhD/tree/master/Thesis/edit/main/03-chap3.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

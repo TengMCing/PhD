@@ -4,9 +4,15 @@ Plotting residuals is a standard practice in linear regression diagnostics, esse
 
 
 
+
+
+
 ::: {.cell}
 
 :::
+
+
+
 
 
 
@@ -31,11 +37,17 @@ In this paper, we develop computer vision models and integrate them into the res
 
 
 
+
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![An example residual vs fitted values plot (red line indicates 0 corresponds to the x-intercept, i.e. $y=0$). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity, however, here the result is due to skewed distribution of the predictors rather than heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-pdf/fig-false-finding-1.pdf){#fig-false-finding fig-pos='!h'}
 :::
 :::
+
+
+
 
 
 
@@ -71,6 +83,12 @@ The binary outcome can represent whether the input image is consistent with a nu
 Alternatively, the output could be a meaningful and interpretable numerical measure useful for assessing residual plots, such as the strength of suspicious visual patterns reflecting the extent of model violations, or the difficulty index for identifying whether a residual plot has no issues. However, these numeric measures are often informally used in daily communication but are not typically formalized or rigorously defined. For the purpose of training a model, this numeric measure has to be quantifiable. 
 
 In this study, we chose to define and use a distance between a true residual plot and a theoretically "good" residual plot. This is further explained in @sec-model-distance-between-residual-plots. @vo2016localizing have also demonstrated that defining a proper distance between images can enhance the matching accuracy in image search compared to a binary outcome model.
+
+### Auxiliary Information with Scagnostics
+
+In @sec-model-introduction, we mentioned that scagnostics consist of a set of manually designed visual feature extraction functions. While our computer vision model will learn its own feature extraction function during training, leveraging additional information from scagnostics can enhance the model's predictive accuracy.
+
+For each residual plot used as an input image, we computed four scagnostics – "Monotonic", "Sparse", "Splines", and "Striped" – using the `cassowaryr` R package [@mason2022cassowaryr]. These computed measures, along with the number of observations from the fitted model, were provided as the second input for the computer vision model. While other scagnostics provide valuable insights, they come with high computational costs and are not suitable for quick inference.
 
 ## Distance from a Theoretically "Good" Residual Plot  {#sec-model-distance-between-residual-plots}
 
@@ -160,7 +178,7 @@ It is not expected that $\hat{D}$ will be equal to original distance $D$. This i
 
 $\hat{D}$ is an estimator of the difference between the true residual distribution and the reference residual distribution. This difference primarily arises from deviations in model assumptions. The magnitude of $D$ directly reflects the degree of these deviations, thus making $\hat{D}$ instrumental in forming a model violations index (MVI).
 
-Note that if more observations are used for estimating the linear regression, the result of @eq-kl-1 will increase, as the integration will be performed over a higher-dimensional space. For a consistent data generating process, $D$ typically increases logarithmically with the number of observations. This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
+Note that if more observations are used for estimating the linear regression, the result of @eq-kl-1 will increase, as the integration will be performed over a higher-dimensional space. For a given data generating process, $D$ typically increases logarithmically with the number of observations. This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
 
 Since $\hat{D}$ is an estimate of $D$, it is expected that a larger number of observations will also lead to a higher $\hat{D}$. However, this does not imply that $\hat{D}$ fails to accurately represent the extent of model violations. In fact, when examining residual plots with more observations, we often observe a stronger visual signal strength, as the underlying patterns are more likely to be revealed, except in cases of significant overlapping.
 
@@ -170,9 +188,9 @@ $$
 \text{MVI} = C + \hat{D} - \log(n),
 $$ {#eq-mvi}
 
-\noindent where $C$ is a large enough constant keeping the result positive. 
+\noindent where $C$ is a large enough constant keeping the result positive and the term $-\log(n)$ is used to offset the increase in $D$ due to sample size.
 
-@fig-poly-index and @fig-heter-index display the residual plots for fitted models exhibiting varying degrees of non-linearity and heteroskedasticity. Each residual plot's MVI is computed using @eq-mvi with $C = 10$. When $\text{MVI} > 8$, the visual patterns are notably strong and easily discernible by humans. In the range $6 < \text{MVI} < 8$, the visibility of the visual pattern diminishes as MVI decreases. Conversely, when $\text{MVI} < 6$, the visual pattern tends to become relatively faint and challenging to observe. @tbl-mvi provides a summary of the MVI usage and it is applicable to other linear regression models.
+@fig-poly-heter-index displays the residual plots for fitted models exhibiting varying degrees of non-linearity and heteroskedasticity. Each residual plot's MVI is computed using @eq-mvi with $C = 10$. When $\text{MVI} > 8$, the visual patterns are notably strong and easily discernible by humans. In the range $6 < \text{MVI} < 8$, the visibility of the visual pattern diminishes as MVI decreases. Conversely, when $\text{MVI} < 6$, the visual pattern tends to become relatively faint and challenging to observe. @tbl-mvi provides a summary of the MVI usage and it is applicable to other linear regression models.
 
 
 ::: {.content-visible when-format="html"}
@@ -184,31 +202,37 @@ $$ {#eq-mvi}
 
 
 
+
+
+
 ```{=html}
 <table>
  <thead>
   <tr>
    <th style="text-align:left;"> <span data-qmd="Degree of Model Violations"></span> </th>
-   <th style="text-align:left;"> <span data-qmd="Range ($C$ = 10)"></span>  </th>
+   <th style="text-align:center;"><span data-qmd="Range ($C$ = 10)"></span>  </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> <span data-qmd="Strong"></span>  </td>
-   <td style="text-align:left;"> <span data-qmd="$\text{MVI} > 8$"></span>  </td>
+   <td style="text-align:center;"> <span data-qmd="$\text{MVI} > 8$"></span>  </td>
   </tr>
   <tr>
    <td style="text-align:left;"> <span data-qmd="Moderate"></span>  </td>
-   <td style="text-align:left;"> <span data-qmd="$6 < \text{MVI} < 8$"></span> </td>
+   <td style="text-align:center;"> <span data-qmd="$6 < \text{MVI} < 8$"></span> </td>
   </tr>
   <tr>
    <td style="text-align:left;"> <span data-qmd="Weak"></span>  </td>
-   <td style="text-align:left;"> <span data-qmd="$\text{MVI} < 6$"></span>  </td>
+   <td style="text-align:center;"> <span data-qmd="$\text{MVI} < 6$"></span>  </td>
   </tr>
 </tbody>
 </table>
 
 ```
+
+
+
 
 
 
@@ -223,10 +247,14 @@ $$ {#eq-mvi}
 
 
 
+
+
+
 ::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violation Index (MVI). The constant $C$ is set to be 10.'}
 ::: {.cell-output-display}
-
-\begin{tabular}{ll}
+\begin{table}[!h]
+\centering
+\begin{tabular}{lc}
 \toprule
 Degree of model violations & Range ($C$ = 10)\\
 \midrule
@@ -235,6 +263,7 @@ Moderate & $6 < \text{MVI} < 8$\\
 Weak & $\text{MVI} < 6$\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 
 :::
@@ -242,22 +271,34 @@ Weak & $\text{MVI} < 6$\\
 
 
 
+
+
+
 :::
+
+
+
 
 
 
 
 ::: {.cell}
-::: {.cell-output-display}
-![Residual plots generated from fitted models exhibiting varying degrees of non-linearity violations. The Model violations index (MVI) is displayed atop each residual plot. The non-linearity patterns are relatively strong for $MVI > 8$, and relatively weak for $MVI < 6$.](03-chap3_files/figure-pdf/fig-poly-index-1.pdf){#fig-poly-index fig-pos='!h'}
+
 :::
+
+::: {.cell}
+
 :::
 
 ::: {.cell}
 ::: {.cell-output-display}
-![Residual plots generated from fitted models exhibiting varying degrees of heteroskedasticity violations. The Model violations index (MVI) is displayed atop each residual plot. The heteroskedasticity patterns are relatively strong for $MVI > 8$, and relatively weak for $MVI < 6$.](03-chap3_files/figure-pdf/fig-heter-index-1.pdf){#fig-heter-index fig-pos='!h'}
+![Residual plots generated from fitted models exhibiting varying degrees of (A) non-linearity and (B) heteroskedasticity violations. The model violations index (MVI) is displayed atop each residual plot. The non-linearity patterns are relatively strong for $MVI > 8$, and relatively weak for $MVI < 6$, while the heteroskedasticity patterns are relatively strong for $MVI > 8$, and relatively weak for $MVI < 6$.](03-chap3_files/figure-pdf/fig-poly-heter-index-1.pdf){#fig-poly-heter-index fig-pos='!h'}
 :::
 :::
+
+
+
+
 
 
 
@@ -270,17 +311,17 @@ Theoretically, the distance $D$ for a correctly specified model is $0$, because 
 
 This property is not an issue if $\hat{D} \gg 0$ for which the visual signal of the residual plot is very strong, and we usually do not need any further examination of the significance of the result. However, if the visual pattern is weak or moderate, having $\hat{D}$ will not be sufficient to determine if $H_0$ should be rejected.
 
-To address this issue while adhering to the principle of visual inference, we can compare the estimated distance $\hat{D}$ to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis $H_0$ will be rejected if $\hat{D}$ exceeds the maximum estimated distance among the $m - 1$ null plots, denoted as $\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}$, where $\hat{D}_{null}^{(i)}$ represents the estimated distance for the $i$-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where $H_0$ is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.
+To address this issue we can adhere to the paradigm of visual inference, by comparing the estimated distance $\hat{D}$ to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis $H_0$ will be rejected if $\hat{D}$ exceeds the maximum estimated distance among the $m - 1$ null plots, denoted as $\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}$, where $\hat{D}_{null}^{(i)}$ represents the estimated distance for the $i$-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where $H_0$ is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.
 
-For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising $20t$ plots, where $t$ is a positive integer, we reject $H_0$ if $\hat{D}$ exceeds 95% ${\hat{D}_{null}^{(i)}}$ for $i = 1, \ldots, 20t-1$. The $p$-value in this case is given by $\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} > \hat{D}\right)$, where $I(\cdot)$ is the indicator function.
+<!-- For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising $20t$ plots, where $t$ is a positive integer, we reject $H_0$ if $\hat{D}$ exceeds 95% ${\hat{D}_{null}^{(i)}}$ for $i = 1, \ldots, 20t-1$. The $p$-value in this case is given by $\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} > \hat{D}\right)$, where $I(\cdot)$ is the indicator function. -->
 
-Moreover, if the number of plots in a lineup, denoted by $m$, is sufficiently large, the empirical distribution of ${\hat{D}_{null}^{(i)}}$ can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles available in statistical software such as R, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in @hyndman1996sample. For instance, if $\hat{D}$ is greater than or equal to the 95% sample quantile, denoted as $Q_{null}(0.95)$, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, $n_{null}$, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a $p$-value can be used to represent the probability of observing an event equally or more extreme than the given event under the null hypothesis $H_0$, and it can be estimated by $\frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)$.
+Moreover, if the number of plots in a lineup, denoted by $m$, is sufficiently large, the empirical distribution of ${\hat{D}_{null}^{(i)}}$ can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in @hyndman1996sample. For instance, if $\hat{D}$ is greater than or equal to the 95% sample quantile, denoted as $Q_{null}(0.95)$, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, $n_{null}$, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a $p$-value is the probability of observing a distance equally or greater than $\hat{D}$ under the null hypothesis $H_0$, and it can be estimated by $\frac{1}{m} + \frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)$.
 
-If precision in sample quantiles is not the main priority, using a pre-calculated table of quantiles is an available option. Such a table offers pre-determined quantiles for a specified number of observations. It is generated by assessing numerous null plots derived from various simulated regression models and averaging them. Essentially, this shifts the computational burden from the user to the developer. 
+To alleviate computation burden, a lattice of quantiles for $\hat{D}$ under $H_0$ with specified sample sizes can be precomputed. We can then map the $\hat{D}$ and sample size to the closet quantile and sample size in lattice to calculate the corresponding $p$-value. This approach lose precision in $p$-value calculation, however, significantly improves computational efficiency.
 
 ### Bootstrapping
 
-Bootstrap is often employed in linear regression when conducting inference for estimated parameters. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.
+Bootstrap is often employed in linear regression when conducting inference for estimated parameters [see @davison1997bootstrap and @efron1994introduction]. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.
 
 Similarly, bootstrap can be applied on the estimated distance $\hat{D}$. For each refitted model $M_{boot}^{(i)}$, there will be an associated residual plot $V_{boot}^{(i)}$ which can be fed into the computer vision model to obtain $\hat{D}_{boot}^{(i)}$, where $i = 1,...,n_{boot}$, and $n_{boot}$ is the number of bootstrapped samples. If we are interested in the variation of $\hat{D}$, we can use $\hat{D}_{boot}^{(i)}$ to estimate a confidence interval. 
 
@@ -291,7 +332,7 @@ Alternatively, since each $M_{boot}^{(i)}$ has a set of estimated coefficients $
 
 ### Simulation Scheme
 
-While observational data is frequently employed in training models for real-world applications, the data generating process of observational data often remains unknown, making computation for our target variable $D$ unattainable. Consequently, the computer vision models developed in this study were trained using synthetic data, including 80000 training images and 8000 test images. This approach provided us with precise label annotations. Additionally, it ensured a large and diverse training dataset, as we had control over the data generating process, and the simulation of the training data was relatively cost-effective.
+While observational data is frequently employed in training models for real-world applications, the data generating process of observational data often remains unknown, making computation for our target variable $D$ unattainable. Consequently, the computer vision models developed in this study were trained using synthetic data, including 80,000 training images and 8,000 test images. This approach provided us with precise label annotations. Additionally, it ensured a large and diverse training dataset, as we had control over the data generating process, and the simulation of the training data was relatively cost-effective.
 
 We have incorporated three types of residual departures of linear regression model in the training data, including non-linearity, heteroskedasticity and non-normality. All three departures can be summarised by the data generating process formulated as
 
@@ -300,14 +341,16 @@ $$
 \boldsymbol{y} &= \boldsymbol{1}_n + \boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 + \beta_2(\boldsymbol{z} + \beta_1\boldsymbol{w}) + \boldsymbol{k} \odot \boldsymbol{\varepsilon}, \\
 \boldsymbol{z} &= \text{He}_j(g(\boldsymbol{x}_1, 2)), \\
 \boldsymbol{w} &= \text{He}_j(g(\boldsymbol{x}_2, 2)), \\
-\boldsymbol{k} &= \sqrt{\boldsymbol{1}_n + b(2 - |a|)(\boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 - a\boldsymbol{1}_n)^2},
+\boldsymbol{k} &= \left[\boldsymbol{1}_n + b(2 - |a|)(\boldsymbol{x}_1 + \beta_1\boldsymbol{x}_2 - a\boldsymbol{1}_n)^{\circ2}\right]^{\circ1/2},
 \end{aligned}
 $$ {#eq-data-sim}
 
-\noindent where $\boldsymbol{y}$, $\boldsymbol{x}_1$, $\boldsymbol{x}_2$, $\boldsymbol{z}$, $\boldsymbol{w}$, $\boldsymbol{k}$ and $\boldsymbol{\varepsilon}$ are vectors of size $n$, $\boldsymbol{1}_n$ is a vector of ones of size $n$, $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$ are two independent predictors, $\text{He}_j(.)$ is the $j$th-order probabilist's Hermite polynomials [@hermite1864nouveau], the $\sqrt{(.)}$ and $(.)^2$ operators are element-wise operators, $\odot$ is the Hadamard product, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
+\noindent where $\boldsymbol{y}$, $\boldsymbol{x}_1$, $\boldsymbol{x}_2$, $\boldsymbol{z}$, $\boldsymbol{w}$, $\boldsymbol{k}$ and $\boldsymbol{\varepsilon}$ are vectors of size $n$, $\boldsymbol{1}_n$ is a vector of ones of size $n$, $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$ are two independent predictors, $\text{He}_j(.)$ is the $j$th-order probabilist's Hermite polynomials [@hermite1864nouveau], $(.)^{\circ2}$ and $(.)^{\circ1/2}$ are Hadamard square and square root, $\odot$ is the Hadamard product, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
 
-$$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n}{x_{max} - x_{min}} - k\boldsymbol{1}_n,~for~k > 0,$$
-\noindent where $x_{min} = \underset{i \in \{ 1,...,n\}}{min} x_i$, $x_{max} = \underset{i \in \{ 1,...,n\}}{max} x_i$ and $x_i$ is the $i$-th entry of $\boldsymbol{x}$.
+$$A^{\circ\frac12}$$
+
+$$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_n}{x_{\max} - x_{\min}} - k\boldsymbol{1}_n,~for~k > 0,$$
+\noindent where $x_{\min} = \underset{i \in \{ 1,...,n\}}{\min} x_i$, $x_{\max} = \underset{i \in \{ 1,...,n\}}{\max} x_i$ and $x_i$ is the $i$-th entry of $\boldsymbol{x}$.
 
 
 
@@ -317,6 +360,9 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n
 
 ::: {#tbl-factor .cell tbl-cap='Factors used in the data generating process for synthetic data simulation. Factor $j$ and $a$ controls the non-linearity shape and the heteroskedasticity shape respectively. Factor $b$, $\sigma_\varepsilon$ and $n$ control the signal strength. Factor $\text{dist}_\varepsilon$, $\text{dist}_{x1}$ and $\text{dist}_{x2}$ specifies the distribution of $\varepsilon$, $X_1$ and $X_2$ respectively.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -386,12 +432,18 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{min}\boldsymbol{1}_n
 
 
 
+
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -426,11 +478,17 @@ n & {}[50, 500]\\
 
 
 
+
+
+
 :::
 
 The residuals and fitted values of the fitted model were obtained by regressing $\boldsymbol{y}$ on $\boldsymbol{x}_1$. If $\beta_1 \neq 0$, $\boldsymbol{x}_2$ was also included in the design matrix. This data generation process was adapted from @li2023plot, where it was utilized to simulate residual plots exhibiting non-linearity and heteroskedasticity visual patterns for human subject experiments. A summary of the factors utilized in @eq-data-sim is provided in @tbl-factor.
 
 In @eq-data-sim, $\boldsymbol{z}$ and $\boldsymbol{w}$ represent higher-order terms of $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$, respectively. If $\beta_2 \neq 0$, the regression model will encounter non-linearity issues. Parameter $j$ serves as a shape parameter that controls the number of tuning points in the non-linear pattern. Typically, higher values of $j$ lead to an increase in the number of tuning points, as illustrated in @fig-different-j.
+
+
+
 
 
 
@@ -442,7 +500,13 @@ In @eq-data-sim, $\boldsymbol{z}$ and $\boldsymbol{w}$ represent higher-order te
 
 
 
-Additionally, Scaling factor $\boldsymbol{k}$ directly affects the error distribution and it is correlated with $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$. If $b \neq 0$ and $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)$, the constant variance assumption will be violated. Parameter $a$ is a shape parameter controlling the location of the smallest variance in a residual plot as shown in @fig-different-a.
+
+
+
+Additionally, scaling factor $\boldsymbol{k}$ directly affects the error distribution and it is correlated with $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$. If $b \neq 0$ and $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)$, the constant variance assumption will be violated. Parameter $a$ is a shape parameter controlling the location of the smallest variance in a residual plot as shown in @fig-different-a.
+
+
+
 
 
 
@@ -460,7 +524,13 @@ Additionally, Scaling factor $\boldsymbol{k}$ directly affects the error distrib
 
 
 
-Non-normality violations arise from specifying a non-normal distribution for $\boldsymbol{\varepsilon}$. In the synthetic data simulation, four distinct error distributions are considered, including discrete, uniform, normal, and lognormal distributions, as presented in @fig-different-e. Each distribution imparts unique characteristics to the residuals. The discrete error distribution introduces discreteness in residuals, while the lognormal distribution typically yields outliers. Uniform error distribution may result in residuals filling the entire space of the residual plot. All of these distributions exhibit visual distinctions from the normal error distribution.
+
+
+
+Non-normality violations arise from specifying a non-normal distribution for $\boldsymbol{\varepsilon}$. In the synthetic data simulation, four distinct error distributions are considered, including discrete, uniform, normal, and lognormal distributions, as presented in @fig-different-e. Each distribution imparts unique characteristics in the residual plot. The discrete error distribution introduces discrete clusters in residuals, while the lognormal distribution typically yields outliers. Uniform error distribution may result in residuals filling the entire space of the residual plot. All of these distributions exhibit visual distinctions from the normal error distribution.
+
+
+
 
 
 
@@ -484,28 +554,26 @@ Non-normality violations arise from specifying a non-normal distribution for $\b
 
 
 
+
+
+
 @eq-data-sim accommodates the incorporation of the second predictor $\boldsymbol{x}_2$. Introducing it into the data generation process by setting $\beta_1 = 1$ significantly enhances the complexity of the shapes, as illustrated in @fig-different-j-x2. In comparison to @fig-different-j, @fig-different-j-x2 demonstrates that the non-linear shape resembles a surface rather than a single curve. This augmentation can facilitate the computer vision model in learning visual patterns from residual plots of the multiple linear regression model.
 
-In real-world analysis, it's not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. @fig-different-j-heter and @fig-different-e-heter show the visual patterns of models with multiple model violations.
-
-
-### Scagnostics
-
-
-In @sec-model-introduction, we mentioned that scagnostics consist of a set of manually designed visual feature extraction functions. While our computer vision model will learn its own feature extraction function during training, leveraging additional information from scagnostics can enhance the model's predictive accuracy.
-
-For each generated residual plot, we computed four scagnostics – "Monotonic", "Sparse", "Splines", and "Striped" – using the `cassowaryr` R package [@mason2022cassowaryr]. These computed measures, along with the number of observations from the fitted model, were provided as the second input for the computer vision model. While other scagnostics provide valuable insights, they come with high computational costs and are not suitable for quick inference.
+In real-world analysis, it is not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. @fig-different-j-heter and @fig-different-e-heter show the visual patterns of models with multiple model violations.
 
 ### Balanced Dataset
 
 To train a robust computer vision model, we deliberately controlled the distribution of the target variable $D$ in the training data. We ensured that it followed a uniform distribution between $0$ and $7$. This was achieved by organizing $50$ buckets, each exclusively accepting training samples with $D$ falling within the range $[7(i - 1)/49, 7i/49)$ for $i < 50$, where $i$ represents the index of the $i$-th bucket. For the $50$-th bucket, any training samples with $D \geq 7$ were accepted.
 
-With 80000 training images prepared, each bucket accommodated a maximum of $80000 \div 50 = 1600$ training samples. The simulator iteratively sampled parameter values from the parameter space, generated residuals and fitted values using the data generation process, computed the distance, and checked if the sample fitted within the corresponding bucket. This process continued until all buckets were filled.
+With 80,000 training images prepared, each bucket accommodated a maximum of $80000/ 50 = 1600$ training samples. The simulator iteratively sampled parameter values from the parameter space, generated residuals and fitted values using the data generation process, computed the distance, and checked if the sample fitted within the corresponding bucket. This process continued until all buckets were filled.
 
-Similarly, we adopted the same methodology to prepare 8000 test images for performance evaluation and model diagnostics.
+Similarly, we adopted the same methodology to prepare 8,000 test images for performance evaluation and model diagnostics.
 
 
 ## Model Architecture {#sec-model-architecture}
+
+
+
 
 
 
@@ -514,6 +582,9 @@ Similarly, we adopted the same methodology to prepare 8000 test images for perfo
 ![Diagram of the architecture of the optimized computer vision model. Numbers at the bottom of each box show the shape of the output of each layer. The band of each box drawn in a darker colour indicates the use of the rectified linear unit activation function.  Yellow boxes are 2D convolutional layers, orange boxes are pooling layers, the grey box is the concatenation layer, and the purple boxes are dense layers.](03-chap3_files/figure-pdf/fig-cnn-diag-1.png){#fig-cnn-diag width=100%}
 :::
 :::
+
+
+
 
 
 
@@ -529,25 +600,28 @@ The output of the last convolutional block is summarized by either a global max 
 
 The concatenated tensor is then fed into the final prediction block. This block consists of two fully-connected layers. The first layer contains at least $128$ units, followed by a dropout layer. Occasionally, a batch normalization layer is inserted between the fully-connected layer and the dropout layer for regularization purposes. The second fully-connected layer consists of only one unit, serving as the output of the model.
 
-The model weights $\boldsymbol{\theta}$ were randomly initialized and they were optimized by the Adam optimizer with the mean square error loss function
+The model weights $\boldsymbol{\theta}$ were randomly initialized and they were optimized by the Adam optimizer [@kingma2014adam] with the mean square error loss function
 
-$$\hat{\boldsymbol{\theta}} = \underset{\boldsymbol{\theta}}{argmin}\frac{1}{n_{train}}\sum_{i=1}^{n_{train}}(D_i - f_{\boldsymbol{\theta}}(V_i, S_i))^2,$$
+$$\hat{\boldsymbol{\theta}} = \underset{\boldsymbol{\theta}}{\text{arg min}}\frac{1}{n_{\text{train}}}\sum_{i=1}^{n_{\text{train}}}(D_i - f_{\boldsymbol{\theta}}(V_i, S_i))^2,$$
 
-\noindent where $n_{train}$ is the number of training samples, $V_i$ is the $i$-th residual plot and $S_i$ is the additional information about the $i$-th residual plot including four scagnostics and the number of observations. 
+\noindent where $n_{\text{train}}$ is the number of training samples, $V_i$ is the $i$-th residual plot and $S_i$ is the additional information about the $i$-th residual plot including four scagnostics and the number of observations. 
 
 ## Model Training {#sec-model-training}
 
 To achieve a near-optimal deep learning model, hyperparameters like the learning rate often need to be fine-tuned using a tuner. In our study, we utilized the Bayesian optimization tuner from the `KerasTuner` Python library [@omalley2019kerastuner] for this purpose. A comprehensive list of hyperparameters is provided in @tbl-hyperparameter.
 
-The "number of base filters" determines the number of filters for the first 2D convolutional layer. In the VGG16 architecture, the number of filters for the 2D convolutional layer in a block is typically twice the number in the previous block, except for the last block, which maintains the same number of convolution filters as the previous one. This hyperparameter aids in controlling the complexity of the computer vision model. Higher numbers of base filters result in more trainable parameters. Likewise, the "number of units for the fully-connected layer" determines the complexity of the final prediction block. Increasing the number of units enhances model complexity, resulting in more trainable parameters.
+The number of base filters determines the number of filters for the first 2D convolutional layer. In the VGG16 architecture, the number of filters for the 2D convolutional layer in a block is typically twice the number in the previous block, except for the last block, which maintains the same number of convolution filters as the previous one. This hyperparameter aids in controlling the complexity of the computer vision model. A higher number of base filters results in more trainable parameters. Likewise, the number of units for the fully-connected layer determines the complexity of the final prediction block. Increasing the number of units enhances model complexity, resulting in more trainable parameters.
 
-The dropout rate and batch normalization are flexible hyperparameters that work in conjunction with other parameters to facilitate smooth training. A higher dropout rate is necessary when the model tends to overfit the training dataset by learning too much noise. Conversely, a lower dropout rate is preferred when the model is complex and challenging to converge. Batch normalization, on the other hand, addresses the internal covariate shift problem arising from the randomness in weight initialization and input data. It helps stabilize and accelerate the training process by normalizing the activations of each layer.
+The dropout rate and batch normalization are flexible hyperparameters that work in conjunction with other parameters to facilitate smooth training. A higher dropout rate is necessary when the model tends to overfit the training dataset by learning too much noise [@srivastava2014dropout]. Conversely, a lower dropout rate is preferred when the model is complex and challenging to converge. Batch normalization, on the other hand, addresses the internal covariate shift problem arising from the randomness in weight initialization and input data [@goodfellow2016deep]. It helps stabilize and accelerate the training process by normalizing the activations of each layer.
 
-Additionally, incorporating additional inputs such as scagnostics and the number of observations can potentially enhance prediction accuracy. Therefore, we allowed the tuner to determine whether these inputs were necessary for optimal model performance.
+Additionally, incorporating additional inputs such as scagnostics and the number of observations can potentially enhance prediction accuracy. Therefore, we allow the tuner to determine whether these inputs were necessary for optimal model performance.
 
 The learning rate is a crucial hyperparameter, as it dictates the step size of the optimization algorithm. A high learning rate can help the model avoid local minima but risks overshooting and missing the global minimum. Conversely, a low learning rate smoothens the training process but makes the convergence time longer and increases the likelihood of getting trapped in local minima.
 
-Our model was trained on the MASSIVE M3 high-performance computing platform [@goscinski2014multi], using TensorFlow [@abadi2016tensorflow] and Keras [@chollet2015keras]. During training, 80% of the training data was utilized for actual training, while the remaining 20% was used as validation data. The Bayesian optimization tuner conducted 100 trials to identify the best hyperparameter values based on validation root mean square error. The tuner then restored the best epoch of the best model from the trials. Additionally, we applied early stopping, terminating the training process if the validation root mean square error fails to improve for 50 epochs. The maximum allowed epochs was set at 2000, although no models reached this threshold.
+Our model was trained on the MASSIVE M3 high-performance computing platform [@goscinski2014multi], using TensorFlow [@abadi2016tensorflow] and Keras [@chollet2015keras]. During training, 80% of the training data was utilized for actual training, while the remaining 20% was used as validation data. The Bayesian optimization tuner conducted 100 trials to identify the best hyperparameter values based on validation root mean square error. The tuner then restored the best epoch of the best model from the trials. Additionally, we applied early stopping, terminating the training process if the validation root mean square error fails to improve for 50 epochs. The maximum allowed epochs was set at 2,000, although no models reached this threshold.
+
+
+
 
 
 
@@ -568,7 +642,7 @@ Ignore additional inputs & \{false, true\}\\
 Number of units for the fully-connected layer & \{128, 256, 512, 1024, 2048\}\\
 Batch normalization for the fully-connected layer & \{false, true\}\\
 Dropout rate for the fully-connected layer & {}[0.1, 0.6]\\
-Learning rate & {}[1e-8, 1e-1]\\
+Learning rate & {}[\$10\textasciicircum{}\{-8\}\$, \$10\textasciicircum{}\{-1\}\$]\\
 \bottomrule
 \end{tabular}
 
@@ -578,14 +652,20 @@ Learning rate & {}[1e-8, 1e-1]\\
 
 
 
+
+
+
 Based on the tuning process described above, the optimized hyperparameter values are presented in @tbl-best-hyperparameter. It was observable that a minimum of $32$ base filters was necessary, with the preferable choice being $64$ base filters for both the $64 \times 64$ and $128 \times 128$ models, mirroring the original VGG16 architecture. The optimized dropout rate for convolutional blocks hovered around $0.4$, and incorporating batch normalization for convolutional blocks proved beneficial for performance.
 
-All optimized models chose to retain the additional inputs, contributing to the reduction of validation error. The number of units required for the fully-connected layer was $256$, a relatively modest number compared to the VGG16 classifier, suggesting that the problem at hand was less complex. The optimized learning rates were smaller than the default value recommended by Keras, which is 0.001.
+All optimized models chose to retain the additional inputs, contributing to the reduction of validation error. The number of units required for the fully-connected layer was $256$, a relatively modest number compared to the VGG16 classifier, suggesting that the problem at hand was less complex. The optimized learning rates were higher for models with higher resolution input, likely because models with more parameters are more prone to getting stuck in local minima, requiring a higher learning rate.
 
 ::: {.content-visible when-format="html"}
 
 ::: {#tbl-best-hyperparameter .cell tbl-cap='Hyperparameters values for the optimized computer vision models with different input sizes.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -663,12 +743,18 @@ All optimized models chose to retain the additional inputs, contributing to the 
 
 
 
+
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -702,6 +788,9 @@ Learning rate & 0.0003 & 0.0006 & 0.0052\\
 
 
 
+
+
+
 :::
 
 
@@ -722,13 +811,22 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
+
 ::: {.cell}
 
 :::
 
 
 
+
+
+
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -758,6 +856,9 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
+
 :::
 
 
@@ -765,6 +866,9 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 ::: {#tbl-performance .cell tbl-cap='The training and test performance of three optimized models with different input sizes.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -833,10 +937,16 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
+
 :::
 :::
 
 :::
+
+
+
 
 
 
@@ -857,11 +967,17 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
+
 ::: {.content-visible when-format="html"}
 
 
 ::: {#tbl-performance-sub .cell tbl-cap='The training and test performance of the $32 \times 32$ model presented with different model violations.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -942,6 +1058,9 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
+
 :::
 :::
 
@@ -950,6 +1069,9 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -981,6 +1103,9 @@ non-linearity + heteroskedasticity + non-normality & 7721 & 0.432 & 717 & 0.620\
 
 
 
+
+
+
 :::
 
 
@@ -1006,9 +1131,15 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 
 
+
+
+
 ::: {.cell}
 
 :::
+
+
+
 
 
 
@@ -1017,6 +1148,9 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 ::: {#tbl-experiment-performance .cell tbl-cap='The performance of the $32 \times 32$ model on the data used in the human subject experiment.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -1055,12 +1189,18 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 
 
+
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -1080,6 +1220,9 @@ non-linearity & 0.738 & 0.770 & 0.566 & 0.246\\
 
 :::
 :::
+
+
+
 
 
 
@@ -1110,6 +1253,9 @@ In the experiment conducted in @li2023plot, participants were allowed to make mu
 
 
 
+
+
+
 ::: {.cell}
 
 :::
@@ -1117,6 +1263,9 @@ In the experiment conducted in @li2023plot, participants were allowed to make mu
 ::: {.cell}
 
 :::
+
+
+
 
 
 
@@ -1124,6 +1273,9 @@ In the experiment conducted in @li2023plot, participants were allowed to make mu
 
 ::: {#tbl-human-conv-table .cell tbl-cap='Summary of the comparison of decisions made by computer vision model with decisions made by conventional tests and visual tests conducted by human.'}
 ::: {.cell-output-display}
+
+
+
 
 
 
@@ -1173,12 +1325,18 @@ In the experiment conducted in @li2023plot, participants were allowed to make mu
 
 
 
+
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
+
 
 
 
@@ -1207,7 +1365,13 @@ Violations & \#Samples & \#Agreements & Agreement rate\\
 
 
 
+
+
+
 :::
+
+
+
 
 
 
@@ -1234,6 +1398,9 @@ Violations & \#Samples & \#Agreements & Agreement rate\\
 ![A weighted detection rate vs $\delta$-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models](03-chap3_files/figure-pdf/fig-delta-1.pdf){#fig-delta fig-pos='!h'}
 :::
 :::
+
+
+
 
 
 
@@ -1280,6 +1447,9 @@ The attention map at [@fig-false-check]B suggests that the estimation is highly 
 
 
 
+
+
+
 ::: {.cell}
 
 :::
@@ -1314,11 +1484,17 @@ The attention map at [@fig-false-check]B suggests that the estimation is highly 
 
 
 
+
+
+
 ### Boston housing
 
 The Boston housing dataset, originally published by @harrison1978hedonic, offers insights into housing in the Boston, Massachusetts area. For illustration purposes, we will utilize a reduced version from Kaggle, comprising 489 rows and 4 columns: average number of rooms per dwelling (RM), percentage of lower status of the population (LSTAT), pupil-teacher ratio by town (PTRATIO), and Median value of owner-occupied homes in $1000's (MEDV). In our analysis, MEDV will serve as the response variable, while the other columns will function as predictors in a linear regression model. Our primary focus is to detect non-linearity, because the relationships between RM and MEDV or LSTAT and MEDV are non-linear.
 
 @fig-boston-check displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a "U" shape is shown in the plot A. Furthermore, the RESET test yields a very small $p$-value. The estimated distance $\hat{D}$ significantly exceeds $Q_{null}(0.95)$, leading to rejection of $H_0$. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the "U" shape. The principal component analysis provided in plot D shows two distinct clusters of data points, further underlines the visual differences between bootstrapped plots and null plots. This coincides the findings from @fig-boston-lineup, where the true plot exhibiting a "U" shape is visually distinctive from null plots. If a visual test is conducted by human, $H_0$ will also be rejected.
+
+
+
 
 
 
@@ -1356,6 +1532,9 @@ The Boston housing dataset, originally published by @harrison1978hedonic, offers
 
 
 
+
+
+
 ### Datasaurus
 
 The computer vision model possesses the capability to detect not only typical issues like non-linearity, heteroskedasticity, and non-normality but also artifact visual patterns resembling real-world objects, as long as they do not appear in null plots. These visual patterns can be challenging to categorize in terms of model violations. Therefore, we will employ the RESET test, the Breusch-Pagan test, and the Shapiro-Wilk test [@shapiro1965analysis] for comparison.
@@ -1369,6 +1548,9 @@ More importantly, the attention map in [@fig-dino-check]B clearly exhibits a "di
 More importantly, the attention map in [@fig-dino-check]B clearly exhibits a "dinosaur" shape, strongly suggesting that the distance prediction is based on human-perceptible visual patterns. The computer vision model effectively captures the contour or outline of the embedded shape, similar to how humans interpret residual plots. Additionally, the principal component analysis in [@fig-dino-check]D demonstrates that the cluster of bootstrapped plots is positioned at the corner of the cluster of null plots.
 
 In practice, without accessing the residual plot, it would be challenging to identify the artificial pattern of the residuals. Moreover, conducting a normality test for a fitted regression model is not always standard practice among analysts. Even when performed, violating the normality assumption is sometimes deemed acceptable, especially considering the application of quasi-maximum likelihood estimation in linear regression. This example underscores the importance of evaluating residual plots and highlights how the proposed computer vision model can facilitate this process.
+
+
+
 
 
 
@@ -1400,6 +1582,9 @@ In practice, without accessing the residual plot, it would be challenging to ide
 ![A lineup of residual plots for the fitted model on the "dinosaur" dataset. The true residual plot is at position 17. It can be easily identified as the most different plot as the visual pattern is extremly artificial.](03-chap3_files/figure-pdf/fig-dino-lineup-1.pdf){#fig-dino-lineup fig-pos='!h'}
 :::
 :::
+
+
+
 
 
 

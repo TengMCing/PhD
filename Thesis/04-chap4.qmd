@@ -233,7 +233,7 @@ checker$check(boot_draws = 100L, null_draws = 100L)
 checker$p_value()
 ```
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=TRUE}
 checker
 ```
 

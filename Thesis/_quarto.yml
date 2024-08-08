@@ -7,6 +7,9 @@ execute:
 book:
   title: "Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics"
   author: "Weihao Li"
+  repo-url: https://github.com/TengMCing/PhD/tree/master/Thesis
+  repo-actions: [edit]
+  downloads: [pdf]
   chapters:
     - text: "Front matter"
       file: index.qmd
@@ -30,4 +33,7 @@ degrees: 'PhD, Monash University'
 
 format:
   monashthesis-html: default
-  monashthesis-pdf: default
+  monashthesis-pdf:
+    include-in-header:
+      - text: |
+          \usepackage{pmboxdraw}
