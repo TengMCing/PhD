@@ -360,7 +360,7 @@ checker$plot_resid() |> checker$save_plot()
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmp9nPFj0/file157d67f67d852.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmpw0WKXM/file7c241ad0761d.png"
 ```
 
 
