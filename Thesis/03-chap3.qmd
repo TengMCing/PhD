@@ -1529,7 +1529,7 @@ mutate(experiment, type = ifelse(type == "polynomial", "Non-linearity", "Heteros
 ```
 
 
-```{r fig-delta, fig.pos = "!h", fig.cap = "A weighted detection rate vs adjusted $\\delta$-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models", fig.height = 4}
+```{r fig-delta, fig.pos = "!h", fig.cap = "A weighted detection rate vs adjusted $\\delta$-difference plot. The brown line is smoothing curve produced by fitting gnealized additive models.", fig.height = 4}
 experiment %>%
   left_join(lineup_vss %>%
               group_by(unique_lineup_id) %>%
