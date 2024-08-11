@@ -151,12 +151,12 @@ Since the Kullback-Leibler divergence can be viewed as the expectation of the lo
 $$
 \begin{aligned}
 D_{KL} &\approx \sum_{i = 1}^{n} \hat{D}_{KL}^{(i)}, \\
-\hat{D}_{KL}^{(i)} &= \frac{1}{m}\sum_{j = 1}^{m} \log\frac{\hat{p_i}(B_{ij})}{q(B_{ij})},
+\hat{D}_{KL}^{(i)} &= \frac{1}{m}\sum_{j = 1}^{m} \log\frac{\hat{p}_i(B_{ij})}{q(B_{ij})},
 \end{aligned} 
 $$ {#eq-kl-3}
 
 
-\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $\boldsymbol{B}_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $\boldsymbol{B}$, $\hat{p_i}(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\widehat{\sigma^2} = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
+\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $\boldsymbol{B}_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $\boldsymbol{B}$, $\hat{p}_i(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\hat{\sigma}^2 = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
 
 
 ## Distance Estimation {#sec-model-distance-estimation}
@@ -350,8 +350,6 @@ $$ {#eq-data-sim}
 
 \noindent where $\boldsymbol{y}$, $\boldsymbol{x}_1$, $\boldsymbol{x}_2$, $\boldsymbol{z}$, $\boldsymbol{w}$, $\boldsymbol{k}$ and $\boldsymbol{\varepsilon}$ are vectors of size $n$, $\boldsymbol{1}_n$ is a vector of ones of size $n$, $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$ are two independent predictors, $\text{He}_j(.)$ is the $j$th-order probabilist's Hermite polynomials [@hermite1864nouveau], $(.)^{\circ2}$ and $(.)^{\circ1/2}$ are Hadamard square and square root, $\odot$ is the Hadamard product, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
 
-$$A^{\circ\frac12}$$
-
 $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_n}{x_{\max} - x_{\min}} - k\boldsymbol{1}_n,~for~k > 0,$$
 \noindent where $x_{\min} = \underset{i \in \{ 1,...,n\}}{\min} x_i$, $x_{\max} = \underset{i \in \{ 1,...,n\}}{\max} x_i$ and $x_i$ is the $i$-th entry of $\boldsymbol{x}$.
 
@@ -400,7 +398,7 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
    <td style="text-align:left;"> {0, 1} </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> <span data-qmd="$\text{dist}_varepsilon$"></span> </td>
+   <td style="text-align:left;"> <span data-qmd="$\text{dist}_{\varepsilon}$"></span> </td>
    <td style="text-align:left;"> {discrete, uniform, normal, lognormal} </td>
   </tr>
   <tr>
@@ -1276,21 +1274,23 @@ When plotting the decision against the distance, as illustrated in @fig-power, s
 
 In @fig-power, rejection decisions are fitted by logistic regression models with no intercept terms and an offset equals to $\text{log}(0.05/0.95)$. The fitted curves for the computer vision model fall between those of conventional tests and visual tests for both non-linearity and heteroskedasticity, which means there is still potential to refine the computer vision model to better align its behaviour with visual tests conducted by humans.
 
-In the experiment conducted in @li2023plot, participants were allowed to make multiple selections for a lineup. The weighted detection rate is computed by assigning weights to each detection. If the participant selects zero plots, the corresponding weight is 0.05; otherwise, if the true residual plot is detected, the weight is 1 divided by the number of selections. With the weighted detection rate, we can evaluate the quality of the distance measure purposed in this chapter, by using the $\delta$-difference statistic. The $\delta$-difference is originally defined by @chowdhury2018measuring as
+In the experiment conducted in @li2023plot, participants were allowed to make multiple selections for a lineup. The weighted detection rate was computed by assigning weights to each detection. If the participant selected zero plots, a weight of 0.05 was assigned; otherwise, if the true residual plot was detected, the weight was 1 divided by the number of selections. This weighted detection rate allow us to assess the quality of the distance measure purposed in this chapter, by using the $\delta$-difference statistic. The $\delta$-difference is originally defined by @chowdhury2018measuring, is given by
 
-\begin{equation}
-\delta = \bar{d}_{true} - \underset{j}{max}\left(\bar{d}_{null}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
-\end{equation}
+$$
+\delta = \bar{d}_{\text{true}} - \underset{j}{\text{max}}\left(\bar{d}_{\text{null}}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
+$$
 
-where $\bar{d}_{null}^{(j)}$ is the mean distance between the $j$-th null plot and other null plots, $\bar{d}_{true}$ is the mean distance between the true residual plot and null plots, and $m$ is the number of plots in a lineup. These mean distances are used because the distances considered in @chowdhury2018measuring can change if a different data plot is used to be compared against to. For example, suppose there are three null plots, A, B and C, the distance between null plot A and B could be different to the distance between null plot A and C. To get a consistent distance value for null plot A, it is necessary to take the average. However, this is not applicable to the distance proposed in this chapter, as we only allow the residual plot to be compared to a theoretically good residual plot. Therefore, the statistic needs to be modified to evaluate our distance measure. 
 
-There is one aspect that the $\delta$-difference was intended to capture, which is the empirical distribution of distance for null plots. If we directly replace the mean distances with $D_{\text{null}}$, then the distribution will be a degenerate distribution, as $D_{\text{null}} = 0$ by definition. Moreover, $D_{\text{null}}$ can not be derived from an image, so it does not belong to the class of distances considered in @chowdhury2018measuring. The one that we should actually concerns about is the empirical distribution of $\hat{D}$ since it affects decision making. Thus, the adjusted $\delta$-difference is defined as
+where $\bar{d}_{\text{null}}^{(j)}$ is the mean distance between the $j$-th null plot and the other null plots, $\bar{d}_{\text{true}}$ is the mean distance between the true residual plot and null plots, and $m$ is the number of plots in a lineup. These mean distances are used because, as noted by @chowdhury2018measuring, the distances can vary depending on which data plot is used for comparison. For instance, with three null plots, A, B and C, the distance between A and B may differ from the distance between A and C. To obtain a consistent distance for null plot A, averaging is necessary. However, this approach is not applicable to the distance proposed in this chapter, as we only compare the residual plot against a theoretically good residual plot. Consequently, the statistic must be adjusted to evaluate our distance measure effectively.
 
-\begin{equation}
-\delta_{adjusted} = \hat{D} - \underset{j}{max}\left(\hat{D}_{null}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
-\end{equation}
+One important aspect that the $\delta$-difference was designed to capture is the empirical distribution of distances for null plot. If we were to replace the mean distances $\bar{d}_{\text{null}}^{(j)}$ directly with $D_{\text{null}}^{(j)}$, the distance of the $j$-th null plot, the resulting distribution would be degenerate, since $D_{null}$ equals zero by definition. Additionally, $D$ can not be derived from an image, meaning it falls outside the scope of the distances considered by @chowdhury2018measuring. Instead, the focus should be on the empirical distribution of $\hat{D}$, as it influences decision-making. Therefore, the adjusted $\delta$-different is defined as
 
-\noindent where $\hat{D}_{null}^{(j)}$ is the estimated distance for the $j$-th null plot, and $m$ is the number of plots in a lineup.
+$$
+\delta_{\text{adj}} = \hat{D} - \underset{j}{\text{max}}\left(\hat{D}_{\text{null}}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
+$$
+
+
+\noindent where $\hat{D}_{\text{null}}^{(j)}$ is the estimated distance for the $j$-th null plot, and $m$ is the number of plots in a lineup.
 
 @fig-delta displays the scatter plot of the weighted detection rate vs the adjusted $\delta$-difference. It indicates that the weighted detection rate increases as the adjusted $\delta$-difference increases, particularly when the adjusted $\delta$-difference is greater than zero. A negative adjusted $\delta$-difference suggests that there is at least one null plot in the lineup with a stronger visual signal than the true residual plot. In some instances, the weighted detection rate is close to one, yet the adjusted $\delta$-difference is negative. This discrepancy implies that the distance measure, or the estimated distance, may not perfectly reflect actual human behaviour.
 
