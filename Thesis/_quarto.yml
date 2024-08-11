@@ -34,6 +34,7 @@ degrees: 'PhD, Monash University'
 format:
   monashthesis-html: default
   monashthesis-pdf:
+    link-citations: true
     include-in-header:
       - text: |
           \usepackage{pmboxdraw}

@@ -163,7 +163,7 @@ $$ {#eq-kl-3}
 
 In the previous sections, we have defined a distance measure given in @eq-kl-0 for quantifying the difference between the true residual distribution $P$ and an ideal reference distribution $Q$. However, this distance measure can only be computed when the data generating process is known. In reality, we often have no knowledge about the data generating process, otherwise we do not need to do a residual diagnostic in the first place.
 
-We use a computer vision model to estimate this distance measure with a residual plot. Let $D$ be the result of @eq-kl-0, and our estimator $\hat{D}$ is formulated as 
+We use a computer vision model to estimate this distance measure for a residual plot. Let $D$ be the result of @eq-kl-0, and our estimator $\hat{D}$ is formulated as 
 
 $$
 \hat{D} = f_{CV}(V_{h \times w}(\boldsymbol{e}, \hat{\boldsymbol{y}})),
@@ -1121,7 +1121,6 @@ non-linearity & 2218 & 0.787\\
 heteroskedasticity & 1067 & 0.602\\
 non-linearity + heteroskedasticity & 985 & 0.751\\
 non-normality & 1111 & 0.320\\
-\addlinespace
 non-linearity + non-normality & 928 & 0.600\\
 heteroskedasticity + non-normality & 819 & 0.489\\
 non-linearity + heteroskedasticity + non-normality & 717 & 0.620\\
@@ -1159,7 +1158,7 @@ This study has collected 7,974 human responses to 1,152 lineups. Each lineup con
 In @li2023plot, the residual plots are simulated from a data generating process which is a special case of @eq-data-sim. The main characteristic is the model violations are introduced separately, meaning non-linearity and heteroskedasticity will not co-exist in one lineup but assigned uniformly to all lineups. Additionally, non-normality and multiple predictors are not considered in the experimental design.
 
 
-#### Model performance on the human-evaluated data
+#### Model Performance on the Human-evaluated Data
 
 
 
@@ -1510,7 +1509,7 @@ The attention map at [@fig-false-check]B suggests that the estimation is highly 
 
 
 
-### Boston housing
+### Boston Housing
 
 The Boston housing dataset, originally published by @harrison1978hedonic, offers insights into housing in the Boston, Massachusetts area. For illustration purposes, we utilize a reduced version from Kaggle, comprising 489 rows and 4 columns: average number of rooms per dwelling (RM), percentage of lower status of the population (LSTAT), pupil-teacher ratio by town (PTRATIO), and median value of owner-occupied homes in $1000's (MEDV). In our analysis, MEDV will serve as the response variable, while the other columns will function as predictors in a linear regression model. Our primary focus is to detect non-linearity, because the relationships between RM and MEDV or LSTAT and MEDV are non-linear.
 
