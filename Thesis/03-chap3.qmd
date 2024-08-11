@@ -1715,7 +1715,7 @@ if (!file.exists(here::here("cached_data/fig1_attention_map.rds"))) {
 ```
 
 
-```{r fig-false-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a "left-triangle" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distnace for null plots and bootstrapped plots. The green area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will not be rejected since $\\hat{D} < Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.  ', fig.height = 8}
+```{r fig-false-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a "left-triangle" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distance for null plots and bootstrapped plots. The green area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will not be rejected since $\\hat{D} < Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.  ', fig.height = 8}
 p1 <- my_vi$plot_resid(theme = theme_light()) + ggtitle(glue::glue("(A) Residual plot (MVI = {format(my_vi$check_result$observed$vss - log(nrow(my_vi$get_fitted_and_resid())) + 10, digits = 3)}, weak)")) 
 p2 <- readRDS(here::here("cached_data/fig1_attention_map.rds")) + ggtitle("(B) Attention map")
 p3 <- my_vi$summary_plot() +
@@ -1723,7 +1723,7 @@ p3 <- my_vi$summary_plot() +
   theme(legend.position = "bottom", legend.box = "vertical") +
   labs(linetype = "") +
   xlab(expression(hat(D))) +
-  scale_linetype(labels = c("95% quantile of the null distribution", expression(observed~hat(D)))) +
+  scale_linetype(labels = c(expression(Q[null](0.95)), expression(observed~hat(D)))) +
   scale_fill_manual(values = c("#40B0A6", "#E1BE6A")) +
   scale_color_manual(values = c("#40B0A6", "#E1BE6A"))
 pca_result <- my_vi$feature_pca()
@@ -1834,7 +1834,7 @@ if (!file.exists(here::here("cached_data/boston_attention_map.rds"))) {
 ```
 
 
-```{r fig-boston-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment for the Boston housing fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a "U" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\\hat{D} \\geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model. ', fig.height = 8}
+```{r fig-boston-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment for the Boston housing fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The true residual plot exhibiting a "U" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distance for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\\hat{D} \\geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model. ', fig.height = 8}
 p1 <- my_vi$plot_resid(theme = theme_light()) + ggtitle(glue::glue("(A) Residual plot (MVI = {format(my_vi$check_result$observed$vss - log(nrow(my_vi$get_fitted_and_resid())) + 10, digits = 3)}, strong)")) 
 p2 <- readRDS(here::here("cached_data/boston_attention_map.rds")) + ggtitle("(B) Attention map")
 p3 <- my_vi$summary_plot() +
@@ -1842,7 +1842,7 @@ p3 <- my_vi$summary_plot() +
   theme(legend.position = "bottom", legend.box = "vertical") +
   labs(linetype = "") +
   xlab(expression(hat(D))) +
-  scale_linetype(labels = c("95% quantile of the null distribution", expression(observed~hat(D)))) +
+  scale_linetype(labels = c(expression(Q[null](0.95)), expression(observed~hat(D)))) +
   scale_fill_manual(values = c("#40B0A6", "#E1BE6A")) +
   scale_color_manual(values = c("#40B0A6", "#E1BE6A"))
 pca_result <- my_vi$feature_pca()
@@ -1961,7 +1961,7 @@ if (!file.exists(here::here("cached_data/dino_attention_map.rds"))) {
 }
 ```
 
-```{r fig-dino-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment for the datasauRus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The residual plot exhibits a "dinosaur" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\\hat{D} \\geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.', fig.height = 8}
+```{r fig-dino-check, fig.pos = "!h", fig.cap = 'A summary of the residual plot assessment for the datasauRus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The residual plot exhibits a "dinosaur" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distance for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\\hat{D} \\geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.', fig.height = 8}
 
 p1 <- my_vi$plot_resid(theme = theme_light()) + ggtitle(glue::glue("(A) Residual plot (MVI = {format(my_vi$check_result$observed$vss - log(nrow(my_vi$get_fitted_and_resid())) + 10, digits = 3)}, strong)")) 
 p2 <- readRDS(here::here("cached_data/dino_attention_map.rds")) + ggtitle("(B) Attention map")
@@ -1970,7 +1970,7 @@ p3 <- my_vi$summary_plot() +
   theme(legend.position = "bottom", legend.box = "vertical") +
   labs(linetype = "") +
   xlab(expression(hat(D))) +
-  scale_linetype(labels = c("95% quantile of the null distribution", expression(observed~hat(D)))) +
+  scale_linetype(labels = c(expression(Q[null](0.95)), expression(observed~hat(D)))) +
   scale_fill_manual(values = c("#40B0A6", "#E1BE6A")) +
   scale_color_manual(values = c("#40B0A6", "#E1BE6A"))
 pca_result <- my_vi$feature_pca()
