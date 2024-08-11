@@ -7,9 +7,13 @@ Plotting residuals is a standard practice in linear regression diagnostics, esse
 
 
 
+
+
 ::: {.cell}
 
 :::
+
+
 
 
 
@@ -41,11 +45,15 @@ In this chapter, we develop computer vision models and integrate them into the r
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![An example residual vs fitted values plot (red line indicates 0 corresponds to the x-intercept, i.e. $y=0$). The vertical spread of the data points varies with the fitted values. This often indicates the existence of heteroskedasticity, however, here the result is due to skewed distribution of the predictors rather than heteroskedasticity. The Breusch-Pagan test rejects this residual plot at 95\% significance level ($p\text{-value} = 0.046$).](03-chap3_files/figure-html/fig-false-finding-1.png){#fig-false-finding fig-pos='!h' width=384}
 :::
 :::
+
+
 
 
 
@@ -151,12 +159,12 @@ Since the Kullback-Leibler divergence can be viewed as the expectation of the lo
 $$
 \begin{aligned}
 D_{KL} &\approx \sum_{i = 1}^{n} \hat{D}_{KL}^{(i)}, \\
-\hat{D}_{KL}^{(i)} &= \frac{1}{m}\sum_{j = 1}^{m} \log\frac{\hat{p_i}(B_{ij})}{q(B_{ij})},
+\hat{D}_{KL}^{(i)} &= \frac{1}{m}\sum_{j = 1}^{m} \log\frac{\hat{p}_i(B_{ij})}{q(B_{ij})},
 \end{aligned} 
 $$ {#eq-kl-3}
 
 
-\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $\boldsymbol{B}_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $\boldsymbol{B}$, $\hat{p_i}(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\widehat{\sigma^2} = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
+\noindent where $\hat{D}_{KL}^{(i)}$ is the estimator of the Kullback-Leibler divergence for an individual residual $e_i$, $\boldsymbol{B}_{ij}$ is the $i$-th row and $j$-th column entry of the matrix $\boldsymbol{B}$, $\hat{p}_i(.)$ is the kernel density estimator of $p_i(.)$, $q(.)$ is the normal density function with mean zero and an assumed variance estimated as $\hat{\sigma}^2 = \sum_{b \in vec(\boldsymbol{B})}(b - \sum_{b \in vec(\boldsymbol{B})} b/nm)^2/(nm - 1)$, and $vec(.)$ is the vectorization operator which turns a $n \times m$ matrix into a $nm \times 1$ column vector by stacking the columns of the matrix on top of each other.
 
 
 ## Distance Estimation {#sec-model-distance-estimation}
@@ -233,6 +241,8 @@ $$ {#eq-mvi}
 
 
 
+
+
 ```{=html}
 <table>
  <thead>
@@ -265,6 +275,8 @@ $$ {#eq-mvi}
 
 
 
+
+
 :::
 :::
 
@@ -272,6 +284,8 @@ $$ {#eq-mvi}
 
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -315,7 +329,11 @@ $$ {#eq-mvi}
 
 
 
+
+
 :::
+
+
 
 
 
@@ -346,6 +364,8 @@ $$ {#eq-mvi}
 
 
 
+
+
 ## Data Generation {#sec-model-data-generation}
 
 ### Simulation Scheme
@@ -365,8 +385,6 @@ $$ {#eq-data-sim}
 
 \noindent where $\boldsymbol{y}$, $\boldsymbol{x}_1$, $\boldsymbol{x}_2$, $\boldsymbol{z}$, $\boldsymbol{w}$, $\boldsymbol{k}$ and $\boldsymbol{\varepsilon}$ are vectors of size $n$, $\boldsymbol{1}_n$ is a vector of ones of size $n$, $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$ are two independent predictors, $\text{He}_j(.)$ is the $j$th-order probabilist's Hermite polynomials [@hermite1864nouveau], $(.)^{\circ2}$ and $(.)^{\circ1/2}$ are Hadamard square and square root, $\odot$ is the Hadamard product, and $g(\boldsymbol{x}, k)$ is a scaling function to enforce the support of the random vector to be $[-k, k]^n$ defined as
 
-$$A^{\circ\frac12}$$
-
 $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_n}{x_{\max} - x_{\min}} - k\boldsymbol{1}_n,~for~k > 0,$$
 \noindent where $x_{\min} = \underset{i \in \{ 1,...,n\}}{\min} x_i$, $x_{\max} = \underset{i \in \{ 1,...,n\}}{\max} x_i$ and $x_i$ is the $i$-th entry of $\boldsymbol{x}$.
 
@@ -378,6 +396,8 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 
 ::: {#tbl-factor .cell tbl-cap='Factors used in the data generating process for synthetic data simulation. Factor $j$ and $a$ controls the non-linearity shape and the heteroskedasticity shape respectively. Factor $b$, $\sigma_\varepsilon$ and $n$ control the signal strength. Factor $\text{dist}_\varepsilon$, $\text{dist}_{x1}$ and $\text{dist}_{x2}$ specifies the distribution of $\varepsilon$, $X_1$ and $X_2$ respectively.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -415,7 +435,7 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
    <td style="text-align:left;"> {0, 1} </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> <span data-qmd="$\text{dist}_varepsilon$"></span> </td>
+   <td style="text-align:left;"> <span data-qmd="$\text{dist}_{\varepsilon}$"></span> </td>
    <td style="text-align:left;"> {discrete, uniform, normal, lognormal} </td>
   </tr>
   <tr>
@@ -453,12 +473,16 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 
 
 
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -539,11 +563,15 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 
 
 
+
+
 :::
 
 The residuals and fitted values of the fitted model were obtained by regressing $\boldsymbol{y}$ on $\boldsymbol{x}_1$. If $\beta_1 \neq 0$, $\boldsymbol{x}_2$ was also included in the design matrix. This data generation process was adapted from @li2023plot, where it was utilized to simulate residual plots exhibiting non-linearity and heteroskedasticity visual patterns for human subject experiments. A summary of the factors utilized in @eq-data-sim is provided in @tbl-factor.
 
 In @eq-data-sim, $\boldsymbol{z}$ and $\boldsymbol{w}$ represent higher-order terms of $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$, respectively. If $\beta_2 \neq 0$, the regression model will encounter non-linearity issues. Parameter $j$ serves as a shape parameter that controls the number of tuning points in the non-linear pattern. Typically, higher values of $j$ lead to an increase in the number of tuning points, as illustrated in @fig-different-j.
+
+
 
 
 
@@ -561,7 +589,11 @@ In @eq-data-sim, $\boldsymbol{z}$ and $\boldsymbol{w}$ represent higher-order te
 
 
 
+
+
 Additionally, scaling factor $\boldsymbol{k}$ directly affects the error distribution and it is correlated with $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$. If $b \neq 0$ and $\boldsymbol{\varepsilon} \sim N(\boldsymbol{0}_n, \sigma^2\boldsymbol{I}_n)$, the constant variance assumption will be violated. Parameter $a$ is a shape parameter controlling the location of the smallest variance in a residual plot as shown in @fig-different-a.
+
+
 
 
 
@@ -585,7 +617,11 @@ Additionally, scaling factor $\boldsymbol{k}$ directly affects the error distrib
 
 
 
+
+
 Non-normality violations arise from specifying a non-normal distribution for $\boldsymbol{\varepsilon}$. In the synthetic data simulation, four distinct error distributions are considered, including discrete, uniform, normal, and lognormal distributions, as presented in @fig-different-e. Each distribution imparts unique characteristics in the residual plot. The discrete error distribution introduces discrete clusters in residuals, while the lognormal distribution typically yields outliers. Uniform error distribution may result in residuals filling the entire space of the residual plot. All of these distributions exhibit visual distinctions from the normal error distribution.
+
+
 
 
 
@@ -615,6 +651,8 @@ Non-normality violations arise from specifying a non-normal distribution for $\b
 
 
 
+
+
 @eq-data-sim accommodates the incorporation of the second predictor $\boldsymbol{x}_2$. Introducing it into the data generation process by setting $\beta_1 = 1$ significantly enhances the complexity of the shapes, as illustrated in @fig-different-j-x2. In comparison to @fig-different-j, @fig-different-j-x2 demonstrates that the non-linear shape resembles a surface rather than a single curve. This augmentation can facilitate the computer vision model in learning visual patterns from residual plots of the multiple linear regression model.
 
 In real-world analysis, it is not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. @fig-different-j-heter and @fig-different-e-heter show the visual patterns of models with multiple model violations.
@@ -635,11 +673,15 @@ Similarly, we adopted the same methodology to prepare 8,000 test images for perf
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![Diagram of the architecture of the optimized computer vision model. Numbers at the bottom of each box show the shape of the output of each layer. The band of each box drawn in a darker colour indicates the use of the rectified linear unit activation function.  Yellow boxes are 2D convolutional layers, orange boxes are pooling layers, the grey box is the concatenation layer, and the purple boxes are dense layers.](03-chap3_files/figure-html/fig-cnn-diag-1.png){#fig-cnn-diag width=100%}
 :::
 :::
+
+
 
 
 
@@ -682,6 +724,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 
 ::: {#tbl-hyperparameter .cell tbl-cap='Name of hyperparameters and their correspoding domain for the computer vision model.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -745,6 +789,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 
 
 
+
+
 :::
 :::
 
@@ -753,6 +799,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -821,6 +869,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 
 
 
+
+
 :::
 
 Based on the tuning process described above, the optimized hyperparameter values are presented in @tbl-best-hyperparameter. It was observable that a minimum of $32$ base filters was necessary, with the preferable choice being $64$ base filters for both the $64 \times 64$ and $128 \times 128$ models, mirroring the original VGG16 architecture. The optimized dropout rate for convolutional blocks hovered around $0.4$, and incorporating batch normalization for convolutional blocks proved beneficial for performance.
@@ -831,6 +881,8 @@ All optimized models chose to retain the additional inputs, contributing to the 
 
 ::: {#tbl-best-hyperparameter .cell tbl-cap='Hyperparameters values for the optimized computer vision models with different input sizes.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -914,12 +966,16 @@ All optimized models chose to retain the additional inputs, contributing to the 
 
 
 
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -1008,6 +1064,8 @@ All optimized models chose to retain the additional inputs, contributing to the 
 
 
 
+
+
 :::
 
 
@@ -1032,6 +1090,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 ::: {.cell}
 
 :::
@@ -1041,7 +1101,11 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -1097,6 +1161,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 :::
 
 
@@ -1104,6 +1170,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 ::: {#tbl-performance .cell tbl-cap='The test performance of three optimized models with different input sizes.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -1155,10 +1223,14 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 :::
 :::
 
 :::
+
+
 
 
 
@@ -1185,11 +1257,15 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 ::: {.content-visible when-format="html"}
 
 
 ::: {#tbl-performance-sub .cell tbl-cap='The test performance of the $32 \times 32$ model presented with different model violations.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -1258,6 +1334,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 :::
 :::
 
@@ -1266,6 +1344,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -1338,6 +1418,8 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 
 
+
+
 :::
 
 
@@ -1366,9 +1448,13 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 
 
+
+
 ::: {.cell}
 
 :::
+
+
 
 
 
@@ -1380,6 +1466,8 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 ::: {#tbl-experiment-performance .cell tbl-cap='The performance of the $32 \times 32$ model on the data used in the human subject experiment.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -1424,12 +1512,16 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 
 
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -1479,6 +1571,8 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 
 
 
+
+
 :::
 
 For each lineup used in @li2023plot, there is one true residual plot and 19 null plots. While the distance $D$ for the true residual plot depends on the underlying data generating process, the distance $D$ for the null plots is zero. We have used our optimized computer vision model to estimate distance for both the true residual plots and the null plots. To have a fair comparison, $H_0$ will be rejected if the true residual plot has the greatest estimated distance among all plots in a lineup. Additionally, the appropriate conventional tests including the Ramsey Regression Equation Specification Error Test (RESET) [@ramsey1969tests] for non-linearity and the Breusch-Pagan test  [@breusch1979simple] for heteroskedasticity were applied on the same data for comparison.
@@ -1495,21 +1589,23 @@ When plotting the decision against the distance, as illustrated in @fig-power, s
 
 In @fig-power, rejection decisions are fitted by logistic regression models with no intercept terms and an offset equals to $\text{log}(0.05/0.95)$. The fitted curves for the computer vision model fall between those of conventional tests and visual tests for both non-linearity and heteroskedasticity, which means there is still potential to refine the computer vision model to better align its behaviour with visual tests conducted by humans.
 
-In the experiment conducted in @li2023plot, participants were allowed to make multiple selections for a lineup. The weighted detection rate is computed by assigning weights to each detection. If the participant selects zero plots, the corresponding weight is 0.05; otherwise, if the true residual plot is detected, the weight is 1 divided by the number of selections. With the weighted detection rate, we can evaluate the quality of the distance measure purposed in this chapter, by using the $\delta$-difference statistic. The $\delta$-difference is originally defined by @chowdhury2018measuring as
+In the experiment conducted in @li2023plot, participants were allowed to make multiple selections for a lineup. The weighted detection rate was computed by assigning weights to each detection. If the participant selected zero plots, a weight of 0.05 was assigned; otherwise, if the true residual plot was detected, the weight was 1 divided by the number of selections. This weighted detection rate allow us to assess the quality of the distance measure purposed in this chapter, by using the $\delta$-difference statistic. The $\delta$-difference is originally defined by @chowdhury2018measuring, is given by
 
-\begin{equation}
-\delta = \bar{d}_{true} - \underset{j}{max}\left(\bar{d}_{null}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
-\end{equation}
+$$
+\delta = \bar{d}_{\text{true}} - \underset{j}{\text{max}}\left(\bar{d}_{\text{null}}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
+$$
 
-where $\bar{d}_{null}^{(j)}$ is the mean distance between the $j$-th null plot and other null plots, $\bar{d}_{true}$ is the mean distance between the true residual plot and null plots, and $m$ is the number of plots in a lineup. These mean distances are used because the distances considered in @chowdhury2018measuring can change if a different data plot is used to be compared against to. For example, suppose there are three null plots, A, B and C, the distance between null plot A and B could be different to the distance between null plot A and C. To get a consistent distance value for null plot A, it is necessary to take the average. However, this is not applicable to the distance proposed in this chapter, as we only allow the residual plot to be compared to a theoretically good residual plot. Therefore, the statistic needs to be modified to evaluate our distance measure. 
 
-There is one aspect that the $\delta$-difference was intended to capture, which is the empirical distribution of distance for null plots. If we directly replace the mean distances with $D_{\text{null}}$, then the distribution will be a degenerate distribution, as $D_{\text{null}} = 0$ by definition. Moreover, $D_{\text{null}}$ can not be derived from an image, so it does not belong to the class of distances considered in @chowdhury2018measuring. The one that we should actually concerns about is the empirical distribution of $\hat{D}$ since it affects decision making. Thus, the adjusted $\delta$-difference is defined as
+where $\bar{d}_{\text{null}}^{(j)}$ is the mean distance between the $j$-th null plot and the other null plots, $\bar{d}_{\text{true}}$ is the mean distance between the true residual plot and null plots, and $m$ is the number of plots in a lineup. These mean distances are used because, as noted by @chowdhury2018measuring, the distances can vary depending on which data plot is used for comparison. For instance, with three null plots, A, B and C, the distance between A and B may differ from the distance between A and C. To obtain a consistent distance for null plot A, averaging is necessary. However, this approach is not applicable to the distance proposed in this chapter, as we only compare the residual plot against a theoretically good residual plot. Consequently, the statistic must be adjusted to evaluate our distance measure effectively.
 
-\begin{equation}
-\delta_{adjusted} = \hat{D} - \underset{j}{max}\left(\hat{D}_{null}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
-\end{equation}
+One important aspect that the $\delta$-difference was designed to capture is the empirical distribution of distances for null plot. If we were to replace the mean distances $\bar{d}_{\text{null}}^{(j)}$ directly with $D_{\text{null}}^{(j)}$, the distance of the $j$-th null plot, the resulting distribution would be degenerate, since $D_{null}$ equals zero by definition. Additionally, $D$ can not be derived from an image, meaning it falls outside the scope of the distances considered by @chowdhury2018measuring. Instead, the focus should be on the empirical distribution of $\hat{D}$, as it influences decision-making. Therefore, the adjusted $\delta$-different is defined as
 
-\noindent where $\hat{D}_{null}^{(j)}$ is the estimated distance for the $j$-th null plot, and $m$ is the number of plots in a lineup.
+$$
+\delta_{\text{adj}} = \hat{D} - \underset{j}{\text{max}}\left(\hat{D}_{\text{null}}^{(j)}\right) \quad \text{for}~j = 1,...,m-1,
+$$
+
+
+\noindent where $\hat{D}_{\text{null}}^{(j)}$ is the estimated distance for the $j$-th null plot, and $m$ is the number of plots in a lineup.
 
 @fig-delta displays the scatter plot of the weighted detection rate vs the adjusted $\delta$-difference. It indicates that the weighted detection rate increases as the adjusted $\delta$-difference increases, particularly when the adjusted $\delta$-difference is greater than zero. A negative adjusted $\delta$-difference suggests that there is at least one null plot in the lineup with a stronger visual signal than the true residual plot. In some instances, the weighted detection rate is close to one, yet the adjusted $\delta$-difference is negative. This discrepancy implies that the distance measure, or the estimated distance, may not perfectly reflect actual human behaviour.
 
@@ -1518,13 +1614,17 @@ There is one aspect that the $\delta$-difference was intended to capture, which 
 
 
 
-::: {.cell}
 
-:::
 
 ::: {.cell}
 
 :::
+
+::: {.cell}
+
+:::
+
+
 
 
 
@@ -1535,6 +1635,8 @@ There is one aspect that the $\delta$-difference was intended to capture, which 
 
 ::: {#tbl-human-conv-table .cell tbl-cap='Summary of the comparison of decisions made by computer vision model with decisions made by conventional tests and visual tests conducted by human.'}
 ::: {.cell-output-display}
+
+
 
 
 
@@ -1590,12 +1692,16 @@ There is one aspect that the $\delta$-difference was intended to capture, which 
 
 
 
+
+
 :::
 :::
 
 :::
 
 ::: {.content-visible when-format="pdf"}
+
+
 
 
 
@@ -1656,7 +1762,11 @@ There is one aspect that the $\delta$-difference was intended to capture, which 
 
 
 
+
+
 :::
+
+
 
 
 
@@ -1694,6 +1804,8 @@ There is one aspect that the $\delta$-difference was intended to capture, which 
 
 
 
+
+
 ## Examples {#sec-examples}
 
 
@@ -1712,6 +1824,8 @@ In @sec-model-introduction, we presented an example residual plot showcased in @
 @fig-false-check presents the results of the assessment by the computer vision model. Notably, the observed visual signal strength is considerably lower than the 95% sample quantile of the null distribution. Moreover, the bootstrapped distribution suggests that it is highly improbable for the fitted model to be misspecified as the majority of bootstrapped fitted models will not be rejected. Thus, for this particular fitted model, both the visual test and the computer vision model will not reject $H_0$. However, the Breusch-Pagan test will reject $H_0$ because it can not effectively utilize information from null plots.
 
 The attention map at [@fig-false-check]B suggests that the estimation is highly influenced by the top-right and bottom-right part of the residual plot, as it forms two vertices of the triangular shape. A principal component analysis (PCA) is also performed on the output of the global pooling layer of the computer vision model. As mentioned in @simonyan2014very, a computer vision model built upon the convolutional blocks can be viewed as a feature extractor. For the $32 \times 32$ model, there are 256 features outputted from the global pooling layer, which can be further used for different visual tasks not limited to distance prediction. To see if these features can be effectively used for distinguishing null plots and true residual plot, we linearly project them into the first and second principal components space as shown in [@fig-false-check]D. It can be observed that because the bootstrapped plots are mostly similar to the null plots, the points drawn in different colours are mixed together. The true residual plot is also covered by both the cluster of null plots and cluster of bootstrapped plots. This accurately reflects our understanding of @fig-false-lineup. 
+
+
 
 
 
@@ -1755,11 +1869,15 @@ The attention map at [@fig-false-check]B suggests that the estimation is highly 
 
 
 
+
+
 ### Boston housing
 
 The Boston housing dataset, originally published by @harrison1978hedonic, offers insights into housing in the Boston, Massachusetts area. For illustration purposes, we utilize a reduced version from Kaggle, comprising 489 rows and 4 columns: average number of rooms per dwelling (RM), percentage of lower status of the population (LSTAT), pupil-teacher ratio by town (PTRATIO), and median value of owner-occupied homes in $1000's (MEDV). In our analysis, MEDV will serve as the response variable, while the other columns will function as predictors in a linear regression model. Our primary focus is to detect non-linearity, because the relationships between RM and MEDV or LSTAT and MEDV are non-linear.
 
 @fig-boston-check displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a "U" shape is shown in the plot A. Furthermore, the RESET test yields a very small $p$-value. The estimated distance $\hat{D}$ significantly exceeds $Q_{null}(0.95)$, leading to rejection of $H_0$. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the "U" shape. The CPA provided in plot D shows two distinct clusters of data points, further underling the visual differences between bootstrapped plots and null plots. This coincides the findings from @fig-boston-lineup, where the true plot exhibiting a "U" shape is visually distinctive from null plots. If a visual test is conducted by human, $H_0$ will also be rejected.
+
+
 
 
 
@@ -1803,6 +1921,8 @@ The Boston housing dataset, originally published by @harrison1978hedonic, offers
 
 
 
+
+
 ### DatasauRus
 
 The computer vision model possesses the capability to detect not only typical issues like non-linearity, heteroskedasticity, and non-normality but also artifact visual patterns resembling real-world objects, as long as they do not appear in null plots. These visual patterns can be challenging to categorize in terms of model violations. Therefore, we will employ the RESET test, the Breusch-Pagan test, and the Shapiro-Wilk test [@shapiro1965analysis] for comparison.
@@ -1816,6 +1936,8 @@ More importantly, the attention map in [@fig-dino-check]B clearly exhibits a "di
 More importantly, the attention map in [@fig-dino-check]B clearly exhibits a "dinosaur" shape, strongly suggesting that the distance prediction is based on human-perceptible visual patterns. The computer vision model effectively captures the contour or outline of the embedded shape, similar to how humans interpret residual plots. Additionally, the PCA in [@fig-dino-check]D demonstrates that the cluster of bootstrapped plots is positioned at the corner of the cluster of null plots.
 
 In practice, without accessing the residual plot, it would be challenging to identify the artificial pattern of the residuals. Moreover, conducting a normality test for a fitted regression model is not always standard practice among analysts. Even when performed, violating the normality assumption is sometimes deemed acceptable, especially considering the application of quasi-maximum likelihood estimation in linear regression. This example underscores the importance of evaluating residual plots and highlights how the proposed computer vision model can facilitate this process.
+
+
 
 
 
@@ -1850,6 +1972,8 @@ In practice, without accessing the residual plot, it would be challenging to ide
 ![A lineup of residual plots for the fitted model on the "dinosaur" dataset. The true residual plot is at position 17. It can be easily identified as the most different plot as the visual pattern is extremly artificial.](03-chap3_files/figure-html/fig-dino-lineup-1.png){#fig-dino-lineup fig-pos='!h' width=768}
 :::
 :::
+
+
 
 
 
