@@ -237,7 +237,7 @@ $$ {#eq-mvi}
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> <span data-qmd="Degree of Model Violations"></span> </th>
+   <th style="text-align:center;"> <span data-qmd="Degree of Model Violations"></span> </th>
    <th style="text-align:center;"><span data-qmd="Range ($C$ = 10)"></span>  </th>
   </tr>
  </thead>
@@ -285,23 +285,25 @@ $$ {#eq-mvi}
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Degree of model violations </th>
-   <th style="text-align:center;"> Range ($C$ = 10) </th>
+   <th style="text-align:left;text-align: center;"> Degree of model violations </th>
+   <th style="text-align:center;text-align: center;"> Range ($C$ = 10) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> Strong </td>
-   <td style="text-align:center;"> $\text{MVI} > 8$ </td>
+   <td style="text-align:center;"> $\text{MVI} &gt; 8$ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Moderate </td>
-   <td style="text-align:center;"> $6 < \text{MVI} < 8$ </td>
-  </tr>
+   <td style="text-align:center;"> $6 
+  </td>
+</tr>
   <tr>
    <td style="text-align:left;"> Weak </td>
-   <td style="text-align:center;"> $\text{MVI} < 6$ </td>
-  </tr>
+   <td style="text-align:center;"> $\text{MVI} 
+  </td>
+</tr>
 </tbody>
 </table>
 
@@ -387,8 +389,8 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Factor </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:center;"> Factor </th>
+   <th style="text-align:center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -471,8 +473,8 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Factor </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:left;text-align: center;"> Factor </th>
+   <th style="text-align:left;text-align: center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -691,8 +693,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:center;"> Hyperparameter </th>
+   <th style="text-align:center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -765,8 +767,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:left;text-align: center;"> Hyperparameter </th>
+   <th style="text-align:left;text-align: center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -840,10 +842,10 @@ All optimized models chose to retain the additional inputs, contributing to the 
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> <span data-qmd="$32 \times 32$"> </span> </th>
-   <th style="text-align:left;"> <span data-qmd="$64 \times 64$"> </span> </th>
-   <th style="text-align:left;"> <span data-qmd="$128 \times 128$"> </span> </th>
+   <th style="text-align:center;"> Hyperparameter </th>
+   <th style="text-align:center;"> <span data-qmd="$32 \times 32$"> </span> </th>
+   <th style="text-align:center;"> <span data-qmd="$64 \times 64$"> </span> </th>
+   <th style="text-align:center;"> <span data-qmd="$128 \times 128$"> </span> </th>
   </tr>
  </thead>
 <tbody>
@@ -932,10 +934,10 @@ All optimized models chose to retain the additional inputs, contributing to the 
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> $32 \times 32$ </th>
-   <th style="text-align:left;"> $64 \times 64$ </th>
-   <th style="text-align:left;"> $128 \times 128$ </th>
+   <th style="text-align:left;text-align: center;"> Hyperparameter </th>
+   <th style="text-align:left;text-align: center;"> $32 \times 32$ </th>
+   <th style="text-align:left;text-align: center;"> $64 \times 64$ </th>
+   <th style="text-align:left;text-align: center;"> $128 \times 128$ </th>
   </tr>
  </thead>
 <tbody>
@@ -1053,34 +1055,34 @@ Based on the model performance metrics, we chose to use the best-performing mode
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> $R^2$ </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:left;text-align: center;">  </th>
+   <th style="text-align:right;text-align: center;"> RMSE </th>
+   <th style="text-align:right;text-align: center;"> $R^2$ </th>
+   <th style="text-align:right;text-align: center;"> MAE </th>
+   <th style="text-align:right;text-align: center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> $32 \times 32$ </td>
-   <td style="text-align:left;"> 0.660 </td>
-   <td style="text-align:left;"> 0.901 </td>
-   <td style="text-align:left;"> 0.434 </td>
-   <td style="text-align:left;"> 0.18 </td>
+   <td style="text-align:right;"> 0.660 </td>
+   <td style="text-align:right;"> 0.901 </td>
+   <td style="text-align:right;"> 0.434 </td>
+   <td style="text-align:right;"> 0.18 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> $64 \times 64$ </td>
-   <td style="text-align:left;"> 0.674 </td>
-   <td style="text-align:left;"> 0.897 </td>
-   <td style="text-align:left;"> 0.438 </td>
-   <td style="text-align:left;"> 0.19 </td>
+   <td style="text-align:right;"> 0.674 </td>
+   <td style="text-align:right;"> 0.897 </td>
+   <td style="text-align:right;"> 0.438 </td>
+   <td style="text-align:right;"> 0.19 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> $128 \times 128$ </td>
-   <td style="text-align:left;"> 0.692 </td>
-   <td style="text-align:left;"> 0.892 </td>
-   <td style="text-align:left;"> 0.460 </td>
-   <td style="text-align:left;"> 0.20 </td>
+   <td style="text-align:right;"> 0.692 </td>
+   <td style="text-align:right;"> 0.892 </td>
+   <td style="text-align:right;"> 0.460 </td>
+   <td style="text-align:right;"> 0.20 </td>
   </tr>
 </tbody>
 </table>
@@ -1113,34 +1115,34 @@ Based on the model performance metrics, we chose to use the best-performing mode
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> <span data-qmd="$R^2$"></span> </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:center;">  </th>
+   <th style="text-align:center;"> RMSE </th>
+   <th style="text-align:center;"> <span data-qmd="$R^2$"></span> </th>
+   <th style="text-align:center;"> MAE </th>
+   <th style="text-align:center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$32 \times 32$"></span> </td>
-   <td style="text-align:left;"> 0.660 </td>
-   <td style="text-align:left;"> 0.901 </td>
-   <td style="text-align:left;"> 0.434 </td>
-   <td style="text-align:left;"> 0.181 </td>
+   <td style="text-align:right;"> 0.660 </td>
+   <td style="text-align:right;"> 0.901 </td>
+   <td style="text-align:right;"> 0.434 </td>
+   <td style="text-align:right;"> 0.181 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$64 \times 64$"></span> </td>
-   <td style="text-align:left;"> 0.674 </td>
-   <td style="text-align:left;"> 0.897 </td>
-   <td style="text-align:left;"> 0.438 </td>
-   <td style="text-align:left;"> 0.186 </td>
+   <td style="text-align:right;"> 0.674 </td>
+   <td style="text-align:right;"> 0.897 </td>
+   <td style="text-align:right;"> 0.438 </td>
+   <td style="text-align:right;"> 0.186 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$128 \times 128$"></span> </td>
-   <td style="text-align:left;"> 0.692 </td>
-   <td style="text-align:left;"> 0.892 </td>
-   <td style="text-align:left;"> 0.460 </td>
-   <td style="text-align:left;"> 0.199 </td>
+   <td style="text-align:right;"> 0.692 </td>
+   <td style="text-align:right;"> 0.892 </td>
+   <td style="text-align:right;"> 0.460 </td>
+   <td style="text-align:right;"> 0.199 </td>
   </tr>
 </tbody>
 </table>
@@ -1199,51 +1201,51 @@ Based on the model performance metrics, we chose to use the best-performing mode
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> #samples </th>
-   <th style="text-align:left;"> RMSE </th>
+   <th style="text-align:center;"> Violations </th>
+   <th style="text-align:center;"> #samples </th>
+   <th style="text-align:center;"> RMSE </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> no violations </td>
-   <td style="text-align:left;"> 155 </td>
-   <td style="text-align:left;"> 1.267 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> 1.267 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 2218 </td>
-   <td style="text-align:left;"> 0.787 </td>
+   <td style="text-align:right;"> 2218 </td>
+   <td style="text-align:right;"> 0.787 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 1067 </td>
-   <td style="text-align:left;"> 0.602 </td>
+   <td style="text-align:right;"> 1067 </td>
+   <td style="text-align:right;"> 0.602 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity </td>
-   <td style="text-align:left;"> 985 </td>
-   <td style="text-align:left;"> 0.751 </td>
+   <td style="text-align:right;"> 985 </td>
+   <td style="text-align:right;"> 0.751 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-normality </td>
-   <td style="text-align:left;"> 1111 </td>
-   <td style="text-align:left;"> 0.320 </td>
+   <td style="text-align:right;"> 1111 </td>
+   <td style="text-align:right;"> 0.320 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + non-normality </td>
-   <td style="text-align:left;"> 928 </td>
-   <td style="text-align:left;"> 0.600 </td>
+   <td style="text-align:right;"> 928 </td>
+   <td style="text-align:right;"> 0.600 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 819 </td>
-   <td style="text-align:left;"> 0.489 </td>
+   <td style="text-align:right;"> 819 </td>
+   <td style="text-align:right;"> 0.489 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 717 </td>
-   <td style="text-align:left;"> 0.620 </td>
+   <td style="text-align:right;"> 717 </td>
+   <td style="text-align:right;"> 0.620 </td>
   </tr>
 </tbody>
 </table>
@@ -1277,51 +1279,51 @@ Based on the model performance metrics, we chose to use the best-performing mode
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> \#samples </th>
-   <th style="text-align:left;"> RMSE </th>
+   <th style="text-align:left;text-align: center;"> Violations </th>
+   <th style="text-align:right;text-align: center;"> \#samples </th>
+   <th style="text-align:right;text-align: center;"> RMSE </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> no violations </td>
-   <td style="text-align:left;"> 155 </td>
-   <td style="text-align:left;"> 1.267 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> 1.267 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 2218 </td>
-   <td style="text-align:left;"> 0.787 </td>
+   <td style="text-align:right;"> 2218 </td>
+   <td style="text-align:right;"> 0.787 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 1067 </td>
-   <td style="text-align:left;"> 0.602 </td>
+   <td style="text-align:right;"> 1067 </td>
+   <td style="text-align:right;"> 0.602 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity </td>
-   <td style="text-align:left;"> 985 </td>
-   <td style="text-align:left;"> 0.751 </td>
+   <td style="text-align:right;"> 985 </td>
+   <td style="text-align:right;"> 0.751 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-normality </td>
-   <td style="text-align:left;"> 1111 </td>
-   <td style="text-align:left;"> 0.320 </td>
+   <td style="text-align:right;"> 1111 </td>
+   <td style="text-align:right;"> 0.320 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + non-normality </td>
-   <td style="text-align:left;"> 928 </td>
-   <td style="text-align:left;"> 0.600 </td>
+   <td style="text-align:right;"> 928 </td>
+   <td style="text-align:right;"> 0.600 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 819 </td>
-   <td style="text-align:left;"> 0.489 </td>
+   <td style="text-align:right;"> 819 </td>
+   <td style="text-align:right;"> 0.489 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 717 </td>
-   <td style="text-align:left;"> 0.620 </td>
+   <td style="text-align:right;"> 717 </td>
+   <td style="text-align:right;"> 0.620 </td>
   </tr>
 </tbody>
 </table>
@@ -1389,27 +1391,27 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violation </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> <span data-qmd="$R^2$"></span> </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:center;"> Violation </th>
+   <th style="text-align:center;"> RMSE </th>
+   <th style="text-align:center;"> <span data-qmd="$R^2$"></span> </th>
+   <th style="text-align:center;"> MAE </th>
+   <th style="text-align:center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 0.721 </td>
-   <td style="text-align:left;"> 0.852 </td>
-   <td style="text-align:left;"> 0.553 </td>
-   <td style="text-align:left;"> 0.235 </td>
+   <td style="text-align:right;"> 0.721 </td>
+   <td style="text-align:right;"> 0.852 </td>
+   <td style="text-align:right;"> 0.553 </td>
+   <td style="text-align:right;"> 0.235 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 0.738 </td>
-   <td style="text-align:left;"> 0.770 </td>
-   <td style="text-align:left;"> 0.566 </td>
-   <td style="text-align:left;"> 0.246 </td>
+   <td style="text-align:right;"> 0.738 </td>
+   <td style="text-align:right;"> 0.770 </td>
+   <td style="text-align:right;"> 0.566 </td>
+   <td style="text-align:right;"> 0.246 </td>
   </tr>
 </tbody>
 </table>
@@ -1442,27 +1444,27 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violation </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> $R^2$ </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:left;text-align: center;"> Violation </th>
+   <th style="text-align:right;text-align: center;"> RMSE </th>
+   <th style="text-align:right;text-align: center;"> $R^2$ </th>
+   <th style="text-align:right;text-align: center;"> MAE </th>
+   <th style="text-align:right;text-align: center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 0.721 </td>
-   <td style="text-align:left;"> 0.852 </td>
-   <td style="text-align:left;"> 0.553 </td>
-   <td style="text-align:left;"> 0.235 </td>
+   <td style="text-align:right;"> 0.721 </td>
+   <td style="text-align:right;"> 0.852 </td>
+   <td style="text-align:right;"> 0.553 </td>
+   <td style="text-align:right;"> 0.235 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 0.738 </td>
-   <td style="text-align:left;"> 0.770 </td>
-   <td style="text-align:left;"> 0.566 </td>
-   <td style="text-align:left;"> 0.246 </td>
+   <td style="text-align:right;"> 0.738 </td>
+   <td style="text-align:right;"> 0.770 </td>
+   <td style="text-align:right;"> 0.566 </td>
+   <td style="text-align:right;"> 0.246 </td>
   </tr>
 </tbody>
 </table>
@@ -1546,38 +1548,38 @@ $$
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> #Samples </th>
-   <th style="text-align:left;"> #Agreements </th>
-   <th style="text-align:left;"> Agreement rate </th>
+   <th style="text-align:center;"> Violations </th>
+   <th style="text-align:center;"> #Samples </th>
+   <th style="text-align:center;"> #Agreements </th>
+   <th style="text-align:center;"> Agreement rate </th>
   </tr>
  </thead>
 <tbody>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with conventional tests</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 464 </td>
-   <td style="text-align:left;"> 0.8593 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 464 </td>
+   <td style="text-align:right;"> 0.8593 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 459 </td>
-   <td style="text-align:left;"> 0.7969 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 459 </td>
+   <td style="text-align:right;"> 0.7969 </td>
   </tr>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with visual tests conducted by human</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 367 </td>
-   <td style="text-align:left;"> 0.6796 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 367 </td>
+   <td style="text-align:right;"> 0.6796 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 385 </td>
-   <td style="text-align:left;"> 0.6684 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 385 </td>
+   <td style="text-align:right;"> 0.6684 </td>
   </tr>
 </tbody>
 </table>
@@ -1610,38 +1612,38 @@ $$
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> \#Samples </th>
-   <th style="text-align:left;"> \#Agreements </th>
-   <th style="text-align:left;"> Agreement rate </th>
+   <th style="text-align:left;text-align: center;"> Violations </th>
+   <th style="text-align:right;text-align: center;"> \#Samples </th>
+   <th style="text-align:right;text-align: center;"> \#Agreements </th>
+   <th style="text-align:right;text-align: center;"> Agreement rate </th>
   </tr>
  </thead>
 <tbody>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with conventional tests</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 464 </td>
-   <td style="text-align:left;"> 0.8593 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 464 </td>
+   <td style="text-align:right;"> 0.8593 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 459 </td>
-   <td style="text-align:left;"> 0.7969 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 459 </td>
+   <td style="text-align:right;"> 0.7969 </td>
   </tr>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with visual tests conducted by human</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 367 </td>
-   <td style="text-align:left;"> 0.6796 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 367 </td>
+   <td style="text-align:right;"> 0.6796 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 385 </td>
-   <td style="text-align:left;"> 0.6684 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 385 </td>
+   <td style="text-align:right;"> 0.6684 </td>
   </tr>
 </tbody>
 </table>

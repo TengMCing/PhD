@@ -237,7 +237,7 @@ $$ {#eq-mvi}
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> <span data-qmd="Degree of Model Violations"></span> </th>
+   <th style="text-align:center;"> <span data-qmd="Degree of Model Violations"></span> </th>
    <th style="text-align:center;"><span data-qmd="Range ($C$ = 10)"></span>  </th>
   </tr>
  </thead>
@@ -283,7 +283,7 @@ $$ {#eq-mvi}
 
 \begin{tabular}{lc}
 \toprule
-Degree of model violations & Range ($C$ = 10)\\
+\multicolumn{1}{c}{Degree of model violations} & \multicolumn{1}{c}{Range ($C$ = 10)}\\
 \midrule
 Strong & $\text{MVI} > 8$\\
 Moderate & $6 < \text{MVI} < 8$\\
@@ -372,8 +372,8 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Factor </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:center;"> Factor </th>
+   <th style="text-align:center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -454,7 +454,7 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 
 \begin{tabular}{ll}
 \toprule
-Factor & Domain\\
+\multicolumn{1}{c}{Factor} & \multicolumn{1}{c}{Domain}\\
 \midrule
 j & \{2, 3, ..., 18\}\\
 a & {}[-1, 1]\\
@@ -636,8 +636,8 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> Domain </th>
+   <th style="text-align:center;"> Hyperparameter </th>
+   <th style="text-align:center;"> Domain </th>
   </tr>
  </thead>
 <tbody>
@@ -708,7 +708,7 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 
 \begin{tabular}{ll}
 \toprule
-Hyperparameter & Domain\\
+\multicolumn{1}{c}{Hyperparameter} & \multicolumn{1}{c}{Domain}\\
 \midrule
 Number of base filters & {4, 8, 16, 32, 64}\\
 Dropout rate for convolutional blocks & {}[0.1, 0.6]\\
@@ -753,10 +753,10 @@ All optimized models chose to retain the additional inputs, contributing to the 
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> <span data-qmd="$32 \times 32$"> </span> </th>
-   <th style="text-align:left;"> <span data-qmd="$64 \times 64$"> </span> </th>
-   <th style="text-align:left;"> <span data-qmd="$128 \times 128$"> </span> </th>
+   <th style="text-align:center;"> Hyperparameter </th>
+   <th style="text-align:center;"> <span data-qmd="$32 \times 32$"> </span> </th>
+   <th style="text-align:center;"> <span data-qmd="$64 \times 64$"> </span> </th>
+   <th style="text-align:center;"> <span data-qmd="$128 \times 128$"> </span> </th>
   </tr>
  </thead>
 <tbody>
@@ -845,7 +845,7 @@ All optimized models chose to retain the additional inputs, contributing to the 
 \resizebox{\linewidth}{!}{
 \begin{tabular}{llll}
 \toprule
-Hyperparameter & $32 \times 32$ & $64 \times 64$ & $128 \times 128$\\
+\multicolumn{1}{c}{Hyperparameter} & \multicolumn{1}{c}{$32 \times 32$} & \multicolumn{1}{c}{$64 \times 64$} & \multicolumn{1}{c}{$128 \times 128$}\\
 \midrule
 Number of base filters & 32 & 64 & 64\\
 Dropout rate for convolutional blocks & 0.4 & 0.3 & 0.4\\
@@ -913,9 +913,9 @@ Based on the model performance metrics, we chose to use the best-performing mode
 ::: {#tbl-performance .cell tbl-cap='The test performance of three optimized models with different input sizes.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lllll}
+\begin{tabular}{lrrrr}
 \toprule
- & RMSE & $R^2$ & MAE & Huber loss\\
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{RMSE} & \multicolumn{1}{c}{$R^2$} & \multicolumn{1}{c}{MAE} & \multicolumn{1}{c}{Huber loss}\\
 \midrule
 $32 \times 32$ & 0.660 & 0.901 & 0.434 & 0.18\\
 $64 \times 64$ & 0.674 & 0.897 & 0.438 & 0.19\\
@@ -950,34 +950,34 @@ $128 \times 128$ & 0.692 & 0.892 & 0.460 & 0.20\\
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> <span data-qmd="$R^2$"></span> </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:center;">  </th>
+   <th style="text-align:center;"> RMSE </th>
+   <th style="text-align:center;"> <span data-qmd="$R^2$"></span> </th>
+   <th style="text-align:center;"> MAE </th>
+   <th style="text-align:center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$32 \times 32$"></span> </td>
-   <td style="text-align:left;"> 0.660 </td>
-   <td style="text-align:left;"> 0.901 </td>
-   <td style="text-align:left;"> 0.434 </td>
-   <td style="text-align:left;"> 0.181 </td>
+   <td style="text-align:right;"> 0.660 </td>
+   <td style="text-align:right;"> 0.901 </td>
+   <td style="text-align:right;"> 0.434 </td>
+   <td style="text-align:right;"> 0.181 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$64 \times 64$"></span> </td>
-   <td style="text-align:left;"> 0.674 </td>
-   <td style="text-align:left;"> 0.897 </td>
-   <td style="text-align:left;"> 0.438 </td>
-   <td style="text-align:left;"> 0.186 </td>
+   <td style="text-align:right;"> 0.674 </td>
+   <td style="text-align:right;"> 0.897 </td>
+   <td style="text-align:right;"> 0.438 </td>
+   <td style="text-align:right;"> 0.186 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <span data-qmd="$128 \times 128$"></span> </td>
-   <td style="text-align:left;"> 0.692 </td>
-   <td style="text-align:left;"> 0.892 </td>
-   <td style="text-align:left;"> 0.460 </td>
-   <td style="text-align:left;"> 0.199 </td>
+   <td style="text-align:right;"> 0.692 </td>
+   <td style="text-align:right;"> 0.892 </td>
+   <td style="text-align:right;"> 0.460 </td>
+   <td style="text-align:right;"> 0.199 </td>
   </tr>
 </tbody>
 </table>
@@ -1036,51 +1036,51 @@ $128 \times 128$ & 0.692 & 0.892 & 0.460 & 0.20\\
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> #samples </th>
-   <th style="text-align:left;"> RMSE </th>
+   <th style="text-align:center;"> Violations </th>
+   <th style="text-align:center;"> #samples </th>
+   <th style="text-align:center;"> RMSE </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> no violations </td>
-   <td style="text-align:left;"> 155 </td>
-   <td style="text-align:left;"> 1.267 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> 1.267 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 2218 </td>
-   <td style="text-align:left;"> 0.787 </td>
+   <td style="text-align:right;"> 2218 </td>
+   <td style="text-align:right;"> 0.787 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 1067 </td>
-   <td style="text-align:left;"> 0.602 </td>
+   <td style="text-align:right;"> 1067 </td>
+   <td style="text-align:right;"> 0.602 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity </td>
-   <td style="text-align:left;"> 985 </td>
-   <td style="text-align:left;"> 0.751 </td>
+   <td style="text-align:right;"> 985 </td>
+   <td style="text-align:right;"> 0.751 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-normality </td>
-   <td style="text-align:left;"> 1111 </td>
-   <td style="text-align:left;"> 0.320 </td>
+   <td style="text-align:right;"> 1111 </td>
+   <td style="text-align:right;"> 0.320 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + non-normality </td>
-   <td style="text-align:left;"> 928 </td>
-   <td style="text-align:left;"> 0.600 </td>
+   <td style="text-align:right;"> 928 </td>
+   <td style="text-align:right;"> 0.600 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 819 </td>
-   <td style="text-align:left;"> 0.489 </td>
+   <td style="text-align:right;"> 819 </td>
+   <td style="text-align:right;"> 0.489 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity + heteroskedasticity + non-normality </td>
-   <td style="text-align:left;"> 717 </td>
-   <td style="text-align:left;"> 0.620 </td>
+   <td style="text-align:right;"> 717 </td>
+   <td style="text-align:right;"> 0.620 </td>
   </tr>
 </tbody>
 </table>
@@ -1112,9 +1112,9 @@ $128 \times 128$ & 0.692 & 0.892 & 0.460 & 0.20\\
 \begin{table}
 \centering
 \resizebox{\linewidth}{!}{
-\begin{tabular}{lll}
+\begin{tabular}{lrr}
 \toprule
-Violations & \#samples & RMSE\\
+\multicolumn{1}{c}{Violations} & \multicolumn{1}{c}{\#samples} & \multicolumn{1}{c}{RMSE}\\
 \midrule
 no violations & 155 & 1.267\\
 non-linearity & 2218 & 0.787\\
@@ -1190,27 +1190,27 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violation </th>
-   <th style="text-align:left;"> RMSE </th>
-   <th style="text-align:left;"> <span data-qmd="$R^2$"></span> </th>
-   <th style="text-align:left;"> MAE </th>
-   <th style="text-align:left;"> Huber loss </th>
+   <th style="text-align:center;"> Violation </th>
+   <th style="text-align:center;"> RMSE </th>
+   <th style="text-align:center;"> <span data-qmd="$R^2$"></span> </th>
+   <th style="text-align:center;"> MAE </th>
+   <th style="text-align:center;"> Huber loss </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:left;"> 0.721 </td>
-   <td style="text-align:left;"> 0.852 </td>
-   <td style="text-align:left;"> 0.553 </td>
-   <td style="text-align:left;"> 0.235 </td>
+   <td style="text-align:right;"> 0.721 </td>
+   <td style="text-align:right;"> 0.852 </td>
+   <td style="text-align:right;"> 0.553 </td>
+   <td style="text-align:right;"> 0.235 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:left;"> 0.738 </td>
-   <td style="text-align:left;"> 0.770 </td>
-   <td style="text-align:left;"> 0.566 </td>
-   <td style="text-align:left;"> 0.246 </td>
+   <td style="text-align:right;"> 0.738 </td>
+   <td style="text-align:right;"> 0.770 </td>
+   <td style="text-align:right;"> 0.566 </td>
+   <td style="text-align:right;"> 0.246 </td>
   </tr>
 </tbody>
 </table>
@@ -1239,9 +1239,9 @@ In @li2023plot, the residual plots are simulated from a data generating process 
 ::: {#tbl-experiment-performance .cell tbl-cap='The performance of the $32 \times 32$ model on the data used in the human subject experiment.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lllll}
+\begin{tabular}{lrrrr}
 \toprule
-Violation & RMSE & $R^2$ & MAE & Huber loss\\
+\multicolumn{1}{c}{Violation} & \multicolumn{1}{c}{RMSE} & \multicolumn{1}{c}{$R^2$} & \multicolumn{1}{c}{MAE} & \multicolumn{1}{c}{Huber loss}\\
 \midrule
 heteroskedasticity & 0.721 & 0.852 & 0.553 & 0.235\\
 non-linearity & 0.738 & 0.770 & 0.566 & 0.246\\
@@ -1326,38 +1326,38 @@ $$
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:left;"> #Samples </th>
-   <th style="text-align:left;"> #Agreements </th>
-   <th style="text-align:left;"> Agreement rate </th>
+   <th style="text-align:center;"> Violations </th>
+   <th style="text-align:center;"> #Samples </th>
+   <th style="text-align:center;"> #Agreements </th>
+   <th style="text-align:center;"> Agreement rate </th>
   </tr>
  </thead>
 <tbody>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with conventional tests</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 464 </td>
-   <td style="text-align:left;"> 0.8593 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 464 </td>
+   <td style="text-align:right;"> 0.8593 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 459 </td>
-   <td style="text-align:left;"> 0.7969 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 459 </td>
+   <td style="text-align:right;"> 0.7969 </td>
   </tr>
   <tr grouplength="2"><td colspan="4" style="border-bottom: 1px solid;"><strong>Compared with visual tests conducted by human</strong></td></tr>
 <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> heteroskedasticity </td>
-   <td style="text-align:left;"> 540 </td>
-   <td style="text-align:left;"> 367 </td>
-   <td style="text-align:left;"> 0.6796 </td>
+   <td style="text-align:right;"> 540 </td>
+   <td style="text-align:right;"> 367 </td>
+   <td style="text-align:right;"> 0.6796 </td>
   </tr>
   <tr>
    <td style="text-align:left;padding-left: 2em;" indentlevel="1"> non-linearity </td>
-   <td style="text-align:left;"> 576 </td>
-   <td style="text-align:left;"> 385 </td>
-   <td style="text-align:left;"> 0.6684 </td>
+   <td style="text-align:right;"> 576 </td>
+   <td style="text-align:right;"> 385 </td>
+   <td style="text-align:right;"> 0.6684 </td>
   </tr>
 </tbody>
 </table>
@@ -1386,9 +1386,9 @@ $$
 ::: {#tbl-human-conv-table .cell tbl-cap='Summary of the comparison of decisions made by computer vision model with decisions made by conventional tests and visual tests conducted by human.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{llll}
+\begin{tabular}{lrrr}
 \toprule
-Violations & \#Samples & \#Agreements & Agreement rate\\
+\multicolumn{1}{c}{Violations} & \multicolumn{1}{c}{\#Samples} & \multicolumn{1}{c}{\#Agreements} & \multicolumn{1}{c}{Agreement rate}\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{4}{l}{\textbf{Compared with conventional tests}}\\
