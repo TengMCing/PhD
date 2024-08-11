@@ -32,7 +32,8 @@ The utilization of computers to interpret data plots has a rich history, with ea
 
 Modern computer vision models are well-suited for addressing this challenge. They rely on deep neural networks with convolutional layers [@fukushima1982neocognitron]. These layers leverage hierarchical patterns in data, downsizing and transforming images by summarizing information in a small space. Numerous studies have demonstrated the efficacy of convolutional layers in addressing various vision tasks, including image recognition [@rawat2017deep]. Despite the widespread use of computer vision models in fields like computer-aided diagnosis [@lee2015image], pedestrian detection [@brunetti2018computer], and facial recognition [@emami2012facial], their application in reading data plots remains limited. While some studies have explored the use of computer vision models for tasks such as reading recurrence plots for time series regression [@ojeda2020multivariate], time series classification [@chu2019automatic; @hailesilassie2019financial; @hatami2018classification; @zhang2020encoding], anomaly detection [@chen2020convolutional], and pairwise causality analysis [@singh2017deep], the application of reading residual plots with computer vision models is a new field of study.
 
-In this chapter, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for an automated visual inference. The chapter is structured as follows. @sec-model-specifications discusses various specifications of the computer vision models. @sec-model-distance-between-residual-plots defines the distance measure used to measure model violations. @sec-model-distance-estimation explains how the computer vision models estimate this distance measure. @sec-model-statistical-testing covers the statistical testing based on the estimated distance. Sections [-@sec-model-data-generation], [-@sec-model-architecture], and [-@sec-model-training] detail the data preparation, model architecture, and training process, respectively. The results are presented in @sec-model-results. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.
+In this chapter, we develop computer vision models and integrate them into the residual plots diagnostics workflow, addressing the need for an automated visual inference. The chapter is structured as follows. @sec-model-specifications discusses various specifications of the computer vision models. @sec-model-distance-between-residual-plots defines the distance measure used to detect model violations, while @sec-model-distance-estimation explains how the computer vision models estimate this distance measure. @sec-model-statistical-testing covers the statistical tests based on the estimated distance, and @sec-model-violations-index introduces a Model Violations Index, which offers a quicker and more convenient assessment. Sections [-@sec-model-data-generation], [-@sec-model-architecture], and [-@sec-model-training] detail the data preparation, model architecture, and training process, respectively. The results are presented in @sec-model-results. Example dataset applications are discussed in @sec-examples. Finally, we conclude with a discussion of our findings and propose ideas for future research directions.
+
 
 
 
@@ -174,9 +175,36 @@ With the estimated distance $\hat{D}$, we can compare the underlying distributio
 
 It is not expected that $\hat{D}$ will be equal to original distance $D$. This is largely because information contained in a single residual plot is limited and it may not be able to summarise all the important characteristics of the residual distribution. For a given residual distribution $P$, many different residual plots can be simulated, where many will share similar visual patterns, but some of them could be visually very different from the rest, especially for regression models with small $n$. This suggests the error of the estimation will vary depends on whether the input residual plot is representative or not.
 
-## Model Violations Index {#sec:model-violations-index}
+## Statistical testing {#sec-model-statistical-testing}
 
-$\hat{D}$ is an estimator of the difference between the true residual distribution and the reference residual distribution. This difference primarily arises from deviations in model assumptions. The magnitude of $D$ directly reflects the degree of these deviations, thus making $\hat{D}$ instrumental in forming a model violations index (MVI).
+### Lineup Evaluation {#sec-model-lineup-evaluation}
+
+Theoretically, the distance $D$ for a correctly specified model is $0$, because $P$ will be the same as $Q$. However, the computer vision model may not necessary predict $0$ for a null plot. Using @fig-false-finding as an example, it contains a visual pattern which is an indication of heteroskedasticity. We would not expect the model to be able to magically tell if the suspicious pattern is caused by the skewed distribution of the fitted values or the existence of heteroskedasticity. Additionally, some null plots could have outliers or strong visual patterns due to randomness, and a reasonable model will try to summarise those information into the prediction, resulting in $\hat{D} > 0$.
+
+This property is not an issue if $\hat{D} \gg 0$ for which the visual signal of the residual plot is very strong, and we usually do not need any further examination of the significance of the result. However, if the visual pattern is weak or moderate, having $\hat{D}$ will not be sufficient to determine if $H_0$ should be rejected.
+
+To address this issue we can adhere to the paradigm of visual inference, by comparing the estimated distance $\hat{D}$ to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis $H_0$ will be rejected if $\hat{D}$ exceeds the maximum estimated distance among the $m - 1$ null plots, denoted as $\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}$, where $\hat{D}_{null}^{(i)}$ represents the estimated distance for the $i$-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where $H_0$ is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.
+
+<!-- For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising $20t$ plots, where $t$ is a positive integer, we reject $H_0$ if $\hat{D}$ exceeds 95% ${\hat{D}_{null}^{(i)}}$ for $i = 1, \ldots, 20t-1$. The $p$-value in this case is given by $\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} > \hat{D}\right)$, where $I(\cdot)$ is the indicator function. -->
+
+Moreover, if the number of plots in a lineup, denoted by $m$, is sufficiently large, the empirical distribution of ${\hat{D}_{null}^{(i)}}$ can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in @hyndman1996sample. For instance, if $\hat{D}$ is greater than or equal to the 95% sample quantile, denoted as $Q_{null}(0.95)$, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, $n_{null}$, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a $p$-value is the probability of observing a distance equally or greater than $\hat{D}$ under the null hypothesis $H_0$, and it can be estimated by $\frac{1}{m} + \frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)$.
+
+To alleviate computation burden, a lattice of quantiles for $\hat{D}$ under $H_0$ with specified sample sizes can be precomputed. We can then map the $\hat{D}$ and sample size to the closet quantile and sample size in lattice to calculate the corresponding $p$-value. This approach lose precision in $p$-value calculation, however, significantly improves computational efficiency.
+
+### Bootstrapping
+
+Bootstrap is often employed in linear regression when conducting inference for estimated parameters [see @davison1997bootstrap and @efron1994introduction]. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.
+
+Similarly, bootstrap can be applied on the estimated distance $\hat{D}$. For each refitted model $M_{boot}^{(i)}$, there will be an associated residual plot $V_{boot}^{(i)}$ which can be fed into the computer vision model to obtain $\hat{D}_{boot}^{(i)}$, where $i = 1,...,n_{boot}$, and $n_{boot}$ is the number of bootstrapped samples. If we are interested in the variation of $\hat{D}$, we can use $\hat{D}_{boot}^{(i)}$ to estimate a confidence interval. 
+
+Alternatively, since each $M_{boot}^{(i)}$ has a set of estimated coefficients $\hat{\boldsymbol{\beta}}_{boot}^{(i)}$ and an estimated variance $\hat{\sigma^2}_{boot}^{(i)}$, a new approximated null distribution can be construed and the corresponding 95% sample quantile $Q_{boot}^{(i)}(0.95)$ can be computed. Then, if $\hat{D}_{boot}^{(i)} \geq Q_{boot}^{(i)}(0.95)$, $H_0$ will be rejected for $M_{boot}^{(i)}$. The ratio of rejected $M_{boot}^{(i)}$ among all the refitted models provides an indication of how often the assumed regression model are considered to be incorrect if the data can be obtained repetitively from the same data generating process. But this approach is computationally very expensive because it requires $n_{boot} \times n_{null}$ times of residual plot assessment. In practice, $Q_{null}(0.95)$ can be used to replace $Q_{boot}^{(i)}(0.95)$ in the computation. 
+
+
+## Model Violations Index {#sec-model-violations-index}
+
+While statistical testing is a powerful tool for detecting model violations, it can become cumbersome and time-consuming when quick decisions are needed, particularly due to the need to evaluate numerous null plots. In practice, a more convenient and immediate method for assessing model performance is often required. This is where an index, such as the Model Violations Index (MVI), becomes valuable. It offers a straightforward way to quantify deviations from model assumptions, enabling rapid assessment and easier comparison across models.
+
+The estimator $\hat{D}$ measures the difference between the true residual distribution and the reference residual distribution, a difference primarily arises from deviations in model assumptions. The magnitude of $D$ directly reflects the degree of these deviations, thus making $\hat{D}$ instrumental in forming a model violations index (MVI).
 
 Note that if more observations are used for estimating the linear regression, the result of @eq-kl-1 will increase, as the integration will be performed over a higher-dimensional space. For a given data generating process, $D$ typically increases logarithmically with the number of observations. This behaviour comes from the relationship $D = \text{log}(1 + D_{KL})$, where $D_{KL} = \sum_{i=1}^{n}D_{KL}^{(i)}$ under the assumption of independence.
 
@@ -196,7 +224,7 @@ $$ {#eq-mvi}
 ::: {.content-visible when-format="html"}
 
 
-::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violation Index (MVI). The constant $C$ is set to be 10.'}
+::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violations Index (MVI). The constant $C$ is set to be 10.'}
 ::: {.cell-output-display}
 
 
@@ -250,10 +278,9 @@ $$ {#eq-mvi}
 
 
 
-::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violation Index (MVI). The constant $C$ is set to be 10.'}
+::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violations Index (MVI). The constant $C$ is set to be 10.'}
 ::: {.cell-output-display}
-\begin{table}[!h]
-\centering
+
 \begin{tabular}{lc}
 \toprule
 Degree of model violations & Range ($C$ = 10)\\
@@ -263,7 +290,6 @@ Moderate & $6 < \text{MVI} < 8$\\
 Weak & $\text{MVI} < 6$\\
 \bottomrule
 \end{tabular}
-\end{table}
 
 
 :::
@@ -303,29 +329,6 @@ Weak & $\text{MVI} < 6$\\
 
 
 
-## Statistical testing {#sec-model-statistical-testing}
-
-### Lineup Evaluation {#sec-model-lineup-evaluation}
-
-Theoretically, the distance $D$ for a correctly specified model is $0$, because $P$ will be the same as $Q$. However, the computer vision model may not necessary predict $0$ for a null plot. Using @fig-false-finding as an example, it contains a visual pattern which is an indication of heteroskedasticity. We would not expect the model to be able to magically tell if the suspicious pattern is caused by the skewed distribution of the fitted values or the existence of heteroskedasticity. Additionally, some null plots could have outliers or strong visual patterns due to randomness, and a reasonable model will try to summarise those information into the prediction, resulting in $\hat{D} > 0$.
-
-This property is not an issue if $\hat{D} \gg 0$ for which the visual signal of the residual plot is very strong, and we usually do not need any further examination of the significance of the result. However, if the visual pattern is weak or moderate, having $\hat{D}$ will not be sufficient to determine if $H_0$ should be rejected.
-
-To address this issue we can adhere to the paradigm of visual inference, by comparing the estimated distance $\hat{D}$ to the estimated distances for the null plots in a lineup. Specifically, if a lineup comprises 20 plots, the null hypothesis $H_0$ will be rejected if $\hat{D}$ exceeds the maximum estimated distance among the $m - 1$ null plots, denoted as $\max\limits_{1 \leq i \leq m-1} {\hat{D}_{null}^{(i)}}$, where $\hat{D}_{null}^{(i)}$ represents the estimated distance for the $i$-th null plot. This approach is equivalent to the typical lineup protocol requiring a 95% significance level, where $H_0$ is rejected if the data plot is identified as the most distinct plot by the sole observer. The estimated distance serves as a metric to quantify the difference between the data plot and the null plots, as intended.
-
-<!-- For lineups consisting of more than 20 plots, the 95% significance level can be maintained if the number of plots is a multiple of 20. Specifically, for lineups comprising $20t$ plots, where $t$ is a positive integer, we reject $H_0$ if $\hat{D}$ exceeds 95% ${\hat{D}_{null}^{(i)}}$ for $i = 1, \ldots, 20t-1$. The $p$-value in this case is given by $\frac{1}{20t} + \frac{1}{20t}\sum_{i=1}^{20t-1} I\left(\hat{D}_{null}^{(i)} > \hat{D}\right)$, where $I(\cdot)$ is the indicator function. -->
-
-Moreover, if the number of plots in a lineup, denoted by $m$, is sufficiently large, the empirical distribution of ${\hat{D}_{null}^{(i)}}$ can be viewed as an approximation of the null distribution of the estimated distance. Consequently, quantiles of the null distribution can be estimated using the sample quantiles, and these quantiles can be utilized for decision-making purposes. The details of the sample quantile computation can be found in @hyndman1996sample. For instance, if $\hat{D}$ is greater than or equal to the 95% sample quantile, denoted as $Q_{null}(0.95)$, we can conclude that the estimated distance for the true residual plot is significantly different from the estimated distance for null plots with a 95% significance level. Based on our experience, to obtain a stable estimate of the 95% quantile, the number of null plots, $n_{null}$, typically needs to be at least 100. However, if the null distribution exhibits a long tail, a larger number of null plots may be required. Alternatively, a $p$-value is the probability of observing a distance equally or greater than $\hat{D}$ under the null hypothesis $H_0$, and it can be estimated by $\frac{1}{m} + \frac{1}{m}\sum_{i=1}^{m-1}I\left(\hat{D}_{null}^{(i)} \geq \hat{D}\right)$.
-
-To alleviate computation burden, a lattice of quantiles for $\hat{D}$ under $H_0$ with specified sample sizes can be precomputed. We can then map the $\hat{D}$ and sample size to the closet quantile and sample size in lattice to calculate the corresponding $p$-value. This approach lose precision in $p$-value calculation, however, significantly improves computational efficiency.
-
-### Bootstrapping
-
-Bootstrap is often employed in linear regression when conducting inference for estimated parameters [see @davison1997bootstrap and @efron1994introduction]. It is typically done by sampling individual cases with replacement and refitting the regression model. If the observed data accurately reflects the true distribution of the population, the bootstrapped estimates can be used to measure the variability of the parameter estimate without making strong distributional assumptions about the data generating process.
-
-Similarly, bootstrap can be applied on the estimated distance $\hat{D}$. For each refitted model $M_{boot}^{(i)}$, there will be an associated residual plot $V_{boot}^{(i)}$ which can be fed into the computer vision model to obtain $\hat{D}_{boot}^{(i)}$, where $i = 1,...,n_{boot}$, and $n_{boot}$ is the number of bootstrapped samples. If we are interested in the variation of $\hat{D}$, we can use $\hat{D}_{boot}^{(i)}$ to estimate a confidence interval. 
-
-Alternatively, since each $M_{boot}^{(i)}$ has a set of estimated coefficients $\hat{\boldsymbol{\beta}}_{boot}^{(i)}$ and an estimated variance $\hat{\sigma^2}_{boot}^{(i)}$, a new approximated null distribution can be construed and the corresponding 95% sample quantile $Q_{boot}^{(i)}(0.95)$ can be computed. Then, if $\hat{D}_{boot}^{(i)} \geq Q_{boot}^{(i)}(0.95)$, $H_0$ will be rejected for $M_{boot}^{(i)}$. The ratio of rejected $M_{boot}^{(i)}$ among all the refitted models provides an indication of how often the assumed regression model are considered to be incorrect if the data can be obtained repetitively from the same data generating process. But this approach is computationally very expensive because it requires $n_{boot} \times n_{null}$ times of residual plot assessment. In practice, $Q_{null}(0.95)$ can be used to replace $Q_{boot}^{(i)}(0.95)$ in the computation. 
 
 
 ## Data Generation {#sec-model-data-generation}
@@ -620,6 +623,82 @@ The learning rate is a crucial hyperparameter, as it dictates the step size of t
 
 Our model was trained on the MASSIVE M3 high-performance computing platform [@goscinski2014multi], using TensorFlow [@abadi2016tensorflow] and Keras [@chollet2015keras]. During training, 80% of the training data was utilized for actual training, while the remaining 20% was used as validation data. The Bayesian optimization tuner conducted 100 trials to identify the best hyperparameter values based on validation root mean square error. The tuner then restored the best epoch of the best model from the trials. Additionally, we applied early stopping, terminating the training process if the validation root mean square error fails to improve for 50 epochs. The maximum allowed epochs was set at 2,000, although no models reached this threshold.
 
+::: {.content-visible when-format="html"}
+
+::: {#tbl-hyperparameter .cell tbl-cap='Name of hyperparameters and their correspoding domain for the computer vision model.'}
+::: {.cell-output-display}
+
+
+
+
+
+
+
+`````{=html}
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Hyperparameter </th>
+   <th style="text-align:left;"> Domain </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Number of base filters </td>
+   <td style="text-align:left;"> {4, 8, 16, 32, 64} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dropout rate for convolutional blocks </td>
+   <td style="text-align:left;"> [0.1, 0.6] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Batch normalization for convolutional blocks </td>
+   <td style="text-align:left;"> {false, true} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Type of global pooling </td>
+   <td style="text-align:left;"> {max, average} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Ignore additional inputs </td>
+   <td style="text-align:left;"> {false, true} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Number of units for the fully-connected layer </td>
+   <td style="text-align:left;"> {128, 256, 512, 1024, 2048} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Batch normalization for the fully-connected layer </td>
+   <td style="text-align:left;"> {false, true} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dropout rate for the fully-connected layer </td>
+   <td style="text-align:left;"> [0.1, 0.6] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Learning rate </td>
+   <td style="text-align:left;"><span data-qmd = "[$10^{-8}$, $10^{-1}$]"></span> </td>
+  </tr>
+</tbody>
+</table>
+
+`````
+
+
+
+
+
+
+
+:::
+:::
+
+:::
+
+
+
+::: {.content-visible when-format="pdf"}
+
 
 
 
@@ -633,16 +712,16 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 \toprule
 Hyperparameter & Domain\\
 \midrule
-Number of base filters & \{4, 8, 16, 32, 64\}\\
+Number of base filters & {4, 8, 16, 32, 64}\\
 Dropout rate for convolutional blocks & {}[0.1, 0.6]\\
-Batch normalization for convolutional blocks & \{false, true\}\\
-Type of global pooling & \{max, average\}\\
-Ignore additional inputs & \{false, true\}\\
+Batch normalization for convolutional blocks & {false, true}\\
+Type of global pooling & {max, average}\\
+Ignore additional inputs & {false, true}\\
 \addlinespace
-Number of units for the fully-connected layer & \{128, 256, 512, 1024, 2048\}\\
-Batch normalization for the fully-connected layer & \{false, true\}\\
+Number of units for the fully-connected layer & {128, 256, 512, 1024, 2048}\\
+Batch normalization for the fully-connected layer & {false, true}\\
 Dropout rate for the fully-connected layer & {}[0.1, 0.6]\\
-Learning rate & {}[\$10\textasciicircum{}\{-8\}\$, \$10\textasciicircum{}\{-1\}\$]\\
+Learning rate & {}[$10^{-8}$, $10^{-1}$]\\
 \bottomrule
 \end{tabular}
 
@@ -654,6 +733,8 @@ Learning rate & {}[\$10\textasciicircum{}\{-8\}\$, \$10\textasciicircum{}\{-1\}\
 
 
 
+
+:::
 
 Based on the tuning process described above, the optimized hyperparameter values are presented in @tbl-best-hyperparameter. It was observable that a minimum of $32$ base filters was necessary, with the preferable choice being $64$ base filters for both the $64 \times 64$ and $128 \times 128$ models, mirroring the original VGG16 architecture. The optimized dropout rate for convolutional blocks hovered around $0.4$, and incorporating batch normalization for convolutional blocks proved beneficial for performance.
 
@@ -1368,10 +1449,10 @@ Violations & \#Samples & \#Agreements & Agreement rate\\
 
 
 
-## Examples
+## Examples {#sec-examples}
 
 
-In this section, we present the performance of trained computer vision model on three example datasets. These include the dataset associated with the residual plot displaying a "left-triangle" shape, as displayed in @fig-false-finding, along with the Boston housing dataset [@@harrison1978hedonic], and the "dino" datasets from the `datasaurus` R package [@datasaurus]. 
+In this section, we present the performance of trained computer vision model on three example datasets. These include the dataset associated with the residual plot displaying a "left-triangle" shape, as displayed in @fig-false-finding, along with the Boston housing dataset [@harrison1978hedonic], and the "dino" datasets from the `datasauRus` R package [@datasaurus]. 
 
 The first example illustrates a scenario where both the computer vision model and human visual inspection successfully avoid rejecting $H_0$ when $H_0$ is true, contrary to conventional tests. This underscores the necessity of visually examining the residual plot.
 
@@ -1477,11 +1558,11 @@ The Boston housing dataset, originally published by @harrison1978hedonic, offers
 
 
 
-### Datasaurus
+### DatasauRus
 
 The computer vision model possesses the capability to detect not only typical issues like non-linearity, heteroskedasticity, and non-normality but also artifact visual patterns resembling real-world objects, as long as they do not appear in null plots. These visual patterns can be challenging to categorize in terms of model violations. Therefore, we will employ the RESET test, the Breusch-Pagan test, and the Shapiro-Wilk test [@shapiro1965analysis] for comparison.
 
-The "dino" dataset within the `datasaurus` R package exemplifies this scenario. With only two columns, x and y, fitting a regression model to this data yields a residual plot resembling a "dinosaur," as displayed in [@fig-dino-check]A. Unsurprisingly, this distinct residual plot stands out in a lineup, as shown in @fig-dino-lineup. A visual test conducted by humans would undoubtedly reject $H_0$.
+The "dino" dataset within the `datasauRus` R package exemplifies this scenario. With only two columns, x and y, fitting a regression model to this data yields a residual plot resembling a "dinosaur", as displayed in [@fig-dino-check]A. Unsurprisingly, this distinct residual plot stands out in a lineup, as shown in @fig-dino-lineup. A visual test conducted by humans would undoubtedly reject $H_0$.
 
 According to the residual plot assessment by the computer vision model, $\hat{D}$ exceeds $Q_{null}(0.95)$, warranting a rejection of $H_0$. Additionally, most of the bootstrapped fitted models will be rejected, indicating an misspecified model. However, both the RESET test and the Breusch-Pagan test yield $p$-values greater than 0.3, leading to a non-rejection of $H_0$. Only the Shapiro-Wilk test rejects the normality assumption with a small $p$-value. 
 
@@ -1515,7 +1596,7 @@ In practice, without accessing the residual plot, it would be challenging to ide
 
 ::: {.cell}
 ::: {.cell-output-display}
-![A summary of the residual plot assessment for the Datasaurus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The residual plot exhibits a "dinosaur" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\hat{D} \geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.](03-chap3_files/figure-pdf/fig-dino-check-1.pdf){#fig-dino-check fig-pos='!h'}
+![A summary of the residual plot assessment for the datasauRus fitted model evaluted on 200 null plots and 200 bootstrapped plots. (A) The residual plot exhibits a "dinosaur" shape. (B) The attention map produced by computing the gradient of the output with respect to the greyscale input.  (C) The density plot of estimated distnace for null plots and bootstrapped plots. The blue area indicates the distribution of estimated distances for bootstrapped plots, while the yellow area represents the distribution of estimated distances for null plots. The fitted model will be rejected since $\hat{D} \geq Q_{null}(0.95)$. (D) plot of first two principal components of features extracted from the global pooling layer of the computer vision model.](03-chap3_files/figure-pdf/fig-dino-check-1.pdf){#fig-dino-check fig-pos='!h'}
 :::
 :::
 
@@ -1542,7 +1623,7 @@ There are other types of residual plots commonly used in diagnostics, such as re
 
 ## Conclusion
 
-In this chapter, we have introduced a distance measure based on Kullback-Leibler divergence to quantify the disparity between the residual distribution of a fitted classical normal linear regression model and the reference residual distribution assumed under correct model specification. This distance measure effectively captures the magnitude of model violations in misspecified models. We propose a computer vision model to estimate this distance, utilizing the residual plot of the fitted model as input. The resulting estimated distance serves as the foundation for constructing a single Model Violation Index (MVI), facilitating the quantification of various model violations.
+In this chapter, we have introduced a distance measure based on Kullback-Leibler divergence to quantify the disparity between the residual distribution of a fitted classical normal linear regression model and the reference residual distribution assumed under correct model specification. This distance measure effectively captures the magnitude of model violations in misspecified models. We propose a computer vision model to estimate this distance, utilizing the residual plot of the fitted model as input. The resulting estimated distance serves as the foundation for constructing a single Model Violations Index (MVI), facilitating the quantification of various model violations.
 
 Moreover, the estimated distance enables the development of a formal statistical testing procedure by evaluating a large number of null plots generated from the fitted model. Additionally, employing bootstrapping techniques and refitting the regression model allows us to ascertain how frequently the fitted model is considered misspecified if data were repeatedly obtained from the same data generating process.
 
