@@ -7,8 +7,10 @@ execute:
 book:
   title: "Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics"
   author: "Weihao Li"
-  repo-url: https://github.com/TengMCing/PhD/tree/master/Thesis
+  repo-url: https://github.com/TengMCing/PhD
+  repo-subdir: Thesis
   repo-actions: [edit]
+  repo-branch: master
   downloads: [pdf]
   chapters:
     - text: "Front matter"
