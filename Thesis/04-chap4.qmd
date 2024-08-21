@@ -1,4 +1,4 @@
-# Tools for Automated Residual Plot Assessment: autovi and autovi.web
+# Software for Automated Residual Plot Assessment: autovi and autovi.web
 
 Regression software is widely available today, but tools for effective diagnostics are still lagging. Although it is advised to diagnose a linear model by plotting residuals, it required human effort which can be prohibit the efforts. Here we describe a new R package that includes a computer vision model for automated assessment of residual plots, and an accompanying shiny app for ease of use. 
 
@@ -24,7 +24,7 @@ To make the statistical testing procedure and trained computer vision model wide
 
 The remainder of this chapter is structured as follows: @sec-autovi provides a detailed documentation of the `autovi` package, including its usage and infrastructure. @sec-autovi-web focuses on the `autovi.web` interface, describing its design and usage, along with illustrative examples. Finally, @sec-autovi-conclusion presents the main conclusions of this work.
 
-## autovi {#sec-autovi}
+## R package: autovi {#sec-autovi}
 
 The main purpose of `autovi` is to provide rejection decisions and $p$-values for testing whether a regression model is correctly specified. The package introduces a novel approach to automating statistical analysis, particularly in the interpretation of residual plots. The name `autovi` stands for automated visual inference. While initially designed for linear regression residual diagnostics, it has the potential to be extended to broader visual inference applications, as we'll discuss in section @sec-autovi-infrastructure.
 
@@ -430,7 +430,7 @@ print(ext_auto_vi(lm(dist ~ speed, data = cars)))
 ```
 
 
-## autovi.web {#sec-autovi-web}
+## Web interface: autovi.web {#sec-autovi-web}
 
 In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
 
