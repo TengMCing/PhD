@@ -19,6 +19,7 @@ book:
     - "02-chap2.qmd"
     - "03-chap3.qmd"
     - "04-chap4.qmd"
+    - "05-chap5.qmd"
     - "refs.qmd"
   appendices:
     - "A-appA.qmd"
