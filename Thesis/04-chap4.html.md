@@ -1,4 +1,4 @@
-# Tools for Automated Residual Plot Assessment: autovi and autovi.web
+# Software for Automated Residual Plot Assessment: autovi and autovi.web
 
 Regression software is widely available today, but tools for effective diagnostics are still lagging. Although it is advised to diagnose a linear model by plotting residuals, it required human effort which can be prohibit the efforts. Here we describe a new R package that includes a computer vision model for automated assessment of residual plots, and an accompanying shiny app for ease of use. 
 
@@ -24,7 +24,7 @@ To make the statistical testing procedure and trained computer vision model wide
 
 The remainder of this chapter is structured as follows: @sec-autovi provides a detailed documentation of the `autovi` package, including its usage and infrastructure. @sec-autovi-web focuses on the `autovi.web` interface, describing its design and usage, along with illustrative examples. Finally, @sec-autovi-conclusion presents the main conclusions of this work.
 
-## autovi {#sec-autovi}
+## R package: autovi {#sec-autovi}
 
 The main purpose of `autovi` is to provide rejection decisions and $p$-values for testing whether a regression model is correctly specified. The package introduces a novel approach to automating statistical analysis, particularly in the interpretation of residual plots. The name `autovi` stands for automated visual inference. While initially designed for linear regression residual diagnostics, it has the potential to be extended to broader visual inference applications, as we'll discuss in section @sec-autovi-infrastructure.
 
@@ -45,7 +45,7 @@ The `autovi` package is available on CRAN. It is actively developed and maintain
 
 ### Usage {#sec-autovi-quick-start}
 
-To get started quickly, users need only five lines of code to obtain a summary of the automated residual assessment:
+To get started quickly, users need only three lines of code to obtain a summary of the automated residual assessment:
 
 
 
@@ -64,10 +64,8 @@ To get started quickly, users need only five lines of code to obtain a summary o
 
 ```r
 library(autovi)
-checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars), 
-                   keras_model = get_keras_model("vss_phn_32"))
+checker <- residual_checker(fitted_model = lm(dist ~ speed, data = cars))
 checker$check()
-checker
 ```
 
 
@@ -95,7 +93,7 @@ checker
 ── <AUTO_VI object>
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
  - Result:
     - Observed visual signal strength: 3.162 (p-value = 0.0396)
@@ -217,24 +215,11 @@ The modules for visual signal strength prediction and $p$-value computation are 
 
 An `autovi` checker can be initialized by supplying two primary inputs, including a regression model object, such as an `lm` object representing the result of a linear regression model, and a trained computer vision model compatible with the `Keras` [@chollet2015keras] Application Programming Interface (API), to the `AUTO_VI` class constructor `auto_vi()`. The input will be stored in the checker and can be accessed by the user through the `$` operator.
 
-
-
-
-
-
-::: {.cell}
-
-```{.r .cell-code}
+```r
 library(autovi)
 checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars), 
                    keras_model = get_keras_model("vss_phn_32"))
 ```
-:::
-
-
-
-
-
 
 Optionally, the user may specify the node index of the output layer of the trained computer vision model to be monitored by the checker via the `node_index` argument if there are multiple output nodes. This is particularly useful for multiclass classifiers when the user wants to use one of the nodes as a visual signal strength indicator.
 
@@ -266,9 +251,25 @@ checker
 ── <AUTO_VI object>
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
- - Result: UNKNOWN 
+ - Result:
+    - Observed visual signal strength: 3.162 (p-value = 0.0396)
+    - Null visual signal strength: [100 draws]
+       - Mean: 1.274
+       - Quantiles: 
+          ╔═════════════════════════════════════════════════╗
+          ║   25%    50%    75%    80%    90%    95%    99% ║
+          ║0.8021 1.1109 1.5751 1.6656 1.9199 2.6564 3.3491 ║
+          ╚═════════════════════════════════════════════════╝
+    - Bootstrapped visual signal strength: [100 draws]
+       - Mean: 2.786 (p-value = 0.05941)
+       - Quantiles: 
+          ╔══════════════════════════════════════════╗
+          ║  25%   50%   75%   80%   90%   95%   99% ║
+          ║2.452 2.925 3.173 3.285 3.463 3.505 3.652 ║
+          ╚══════════════════════════════════════════╝
+    - Likelihood ratio: 0.7275 (boot) / 0.06298 (null) = 11.55 
 ```
 
 
@@ -391,16 +392,16 @@ checker$boot_method(data = checker$get_data())
 # A tibble: 50 × 2
    .fitted .resid
      <dbl>  <dbl>
- 1    30.0  -2.04
- 2    37.6  -1.58
- 3    30.0 -16.0 
- 4    52.7 -10.7 
- 5    15.0   1.03
- 6    30.0 -10.0 
- 7    56.4  11.6 
- 8    22.5   3.50
- 9    37.6  42.4 
-10    26.3  -9.27
+ 1   27.0   -2.96
+ 2   38.8  -12.8 
+ 3   34.8   -8.82
+ 4   27.0  -13.0 
+ 5   11.2    4.76
+ 6   42.7   -2.68
+ 7   42.7   -2.68
+ 8   38.8  -18.8 
+ 9   38.8   15.2 
+10   -4.47   6.47
 # ℹ 40 more rows
 ```
 
@@ -470,18 +471,18 @@ checker$null_method()
 
 ```
 # A tibble: 50 × 2
-   .fitted .resid
-     <dbl>  <dbl>
- 1   -1.85 -19.0 
- 2   -1.85 -17.0 
- 3    9.95   3.77
- 4    9.95  19.7 
- 5   13.9    7.26
- 6   17.8  -12.5 
- 7   21.7   -2.14
- 8   21.7   15.4 
- 9   21.7  -19.9 
-10   25.7    6.28
+   .fitted  .resid
+     <dbl>   <dbl>
+ 1   -1.85  18.2  
+ 2   -1.85  -0.765
+ 3    9.95 -12.8  
+ 4    9.95  18.6  
+ 5   13.9    2.57 
+ 6   17.8    7.03 
+ 7   21.7  -11.1  
+ 8   21.7  -13.2  
+ 9   21.7  -12.6  
+10   25.7    3.57 
 # ℹ 40 more rows
 ```
 
@@ -515,7 +516,7 @@ checker$plot_resid()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-14-1.png){width=384}
+![](04-chap4_files/figure-html/unnamed-chunk-13-1.png){width=384}
 :::
 :::
 
@@ -540,7 +541,7 @@ checker$null_method() |>
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-15-1.png){width=384}
+![](04-chap4_files/figure-html/unnamed-chunk-14-1.png){width=384}
 :::
 :::
 
@@ -569,7 +570,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpFDoT7B/file110c8763a1b24.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpKiKSfD/file1c9659e25e23.png"
 ```
 
 
@@ -589,14 +590,7 @@ To construct a `KERAS_WRAPPER` object, you need to provide the Keras model as th
 
 The following code example demonstrate the way to manually generate the true residual plot, save it as PNG file, and load it back as `Numpy` array.
 
-
-
-
-
-
-::: {.cell}
-
-```{.r .cell-code}
+```r
 wrapper <- keras_wrapper(keras_model = checker$keras_model)  
 input_array <- checker$plot_resid() |> 
   checker$save_plot() |>
@@ -604,6 +598,12 @@ input_array <- checker$plot_resid() |>
 input_array$shape
 ```
 
+
+
+
+
+
+::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -613,6 +613,7 @@ input_array$shape
 
 :::
 :::
+
 
 
 
@@ -630,17 +631,16 @@ Another way to obtain visual signal strength is by calling the `check()` method.
 
 Calling the `vss()` method without arguments will predict the visual signal strength for the true residual plot and return the result as a single-element `tibble`.
 
+```r
+checker$vss()
+```
+
 
 
 
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-checker$vss()
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -659,7 +659,14 @@ checker$vss()
 
 
 
+
 Providing a `data.frame` of null residuals or a null residual plot yields the same visual signal strength.
+
+
+```r
+null_resid <- checker$null_method()
+checker$vss(null_resid)
+```
 
 
 
@@ -667,12 +674,6 @@ Providing a `data.frame` of null residuals or a null residual plot yields the sa
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-null_resid <- checker$null_method()
-checker$vss(null_resid)
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -686,14 +687,24 @@ checker$vss(null_resid)
 :::
 :::
 
-::: {.cell}
 
-```{.r .cell-code}
+
+
+
+
+
+```r
 null_resid |>
   checker$plot_resid() |>
   checker$vss()
 ```
 
+
+
+
+
+
+::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -714,19 +725,19 @@ null_resid |>
 
 The `null_vss()` helper method primarily takes the number of null plots as input. If the user wants to use a ad hoc null simulation scheme, it can be provided via the `null_method` argument. Intermediate results, including null residuals and null plots, can be returned by enabling `keep_null_data` and `keep_null_plot`. The visual signal strength, along with null residuals and null plots, will be stored in a `tibble` with three columns. The following code example demonstrates how to predict the visual signal strength for five null residual plots while keeping the intermediate results.
 
+```r
+checker$null_vss(5L, 
+                 keep_null_data = TRUE, 
+                 keep_null_plot = TRUE)
+```
+
+
 
 
 
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-checker$null_vss(5L, 
-                 keep_null_data = TRUE, 
-                 keep_null_plot = TRUE)
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -750,6 +761,12 @@ checker$null_vss(5L,
 
 
 The `boot_vss()` helper method is similar to `null_vss()`, with some differences in argument names. The following code example demonstrates how to predict the visual signal strength for five bootstrapped residual plots while keeping the intermediate results.
+
+```r
+checker$boot_vss(5L,
+                 keep_boot_data = TRUE,
+                 keep_boot_plot = TRUE)
+```
 
 
 
@@ -783,18 +800,17 @@ The `boot_vss()` helper method is similar to `null_vss()`, with some differences
 
 Once we have obtained the visual signal strength from both the true residual plot and the null plots, we can compute the $p$-value. This $p$-value represents the ratio of plots with visual signal strength greater than or equal to that of the true residual plot. We can perform this calculation using the `check()` method. The main inputs for this method are the number of null plots and the number of bootstrapped plots to generate. If you need to access intermediate residuals and plots, you can enable the `keep_data` and `keep_plot` options. The method stores the final result in the `check_result` field of the object. To obtain the p-value using the `check()` method, you can use the following code.
 
+```r
+checker$check(boot_draws = 100L, null_draws = 100L)
+checker$check_result$p_value
+```
+
 
 
 
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-checker$check(boot_draws = 100L, null_draws = 100L)
-checker$check_result$p_value
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -838,7 +854,7 @@ checker
 ── <AUTO_VI object>
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
  - Result:
     - Observed visual signal strength: 3.162 (p-value = 0.0198)
@@ -885,7 +901,7 @@ checker$summary_plot(boot_dist = NULL,
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-25-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-24-1.png){width=768}
 :::
 :::
 
@@ -910,7 +926,7 @@ checker$summary_plot(type = "rank")
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-26-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-25-1.png){width=768}
 :::
 :::
 
@@ -941,36 +957,7 @@ wrapper$list_layer_name()
 ::: {.cell-output .cell-output-stdout}
 
 ```
- [1] "input_1"                  "tf.__operators__.getitem"
- [3] "tf.nn.bias_add"           "grey_scale"              
- [5] "block1_conv1"             "batch_normalization"     
- [7] "activation"               "block1_conv2"            
- [9] "batch_normalization_1"    "activation_1"            
-[11] "block1_pool"              "dropout"                 
-[13] "block2_conv1"             "batch_normalization_2"   
-[15] "activation_2"             "block2_conv2"            
-[17] "batch_normalization_3"    "activation_3"            
-[19] "block2_pool"              "dropout_1"               
-[21] "block3_conv1"             "batch_normalization_4"   
-[23] "activation_4"             "block3_conv2"            
-[25] "batch_normalization_5"    "activation_5"            
-[27] "block3_conv3"             "batch_normalization_6"   
-[29] "activation_6"             "block3_pool"             
-[31] "dropout_2"                "block4_conv1"            
-[33] "batch_normalization_7"    "activation_7"            
-[35] "block4_conv2"             "batch_normalization_8"   
-[37] "activation_8"             "block4_conv3"            
-[39] "batch_normalization_9"    "activation_9"            
-[41] "block4_pool"              "dropout_3"               
-[43] "block5_conv1"             "batch_normalization_10"  
-[45] "activation_10"            "block5_conv2"            
-[47] "batch_normalization_11"   "activation_11"           
-[49] "block5_conv3"             "batch_normalization_12"  
-[51] "activation_12"            "block5_pool"             
-[53] "dropout_4"                "global_max_pooling2d"    
-[55] "additional_input"         "concatenate"             
-[57] "dense"                    "dropout_5"               
-[59] "activation_13"            "dense_1"                 
+NULL
 ```
 
 
@@ -986,14 +973,7 @@ Among these layers, the "global_max_pooling2d" layer is a 2D global max pooling 
 
 To obtain the features, provide the layer name using the `extract_feature_from_layer` argument in the `predict()` method. This will return a `tibble` with the visual signal strength and all features extracted from that layer. Each row corresponds to one plot. The features will be flattened into 2D and named with the prefix "f_" followed by a number from one to the total number of features.
 
-
-
-
-
-
-::: {.cell}
-
-```{.r .cell-code}
+```r
 checker$plot_resid() |>
   checker$save_plot() |>
   wrapper$image_to_array() |>
@@ -1001,6 +981,12 @@ checker$plot_resid() |>
                   extract_feature_from_layer = "global_max_pooling2d")
 ```
 
+
+
+
+
+
+::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -1020,6 +1006,7 @@ checker$plot_resid() |>
 
 :::
 :::
+
 
 
 
@@ -1030,17 +1017,16 @@ Alternatively, the `AUTO_VI` class provides a way to extract features using the 
 
 The results from the previous code example can be replicated with a single line of code as shown below.
 
+```r
+checker$vss(extract_feature_from_layer = "global_max_pooling2d")
+```
+
 
 
 
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-checker$vss(extract_feature_from_layer = "global_max_pooling2d")
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -1066,9 +1052,17 @@ checker$vss(extract_feature_from_layer = "global_max_pooling2d")
 
 
 
+
 The argument `extract_feature_from_layer` is also available in other functions that build on the `vss()` method, including `null_vss()`, `boot_vss()`, and `check()`.
 
 The package provides tools for analyzing these extracted features through the `feature_pca()` method and its associated visualization method, `feature_pca_plot()`. The `feature_pca()` method performs principal component analysis (PCA) on the features to reduce their dimensionality. However, it requires that a `check()` is performed first, as it relies on results stored in `check_result`. Alternatively, you can manually provide features using the `feature`, `null_feature`, and `boot_feature` arguments for the true residual plot, null plots, and bootstrapped plots, respectively. The `feature_pca()` method returns a tibble containing both the original features and the principal components. The rotation matrix and standard deviations of each principal component are stored as attributes.
+
+```r
+checker$check(null_draws = 100L,
+              boot_draws = 100L,
+              extract_feature_from_layer = "global_max_pooling2d")
+checker$feature_pca()
+```
 
 
 
@@ -1076,14 +1070,6 @@ The package provides tools for analyzing these extracted features through the `f
 
 
 ::: {.cell}
-
-```{.r .cell-code}
-checker$check(null_draws = 100L,
-              boot_draws = 100L,
-              extract_feature_from_layer = "global_max_pooling2d")
-checker$feature_pca()
-```
-
 ::: {.cell-output .cell-output-stdout}
 
 ```
@@ -1119,6 +1105,7 @@ checker$feature_pca()
 
 
 
+
 The `feature_pca_plot()` method visualizes the results of the PCA. By default, it plots the first principal component on the x-axis and the second principal component on the y-axis, with points colored according to their origi, true residual plots, null residual plots, or bootstrapped residual plots. Users can customize the x and y axes by specifying symbols for the `x` and `y` arguments. Additionally, the `col_by_set` option can be disabled if you prefer not to use coloring.
 
 
@@ -1133,7 +1120,7 @@ checker$feature_pca_plot()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-31-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-30-1.png){width=768}
 :::
 :::
 
@@ -1157,16 +1144,17 @@ The trained computer vision models described in @sec-second-paper are hosted on 
 ::: {.cell-output .cell-output-stdout}
 
 ```
-# A tibble: 6 × 7
-  model_name  path  input_height input_width input_channels auxiliary_input_size
-  <chr>       <chr>        <int>       <int>          <int>                <int>
-1 vss_32      kera…           32          32              3                    0
-2 vss_64      kera…           64          64              3                    0
-3 vss_128     kera…          128         128              3                    0
-4 vss_phn_32  kera…           32          32              3                    5
-5 vss_phn_64  kera…           64          64              3                    5
-6 vss_phn_128 kera…          128         128              3                    5
-# ℹ 1 more variable: description <chr>
+# A tibble: 6 × 9
+  model_name  path              volume_path volume_size input_height input_width
+  <chr>       <chr>             <chr>             <int>        <int>       <int>
+1 vss_32      keras_model/vss_… keras_mode…           4           32          32
+2 vss_64      keras_model/vss_… keras_mode…           1           64          64
+3 vss_128     keras_model/vss_… keras_mode…           8          128         128
+4 vss_phn_32  keras_model/vss_… keras_mode…           2           32          32
+5 vss_phn_64  keras_model/vss_… keras_mode…           8           64          64
+6 vss_phn_128 keras_model/vss_… keras_mode…           8          128         128
+# ℹ 3 more variables: input_channels <int>, auxiliary_input_size <int>,
+#   description <chr>
 ```
 
 
@@ -1252,16 +1240,16 @@ To register a method for an extended class, you need to pass the class as the fi
 # A tibble: 50 × 2
    .fitted .resid
      <dbl>  <dbl>
- 1   -1.85 -16.8 
- 2   -1.85   7.40
- 3    9.95 -25.5 
- 4    9.95  15.9 
- 5   13.9    1.82
- 6   17.8   -6.60
- 7   21.7   -8.77
- 8   21.7   19.6 
- 9   21.7  -10.8 
-10   25.7   16.2 
+ 1   -1.85 -12.4 
+ 2   -1.85 -18.8 
+ 3    9.95  22.6 
+ 4    9.95 -27.5 
+ 5   13.9   28.7 
+ 6   17.8  -13.6 
+ 7   21.7   21.4 
+ 8   21.7   12.5 
+ 9   21.7  -16.2 
+10   25.7   -2.93
 # ℹ 40 more rows
 ```
 
@@ -1291,95 +1279,135 @@ To create an object in `bandicoot`, you need to call the `instantiate()` method 
 
 
 
-## autovi.web {#sec-autovi-web}
+## Web interface: autovi.web {#sec-autovi-web}
 
 In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
 
-Recognizing these potential barriers, we were motivated to design and implement a web interface called `autovi.web`. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, `autovi.web` lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of `autovi`, allowing more researchers and analysts to benefit from its capabilities. Third, by running on a controlled server environment, `autovi.web` ensures a consistent experience for all users, regardless of their local machine setup. Additionally, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, `autovi.web` offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.
+Recognizing these potential barriers, we were motivated to design and implement a web interface called `autovi.web`. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, `autovi.web` lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of `autovi`, allowing more researchers and analysts to benefit from its capabilities. Third, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, `autovi.web` offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.
 
-By providing this web interface, we aim to significantly reduce the technical hurdles associated with using `autovi`, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.
+
+`autovi.web` is available at [autoviweb.netlify.app](autoviweb.netlify.app). The implementation discussed in this chapter is based on `autovi.web` version 0.1.0. By providing this web interface, we aim to significantly reduce the technical hurdles associated with using `autovi`, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.
 
 ### Implementation
 
-`autovi.web` is a sophisticated web application built using the `shiny` and `shinydashboard` R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser, offering advantages such as scalability and ease of maintenance.
+`autovi.web` is a web application built using the `shiny` [@shiny] and `shinydashboard` [@shinydashboard] R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser.Additionally, R packages `htmltools` [@htmltools] and `shinycssloaders` [@shinycssloaders] are used to render markdown document in shiny application, and add loading animation for shiny widgets, respectively.
 
-In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework, which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on, `splanes`, uses compiled Fortran code. Unfortunately, a working Emscripten version of this code, which would be required for `webr`, was not available.
+In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. Unfortunately, a working Emscripten version of this package, which would be required for `webr`, was not available.
 
-We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Calling R from Python is typically done using the `rpy2` Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation, making it challenging to develop our application in this manner. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise, which we did not possess at the time. Ultimately, we decided that the most pragmatic solution was to use the `shiny` and `shinydashboard` frameworks, which are well-established in the R community and offer a robust foundation for web application development. This approach allowed us to build `autovi.web` on top of a familiar and well-supported ecosystem, while still taking advantage of the flexibility and power of the underlying Python libraries used by `autovi`.
+We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Additionally, calling R from Python is typically done using the `rpy2` Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation, making it challenging to develop our application in this manner. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise, which we did not possess at the time. Ultimately, we decided that the most practical solution was to use the `shiny` and `shinydashboard` frameworks, which are well-established in the R community and offer a solid foundation for web application development.
 
-The server-side configuration of `autovi.web` is carefully designed to support its functionality. Most required Python libraries, including `pillow` and `NumPy`, are pre-installed on the server. These libraries are seamlessly integrated into the Shiny application using the `reticulate` package, which provides a robust interface between R and Python.
+The server-side configuration of `autovi.web` is carefully designed to support its functionality. Most required Python libraries, including `pillow` and `NumPy`, are pre-installed on the server. These libraries are integrated into the Shiny application using the `reticulate` package, which provides an interface between R and Python.
 
-Due to the nature of shinyapps.io's resource allocation, the server enters a sleep mode during periods of inactivity, resulting in the clearing of the local Python virtual environment. Consequently, when the application "wakes up" for a new user session, these libraries need to be reinstalled. While this ensures a clean environment for each session, it may lead to slightly longer loading times for the first user after a period of inactivity.
+Due to the resource allocation policy of shinyapps.io, the server enters a sleep mode during periods of inactivity, resulting in the clearing of the local Python virtual environment. Consequently, when the application "wakes up" for a new user session, these libraries need to be reinstalled. While this ensures a clean environment for each session, it may lead to slightly longer loading times for the first user after a period of inactivity.
 
-In contrast to `autovi`, `autovi.web` does not use the native Python version of `TensorFlow`. Instead, it leverages `TensorFlow.js`, a JavaScript library that allows the execution of machine learning models directly in the browser. This choice enables native browser execution, enhancing compatibility across different user environments, and shifts the computational load from the server to the client-side, allowing for better scalability and performance, especially when dealing with resource-intensive computer vision models on shinyapps.io. While `autovi` requires downloading pre-trained computer vision models from GitHub, these models in ".keras" file format are incompatible with `TensorFlow.js`. Therefore, we store the model weights in JSON files and include them as extra resources in the Shiny application. When the application initializes, `TensorFlow.js` rebuilds the computer vision model using these pre-stored weights.
+In contrast to `autovi`, `autovi.web` does not use the native Python version of `TensorFlow`. Instead, it leverages `TensorFlow.js`, a JavaScript library that allows the execution of machine learning models directly in the browser. This choice enables native browser execution, enhancing compatibility across different user environments, and shifts the computational load from the server to the client-side. `TensorFlow.js` also offers better scalability and performance, especially when dealing with resource-intensive computer vision models on shinyapps.io. 
 
-To allow communication between `TensorFlow.js` and other components of the Shiny application, the `shinyjs` R package is used. This package allows for the seamless integration of custom JavaScript code into the Shiny framework. The specialized JavaScript code for initializing `TensorFlow.js` and calling `TensorFlow.js` for visual signal strength prediction is deployed alongside the Shiny application as additional resources.
+While `autovi` requires downloading pre-trained computer vision models from GitHub, these models in ".keras" file format are incompatible with `TensorFlow.js`. Therefore, we extract and store the model weights in JSON files and include them as extra resources in the Shiny application. When the application initializes, `TensorFlow.js` rebuilds the computer vision model using these pre-stored weights.
 
+To allow communication between `TensorFlow.js` and other components of the Shiny application, the `shinyjs` R package is used. This package allows calling custom JavaScript code within the Shiny framework. The specialized JavaScript code for initializing `TensorFlow.js` and calling `TensorFlow.js` for visual signal strength prediction is deployed alongside the Shiny application as additional resources.
 
-
-
-<!-- Furthermore, the computer vision model used in `autovi` requires a fixed-size 4D tensor as input. The dimensions of this tensor are as follows: the first dimension represents the batch size, the second dimension represents the width of the image, the third dimension represents the height of the image, and the fourth dimension represents the number of channels. The model outputs a numeric vector that represents the visual signal strength for each image in the batch. The computer vision model is also trained with a set of fixed-aesthetic residual plots, which means that the input images must be produced using the same data pipeline that was used for the training data preparation. This consistency is crucial for ensuring that the model can accurately interpret and analyze new data. -->
-
-<!-- A significant portion of our web interface is dedicated to managing this data pipeline. This involves processing the user-provided data to generate input images that conform to the required format for the computer vision model. The pipeline ensures that the residual plots created from the user data match the aesthetics and format of the training data, enabling the model to provide accurate visual signal strength assessments. -->
-
-<!-- Our web interface simplifies this process for the user by automating the necessary steps to transform their data into the appropriate input format. Users can upload their CSV files, and the interface handles the extraction of residuals, the creation of residual plots, and the formatting of these plots into 4D tensors. This seamless integration allows users to focus on interpreting the results rather than on the technical details of data preparation. -->
-
-### Data Pipeline
-
-In this section, we will describe the entire data pipeline, including handling uploaded data, creating and saving fixed-aesthetic residual plots, loading and transforming images to the desired input format, and predicting visual signal strength.
-
-#### Input File Format
-
-As described in Section \ref{background}, the `autovi` package requires a regression model object to initialize the diagnostics. However, it is impractical to ask users to upload an R regression model object for inspection. There are several reasons for this: 
-
-1. **User Complexity**: Saving an R object to the filesystem involves extra steps and requires users to have specific knowledge.
-2. **Data Sensitivity**: The regression model object may contain sensitive, non-shareable data.
-3. **File Size**: The R object is often unnecessarily large because it contains extra information not needed for diagnostics.
-
-To simplify the process, the web interface instead requests a CSV file. This CSV file should contain at least two columns: `.fitted`, representing the fitted values, and `.resid`, representing the residuals. Additionally, it can contain an optional column `.sample` to indicate the ID of the residual plot. This is particularly useful if the user wants to evaluate a lineup of residual plots.
-
-Compared to an R model object, a CSV file can be easily generated by various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. CSV files are generally less sensitive than raw data because most information about the predictors is excluded. 
-
-#### Plot Drawing and Image Loading
-
-The training data for the computer vision models consist of $32 \times 32$ RGB residual plots. These plots display fitted values on the x-axis and residuals on the y-axis. All labels, including axis texts, are excluded, and no background grid lines are included in the plots. Residual points are drawn in black with a size of 0.5 points, where there are 72.27 points per inch. Additionally, a horizontal red line is drawn at $y = 0$ to help the computer vision model determine if the residual points are uniformly distributed on both sides of the line. The plot is then saved as a PNG file with a resolution of $420 \times 525$ pixels. This resolution mimics a typical lineup residual plot, which has a resolution of $2100 \times 2100$ pixels and is arranged in four rows and five columns.
-
-The uploaded CSV file will be partitioned based on the values in the optional column `k`. If no optional column `k` is present, the entire data set will be used as one partition. Each partition will utilize the plot specifications to generate one residual plot and produce one PNG file.
-
-The saved PNG plot is loaded as an array, where each entry contains a pixel value of the image. This array is then resized to match the input layer shape of the computer vision model, which is $1 \times 32 \times 32 \times 3$. If multiple images are needed for visual signal strength estimation, the arrays can be stacked together to form a larger array with the shape $n \times 32 \times 32 \times 3$, where $n$ is the number of images.
-
-#### Visual Signal Strength Estimation
-
-Finally, the processed image array will be fed into the computer vision model, and returned a vector of visual signal strength which are numerical values always greater than zero.
- 
-### Software Stack
-
-#### Backend
-
-To utilize the `autovi` R package, the server hosting our web interface must have a functional R interpreter. A static HTML page cannot accomplish this task, as it only serves static resources to the client and lacks the capability to execute R code. The alternative option would be WebR, a version of R designed to run within a web browser. However, integrating WebR introduces complexities into the design of the web interface, which we will explore further in Section XXX. Additionally, 
-The resizing of the image is originally done by the Python `Pillow` library. To maintain the same data pipeline, we also need a working Python interpreter. Given the required conditions, we have three options: (1) Use a traditional backend like the `Spring` framework written in Java for handling all the income and outcome traffic of the web interface. Meanwhile, install R and Python in the server and call them when needed. (2) Use a Python backend framework like `Flask` so that the `Pillow` library can be used natively. Still, R needs to be installed and correctly configured in the server and called when needed. (3) Use a R backend framework like `Shiny`. This is similar to the second option, but requires to install and configure Python separately.
-
-Option one requires a good understanding
+### Design {#sec-autovi-web-design}
 
 
 
 
-<!-- Thus, we chose to implement the web interface with a shiny server. Shiny server is a backend framework written in R, so it allows us to receive user's input and interactively update the output rendered on the client side using R code.  -->
-
-<!-- We deploy the shiny server using the services provided by Posit, called `shinyapps.io`. It is responsible for reading in the uploaded CSV file with the `readr` R package, splitting the dataset with the `dplyr` R package and drawing the residual plots with the `ggplot2` R package. The resulting PNG files are stored in the temporary directory of the remote machine. -->
 
 
-<!-- The saved PNG file  -->
-
-
-#### Frontend
+::: {.cell}
+::: {.cell-output-display}
+![Overview of the `autovi.web` graphical user interface (GUI). This default view may change based on user interactions. Region 1 is the sidebar menu, containing the residual assessment tab and the information tab. Region 2 is the data upload panel, where users can provide a CSV file and specify the type of data it contains. Region 3 includes dropdown menus for selecting the columns to be analyzed, a slider to control the number of bootstrapping samples, and a numeric input box for setting the simulation seed. Region 4 displays the initialization status and offers a button to start the analysis. Region 5 is empty in the default view but will be populated with results once the analysis is started. ](figures/autovi_web.png){#fig-autovi-web width=100%}
+:::
+:::
 
 
 
-#### Communications between Software
 
-### Distribute Keras Model Files
 
-### Performance Optimization
 
-## Conclusions
+While the R package `autovi` aims to provide tools that can be extended to broader visual inference applicaitons, `autovi.web` is only focus on to for provdinign a straightforward and clean uesr interface. An overview of the grahpical user interface of `autovi.web` is provided in @fig-autovi-web. This is the default view of the web applicaiton, and there are five regions that user can mainly interact with. Region 1 of @fig-autovi-web is a sidebar menu which can switch between the anlysis page and the information page. The analysis page is the focus of this section. 
+
+Region 2 of @fig-autovi-web is a panel for data uploading and CSV type selection. Clicking the "upload CSV" button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the "upload CSV" button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in @sec-autovi-web-example.
+
+While the `autovi` package typically expects a fitted regression model object provided by the user, this approach is impractical for a web interface. Saving the R model object to the filesystem involves extra steps and requires users to have specific knowledge, which does not align with the goal of the web application. Moreover, the regression model object may contain sensitive, non-shareable data, making it unsuitable for uploading. Additionally, model objects are often unnecessarily large, containing extra information not needed for residual diagnostics. In contrast, a CSV file is easier to generate using various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. They are generally less sensitive than raw data, as they exclude most information about the predictors. 
+
+The web application is designed to assess either a single residual plot or a lineup of residual plots. Therefore, it accepts only two types of CSV files: one with at least two columns representing the fitted values and residuals of a single residual plot, and another with at least three columns, where the additional column serves as the label or identifier for a lineup of multiple residual plots. For a single residual plot, 19 null plots are generated by simulating normal random draws from a distribution with the same variance as the original residual plot, and comparisons are made with the original residual plot. For a lineup, comparisons are made among the plots within the lineup. After uploading the CSV file, the user must select the correct format to ensure the web interface interprets the data correctly. 
+
+
+
+
+
+
+::: {.cell}
+::: {.cell-output-display}
+![The panels for selecting target columns and simulation settings are updated when a different CSV type is selected in the left panel. Compared to @fig-autovi-web, where the CSV type is a single residual plot, choosing a CSV type that includes a lineup of multiple residual plots adds a dropdown menu for specifying a column for the residual plot identifier. Additionally, an optional dropdown menu for specifying the true residual plot identifier will appear under the simulation settings.](figures/autovi_web_type.png){#fig-autovi-web-type width=100%}
+:::
+:::
+
+
+
+
+
+
+Region 3 of @fig-autovi-web is a panel for column selection and simulation settings. As shown in @fig-autovi-web, if the CSV type is set to a single residual plot, there will be two dropdown menus for specifying the columns for fitted values and residuals, respectively. The default variable names for these columns are `.fitted` and `.resid`. After uploading the CSV file, the content of these dropdown menus will be updated to reflect the existing columns in the dataset. As displayed in @fig-autovi-web-type, for the CSV type that is a lineup of multiple residual plots, an additional dropdown menu will appear for specifying the column of residual plot labels. The default variable name for this column is `.sample`. If this variable name does not exist in the dataset, the dropdown menu will remain empty, allowing the user to specify the correct column. The number of levels for each option in this dropdown menu will be displayed to help avoid the selection of a variable with too many levels, which could significantly slow down the application due to extensive computation.
+
+Under the simulation settings, there is a slider for specifying the number of bootstrapped samples needed for the assessment. A higher value on this slider will result in a more accurate bootstrap distribution estimation, though it will require more computation time. The simulation seed can be set in a numeric input box below the slider to control the reproducibility of the assessment. By default, a random seed is set each time the web page is refreshed. When the CSV type is a lineup of multiple residual plots, an optional dropdown menu will appear next to the simulation seed input box, allowing the user to specify an identifier for the true residual plot. If no label is provided for the true residual plot, the assessment will only estimate the visual signal strength for each residual plot in the lineup, without providing a $p$-value, as it cannot be computed. Consequently, some result panels may be missing due to insufficient information. This option is useful when the lineup consists solely of null plots or if the user simply wants to obtain the visual signal strength for multiple residual plots.
+
+Region 4 of @fig-autovi-web is the panel for triggering the assessment. It contains a large play button to start the assessment. Above the play button, a text message displays the status of `TensorFlow.js`, allowing users to monitor whether the JavaScript library and Keras model have been loaded correctly. The play button will remain disabled until both the data status in Region 1 and the `TensorFlow.js` status in Region 4 indicate that everything is ready, with both showing a green status.
+
+Once the play button is clicked, region 5 of @fig-autovi-web will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in @fig-autovi-web-result and @fig-autovi-web-result2. 
+
+
+
+
+
+
+
+
+::: {.cell}
+::: {.cell-output-display}
+![The first two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the first two. In region 1, there is an interactive table detailing the visual signal strength, with a summary of the analysis provided in the paragraph below. Region 2 displays a lineup of residual plots.](figures/autovi_web_result.png){#fig-autovi-web-result width=100%}
+:::
+:::
+
+::: {.cell}
+::: {.cell-output-display}
+![The last two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the final two. Region 1 presents a density plot comparing the bootstrapped visual signal strength with the null visual signal strength. Region 2 includes an attention map of the true residual plot.](figures/autovi_web_result2.png){#fig-autovi-web-result2 width=100%}
+:::
+:::
+
+::: {.cell}
+::: {.cell-output-display}
+![The attention map is hidden if the assessment indicates a $p$-value greater than 0.05. A button is available to toggle the display of the attention map.](figures/autovi_web_gradient_hide.png){#fig-autovi-web-gradient-hide width=100%}
+:::
+:::
+
+
+
+
+
+
+
+Region 6 of @fig-autovi-web-result contains an interactive table created with the R package `DT` [@dt], which provides the visual signal strength. This table includes four columns: `.sample`, `vss`, `rank`, and `null`. The `.sample` column shows the residual plot labels. For a CSV type that is a lineup, these labels are taken from an identifier column in the dataset specified by the user. In the case of the CSV type is a single residual plot, labels are automatically generated from 1 to 20, with the true residual plot receiving a randomly assigned label. The `vss` column displays the visual signal strength for each residual plot, rounded to three decimal places. The `rank` column indicates the ranking of each residual plot based on visual signal strength. The `null` column reveals whether the plot is a null plot. For the CSV type that is a single residual plot, only the true residual plot will have "false" in this column, while all other plots will be marked "true." For the CSV type that is a lineup, if the true residual plot identifier has not been provided, this column will show "NA" to represent missing values. If the identifier is provided by user, the column behaves as if the CSV type is a single residual plot.
+
+The `DT` table provides several interactive features. Users can download the table in four formats, including text, CSV, Excel, and PDF, using the buttons located above the table. Additionally, the table is searchable via the text input field also positioned above it. Below the table, a text message displays the $p$-value of the assessment for the true residual plot and summarizes the number of null plots with visual signal strength greater than that of the true residual plot. This helps the user determine whether the true residual plot shows visual patterns that suggest model violations.
+
+Region 7 of @fig-autovi-web-result provides a lineup of plots corresponding to each `.sample` value from the table in Region 6. Due to space limitations, a maximum of 20 residual plots will be displayed, ensuring that the true residual plot, if known, will be included in the lineup. The plots are generated using `ggplot2`, the same as in `autovi`. Users can perform a visual test with this lineup to check if the true residual plot is distinguishable from the other plots, helping to determine the significance of model violations.
+
+Region 8 of @fig-autovi-web-result2 displays the density plot for bootstrapped visual signal strength and null visual signal strength. The densities are shown in distinct colors that are friendly for colorblind users. A solid vertical line marks the visual signal strength of the true residual plot, while rug lines at the bottom of the plot provide a clearer view of individual cases. Below the plot, a text message indicates the number and percentage of bootstrapped residual plots that would be rejected by the visual test when compared to the null plots. Note that the bootstrapped residual plots in this application are generated differently from `autovi`. Since we do not have the R model object, we can not refit the regression model with bootstrapped data. Instead, we bootstrap the residuals of the true residual plot directly to obtain bootstrapped residual plots. As as result, this panel will disappear when the true residual plot is unknonw.
+
+Region 9 of @fig-autovi-web-result2 shows an attention map of the true residual plot, by computing the graident of Keras model output with repspect to the greyscale input of the true residual plot. We choose to show the attention map because it is useful for understanding how the Keras model predict the visual signal strength, and which area it is particurally focusing on. The greyscale input is used because it is relatively difficult to show a clear attention map in RGB channels and it usually will not provide more information than the greyscale since most of the important infromation of the plot are drawn in black.
+
+
+Region 9 of @fig-autovi-web-result2 displays an attention map for the true residual plot, generated by computing the gradient of the Keras model's output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts visual signal strength and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the $p$-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in @fig-autovi-web-gradient-hide. This button allows users to toggle the display of the attention map.
+
+### Workflow
+
+The workflow of `autovi.web` is designed to be straightforward, with numbered steps displayed in the main user interface as shown in @fig-autovi-web. Since the design details have already been covered in @sec-autovi-web-design, we will not repeat the functionality of each panel in this section.
+
+For general users, the workflow starts with Step 1: uploading a CSV file by clicking the "upload CSV" button. A window will pop up, allowing the user to select the CSV file. The CSV file should contain at least two columns representing fitted values and residuals of a residual plot. If a lineup needs to be evaluated, the CSV file should contain an additional column for labels of reisidual plot.  In Step 2, the user specifies the CSV type based on the uploaded file, choosing between a single residual plot or a lineup of multiple residual plots. Step 3 involves selecting the appropriate columns for fitted values, residuals, and, optionally, labels of residual plots, from the dataset. In Step 4, the user sets the number of bootstrapped draws needed for the analysis; more draws provide a better estimate of the bootstrapped distribution but result in slower computation. The user should also set the seed to control the simulation. If the dataset contains a lineup and the true residual plot is known, select its label. Finally, clicking the play button will initiate the analysis, and the user can review the result panels.
+
+### Example {#sec-autovi-web-example}
+
+
+
+## Conclusions {#sec-autovi-conclusion}

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>4&nbsp; Tools for Automated Residual Plot Assessment: autovi and autovi.web – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
+<title>4&nbsp; Software for Automated Residual Plot Assessment: autovi and autovi.web – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -165,7 +165,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-chap4.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Tools for Automated Residual Plot Assessment: autovi and autovi.web</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-chap4.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Software for Automated Residual Plot Assessment: autovi and autovi.web</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -217,7 +217,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-chap4.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Tools for Automated Residual Plot Assessment: autovi and autovi.web</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Software for Automated Residual Plot Assessment: autovi and autovi.web</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -258,15 +258,15 @@ window.Quarto = {
    
   <ul class="collapse">
 <li><a href="#sec-autovi-introduction" id="toc-sec-autovi-introduction" class="nav-link active" data-scroll-target="#sec-autovi-introduction"><span class="header-section-number">4.1</span> Introduction</a></li>
-  <li><a href="#sec-autovi" id="toc-sec-autovi" class="nav-link" data-scroll-target="#sec-autovi"><span class="header-section-number">4.2</span> autovi</a></li>
-  <li><a href="#sec-autovi-web" id="toc-sec-autovi-web" class="nav-link" data-scroll-target="#sec-autovi-web"><span class="header-section-number">4.3</span> autovi.web</a></li>
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">4.4</span> Conclusions</a></li>
+  <li><a href="#sec-autovi" id="toc-sec-autovi" class="nav-link" data-scroll-target="#sec-autovi"><span class="header-section-number">4.2</span> R package: autovi</a></li>
+  <li><a href="#sec-autovi-web" id="toc-sec-autovi-web" class="nav-link" data-scroll-target="#sec-autovi-web"><span class="header-section-number">4.3</span> Web interface: autovi.web</a></li>
+  <li><a href="#sec-autovi-conclusion" id="toc-sec-autovi-conclusion" class="nav-link" data-scroll-target="#sec-autovi-conclusion"><span class="header-section-number">4.4</span> Conclusions</a></li>
   </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/edit/master/Thesis/04-chap4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Tools for Automated Residual Plot Assessment: autovi and autovi.web</span>
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Software for Automated Residual Plot Assessment: autovi and autovi.web</span>
 </h1>
 </div>
 
@@ -293,9 +293,9 @@ window.Quarto = {
 <p>By estimating the visual signal strength for all plots in a lineup, we can compute a <span class="math inline">p</span>-value based on the ratio of plots with visual signal strength greater than or equal to that of the true residual plot. This <span class="math inline">p</span>-value has a lower bound of one divided by the number of plots in the lineup. Additionally, we can construct a null distribution of visual signal strength using the strengths of null plots.</p>
 <p>We can also apply bootstrapping to obtain a distribution of visual signal strengths. This involves bootstrapping the data used to fit the linear regression model, refitting the model to obtain bootstrapped residuals, and then using the computer vision model to predict visual signal strength for these residuals. The resulting bootstrapped distribution can be compared against the null distribution. If these distributions are largely similar, it suggests that the bootstrapped residual plots are similar to the null plots. The proportion of bootstrapped visual signal strengths exceeding a critical value (such as the 95% sample quantile of the null distribution) indicates how often the assumed regression model would be considered incorrect if the data could be repeatedly obtained from the same data-generating process.</p>
 <p>To make the statistical testing procedure and trained computer vision model widely accessible, we developed the R package <code>autovi</code>. In addition, we created a web-based tool that offers a user-friendly interface, enabling users to diagnose their residual plots without the need to install any dependencies required by the <code>autovi</code> package.</p>
-<p>The remainder of this chapter is structured as follows: <a href="#sec-autovi" class="quarto-xref"><span>Section 4.2</span></a> provides a detailed documentation of the <code>autovi</code> package, including its usage and infrastructure. <a href="#sec-autovi-web" class="quarto-xref"><span>Section 4.3</span></a> focuses on the <code>autovi.web</code> interface, describing its design and usage, along with illustrative examples. Finally, <span class="quarto-unresolved-ref">?sec-autovi-conclusion</span> presents the main conclusions of this work.</p>
+<p>The remainder of this chapter is structured as follows: <a href="#sec-autovi" class="quarto-xref"><span>Section 4.2</span></a> provides a detailed documentation of the <code>autovi</code> package, including its usage and infrastructure. <a href="#sec-autovi-web" class="quarto-xref"><span>Section 4.3</span></a> focuses on the <code>autovi.web</code> interface, describing its design and usage, along with illustrative examples. Finally, <a href="#sec-autovi-conclusion" class="quarto-xref"><span>Section 4.4</span></a> presents the main conclusions of this work.</p>
 </section><section id="sec-autovi" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="sec-autovi">
-<span class="header-section-number">4.2</span> autovi</h2>
+<span class="header-section-number">4.2</span> R package: autovi</h2>
 <p>The main purpose of <code>autovi</code> is to provide rejection decisions and <span class="math inline">p</span>-values for testing whether a regression model is correctly specified. The package introduces a novel approach to automating statistical analysis, particularly in the interpretation of residual plots. The name <code>autovi</code> stands for automated visual inference. While initially designed for linear regression residual diagnostics, it has the potential to be extended to broader visual inference applications, as we’ll discuss in section <a href="#sec-autovi-infrastructure" class="quarto-xref"><span>Section 4.2.4</span></a>.</p>
 <section id="sec-autovi-implementation" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="sec-autovi-implementation">
 <span class="header-section-number">4.2.1</span> Implementation</h3>
@@ -308,12 +308,10 @@ window.Quarto = {
 <p>The <code>autovi</code> package is available on CRAN. It is actively developed and maintained, with the latest updates accessible on GitHub at <a href="https://github.com/TengMCing/autovi">https://github.com/TengMCing/autovi</a>. The code discussed in this chapter is based on <code>autovi</code> version 0.4.1.</p>
 </section><section id="sec-autovi-quick-start" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="sec-autovi-quick-start">
 <span class="header-section-number">4.2.3</span> Usage</h3>
-<p>To get started quickly, users need only five lines of code to obtain a summary of the automated residual assessment:</p>
+<p>To get started quickly, users need only three lines of code to obtain a summary of the automated residual assessment:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/autovi/">autovi</a></span><span class="op">)</span></span>
-<span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/AUTO_VI.html">auto_vi</a></span><span class="op">(</span>fitted_model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span>, </span>
-<span>                   keras_model <span class="op">=</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/get_keras_model.html">get_keras_model</a></span><span class="op">(</span><span class="st">"vss_phn_32"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/AUTO_VI.html">residual_checker</a></span><span class="op">(</span>fitted_model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
@@ -322,7 +320,7 @@ window.Quarto = {
 <pre><code>── &lt;AUTO_VI object&gt;
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
  - Result:
     - Observed visual signal strength: 3.162 (p-value = 0.0396)
@@ -394,11 +392,9 @@ Figure&nbsp;4.1: Diagram illustrating the infrastructure of the R package autovi
 <p>The modules for visual signal strength prediction and <span class="math inline">p</span>-value computation are predefined and cannot be overridden, although users can interact with them directly through function arguments. Similarly, the image reading and resizing module is fixed but will adapt to different Keras models by checking their input shapes. The remaining seven modules are designed to be overridable, enabling users to tailor the infrastructure to their specific needs. These modules will be discussed in detail in the following sections.</p>
 <section id="initialization" class="level4"><h4 class="anchored" data-anchor-id="initialization">Initialization</h4>
 <p>An <code>autovi</code> checker can be initialized by supplying two primary inputs, including a regression model object, such as an <code>lm</code> object representing the result of a linear regression model, and a trained computer vision model compatible with the <code>Keras</code> <span class="citation" data-cites="chollet2015keras">(<a href="refs.html#ref-chollet2015keras" role="doc-biblioref">Chollet et al. 2015</a>)</span> Application Programming Interface (API), to the <code>AUTO_VI</code> class constructor <code><a href="https://tengmcing.github.io/autovi/reference/AUTO_VI.html">auto_vi()</a></code>. The input will be stored in the checker and can be accessed by the user through the <code>$</code> operator.</p>
-<div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/autovi/">autovi</a></span><span class="op">)</span></span>
 <span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/AUTO_VI.html">auto_vi</a></span><span class="op">(</span>fitted_model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span>, </span>
 <span>                   keras_model <span class="op">=</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/get_keras_model.html">get_keras_model</a></span><span class="op">(</span><span class="st">"vss_phn_32"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Optionally, the user may specify the node index of the output layer of the trained computer vision model to be monitored by the checker via the <code>node_index</code> argument if there are multiple output nodes. This is particularly useful for multiclass classifiers when the user wants to use one of the nodes as a visual signal strength indicator.</p>
 <p>After initializing the object, you can print the checker to view its status.</p>
 <div class="cell">
@@ -410,9 +406,25 @@ Figure&nbsp;4.1: Diagram illustrating the infrastructure of the R package autovi
 <pre><code>── &lt;AUTO_VI object&gt;
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
- - Result: UNKNOWN </code></pre>
+ - Result:
+    - Observed visual signal strength: 3.162 (p-value = 0.0396)
+    - Null visual signal strength: [100 draws]
+       - Mean: 1.274
+       - Quantiles: 
+          ╔═════════════════════════════════════════════════╗
+          ║   25%    50%    75%    80%    90%    95%    99% ║
+          ║0.8021 1.1109 1.5751 1.6656 1.9199 2.6564 3.3491 ║
+          ╚═════════════════════════════════════════════════╝
+    - Bootstrapped visual signal strength: [100 draws]
+       - Mean: 2.786 (p-value = 0.05941)
+       - Quantiles: 
+          ╔══════════════════════════════════════════╗
+          ║  25%   50%   75%   80%   90%   95%   99% ║
+          ║2.452 2.925 3.173 3.285 3.463 3.505 3.652 ║
+          ╚══════════════════════════════════════════╝
+    - Likelihood ratio: 0.7275 (boot) / 0.06298 (null) = 11.55 </code></pre>
 </div>
 </div>
 <p>The status includes the list of regression model classes (as provided by the built-in <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function), the input and output shapes of the Keras model in the standard <code>Numpy</code> format <span class="citation" data-cites="harris2020array">(<a href="refs.html#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span>, the output node index being monitored, and the assessment result. If no check has been run yet, the assessment result will display as “UNKNOWN”.</p>
@@ -463,16 +475,16 @@ Status:
 <pre><code># A tibble: 50 × 2
    .fitted .resid
      &lt;dbl&gt;  &lt;dbl&gt;
- 1    30.0  -2.04
- 2    37.6  -1.58
- 3    30.0 -16.0 
- 4    52.7 -10.7 
- 5    15.0   1.03
- 6    30.0 -10.0 
- 7    56.4  11.6 
- 8    22.5   3.50
- 9    37.6  42.4 
-10    26.3  -9.27
+ 1   27.0   -2.96
+ 2   38.8  -12.8 
+ 3   34.8   -8.82
+ 4   27.0  -13.0 
+ 5   11.2    4.76
+ 6   42.7   -2.68
+ 7   42.7   -2.68
+ 8   38.8  -18.8 
+ 9   38.8   15.2 
+10   -4.47   6.47
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
@@ -495,18 +507,18 @@ Status:
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
-   .fitted .resid
-     &lt;dbl&gt;  &lt;dbl&gt;
- 1   -1.85 -19.0 
- 2   -1.85 -17.0 
- 3    9.95   3.77
- 4    9.95  19.7 
- 5   13.9    7.26
- 6   17.8  -12.5 
- 7   21.7   -2.14
- 8   21.7   15.4 
- 9   21.7  -19.9 
-10   25.7    6.28
+   .fitted  .resid
+     &lt;dbl&gt;   &lt;dbl&gt;
+ 1   -1.85  18.2  
+ 2   -1.85  -0.765
+ 3    9.95 -12.8  
+ 4    9.95  18.6  
+ 5   13.9    2.57 
+ 6   17.8    7.03 
+ 7   21.7  -11.1  
+ 8   21.7  -13.2  
+ 9   21.7  -12.6  
+10   25.7    3.57 
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
@@ -518,7 +530,7 @@ Status:
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="384"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -529,7 +541,7 @@ Status:
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="384"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -540,19 +552,19 @@ Status:
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpFDoT7B/file110c8763a1b24.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpKiKSfD/file1c9659e25e23.png"</code></pre>
 </div>
 </div>
 </section><section id="image-reading-and-resizing" class="level4"><h4 class="anchored" data-anchor-id="image-reading-and-resizing">Image Reading and Resizing</h4>
 <p>When training computer vision models, it is common to test various input sizes for the same architecture to identify the optimal setup. This involves preparing the original training image at a higher resolution than required and then resizing it to match the input size during training. The <code>autovi</code> package includes a class, <code>KERAS_WRAPPER</code>, to simplify this process. This Keras wrapper class features a method called <code>image_to_array()</code>, which reads an image as a <code>PIL</code> image using the <code>pillow</code> Python package, resizes it to the target input size required by the Keras model, and converts it to a <code>Numpy</code> array.</p>
 <p>To construct a <code>KERAS_WRAPPER</code> object, you need to provide the Keras model as the main argument. However, users generally do not need to interact with this class directly, as the <code>autovi</code> checker automatically invokes its methods when performing visual signal strength predictions. The <code>image_to_array()</code> method takes the path to the image file, the target height, and the target width as inputs and returns a <code>Numpy</code> array. If not specified, the target height and target width will be retrieved from the input layer of the Keras model by the <code>get_input_height()</code> and <code>get_input_width()</code> method of <code>KERAS_WRAPPER</code>.</p>
 <p>The following code example demonstrate the way to manually generate the true residual plot, save it as PNG file, and load it back as <code>Numpy</code> array.</p>
-<div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span>keras_model <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span>  </span>
 <span><span class="va">input_array</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">input_array</span><span class="op">$</span><span class="va">shape</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>(1, 32, 32, 3)</code></pre>
 </div>
@@ -562,8 +574,8 @@ Status:
 <p>There are several ways to obtain visual signal strength from the checker, with the most direct being the <code>vss()</code> method. By default, this method predicts the visual signal strength for the true residual plot. If a <code>ggplot</code> or a <code>data.frame</code>, such as null residuals generated by the <code>null_method()</code>, is explicitly provided, the method will use that input to predict visual signal strength accordingly. Note that if a <code>ggplot</code> is provided, auxiliary inputs must be supplied manually via the <code>auxiliary</code> argument, as we assume that auxiliary variables can not be computed directly from a <code>ggplot</code>.</p>
 <p>Another way to obtain visual signal strength is by calling the <code>check()</code> method. This comprehensive method perform extensive diagnostics on the true residual plot and store the visual signal strength in the <code>check_result</code> field of the checker. Additionally, for obtaining visual signal strength for null residual plots and bootstrapped residual plots, there are two specialized methods, <code>null_vss()</code> and <code>boot_vss()</code>, designed for this purpose respectively.</p>
 <p>Calling the <code>vss()</code> method without arguments will predict the visual signal strength for the true residual plot and return the result as a single-element <code>tibble</code>.</p>
-<div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
     vss
@@ -572,9 +584,9 @@ Status:
 </div>
 </div>
 <p>Providing a <code>data.frame</code> of null residuals or a null residual plot yields the same visual signal strength.</p>
-<div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="va">null_resid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
     vss
@@ -582,10 +594,10 @@ Status:
 1  1.02</code></pre>
 </div>
 </div>
-<div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
     vss
@@ -594,10 +606,10 @@ Status:
 </div>
 </div>
 <p>The <code>null_vss()</code> helper method primarily takes the number of null plots as input. If the user wants to use a ad hoc null simulation scheme, it can be provided via the <code>null_method</code> argument. Intermediate results, including null residuals and null plots, can be returned by enabling <code>keep_null_data</code> and <code>keep_null_plot</code>. The visual signal strength, along with null residuals and null plots, will be stored in a <code>tibble</code> with three columns. The following code example demonstrates how to predict the visual signal strength for five null residual plots while keeping the intermediate results.</p>
-<div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_vss</span><span class="op">(</span><span class="fl">5L</span>, </span>
 <span>                 keep_null_data <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                 keep_null_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
     vss data              plot  
@@ -610,6 +622,9 @@ Status:
 </div>
 </div>
 <p>The <code>boot_vss()</code> helper method is similar to <code>null_vss()</code>, with some differences in argument names. The following code example demonstrates how to predict the visual signal strength for five bootstrapped residual plots while keeping the intermediate results.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">boot_vss</span><span class="op">(</span><span class="fl">5L</span>,</span>
+<span>                 keep_boot_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                 keep_boot_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -625,16 +640,16 @@ Status:
 </section><section id="p-value-computation" class="level4"><h4 class="anchored" data-anchor-id="p-value-computation">
 <span class="math inline">P</span>-value Computation</h4>
 <p>Once we have obtained the visual signal strength from both the true residual plot and the null plots, we can compute the <span class="math inline">p</span>-value. This <span class="math inline">p</span>-value represents the ratio of plots with visual signal strength greater than or equal to that of the true residual plot. We can perform this calculation using the <code>check()</code> method. The main inputs for this method are the number of null plots and the number of bootstrapped plots to generate. If you need to access intermediate residuals and plots, you can enable the <code>keep_data</code> and <code>keep_plot</code> options. The method stores the final result in the <code>check_result</code> field of the object. To obtain the p-value using the <code>check()</code> method, you can use the following code.</p>
-<div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="va">check_result</span><span class="op">$</span><span class="va">p_value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01980198</code></pre>
 </div>
 </div>
 <p>You can also check the <span class="math inline">p</span>-value by printing the checker, which includes it in the summary report.</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -642,7 +657,7 @@ Status:
 <pre><code>── &lt;AUTO_VI object&gt;
 Status:
  - Fitted model: lm
- - Keras model: (None, 32, 32, 3) + (None, 5) -&gt; (None, 1)
+ - Keras model: UNKNOWN
     - Output node index: 1
  - Result:
     - Observed visual signal strength: 3.162 (p-value = 0.0198)
@@ -667,11 +682,11 @@ Status:
 <span class="header-section-number">4.2.5</span> Summary Plots</h3>
 <p>After executing the <code>check()</code> method, <code>autovi</code> offers two visualization options for the assessment result through the <code>summary_plot()</code> method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in an earlier section. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot. For instance, you can omit the bootstrapped distribution by setting <code>boot_dist</code> to <code>NULL</code>. Similarly, you can hide the null distribution (<code>null_dist</code>), the <span class="math inline">p</span>-value (<code>p_value</code>), or the likelihood ratio (<code>likelihood_ratio</code>) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.</p>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>boot_dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>boot_dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                     likelihood_ratio <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -679,10 +694,10 @@ Status:
 <p>This customization allows you to focus on specific aspects of the assessment, tailoring the visualization to your analytical needs.</p>
 <p>The rank plot, creating by setting <code>type</code> to “rank”, is a bar plot where the x-axis represents the rank and the y-axis shows the visual signal strength. The bar for the true residual plot is colored in red. By examining the rank plot, you can intuitively understand how the observed visual signal strength compares to the null visual signal strengths and identify any outliers in the null distribution.</p>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -692,49 +707,20 @@ Status:
 <p>In addition to predicting visual signal strength and computing <span class="math inline">p</span>-values, <code>autovi</code> offers methods to extract features from any layer of the Keras model. To see which layers are available in the current Keras model, you can use the <code>list_layer_name()</code> method from the <code>KERAS_WRAPPER</code> class.</p>
 <p>The following code example lists the layer names of the currently used Keras model:</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
 <span><span class="va">wrapper</span><span class="op">$</span><span class="fu">list_layer_name</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "input_1"                  "tf.__operators__.getitem"
- [3] "tf.nn.bias_add"           "grey_scale"              
- [5] "block1_conv1"             "batch_normalization"     
- [7] "activation"               "block1_conv2"            
- [9] "batch_normalization_1"    "activation_1"            
-[11] "block1_pool"              "dropout"                 
-[13] "block2_conv1"             "batch_normalization_2"   
-[15] "activation_2"             "block2_conv2"            
-[17] "batch_normalization_3"    "activation_3"            
-[19] "block2_pool"              "dropout_1"               
-[21] "block3_conv1"             "batch_normalization_4"   
-[23] "activation_4"             "block3_conv2"            
-[25] "batch_normalization_5"    "activation_5"            
-[27] "block3_conv3"             "batch_normalization_6"   
-[29] "activation_6"             "block3_pool"             
-[31] "dropout_2"                "block4_conv1"            
-[33] "batch_normalization_7"    "activation_7"            
-[35] "block4_conv2"             "batch_normalization_8"   
-[37] "activation_8"             "block4_conv3"            
-[39] "batch_normalization_9"    "activation_9"            
-[41] "block4_pool"              "dropout_3"               
-[43] "block5_conv1"             "batch_normalization_10"  
-[45] "activation_10"            "block5_conv2"            
-[47] "batch_normalization_11"   "activation_11"           
-[49] "block5_conv3"             "batch_normalization_12"  
-[51] "activation_12"            "block5_pool"             
-[53] "dropout_4"                "global_max_pooling2d"    
-[55] "additional_input"         "concatenate"             
-[57] "dense"                    "dropout_5"               
-[59] "activation_13"            "dense_1"                 </code></pre>
+<pre><code>NULL</code></pre>
 </div>
 </div>
 <p>Among these layers, the “global_max_pooling2d” layer is a 2D global max pooling layer that outputs the results from the last convolutional blocks. As <span class="citation" data-cites="simonyan2014very">Simonyan and Zisserman (<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">2014</a>)</span> noted, all preceding convolutional blocks can be viewed as a large feature extractor. Consequently, the output from this layer provides features that can be utilized for various purposes, such as performing transfer learning.</p>
 <p>To obtain the features, provide the layer name using the <code>extract_feature_from_layer</code> argument in the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> method. This will return a <code>tibble</code> with the visual signal strength and all features extracted from that layer. Each row corresponds to one plot. The features will be flattened into 2D and named with the prefix “f_” followed by a number from one to the total number of features.</p>
-<div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span>auxiliary <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                  extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 257
     vss   f_1   f_2   f_3   f_4   f_5    f_6   f_7    f_8   f_9   f_10  f_11
@@ -751,8 +737,8 @@ Status:
 </div>
 <p>Alternatively, the <code>AUTO_VI</code> class provides a way to extract features using the <code>vss()</code> method. This method is essentially a high-level wrapper around the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> method of <code>KERAS_WRAPPER</code>, but it offers a more straightforward interface and better default arguments.</p>
 <p>The results from the previous code example can be replicated with a single line of code as shown below.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span>extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span>extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 257
     vss   f_1   f_2   f_3   f_4   f_5    f_6   f_7    f_8   f_9   f_10  f_11
@@ -769,11 +755,11 @@ Status:
 </div>
 <p>The argument <code>extract_feature_from_layer</code> is also available in other functions that build on the <code>vss()</code> method, including <code>null_vss()</code>, <code>boot_vss()</code>, and <code>check()</code>.</p>
 <p>The package provides tools for analyzing these extracted features through the <code>feature_pca()</code> method and its associated visualization method, <code>feature_pca_plot()</code>. The <code>feature_pca()</code> method performs principal component analysis (PCA) on the features to reduce their dimensionality. However, it requires that a <code>check()</code> is performed first, as it relies on results stored in <code>check_result</code>. Alternatively, you can manually provide features using the <code>feature</code>, <code>null_feature</code>, and <code>boot_feature</code> arguments for the true residual plot, null plots, and bootstrapped plots, respectively. The <code>feature_pca()</code> method returns a tibble containing both the original features and the principal components. The rotation matrix and standard deviations of each principal component are stored as attributes.</p>
-<div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>null_draws <span class="op">=</span> <span class="fl">100L</span>,</span>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>null_draws <span class="op">=</span> <span class="fl">100L</span>,</span>
 <span>              boot_draws <span class="op">=</span> <span class="fl">100L</span>,</span>
 <span>              extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">feature_pca</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 201 × 458
      f_1   f_2   f_3   f_4   f_5    f_6     f_7    f_8   f_9   f_10   f_11
@@ -799,10 +785,10 @@ Status:
 </div>
 <p>The <code>feature_pca_plot()</code> method visualizes the results of the PCA. By default, it plots the first principal component on the x-axis and the second principal component on the y-axis, with points colored according to their origi, true residual plots, null residual plots, or bootstrapped residual plots. Users can customize the x and y axes by specifying symbols for the <code>x</code> and <code>y</code> arguments. Additionally, the <code>col_by_set</code> option can be disabled if you prefer not to use coloring.</p>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">feature_pca_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">feature_pca_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="768"></p>
+<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -813,16 +799,17 @@ Status:
 <p>The trained computer vision models described in <a href="03-chap3.html" class="quarto-xref"><span>Chapter 3</span></a> are hosted on a GitHub repository at <a href="https://github.com/TengMCing/autovi_data">https://github.com/TengMCing/autovi_data</a>. Currently, there are six models available. You can view them by calling <code><a href="https://tengmcing.github.io/autovi/reference/list_keras_model.html">list_keras_model()</a></code>, which will return a <code>tibble</code> showing the input shape and a description of each model.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  model_name  path  input_height input_width input_channels auxiliary_input_size
-  &lt;chr&gt;       &lt;chr&gt;        &lt;int&gt;       &lt;int&gt;          &lt;int&gt;                &lt;int&gt;
-1 vss_32      kera…           32          32              3                    0
-2 vss_64      kera…           64          64              3                    0
-3 vss_128     kera…          128         128              3                    0
-4 vss_phn_32  kera…           32          32              3                    5
-5 vss_phn_64  kera…           64          64              3                    5
-6 vss_phn_128 kera…          128         128              3                    5
-# ℹ 1 more variable: description &lt;chr&gt;</code></pre>
+<pre><code># A tibble: 6 × 9
+  model_name  path              volume_path volume_size input_height input_width
+  &lt;chr&gt;       &lt;chr&gt;             &lt;chr&gt;             &lt;int&gt;        &lt;int&gt;       &lt;int&gt;
+1 vss_32      keras_model/vss_… keras_mode…           4           32          32
+2 vss_64      keras_model/vss_… keras_mode…           1           64          64
+3 vss_128     keras_model/vss_… keras_mode…           8          128         128
+4 vss_phn_32  keras_model/vss_… keras_mode…           2           32          32
+5 vss_phn_64  keras_model/vss_… keras_mode…           8           64          64
+6 vss_phn_128 keras_model/vss_… keras_mode…           8          128         128
+# ℹ 3 more variables: input_channels &lt;int&gt;, auxiliary_input_size &lt;int&gt;,
+#   description &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>The <code><a href="https://tengmcing.github.io/autovi/reference/get_keras_model.html">get_keras_model()</a></code> function can be used to download a model to a temporary directory and load it into memory using <code>TensorFlow</code>. It requires only the model name, which is the value in the first column of the <code>tibble</code> returned by <code><a href="https://tengmcing.github.io/autovi/reference/list_keras_model.html">list_keras_model()</a></code>.</p>
@@ -856,73 +843,118 @@ Status:
 <pre><code># A tibble: 50 × 2
    .fitted .resid
      &lt;dbl&gt;  &lt;dbl&gt;
- 1   -1.85 -16.8 
- 2   -1.85   7.40
- 3    9.95 -25.5 
- 4    9.95  15.9 
- 5   13.9    1.82
- 6   17.8   -6.60
- 7   21.7   -8.77
- 8   21.7   19.6 
- 9   21.7  -10.8 
-10   25.7   16.2 
+ 1   -1.85 -12.4 
+ 2   -1.85 -18.8 
+ 3    9.95  22.6 
+ 4    9.95 -27.5 
+ 5   13.9   28.7 
+ 6   17.8  -13.6 
+ 7   21.7   21.4 
+ 8   21.7   12.5 
+ 9   21.7  -16.2 
+10   25.7   -2.93
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
 <p>To create an object in <code>bandicoot</code>, you need to call the <code>instantiate()</code> method of a class. Alternatively, you can build a convenient class constructor for your class. It is recommended to provide the full list of arguments in the class constructor instead of using <code>...</code>, as this makes it easier for integrated development environments (IDEs) like RStudio to offer argument completion hints to the user.</p>
 </section></section><section id="sec-autovi-web" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-autovi-web">
-<span class="header-section-number">4.3</span> autovi.web</h2>
+<span class="header-section-number">4.3</span> Web interface: autovi.web</h2>
 <p>In <a href="#sec-autovi-implementation" class="quarto-xref"><span>Section 4.2.1</span></a>, we discussed how <code>autovi</code> relies on several Python libraries, with a particularly strong dependency on <code>TensorFlow</code>. Managing a Python environment and correctly installing <code>TensorFlow</code> on a local machine can be challenging for many users. Moreover, <code>TensorFlow</code> is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the <code>autovi</code> package.</p>
-<p>Recognizing these potential barriers, we were motivated to design and implement a web interface called <code>autovi.web</code>. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, <code>autovi.web</code> lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of <code>autovi</code>, allowing more researchers and analysts to benefit from its capabilities. Third, by running on a controlled server environment, <code>autovi.web</code> ensures a consistent experience for all users, regardless of their local machine setup. Additionally, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, <code>autovi.web</code> offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.</p>
-<p>By providing this web interface, we aim to significantly reduce the technical hurdles associated with using <code>autovi</code>, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.</p>
+<p>Recognizing these potential barriers, we were motivated to design and implement a web interface called <code>autovi.web</code>. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, <code>autovi.web</code> lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of <code>autovi</code>, allowing more researchers and analysts to benefit from its capabilities. Third, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, <code>autovi.web</code> offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.</p>
+<p><code>autovi.web</code> is available at <a href="autoviweb.netlify.app">autoviweb.netlify.app</a>. The implementation discussed in this chapter is based on <code>autovi.web</code> version 0.1.0. By providing this web interface, we aim to significantly reduce the technical hurdles associated with using <code>autovi</code>, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.</p>
 <section id="implementation" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="implementation">
 <span class="header-section-number">4.3.1</span> Implementation</h3>
-<p><code>autovi.web</code> is a sophisticated web application built using the <code>shiny</code> and <code>shinydashboard</code> R packages. Hosted on the <a href="https://www.shinyapps.io">shinyapps.io</a> domain, the application is accessible through any modern web browser, offering advantages such as scalability and ease of maintenance.</p>
-<p>In our initial planning for <code>autovi.web</code>, we considered implementing the entire web application using the <code>webr</code> framework, which would have allowed the entire application to run directly in the user’s browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages <code>autovi</code> depends on, <code>splanes</code>, uses compiled Fortran code. Unfortunately, a working Emscripten version of this code, which would be required for <code>webr</code>, was not available.</p>
-<p>We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Calling R from Python is typically done using the <code>rpy2</code> Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation, making it challenging to develop our application in this manner. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise, which we did not possess at the time. Ultimately, we decided that the most pragmatic solution was to use the <code>shiny</code> and <code>shinydashboard</code> frameworks, which are well-established in the R community and offer a robust foundation for web application development. This approach allowed us to build <code>autovi.web</code> on top of a familiar and well-supported ecosystem, while still taking advantage of the flexibility and power of the underlying Python libraries used by <code>autovi</code>.</p>
-<p>The server-side configuration of <code>autovi.web</code> is carefully designed to support its functionality. Most required Python libraries, including <code>pillow</code> and <code>NumPy</code>, are pre-installed on the server. These libraries are seamlessly integrated into the Shiny application using the <code>reticulate</code> package, which provides a robust interface between R and Python.</p>
-<p>Due to the nature of shinyapps.io’s resource allocation, the server enters a sleep mode during periods of inactivity, resulting in the clearing of the local Python virtual environment. Consequently, when the application “wakes up” for a new user session, these libraries need to be reinstalled. While this ensures a clean environment for each session, it may lead to slightly longer loading times for the first user after a period of inactivity.</p>
-<p>In contrast to <code>autovi</code>, <code>autovi.web</code> does not use the native Python version of <code>TensorFlow</code>. Instead, it leverages <code>TensorFlow.js</code>, a JavaScript library that allows the execution of machine learning models directly in the browser. This choice enables native browser execution, enhancing compatibility across different user environments, and shifts the computational load from the server to the client-side, allowing for better scalability and performance, especially when dealing with resource-intensive computer vision models on shinyapps.io. While <code>autovi</code> requires downloading pre-trained computer vision models from GitHub, these models in “.keras” file format are incompatible with <code>TensorFlow.js</code>. Therefore, we store the model weights in JSON files and include them as extra resources in the Shiny application. When the application initializes, <code>TensorFlow.js</code> rebuilds the computer vision model using these pre-stored weights.</p>
-<p>To allow communication between <code>TensorFlow.js</code> and other components of the Shiny application, the <code>shinyjs</code> R package is used. This package allows for the seamless integration of custom JavaScript code into the Shiny framework. The specialized JavaScript code for initializing <code>TensorFlow.js</code> and calling <code>TensorFlow.js</code> for visual signal strength prediction is deployed alongside the Shiny application as additional resources.</p>
-<!-- Furthermore, the computer vision model used in `autovi` requires a fixed-size 4D tensor as input. The dimensions of this tensor are as follows: the first dimension represents the batch size, the second dimension represents the width of the image, the third dimension represents the height of the image, and the fourth dimension represents the number of channels. The model outputs a numeric vector that represents the visual signal strength for each image in the batch. The computer vision model is also trained with a set of fixed-aesthetic residual plots, which means that the input images must be produced using the same data pipeline that was used for the training data preparation. This consistency is crucial for ensuring that the model can accurately interpret and analyze new data. -->
-<!-- A significant portion of our web interface is dedicated to managing this data pipeline. This involves processing the user-provided data to generate input images that conform to the required format for the computer vision model. The pipeline ensures that the residual plots created from the user data match the aesthetics and format of the training data, enabling the model to provide accurate visual signal strength assessments. -->
-<!-- Our web interface simplifies this process for the user by automating the necessary steps to transform their data into the appropriate input format. Users can upload their CSV files, and the interface handles the extraction of residuals, the creation of residual plots, and the formatting of these plots into 4D tensors. This seamless integration allows users to focus on interpreting the results rather than on the technical details of data preparation. -->
-</section><section id="data-pipeline" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="data-pipeline">
-<span class="header-section-number">4.3.2</span> Data Pipeline</h3>
-<p>In this section, we will describe the entire data pipeline, including handling uploaded data, creating and saving fixed-aesthetic residual plots, loading and transforming images to the desired input format, and predicting visual signal strength.</p>
-<section id="input-file-format" class="level4"><h4 class="anchored" data-anchor-id="input-file-format">Input File Format</h4>
-<p>As described in Section , the <code>autovi</code> package requires a regression model object to initialize the diagnostics. However, it is impractical to ask users to upload an R regression model object for inspection. There are several reasons for this:</p>
-<ol type="1">
-<li>
-<strong>User Complexity</strong>: Saving an R object to the filesystem involves extra steps and requires users to have specific knowledge.</li>
-<li>
-<strong>Data Sensitivity</strong>: The regression model object may contain sensitive, non-shareable data.</li>
-<li>
-<strong>File Size</strong>: The R object is often unnecessarily large because it contains extra information not needed for diagnostics.</li>
-</ol>
-<p>To simplify the process, the web interface instead requests a CSV file. This CSV file should contain at least two columns: <code>.fitted</code>, representing the fitted values, and <code>.resid</code>, representing the residuals. Additionally, it can contain an optional column <code>.sample</code> to indicate the ID of the residual plot. This is particularly useful if the user wants to evaluate a lineup of residual plots.</p>
-<p>Compared to an R model object, a CSV file can be easily generated by various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. CSV files are generally less sensitive than raw data because most information about the predictors is excluded.</p>
-</section><section id="plot-drawing-and-image-loading" class="level4"><h4 class="anchored" data-anchor-id="plot-drawing-and-image-loading">Plot Drawing and Image Loading</h4>
-<p>The training data for the computer vision models consist of <span class="math inline">32 \times 32</span> RGB residual plots. These plots display fitted values on the x-axis and residuals on the y-axis. All labels, including axis texts, are excluded, and no background grid lines are included in the plots. Residual points are drawn in black with a size of 0.5 points, where there are 72.27 points per inch. Additionally, a horizontal red line is drawn at <span class="math inline">y = 0</span> to help the computer vision model determine if the residual points are uniformly distributed on both sides of the line. The plot is then saved as a PNG file with a resolution of <span class="math inline">420 \times 525</span> pixels. This resolution mimics a typical lineup residual plot, which has a resolution of <span class="math inline">2100 \times 2100</span> pixels and is arranged in four rows and five columns.</p>
-<p>The uploaded CSV file will be partitioned based on the values in the optional column <code>k</code>. If no optional column <code>k</code> is present, the entire data set will be used as one partition. Each partition will utilize the plot specifications to generate one residual plot and produce one PNG file.</p>
-<p>The saved PNG plot is loaded as an array, where each entry contains a pixel value of the image. This array is then resized to match the input layer shape of the computer vision model, which is <span class="math inline">1 \times 32 \times 32 \times 3</span>. If multiple images are needed for visual signal strength estimation, the arrays can be stacked together to form a larger array with the shape <span class="math inline">n \times 32 \times 32 \times 3</span>, where <span class="math inline">n</span> is the number of images.</p>
-</section><section id="visual-signal-strength-estimation" class="level4"><h4 class="anchored" data-anchor-id="visual-signal-strength-estimation">Visual Signal Strength Estimation</h4>
-<p>Finally, the processed image array will be fed into the computer vision model, and returned a vector of visual signal strength which are numerical values always greater than zero.</p>
-</section></section><section id="software-stack" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="software-stack">
-<span class="header-section-number">4.3.3</span> Software Stack</h3>
-<section id="backend" class="level4"><h4 class="anchored" data-anchor-id="backend">Backend</h4>
-<p>To utilize the <code>autovi</code> R package, the server hosting our web interface must have a functional R interpreter. A static HTML page cannot accomplish this task, as it only serves static resources to the client and lacks the capability to execute R code. The alternative option would be WebR, a version of R designed to run within a web browser. However, integrating WebR introduces complexities into the design of the web interface, which we will explore further in Section XXX. Additionally, The resizing of the image is originally done by the Python <code>Pillow</code> library. To maintain the same data pipeline, we also need a working Python interpreter. Given the required conditions, we have three options: (1) Use a traditional backend like the <code>Spring</code> framework written in Java for handling all the income and outcome traffic of the web interface. Meanwhile, install R and Python in the server and call them when needed. (2) Use a Python backend framework like <code>Flask</code> so that the <code>Pillow</code> library can be used natively. Still, R needs to be installed and correctly configured in the server and called when needed. (3) Use a R backend framework like <code>Shiny</code>. This is similar to the second option, but requires to install and configure Python separately.</p>
-<p>Option one requires a good understanding</p>
-<!-- Thus, we chose to implement the web interface with a shiny server. Shiny server is a backend framework written in R, so it allows us to receive user's input and interactively update the output rendered on the client side using R code.  -->
-<!-- We deploy the shiny server using the services provided by Posit, called `shinyapps.io`. It is responsible for reading in the uploaded CSV file with the `readr` R package, splitting the dataset with the `dplyr` R package and drawing the residual plots with the `ggplot2` R package. The resulting PNG files are stored in the temporary directory of the remote machine. -->
-<!-- The saved PNG file  -->
-</section><section id="frontend" class="level4"><h4 class="anchored" data-anchor-id="frontend">Frontend</h4>
-</section><section id="communications-between-software" class="level4"><h4 class="anchored" data-anchor-id="communications-between-software">Communications between Software</h4>
-</section></section><section id="distribute-keras-model-files" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="distribute-keras-model-files">
-<span class="header-section-number">4.3.4</span> Distribute Keras Model Files</h3>
-</section><section id="performance-optimization" class="level3" data-number="4.3.5"><h3 data-number="4.3.5" class="anchored" data-anchor-id="performance-optimization">
-<span class="header-section-number">4.3.5</span> Performance Optimization</h3>
-</section></section><section id="conclusions" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="conclusions">
+<p><code>autovi.web</code> is a web application built using the <code>shiny</code> <span class="citation" data-cites="shiny">(<a href="refs.html#ref-shiny" role="doc-biblioref">Chang et al. 2022</a>)</span> and <code>shinydashboard</code> <span class="citation" data-cites="shinydashboard">(<a href="refs.html#ref-shinydashboard" role="doc-biblioref">Chang and Borges Ribeiro 2021</a>)</span> R packages. Hosted on the <a href="https://www.shinyapps.io">shinyapps.io</a> domain, the application is accessible through any modern web browser.Additionally, R packages <code>htmltools</code> <span class="citation" data-cites="htmltools">(<a href="refs.html#ref-htmltools" role="doc-biblioref">Cheng et al. 2024</a>)</span> and <code>shinycssloaders</code> <span class="citation" data-cites="shinycssloaders">(<a href="refs.html#ref-shinycssloaders" role="doc-biblioref">Sali and Attali 2020</a>)</span> are used to render markdown document in shiny application, and add loading animation for shiny widgets, respectively.</p>
+<p>In our initial planning for <code>autovi.web</code>, we considered implementing the entire web application using the <code>webr</code> framework <span class="citation" data-cites="webr">(<a href="refs.html#ref-webr" role="doc-biblioref">Moon 2020</a>)</span>, which would have allowed the entire application to run directly in the user’s browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages <code>autovi</code> depends on the R package <code>splancs</code> <span class="citation" data-cites="splancs">(<a href="refs.html#ref-splancs" role="doc-biblioref">Rowlingson and Diggle 2023</a>)</span>, which uses compiled Fortran code. Unfortunately, a working Emscripten version of this package, which would be required for <code>webr</code>, was not available.</p>
+<p>We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Additionally, calling R from Python is typically done using the <code>rpy2</code> Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation, making it challenging to develop our application in this manner. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise, which we did not possess at the time. Ultimately, we decided that the most practical solution was to use the <code>shiny</code> and <code>shinydashboard</code> frameworks, which are well-established in the R community and offer a solid foundation for web application development.</p>
+<p>The server-side configuration of <code>autovi.web</code> is carefully designed to support its functionality. Most required Python libraries, including <code>pillow</code> and <code>NumPy</code>, are pre-installed on the server. These libraries are integrated into the Shiny application using the <code>reticulate</code> package, which provides an interface between R and Python.</p>
+<p>Due to the resource allocation policy of shinyapps.io, the server enters a sleep mode during periods of inactivity, resulting in the clearing of the local Python virtual environment. Consequently, when the application “wakes up” for a new user session, these libraries need to be reinstalled. While this ensures a clean environment for each session, it may lead to slightly longer loading times for the first user after a period of inactivity.</p>
+<p>In contrast to <code>autovi</code>, <code>autovi.web</code> does not use the native Python version of <code>TensorFlow</code>. Instead, it leverages <code>TensorFlow.js</code>, a JavaScript library that allows the execution of machine learning models directly in the browser. This choice enables native browser execution, enhancing compatibility across different user environments, and shifts the computational load from the server to the client-side. <code>TensorFlow.js</code> also offers better scalability and performance, especially when dealing with resource-intensive computer vision models on shinyapps.io.</p>
+<p>While <code>autovi</code> requires downloading pre-trained computer vision models from GitHub, these models in “.keras” file format are incompatible with <code>TensorFlow.js</code>. Therefore, we extract and store the model weights in JSON files and include them as extra resources in the Shiny application. When the application initializes, <code>TensorFlow.js</code> rebuilds the computer vision model using these pre-stored weights.</p>
+<p>To allow communication between <code>TensorFlow.js</code> and other components of the Shiny application, the <code>shinyjs</code> R package is used. This package allows calling custom JavaScript code within the Shiny framework. The specialized JavaScript code for initializing <code>TensorFlow.js</code> and calling <code>TensorFlow.js</code> for visual signal strength prediction is deployed alongside the Shiny application as additional resources.</p>
+</section><section id="sec-autovi-web-design" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-autovi-web-design">
+<span class="header-section-number">4.3.2</span> Design</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/autovi_web.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Overview of the <code>autovi.web</code> graphical user interface (GUI). This default view may change based on user interactions. Region 1 is the sidebar menu, containing the residual assessment tab and the information tab. Region 2 is the data upload panel, where users can provide a CSV file and specify the type of data it contains. Region 3 includes dropdown menus for selecting the columns to be analyzed, a slider to control the number of bootstrapping samples, and a numeric input box for setting the simulation seed. Region 4 displays the initialization status and offers a button to start the analysis. Region 5 is empty in the default view but will be populated with results once the analysis is started.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>While the R package <code>autovi</code> aims to provide tools that can be extended to broader visual inference applicaitons, <code>autovi.web</code> is only focus on to for provdinign a straightforward and clean uesr interface. An overview of the grahpical user interface of <code>autovi.web</code> is provided in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>. This is the default view of the web applicaiton, and there are five regions that user can mainly interact with. Region 1 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a sidebar menu which can switch between the anlysis page and the information page. The analysis page is the focus of this section.</p>
+<p>Region 2 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a panel for data uploading and CSV type selection. Clicking the “upload CSV” button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the “upload CSV” button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in <a href="#sec-autovi-web-example" class="quarto-xref"><span>Section 4.3.4</span></a>.</p>
+<p>While the <code>autovi</code> package typically expects a fitted regression model object provided by the user, this approach is impractical for a web interface. Saving the R model object to the filesystem involves extra steps and requires users to have specific knowledge, which does not align with the goal of the web application. Moreover, the regression model object may contain sensitive, non-shareable data, making it unsuitable for uploading. Additionally, model objects are often unnecessarily large, containing extra information not needed for residual diagnostics. In contrast, a CSV file is easier to generate using various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. They are generally less sensitive than raw data, as they exclude most information about the predictors.</p>
+<p>The web application is designed to assess either a single residual plot or a lineup of residual plots. Therefore, it accepts only two types of CSV files: one with at least two columns representing the fitted values and residuals of a single residual plot, and another with at least three columns, where the additional column serves as the label or identifier for a lineup of multiple residual plots. For a single residual plot, 19 null plots are generated by simulating normal random draws from a distribution with the same variance as the original residual plot, and comparisons are made with the original residual plot. For a lineup, comparisons are made among the plots within the lineup. After uploading the CSV file, the user must select the correct format to ensure the web interface interprets the data correctly.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-type" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-type-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/autovi_web_type.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-type-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: The panels for selecting target columns and simulation settings are updated when a different CSV type is selected in the left panel. Compared to <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, where the CSV type is a single residual plot, choosing a CSV type that includes a lineup of multiple residual plots adds a dropdown menu for specifying a column for the residual plot identifier. Additionally, an optional dropdown menu for specifying the true residual plot identifier will appear under the simulation settings.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Region 3 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a panel for column selection and simulation settings. As shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, if the CSV type is set to a single residual plot, there will be two dropdown menus for specifying the columns for fitted values and residuals, respectively. The default variable names for these columns are <code>.fitted</code> and <code>.resid</code>. After uploading the CSV file, the content of these dropdown menus will be updated to reflect the existing columns in the dataset. As displayed in <a href="#fig-autovi-web-type" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>, for the CSV type that is a lineup of multiple residual plots, an additional dropdown menu will appear for specifying the column of residual plot labels. The default variable name for this column is <code>.sample</code>. If this variable name does not exist in the dataset, the dropdown menu will remain empty, allowing the user to specify the correct column. The number of levels for each option in this dropdown menu will be displayed to help avoid the selection of a variable with too many levels, which could significantly slow down the application due to extensive computation.</p>
+<p>Under the simulation settings, there is a slider for specifying the number of bootstrapped samples needed for the assessment. A higher value on this slider will result in a more accurate bootstrap distribution estimation, though it will require more computation time. The simulation seed can be set in a numeric input box below the slider to control the reproducibility of the assessment. By default, a random seed is set each time the web page is refreshed. When the CSV type is a lineup of multiple residual plots, an optional dropdown menu will appear next to the simulation seed input box, allowing the user to specify an identifier for the true residual plot. If no label is provided for the true residual plot, the assessment will only estimate the visual signal strength for each residual plot in the lineup, without providing a <span class="math inline">p</span>-value, as it cannot be computed. Consequently, some result panels may be missing due to insufficient information. This option is useful when the lineup consists solely of null plots or if the user simply wants to obtain the visual signal strength for multiple residual plots.</p>
+<p>Region 4 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is the panel for triggering the assessment. It contains a large play button to start the assessment. Above the play button, a text message displays the status of <code>TensorFlow.js</code>, allowing users to monitor whether the JavaScript library and Keras model have been loaded correctly. The play button will remain disabled until both the data status in Region 1 and the <code>TensorFlow.js</code> status in Region 4 indicate that everything is ready, with both showing a green status.</p>
+<p>Once the play button is clicked, region 5 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> and <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-result" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/autovi_web_result.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: The first two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the first two. In region 1, there is an interactive table detailing the visual signal strength, with a summary of the analysis provided in the paragraph below. Region 2 displays a lineup of residual plots.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-result2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/autovi_web_result2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: The last two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the final two. Region 1 presents a density plot comparing the bootstrapped visual signal strength with the null visual signal strength. Region 2 includes an attention map of the true residual plot.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-gradient-hide" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-gradient-hide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/autovi_web_gradient_hide.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-gradient-hide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.6: The attention map is hidden if the assessment indicates a <span class="math inline">p</span>-value greater than 0.05. A button is available to toggle the display of the attention map.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Region 6 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> contains an interactive table created with the R package <code>DT</code> <span class="citation" data-cites="dt">(<a href="refs.html#ref-dt" role="doc-biblioref">Xie et al. 2024</a>)</span>, which provides the visual signal strength. This table includes four columns: <code>.sample</code>, <code>vss</code>, <code>rank</code>, and <code>null</code>. The <code>.sample</code> column shows the residual plot labels. For a CSV type that is a lineup, these labels are taken from an identifier column in the dataset specified by the user. In the case of the CSV type is a single residual plot, labels are automatically generated from 1 to 20, with the true residual plot receiving a randomly assigned label. The <code>vss</code> column displays the visual signal strength for each residual plot, rounded to three decimal places. The <code>rank</code> column indicates the ranking of each residual plot based on visual signal strength. The <code>null</code> column reveals whether the plot is a null plot. For the CSV type that is a single residual plot, only the true residual plot will have “false” in this column, while all other plots will be marked “true.” For the CSV type that is a lineup, if the true residual plot identifier has not been provided, this column will show “NA” to represent missing values. If the identifier is provided by user, the column behaves as if the CSV type is a single residual plot.</p>
+<p>The <code>DT</code> table provides several interactive features. Users can download the table in four formats, including text, CSV, Excel, and PDF, using the buttons located above the table. Additionally, the table is searchable via the text input field also positioned above it. Below the table, a text message displays the <span class="math inline">p</span>-value of the assessment for the true residual plot and summarizes the number of null plots with visual signal strength greater than that of the true residual plot. This helps the user determine whether the true residual plot shows visual patterns that suggest model violations.</p>
+<p>Region 7 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> provides a lineup of plots corresponding to each <code>.sample</code> value from the table in Region 6. Due to space limitations, a maximum of 20 residual plots will be displayed, ensuring that the true residual plot, if known, will be included in the lineup. The plots are generated using <code>ggplot2</code>, the same as in <code>autovi</code>. Users can perform a visual test with this lineup to check if the true residual plot is distinguishable from the other plots, helping to determine the significance of model violations.</p>
+<p>Region 8 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> displays the density plot for bootstrapped visual signal strength and null visual signal strength. The densities are shown in distinct colors that are friendly for colorblind users. A solid vertical line marks the visual signal strength of the true residual plot, while rug lines at the bottom of the plot provide a clearer view of individual cases. Below the plot, a text message indicates the number and percentage of bootstrapped residual plots that would be rejected by the visual test when compared to the null plots. Note that the bootstrapped residual plots in this application are generated differently from <code>autovi</code>. Since we do not have the R model object, we can not refit the regression model with bootstrapped data. Instead, we bootstrap the residuals of the true residual plot directly to obtain bootstrapped residual plots. As as result, this panel will disappear when the true residual plot is unknonw.</p>
+<p>Region 9 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> shows an attention map of the true residual plot, by computing the graident of Keras model output with repspect to the greyscale input of the true residual plot. We choose to show the attention map because it is useful for understanding how the Keras model predict the visual signal strength, and which area it is particurally focusing on. The greyscale input is used because it is relatively difficult to show a clear attention map in RGB channels and it usually will not provide more information than the greyscale since most of the important infromation of the plot are drawn in black.</p>
+<p>Region 9 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> displays an attention map for the true residual plot, generated by computing the gradient of the Keras model’s output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts visual signal strength and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the <span class="math inline">p</span>-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in <a href="#fig-autovi-web-gradient-hide" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>. This button allows users to toggle the display of the attention map.</p>
+</section><section id="workflow" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="workflow">
+<span class="header-section-number">4.3.3</span> Workflow</h3>
+<p>The workflow of <code>autovi.web</code> is designed to be straightforward, with numbered steps displayed in the main user interface as shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>. Since the design details have already been covered in <a href="#sec-autovi-web-design" class="quarto-xref"><span>Section 4.3.2</span></a>, we will not repeat the functionality of each panel in this section.</p>
+<p>For general users, the workflow starts with Step 1: uploading a CSV file by clicking the “upload CSV” button. A window will pop up, allowing the user to select the CSV file. The CSV file should contain at least two columns representing fitted values and residuals of a residual plot. If a lineup needs to be evaluated, the CSV file should contain an additional column for labels of reisidual plot. In Step 2, the user specifies the CSV type based on the uploaded file, choosing between a single residual plot or a lineup of multiple residual plots. Step 3 involves selecting the appropriate columns for fitted values, residuals, and, optionally, labels of residual plots, from the dataset. In Step 4, the user sets the number of bootstrapped draws needed for the analysis; more draws provide a better estimate of the bootstrapped distribution but result in slower computation. The user should also set the seed to control the simulation. If the dataset contains a lineup and the true residual plot is known, select its label. Finally, clicking the play button will initiate the analysis, and the user can review the result panels.</p>
+</section><section id="sec-autovi-web-example" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="sec-autovi-web-example">
+<span class="header-section-number">4.3.4</span> Example</h3>
+</section></section><section id="sec-autovi-conclusion" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="sec-autovi-conclusion">
 <span class="header-section-number">4.4</span> Conclusions</h2>
 
 
@@ -932,6 +964,15 @@ Abadi, M., Agarwal, A., Barham, P., Brevdo, E., Chen, Z., Citro, C., Corrado, G.
 </div>
 <div id="ref-buja2009statistical" class="csl-entry" role="listitem">
 Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F., and Wickham, H. (2009), <span>“Statistical inference for exploratory data analysis and model diagnostics,”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, The Royal Society Publishing, 367, 4361–4383.
+</div>
+<div id="ref-shinydashboard" class="csl-entry" role="listitem">
+Chang, W., and Borges Ribeiro, B. (2021), <em><a href="https://CRAN.R-project.org/package=shinydashboard">Shinydashboard: Create dashboards with ’shiny’</a></em>.
+</div>
+<div id="ref-shiny" class="csl-entry" role="listitem">
+Chang, W., Cheng, J., Allaire, J., Sievert, C., Schloerke, B., Xie, Y., Allen, J., McPherson, J., Dipert, A., and Borges, B. (2022), <em><a href="https://CRAN.R-project.org/package=shiny">Shiny: Web application framework for r</a></em>.
+</div>
+<div id="ref-htmltools" class="csl-entry" role="listitem">
+Cheng, J., Sievert, C., Schloerke, B., Chang, W., Xie, Y., and Allen, J. (2024), <em><a href="https://CRAN.R-project.org/package=htmltools">Htmltools: Tools for HTML</a></em>.
 </div>
 <div id="ref-chollet2015keras" class="csl-entry" role="listitem">
 Chollet, F., and others (2015), <span>“Keras,”</span> <a href="https://keras.io" class="uri">https://keras.io</a>.
@@ -972,11 +1013,20 @@ Long, J. A. (2022), <em><a href="https://cran.r-project.org/package=jtools">Jtoo
 <div id="ref-mason2022cassowaryr" class="csl-entry" role="listitem">
 Mason, H., Lee, S., Laa, U., and Cook, D. (2022), <em><a href="https://CRAN.R-project.org/package=cassowary">Cassowaryr: Compute scagnostics on pairs of numeric variables in a data set</a></em>.
 </div>
+<div id="ref-webr" class="csl-entry" role="listitem">
+Moon, K.-W. (2020), <em><a href="https://CRAN.R-project.org/package=webr">Webr: Data and functions for web-based analysis</a></em>.
+</div>
 <div id="ref-stats" class="csl-entry" role="listitem">
 R Core Team (2022), <em><a href="https://www.R-project.org/">R: A language and environment for statistical computing</a></em>, Vienna, Austria: R Foundation for Statistical Computing.
 </div>
 <div id="ref-regressinator" class="csl-entry" role="listitem">
 Reinhart, A. (2024), <em><a href="https://CRAN.R-project.org/package=regressinator">Regressinator: Simulate and diagnose (generalized) linear models</a></em>.
+</div>
+<div id="ref-splancs" class="csl-entry" role="listitem">
+Rowlingson, B., and Diggle, P. (2023), <em><a href="https://CRAN.R-project.org/package=splancs">Splancs: Spatial and space-time point pattern analysis</a></em>.
+</div>
+<div id="ref-shinycssloaders" class="csl-entry" role="listitem">
+Sali, A., and Attali, D. (2020), <em><a href="https://CRAN.R-project.org/package=shinycssloaders">Shinycssloaders: Add loading animations to a ’shiny’ output while it’s recalculating</a></em>.
 </div>
 <div id="ref-simonyan2014very" class="csl-entry" role="listitem">
 Simonyan, K., and Zisserman, A. (2014), <span>“Very deep convolutional networks for large-scale image recognition,”</span> <em>arXiv preprint arXiv:1409.1556</em>.
@@ -989,6 +1039,9 @@ Wickham, H. (2016), <em><a href="https://ggplot2.tidyverse.org">ggplot2: Elegant
 </div>
 <div id="ref-nullabor" class="csl-entry" role="listitem">
 Wickham, H., Chowdhury, N. R., Cook, D., and Hofmann, H. (2020), <em><a href="https://CRAN.R-project.org/package=nullabor">Nullabor: Tools for graphical inference</a></em>.
+</div>
+<div id="ref-dt" class="csl-entry" role="listitem">
+Xie, Y., Cheng, J., and Tan, X. (2024), <em><a href="https://CRAN.R-project.org/package=DT">DT: A wrapper of the JavaScript library ’DataTables’</a></em>.
 </div>
 </div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
