@@ -462,7 +462,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//Rtmpfih3yn/fileac4442dc9bd3.png"
+[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//Rtmp5BdeII/filec18b335efb52.png"
 ```
 
 
@@ -1009,18 +1009,21 @@ To create an object in `bandicoot`, you need to call the `instantiate()` method 
 
 ## Web interface: autovi.web {#sec-autovi-web}
 
-In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
+The web interface, called `autovi.web`, builds on `autovi` to provide potential users easier access to automated residual plot assessment. It eliminates software installation issues, so users no longer need to struggle with managing Python environments or installing and maintaining the correct versions of libraries. The interface is cross-platform available across devices and operating systems, and accessible to users without R programming knowledge. An added benefit is that updates can be controlled centrally so that users will always have the latest features. 
+
+<!-- In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
 
 Recognizing these potential barriers, we were motivated to design and implement a web interface called `autovi.web`. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, `autovi.web` lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of `autovi`, allowing more researchers and analysts to benefit from its capabilities. Third, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, `autovi.web` offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.
 
 
 `autovi.web` is available at [autoviweb.netlify.app](autoviweb.netlify.app). The implementation discussed in this chapter is based on `autovi.web` version 0.1.0. By providing this web interface, we aim to significantly reduce the technical hurdles associated with using `autovi`, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.
+-->
 
 ### Implementation
 
-`autovi.web` is a web application built using the `shiny` [@shiny] and `shinydashboard` [@shinydashboard] R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser.Additionally, R packages `htmltools` [@htmltools] and `shinycssloaders` [@shinycssloaders] are used to render markdown document in shiny application, and add loading animation for shiny widgets, respectively.
+`autovi.web` is built using the `shiny` [@shiny] and `shinydashboard` [@shinydashboard] R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser. The R packages `htmltools` [@htmltools] and `shinycssloaders` [@shinycssloaders] are used to render markdown documentation in shiny application, and for loading animations for shiny widgets, respectively.
 
-In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. Unfortunately, a working Emscripten version of this package, which would be required for `webr`, was not available.
+Determining the best way to implement the interface was difficult. In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. A working Emscripten (XXX reference?) version of this package, which would be required for `webr`, was not available.
 
 We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Additionally, calling R from Python is typically done using the `rpy2` Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation, making it challenging to develop our application in this manner. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise, which we did not possess at the time. Ultimately, we decided that the most practical solution was to use the `shiny` and `shinydashboard` frameworks, which are well-established in the R community and offer a solid foundation for web application development.
 
@@ -1101,14 +1104,25 @@ Region 8 of @fig-autovi-web-result2 displays the density plot for bootstrapped v
 
 Region 9 of @fig-autovi-web-result2 displays an attention map for the true residual plot, generated by computing the gradient of the Keras model's output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts visual signal strength and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the $p$-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in @fig-autovi-web-gradient-hide. This button allows users to toggle the display of the attention map.
 
-### Workflow
+### Usage, from the user perspective
 
-The workflow of `autovi.web` is designed to be straightforward, with numbered steps displayed in the main user interface as shown in @fig-autovi-web. Since the design details have already been covered in @sec-autovi-web-design, we will not repeat the functionality of each panel in this section.
+The user would follow the order of the numbered steps displayed in the main user interface as shown in @fig-autovi-web, <!--Since the design details have already been covered in @sec-autovi-web-design, we will not repeat the functionality of each panel in this section.-->
+as follows: 
 
-For general users, the workflow starts with Step 1: uploading a CSV file by clicking the "upload CSV" button. A window will pop up, allowing the user to select the CSV file. The CSV file should contain at least two columns representing fitted values and residuals of a residual plot. If a lineup needs to be evaluated, the CSV file should contain an additional column for labels of residual plot.  In Step 2, the user specifies the CSV type based on the uploaded file, choosing between a single residual plot or a lineup of multiple residual plots. Step 3 involves selecting the appropriate columns for fitted values, residuals, and, optionally, labels of residual plots, from the dataset. In Step 4, the user sets the number of bootstrapped draws needed for the analysis; more draws provide a better estimate of the bootstrapped distribution but result in slower computation. The user should also set the seed to control the simulation. If the dataset contains a lineup and the true residual plot is known, select its label. Finally, clicking the play button will initiate the analysis, and the user can review the result panels.
+- Step 1: uploading a CSV file by clicking the "upload CSV" button. A window will pop up, allowing the user to select the CSV file. The CSV file should contain at least two columns representing fitted values and residuals of a residual plot. If a lineup needs to be evaluated, the CSV file should contain an additional column for labels of residual plot.  
+- In Step 2, the user specifies the CSV type based on the uploaded file, choosing between a single residual plot or a lineup of multiple residual plots. 
+- Step 3 involves selecting the appropriate columns for fitted values, residuals, and, optionally, labels of residual plots, from the dataset. 
+- In Step 4, the user sets the number of bootstrapped draws needed for the analysis; more draws provide a better estimate of the bootstrapped distribution but result in slower computation. The user should also set the seed to control the simulation. If the dataset contains a lineup and the true residual plot is known, select its label. 
+- Finally, clicking the play button will initiate the analysis, and the user can review the result panels.
 
 ### Example {#sec-autovi-web-example}
 
 
 
 ## Conclusions {#sec-autovi-conclusion}
+
+## Availability
+
+The web interface is housed at [autoviweb.netlify.app](autoviweb.netlify.app). 
+
+The source code for both packages are available at XXX, and the current version of `autovi` can be installed from CRAN.
