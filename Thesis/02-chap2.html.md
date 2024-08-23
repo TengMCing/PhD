@@ -6,10 +6,6 @@ Regression experts consistently recommend plotting residuals for model diagnosis
 
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 
 :::
@@ -29,10 +25,6 @@ Regression experts consistently recommend plotting residuals for model diagnosis
 ::: {.cell layout-align="center"}
 
 :::
-
-
-
-
 
 
 ## Introduction {#sec-introduction}
@@ -55,19 +47,11 @@ The lineup protocol places a data plot in a field of null plots, allowing for a 
 The paper is structured as follows. @sec-background describes the background on the types of departures that one expects to detect, and outlines a formal statistical process for reading residual plots, called visual inference. @sec-significance-calculation describes the calculation of the statistical significance and power of the test. @sec-experimental-design details the experimental design to compare the decisions made by formal hypothesis testing, and how humans would read diagnostic plots. The results are reported in @sec-results. We conclude with a discussion of the presented work, and ideas for future directions.
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![Visual testing is conducted using a lineup, as in the example here. The residual plot computed from the observed data is embedded among 19 null plots, where the residuals are simulated from a standard error model. Computing the $p$-value requires that the lineup be examined by a number of human judges, each asked to select the most different plot. A small $p$-value would result from a substantial number selecting the data plot (at position $6$, exhibiting non-linearity).](02-chap2_files/figure-html/fig-first-example-lineup-1.png){#fig-first-example-lineup fig-align='center' fig-pos='t!' width=100%}
 :::
 :::
-
-
-
-
 
 
 ## Background {#sec-background}
@@ -78,19 +62,11 @@ The paper is structured as follows. @sec-background describes the background on 
 Graphical summaries where residuals are plotted against fitted values, or other functions of the predictors (expected to be approximately orthogonal to the residuals) are considered to be the most important residual plots by @cook1999applied. [@fig-residual-plot-common-departures]A shows an example of an ideal residual plot where points are symmetrically distributed around the horizontal zero line (red), with no discernible patterns. There can be various types of departures from this ideal pattern. Non-linearity, heteroskedasticity and non-normality, shown in [@fig-residual-plot-common-departures]B, [@fig-residual-plot-common-departures]C, and [@fig-residual-plot-common-departures]D, respectively, are three commonly checked departures. 
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![Example residual vs fitted value plots (horizontal line indicates 0): (A) classically good looking residuals, (B) non-linear pattern indicates that the model has not captured a non-linear association, (C) heteroskedasticity indicating that variance around the fitted model is not uniform, and (D) non-normality where the residual distribution is not symmetric around 0. The latter pattern might best be assessed using a univariate plot of the residuals, but patterns B and C need to be assessed using a residual vs fitted value plot.](02-chap2_files/figure-html/fig-residual-plot-common-departures-1.png){#fig-residual-plot-common-departures fig-align='center' fig-pos='t!' width=100%}
 :::
 :::
-
-
-
-
 
 
 Model misspecification occurs if functions of predictors that needed to accurately describe the relationship with the response are incorrectly specified. This includes instances where a higher-order polynomial term of a predictor is wrongfully omitted. Any non-linear pattern visible in the residual plot could be indicative of this problem. An example residual plot containing visual pattern of non-linearity is shown in [@fig-residual-plot-common-departures]B. One can clearly observe the "S-shape" from the residual plot, which corresponds to the cubic term that should have been included in the model.
@@ -112,64 +88,20 @@ With large sample sizes, hypothesis tests may reject the null hypothesis when th
 
 
 
-
-
-
-
 ::: {#tbl-example-residual-plot-table .cell layout-align="center" tbl-cap='Statistical significance testing for departures from good residuals for plots in @fig-residual-plot-common-departures. Shown are the $p$-values calculated for the RESET, the BP and the SW tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Plot </th>
-   <th style="text-align:left;"> Departures </th>
-   <th style="text-align:right;"> RESET </th>
-   <th style="text-align:right;"> BP </th>
-   <th style="text-align:right;"> SW </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> None </td>
-   <td style="text-align:right;"> <span style="     " >0.779</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.133</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.728</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> Non-linearity </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.039</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> C </td>
-   <td style="text-align:left;"> Heteroskedasticity </td>
-   <td style="text-align:right;"> <span style="     " >0.658</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> D </td>
-   <td style="text-align:left;"> Non-normality </td>
-   <td style="text-align:right;"> <span style="     " >0.863</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.736</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Plot |Departures         |                                                RESET|                                                   BP|                                                   SW|
+|:----|:------------------|----------------------------------------------------:|----------------------------------------------------:|----------------------------------------------------:|
+|A    |None               |                    <span style="     " >0.779</span>|                    <span style="     " >0.133</span>|                    <span style="     " >0.728</span>|
+|B    |Non-linearity      | <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.039</span>|
+|C    |Heteroskedasticity |                    <span style="     " >0.658</span>| <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.000</span>|
+|D    |Non-normality      |                    <span style="     " >0.863</span>|                    <span style="     " >0.736</span>| <span style="  font-style: italic;   " >0.000</span>|
+
 
 :::
 :::
-
-
-
-
 
 
 
@@ -240,10 +172,6 @@ Overall, we collected 7974 evaluations on 1152 unique lineups performed by 443 p
 
 
 
-
-
-
-
 ```{=html}
 <table style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -308,10 +236,6 @@ Overall, we collected 7974 evaluations on 1152 unique lineups performed by 443 p
 
 
 
-
-
-
-
 :::
 :::
 
@@ -350,10 +274,6 @@ Data collection period I was designed to study the ability of participants to de
 Data collection period II was similar to period I but focuses on heteroskedasticity departures. We generated the heteroskedasticity departures by setting the variance-covariance matrix of the error term as a function of the predictor, but fitted the data with the simple linear regression model, intentionally violated the constant variance assumption. Visual patterns of heteroskedasticity are simulated using three different shapes ($a$ = -1, 0, 1) including "left-triangle", "butterfly" and "right-triangle" shapes as displayed in @fig-different-shape-of-heter. @fig-different-b shows the butterfly shape as the ratio parameter ($b$) is changed. More details about the simulation process are provided in Appendix [-@sec-appendix-a-2].
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![Polynomial forms generated for the residual plots used to assess detecting non-linearity. The four shapes are generated by varying the order of polynomial given by $j$ in $He_j(.)$.](02-chap2_files/figure-html/fig-different-shape-of-herimite-1.png){#fig-different-shape-of-herimite fig-align='center' fig-pos='!h' width=100%}
@@ -380,10 +300,6 @@ Data collection period II was similar to period I but focuses on heteroskedastic
 
 
 
-
-
-
-
 #### Factors Common to both Data Collection Periods
 
 
@@ -392,10 +308,6 @@ Fitted values are a function of the independent variables (or predictors), and t
 @fig-different-dist shows the non-linear pattern, a "U" shape, with the different fitted value distributions. We would expect that structure in residual plots would be easier to perceive when the fitted values are uniformly distributed.
 
 Three different sample sizes were used in our experiment: $n = 50, 100, 300$. @fig-different-n shows the non-linear "S" shape for different sample sizes. We expect signal strength to decline in the simulated data plots with smaller $n$. We chose 300 as the upper limit, because it is typically enough for structure to be visible in a scatterplot reliably. Beyond 300, the scatterplot should probably be used with transparency or replaced with a density or binned plot as scatterplots suffer from over-plotting.
-
-
-
-
 
 
 
@@ -410,10 +322,6 @@ Three different sample sizes were used in our experiment: $n = 50, 100, 300$. @f
 ![Examining the effect of signal strength for the three different values of $n$ used in the experiment, for non-linear structure with fixed $\sigma = 1.5$, uniform fitted value distribution, and "S" shape. For these factor levels, only when $n = 300$ is the "S" shape clearly visible.](02-chap2_files/figure-html/fig-different-n-1.png){#fig-different-n fig-align='center' width=100%}
 :::
 :::
-
-
-
-
 
 
 
@@ -446,10 +354,6 @@ The data was collected on lineups constructed from four different fitted value d
 
 
 @fig-nonlinearheterpower present the power curves of various tests plotted against the effect size in the residuals for non-linearity and heteroskedasticity. In each case the power of visual test is calculated for multiple bootstrap samples leading to the many (solid orange) curves. The effect size was computed at a 5% significance level and plotted on a natural logarithmic scale. To facilitate visual calibration of effect size values with the corresponding diagnostic plots, a sequence of example residual plots with increasing effect sizes is provided at the bottom of these figures. These plots serve as a visual aid to help readers understand how different effect size values translate to changes in the diagnostic plots. The horizontal lines of dots at 0 and 1 represent the non-rejection or rejection decisions made by visual tests for each lineup.
-
-
-
-
 
 
 ::: {.cell layout-align="center"}
@@ -487,10 +391,6 @@ The data was collected on lineups constructed from four different fitted value d
 :::
 
 
-
-
-
-
 [@fig-nonlinearheterpower]A compares the power for the different tests for non-linear structure in the residuals. The test with the uniformly higher power is the RESET test, one that specifically tests for non-linearity. Note that the BP and SW tests have much lower power, which is expected because they are not designed to detect non-linearity. The bootstrapped power curves for the visual test are effectively a right shift from that of the RESET test. This means that the RESET test will reject at a lower effect size (less structure) than the visual test, but otherwise the performance will be similar. In other words, the RESET test is more sensitive than the visual test. This is not necessarily a good feature for the purposes of diagnosing model defects: if we scan the residual plot examples at the bottom, we might argue that the non-linearity is not sufficiently problematic until an effect size of around 3 or 3.5. The RESET test would reject closer to an effect size of 2, but the visual test would reject closer to 3.25, for a significance level of 0.05. The visual test matches the robustness of the model to (minor) violations of assumptions much better.
 
 For the heteroskedasticity pattern, the power of BP test, designed for detecting heteroskedasticity, is uniformly higher than the other tests. The visual test power curve shifts to the right. This shows a similar story to the power curves for non-linearity pattern: the conventional test is more sensitive than the visual test. From the example residual plots at the bottom we might argue that the heteroskedasticity becomes noticeably visible around an effect size of 3 or 3.5. However the BP test would reject at around effect size 2.5. Interestingly, the power curve for the SW test (for non-normality) is only slightly different to that of the visual test, suggesting that it performs reasonably well for detecting heteroskedasticity, too. The power curve for the BP test suggests it is not useful for detecting heteroskedasticity, as expected.
@@ -501,17 +401,9 @@ Overall, the results show that the conventional tests are more sensitive than th
 ### Comparison of Test Decisions Based on $p$-values {#sec-p-value}
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 
 :::
-
-
-
-
 
 
 The power comparison demonstrates that the appropriate conventional tests will reject more aggressively than visual tests, but we do not know how the decisions for each lineup would agree or disagree. Here we compare the reject or fail to reject decisions of these tests, across all the lineups. @fig-p-value-comparison shows the agreement of the conventional and visual tests using a mosaic plot for both non-linearity patterns and heteroskedasticity patterns. For both patterns the lineups resulting in a rejection by the visual test are *all* also rejected by the conventional test, except for one from the heteroskedasticity model. This reflects exactly the story from the previous section, that the conventional tests reject more aggressively than the visual test. 
@@ -521,24 +413,12 @@ For non-linearity lineups, conventional tests and visual tests reject 69% and 32
 In heteroskedasticity lineups, 76% are rejected by conventional tests, while 56% are rejected by visual tests. Of the lineups rejected by the conventional test, the visual test rejects more than two-thirds of them, too.  
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 
 :::
 
 
-
-
-
-
 Surprisingly, the visual test rejects 1 of the 33 (3%) of lineups where the conventional test does not reject. @fig-heter-example shows this lineup. The data plot in position seventeen displays a relatively strong heteroskedasticity pattern, and has a strong effect size ($\log_e(E)=4.02$), which is reflected by the visual test $p\text{-value} = 0.026$. But the BP test $p\text{-value} = 0.056$, is slightly above the significance cutoff of $0.05$. This lineup was evaluated by 11 participants, it has experimental factors $a = 0$ ("butterfly" shape), $b = 64$ (large variance ratio), $n = 50$ (small sample size), and a uniform distribution for the predictor. It may have been the small sample size and the presence of a few outliers that may have resulted in the lack of detection by the conventional test.
-
-
-
-
 
 
 ::: {.cell layout-align="center"}
@@ -554,10 +434,6 @@ Surprisingly, the visual test rejects 1 of the 33 (3%) of lineups where the conv
 :::
 
 
-
-
-
-
 Because the power curve of the visual tests are a shift to the right of the conventional test (@fig-nonlinearheterpower) we examined whether adjusting the significance level (to .001, .0001, .00001, ...) of the conventional test would generate similar decisions to that of the visual test. Interestingly, it does not: despite resulting in less rejections, neither the RESET or BP tests come to complete agreement with the visual test (see Appendix [-@sec-appendix-a-1]).
 
 
@@ -568,10 +444,6 @@ The order of the polynomial is a primary factor contributing to the pattern prod
 For visual tests, we expect the "U" shape to be detected more readily, followed by the "S", "M" and "triple-U" shape. From @fig-poly-power-uniform-j, it can be observed that the power curves mostly align with these expectations, except for the "M" shape, which is as easily detected as the "S" shape. This suggests a benefit of the visual test: knowing the shape ahead of time is *not* needed for its application.
 
 
-
-
-
-
 ::: {.cell layout-align="center"}
 ::: {.cell-output-display}
 ![The effect of the order of the polynomial on the power of conventional and visual tests. Deeper colour indicates higher order. The default RESET tests under-performs significantly in detecting the "triple-U" shape. To achieve a similar power as other shapes, a higher order polynomial parameter needs to be used for the RESET test, but this higher than the recommended value.](02-chap2_files/figure-html/fig-poly-power-uniform-j-1.png){#fig-poly-power-uniform-j fig-align='center' width=100%}
@@ -580,17 +452,9 @@ For visual tests, we expect the "U" shape to be detected more readily, followed 
 
 
 
-
-
-
-
 ### Effect of Shape of Heteroskedasticity {#sec-hetero-analysis}
 
 @fig-heter-power-uniform-a examines the impact of the shape of the heteroskedasticity on the power of of both tests. The butterfly shape has higher power on both types of tests. The "left-triangle" and the "right-triangle" shapes are functionally identical, and this is observed for the conventional test, where the power curves are identical. Interestingly there is a difference for the visual test: the power curve of the "left-triangle" shape is slightly higher than that of the "right-triangle" shape. This indicates a bias in perceiving heteroskedasticity depending on the direction, and may be worth investigating further. 
-
-
-
-
 
 
 ::: {.cell layout-align="center"}
@@ -601,17 +465,9 @@ For visual tests, we expect the "U" shape to be detected more readily, followed 
 
 
 
-
-
-
-
 ### Effect of Fitted Value Distributions {#sec-effect-of-fitted-value-distributions}
 
 In regression analysis, predictions are conditional on the observed values of the predictors, that is, the conditional mean of the dependent variable $Y$ given the value of the independent variable $X$, $\text{E}(Y|X)$. This is an often forgotten element of regression analysis but it is important. Where $X$ is observed, the distribution of the $X$ values in the sample, or consequently $\hat{Y}$, may affect the ability to read any patterns in the residual plots. The effect of fitted value distribution on test performance is assess using four different distributions of fitted values stemming from the predictor distributions: uniform, normal, discrete and lognormal (skewed). We expect that if all predictors have a uniform distribution, it is easier to read the relationship with the residuals.
-
-
-
-
 
 
 
@@ -624,10 +480,6 @@ In regression analysis, predictions are conditional on the observed values of th
 ![Comparison of power on lineups with different fitted value distributions for conventional and visual tests (columns) for non-linearity and heteroskedasticity patterns (rows). The power curves of conventional tests for non-linearity and heteroskedasticity patterns are produced by RESET tests and BP tests, respectively. Power curves of visual tests are estimated using five evaluations on each lineup. For lineups with a uniform fitted value distribution, the five evaluations are repeatedly sampled from the total eleven evaluations to give multiple power curves (solid grey). Surprisingly, the fitted value distribution has produces more variability in the power of conventional tests than visual tests. Uneven distributions, normal and skewed distributions, tend to yield lower power.](02-chap2_files/figure-html/fig-different-x-dist-poly-power-1.png){#fig-different-x-dist-poly-power fig-align='center' fig-pos='t!' width=100%}
 :::
 :::
-
-
-
-
 
 
 @fig-different-x-dist-poly-power examines the impact of the fitted value distribution on the power of conventional (left) and visual (right) tests for both the non-linearity (top) and heteroskedasticity (bottom) patterns. For conventional tests, only the power curves of appropriate tests are shown:  RESET tests for non-linearity and BP tests for heteroskedasticity. For visual tests, more evaluations on lineups with uniform fitted value distribution were collected, so to have a fair comparison, we randomly sample five from the 11 total evaluations to estimate the power curves,  producing the multiple curves for the uniform condition, and providing an indication of the variability in the power estimates.

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Weihao Li">
 <title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
@@ -27,7 +27,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-chap1.html" rel="next">
+<link href="./abstract.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,13 +69,13 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Front matter</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -101,6 +101,18 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Front matter</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./abstract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgements</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -141,9 +153,9 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -171,9 +183,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
 <li><a href="#copyright-notice" id="toc-copyright-notice" class="nav-link active" data-scroll-target="#copyright-notice">Copyright notice</a></li>
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#declaration" id="toc-declaration" class="nav-link" data-scroll-target="#declaration">Declaration</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/edit/master/Thesis/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -202,83 +211,152 @@ ul.task-list li input[type="checkbox"] {
 <section id="copyright-notice" class="level1 unnumbered"><h1 class="unnumbered">Copyright notice</h1>
 <p>Produced on 23 August 2024.</p>
 <p>© Weihao Li (2024).</p>
-</section><section id="abstract" class="level1 unnumbered"><h1 class="unnumbered">Abstract</h1>
-<p>The abstract should outline the main approach and findings of the thesis and must not be more than 500 words.</p>
-</section><section id="declaration" class="level1 unnumbered"><h1 class="unnumbered">Declaration</h1>
-<blockquote class="blockquote">
-<p>Use only one of the following declarations (Standard thesis or Thesis including published works declaration) and remove the other.</p>
-</blockquote>
-<section id="standard-thesis" class="level3"><h3 class="anchored" data-anchor-id="standard-thesis">Standard thesis</h3>
-<p>This thesis is an original work of my research and contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.</p>
-<p>Student name:</p>
-<p>Student signature:</p>
-<p>Date:</p>
-<section id="publications-during-enrolment" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="publications-during-enrolment">Publications during enrolment</h4>
-<blockquote class="blockquote">
-<p>Remove this section if you do not have publications.</p>
-</blockquote>
-<p>The material in <a href="01-chap1.html" class="quarto-xref"><span>1&nbsp; Introduction</span></a> has been submitted to the journal <em>Journal of Impossible Results</em> for possible publication.</p>
-<p>The contribution in <span class="quarto-unresolved-ref">?sec-litreview</span> of this thesis was presented in the International Symposium on Nonsense held in Dublin, Ireland, in July 2022.</p>
-</section><section id="reproducibility-statement" class="level4"><h4 class="anchored" data-anchor-id="reproducibility-statement">Reproducibility statement</h4>
-<p>This thesis is written using Quarto with renv <span class="citation" data-cites="renv">(<a href="refs.html#ref-renv" role="doc-biblioref"><strong>renv?</strong></a>)</span> to create a reproducible environment. All materials (including the data sets and source files) required to reproduce this document can be found at the Github repository <a href="https://github.com/SusanSu/thesis"><code>github.com/SusanSu/thesis</code></a>.</p>
-<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
-</section></section><section id="thesis-including-published-works-declaration" class="level3"><h3 class="anchored" data-anchor-id="thesis-including-published-works-declaration">Thesis including published works declaration</h3>
-<p>I hereby declare that this thesis contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.</p>
-<p>This thesis includes ?? original papers published in peer reviewed journals and ?? submitted publications. The core theme of the thesis is ??. The ideas, development and writing up of all the papers in the thesis were the principal responsibility of myself, the student, working within the Department of Econometrics &amp; Business Statistics under the supervision of ??</p>
-<p>(The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research.)</p>
-<p>In the case of (??insert chapter numbers) my contribution to the work involved the following:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<thead><tr class="header">
+<!--
+# Abstract {-}
+
+The abstract should outline the main approach and findings of the thesis and must not be more than 500 words.
+
+# Declaration {-}
+
+> Use only one of the following declarations (Standard thesis or Thesis including published works declaration) and remove the other.
+
+### Standard thesis
+
+This thesis is an original work of my research and contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+Student name:
+
+Student signature:
+
+Date:
+
+#### Publications during enrolment {-}
+
+> Remove this section if you do not have publications.
+
+The material in @sec-intro has been submitted to the journal *Journal of Impossible Results* for possible publication.
+
+The contribution in @sec-litreview of this thesis was presented in the International Symposium on Nonsense held in Dublin, Ireland, in July 2022.
+
+#### Reproducibility statement
+
+This thesis is written using Quarto with renv [@renv] to create a reproducible environment. All materials (including the data sets and source files) required to reproduce this document can be found at the Github repository [`github.com/SusanSu/thesis`](https://github.com/SusanSu/thesis).
+
+This work is licensed under a [Creative Commons  Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+### Thesis including published works declaration
+
+I hereby declare that this thesis contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+This thesis includes ?? original papers published in peer reviewed journals and ?? submitted publications. The core theme of the thesis is ??. The ideas, development and writing up of all the papers in the thesis were the principal responsibility of myself, the student, working within the Department of Econometrics & Business Statistics under the supervision of ??
+
+(The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research.)
+
+In the case of (??insert chapter numbers) my contribution to the work involved the following:
+
+
+
+::: {.cell}
+
+:::
+
+
+::: {.content-visible when-format="html"}
+
+
+::: {.cell}
+::: {.cell-output-display}
+
+`````{=html}
+
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">Thesis chapter</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Publication title</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Status</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Nature and % of student contribution</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Nature and % of coauthors' contribution</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Coauthors are Monash students</th>
-</tr></thead>
-<tbody><tr class="odd">
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">The life cycle of Mongolian crickets</td>
 <td style="text-align: left;">Submitted</td>
 <td style="text-align: left;">Concept and data analysis, writing first draft: 60%</td>
 <td style="text-align: left;">Shu Xu, input into manuscript: 25%; Eddie Betts, input into manuscript: 15%</td>
 <td style="text-align: left;">Shu Xu: No; Eddie Betts: Yes</td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
-</div>
-</div>
-<p>I have / have not renumbered sections of submitted or published papers in order to generate a consistent presentation within the thesis.</p>
-<p>Student name:</p>
-<p>Student signature:</p>
-<p>Date:</p>
-<p>I hereby certify that the above declaration correctly reflects the nature and extent of the student’s and co-authors’ contributions to this work. In instances where I am not the responsible author I have consulted with the responsible author to agree on the respective contributions of the authors.</p>
-<p>Main Supervisor name:</p>
-<p>Main Supervisor signature:</p>
-<p>Date:</p>
-</section></section><section id="acknowledgements" class="level1 unnumbered"><h1 class="unnumbered">Acknowledgements</h1>
-<p>I would like to thank my pet goldfish for …</p>
-<blockquote class="blockquote">
-<p>In accordance with Chapter 7.1.4 of the research degrees handbook, if you have engaged the services of a&nbsp;professional&nbsp;editor, you must&nbsp;provide&nbsp;their name&nbsp;and a brief description of the service rendered. If the professional editor’s current or former area of academic specialisation is similar your own, this too should be stated as it may suggest to examiners that the editor’s advice to the student has extended beyond guidance on English expression to affect the substance and structure of the thesis.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>If you have used generative artificial intelligence (AI) technologies, you must include a written acknowledgment of the use and its extent. Your acknowledgement should at a minimum specify which technology was used, include explicit description on how the information was generated, and explain how the output was used in your work. Below is a suggested format:</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“I acknowledge the use of [insert AI system(s) and link] to [specific use of generative artificial intelligence]. The output from these was used to [explain use].”</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Free text section for you to record your acknowledgment and gratitude for the more general academic input and support such as financial support from grants and scholarships and the non-academic support you have received during the course of your enrolment. If you are a recipient of the “Australian Government Research Training Program Scholarship”, you are required to include the following statement:</p>
-</blockquote>
-<blockquote class="blockquote">
-<blockquote class="blockquote">
-<p>“This research was supported by an Australian Government Research Training Program (RTP) Scholarship.”</p>
-</blockquote>
-</blockquote>
-<blockquote class="blockquote">
-<p>You may also wish to acknowledge significant and substantial contribution made by others to the research, work and writing represented and/or reported in the thesis. These could include significant contributions to: the conception and design of the project; non-routine technical work; analysis and interpretation of research data; drafting significant parts of the work or critically revising it so as to contribute to the interpretation.</p>
-</blockquote>
+
+
+`````
+
+:::
+:::
+
+
+:::
+
+::: {.content-visible when-format="pdf"}
+
+
+::: {.cell}
+::: {.cell-output-display}
+\begingroup\fontsize{10}{12}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabu} to \linewidth {>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}}
+\toprule
+\multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Thesis chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Publication title}} & \multicolumn{1}{l}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of coauthors' contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Coauthors are Monash students}}\\
+\midrule
+2 & The life cycle of Mongolian crickets & Submitted & Concept and data analysis, writing first draft: 60\% & Shu Xu, input into manuscript: 25\%; Eddie Betts, input into manuscript: 15\% & Shu Xu: No; Eddie Betts: Yes\\
+\bottomrule
+\end{tabu}}
+\endgroup{}
+
+
+:::
+:::
+
+
+:::
+
+I have / have not renumbered sections of submitted or published papers in order to generate a consistent presentation within the thesis.
+
+Student name:
+
+Student signature:
+
+Date:
+
+I hereby certify that the above declaration correctly reflects the nature and extent of the student’s and co-authors’ contributions to this work. In instances where I am not the responsible author I have consulted with the responsible author to agree on the respective contributions of the authors.
+
+Main Supervisor name:
+
+Main Supervisor signature:
+
+Date:
+
+# Acknowledgements {-}
+
+I would like to thank my pet goldfish for ...
+
+> In accordance with Chapter 7.1.4 of the research degrees handbook, if you have engaged the services of a professional editor, you must provide their name and a brief description of the service rendered. If the professional editor's current or former area of academic specialisation is similar your own, this too should be stated as it may suggest to examiners that the editor's advice to the student has extended beyond guidance on English expression to affect the substance and structure of the thesis.
+
+> If you have used generative artificial intelligence (AI) technologies, you must include a written acknowledgment of the use and its extent. Your acknowledgement should at a minimum specify which technology was used, include explicit description on how the information was generated, and explain how the output was used in your work. Below is a suggested format:
+
+> “I acknowledge the use of [insert AI system(s) and link] to [specific use of generative artificial intelligence]. The output from these was used to [explain use].”
+
+> Free text section for you to record your acknowledgment and gratitude for the more general academic input and support such as financial support from grants and scholarships and the non-academic support you have received during the course of your enrolment. If you are a recipient of the “Australian Government Research Training Program Scholarship”, you are required to include the following statement:
+
+> > “This research was supported by an Australian Government Research Training Program (RTP) Scholarship.”
+
+> You may also wish to acknowledge significant and substantial contribution made by others to the research, work and writing represented and/or reported in the thesis. These could include significant contributions to: the conception and design of the project; non-routine technical work; analysis and interpretation of research data; drafting significant parts of the work or critically revising it so as to contribute to the interpretation.
+
 <!--
 The following line is required to re-set page numbering after preliminary material in the pdf output. Do not remove
 -->
@@ -319,7 +397,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -351,47 +440,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -426,11 +475,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -706,8 +751,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-chap1.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./abstract.html" class="pagination-link" aria-label="Abstract">
+        <span class="nav-page-text">Abstract</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

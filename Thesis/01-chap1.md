@@ -1,10 +1,24 @@
 # Introduction {#sec-intro}
 
 
+Take some sentences from the introduction of each of the chapters to open this chapter, focus on regression diagnostics and the needs and gaps
+
+## Assessing Residual Diagnostics with the Lineup Protocol
+
+One paragraph summary of chapter 2
+
+## Automated Assessment of Residual Plots with Computer Vision Models
+
+## Software for Automated Residual Plot Assessment
+
+## Thesis Overview
 
 
+Include something like this here where it is relevant. 
+@paper-1 is published in the Journal of Computational and Graphical Statistics, and the content has not been changed. Thus "paper" is used rather than "chapter" here.
 
 
+<!--
 
 This is where you introduce the main ideas of your thesis, and an overview of the context and background.
 
@@ -94,3 +108,5 @@ We can also make a nice summary table of the coefficients, as shown in @tbl-coef
 
 
 Again, notice the use of labels and references to automatically generate table numbers.
+
+-->

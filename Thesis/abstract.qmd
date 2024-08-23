@@ -1,0 +1,63 @@
+# Abstract {-}
+
+Take sentences from the abstracts of all three chapters
+
+::: {.content-visible when-format="pdf"}
+
+# Declaration {-}
+
+I hereby declare that this thesis contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+This thesis includes one original paper published in a peer reviewed journal and two unpublished papers.
+
+The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of @paper-1 to  @sec-third-paper, my contribution to the work involved the following:
+
+XXX This is Sherry's summary. You need to revise it for your works.
+
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+dt <- tribble(
+  ~`Chapter`, ~`Publication title`, ~Status, ~`Student contribution`, ~`Co-authors contribution`, ~`Monash Student Yes/No’`,
+  2, "Visual Diagnostics for Constrained Optimisation with Application to Guided Tours", "Published in the R Journal; The R package ferrn on CRAN", "80%  Concept, Analysis, Software, Writing", "D. Cook 10%,  \n P. Menéndez 5%, \n U. Laa 2.5%,  \n N. Langrené 2.5%", "No",
+  3, "Cubble: An R Package for Organizing and Wrangling Multivariate Spatio-temporal Data", "In revision for the Journal of Statistical Software; The R package cubble on CRAN", "80% Concept, Analysis, Software, Writing", "D. Cook 10%,  \n P. Menéndez 5%, \n U. Laa 2.5%,  \n N. Langrené 2.5%", "No",
+)  
+
+dt |>
+  kable(booktabs = TRUE, format = "latex", longtable = TRUE) |>
+  kable_styling(font_size = 10, 
+                latex_options = c("hold_position", "repeat_header")) |>
+  column_spec(1, width = "1.2cm") |>
+  column_spec(2, width = "3cm") |>
+  column_spec(3, width = "3.5cm") |>
+  column_spec(4, width = "2.5cm") |>
+  column_spec(5, width = "2.4cm") |>
+  column_spec(6, width = "1.3cm") |>
+  row_spec(0, align = "l", bold = TRUE)
+```
+
+Chapter 4, *A Tidy Framework and Infrastructure to Systematically Assemble Spatio-temporal Indexes from Multivariate Data* is to be submitted for the Journal of Computational and Graphical Statistics and the associated R package `tidyindex` is to be submitted to CRAN. 
+
+
+**The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.**
+
+I have not renumbered sections of submitted or published papers in order to generate a consistent presentation within the thesis.
+
+**Student name**: H. Sherry Zhang
+
+**Student signature**: 
+
+**Date**: 23rd August 2023 
+
+I hereby certify that the above declaration correctly reflects the nature and extent of the student’s and co-authors’ contributions to this work. In instances where I am not the responsible author I have consulted with the responsible author to agree on the respective contributions of the authors.
+
+**Main Supervisor name**: Dianne Cook
+
+**Main Supervisor signature**:
+
+**Date**: 23rd August 2023 
+
+::: 
