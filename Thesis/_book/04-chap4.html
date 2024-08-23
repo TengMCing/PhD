@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 4&nbsp; Software for Automated Residual Plot Assessment: autovi and autovi.web</title>
+<title>4&nbsp; Software for Automated Residual Plot Assessment: autovi and autovi.web – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -117,7 +117,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script><link href="https://fonts.googleapis.com/css?family=Fira+Sans%7CMerriweather%7CSource%20Code%20Pro" rel="stylesheet">
-<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
  for (var i = 0; i < mathElements.length; i++) {
@@ -130,7 +130,7 @@ div.csl-indent {
     fleqn: false
    });
 }}});
-  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -162,13 +162,13 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-chap4.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Software for Automated Residual Plot Assessment: autovi and autovi.web</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -246,9 +246,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -397,7 +397,7 @@ Status:
 <span class="header-section-number">4.2.4</span> Modularized Infrastructure</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-diag" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="04-chap4_files/figure-html/fig-autovi-diag-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -518,7 +518,7 @@ Status:
 <pre><code># A tibble: 1 × 5
   measure_monotonic measure_sparse measure_splines measure_striped     n
               &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
-1            0.0585          0.470          0.0901            0.62    50</code></pre>
+1            0.0621          0.470          0.0901            0.62    50</code></pre>
 </div>
 </div>
 </section><section id="sec-autovi-null-method" class="level4"><h4 class="anchored" data-anchor-id="sec-autovi-null-method">Null Residual Simulation</h4>
@@ -572,7 +572,7 @@ Status:
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//Rtmpi27QUE/file1250358e5233a.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpXuji1B/file151c51a3eed6e.png"</code></pre>
 </div>
 </div>
 </section><section id="image-reading-and-resizing" class="level4"><h4 class="anchored" data-anchor-id="image-reading-and-resizing">Image Reading and Resizing</h4>
@@ -840,21 +840,21 @@ Status:
 <p>An extended class inherits attributes and methods from its parent class(es), so it will behave similarly to them. This can be verified using the built-in <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> function.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "..dir.."              "instantiate"          "summary_rank_plot"   
- [4] "del_attr"             "boot_method"          "null_vss"            
- [7] "..class_tree.."       "..instantiated.."     "summary"             
-[10] "..str.."              "..repr.."             "likelihood_ratio"    
-[13] "plot_resid"           "null_method"          "summary_density_plot"
-[16] "..mro.."              "set_attr"             "..methods.."         
-[19] "p_value"              "check"                "rotate_resid"        
-[22] "lineup_check"         "..method_env.."       "feature_pca_plot"    
-[25] "get_data"             "check_result"         "..new.."             
-[28] "..bases.."            "plot_pair"            "feature_pca"         
-[31] "plot_lineup"          "has_attr"             "summary_plot"        
-[34] "..class.."            "auxiliary"            "get_attr"            
-[37] "..len.."              "..type.."             "..init.."            
-[40] "get_fitted_and_resid" "save_plot"            "boot_vss"            
-[43] "vss"                 </code></pre>
+<pre><code> [1] "vss"                  "rotate_resid"         "..init.."            
+ [4] "plot_lineup"          "get_data"             "has_attr"            
+ [7] "lineup_check"         "null_vss"             "check_result"        
+[10] "summary_plot"         "..str.."              "..new.."             
+[13] "del_attr"             "plot_resid"           "null_method"         
+[16] "..class.."            "..method_env.."       "auxiliary"           
+[19] "summary"              "set_attr"             "get_attr"            
+[22] "summary_density_plot" "get_fitted_and_resid" "..methods.."         
+[25] "..class_tree.."       "..repr.."             "feature_pca"         
+[28] "plot_pair"            "check"                "boot_vss"            
+[31] "feature_pca_plot"     "boot_method"          "save_plot"           
+[34] "summary_rank_plot"    "instantiate"          "p_value"             
+[37] "..instantiated.."     "..type.."             "..dir.."             
+[40] "..len.."              "..bases.."            "..mro.."             
+[43] "likelihood_ratio"    </code></pre>
 </div>
 </div>
 <p>To register a method for an extended class, you need to pass the class as the first argument and the method as a named argument to the <code><a href="https://tengmcing.github.io/bandicoot/reference/register_method.html">bandicoot::register_method()</a></code> function. Within a method, <code>self</code> can be used as a reference to the class or object environment. The following code example overrides the <code>null_method()</code> with a function that simulates null residuals from the corresponding normal distribution. This approach differs from the default null residual simulation scheme described in <a href="#sec-autovi-null-method" class="quarto-xref"><span>Section 4.2.4.6</span></a>. Although less efficient than the default method for linear regression models, it provides an alternative way to simulate null residuals. This method is particularly useful when the fitted model is unavailable, and only the fitted values and residuals are accessible, as discussed in <a href="#sec-autovi-web" class="quarto-xref"><span>Section 4.3</span></a>.</p>
@@ -901,7 +901,7 @@ Recognizing these potential barriers, we were motivated to design and implement 
 <span class="header-section-number">4.3.2</span> Design</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-web" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/autovi_web.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -912,12 +912,12 @@ Figure&nbsp;4.2: Overview of the <code>autovi.web</code> graphical user interfac
 </div>
 </div>
 <p>While the R package <code>autovi</code> aims to provide tools that can be extended to broader visual inference applications, <code>autovi.web</code> is only focus on to for providing a straightforward and clean user interface. An overview of the graphical user interface of <code>autovi.web</code> is provided in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>. This is the default view of the web application, and there are five regions that user can mainly interact with. Region 1 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a sidebar menu which can switch between the analysis page and the information page. The analysis page is the focus of this section.</p>
-<p>Region 2 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a panel for data uploading and CSV type selection. Clicking the “upload CSV” button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the “upload CSV” button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in <a href="#sec-autovi-web-example" class="quarto-xref"><span>Section 4.3.4</span></a>.</p>
+<p>Region 2 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> is a panel for data uploading and CSV type selection. Clicking the “upload CSV” button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the “upload CSV” button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in <a href="#sec-autovi-web-workflow" class="quarto-xref"><span>Section 4.3.3</span></a>.</p>
 <p>While the <code>autovi</code> package typically expects a fitted regression model object provided by the user, this approach is impractical for a web interface. Saving the R model object to the filesystem involves extra steps and requires users to have specific knowledge, which does not align with the goal of the web application. Moreover, the regression model object may contain sensitive, non-shareable data, making it unsuitable for uploading. Additionally, model objects are often unnecessarily large, containing extra information not needed for residual diagnostics. In contrast, a CSV file is easier to generate using various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. They are generally less sensitive than raw data, as they exclude most information about the predictors.</p>
 <p>The web application is designed to assess either a single residual plot or a lineup of residual plots. Therefore, it accepts only two types of CSV files: one with at least two columns representing the fitted values and residuals of a single residual plot, and another with at least three columns, where the additional column serves as the label or identifier for a lineup of multiple residual plots. For a single residual plot, 19 null plots are generated by simulating normal random draws from a distribution with the same variance as the original residual plot, and comparisons are made with the original residual plot. For a lineup, comparisons are made among the plots within the lineup. After uploading the CSV file, the user must select the correct format to ensure the web interface interprets the data correctly.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web-type" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-web-type" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-type-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/autovi_web_type.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -933,7 +933,7 @@ Figure&nbsp;4.3: The panels for selecting target columns and simulation settings
 <p>Once the play button is clicked, region 5 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> and <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web-result" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-web-result" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/autovi_web_result.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -945,7 +945,7 @@ Figure&nbsp;4.4: The first two panels of results from the automated residual ass
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web-result2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-web-result2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/autovi_web_result2.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -957,7 +957,7 @@ Figure&nbsp;4.5: The last two panels of results from the automated residual asse
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web-gradient-hide" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-autovi-web-gradient-hide" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-gradient-hide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/autovi_web_gradient_hide.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
@@ -972,20 +972,30 @@ Figure&nbsp;4.6: The attention map is hidden if the assessment indicates a <span
 <p>Region 7 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> provides a lineup of plots corresponding to each <code>.sample</code> value from the table in Region 6. Due to space limitations, a maximum of 20 residual plots will be displayed, ensuring that the true residual plot, if known, will be included in the lineup. The plots are generated using <code>ggplot2</code>, the same as in <code>autovi</code>. Users can perform a visual test with this lineup to check if the true residual plot is distinguishable from the other plots, helping to determine the significance of model violations.</p>
 <p>Region 8 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> displays the density plot for bootstrapped visual signal strength and null visual signal strength. The densities are shown in distinct colors that are friendly for colorblind users. A solid vertical line marks the visual signal strength of the true residual plot, while rug lines at the bottom of the plot provide a clearer view of individual cases. Below the plot, a text message indicates the number and percentage of bootstrapped residual plots that would be rejected by the visual test when compared to the null plots. Note that the bootstrapped residual plots in this application are generated differently from <code>autovi</code>. Since we do not have the R model object, we can not refit the regression model with bootstrapped data. Instead, we bootstrap the residuals of the true residual plot directly to obtain bootstrapped residual plots. As as result, this panel will disappear when the true residual plot is unknown.</p>
 <p>Region 9 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a> displays an attention map for the true residual plot, generated by computing the gradient of the Keras model’s output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts visual signal strength and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the <span class="math inline">p</span>-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in <a href="#fig-autovi-web-gradient-hide" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>. This button allows users to toggle the display of the attention map.</p>
-</section><section id="usage-from-the-user-perspective" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="usage-from-the-user-perspective">
-<span class="header-section-number">4.3.3</span> Usage, from the user perspective</h3>
-<p>The user would follow the order of the numbered steps displayed in the main user interface as shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, <!--Since the design details have already been covered in @sec-autovi-web-design, we will not repeat the functionality of each panel in this section.--> as follows:</p>
-<ul>
-<li>Step 1: uploading a CSV file by clicking the “upload CSV” button. A window will pop up, allowing the user to select the CSV file. The CSV file should contain at least two columns representing fitted values and residuals of a residual plot. If a lineup needs to be evaluated, the CSV file should contain an additional column for labels of residual plot.<br>
-</li>
-<li>In Step 2, the user specifies the CSV type based on the uploaded file, choosing between a single residual plot or a lineup of multiple residual plots.</li>
-<li>Step 3 involves selecting the appropriate columns for fitted values, residuals, and, optionally, labels of residual plots, from the dataset.</li>
-<li>In Step 4, the user sets the number of bootstrapped draws needed for the analysis; more draws provide a better estimate of the bootstrapped distribution but result in slower computation. The user should also set the seed to control the simulation. If the dataset contains a lineup and the true residual plot is known, select its label.</li>
-<li>Finally, clicking the play button will initiate the analysis, and the user can review the result panels.</li>
-</ul></section><section id="sec-autovi-web-example" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="sec-autovi-web-example">
-<span class="header-section-number">4.3.4</span> Example</h3>
+</section><section id="sec-autovi-web-workflow" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="sec-autovi-web-workflow">
+<span class="header-section-number">4.3.3</span> Workflow</h3>
+<p>The workflow of <code>autovi.web</code> is designed to be straightforward, with numbered steps displayed in each panel shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>. Thre are two example datasets provided by the web application, as mentioned in <a href="#sec-autovi-web-design" class="quarto-xref"><span>Section 4.3.2</span></a>. The single residual plot example uses the <code>dino</code> dataset from the R package <code>datasauRus</code> <span class="citation" data-cites="datasaurus">(<a href="refs.html#ref-datasaurus" role="doc-biblioref">Davies et al. 2022</a>)</span>. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.</p>
+<p>As shown in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>, to use the lineup example data, click the “Use Lineup Example” button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically. If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.</p>
+<p>In the result panels shown in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>D, the first row of the table is the most crucial to check, as it provides the visual signal strength and the rank of the true residual plot among the other plots. The summary text beneath the table provides the <span class="math inline">p</span>-value, which can be used for quick decision-making. The lineup is for manual inspection, and the user should see if the true residual plot is visually distinguishable from the other plots, to confirm if the model violation is serious. The density plot in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>E offers a more robust result, allowing the user to compare the distribution of bootstrapped visual signal strength with the distribution of null visual signal strength. Finally, the grayscale attention map can be used to check if the target visual features, like the non-linearity present in the lineup example, are captured by the computer vision model, ensuring the quality of the assessment.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example-1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.7: The workflow for <code>autovi.web</code> using the lineup example dataset proceeds as follows: (A) To begin, the user clicks the “Use Lineup Example” button to load the example dataset, during which the data status and CSV type will be automatically updated. (B) The target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label. (C) The user initiates the assessment by clicking the run button. (D) The visual signal strength of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the <span class="math inline">p</span>-value to aid in decision-making. The lineup on the right allows for manual inspection. (E) The density plot helps verify if the bootstrapped distribution differs from the null distribution, while the attention map on the right offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.
+</figcaption></figure>
+</div>
+</div>
+</div>
 </section></section><section id="sec-autovi-conclusion" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="sec-autovi-conclusion">
 <span class="header-section-number">4.4</span> Conclusions</h2>
+<p>This chapter presents an advancement in regression diagnostics software through the development of the <code>autovi</code> package and its accompanying web interface, <code>autovi.web</code>, addressing a critical gap in the current landscape of statistical software. While regression tools are widely available, effective and efficient diagnostic methods have lagged behind, particularly in the field of residual plot interpretation.</p>
+<p>The <code>autovi</code> R package, introduced in this chapter, automates the assessment of residual plots by incorporating a computer vision model, eliminating the need for time-consuming and potentially inconsistent human interpretation. This automation improves the efficiency of the diagnostic process and promotes consistency in model evaluation across different users and studies.</p>
+<p>The development of the accompanying Shiny app, <code>autovi.web</code>, expands access to these advanced diagnostic tools. By providing a user-friendly interface, it makes sophisticated residual plot assessment accessible to a broader audience, including those who may not have extensive programming experience. This web-based solution effectively addresses the potential barriers to adoption, such as complex dependencies and installation requirements, that are often associated with advanced statistical software.</p>
+<p>The combination of <code>autovi</code> and <code>autovi.web</code> offers a comprehensive solution to the challenges of residual plot interpretation in regression analysis. These tools have the potential to significantly improve the quality and consistency of model diagnostics across various fields, from academic research to industry applications. By automating a critical aspect of model evaluation, they allow researchers and analysts to focus more on interpreting results and refining models, rather than grappling with the intricacies of plot assessment.</p>
+<p>The framework established by <code>autovi</code> and <code>autovi.web</code> opens up exciting possibilities for further research and development. Future work could explore the extension of these automated assessment techniques to other types of diagnostic plots and statistical models, potentially revolutionizing how we approach visual inference in statistical analysis more broadly.</p>
 </section><section id="availability" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="availability">
 <span class="header-section-number">4.5</span> Availability</h2>
 <p>The web interface is housed at <a href="autoviweb.netlify.app">autoviweb.netlify.app</a>.</p>
@@ -1016,6 +1026,9 @@ Clark, A., and others (2015), <span>“Pillow (pil fork) documentation,”</span
 </div>
 <div id="ref-cook1982residuals" class="csl-entry" role="listitem">
 Cook, R. D., and Weisberg, S. (1982), <em>Residuals and influence in regression</em>, New York: Chapman; Hall.
+</div>
+<div id="ref-datasaurus" class="csl-entry" role="listitem">
+Davies, R., Locke, S., and D’Agostino McGowan, L. (2022), <em><a href="https://CRAN.R-project.org/package=datasauRus">datasauRus: Datasets from the datasaurus dozen</a></em>.
 </div>
 <div id="ref-ggresidpanel" class="csl-entry" role="listitem">
 Goode, K., and Rey, K. (2019), <em><a href="https://CRAN.R-project.org/package=ggResidpanel">ggResidpanel: Panels and interactive versions of diagnostic plots using ’ggplot2’</a></em>.
@@ -1119,18 +1132,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1162,7 +1164,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1197,7 +1239,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1471,12 +1517,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./03-chap3.html" class="pagination-link  aria-label=" assessment="" of="" residual="" plots="" with="" computer="" vision="" models="">
+      <a href="./03-chap3.html" class="pagination-link" aria-label="Automated Assessment of Residual Plots with Computer Vision Models">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Automated Assessment of Residual Plots with Computer Vision Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-chap5.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>Conclusion and future plans</span>">
+      <a href="./05-chap5.html" class="pagination-link" aria-label="Conclusion and future plans">
         <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusion and future plans</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
