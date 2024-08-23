@@ -94,7 +94,7 @@ This method (@fig-plot-pair) displays the true residual plot on the left and a s
 
 The package offers a straightforward visualization of the assessment result through the `summary_plot()` function.
 
-```{r fig-summary-plot, echo = TRUE, fig.height=3, fig.width=6, fig.cap="Summary plot comparing the densities of VSS for bootstrapped residual samples relative to VSS for null plots (blue)."}
+```{r fig-summary-plot, echo = TRUE, fig.height=3, fig.width=6, fig.cap="Summary plot comparing the densities of VSS for bootstrapped residual samples (red) relative to VSS for null plots (blue)."}
 checker$summary_plot()
 ```
 

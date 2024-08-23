@@ -143,7 +143,7 @@ checker$summary_plot()
 ```
 
 ::: {.cell-output-display}
-![Summary plot comparing the densities of VSS for bootstrapped residual samples relative to VSS for null plots (blue).](04-chap4_files/figure-html/fig-summary-plot-1.png){#fig-summary-plot width=576}
+![Summary plot comparing the densities of VSS for bootstrapped residual samples (red) relative to VSS for null plots (blue).](04-chap4_files/figure-html/fig-summary-plot-1.png){#fig-summary-plot width=576}
 :::
 :::
 
@@ -463,7 +463,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//RtmpNRbCLC/file8b239695317.png"
+[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//RtmpdYSE2U/file8c6724ef9ee0.png"
 ```
 
 
