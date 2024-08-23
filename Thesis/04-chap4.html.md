@@ -1,4 +1,4 @@
-# Software for Automated Residual Plot Assessment: autovi and autovi.web
+# Software for Automated Residual Plot Assessment: autovi and autovi.web {#sec-third-paper}
 
 Regression software is widely available today, but tools for effective diagnostics are still lagging. Although it is advised to diagnose a linear model by plotting residuals, it required human effort which can be prohibit the efforts. Here we describe a new R package that includes a computer vision model for automated assessment of residual plots, and an accompanying shiny app for ease of use. 
 
@@ -464,7 +464,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//RtmpDrHuNa/file11ea13c58cc15.png"
+[1] "/var/folders/z0/8wx4nmk11ts56s77dt_pjq6xw13lmk/T//Rtmpi27QUE/file1250358e5233a.png"
 ```
 
 

@@ -15,6 +15,8 @@ book:
   chapters:
     - text: "Front matter"
       file: index.qmd
+    - "abstract.qmd"
+    - "acknowledgements.qmd"
     - "01-chap1.qmd"
     - "02-chap2.qmd"
     - "03-chap3.qmd"
