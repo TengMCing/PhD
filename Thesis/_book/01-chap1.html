@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -70,6 +90,49 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather|Source Code Pro" rel="stylesheet">
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -193,8 +256,17 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><b>Sections</b></h2>
+   
+  <ul class="collapse">
+  <li><a href="#comparison-of-visual-testing-and-conventional-testing-in-residual-diagnostics" id="toc-comparison-of-visual-testing-and-conventional-testing-in-residual-diagnostics" class="nav-link active" data-scroll-target="#comparison-of-visual-testing-and-conventional-testing-in-residual-diagnostics"><span class="header-section-number">1.1</span> Comparison of Visual Testing and Conventional Testing in Residual Diagnostics</a></li>
+  <li><a href="#automated-residual-plot-assessment" id="toc-automated-residual-plot-assessment" class="nav-link" data-scroll-target="#automated-residual-plot-assessment"><span class="header-section-number">1.2</span> Automated Residual Plot Assessment</a></li>
+  <li><a href="#implementing-automated-residual-plot-assessment-in-practice" id="toc-implementing-automated-residual-plot-assessment-in-practice" class="nav-link" data-scroll-target="#implementing-automated-residual-plot-assessment-in-practice"><span class="header-section-number">1.3</span> Implementing Automated Residual Plot Assessment in Practice</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">1.4</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/TengMCing/PhD/edit/master/Thesis/01-chap1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -218,13 +290,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is where you introduce the main ideas of your thesis, and an overview of the context and background.</p>
-<p>In a PhD, Chapter 2 would normally contain a literature review. Typically, Chapters 3–5 would contain your own contributions. Think of each of these as potential papers to be submitted to journals. Finally, Chapter 6 provides some concluding remarks, discussion, ideas for future research, and so on. Appendixes can contain additional material that don’t fit into any chapters, but that you want to put on record. For example, additional tables, output, etc.</p>
-<p>This thesis explores innovative approaches to regression model diagnostics across three chapters. Chapter 2 presents evidence from a visual inference experiment using the lineup protocol to demonstrate why plotting residuals is superior to conventional numerical hypothesis tests for model diagnosis. The lineup protocol provides a more reliable and consistent method for interpreting residual plots, avoiding the oversensitivity of conventional tests while detecting a range of departures from good residuals simultaneously.</p>
-<p>Chapter 3 introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitations of human-based visual inference. This model is trained to predict a distance measure based on Kullback-Leibler divergence, quantifying the disparity between the residual distribution of a fitted classical normal linear regression model and the reference distribution. Simulation studies show that the computer vision model strikes a balance between conventional tests and human visual tests in terms of sensitivity, though it is slightly less effective on non-linearity patterns.</p>
-<p>Chapter 4 describes the development of an R package that implements the computer vision model for automated assessment of residual plots. The package includes a shiny app for ease of use, allowing analysts to input a sample of residuals and receive predictions of visual signal strength (VSS) along with supporting information to assist in diagnosing model fit. This tool aims to bridge the gap between the need for effective diagnostics and the limitations of conventional tests and human effort.</p>
+<p>Model diagnostics play a critical role in evaluating the accuracy and validity of a statistical model. They enable the assessment of the model’s assumptions, detection of outliers, evaluation of how well the model fits the data, and identification of possible approaches to improve the model’s performance.</p>
+<p>When conducting model diagnostics, graphical representations of data are often preferred or required by data analysts. The preference for visual diagnostics is attributed to its intuitive nature and the possibility of discovering unexpected abstract and unquantifiable insights. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions.</p>
+<p>Recently, a novel statistical inferential framework known as visual inference <span class="citation" data-cites="buja2009statistical">(<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">Buja et al. 2009</a>)</span> has been developed, which relies on the use of graphical representations of data. The visual inference approach makes use of the natural capability of the human visual system to identify patterns and deviations from expected patterns. It provides a more comprehensible way of interpreting data and conducting hypothesis testing compared to conventional statistical testing.</p>
+<p>Practically, visual inference is conducted via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. It comprises <span class="math inline">m</span> randomly positioned plots, where one of them represents the data plot, while the remaining <span class="math inline">m-1</span> plots represent the null plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis <span class="math inline">H_0</span>. To compute the p-value of the visual test, the lineup will be independently presented to a number of participants, asking them to pick the most different plot. Under <span class="math inline">H_0</span>, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is <span class="math inline">1/m</span>. If a large number of participants correctly identify the data plot, the corresponding <span class="math inline">p</span>-value will be small, indicating strong evidence against <span class="math inline">H_0</span>.</p>
+<p>This method has gained increasing traction in recent years and has already been integrated into data analysis of various topics <span class="citation" data-cites="loy2013diagnostic widen2016graphical krishnan2021hierarchical">(<a href="refs.html#ref-krishnan2021hierarchical" role="doc-biblioref">Krishnan and Hofmann 2021</a>; see <a href="refs.html#ref-loy2013diagnostic" role="doc-biblioref">Loy and Hofmann 2013</a>; <a href="refs.html#ref-widen2016graphical" role="doc-biblioref">Widen et al. 2016</a>)</span>. However, the reliance of human assessment is a fundamental aspect of visual tests, which may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.</p>
+<p>The main objective of this research is to construct an automatic visual inference system capable of conducting visual tests on a large scale in the domain of regression diagnostics, by incorporating modern computer vision models.</p>
+<section id="comparison-of-visual-testing-and-conventional-testing-in-residual-diagnostics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="comparison-of-visual-testing-and-conventional-testing-in-residual-diagnostics"><span class="header-section-number">1.1</span> Comparison of Visual Testing and Conventional Testing in Residual Diagnostics</h2>
+<p>Despite the availability of numerical hypothesis tests for model diagnosis, regression experts consistently recommend visual inspection of residual plots <span class="citation" data-cites="draper1998applied cook1982residuals montgomery1982introduction">(<a href="refs.html#ref-cook1982residuals" role="doc-biblioref">Cook and Weisberg 1982</a>; <a href="refs.html#ref-draper1998applied" role="doc-biblioref">Draper and Smith 1998</a>; <a href="refs.html#ref-montgomery1982introduction" role="doc-biblioref">Montgomery et al. 1982</a>)</span>. Chapter 2 provides empirical evidence supporting the indispensability of residual plots through a visual inference experiment using the lineup protocol. By comparing human evaluations of residual plots to conventional statistical tests, this chapter demonstrates the advantages of graphical methods in detecting practical issues with model fit, while also highlighting the limitations of conventional tests in producing overly sensitive results. The chapter contains a comprehensive literature review related to residual diagnostics.</p>
+</section>
+<section id="automated-residual-plot-assessment" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="automated-residual-plot-assessment"><span class="header-section-number">1.2</span> Automated Residual Plot Assessment</h2>
+<p>Chapter 3 introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitations of human-based visual inference. This model is trained to predict a distance measure based on Kullback-Leibler divergence, quantifying the disparity between the residual distribution of a fitted classical normal linear regression model and the reference distribution. Performance of the model is evaluated on the human subject experiment data collected in chapter 2. A comprehensive literature review of data plots reading with computer vision models is contained in the chapter.</p>
+</section>
+<section id="implementing-automated-residual-plot-assessment-in-practice" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="implementing-automated-residual-plot-assessment-in-practice"><span class="header-section-number">1.3</span> Implementing Automated Residual Plot Assessment in Practice</h2>
+<p>Chapter 4 introduces a new R package, <code>autovi</code>, and its accompanying web interface, <code>autovi.web</code>, designed to automate the assessment of residual plots in regression analysis. The package uses a computer vision model built in Chapter 3 to predict a measure of visual signal strength (VSS) and provides supporting information to assist analysts in diagnosing model fit. By automating this process, <code>autovi</code> and <code>autovi.web</code> improve the efficiency and consistency of model evaluation, making advanced diagnostic tools accessible to a broader audience.</p>
+</section>
+<section id="summary" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">1.4</span> Summary</h2>
+<p>The thesis is structured as follows. Chapter 2 compares visual testing and conventional testing in residual diagnostics through a visual inference experiment, providing empirical evidence for the effectiveness of visual methods. Chapter 3 introduces a computer vision model for automated residual plot assessment, evaluating its performance on human subject experiment data. Chapter 4 presents the implementation of automated residual plot assessment in practice, through the R package <code>autovi</code> and its accompanying web interface <code>autovi.web</code>.</p>
+<p>Chapter 5 summarises the contribution of the work and their impact, and discusses some future plans.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-buja2009statistical" class="csl-entry" role="listitem">
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F., and Wickham, H. (2009), <span>“Statistical inference for exploratory data analysis and model diagnostics,”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, The Royal Society Publishing, 367, 4361–4383.
+</div>
+<div id="ref-cook1982residuals" class="csl-entry" role="listitem">
+Cook, R. D., and Weisberg, S. (1982), <em>Residuals and influence in regression</em>, New York: Chapman; Hall.
+</div>
+<div id="ref-draper1998applied" class="csl-entry" role="listitem">
+Draper, N. R., and Smith, H. (1998), <em>Applied regression analysis</em>, John Wiley &amp; Sons.
+</div>
+<div id="ref-krishnan2021hierarchical" class="csl-entry" role="listitem">
+Krishnan, G., and Hofmann, H. (2021), <span>“Hierarchical decision ensembles-an inferential framework for uncertain human-AI collaboration in forensic examinations,”</span> <em>arXiv preprint arXiv:2111.01131</em>.
+</div>
+<div id="ref-loy2013diagnostic" class="csl-entry" role="listitem">
+Loy, A., and Hofmann, H. (2013), <span>“Diagnostic tools for hierarchical linear models,”</span> <em>Wiley Interdisciplinary Reviews: Computational Statistics</em>, Wiley Online Library, 5, 48–61.
+</div>
+<div id="ref-montgomery1982introduction" class="csl-entry" role="listitem">
+Montgomery, D. C., Peck, E. A., and Vining, G. G. (1982), <em>Introduction to linear regression analysis</em>, John Wiley &amp; Sons.
+</div>
+<div id="ref-widen2016graphical" class="csl-entry" role="listitem">
+Widen, H. M., Elsner, J. B., Pau, S., and Uejio, C. K. (2016), <span>“Graphical inference in geographical research,”</span> <em>Geographical Analysis</em>, Wiley Online Library, 48, 115–131.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -664,4 +777,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/TengMCing/PhD/edit/master/Thesis/01-chap1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TengMCing/PhD/edit/master/Thesis/01-chap1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
