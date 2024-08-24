@@ -2,17 +2,13 @@
 
 Take sentences from the abstracts of all three chapters
 
-::: {.content-visible when-format="pdf"}
-
 # Declaration {-}
 
 I hereby declare that this thesis contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
 
 This thesis includes one original paper published in a peer reviewed journal and two unpublished papers.
 
-The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of @paper-1 to  @sec-third-paper, my contribution to the work involved the following:
-
-XXX This is Sherry's summary. You need to revise it for your works.
+The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of @sec-first-paper and @sec-third-paper, my contribution to the work involved the following:
 
 
 
@@ -21,33 +17,46 @@ XXX This is Sherry's summary. You need to revise it for your works.
 
 ::: {.cell}
 ::: {.cell-output-display}
-\begingroup\fontsize{10}{12}\selectfont
 
-\begin{longtable}{>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{1.3cm}}
-\toprule
-\multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3cm}}{\textbf{Publication title}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3.5cm}}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.5cm}}{\textbf{Student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.4cm}}{\textbf{Co-authors contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{1.3cm}}{\textbf{Monash Student Yes/No’}}\\
-\midrule
-\endfirsthead
-\multicolumn{6}{@{}l}{\textit{(continued)}}\\
-\toprule
-\multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3cm}}{\textbf{Publication title}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3.5cm}}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.5cm}}{\textbf{Student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.4cm}}{\textbf{Co-authors contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{1.3cm}}{\textbf{Monash Student Yes/No’}}\\
-\midrule
-\endhead
+`````{=html}
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;font-weight: bold;text-align: left;"> Chapter </th>
+   <th style="text-align:left;font-weight: bold;text-align: left;"> Publication title </th>
+   <th style="text-align:left;font-weight: bold;text-align: left;"> Status </th>
+   <th style="text-align:left;font-weight: bold;text-align: left;"> Student contribution </th>
+   <th style="text-align:left;font-weight: bold;text-align: left;"> Co-authors contribution </th>
+   <th style="text-align:left;font-weight: bold;text-align: left;"> Coauthors are Monash students </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;width: 1.2cm; "> 2 </td>
+   <td style="text-align:left;width: 3cm; "> A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol </td>
+   <td style="text-align:left;width: 3.5cm; "> Published in the Journal of Computational and Graphical Statistics </td>
+   <td style="text-align:left;width: 2.5cm; "> 80%  Concept, Analysis, Software, Writing </td>
+   <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
+ P. Menéndez 5%, 
+ U. Laa 2.5%,  
+ N. Langrené 2.5% </td>
+   <td style="text-align:left;width: 1.3cm; "> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 1.2cm; "> 4 </td>
+   <td style="text-align:left;width: 3cm; "> Software for Automated Residual Plot Assessment: autovi and autovi.web </td>
+   <td style="text-align:left;width: 3.5cm; "> The R package autovi on CRAN </td>
+   <td style="text-align:left;width: 2.5cm; "> 80% Concept, Analysis, Software, Writing </td>
+   <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
+ P. Menéndez 5%, 
+ U. Laa 2.5%,  
+ N. Langrené 2.5% </td>
+   <td style="text-align:left;width: 1.3cm; "> No </td>
+  </tr>
+</tbody>
+</table>
 
-\endfoot
-\bottomrule
-\endlastfoot
-2 & Visual Diagnostics for Constrained Optimisation with Application to Guided Tours & Published in the R Journal; The R package ferrn on CRAN & 80\%  Concept, Analysis, Software, Writing & D. Cook 10\%,  
- P. Menéndez 5\%, 
- U. Laa 2.5\%,  
- N. Langrené 2.5\% & \vphantom{1} No\\
-3 & Cubble: An R Package for Organizing and Wrangling Multivariate Spatio-temporal Data & In revision for the Journal of Statistical Software; The R package cubble on CRAN & 80\% Concept, Analysis, Software, Writing & D. Cook 10\%,  
- P. Menéndez 5\%, 
- U. Laa 2.5\%,  
- N. Langrené 2.5\% & No\\*
-\end{longtable}
-\endgroup{}
-
+`````
 
 :::
 :::
@@ -57,18 +66,18 @@ XXX This is Sherry's summary. You need to revise it for your works.
 
 
 
-Chapter 4, *A Tidy Framework and Infrastructure to Systematically Assemble Spatio-temporal Indexes from Multivariate Data* is to be submitted for the Journal of Computational and Graphical Statistics and the associated R package `tidyindex` is to be submitted to CRAN. 
+Chapter 3, *Automated Assessment of Residual Plots with Computer Vision Models* is to be submitted for the Journal of Computational and Graphical Statistics. 
 
 
-**The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.**
+<!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 
 I have not renumbered sections of submitted or published papers in order to generate a consistent presentation within the thesis.
 
-**Student name**: H. Sherry Zhang
+**Student name**: Weihao Li
 
 **Student signature**: 
 
-**Date**: 23rd August 2023 
+**Date**: 26th August 2024 
 
 I hereby certify that the above declaration correctly reflects the nature and extent of the student’s and co-authors’ contributions to this work. In instances where I am not the responsible author I have consulted with the responsible author to agree on the respective contributions of the authors.
 
@@ -76,6 +85,5 @@ I hereby certify that the above declaration correctly reflects the nature and ex
 
 **Main Supervisor signature**:
 
-**Date**: 23rd August 2023 
+**Date**: 26th August 2024
 
-::: 
