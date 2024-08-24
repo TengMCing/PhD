@@ -39,6 +39,7 @@ degrees: 'PhD, Monash University'
 format:
   monashthesis-html: default
   monashthesis-pdf:
+    shorttitle: "Advances in Artificial Intelligence for Data Visualization"
     link-citations: true
     include-in-header:
       - text: |
