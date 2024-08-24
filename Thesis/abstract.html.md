@@ -1,6 +1,8 @@
 # Abstract {-}
 
-Take sentences from the abstracts of all three chapters
+This work is motivated by the need for an automated approach to diagnose regression models through residual plots with reliability and consistency. While numerical hypothesis tests are commonly used, residual plots remain essential in model diagnosis because conventional tests are limited to specific types of model departures and tend to be overly sensitive. Visual inference using the lineup protocol offers a less sensitive and more broadly applicable alternative, yet its dependence on human judgment limits scalability. This research addresses these limitations by automating the assessment process.
+
+This research presents three original contributions. The first contribution ([Chapter 2](#sec-first-paper)) provides evidence for the effectiveness of visual inference in regression diagnostics through a human subject experiment, demonstrating the benefits of using the lineup protocol for reliable and consistent reading of residual plots. The second contribution ([Chapter 3](#sec-second-paper)) introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitation of the lineup protocol. The third contribution ([Chapter 4](#sec-third-paper)) presents an R package and Shiny app, providing a user-friendly interface for analysts to leverage the computer vision model and supporting tools for diagnostic purposes. These contributions advance the field of artificial intelligence for data visualization, enabling more efficient and accurate regression diagnostics.
 
 # Declaration {-}
 
@@ -8,7 +10,7 @@ I hereby declare that this thesis contains no material which has been accepted f
 
 This thesis includes one original paper published in a peer reviewed journal and two unpublished papers.
 
-The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of @sec-first-paper and @sec-third-paper, my contribution to the work involved the following:
+The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of [Chapter 2](#sec-first-paper) and [Chapter 4](#sec-third-paper), my contribution to the work involved the following:
 
 
 
@@ -37,9 +39,8 @@ The inclusion of co-authors reflects the fact that the work came from active col
    <td style="text-align:left;width: 3.5cm; "> Published in the Journal of Computational and Graphical Statistics </td>
    <td style="text-align:left;width: 2.5cm; "> 80%  Concept, Analysis, Software, Writing </td>
    <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
- P. Menéndez 5%, 
- U. Laa 2.5%,  
- N. Langrené 2.5% </td>
+ E. Tanaka 5%, 
+ S. VanderPlas 5% </td>
    <td style="text-align:left;width: 1.3cm; "> No </td>
   </tr>
   <tr>
@@ -48,9 +49,8 @@ The inclusion of co-authors reflects the fact that the work came from active col
    <td style="text-align:left;width: 3.5cm; "> The R package autovi on CRAN </td>
    <td style="text-align:left;width: 2.5cm; "> 80% Concept, Analysis, Software, Writing </td>
    <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
- P. Menéndez 5%, 
- U. Laa 2.5%,  
- N. Langrené 2.5% </td>
+ E. Tanaka 5%, 
+ S. VanderPlas 2.5%, K. Ackermann 2.5% </td>
    <td style="text-align:left;width: 1.3cm; "> No </td>
   </tr>
 </tbody>
