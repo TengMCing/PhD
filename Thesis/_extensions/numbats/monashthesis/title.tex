@@ -21,6 +21,11 @@
 $if(title)$
 \title{$title$}
 $endif$
+$if(shorttitle)$
+\newcommand\shorttitle{$shorttitle$}
+$else$
+\newcommand\shorttitle{$title$}
+$endif$
 $if(subtitle)$
 \usepackage{etoolbox}
 \makeatletter
