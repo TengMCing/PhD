@@ -7,17 +7,9 @@ A thesis submitted for the degree of {{< meta degreetype >}} at Monash Universit
 # Copyright notice {-}
 
 
-
-
-
-
 Produced on 25 August 2024.
 
 © {{< meta author >}} (2024).
-
-
-
-
 
 
 <!--
@@ -65,24 +57,12 @@ In the case of (??insert chapter numbers) my contribution to the work involved t
 
 
 
-
-
-
-
 ::: {.cell}
 
 :::
 
 
-
-
-
-
 ::: {.content-visible when-format="html"}
-
-
-
-
 
 
 ::: {.cell}
@@ -118,24 +98,16 @@ In the case of (??insert chapter numbers) my contribution to the work involved t
 :::
 
 
-
-
-
-
 :::
 
 ::: {.content-visible when-format="pdf"}
-
-
-
-
 
 
 ::: {.cell}
 ::: {.cell-output-display}
 \begingroup\fontsize{10}{12}\selectfont
 
-\resizebox{\linewidth}{!}{
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}}
 \toprule
 \multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Thesis chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Publication title}} & \multicolumn{1}{l}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of coauthors' contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Coauthors are Monash students}}\\
@@ -148,10 +120,6 @@ In the case of (??insert chapter numbers) my contribution to the work involved t
 
 :::
 :::
-
-
-
-
 
 
 :::

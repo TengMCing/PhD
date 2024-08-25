@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introduction – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
+<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 1&nbsp; Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,7 +90,7 @@ div.csl-indent {
 }</script>
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather|Source Code Pro" rel="stylesheet">
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -105,7 +105,7 @@ div.csl-indent {
    });
 }}});
   </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -142,13 +142,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-chap1.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -230,9 +230,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -289,7 +289,7 @@ window.Quarto = {
 
 <p>Model diagnostics are critical in evaluating the accuracy and validity of a statistical model. In the context of regression diagnostics, a common practice is to plot residuals against fitted values, which serves as a starting point for evaluating the adequacy of the fit and verifying the underlying assumptions. Visual diagnostics are frequently preferred or recommended <span class="citation" data-cites="draper1998applied cook1982residuals montgomery1982introduction">(<a href="refs.html#ref-cook1982residuals" role="doc-biblioref">Cook and Weisberg 1982</a>; <a href="refs.html#ref-draper1998applied" role="doc-biblioref">Draper and Smith 1998</a>; <a href="refs.html#ref-montgomery1982introduction" role="doc-biblioref">Montgomery et al. 1982</a>)</span> due to the possibility of discovering abstract and unquantifiable insights, however, it can be subject to overinterpretation or even neglect.</p>
 <p><span class="citation" data-cites="buja2009statistical">Buja et al. (<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">2009</a>)</span> introduced a visual inference framework that formalised a hypothesis testing of graphical representations of data (henceforth referred to as the <em>data plot</em>) via the lineup protocol. The protocol is inspired by the police lineup technique employed in eyewitness identification of criminal suspects. Briefly, the protocol comprises <span class="math inline">m</span> randomly positioned plots, where one position presents the data plot, while the remaining <span class="math inline">m-1</span> plots present the plots with the same graphical structure, except that the data has been replaced with data consistent with the null hypothesis <span class="math inline">H_0</span> (henceforth referred to as <em>null plots</em>). To compute the <span class="math inline">p</span>-value of the visual test, the lineup will be independently presented to a number of participants, asking them to pick the most different plot. Under <span class="math inline">H_0</span>, the data plot is expected to be indistinguishable from the null plots, and the probability of correctly identifying the data plot by an observer is <span class="math inline">1/m</span>. If a large number of participants correctly identify the data plot, the corresponding <span class="math inline">p</span>-value will be small, indicating strong evidence against <span class="math inline">H_0</span>. This protocol provides a callibration of the data plot against the null plots, ensuring that the data plot is not overinterpreted.</p>
-<p>The lineup protocol has gained increasing traction in recent years and has already been integrated into data analysis of various topics <span class="citation" data-cites="krishnan2021hierarchical loy2013diagnostic widen2016graphical">(see <a href="refs.html#ref-krishnan2021hierarchical" role="doc-biblioref">Krishnan and Hofmann 2021</a>; <a href="refs.html#ref-loy2013diagnostic" role="doc-biblioref">Loy and Hofmann 2013</a>; <a href="refs.html#ref-widen2016graphical" role="doc-biblioref">Widen et al. 2016</a>)</span>. However, the reliance of human assessment is a fundamental aspect of visual tests, which may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.</p>
+<p>The lineup protocol has gained increasing traction in recent years and has already been integrated into data analysis of various topics <span class="citation" data-cites="krishnan2021hierarchical loy2013diagnostic widen2016graphical savvides2022">(see <a href="refs.html#ref-krishnan2021hierarchical" role="doc-biblioref">Krishnan and Hofmann 2021</a>; <a href="refs.html#ref-loy2013diagnostic" role="doc-biblioref">Loy and Hofmann 2013</a>; <a href="refs.html#ref-savvides2022" role="doc-biblioref">Savvides et al. 2023</a>; <a href="refs.html#ref-widen2016graphical" role="doc-biblioref">Widen et al. 2016</a>)</span>. However, the reliance of human assessment is a fundamental aspect of visual tests, which may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility.</p>
 <p>To address these limitations, this thesis proposes a computer vision-based approach to automate the visual inference process for assessment of linear regression residual plots. Modern computer vision models often use a convolutional neural network architecture to process digital images to peform various tasks (e.g.&nbsp;object detection, object identification and signal processing). The development for computer vision models has primarily focused on processing natural images, such as photographs and videos, and its adaptation for data plots has some success <span class="citation" data-cites="hatami2018">(e.g.&nbsp;classification of time series images in <a href="refs.html#ref-hatami2018" role="doc-biblioref">Hatami et al. 2018</a>)</span> but generally limited in development. The development of computer vision models for the assessment residual plots will make the process more efficient, consistent, and accessible.</p>
 <section id="thesis-outline" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="thesis-outline"><span class="header-section-number">1.1</span> Thesis Outline</h2>
@@ -297,7 +297,7 @@ window.Quarto = {
 <p><a href="02-chap2.html" class="quarto-xref"><span>Chapter 2</span></a> provides empirical evidence supporting the indispensability of residual plots through a visual inference experiment using the lineup protocol. By comparing human evaluations of residual plots to conventional statistical tests, this chapter demonstrates the advantages of graphical methods in detecting practical issues with model fit, while also highlighting the limitations of conventional tests in producing overly sensitive results. The chapter contains a comprehensive literature review related to residual diagnostics.</p>
 <p><a href="03-chap3.html" class="quarto-xref"><span>Chapter 3</span></a> introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitations of human-based visual inference. This model is trained to predict a distance measure based on Kullback-Leibler divergence, quantifying the disparity between the residual distribution of a fitted classical normal linear regression model and the reference distribution. Performance of the model is evaluated on the human subject experiment data collected in <a href="02-chap2.html" class="quarto-xref"><span>Chapter 2</span></a>. A comprehensive literature review of data plots reading with computer vision models is contained in the chapter.</p>
 <p><a href="04-chap4.html" class="quarto-xref"><span>Chapter 4</span></a> introduces a new R package, <code>autovi</code>, and its accompanying web interface, <code>autovi.web</code>, designed to automate the assessment of residual plots in regression analysis. The package uses a computer vision model built in <a href="03-chap3.html" class="quarto-xref"><span>Chapter 3</span></a> to predict a measure of visual signal strength (VSS) and provides supporting information to assist analysts in diagnosing model fit. By automating this process, <code>autovi</code> and <code>autovi.web</code> improve the efficiency and consistency of model evaluation, making advanced diagnostic tools accessible to a broader audience.</p>
-<p><a href="05-chap5.html" class="quarto-xref"><span>Chapter 5</span></a> summarises the contribution of the work and their impact, and discusses some future plans.</p>
+<p><a href="05-chap5.html" class="quarto-xref"><span>Chapter 5</span></a> summarises the contribution of the work and the (potential) impact, and discusses some future plans.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -321,6 +321,9 @@ Loy, A., and Hofmann, H. (2013), <span>“Diagnostic tools for hierarchical line
 </div>
 <div id="ref-montgomery1982introduction" class="csl-entry" role="listitem">
 Montgomery, D. C., Peck, E. A., and Vining, G. G. (1982), <em>Introduction to linear regression analysis</em>, John Wiley &amp; Sons.
+</div>
+<div id="ref-savvides2022" class="csl-entry" role="listitem">
+Savvides, R., Henelius, A., Oikarinen, E., and Puolamäki, K. (2023), <span>“Visual data exploration as a statistical testing procedure: Within-view and between-view multiple comparisons,”</span> <em>IEEE Transactions on Visualization and Computer Graphics</em>, 29, 3937–3948. <a href="https://doi.org/10.1109/TVCG.2022.3175532">https://doi.org/10.1109/TVCG.2022.3175532</a>.
 </div>
 <div id="ref-widen2016graphical" class="csl-entry" role="listitem">
 Widen, H. M., Elsner, J. B., Pau, S., and Uejio, C. K. (2016), <span>“Graphical inference in geographical research,”</span> <em>Geographical Analysis</em>, Wiley Online Library, 48, 115–131.
@@ -364,7 +367,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -396,47 +410,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -471,11 +445,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -751,12 +721,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./acknowledgements.html" class="pagination-link" aria-label="Acknowledgements">
+      <a href="./acknowledgements.html" class="pagination-link  aria-label=" acknowledgements"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Acknowledgements</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02-chap2.html" class="pagination-link" aria-label="A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol">
+      <a href="./02-chap2.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</span>">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
