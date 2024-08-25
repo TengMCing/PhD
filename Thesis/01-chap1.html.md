@@ -6,7 +6,7 @@ Model diagnostics are critical in evaluating the accuracy and validity of a stat
 
 
 
-The lineup protocol has gained increasing traction in recent years and has already been integrated into data analysis of various topics [see @krishnan2021hierarchical; @loy2013diagnostic; @widen2016graphical]. However, the reliance of human assessment is a fundamental aspect of visual tests, which may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility. 
+The lineup protocol has gained increasing traction in recent years and has already been integrated into data analysis of various topics [see @krishnan2021hierarchical; @loy2013diagnostic; @widen2016graphical; @savvides2022]. However, the reliance of human assessment is a fundamental aspect of visual tests, which may restrict its widespread usage. The lineup protocol is unsuitable for large-scale applications, due to its high labour costs and time requirements. Moreover, it presents significant usability issues for individuals with visual impairments, resulting in reduced accessibility. 
 
 To address these limitations, this thesis proposes a computer vision-based approach to automate the visual inference process for assessment of linear regression residual plots. Modern computer vision models often use a convolutional neural network architecture to process digital images to peform various tasks (e.g. object detection, object identification and signal processing). The development for computer vision models has primarily focused on processing natural images, such as photographs and videos, and its adaptation for data plots has some success [e.g. classification of time series images in @hatami2018] but generally limited in development. The development of computer vision models for the assessment residual plots will make the process more efficient, consistent, and accessible.
 
@@ -23,4 +23,4 @@ The thesis is structured as follows.
 
 @sec-third-paper introduces a new R package, `autovi`, and its accompanying web interface, `autovi.web`, designed to automate the assessment of residual plots in regression analysis. The package uses a computer vision model built in @sec-second-paper to predict a measure of visual signal strength (VSS) and provides supporting information to assist analysts in diagnosing model fit. By automating this process, `autovi` and `autovi.web` improve the efficiency and consistency of model evaluation, making advanced diagnostic tools accessible to a broader audience. 
 
-@sec-conclusion summarises the contribution of the work and their impact, and discusses some future plans.
+@sec-conclusion summarises the contribution of the work and the (potential) impact, and discusses some future plans.

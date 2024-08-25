@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Conclusion and future plans – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
+<title>Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics - 5&nbsp; Conclusion and future plans</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,13 +99,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-chap5.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusion and future plans</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -187,9 +187,9 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -248,19 +248,22 @@ div.csl-indent {
 <p>The three pieces of work assembled in this thesis share a common theme of advancing regression diagnostics, with a focus on improving the assessment of residual plots, challenging the limitations of conventional methods, and developing innovative solutions to automate diagnostic processes.</p>
 <section id="contributions" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="contributions"><span class="header-section-number">5.1</span> Contributions</h2>
-<p>The primary contributions of this research are threefold. Firstly, we provide empirical evidence for the effectiveness of lineup protocol in diagnosing model fit issues through residual plots. Secondly, we develop computer vision model for automating the assessment of residual plots, which addresses the scalability limitations of lineup protocol. Lastly, we introduce a user-friendly R package and Shiny app, making the automated diagnostic tools accessible to a broad range of analysts and practitioners.</p>
-<p>Principles of transparency and reproducible research have guided the work with all work available in public and private repositories at <a href="https://github.com/TengMCing" class="uri">https://github.com/TengMCing</a>. The thesis is written using Quarto <span class="citation" data-cites="Allaire_Quarto_2024">(<a href="refs.html#ref-Allaire_Quarto_2024" role="doc-biblioref">Allaire et al. 2024</a>)</span> and also available online at <a href="https://patrick-li-thesis.netlify.app" class="uri">https://patrick-li-thesis.netlify.app</a>. The R packages developed in this thesis are available on CRAN with the latest developments in the links below:</p>
+<p>The primary contributions of this research are threefold. Firstly, we provide empirical evidence for the effectiveness of the lineup protocol in diagnosing model fit issues through residual plots <span class="citation" data-cites="li2024plot">(<a href="refs.html#ref-li2024plot" role="doc-biblioref">Li et al. 2024</a>)</span>. Secondly, we develop computer vision model for automating the assessment of residual plots, which addresses the scalability limitations of lineup protocol. Lastly, we share a user-focused R package and Shiny app, making the automated diagnostic tools accessible to a broad range of analysts and practitioners.</p>
+<p>The aforementioned R package (and its dependency) is available on CRAN with the latest development versions in the links below:</p>
 <ul>
 <li><code>autovi</code> (<a href="https://github.com/TengMCing/autovi" class="uri">https://github.com/TengMCing/autovi</a>), and</li>
 <li><code>bandicoot</code> (<a href="https://github.com/TengMCing/bandicoot" class="uri">https://github.com/TengMCing/bandicoot</a>).</li>
 </ul>
 <p>The Shiny app for <code>autovi</code> is available at one of the mirror sites listed at <a href="https://autoviweb.netlify.app/" class="uri">https://autoviweb.netlify.app/</a> with the source code available at <a href="https://github.com/TengMCing/autovi_web" class="uri">https://github.com/TengMCing/autovi_web</a>.</p>
+<p>Principles of transparency and reproducible research have guided the work with all source code available in public and private repositories at <a href="https://github.com/TengMCing" class="uri">https://github.com/TengMCing</a>. The thesis is written using Quarto <span class="citation" data-cites="Allaire_Quarto_2024">(<a href="refs.html#ref-Allaire_Quarto_2024" role="doc-biblioref">Allaire et al. 2024</a>)</span> and is available online at <a href="https://patrick-li-thesis.netlify.app" class="uri">https://patrick-li-thesis.netlify.app</a>.</p>
 </section>
 <section id="future-work" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="future-work"><span class="header-section-number">5.2</span> Future work</h2>
-<p>There are several directions that this work can be developed: alternative computer vision models, and extensions to different types of visual diagnostics.</p>
-<p>The model in <a href="04-chap4.html" class="quarto-xref"><span>Chapter 4</span></a>, trained on standard residual plots from linear regression, has certain limitations. Residual plots from more complex models, such as hierarchical, temporal, or spatial regression, often exhibit distinct visual patterns that the current approach might not fully capture. To better address this, using scaled residual plots with randomized quantile residuals <span class="citation" data-cites="dunn1996randomized">(<a href="refs.html#ref-dunn1996randomized" role="doc-biblioref">Dunn and Smyth 1996</a>)</span> offers a more flexible approach for defining residuals across different regression models, though it may alter the original visual pattern. Building a computer vision model on this foundation can provide a stronger solution for assessing residual plots across a broader spectrum of regression models. While the current implementation relies on the basic VGG16 model <span class="citation" data-cites="simonyan2014very">(<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">Simonyan and Zisserman 2014</a>)</span>, developed a decade ago, performance could be enhanced by exploring more advanced models like ResNet50 <span class="citation" data-cites="he2016deep">(<a href="refs.html#ref-he2016deep" role="doc-biblioref">He et al. 2016</a>)</span> and DenseNet201 <span class="citation" data-cites="huang2017densely">(<a href="refs.html#ref-huang2017densely" role="doc-biblioref">Huang et al. 2017</a>)</span>, as well as ensemble techniques, to improve the accuracy and effectiveness of residual plot assessments.</p>
-<p>Visual diagnostics are also common in Bayesian modelling to assess model fit, convergence, and posterior distributions. Some common visual diagnostics used in Bayesian modelling include trace plots to assess convergence of Markov Chain Monte Carlo (MCMC) chains, density plots to visualize posterior distributions, posterior predictive checks to assess model fit, and autocorrelation plots to assess dependence between samples in MCMC chains. These visual diagnostics help Bayesian modelers to evaluate the quality of their models and identify potential issues or areas for improvement. Automating the reading of these plots can help improve MCMC convergence diagnostics, facilitate model comparison and selection, and enhance uncertainty quantification.</p>
+<p>There are several directions that this work can be developed. These include improving the accuracy and effectiveness of residual plot assessments, exploring the use of alternative computer vision models, extending the automated visual diagnostics to different plot types and statistical models, and improving the front-end display and back-end computation for the web app.</p>
+<p>The model in <a href="04-chap4.html" class="quarto-xref"><span>Chapter 4</span></a>, trained on standard residual plots from linear regression, has certain limitations. It was very difficult to arrive at a final model to share, with the main concern is that the current version may still be too sensitive, leading to a decision that the model is misspecified even when problems are minor. While the current implementation relies on the basic VGG16 model <span class="citation" data-cites="simonyan2014very">(<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">Simonyan and Zisserman 2014</a>)</span>, developed a decade ago, performance could be enhanced by exploring more advanced versions like ResNet50 <span class="citation" data-cites="he2016deep">(<a href="refs.html#ref-he2016deep" role="doc-biblioref">He et al. 2016</a>)</span> and DenseNet201 <span class="citation" data-cites="huang2017densely">(<a href="refs.html#ref-huang2017densely" role="doc-biblioref">Huang et al. 2017</a>)</span>, as well as ensemble techniques. There is room to improve the accuracy and effectiveness of residual plot assessments.</p>
+<p>Residual plots from more complex models, such as hierarchical, temporal, or spatial regression, often exhibit distinct visual patterns that the current approach might not fully capture. To better address this, using scaled residual plots, with randomized quantile residuals <span class="citation" data-cites="dunn1996randomized">(<a href="refs.html#ref-dunn1996randomized" role="doc-biblioref">Dunn and Smyth 1996</a>)</span>, offers a more flexible approach for defining residuals across different regression models, though it may alter the original visual pattern. Building a computer vision model on this foundation can provide a stronger solution for assessing residual plots across a broader spectrum of regression models.</p>
+<p>Visual diagnostics are foundational in Bayesian modelling to assess model fit, convergence, and posterior distributions (see <span class="citation" data-cites="gelman2013">Gelman et al. (<a href="refs.html#ref-gelman2013" role="doc-biblioref">2013</a>)</span>). Some common visual diagnostics include trace plots to assess convergence of Markov Chain Monte Carlo (MCMC) chains, density plots to visualize posterior distributions, posterior predictive checks to assess model fit, and autocorrelation plots to assess dependence between samples in MCMC chains. These visual diagnostics help Bayesian modelers to evaluate the quality of their models and identify potential issues or areas for improvement. Automating the reading of these plots can help improve MCMC convergence diagnostics, facilitate model comparison and selection, and enhance uncertainty quantification.</p>
+<p>The development of a more comprehensive suite of automated visual diagnostics for statistical models can help to improve the quality of statistical analyses. Also important is the development of user-friendly interfaces for these diagnostics, such as web applications, to make them accessible to a wider audience of researchers and practitioners. The web app developed in this thesis is a step in this direction, but further work is needed to improve the user experience, add more features, and make the app more robust and scalable. Future work could also explore the use of interactive visualizations and dashboards to help users explore and interpret the results of automated visual diagnostics more effectively.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -270,11 +273,17 @@ Allaire, J. J., Teague, C., Scheidegger, C., Xie, Y., and Dervieux, C. (2024), <
 <div id="ref-dunn1996randomized" class="csl-entry" role="listitem">
 Dunn, P. K., and Smyth, G. K. (1996), <span>“Randomized quantile residuals,”</span> <em>Journal of Computational and graphical statistics</em>, Taylor &amp; Francis, 5, 236–244.
 </div>
+<div id="ref-gelman2013" class="csl-entry" role="listitem">
+Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., and Rubin, D. B. (2013), <em>Bayesian data analysis (3rd ed.)</em>, London, UK: Chapman; Hall/CRC. https://doi.org/<a href="https://doi.org/10.1201/b16018">https://doi.org/10.1201/b16018</a>.
+</div>
 <div id="ref-he2016deep" class="csl-entry" role="listitem">
 He, K., Zhang, X., Ren, S., and Sun, J. (2016), <span>“Deep residual learning for image recognition,”</span> in <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 770–778.
 </div>
 <div id="ref-huang2017densely" class="csl-entry" role="listitem">
 Huang, G., Liu, Z., Van Der Maaten, L., and Weinberger, K. Q. (2017), <span>“Densely connected convolutional networks,”</span> in <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 4700–4708.
+</div>
+<div id="ref-li2024plot" class="csl-entry" role="listitem">
+Li, W., Cook, D., Tanaka, E., and VanderPlas, S. (2024), <span>“A plot is worth a thousand tests: Assessing residual diagnostics with the lineup protocol,”</span> <em>Journal of Computational and Graphical Statistics</em>, Taylor &amp; Francis, 1–19.
 </div>
 <div id="ref-simonyan2014very" class="csl-entry" role="listitem">
 Simonyan, K., and Zisserman, A. (2014), <span>“Very deep convolutional networks for large-scale image recognition,”</span> <em>arXiv preprint arXiv:1409.1556</em>.
@@ -318,7 +327,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -350,47 +370,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -425,11 +405,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -705,7 +681,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04-chap4.html" class="pagination-link" aria-label="Software for Automated Residual Plot Assessment: autovi and autovi.web">
+      <a href="./04-chap4.html" class="pagination-link  aria-label=" &lt;span="" for="" automated="" residual="" plot="" assessment:="" autovi="" and="" autovi.web&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Software for Automated Residual Plot Assessment: autovi and autovi.web</span></span>
       </a>          
   </div>
