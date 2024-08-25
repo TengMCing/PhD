@@ -4,15 +4,20 @@ The three pieces of work assembled in this thesis share a common theme of advanc
 
 ## Contributions
 
-The primary contributions of this research are threefold. Firstly, we provide empirical evidence for the effectiveness of lineup protocol in diagnosing model fit issues through residual plots. Secondly, we develop computer vision model for automating the assessment of residual plots, which addresses the scalability limitations of lineup protocol. Lastly, we introduce a user-friendly R package and Shiny app, making the automated diagnostic tools accessible to a broad range of analysts and practitioners.
+The primary contributions of this research are threefold. Firstly, we provide empirical evidence for the effectiveness of lineup protocol in diagnosing model fit issues through residual plots [@li2024plot]. Secondly, we develop computer vision model for automating the assessment of residual plots, which addresses the scalability limitations of lineup protocol. Lastly, we introduce a user-friendly R package and Shiny app, making the automated diagnostic tools accessible to a broad range of analysts and practitioners. 
 
-
-Principles of transparency and reproducible research have guided the work with all work available in public and private repositories at <https://github.com/TengMCing>.  The thesis is written using Quarto [@Allaire_Quarto_2024] and also available online at <https://patrick-li-thesis.netlify.app>. The R packages developed in this thesis are available on CRAN with the latest developments in the links below:
+The aforementioned R package (and its dependency) is available on CRAN with the latest developments in the links below:
 
 - `autovi` (<https://github.com/TengMCing/autovi>), and
 - `bandicoot` (<https://github.com/TengMCing/bandicoot>).
 
+
 The Shiny app for `autovi` is available at one of the mirror sites listed at <https://autoviweb.netlify.app/> with the source code available at <https://github.com/TengMCing/autovi_web>.
+
+
+Principles of transparency and reproducible research have guided the work with all work available in public and private repositories at <https://github.com/TengMCing>.  The thesis is written using Quarto [@Allaire_Quarto_2024] and also available online at <https://patrick-li-thesis.netlify.app>. 
+
+
 
 ## Future work
 
