@@ -1,6 +1,6 @@
 # Software for Automated Residual Plot Assessment: autovi and autovi.web {#sec-third-paper}
 
-Regression software is widely available today, but tools for effective diagnostics are still lagging. Perhaps, one of the reasons is that it is hard. Conventional tests, that would make the task easy, are often too sensitive, which would result in adequate models being abandoned if the analyst strictly adhered to the test decision. The recommended advice is to have the analyst assess the strength of patterns in residual plots. This requires human effort and also suffers from the potential for inconsistent decisions from different analysts. Using a lineup protocol can help to alleviate inconsistency, but requires even more human effort. This is the type of task where a robot might be employed to do the disagreeable work that currently requires a human. Here we describe a new R package that includes a computer vision model for automated assessment of residual plots, and an accompanying shiny app for ease of use. For a user-provided sample of residuals, it predicts a measure of visual signal strength (VSS) and provides a suite of supporting information to assist the analyst diagnose their model fit. 
+Regression software is widely available today, but tools for effective diagnostics are still lagging. Perhaps, one of the reasons is that it is hard. Conventional tests, that would make the task easy, are often too sensitive, which would result in adequate models being abandoned if the analyst strictly adhered to the test decision. The recommended advice is to have the analyst assess the strength of patterns in residual plots. This requires human effort and also suffers from the potential for inconsistent decisions from different analysts. Using a lineup protocol can help to alleviate inconsistency, but requires even more human effort. This is the type of task where a robot might be employed to do the disagreeable work that currently requires a human. Here we describe a new R package that includes a computer vision model for automated assessment of residual plots, and an accompanying Shiny app for ease of use. For a user-provided sample of residuals, it predicts a measure of visual signal strength (VSS) and provides a suite of supporting information to assist the analyst diagnose their model fit. 
 
 ## Introduction {#sec-autovi-introduction}
 
@@ -10,7 +10,7 @@ Software for regression analysis tools is widely available. The Comprehensive R 
 
 General-purpose regression analysis tools are the largest and most commonly used group. These packages are not specifically designed for graphical diagnostics of residuals in linear regression but offer this functionality as part of a broader set of statistical tools. These include the `stats` package [@stats], which includes common diagnostic plots like residuals vs fitted values, quantile-quantile (Q-Q) plots, and residuals vs leverage plots. Other packages such as `jtools` [@jtools], `olsrr` [@olsrr], `rockchalk` [@rockchalk], and `ggResidpanel` [@ggresidpanel] provide similar graphical tools with alternative aesthetic styles or interactive features. They all fundamentally deliver diagnostic plots as outlined in the classic text @cook1982residuals. <!-- However, consistently drawing accurate conclusions from these tools can be challenging due to individual differences in interpreting statistical graphics.--> As noted in @li2024plot, relying solely on subjective assessments of data plots can lead to problems, such as over-interpreting random patterns as model violations.
 
-Enhanced visual diagnostics forms the second group, which offer advanced visual aids for interpreting diagnostic plots. This includes `ecostats` [@ecostats], which adds simulation envelopes to  residual plots, and `DHARMa` [@dharma], which compares the empirical 0.25, 0.5, and 0.75 quantiles in scaled residuals with their theoretical counterparts. `DHARMa`'s focus is detecting model violations such as heteroscedasticity and incorrect functional forms, and uncovering issues specific to generalized linear models and mixed-effect models, like over/under-dispersion. <!--By offering these enhanced visualizations, `DHARMa` enables users to more easily identify potential issues in their regression models that might not be immediately apparent with standard diagnostic plots. In summary, this group of packages enhances the interpretability of diagnostic plots by drawing attention to critical elements such as trends, clusters, and outliers.--> It also adds results from conventional tests as annotations, labels, or text within the plot, to assist in avoiding misinterpretation. 
+Enhanced visual diagnostics forms the second group, which offer advanced visual aids for interpreting diagnostic plots. This includes `ecostats` [@warton_global_2023], which adds simulation envelopes to  residual plots, and `DHARMa` [@dharma], which compares the empirical 0.25, 0.5, and 0.75 quantiles in scaled residuals with their theoretical counterparts. `DHARMa`'s focus is detecting model violations such as heteroscedasticity and incorrect functional forms, and uncovering issues specific to generalized linear models and mixed-effect models, like over/under-dispersion. <!--By offering these enhanced visualizations, `DHARMa` enables users to more easily identify potential issues in their regression models that might not be immediately apparent with standard diagnostic plots. In summary, this group of packages enhances the interpretability of diagnostic plots by drawing attention to critical elements such as trends, clusters, and outliers.--> It also adds results from conventional tests as annotations, labels, or text within the plot, to assist in avoiding misinterpretation. 
 
 Statistical testing for visual discoveries is the third group, which focuses on providing tools for conducting formal statistical tests for visual discoveries obtained from diagnostic plots [@buja2009statistical]. Packages include the `nullabor` [@nullabor] `HLMdiag` [@loy2014hlmdiag] and `regressinator` [@regressinator]. These enables users to compare the actual residual plot with samples from null distributions, and can help quantify the significance of patterns. <!--This approach addresses the issue of inconsistent interpretation of diagnostic plots by bridging the gap between visual inspection and formal statistical inference, thus offering a more robust framework for regression diagnostics.
 
@@ -46,7 +46,9 @@ The package includes internal functions to check the current Python environment 
 
 ### Usage {#sec-autovi-usage}
 
-To get started quickly, only calls two functions are necessary to obtain a summary of the automated residual assessment:
+To get started quickly, only calls three functions are necessary to obtain a summary of the automated residual assessment:
+
+
 
 
 
@@ -63,11 +65,15 @@ To get started quickly, only calls two functions are necessary to obtain a summa
 
 
 
+
+
 ```r
 library(autovi) 
 checker <- residual_checker(fitted_model = lm(dist ~ speed, data = cars))
 checker$check() 
 ```
+
+
 
 
 
@@ -124,13 +130,17 @@ Status:
 
 
 
+
+
 1. Load the package using the `library()` function.
-2. Construct a checker with two inputs: a linear regression model and a pre-trained Keras model [@chollet2015keras].
+2. Construct a checker with a linear regression model.
 3. Call the `check()` method of the checker with default arguments. This predicts the VSS for the true residual plot, 100 null plots, and 100 bootstrapped plots, storing the predictions internally. A concise report of the check results will be printed.
 
 The summary reports key findings such as the VSS of the true residual plot and the $p$-value of the automated visual test. The $p$-value is the ratio of null plots that have VSS greater than or equal to that of the true residual plot. We typically reject the null hypothesis when the $p$-value is smaller than or equal to a desired significance level, such as 5%. The report also provides sample quantiles of VSS for null and bootstrapped plots, helping to explain the severity and likelihood of model violations.
 
 Although the $p$-value is sufficient for automated decision-making, users can visually inspect the original residual plot alongside a sample null plot. This visual comparison can clarify why $H_0$ is either rejected or not, and help identify potential remedies. The `plot_pair()` and `plot_lineup()` methods facilitate this comparison. 
+
+
 
 
 
@@ -153,9 +163,13 @@ checker$plot_pair()
 
 
 
+
+
 The `plot_pair()` method (@fig-plot-pair) displays the true residual plot on the left and a single null plot on the right. If a full lineup was shown, the true residual plot would be embedded in a page of null plots. Users should look for any distinct visual patterns in the true residual plot that are absent in the null plot. Running these functions multiple times can help any visual suspicions, as each execution generates new random null plots for comparison.
 
 The package offers a straightforward visualization of the assessment result through the `summary_plot()` function.
+
+
 
 
 
@@ -179,6 +193,8 @@ checker$summary_plot()
 
 
 
+
+
 In the result, shown in @fig-summary-plot, the blue area represents the density of VSS for null residual plots, while the red area shows the density for bootstrapped residual plots. The dashed line indicates the VSS of the true residual plot, and the solid line marks the critical value at a 95% significance level. The $p$-value and the likelihood ratio are displayed in the subtitle. The likelihood ratio represents the ratio of the likelihood of observing the VSS of the true residual plot from the bootstrapped distribution compared to the null distribution.
 
 Interpreting the plot involves several key aspects. If the dashed line falls to the right of the solid line, it suggests rejecting the null hypothesis. The degree of overlap between the red and blue areas indicates similarity between the true residual plot and null plots; greater overlap suggests more similarity. Lastly, the portion of the red area to the right of the solid line represents the percentage of bootstrapped models considered to have model violations.
@@ -193,11 +209,15 @@ This visual summary provides an intuitive way to assess the model's fit and pote
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![Diagram illustrating the infrastructure of the R package autovi. The modules in green are primary inputs provided by users. Modules in blue are overridable methods that can be modified to accommodate users' specific needs. The module in yellow is a pre-defined non-overridable method. The modules in red are primary outputs of the package.](04-chap4_files/figure-html/fig-autovi-diag-1.png){#fig-autovi-diag width=100%}
 :::
 :::
+
+
 
 
 
@@ -225,6 +245,8 @@ checker <- auto_vi(fitted_model = lm(dist ~ speed, data = cars),
 Optionally, the user may specify the node index of the output layer of the trained computer vision model to be monitored by the checker via the `node_index` argument if there are multiple output nodes. This is particularly useful for multiclass classifiers when the user wants to use one of the nodes as a VSS indicator.
 
 After initializing the object, you can print the checker to view its status.
+
+
 
 
 
@@ -282,6 +304,8 @@ Status:
 
 
 
+
+
 The status includes the list of regression model classes (as provided by the built-in `class()` function), the input and output shapes of the Keras model in the standard `Numpy` format [@harris2020array], the output node index being monitored, and the assessment result. If no check has been run yet, the assessment result will display as "UNKNOWN".
 
 #### Fitted Values and Residuals Extraction
@@ -289,6 +313,8 @@ The status includes the list of regression model classes (as provided by the bui
 To be able to predict VSS for a residual plot, both fitted values and residuals are needed to be extracted from the regression model object supplied by the user. In R, statistical models like `lm` (linear model) and `glm` (generalized linear model) typically support the use of generic functions such as `fitted()` and `resid()` to retrieve these values. The `get_fitted_and_resid()` method, called by the checker, relies on these generic functions by default. However, generic functions only work with classes that have appropriate method implementations. Some regression modelling packages may not fully adhere to the `stats` package guidelines for implementing these functions. In such cases, overriding the method becomes necessary.
 
 By design, the `get_fitted_and_resid()` method accepts a regression model object as input and returns a `tibble` (a modern presentation of the `data.frame`) with two columns: `.fitted` and `.resid`, representing the fitted values and residuals, respectively. If no input is supplied, the method uses the regression model object stored in the checker. Although modules in the `autovi` infrastructure make minimal assumptions about other modules, they do require strictly defined input and output formats to ensure data validation and prevent fatal bugs. Therefore, any overridden method should follow to these conventions.
+
+
 
 
 
@@ -330,11 +356,15 @@ checker$get_fitted_and_resid()
 
 
 
+
+
 #### Data Extraction
 
 For linear regression model in R, the model frame contains all the data required by a formula for evaluation. This is essential for bootstrapping and refitting the model when constructing a bootstrapped distribution of VSS. Typically, the model frame can be extracted from the regression model object using the `model.frame()` generic function, which is the default method used by `get_data()`. However, some regression models do not use a formula or are evaluated differently, potentially lacking a model frame. In such cases, users can either provide the data used to fit the regression model through the `data` argument when constructing the checker, or customize the method to better suit their needs. It's worth noting that this module is only necessary if bootstrapping is required, as the model frame is not used in other modules of the infrastructure.
 
 The `get_data()` method accepts a regression model object as input and returns a `data.frame` representing the model frame of the fitted regression model. If no input is supplied, the regression model stored in the checker will be used.
+
+
 
 
 
@@ -370,11 +400,15 @@ checker$get_data() |>
 
 
 
+
+
 #### Bootstrapping and Model Refitting
 
 Bootstrapping a regression model typically involves sampling the observations with replacement and refitting the model with the bootstrapped data. The `boot_method()` method follows this bootstrapping scheme by default. It accepts a fitted regression model and a `data.frame` as inputs, and returns a `tibble` of bootstrapped residuals. If no inputs are provided, the method uses the regression model stored in the checker and the result of the `get_data()` method. 
 
 Note that instead of calling `get_data()` implicitly within the method, it is used as part of the default argument definition. This approach allows users to bypass the `get_data()` method entirely and directly supply a `data.frame` to initiate the bootstrap process. Many other methods in `autovi` adopt this principle when possible, where dependencies are explicitly listed in the formal arguments. This design choice enhances the reusability and isolation of modules, offers better control for testing, and simplifies the overall process.
+
+
 
 
 
@@ -415,6 +449,8 @@ checker$boot_method(data = checker$get_data())
 
 
 
+
+
 #### Auxiliary Computation
 
 As described in @sec-second-paper, in some cases, a residual plot alone may not provide enough information to accurately determine VSS. For instance, when the points in the residual plot have significant overlap, the trend and shape of the residual pattern can be difficult to discern. Including auxiliary variables, such as the number of observations, as additional inputs to the computer vision model can be beneficial. To address this, `autovi` includes internal functions within the checker that automatically detect the number of inputs required by the provided Keras model. If multiple inputs are necessary, the checker invokes the `auxiliary()` method to compute these additional inputs.
@@ -422,6 +458,8 @@ As described in @sec-second-paper, in some cases, a residual plot alone may not 
 The `auxiliary()` method takes a `data.frame` containing fitted values and residuals as input and returns a `data.frame` with five numeric columns. These columns represent four scagnostics — "Monotonic", "Sparse", "Striped", and "Splines" — calculated using the `cassowaryr` package, as well as the number of observations. This approach is consistent with the training process of the computer vision models described in @sec-second-paper. If no `data.frame` is provided, the method will default to retrieving fitted values and residuals by calling `get_fitted_and_resid()`. 
 
 Technically, any Keras-implemented computer vision model can be adapted to accept an image as the primary input and additional variables as secondary inputs by adding a data pre-processing layer before the actual input layer. If users wish to override `auxiliary()`, the output should be a `data.frame` with a single row and the number of columns such that its concatenation matches the number of parameters for the corresponding layer in the supplied Keras model.
+
+
 
 
 
@@ -453,9 +491,13 @@ checker$auxiliary()
 
 
 
+
+
 #### Null Residual Simulation {#sec-autovi-null-method}
 
 A fundamental element of the automated residual assessment described in @sec-second-paper is comparing the VSS of null plots with that of the true residual plot. However, due to the variety of regression models, there is no universal method for simulating null residuals that are consistent with model assumptions. Fortunately, for classical normal linear regression models, null residuals can be effectively simulated using the residual rotation method, as outlined in @buja2009statistical. This process involves generating random draws from a standard normal distribution, regressing these draws on the original predictors, and then rescaling the resulting residuals by the ratio of the residual sum of squares to the that of the original linear regression model. Other regression models, such as `glm` (generalized linear model) and `gam` (generalized additive model), generally cannot use this method to efficiently simulate null residuals. Therefore, it is recommended that users override the `null_method()` to suit their specific model. The `null_method()` takes a fitted regression model as input, defaulting to the regression model stored in the checker, and returns a `tibble`.
+
+
 
 
 
@@ -497,13 +539,17 @@ checker$null_method()
 
 
 
+
+
 #### Plotting
 
 Plotting is a crucial aspect of residual plot diagnostics because aesthetic elements like marker size, marker color, and auxiliary lines impact the presentation of information. There are computer vision models trained to handle images captured in various scenarios. For example, the VGG16 model [@simonyan2014very] can classify objects in images taken under different lighting conditions and is robust to image rotation. However, data plots are a special type of image as the plotting style can always be consistent if controlled properly. Therefore, we assume computer vision models built for reading residual plots will be trained with residual plots of a specific aesthetic style. In this case, it is best to predict plots using the same style for optimal performance. The plotting method `plot_resid()` handles this aspect. 
 
 `plot_resid()` accepts a `data.frame` containing fitted values and residuals, along with several customization options: a `ggplot` theme, an `alpha` value to control the transparency of data points, a `size` value to set the size of data points, and a `stroke` value to define the thickness of data point edges. Additionally, it includes four Boolean arguments to toggle the display of axes, legends, grid lines, and a horizontal red line. By default, it replicates the style we used to generate the training samples for the computer vision models described in @sec-second-paper. In brief, the residual plot omits axis text and ticks, titles, and background grid lines, featuring only a red line at $y = 0$. It retains only the necessary components of a residual plot. If the computer vision model is trained with a different but consistent aesthetic style, `plot_resid()` should be overridden. 
 
-The method returns a `ggplot` object, which can be saved as a PNG file in the following module. If no data is provided, the method will use `get_fitted_and_resid()` to retrieve the fitted values and residuals from the regression model stored in the checker.
+The method returns a `ggplot` object (@fig-autovi-plot-resid), which can be saved as a PNG file in the following module. If no data is provided, the method will use `get_fitted_and_resid()` to retrieve the fitted values and residuals from the regression model stored in the checker.
+
+
 
 
 
@@ -517,7 +563,7 @@ checker$plot_resid()
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-11-1.png){width=384}
+![](04-chap4_files/figure-html/fig-autovi-plot-resid-1.png){#fig-autovi-plot-resid width=384}
 :::
 :::
 
@@ -527,7 +573,11 @@ checker$plot_resid()
 
 
 
-To manually generate true residual plots, null plots, or bootstrapped residual plots, you can pass the corresponding `data.frame` produced by the `get_fitted_and_resid()`, `null_method()`, and `boot_method()` methods to the `plot_resid()` method, respectively.
+
+
+To manually generate true residual plots (@fig-autovi-plot-resid2), null plots, or bootstrapped residual plots, you can pass the corresponding `data.frame` produced by the `get_fitted_and_resid()`, `null_method()`, and `boot_method()` methods to the `plot_resid()` method, respectively.
+
+
 
 
 
@@ -542,9 +592,11 @@ checker$null_method() |>
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-12-1.png){width=384}
+![](04-chap4_files/figure-html/fig-autovi-plot-resid2-1.png){#fig-autovi-plot-resid2 width=384}
 :::
 :::
+
+
 
 
 
@@ -561,6 +613,8 @@ Another key aspect of a standardized residual plot is its resolution. In @sec-se
 
 
 
+
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -571,12 +625,14 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpUU4cqD/file963f5a73c4f4.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpsW6ZDW/filec64dcb39eab.png"
 ```
 
 
 :::
 :::
+
+
 
 
 
@@ -604,6 +660,8 @@ input_array$shape
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
@@ -614,6 +672,8 @@ input_array$shape
 
 :::
 :::
+
+
 
 
 
@@ -641,6 +701,8 @@ checker$vss()
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
@@ -661,6 +723,8 @@ checker$vss()
 
 
 
+
+
 Providing a `data.frame` of null residuals or a null residual plot yields the same VSS.
 
 
@@ -668,6 +732,8 @@ Providing a `data.frame` of null residuals or a null residual plot yields the sa
 null_resid <- checker$null_method()
 checker$vss(null_resid)
 ```
+
+
 
 
 
@@ -687,6 +753,8 @@ checker$vss(null_resid)
 
 :::
 :::
+
+
 
 
 
@@ -705,6 +773,8 @@ null_resid |>
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
@@ -724,6 +794,8 @@ null_resid |>
 
 
 
+
+
 The `null_vss()` helper method primarily takes the number of null plots as input. If the user wants to use a ad hoc null simulation scheme, it can be provided via the `null_method` argument. Intermediate results, including null residuals and null plots, can be returned by enabling `keep_null_data` and `keep_null_plot`. The VSS, along with null residuals and null plots, will be stored in a `tibble` with three columns. The following code example demonstrates how to predict the VSS for five null residual plots while keeping the intermediate results.
 
 ```r
@@ -731,6 +803,8 @@ checker$null_vss(5L,
                  keep_null_data = TRUE, 
                  keep_null_plot = TRUE)
 ```
+
+
 
 
 
@@ -761,6 +835,8 @@ checker$null_vss(5L,
 
 
 
+
+
 The `boot_vss()` helper method is similar to `null_vss()`, with some differences in argument names. The following code example demonstrates how to predict the VSS for five bootstrapped residual plots while keeping the intermediate results.
 
 ```r
@@ -768,6 +844,8 @@ checker$boot_vss(5L,
                  keep_boot_data = TRUE,
                  keep_boot_plot = TRUE)
 ```
+
+
 
 
 
@@ -797,6 +875,8 @@ checker$boot_vss(5L,
 
 
 
+
+
 #### $p$-value Computation
 
 Once we have obtained the VSS from both the true residual plot and the null plots, we can compute the $p$-value. This $p$-value represents the ratio of plots with VSS greater than or equal to that of the true residual plot. We can perform this calculation using the `check()` method. The main inputs for this method are the number of null plots and the number of bootstrapped plots to generate. If you need to access intermediate residuals and plots, you can enable the `keep_data` and `keep_plot` options. The method stores the final result in the `check_result` field of the object. To obtain the p-value using the `check()` method, you can use the following code.
@@ -805,6 +885,8 @@ Once we have obtained the VSS from both the true residual plot and the null plot
 checker$check(boot_draws = 100L, null_draws = 100L)
 checker$check_result$p_value
 ```
+
+
 
 
 
@@ -827,7 +909,11 @@ checker$check_result$p_value
 
 
 
+
+
 You can also check the $p$-value by printing the checker, which includes it in the summary report.
+
+
 
 
 
@@ -885,9 +971,13 @@ Status:
 
 
 
+
+
 ### Summary Plots
 
 After executing the `check()` method, `autovi` offers two visualization options for the assessment result through the `summary_plot()` method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in @sec-autovi-usage. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot. For instance, you can omit the bootstrapped distribution by setting `boot_dist` to `NULL`. Similarly, you can hide the null distribution (`null_dist`), the $p$-value (`p_value`), or the likelihood ratio (`likelihood_ratio`) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.
+
+
 
 
 
@@ -902,9 +992,11 @@ checker$summary_plot(boot_dist = NULL,
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-22-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-20-1.png){width=768}
 :::
 :::
+
+
 
 
 
@@ -920,6 +1012,8 @@ The rank plot, creating by setting `type` to "rank", is a bar plot where the $x$
 
 
 
+
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -927,9 +1021,11 @@ checker$summary_plot(type = "rank")
 ```
 
 ::: {.cell-output-display}
-![](04-chap4_files/figure-html/unnamed-chunk-23-1.png){width=768}
+![](04-chap4_files/figure-html/unnamed-chunk-21-1.png){width=768}
 :::
 :::
+
+
 
 
 
@@ -942,6 +1038,8 @@ checker$summary_plot(type = "rank")
 In addition to predicting VSS and computing $p$-values, `autovi` offers methods to extract features from any layer of the Keras model. To see which layers are available in the current Keras model, you can use the `list_layer_name()` method from the `KERAS_WRAPPER` class.
 
 The following code example lists the layer names of the currently used Keras model:
+
+
 
 
 
@@ -970,6 +1068,8 @@ NULL
 
 
 
+
+
 Among these layers, the "global_max_pooling2d" layer is a 2D global max pooling layer that outputs the results from the last convolutional blocks. As @simonyan2014very noted, all preceding convolutional blocks can be viewed as a large feature extractor. Consequently, the output from this layer provides features that can be utilized for various purposes, such as performing transfer learning.
 
 To obtain the features, provide the layer name using the `extract_feature_from_layer` argument in the `predict()` method. This will return a `tibble` with the VSS and all features extracted from that layer. Each row corresponds to one plot. The features will be flattened into 2D and named with the prefix "f_" followed by a number from one to the total number of features.
@@ -981,6 +1081,8 @@ checker$plot_resid() |>
   wrapper$predict(auxiliary = checker$auxiliary(),
                   extract_feature_from_layer = "global_max_pooling2d")
 ```
+
+
 
 
 
@@ -1007,6 +1109,8 @@ checker$plot_resid() |>
 
 :::
 :::
+
+
 
 
 
@@ -1027,6 +1131,8 @@ checker$vss(extract_feature_from_layer = "global_max_pooling2d")
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output .cell-output-stdout}
 
@@ -1054,12 +1160,16 @@ checker$vss(extract_feature_from_layer = "global_max_pooling2d")
 
 
 
+
+
 The argument `extract_feature_from_layer` is also available in other functions that build on the `vss()` method, including `null_vss()`, `boot_vss()`, and `check()`.
 
 
 ### Trained Model Hosting {#sec-trained-model-hosting}
 
 The trained computer vision models described in @sec-second-paper are hosted on a GitHub repository at [https://github.com/TengMCing/autovi_data](https://github.com/TengMCing/autovi_data). Currently, there are six models available. You can view them by calling `list_keras_model()`, which will return a `tibble` showing the input shape and a description of each model.
+
+
 
 
 
@@ -1092,6 +1202,8 @@ The trained computer vision models described in @sec-second-paper are hosted on 
 
 
 
+
+
 The `get_keras_model()` function can be used to download a model to a temporary directory and load it into memory using `TensorFlow`. It requires only the model name, which is the value in the first column of the `tibble` returned by `list_keras_model()`.
 
 
@@ -1111,7 +1223,7 @@ Recognizing these potential barriers, we were motivated to design and implement 
 
 The package `autovi.web` is built using the `shiny` [@shiny] and `shinydashboard` [@shinydashboard] R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser. The R packages `htmltools` [@htmltools] and `shinycssloaders` [@shinycssloaders] are used to render markdown documentation in shiny application, and for loading animations for shiny widgets, respectively.
 
-Determining the best way to implement the interface was difficult. In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. A working Emscripten (XXX reference?) version of this package, which would be required for `webr`, was not available.
+Determining the best way to implement the interface was difficult. In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. A working Emscripten [@zakai2011emscripten] version of this package, which would be required for `webr`, was not available.
 
 We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Additionally, calling R from Python is typically done using the `rpy2` Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise. Ultimately, the most practical solution was to use the `shiny` and `shinydashboard` frameworks, which are well-established in the R community and offer a solid foundation for web application development.
 
@@ -1132,11 +1244,15 @@ To allow communication between `TensorFlow.js` and other components of the Shiny
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![Overview of the `autovi.web` graphical user interface (GUI). This default view may change based on user interactions. Region 1 is the sidebar menu, containing the residual assessment tab and the information tab. Region 2 is the data upload panel, where users can provide a CSV file and specify the type of data it contains. Region 3 includes dropdown menus for selecting the columns to be analyzed, a slider to control the number of bootstrapping samples, and a numeric input box for setting the simulation seed. Region 4 displays the initialization status and offers a button to start the analysis. Region 5 is empty in the default view but will be populated with results once the analysis is started. ](figures/autovi_web.png){#fig-autovi-web width=100%}
 :::
 :::
+
+
 
 
 
@@ -1156,11 +1272,15 @@ The web application is designed to assess either a single residual plot or a lin
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![The panels for selecting target columns and simulation settings are updated when a different CSV type is selected in the left panel. Compared to @fig-autovi-web, where the CSV type is a single residual plot, choosing a CSV type that includes a lineup of multiple residual plots adds a dropdown menu for specifying a column for the residual plot identifier. Additionally, an optional dropdown menu for specifying the true residual plot identifier will appear under the simulation settings.](figures/autovi_web_type.png){#fig-autovi-web-type width=100%}
 :::
 :::
+
+
 
 
 
@@ -1174,6 +1294,8 @@ Under the simulation settings, there is a slider for specifying the number of bo
 Region 4 of @fig-autovi-web is the panel for triggering the assessment. It contains a large play button to start the assessment. Above the play button, a text message displays the status of `TensorFlow.js`, allowing users to monitor whether the JavaScript library and Keras model have been loaded correctly. The play button will remain disabled until both the data status in Region 1 and the `TensorFlow.js` status in Region 4 indicate that everything is ready, with both showing a green status.
 
 Once the play button is clicked, region 5 of @fig-autovi-web will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in @fig-autovi-web-result and @fig-autovi-web-result2. 
+
+
 
 
 
@@ -1206,6 +1328,8 @@ Once the play button is clicked, region 5 of @fig-autovi-web will be populated w
 
 
 
+
+
 Region 6 of @fig-autovi-web-result contains an interactive table created with the R package `DT` [@dt], which provides the VSS. This table includes four columns: `.sample`, `vss`, `rank`, and `null`. The `.sample` column shows the residual plot labels. For a CSV type that is a lineup, these labels are taken from an identifier column in the dataset specified by the user. In the case of the CSV type is a single residual plot, labels are automatically generated from 1 to 20, with the true residual plot receiving a randomly assigned label. The `vss` column displays the VSS for each residual plot, rounded to three decimal places. The `rank` column indicates the ranking of each residual plot based on VSS. The `null` column reveals whether the plot is a null plot. For the CSV type that is a single residual plot, only the true residual plot will have "false" in this column, while all other plots will be marked "true." For the CSV type that is a lineup, if the true residual plot identifier has not been provided, this column will show "NA" to represent missing values. If the identifier is provided by user, the column behaves as if the CSV type is a single residual plot.
 
 The `DT` table provides several interactive features. Users can download the table in four formats, including text, CSV, Excel, and PDF, using the buttons located above the table. Additionally, the table is searchable via the text input field also positioned above it. Below the table, a text message displays the $p$-value of the assessment for the true residual plot and summarizes the number of null plots with VSS greater than that of the true residual plot. This helps the user determine whether the true residual plot shows visual patterns that suggest model violations.
@@ -1230,11 +1354,15 @@ In the result panels shown in [@fig-autovi-web-workflow-example]D, the first row
 
 
 
+
+
 ::: {.cell}
 ::: {.cell-output-display}
 ![The workflow for `autovi.web` using the lineup example dataset proceeds as follows: (A) To begin, the user clicks the "Use Lineup Example" button to load the example dataset, during which the data status and CSV type will be automatically updated. (B) The target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label. (C) The user initiates the assessment by clicking the run button. (D) The VSS of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the $p$-value to aid in decision-making. The lineup on the right allows for manual inspection. (E) The density plot helps verify if the bootstrapped distribution differs from the null distribution, while the attention map on the right offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.](04-chap4_files/figure-html/fig-autovi-web-workflow-example-1.png){#fig-autovi-web-workflow-example width=100%}
 :::
 :::
+
+
 
 
 

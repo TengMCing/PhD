@@ -15,7 +15,7 @@ The aforementioned R package (and its dependency) is available on CRAN with the 
 The Shiny app for `autovi` is available at one of the mirror sites listed at <https://autoviweb.netlify.app/> with the source code available at <https://github.com/TengMCing/autovi_web>.
 
 
-Principles of transparency and reproducible research have guided the work with all source code available in public and private repositories at <https://github.com/TengMCing>.  The thesis is written using Quarto [@Allaire_Quarto_2024] and is available online at <https://patrick-li-thesis.netlify.app>. 
+Principles of transparency and reproducible research have guided the work with all materials related to the thesis at <https://github.com/TengMCing/PhD>.  The thesis is written using Quarto [@Allaire_Quarto_2024] and is available online at <https://patrick-li-thesis.netlify.app>. 
 
 
 ## Future work

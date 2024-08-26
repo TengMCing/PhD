@@ -46,7 +46,7 @@ The package includes internal functions to check the current Python environment 
 
 ### Usage {#sec-autovi-usage}
 
-To get started quickly, only calls two functions are necessary to obtain a summary of the automated residual assessment:
+To get started quickly, only calls three functions are necessary to obtain a summary of the automated residual assessment:
 
 ```{r}
 set.seed(10086)
@@ -77,7 +77,7 @@ checker
 ```
 
 1. Load the package using the `library()` function.
-2. Construct a checker with two inputs: a linear regression model and a pre-trained Keras model [@chollet2015keras].
+2. Construct a checker with a linear regression model.
 3. Call the `check()` method of the checker with default arguments. This predicts the VSS for the true residual plot, 100 null plots, and 100 bootstrapped plots, storing the predictions internally. A concise report of the check results will be printed.
 
 The summary reports key findings such as the VSS of the true residual plot and the $p$-value of the automated visual test. The $p$-value is the ratio of null plots that have VSS greater than or equal to that of the true residual plot. We typically reject the null hypothesis when the $p$-value is smaller than or equal to a desired significance level, such as 5%. The report also provides sample quantiles of VSS for null and bootstrapped plots, helping to explain the severity and likelihood of model violations.
@@ -201,20 +201,14 @@ Plotting is a crucial aspect of residual plot diagnostics because aesthetic elem
 
 `plot_resid()` accepts a `data.frame` containing fitted values and residuals, along with several customization options: a `ggplot` theme, an `alpha` value to control the transparency of data points, a `size` value to set the size of data points, and a `stroke` value to define the thickness of data point edges. Additionally, it includes four Boolean arguments to toggle the display of axes, legends, grid lines, and a horizontal red line. By default, it replicates the style we used to generate the training samples for the computer vision models described in @sec-second-paper. In brief, the residual plot omits axis text and ticks, titles, and background grid lines, featuring only a red line at $y = 0$. It retains only the necessary components of a residual plot. If the computer vision model is trained with a different but consistent aesthetic style, `plot_resid()` should be overridden. 
 
-The method returns a `ggplot` object, which can be saved as a PNG file in the following module. If no data is provided, the method will use `get_fitted_and_resid()` to retrieve the fitted values and residuals from the regression model stored in the checker.
+The method returns a `ggplot` object (@fig-autovi-plot-resid), which can be saved as a PNG file in the following module. If no data is provided, the method will use `get_fitted_and_resid()` to retrieve the fitted values and residuals from the regression model stored in the checker.
 
-```{r echo=TRUE, fig.height=3, fig.width=4}
+```{r fig-autovi-plot-resid, echo=TRUE, fig.height=3, fig.width=4, fig.cap = "Residual plot of the regression model stored in the checker."}
 checker$plot_resid()
 ```
 
 
 To manually generate true residual plots, null plots, or bootstrapped residual plots, you can pass the corresponding `data.frame` produced by the `get_fitted_and_resid()`, `null_method()`, and `boot_method()` methods to the `plot_resid()` method, respectively.
-
-```{r echo = TRUE, fig.height=3, fig.width=4}
-checker$null_method() |>
-  checker$plot_resid()
-```
-
 
 #### Plot Saving
 
@@ -384,18 +378,18 @@ checker
 
 ### Summary Plots
 
-After executing the `check()` method, `autovi` offers two visualization options for the assessment result through the `summary_plot()` method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in @sec-autovi-usage. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot. For instance, you can omit the bootstrapped distribution by setting `boot_dist` to `NULL`. Similarly, you can hide the null distribution (`null_dist`), the $p$-value (`p_value`), or the likelihood ratio (`likelihood_ratio`) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.
+After executing the `check()` method, `autovi` offers two visualization options for the assessment result through the `summary_plot()` method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in @sec-autovi-usage. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot as shown in @fig-autovi-summary-plot-option. For instance, you can omit the bootstrapped distribution by setting `boot_dist` to `NULL`. Similarly, you can hide the null distribution (`null_dist`), the $p$-value (`p_value`), or the likelihood ratio (`likelihood_ratio`) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.
 
-```{r echo=TRUE}
+```{r fig-autovi-summary-plot-option, echo=TRUE, fig.cap = "Density plot of the VSS for null plots."}
 checker$summary_plot(boot_dist = NULL,
                      likelihood_ratio = NULL)
 ```
 
 This customization allows you to focus on specific aspects of the assessment, tailoring the visualization to your analytical needs.
 
-The rank plot, creating by setting `type` to "rank", is a bar plot where the $x$-axis represents the rank and the $y$-axis shows the VSS. The bar that is colored in red correspoding to the VSS of the true residual plot. By examining the rank plot, you can intuitively understand how the observed VSS compares to the null VSSs and identify any outliers in the null distribution.
+The rank plot (@fig-autovi-rank-plot), creating by setting `type` to "rank", is a bar plot where the $x$-axis represents the rank and the $y$-axis shows the VSS. The bar that is coloured in red corresponding to the VSS of the true residual plot. By examining the rank plot, you can intuitively understand how the observed VSS compares to the null VSSs and identify any outliers in the null distribution.
 
-```{r echo=TRUE}
+```{r fig-autovi-rank-plot, echo=TRUE, fig.cap = "Density plot of the VSS for null plots."}
 checker$summary_plot(type = "rank")
 ```
 
@@ -469,19 +463,13 @@ The `get_keras_model()` function can be used to download a model to a temporary 
 
 The web interface package, called `autovi.web`, builds on `autovi`, and makes it easier for users easier to do automated residual plot assessment. It eliminates software installation issues, so users no longer need to struggle with managing Python environments or installing and maintaining the correct versions of R libraries. The interface is cross-platform, accessible on different devices and operating systems, and for users without R programming knowledge. The additional benefit is that updates can be controlled centrally so that users will always have the latest features. 
 
-<!-- In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
-
-Recognizing these potential barriers, we were motivated to design and implement a web interface called `autovi.web`. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, `autovi.web` lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of `autovi`, allowing more researchers and analysts to benefit from its capabilities. Third, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, `autovi.web` offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.
-
-
-`autovi.web` is available at [autoviweb.netlify.app](autoviweb.netlify.app). The implementation discussed in this chapter is based on `autovi.web` version 0.1.0. By providing this web interface, we aim to significantly reduce the technical hurdles associated with using `autovi`, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.
--->
+The web interface `autovi.web` is available at [autoviweb.netlify.app](autoviweb.netlify.app). The implementation discussed in this chapter is based on `autovi.web` version 0.1.0.
 
 ### Implementation
 
 The package `autovi.web` is built using the `shiny` [@shiny] and `shinydashboard` [@shinydashboard] R packages. Hosted on the [shinyapps.io](https://www.shinyapps.io) domain, the application is accessible through any modern web browser. The R packages `htmltools` [@htmltools] and `shinycssloaders` [@shinycssloaders] are used to render markdown documentation in shiny application, and for loading animations for shiny widgets, respectively.
 
-Determining the best way to implement the interface was difficult. In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. A working Emscripten (XXX reference?) version of this package, which would be required for `webr`, was not available.
+Determining the best way to implement the interface was difficult. In our initial planning for `autovi.web`, we considered implementing the entire web application using the `webr` framework [@webr], which would have allowed the entire application to run directly in the user's browser. However, this approach was not feasible at the time of writing this chapter. The reason is that one of the R packages `autovi` depends on the R package `splancs` [@splancs], which uses compiled Fortran code. A working Emscripten [@zakai2011emscripten] version of this package, which would be required for `webr`, was not available.
 
 We also explored the possibility of implementing the web interface using frameworks built on other languages, such as Python. However, server hosting domains that natively support Python servers typically do not have the latest version of R installed. Additionally, calling R from Python is typically done using the `rpy2` Python library, but this approach can be awkward when dealing with language syntax related to non-standard evaluation. Another option we considered was renting a server where we could have full control, such as those provided by cloud platforms like Google Cloud Platform (GCP) or Amazon Web Services (AWS). However, correctly setting up the server and ensuring a secure deployment requires significant expertise. Ultimately, the most practical solution was to use the `shiny` and `shinydashboard` frameworks, which are well-established in the R community and offer a solid foundation for web application development.
 
@@ -501,7 +489,7 @@ To allow communication between `TensorFlow.js` and other components of the Shiny
 knitr::include_graphics("figures/autovi_web.png")
 ```
 
-While the R package `autovi` aims to provide tools that can be extended to broader visual inference applications, `autovi.web` is only focus on to for providing  a straightforward and clean user interface. An overview of the graphical user interface of `autovi.web` is provided in @fig-autovi-web. This is the default view of the web application, and there are five regions that user can mainly interact with. Region 1 of @fig-autovi-web is a sidebar menu which can switch between the analysis page and the information page. The analysis page is the focus of this section. 
+While the R package `autovi` aims to provide tools that can be extended to broader visual inference applications, `autovi.web` is only focus on providing  a straightforward and clean user interface. An overview of the graphical user interface of `autovi.web` is provided in @fig-autovi-web. This is the default view of the web application, and there are five regions that user can mainly interact with. Region 1 of @fig-autovi-web is a sidebar menu which can switch between the analysis page and the information page. The analysis page is the focus of this section. 
 
 Region 2 of @fig-autovi-web is a panel for data uploading and CSV type selection. Clicking the "upload CSV" button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the "upload CSV" button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in @sec-autovi-web-workflow.
 
@@ -548,7 +536,7 @@ Region 9 of @fig-autovi-web-result2 displays an attention map for the true resid
 
 ### Workflow {#sec-autovi-web-workflow}
 
-The workflow of `autovi.web` is designed to be straightforward, with numbered steps displayed in each panel shown in @fig-autovi-web. Thre are two example datasets provided by the web application, as mentioned in @sec-autovi-web-design. The single residual plot example uses the `dino` dataset from the R package `datasauRus` [@datasaurus]. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.
+The workflow of `autovi.web` is designed to be straightforward, with numbered steps displayed in each panel shown in @fig-autovi-web. There are two example datasets provided by the web application, as mentioned in @sec-autovi-web-design. The single residual plot example uses the `dino` dataset from the R package `datasauRus` [@datasaurus]. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.
 
 As shown in @fig-autovi-web-workflow-example, to use the lineup example data, click the "Use Lineup Example" button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically. If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.
 
