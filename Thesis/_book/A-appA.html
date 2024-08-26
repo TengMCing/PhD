@@ -325,7 +325,7 @@ KL = \frac{1}{2}\left(\log\frac{|\text{diag}(\boldsymbol{R}\boldsymbol{V}\boldsy
 <span class="header-section-number">A.1.3</span> Sensitivity Analysis for <span class="math inline">\alpha</span>
 </h3>
 <p>The parameter <span class="math inline">\alpha</span> used for the <span class="math inline">p</span>-value calculation needs to be estimated from responses to null lineups. With a greater value of <span class="math inline">\hat{\alpha}</span>, the <span class="math inline">p</span>-value will be smaller, resulting in more lineups being rejected. However, The way we generate Rorschach lineup is not strictly the same as what suggested in <span class="citation" data-cites="vanderplas2021statistical">VanderPlas et al. (<a href="refs.html#ref-vanderplas2021statistical" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="buja2009statistical">Buja et al. (<a href="refs.html#ref-buja2009statistical" role="doc-biblioref">2009</a>)</span>. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator <span class="math inline">\alpha</span> on our primary findings.</p>
-<p>The analysis is conducted by setting up several scenarios, where the <span class="math inline">\alpha</span> is under or overestimated by 12.5%, 25% and 50%. Using the adjusted <span class="math inline">\hat{\alpha}</span>, we recalculate the <span class="math inline">p</span>-value for every lineup and show the results in Figure . It can be observed that there are some changes to <span class="math inline">p</span>-values, especially when the <span class="math inline">\hat{\alpha}</span> is multiplied by 50%. However, Table shows that adjusting <span class="math inline">\hat{\alpha}</span> will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of <span class="math inline">\alpha</span>.</p>
+<p>The analysis is conducted by setting up several scenarios, where the <span class="math inline">\alpha</span> is under or overestimated by 12.5%, 25% and 50%. Using the adjusted <span class="math inline">\hat{\alpha}</span>, we recalculate the <span class="math inline">p</span>-value for every lineup and show the results in <a href="#fig-sensitivity" class="quarto-xref">Figure&nbsp;<span>A.1</span></a>. It can be observed that there are some changes to <span class="math inline">p</span>-values, especially when the <span class="math inline">\hat{\alpha}</span> is multiplied by 50%. However, <a href="#tbl-sensitivity" class="quarto-xref">Table&nbsp;<span>A.1</span></a> shows that adjusting <span class="math inline">\hat{\alpha}</span> will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of <span class="math inline">\alpha</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sensitivity" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -339,8 +339,15 @@ Figure&nbsp;A.1: Change of <span class="math inline">p</span>-values with <span 
 </div>
 </div>
 <div class="cell">
+<div id="tbl-sensitivity" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;A.1: Examining how decisions might change if <span class="math inline">\hat{\alpha}</span> was different. Percentage of lineups that where the <span class="math inline">p</span>-value would switch to above or below 0.05, when <span class="math inline">\hat{\alpha}</span> is multiplied by a multiplier.
+</figcaption><div aria-describedby="tbl-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 
+</div>
+</div>
+</figure>
 </div>
 </div>
 </section><section id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test" class="level3" data-number="A.1.4"><h3 data-number="A.1.4" class="anchored" data-anchor-id="effect-of-number-of-evaluations-on-the-power-of-a-visual-test">
@@ -376,7 +383,7 @@ Figure&nbsp;A.3: Change of power of RESET tests for different orders of fitted v
 </section><section id="conventional-test-rejection-rate-for-varying-significance-levels" class="level3" data-number="A.1.6"><h3 data-number="A.1.6" class="anchored" data-anchor-id="conventional-test-rejection-rate-for-varying-significance-levels">
 <span class="header-section-number">A.1.6</span> Conventional Test Rejection Rate for Varying Significance Levels</h3>
 <p>In the main paper, <a href="02-chap2.html#sec-power-analysis" class="quarto-xref"><span>Section 2.5.1</span></a> and <a href="02-chap2.html#sec-p-value" class="quarto-xref"><span>Section 2.5.2</span></a> compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, … will have the effect of rejecting fewer of the residual plots.</p>
-<p>It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. Figure examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.</p>
+<p>It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. <a href="#fig-rej-rates" class="quarto-xref">Figure&nbsp;<span>A.4</span></a> examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-rej-rates" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="t!">
@@ -546,11 +553,11 @@ Figure&nbsp;A.12: The lineup page of the study website.
 <span class="header-section-number">A.3</span> Analysis of Results Relative to Data Collection Process</h2>
 <section id="demographics" class="level3" data-number="A.3.1"><h3 data-number="A.3.1" class="anchored" data-anchor-id="demographics">
 <span class="header-section-number">A.3.1</span> Demographics</h3>
-<p>Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. <a href="#tbl-count-lineup" class="quarto-xref">Table&nbsp;<span>A.1</span></a> gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods.</p>
+<p>Throughout the study, we have collected 7254 evaluations on 1116 non-null lineups. <a href="#tbl-count-lineup" class="quarto-xref">Table&nbsp;<span>A.2</span></a> gives further details about the number of evaluations, lineups and participants over pattern types and data collection periods.</p>
 <div class="cell">
 <div id="tbl-count-lineup" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-count-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;A.1: Count of lineups, evaluations and participants over departure types and data collection periods.
+Table&nbsp;A.2: Count of lineups, evaluations and participants over departure types and data collection periods.
 </figcaption><div aria-describedby="tbl-count-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -624,12 +631,12 @@ Heteroskedasticity
 </figure>
 </div>
 </div>
-<p>Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. <a href="#tbl-pronoun" class="quarto-xref">Table&nbsp;<span>A.2</span></a>, <a href="#tbl-age-group" class="quarto-xref">Table&nbsp;<span>A.3</span></a>, <a href="#tbl-education" class="quarto-xref">Table&nbsp;<span>A.4</span></a> and <a href="#tbl-experience" class="quarto-xref">Table&nbsp;<span>A.5</span></a> provide summary of the demographic data.</p>
+<p>Along with the responses to lineups, we have collected a series of demographic information including age, pronoun, education background and previous experience in studies involved data visualization. <a href="#tbl-pronoun" class="quarto-xref">Table&nbsp;<span>A.3</span></a>, <a href="#tbl-age-group" class="quarto-xref">Table&nbsp;<span>A.4</span></a>, <a href="#tbl-education" class="quarto-xref">Table&nbsp;<span>A.5</span></a> and <a href="#tbl-experience" class="quarto-xref">Table&nbsp;<span>A.6</span></a> provide summary of the demographic data.</p>
 <p>It can be observed from the tables that most participants have Diploma or Bachelor degrees, followed by High school or below and the survey data is gender balanced. Majority of participants are between 18 to 39 years old and there are slightly more participants who do not have previous experience than those who have.</p>
 <div class="cell">
 <div id="tbl-pronoun" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pronoun-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;A.2: Summary of pronoun distribution of participants recruited in this study.
+Table&nbsp;A.3: Summary of pronoun distribution of participants recruited in this study.
 </figcaption><div aria-describedby="tbl-pronoun-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
@@ -699,7 +706,7 @@ Table&nbsp;A.2: Summary of pronoun distribution of participants recruited in thi
 <div class="cell">
 <div id="tbl-age-group" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-age-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;A.3: Summary of age distribution of participants recruited in this study.
+Table&nbsp;A.4: Summary of age distribution of participants recruited in this study.
 </figcaption><div aria-describedby="tbl-age-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
@@ -780,7 +787,7 @@ Table&nbsp;A.3: Summary of age distribution of participants recruited in this st
 <div class="cell">
 <div id="tbl-education" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;A.4: Summary of education distribution of participants recruited in this study.
+Table&nbsp;A.5: Summary of education distribution of participants recruited in this study.
 </figcaption><div aria-describedby="tbl-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
@@ -872,7 +879,7 @@ Table&nbsp;A.4: Summary of education distribution of participants recruited in t
 <div class="cell">
 <div id="tbl-experience" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-experience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;A.5: Summary of previous experience distribution of participants recruited in this study.
+Table&nbsp;A.6: Summary of previous experience distribution of participants recruited in this study.
 </figcaption><div aria-describedby="tbl-experience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">

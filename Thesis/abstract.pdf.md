@@ -10,7 +10,7 @@ I hereby declare that this thesis contains no material which has been accepted f
 
 This thesis includes one original paper published in a peer reviewed journal and two unpublished papers.
 
-The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of [Chapter 2](#sec-first-paper), my contribution to the work involved the following:
+The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of [Chapter 2](#sec-first-paper), [Chapter 3](#sec-second-paper) and [Chapter 4](#sec-third-paper), my contribution to the work involved the following:
 
 
 
@@ -30,9 +30,8 @@ The inclusion of co-authors reflects the fact that the work came from active col
  E. Tanaka 5\%, 
  S. VanderPlas 5\% & No\\
 3 & Automated Assessment of Residual Plots with Computer Vision Models & To be submitted & 80\% Concept, Analysis, Software, Writing & D. Cook 10\%,  
- P. Menéndez 5\%, 
- U. Laa 2.5\%,  
- N. Langrené 2.5\% & No\\
+ E. Tanaka 5\%, 
+ S. VanderPlas 2.5\%, K. Ackermann 2.5\% & \vphantom{1} No\\
 4 & Software for Automated Residual Plot Assessment: autovi and autovi.web & To be submitted & 80\% Concept, Analysis, Software, Writing & D. Cook 10\%,  
  E. Tanaka 5\%, 
  S. VanderPlas 2.5\%, K. Ackermann 2.5\% & No\\
@@ -50,6 +49,8 @@ The inclusion of co-authors reflects the fact that the work came from active col
 
 
 
+
+\clearpage
 
 <!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 

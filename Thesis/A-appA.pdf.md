@@ -122,7 +122,7 @@ To compute the effect size for each lineup we simulate a sufficiently large numb
 
 The parameter $\alpha$ used for the $p$-value calculation needs to be estimated from responses to null lineups. With a greater value of $\hat{\alpha}$, the $p$-value will be smaller, resulting in more lineups being rejected. However, The way we generate Rorschach lineup is not strictly the same as what suggested in @vanderplas2021statistical and @buja2009statistical. Therefore, we conduct a sensitivity analysis in this section to examine the impact of the variation of the estimator $\alpha$ on our primary findings.
 
-The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in Figure \ref{fig:sensitivity}. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, Table \ref{tab:sensitivity} shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
+The analysis is conducted by setting up several scenarios, where the $\alpha$ is under or overestimated by 12.5%, 25% and 50%. Using the adjusted $\hat{\alpha}$, we recalculate the $p$-value for every lineup and show the results in @fig-sensitivity. It can be observed that there are some changes to $p$-values, especially when the $\hat{\alpha}$ is multiplied by 50%. However, @tbl-sensitivity shows that adjusting $\hat{\alpha}$ will not result in a huge difference in rejection decisions. There are only a small percentage of cases where the rejection decision change. It is very unlikely the downstream findings will be affected because of the estimate of $\alpha$. 
 
 
 
@@ -139,13 +139,10 @@ The analysis is conducted by setting up several scenarios, where the $\alpha$ is
 :::
 :::
 
-::: {.cell}
+::: {#tbl-sensitivity .cell tbl-cap='Examining how decisions might change if $\hat{\alpha}$ was different. Percentage of lineups that where the $p$-value would switch to above or below 0.05, when $\hat{\alpha}$ is multiplied by a multiplier.'}
 ::: {.cell-output-display}
-\begin{table}
 
-\caption{\label{tab:sensitivity}Examining how decisions might change if $\hat{\alpha}$ was different. Percentage of lineups that where the $p$-value would switch to above or below 0.05, when $\hat{\alpha}$ is multiplied by a multiplier.}
-\centering
-\begin{tabular}[t]{rrrrr}
+\begin{tabular}{rrrrr}
 \toprule
 Multiplier & Reject to not reject & \% & Not reject to reject & \%\\
 \midrule
@@ -158,7 +155,6 @@ Multiplier & Reject to not reject & \% & Not reject to reject & \%\\
 1.500 & 0 & 0.00 & 5 & 1.79\\
 \bottomrule
 \end{tabular}
-\end{table}
 
 
 :::
@@ -227,7 +223,7 @@ It is found in the result that the power of a RESET test will be affected by the
 
 In the main paper, @sec-power-analysis and @sec-p-value compared the power, and the decisions made by the conventional tests and the visual test. The power curves for the visual test is effectively a right-shift from the conventional test. The effect is that the visual test rejects less often than the conventional test, at the same significance level. We also saw that the visual test rejected a subset of those that the conventional tests rejected. This means that they agreed quite well - only residual plots rejected by the conventional tests were rejected by the visual test. There was little disagreement, where residual plots not rejected by the conventional test were rejected by the visual test. The question arises whether the decisions made conventional test could be made similar to that of the visual test by reducing the significance level. Reducing the significance level from 0.05, to 0.01, 0.001, ... will have the effect of rejecting fewer of the residual plots. 
 
-It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. Figure \ref{fig:rej-rates} examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.
+It would be interesting if a different conventional test significance level results in both the visual tests and conventional tests reject only the same residual plots, and fails to reject the same residual plots. This would be a state where both systems agree perfectly. @fig-rej-rates examines this. Plot A shows the percentage of residual plots rejected by the visual test, given the conventional test rejected (solid lines) or failed to reject (dashed lines). The vertical grey line marks significance level 0.05. When the significance level gets smaller, it is possible to see that the visual tests reject (nearly) 100% of the time that the conventional test rejects. However, there is no agreement, because the visual tests also increasingly reject residual plots where the conventional test failed to reject. Plot B is comparable to an ROC curve, where the percentage visual test rejection conditional on conventional test decision is plotted: Reject conditional on reject is plotted against reject conditional on fail to reject, for different significance levels. The non-linearity pattern results are close to being ideal, that the percentage of reject relative to fail to reject increases very slowly as the reject relative to reject converges to 100. The heteroskedasticity pattern is more problematic, and shows that the cost of rejecting less with the conventional test is disagreement with the visual test.
 
 
 
