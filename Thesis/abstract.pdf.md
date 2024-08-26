@@ -52,6 +52,8 @@ The inclusion of co-authors reflects the fact that the work came from active col
 
 \clearpage
 
+To ensure the clarity and coherence of the written content, artificial intelligence tools were employed to assist in smoothing and refining the language throughout the thesis.
+
 <!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 
 I have not renumbered sections of submitted or published papers in order to generate a consistent presentation within the thesis.
