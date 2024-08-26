@@ -2,7 +2,7 @@
 
 This work is motivated by the need for an automated approach to diagnose regression models through residual plots with reliability and consistency. While numerical hypothesis tests are commonly used, residual plots remain essential in regression diagnostics because conventional tests are limited to specific types of model departures and tend to be overly sensitive. Visual inference using the lineup protocol offers a less sensitive and more broadly applicable alternative, yet its dependence on human judgment limits scalability. This research addresses these limitations by automating the assessment process.
 
-This research presents three original contributions. The first contribution Chapter 2 provides evidence for the effectiveness of visual inference in regression diagnostics through a human subject experiment, demonstrating the benefits of using the lineup protocol for reliable and consistent reading of residual plots. The second contribution Chapter 3 introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitation of the lineup protocol. The third contribution Chapter 4 presents an R package and Shiny app, providing a user-friendly interface for analysts to leverage the computer vision model and supporting tools for diagnostic purposes. These contributions advance the field of artificial intelligence for data visualization, enabling more efficient and accurate regression diagnostics.
+This research presents three original contributions. The first contribution provides evidence for the effectiveness of visual inference in regression diagnostics through a human subject experiment, demonstrating the benefits of using the lineup protocol for reliable and consistent reading of residual plots. The second contribution introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitation of the lineup protocol. The third contribution presents an R package and Shiny app, providing a user-friendly interface for analysts to leverage the computer vision model and supporting tools for diagnostic purposes. These contributions advance the field of artificial intelligence for data visualization, enabling more efficient and accurate regression diagnostics.
 
 # Declaration {-}
 
@@ -10,7 +10,7 @@ I hereby declare that this thesis contains no material which has been accepted f
 
 This thesis includes one original paper published in a peer reviewed journal and two unpublished papers.
 
-The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of [Chapter 2](#sec-first-paper) and [Chapter 4](#sec-third-paper), my contribution to the work involved the following:
+The inclusion of co-authors reflects the fact that the work came from active collaboration between researchers and acknowledges input into team-based research. In the case of [Chapter 2](#sec-first-paper), my contribution to the work involved the following:
 
 ```{r}
 #| message: false
@@ -20,9 +20,9 @@ library(knitr)
 library(kableExtra)
 dt <- tribble(
   ~`Chapter`, ~`Publication title`, ~Status, ~`Student contribution`, ~`Co-authors contribution`, ~`Coauthors are Monash students`,
-  2, "A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol", "Published in the Journal of Computational and Graphical Statistics", "80%  Concept, Analysis, Software, Writing", "D. Cook 10%,  \n E. Tanaka 5%, \n S. VanderPlas 5%", "No",
+  2, "A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol", "Published in the Journal of Computational and Graphical Statistics", "80%  Concept, Analysis, Software, Writing", "D. Cook 10%,  \n E. Tanaka 5%, \n S. VanderPlas 5%", "No"
   # 3, "Automated Assessment of Residual Plots with Computer Vision Models", "Unsubmitted", "80% Concept, Analysis, Software, Writing", "D. Cook 10%,  \n P. Menéndez 5%, \n U. Laa 2.5%,  \n N. Langrené 2.5%", "No",
-  4, "Software for Automated Residual Plot Assessment: autovi and autovi.web", "The R package autovi on CRAN", "80% Concept, Analysis, Software, Writing", "D. Cook 10%,  \n E. Tanaka 5%, \n S. VanderPlas 2.5%, K. Ackermann 2.5%", "No"
+  # 4, "Software for Automated Residual Plot Assessment: autovi and autovi.web", "The R package autovi on CRAN", "80% Concept, Analysis, Software, Writing", "D. Cook 10%,  \n E. Tanaka 5%, \n S. VanderPlas 2.5%, K. Ackermann 2.5%", "No"
 )  
 
 dt |>
@@ -38,8 +38,7 @@ dt |>
   row_spec(0, align = "l", bold = TRUE)
 ```
 
-Chapter 3, *Automated Assessment of Residual Plots with Computer Vision Models* is to be submitted for the Journal of Computational and Graphical Statistics. 
-
+Chapter 3, *Automated Assessment of Residual Plots with Computer Vision Models*, and Chapter 4, *Software for Automated Residual Plot Assessment: autovi and autovi.web*, are planned for submission to peer-reviewed journals in the near future.
 
 <!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 

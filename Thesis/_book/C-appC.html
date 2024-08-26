@@ -246,11 +246,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/autovi/">autovi</a></span><span class="op">)</span></span>
 <span><span class="va">EXT_AUTO_VI</span> <span class="op">&lt;-</span> <span class="fu">bandicoot</span><span class="fu">::</span><span class="fu"><a href="https://tengmcing.github.io/bandicoot/reference/new_class.html">new_class</a></span><span class="op">(</span><span class="va">AUTO_VI</span>, class_name <span class="op">=</span> <span class="st">"EXT_AUTO_VI"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">EXT_AUTO_VI</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">EXT_AUTO_VI</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── &lt;EXT_AUTO_VI class&gt; </code></pre>
+</div>
 </div>
 <p>An extended class inherits attributes and methods from its parent class(es), so it will behave similarly to them. This can be verified using the built-in <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> function.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">EXT_AUTO_VI</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">EXT_AUTO_VI</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "vss"                  "rotate_resid"         "..init.."            
  [4] "plot_lineup"          "get_data"             "has_attr"            
@@ -271,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To register a method for an extended class, you need to pass the class as the first argument and the method as a named argument to the <code><a href="https://tengmcing.github.io/bandicoot/reference/register_method.html">bandicoot::register_method()</a></code> function. Within a method, <code>self</code> can be used as a reference to the class or object environment. The following code example overrides the <code>null_method()</code> with a function that simulates null residuals from the corresponding normal distribution. This approach differs from the default null residual simulation scheme described earlier. Although less efficient than the default method for linear regression models, it provides an alternative way to simulate null residuals. This method is particularly useful when the fitted model is unavailable, and only the fitted values and residuals are accessible, as discussed in <a href="04-chap4.html#sec-autovi-web" class="quarto-xref"><span>Section 4.3</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bandicoot</span><span class="fu">::</span><span class="fu"><a href="https://tengmcing.github.io/bandicoot/reference/register_method.html">register_method</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bandicoot</span><span class="fu">::</span><span class="fu"><a href="https://tengmcing.github.io/bandicoot/reference/register_method.html">register_method</a></span><span class="op">(</span></span>
 <span>  <span class="va">EXT_AUTO_VI</span>, </span>
 <span>  null_method <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">fitted_model</span> <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">fitted_model</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="fu">get_fitted_and_resid</span><span class="op">(</span><span class="va">fitted_model</span><span class="op">)</span></span>
@@ -282,27 +288,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">EXT_AUTO_VI</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">EXT_AUTO_VI</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
-   .fitted   .resid
-     &lt;dbl&gt;    &lt;dbl&gt;
- 1   -1.85 -33.5   
- 2   -1.85   6.88  
- 3    9.95 -13.0   
- 4    9.95 -28.2   
- 5   13.9   20.4   
- 6   17.8   -0.0108
- 7   21.7    6.38  
- 8   21.7   -5.22  
- 9   21.7   -1.45  
-10   25.7    9.13  
+   .fitted  .resid
+     &lt;dbl&gt;   &lt;dbl&gt;
+ 1   -1.85   3.75 
+ 2   -1.85  -0.432
+ 3    9.95  -2.72 
+ 4    9.95  12.1  
+ 5   13.9    0.920
+ 6   17.8    2.44 
+ 7   21.7    4.17 
+ 8   21.7  -19.1  
+ 9   21.7    2.38 
+10   25.7   -5.69 
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
 <p>To create an object in <code>bandicoot</code>, you need to call the <code>instantiate()</code> method of a class. Alternatively, you can build a convenient class constructor for your class. It is recommended to provide the full list of arguments in the class constructor instead of using <code>...</code>, as this makes it easier for integrated development environments (IDEs) like RStudio to offer argument completion hints to the user.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ext_auto_vi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fitted_model</span>,</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ext_auto_vi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fitted_model</span>,</span>
 <span>                        <span class="va">keras_model</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                        <span class="va">data</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                        <span class="va">node_index</span> <span class="op">=</span> <span class="fl">1L</span>,</span>
@@ -316,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>                          init_call <span class="op">=</span> <span class="va">init_call</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">ext_auto_vi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">ext_auto_vi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">~</span> <span class="va">speed</span>, data <span class="op">=</span> <span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

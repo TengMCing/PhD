@@ -562,45 +562,31 @@ Status:
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-autovi-plot-resid" class="quarto-float quarto-figure quarto-figure-center anchored" width="384">
+<div id="fig-autovi-plot-resid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-plot-resid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="04-chap4_files/figure-html/fig-autovi-plot-resid-1.png" id="fig-autovi-plot-resid" class="img-fluid figure-img" width="384">
+<img src="04-chap4_files/figure-html/fig-autovi-plot-resid-1.png" class="img-fluid figure-img" width="384">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-autovi-plot-resid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.4
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-plot-resid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: Residual plot of the regression model stored in the checker.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>To manually generate true residual plots (<a href="#fig-autovi-plot-resid2" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>), null plots, or bootstrapped residual plots, you can pass the corresponding <code>data.frame</code> produced by the <code>get_fitted_and_resid()</code>, <code>null_method()</code>, and <code>boot_method()</code> methods to the <code>plot_resid()</code> method, respectively.</p>
-<div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-autovi-plot-resid2" class="quarto-float quarto-figure quarto-figure-center anchored" width="384">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-plot-resid2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="04-chap4_files/figure-html/fig-autovi-plot-resid2-1.png" id="fig-autovi-plot-resid2" class="img-fluid figure-img" width="384">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-autovi-plot-resid2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.5
-</figcaption></figure>
-</div>
-</div>
-</div>
+<p>To manually generate true residual plots, null plots, or bootstrapped residual plots, you can pass the corresponding <code>data.frame</code> produced by the <code>get_fitted_and_resid()</code>, <code>null_method()</code>, and <code>boot_method()</code> methods to the <code>plot_resid()</code> method, respectively.</p>
 </section><section id="plot-saving" class="level4"><h4 class="anchored" data-anchor-id="plot-saving">Plot Saving</h4>
 <p>Another key aspect of a standardized residual plot is its resolution. In <a href="03-chap3.html" class="quarto-xref"><span>Chapter 3</span></a>, we used an image format of 420 pixels in height and 525 pixels in width. This resolution was chosen because the original set, consisting of 20 residual plots arranged in a four by five grid, was represented by an image of 2100 by 2100 pixels. The <code><a href="https://tengmcing.github.io/autovi/reference/save_plot.html">save_plot()</a></code> method accepts a <code>ggplot</code> object as input and saves it as a PNG file to the location specified by the <code>path</code> argument. If no path is provided, the PNG file is saved to a temporary file.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpsW6ZDW/filec64dcb39eab.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpBkH8Zc/file142133f5934fe.png"</code></pre>
 </div>
 </div>
 </section><section id="image-reading-and-resizing" class="level4"><h4 class="anchored" data-anchor-id="image-reading-and-resizing">Image Reading and Resizing</h4>
 <p>When training computer vision models, it is common to test various input sizes for the same architecture to identify the optimal setup. This involves preparing the original training image at a higher resolution than required and then resizing it to match the input size during training. The <code>autovi</code> package includes a class, <code>KERAS_WRAPPER</code>, to simplify this process. This Keras wrapper class features a method called <code>image_to_array()</code>, which reads an image as a <code>PIL</code> image using the <code>pillow</code> Python package, resizes it to the target input size required by the Keras model, and converts it to a <code>Numpy</code> array.</p>
 <p>To construct a <code>KERAS_WRAPPER</code> object, you need to provide the Keras model as the main argument. However, users generally do not need to interact with this class directly, as the <code>autovi</code> checker automatically invokes its methods when performing VSS predictions. The <code>image_to_array()</code> method takes the path to the image file, the target height, and the target width as inputs and returns a <code>Numpy</code> array. If not specified, the target height and target width will be retrieved from the input layer of the Keras model by the <code>get_input_height()</code> and <code>get_input_width()</code> method of <code>KERAS_WRAPPER</code>.</p>
 <p>The following code example demonstrate the way to manually generate the true residual plot, save it as PNG file, and load it back as <code>Numpy</code> array.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span>keras_model <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span>  </span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span>keras_model <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span>  </span>
 <span><span class="va">input_array</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span></span>
@@ -615,7 +601,7 @@ Figure&nbsp;4.5
 <p>There are several ways to obtain VSS from the checker, with the most direct being the <code>vss()</code> method. By default, this method predicts the VSS for the true residual plot. If a <code>ggplot</code> or a <code>data.frame</code>, such as null residuals generated by the <code>null_method()</code>, is explicitly provided, the method will use that input to predict VSS accordingly. Note that if a <code>ggplot</code> is provided, auxiliary inputs must be supplied manually via the <code>auxiliary</code> argument, as we assume that auxiliary variables can not be computed directly from a <code>ggplot</code>.</p>
 <p>Another way to obtain VSS is by calling the <code>check()</code> method. This comprehensive method perform extensive diagnostics on the true residual plot and store the VSS in the <code>check_result</code> field of the checker. Additionally, for obtaining VSS for null residual plots and bootstrapped residual plots, there are two specialized methods, <code>null_vss()</code> and <code>boot_vss()</code>, designed for this purpose respectively.</p>
 <p>Calling the <code>vss()</code> method without arguments will predict the VSS for the true residual plot and return the result as a single-element <code>tibble</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
@@ -625,7 +611,7 @@ Figure&nbsp;4.5
 </div>
 </div>
 <p>Providing a <code>data.frame</code> of null residuals or a null residual plot yields the same VSS.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">$</span><span class="fu">null_method</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="va">null_resid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -635,7 +621,7 @@ Figure&nbsp;4.5
 1  1.02</code></pre>
 </div>
 </div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_resid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
@@ -647,7 +633,7 @@ Figure&nbsp;4.5
 </div>
 </div>
 <p>The <code>null_vss()</code> helper method primarily takes the number of null plots as input. If the user wants to use a ad hoc null simulation scheme, it can be provided via the <code>null_method</code> argument. Intermediate results, including null residuals and null plots, can be returned by enabling <code>keep_null_data</code> and <code>keep_null_plot</code>. The VSS, along with null residuals and null plots, will be stored in a <code>tibble</code> with three columns. The following code example demonstrates how to predict the VSS for five null residual plots while keeping the intermediate results.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_vss</span><span class="op">(</span><span class="fl">5L</span>, </span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">null_vss</span><span class="op">(</span><span class="fl">5L</span>, </span>
 <span>                 keep_null_data <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                 keep_null_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
@@ -663,7 +649,7 @@ Figure&nbsp;4.5
 </div>
 </div>
 <p>The <code>boot_vss()</code> helper method is similar to <code>null_vss()</code>, with some differences in argument names. The following code example demonstrates how to predict the VSS for five bootstrapped residual plots while keeping the intermediate results.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">boot_vss</span><span class="op">(</span><span class="fl">5L</span>,</span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">boot_vss</span><span class="op">(</span><span class="fl">5L</span>,</span>
 <span>                 keep_boot_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                 keep_boot_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
@@ -681,7 +667,7 @@ Figure&nbsp;4.5
 </section><section id="p-value-computation" class="level4"><h4 class="anchored" data-anchor-id="p-value-computation">
 <span class="math inline">p</span>-value Computation</h4>
 <p>Once we have obtained the VSS from both the true residual plot and the null plots, we can compute the <span class="math inline">p</span>-value. This <span class="math inline">p</span>-value represents the ratio of plots with VSS greater than or equal to that of the true residual plot. We can perform this calculation using the <code>check()</code> method. The main inputs for this method are the number of null plots and the number of bootstrapped plots to generate. If you need to access intermediate residuals and plots, you can enable the <code>keep_data</code> and <code>keep_plot</code> options. The method stores the final result in the <code>check_result</code> field of the object. To obtain the p-value using the <code>check()</code> method, you can use the following code.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">check</span><span class="op">(</span>boot_draws <span class="op">=</span> <span class="fl">100L</span>, null_draws <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span></span>
 <span><span class="va">checker</span><span class="op">$</span><span class="va">check_result</span><span class="op">$</span><span class="va">p_value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -690,7 +676,7 @@ Figure&nbsp;4.5
 </div>
 <p>You can also check the <span class="math inline">p</span>-value by printing the checker, which includes it in the summary report.</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -721,25 +707,33 @@ Status:
 </div>
 </section></section><section id="summary-plots" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="summary-plots">
 <span class="header-section-number">4.2.5</span> Summary Plots</h3>
-<p>After executing the <code>check()</code> method, <code>autovi</code> offers two visualization options for the assessment result through the <code>summary_plot()</code> method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in <a href="#sec-autovi-usage" class="quarto-xref"><span>Section 4.2.3</span></a>. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot. For instance, you can omit the bootstrapped distribution by setting <code>boot_dist</code> to <code>NULL</code>. Similarly, you can hide the null distribution (<code>null_dist</code>), the <span class="math inline">p</span>-value (<code>p_value</code>), or the likelihood ratio (<code>likelihood_ratio</code>) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.</p>
+<p>After executing the <code>check()</code> method, <code>autovi</code> offers two visualization options for the assessment result through the <code>summary_plot()</code> method, including the density plot and the rank plot. We have already discussed and interpreted the density plot in <a href="#sec-autovi-usage" class="quarto-xref"><span>Section 4.2.3</span></a>. Here, we would like to highlight the flexibility in choosing which elements to display in the density plot as shown in <a href="#fig-autovi-summary-plot-option" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>. For instance, you can omit the bootstrapped distribution by setting <code>boot_dist</code> to <code>NULL</code>. Similarly, you can hide the null distribution (<code>null_dist</code>), the <span class="math inline">p</span>-value (<code>p_value</code>), or the likelihood ratio (<code>likelihood_ratio</code>) as needed. The following example demonstrates how to create a summary plot without the results from bootstrapped plots.</p>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>boot_dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>boot_dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                     likelihood_ratio <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div id="fig-autovi-summary-plot-option" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-summary-plot-option-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-summary-plot-option-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-summary-plot-option-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: Density plot of the VSS for null plots.
+</figcaption></figure>
 </div>
 </div>
 </div>
 <p>This customization allows you to focus on specific aspects of the assessment, tailoring the visualization to your analytical needs.</p>
-<p>The rank plot, creating by setting <code>type</code> to “rank”, is a bar plot where the <span class="math inline">x</span>-axis represents the rank and the <span class="math inline">y</span>-axis shows the VSS. The bar that is colored in red correspoding to the VSS of the true residual plot. By examining the rank plot, you can intuitively understand how the observed VSS compares to the null VSSs and identify any outliers in the null distribution.</p>
+<p>The rank plot (<a href="#fig-autovi-rank-plot" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>), creating by setting <code>type</code> to “rank”, is a bar plot where the <span class="math inline">x</span>-axis represents the rank and the <span class="math inline">y</span>-axis shows the VSS. The bar that is coloured in red corresponding to the VSS of the true residual plot. By examining the rank plot, you can intuitively understand how the observed VSS compares to the null VSSs and identify any outliers in the null distribution.</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">summary_plot</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="04-chap4_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div id="fig-autovi-rank-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-rank-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-rank-plot-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-rank-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.6: Density plot of the VSS for null plots.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -747,16 +741,45 @@ Status:
 <span class="header-section-number">4.2.6</span> Feature Extraction</h3>
 <p>In addition to predicting VSS and computing <span class="math inline">p</span>-values, <code>autovi</code> offers methods to extract features from any layer of the Keras model. To see which layers are available in the current Keras model, you can use the <code>list_layer_name()</code> method from the <code>KERAS_WRAPPER</code> class.</p>
 <p>The following code example lists the layer names of the currently used Keras model:</p>
-<div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tengmcing.github.io/autovi/reference/KERAS_WRAPPER.html">keras_wrapper</a></span><span class="op">(</span><span class="va">checker</span><span class="op">$</span><span class="va">keras_model</span><span class="op">)</span></span>
 <span><span class="va">wrapper</span><span class="op">$</span><span class="fu">list_layer_name</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
+<pre><code> [1] "input_1"                  "tf.__operators__.getitem"
+ [3] "tf.nn.bias_add"           "grey_scale"              
+ [5] "block1_conv1"             "batch_normalization"     
+ [7] "activation"               "block1_conv2"            
+ [9] "batch_normalization_1"    "activation_1"            
+[11] "block1_pool"              "dropout"                 
+[13] "block2_conv1"             "batch_normalization_2"   
+[15] "activation_2"             "block2_conv2"            
+[17] "batch_normalization_3"    "activation_3"            
+[19] "block2_pool"              "dropout_1"               
+[21] "block3_conv1"             "batch_normalization_4"   
+[23] "activation_4"             "block3_conv2"            
+[25] "batch_normalization_5"    "activation_5"            
+[27] "block3_conv3"             "batch_normalization_6"   
+[29] "activation_6"             "block3_pool"             
+[31] "dropout_2"                "block4_conv1"            
+[33] "batch_normalization_7"    "activation_7"            
+[35] "block4_conv2"             "batch_normalization_8"   
+[37] "activation_8"             "block4_conv3"            
+[39] "batch_normalization_9"    "activation_9"            
+[41] "block4_pool"              "dropout_3"               
+[43] "block5_conv1"             "batch_normalization_10"  
+[45] "activation_10"            "block5_conv2"            
+[47] "batch_normalization_11"   "activation_11"           
+[49] "block5_conv3"             "batch_normalization_12"  
+[51] "activation_12"            "block5_pool"             
+[53] "dropout_4"                "global_max_pooling2d"    
+[55] "additional_input"         "concatenate"             
+[57] "dense"                    "dropout_5"               
+[59] "activation_13"            "dense_1"                 </code></pre>
 </div>
 </div>
 <p>Among these layers, the “global_max_pooling2d” layer is a 2D global max pooling layer that outputs the results from the last convolutional blocks. As <span class="citation" data-cites="simonyan2014very">Simonyan and Zisserman (<a href="refs.html#ref-simonyan2014very" role="doc-biblioref">2014</a>)</span> noted, all preceding convolutional blocks can be viewed as a large feature extractor. Consequently, the output from this layer provides features that can be utilized for various purposes, such as performing transfer learning.</p>
 <p>To obtain the features, provide the layer name using the <code>extract_feature_from_layer</code> argument in the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> method. This will return a <code>tibble</code> with the VSS and all features extracted from that layer. Each row corresponds to one plot. The features will be flattened into 2D and named with the prefix “f_” followed by a number from one to the total number of features.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">image_to_array</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">wrapper</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span>auxiliary <span class="op">=</span> <span class="va">checker</span><span class="op">$</span><span class="fu">auxiliary</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -778,7 +801,7 @@ Status:
 </div>
 <p>Alternatively, the <code>AUTO_VI</code> class provides a way to extract features using the <code>vss()</code> method. This method is essentially a high-level wrapper around the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> method of <code>KERAS_WRAPPER</code>, but it offers a more straightforward interface and better default arguments.</p>
 <p>The results from the previous code example can be replicated with a single line of code as shown below.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span>extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">vss</span><span class="op">(</span>extract_feature_from_layer <span class="op">=</span> <span class="st">"global_max_pooling2d"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 257
@@ -817,13 +840,7 @@ Status:
 </section></section><section id="sec-autovi-web" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-autovi-web">
 <span class="header-section-number">4.3</span> Web interface: autovi.web</h2>
 <p>The web interface package, called <code>autovi.web</code>, builds on <code>autovi</code>, and makes it easier for users easier to do automated residual plot assessment. It eliminates software installation issues, so users no longer need to struggle with managing Python environments or installing and maintaining the correct versions of R libraries. The interface is cross-platform, accessible on different devices and operating systems, and for users without R programming knowledge. The additional benefit is that updates can be controlled centrally so that users will always have the latest features.</p>
-<!-- In @sec-autovi-implementation, we discussed how `autovi` relies on several Python libraries, with a particularly strong dependency on `TensorFlow`. Managing a Python environment and correctly installing `TensorFlow` on a local machine can be challenging for many users. Moreover, `TensorFlow` is a massive library that undergoes continuous development, which inevitably leads to compatibility issues arising from differences in library versions. These challenges can create significant barriers for users who want to perform residual assessments with the `autovi` package.
-
-Recognizing these potential barriers, we were motivated to design and implement a web interface called `autovi.web`. This web-based solution offers several major advantages. First, it eliminates dependency issues, so users no longer need to struggle with complex Python environments or worry about installing and maintaining the correct versions of libraries. The web interface handles all these dependencies on the server side. Second, `autovi.web` lowers the entry barrier by being user-friendly and accessible to individuals who may not be familiar with R programming. This broadens the potential user base of `autovi`, allowing more researchers and analysts to benefit from its capabilities. Third, the web interface can be updated centrally, ensuring that all users always have access to the latest features and improvements without needing to manage updates locally. Lastly, `autovi.web` offers cross-platform accessibility, allowing users to access it from any device with a web browser, increasing flexibility and convenience.
-
-
-`autovi.web` is available at [autoviweb.netlify.app](autoviweb.netlify.app). The implementation discussed in this chapter is based on `autovi.web` version 0.1.0. By providing this web interface, we aim to significantly reduce the technical hurdles associated with using `autovi`, making advanced residual assessment techniques more accessible to a wider audience of researchers and data analysts. This approach aligns with modern trends in data science tools, where web-based interfaces are increasingly used to make advanced analytical techniques more widely available.
--->
+<p>The web interface <code>autovi.web</code> is available at <a href="autoviweb.netlify.app">autoviweb.netlify.app</a>. The implementation discussed in this chapter is based on <code>autovi.web</code> version 0.1.0.</p>
 <section id="implementation" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="implementation">
 <span class="header-section-number">4.3.1</span> Implementation</h3>
 <p>The package <code>autovi.web</code> is built using the <code>shiny</code> <span class="citation" data-cites="shiny">(<a href="refs.html#ref-shiny" role="doc-biblioref">Chang et al. 2022</a>)</span> and <code>shinydashboard</code> <span class="citation" data-cites="shinydashboard">(<a href="refs.html#ref-shinydashboard" role="doc-biblioref">Chang and Borges Ribeiro 2021</a>)</span> R packages. Hosted on the <a href="https://www.shinyapps.io">shinyapps.io</a> domain, the application is accessible through any modern web browser. The R packages <code>htmltools</code> <span class="citation" data-cites="htmltools">(<a href="refs.html#ref-htmltools" role="doc-biblioref">Cheng et al. 2024</a>)</span> and <code>shinycssloaders</code> <span class="citation" data-cites="shinycssloaders">(<a href="refs.html#ref-shinycssloaders" role="doc-biblioref">Sali and Attali 2020</a>)</span> are used to render markdown documentation in shiny application, and for loading animations for shiny widgets, respectively.</p>
@@ -843,13 +860,13 @@ Recognizing these potential barriers, we were motivated to design and implement 
 <img src="figures/autovi_web.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.6: Overview of the <code>autovi.web</code> graphical user interface (GUI). This default view may change based on user interactions. Region 1 is the sidebar menu, containing the residual assessment tab and the information tab. Region 2 is the data upload panel, where users can provide a CSV file and specify the type of data it contains. Region 3 includes dropdown menus for selecting the columns to be analyzed, a slider to control the number of bootstrapping samples, and a numeric input box for setting the simulation seed. Region 4 displays the initialization status and offers a button to start the analysis. Region 5 is empty in the default view but will be populated with results once the analysis is started.
+Figure&nbsp;4.7: Overview of the <code>autovi.web</code> graphical user interface (GUI). This default view may change based on user interactions. Region 1 is the sidebar menu, containing the residual assessment tab and the information tab. Region 2 is the data upload panel, where users can provide a CSV file and specify the type of data it contains. Region 3 includes dropdown menus for selecting the columns to be analyzed, a slider to control the number of bootstrapping samples, and a numeric input box for setting the simulation seed. Region 4 displays the initialization status and offers a button to start the analysis. Region 5 is empty in the default view but will be populated with results once the analysis is started.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>While the R package <code>autovi</code> aims to provide tools that can be extended to broader visual inference applications, <code>autovi.web</code> is only focus on to for providing a straightforward and clean user interface. An overview of the graphical user interface of <code>autovi.web</code> is provided in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>. This is the default view of the web application, and there are five regions that user can mainly interact with. Region 1 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> is a sidebar menu which can switch between the analysis page and the information page. The analysis page is the focus of this section.</p>
-<p>Region 2 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> is a panel for data uploading and CSV type selection. Clicking the “upload CSV” button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the “upload CSV” button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in <a href="#sec-autovi-web-workflow" class="quarto-xref"><span>Section 4.3.3</span></a>.</p>
+<p>While the R package <code>autovi</code> aims to provide tools that can be extended to broader visual inference applications, <code>autovi.web</code> is only focus on providing a straightforward and clean user interface. An overview of the graphical user interface of <code>autovi.web</code> is provided in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>. This is the default view of the web application, and there are five regions that user can mainly interact with. Region 1 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> is a sidebar menu which can switch between the analysis page and the information page. The analysis page is the focus of this section.</p>
+<p>Region 2 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> is a panel for data uploading and CSV type selection. Clicking the “upload CSV” button opens a window where the user can select a file from their local system. The data status displayed above the button provides information about the number of rows and columns in the current dataset. Additionally, there are two example datasets available beneath the “upload CSV” button: one is a lineup example using a CSV file with three columns, and the other is a single plot example using a CSV file with two columns. More details about these example datasets are be discussed in <a href="#sec-autovi-web-workflow" class="quarto-xref"><span>Section 4.3.3</span></a>.</p>
 <p>While the <code>autovi</code> package typically expects a fitted regression model object provided by the user, this approach is impractical for a web interface. Saving the R model object to the filesystem involves extra steps and requires users to have specific knowledge, which does not align with the goal of the web application. Moreover, the regression model object may contain sensitive, non-shareable data, making it unsuitable for uploading. Additionally, model objects are often unnecessarily large, containing extra information not needed for residual diagnostics. In contrast, a CSV file is easier to generate using various software programs, not just R. CSV files are widely accepted and can be easily viewed and modified using common desktop applications like Excel. They are generally less sensitive than raw data, as they exclude most information about the predictors.</p>
 <p>The web application is designed to assess either a single residual plot or a lineup of residual plots. Therefore, it accepts only two types of CSV files: one with at least two columns representing the fitted values and residuals of a single residual plot, and another with at least three columns, where the additional column serves as the label or identifier for a lineup of multiple residual plots. For a single residual plot, 19 null plots are generated by simulating normal random draws from a distribution with the same variance as the original residual plot, and comparisons are made with the original residual plot. For a lineup, comparisons are made among the plots within the lineup. After uploading the CSV file, the user must select the correct format to ensure the web interface interprets the data correctly.</p>
 <div class="cell">
@@ -859,15 +876,15 @@ Figure&nbsp;4.6: Overview of the <code>autovi.web</code> graphical user interfac
 <img src="figures/autovi_web_type.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-type-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.7: The panels for selecting target columns and simulation settings are updated when a different CSV type is selected in the left panel. Compared to <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>, where the CSV type is a single residual plot, choosing a CSV type that includes a lineup of multiple residual plots adds a dropdown menu for specifying a column for the residual plot identifier. Additionally, an optional dropdown menu for specifying the true residual plot identifier will appear under the simulation settings.
+Figure&nbsp;4.8: The panels for selecting target columns and simulation settings are updated when a different CSV type is selected in the left panel. Compared to <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>, where the CSV type is a single residual plot, choosing a CSV type that includes a lineup of multiple residual plots adds a dropdown menu for specifying a column for the residual plot identifier. Additionally, an optional dropdown menu for specifying the true residual plot identifier will appear under the simulation settings.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Region 3 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> is a panel for column selection and simulation settings. As shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>, if the CSV type is set to a single residual plot, there will be two dropdown menus for specifying the columns for fitted values and residuals, respectively. The default variable names for these columns are <code>.fitted</code> and <code>.resid</code>. After uploading the CSV file, the content of these dropdown menus will be updated to reflect the existing columns in the dataset. As displayed in <a href="#fig-autovi-web-type" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>, for the CSV type that is a lineup of multiple residual plots, an additional dropdown menu will appear for specifying the column of residual plot labels. The default variable name for this column is <code>.sample</code>. If this variable name does not exist in the dataset, the dropdown menu will remain empty, allowing the user to specify the correct column. The number of levels for each option in this dropdown menu will be displayed to help avoid the selection of a variable with too many levels, which could significantly slow down the application due to extensive computation.</p>
+<p>Region 3 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> is a panel for column selection and simulation settings. As shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>, if the CSV type is set to a single residual plot, there will be two dropdown menus for specifying the columns for fitted values and residuals, respectively. The default variable names for these columns are <code>.fitted</code> and <code>.resid</code>. After uploading the CSV file, the content of these dropdown menus will be updated to reflect the existing columns in the dataset. As displayed in <a href="#fig-autovi-web-type" class="quarto-xref">Figure&nbsp;<span>4.8</span></a>, for the CSV type that is a lineup of multiple residual plots, an additional dropdown menu will appear for specifying the column of residual plot labels. The default variable name for this column is <code>.sample</code>. If this variable name does not exist in the dataset, the dropdown menu will remain empty, allowing the user to specify the correct column. The number of levels for each option in this dropdown menu will be displayed to help avoid the selection of a variable with too many levels, which could significantly slow down the application due to extensive computation.</p>
 <p>Under the simulation settings, there is a slider for specifying the number of bootstrapped samples needed for the assessment. A higher value on this slider will result in a more accurate bootstrap distribution estimation, though it will require more computation time. The simulation seed can be set in a numeric input box below the slider to control the reproducibility of the assessment. By default, a random seed is set each time the web page is refreshed. When the CSV type is a lineup of multiple residual plots, an optional dropdown menu will appear next to the simulation seed input box, allowing the user to specify an identifier for the true residual plot. If no label is provided for the true residual plot, the assessment will only estimate the VSS for each residual plot in the lineup, without providing a <span class="math inline">p</span>-value, as it cannot be computed. Consequently, some result panels may be missing due to insufficient information. This option is useful when the lineup consists solely of null plots or if the user simply wants to obtain the VSS for multiple residual plots.</p>
-<p>Region 4 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> is the panel for triggering the assessment. It contains a large play button to start the assessment. Above the play button, a text message displays the status of <code>TensorFlow.js</code>, allowing users to monitor whether the JavaScript library and Keras model have been loaded correctly. The play button will remain disabled until both the data status in Region 1 and the <code>TensorFlow.js</code> status in Region 4 indicate that everything is ready, with both showing a green status.</p>
-<p>Once the play button is clicked, region 5 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.8</span></a> and <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.9</span></a>.</p>
+<p>Region 4 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> is the panel for triggering the assessment. It contains a large play button to start the assessment. Above the play button, a text message displays the status of <code>TensorFlow.js</code>, allowing users to monitor whether the JavaScript library and Keras model have been loaded correctly. The play button will remain disabled until both the data status in Region 1 and the <code>TensorFlow.js</code> status in Region 4 indicate that everything is ready, with both showing a green status.</p>
+<p>Once the play button is clicked, region 5 of <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> will be populated with panels displaying the assessment results. Generally, there will be four result panels, as shown in <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.9</span></a> and <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.10</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-autovi-web-result" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -875,7 +892,7 @@ Figure&nbsp;4.7: The panels for selecting target columns and simulation settings
 <img src="figures/autovi_web_result.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.8: The first two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the first two. In region 1, there is an interactive table detailing the VSS, with a summary of the analysis provided in the paragraph below. Region 2 displays a lineup of residual plots.
+Figure&nbsp;4.9: The first two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the first two. In region 1, there is an interactive table detailing the VSS, with a summary of the analysis provided in the paragraph below. Region 2 displays a lineup of residual plots.
 </figcaption></figure>
 </div>
 </div>
@@ -887,7 +904,7 @@ Figure&nbsp;4.8: The first two panels of results from the automated residual ass
 <img src="figures/autovi_web_result2.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.9: The last two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the final two. Region 1 presents a density plot comparing the bootstrapped VSS with the null VSS. Region 2 includes an attention map of the true residual plot.
+Figure&nbsp;4.10: The last two panels of results from the automated residual assessment are shown. The application provides four results panels in total, and these screenshots display the final two. Region 1 presents a density plot comparing the bootstrapped VSS with the null VSS. Region 2 includes an attention map of the true residual plot.
 </figcaption></figure>
 </div>
 </div>
@@ -896,32 +913,104 @@ Figure&nbsp;4.9: The last two panels of results from the automated residual asse
 <div class="cell-output-display">
 <div id="fig-autovi-web-gradient-hide" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-gradient-hide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/autovi_web_gradient_hide.png" class="img-fluid figure-img" style="width:100.0%">
+<img src="figures/autovi_web_gradient_hide.png" class="img-fluid figure-img" style="width:50.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-gradient-hide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.10: The attention map is hidden if the assessment indicates a <span class="math inline">p</span>-value greater than 0.05. A button is available to toggle the display of the attention map.
+Figure&nbsp;4.11: The attention map is hidden if the assessment indicates a <span class="math inline">p</span>-value greater than 0.05. A button is available to toggle the display of the attention map.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Region 6 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.8</span></a> contains an interactive table created with the R package <code>DT</code> <span class="citation" data-cites="dt">(<a href="refs.html#ref-dt" role="doc-biblioref">Xie et al. 2024</a>)</span>, which provides the VSS. This table includes four columns: <code>.sample</code>, <code>vss</code>, <code>rank</code>, and <code>null</code>. The <code>.sample</code> column shows the residual plot labels. For a CSV type that is a lineup, these labels are taken from an identifier column in the dataset specified by the user. In the case of the CSV type is a single residual plot, labels are automatically generated from 1 to 20, with the true residual plot receiving a randomly assigned label. The <code>vss</code> column displays the VSS for each residual plot, rounded to three decimal places. The <code>rank</code> column indicates the ranking of each residual plot based on VSS. The <code>null</code> column reveals whether the plot is a null plot. For the CSV type that is a single residual plot, only the true residual plot will have “false” in this column, while all other plots will be marked “true.” For the CSV type that is a lineup, if the true residual plot identifier has not been provided, this column will show “NA” to represent missing values. If the identifier is provided by user, the column behaves as if the CSV type is a single residual plot.</p>
+<p>Region 6 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.9</span></a> contains an interactive table created with the R package <code>DT</code> <span class="citation" data-cites="dt">(<a href="refs.html#ref-dt" role="doc-biblioref">Xie et al. 2024</a>)</span>, which provides the VSS. This table includes four columns: <code>.sample</code>, <code>vss</code>, <code>rank</code>, and <code>null</code>. The <code>.sample</code> column shows the residual plot labels. For a CSV type that is a lineup, these labels are taken from an identifier column in the dataset specified by the user. In the case of the CSV type is a single residual plot, labels are automatically generated from 1 to 20, with the true residual plot receiving a randomly assigned label. The <code>vss</code> column displays the VSS for each residual plot, rounded to three decimal places. The <code>rank</code> column indicates the ranking of each residual plot based on VSS. The <code>null</code> column reveals whether the plot is a null plot. For the CSV type that is a single residual plot, only the true residual plot will have “false” in this column, while all other plots will be marked “true.” For the CSV type that is a lineup, if the true residual plot identifier has not been provided, this column will show “NA” to represent missing values. If the identifier is provided by user, the column behaves as if the CSV type is a single residual plot.</p>
 <p>The <code>DT</code> table provides several interactive features. Users can download the table in four formats, including text, CSV, Excel, and PDF, using the buttons located above the table. Additionally, the table is searchable via the text input field also positioned above it. Below the table, a text message displays the <span class="math inline">p</span>-value of the assessment for the true residual plot and summarizes the number of null plots with VSS greater than that of the true residual plot. This helps the user determine whether the true residual plot shows visual patterns that suggest model violations.</p>
-<p>Region 7 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.8</span></a> provides a lineup of plots corresponding to each <code>.sample</code> value from the table in Region 6. Due to space limitations, a maximum of 20 residual plots will be displayed, ensuring that the true residual plot, if known, will be included in the lineup. The plots are generated using <code>ggplot2</code>, the same as in <code>autovi</code>. Users can perform a visual test with this lineup to check if the true residual plot is distinguishable from the other plots, helping to determine the significance of model violations.</p>
-<p>Region 8 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.9</span></a> displays the density plot for bootstrapped VSS and null VSS. The densities are shown in distinct colors that are friendly for colorblind users. A solid vertical line marks the VSS of the true residual plot, while rug lines at the bottom of the plot provide a clearer view of individual cases. Below the plot, a text message indicates the number and percentage of bootstrapped residual plots that would be rejected by the visual test when compared to the null plots. Note that the bootstrapped residual plots in this application are generated differently from <code>autovi</code>. Since we do not have the R model object, we can not refit the regression model with bootstrapped data. Instead, we bootstrap the residuals of the true residual plot directly to obtain bootstrapped residual plots. As as result, this panel will disappear when the true residual plot is unknown.</p>
-<p>Region 9 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.9</span></a> displays an attention map for the true residual plot, generated by computing the gradient of the Keras model’s output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts VSS and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the <span class="math inline">p</span>-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in <a href="#fig-autovi-web-gradient-hide" class="quarto-xref">Figure&nbsp;<span>4.10</span></a>. This button allows users to toggle the display of the attention map.</p>
+<p>Region 7 of <a href="#fig-autovi-web-result" class="quarto-xref">Figure&nbsp;<span>4.9</span></a> provides a lineup of plots corresponding to each <code>.sample</code> value from the table in Region 6. Due to space limitations, a maximum of 20 residual plots will be displayed, ensuring that the true residual plot, if known, will be included in the lineup. The plots are generated using <code>ggplot2</code>, the same as in <code>autovi</code>. Users can perform a visual test with this lineup to check if the true residual plot is distinguishable from the other plots, helping to determine the significance of model violations.</p>
+<p>Region 8 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.10</span></a> displays the density plot for bootstrapped VSS and null VSS. The densities are shown in distinct colors that are friendly for colorblind users. A solid vertical line marks the VSS of the true residual plot, while rug lines at the bottom of the plot provide a clearer view of individual cases. Below the plot, a text message indicates the number and percentage of bootstrapped residual plots that would be rejected by the visual test when compared to the null plots. Note that the bootstrapped residual plots in this application are generated differently from <code>autovi</code>. Since we do not have the R model object, we can not refit the regression model with bootstrapped data. Instead, we bootstrap the residuals of the true residual plot directly to obtain bootstrapped residual plots. As as result, this panel will disappear when the true residual plot is unknown.</p>
+<p>Region 9 of <a href="#fig-autovi-web-result2" class="quarto-xref">Figure&nbsp;<span>4.10</span></a> displays an attention map for the true residual plot, generated by computing the gradient of the Keras model’s output with respect to the greyscale input of the plot. The attention map helps to understand how the Keras model predicts VSS and which areas it is focusing on. We use a greyscale input because it is easier to generate a clear attention map in this format, and it usually conveys all the essential information, as most of the important details of the plot are drawn in black. If the <span class="math inline">p</span>-value of the true residual plot is greater than 0.05, checking the attention map is not necessary. However, to provide users with the option to review it if they wish, a button will be available, as shown in <a href="#fig-autovi-web-gradient-hide" class="quarto-xref">Figure&nbsp;<span>4.11</span></a>. This button allows users to toggle the display of the attention map.</p>
 </section><section id="sec-autovi-web-workflow" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="sec-autovi-web-workflow">
 <span class="header-section-number">4.3.3</span> Workflow</h3>
-<p>The workflow of <code>autovi.web</code> is designed to be straightforward, with numbered steps displayed in each panel shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>. Thre are two example datasets provided by the web application, as mentioned in <a href="#sec-autovi-web-design" class="quarto-xref"><span>Section 4.3.2</span></a>. The single residual plot example uses the <code>dino</code> dataset from the R package <code>datasauRus</code> <span class="citation" data-cites="datasaurus">(<a href="refs.html#ref-datasaurus" role="doc-biblioref">Davies et al. 2022</a>)</span>. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.</p>
-<p>As shown in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.11</span></a>, to use the lineup example data, click the “Use Lineup Example” button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically. If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.</p>
-<p>In the result panels shown in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.11</span></a>D, the first row of the table is the most crucial to check, as it provides the VSS and the rank of the true residual plot among the other plots. The summary text beneath the table provides the <span class="math inline">p</span>-value, which can be used for quick decision-making. The lineup is for manual inspection, and the user should see if the true residual plot is visually distinguishable from the other plots, to confirm if the model violation is serious. The density plot in <a href="#fig-autovi-web-workflow-example" class="quarto-xref">Figure&nbsp;<span>4.11</span></a>E offers a more robust result, allowing the user to compare the distribution of bootstrapped VSS with the distribution of null VSS. Finally, the grayscale attention map can be used to check if the target visual features, like the non-linearity present in the lineup example, are captured by the computer vision model, ensuring the quality of the assessment.</p>
+<p>The workflow of <code>autovi.web</code> is designed to be straightforward, with numbered steps displayed in each panel shown in <a href="#fig-autovi-web" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>. There are two example datasets provided by the web application, as mentioned in <a href="#sec-autovi-web-design" class="quarto-xref"><span>Section 4.3.2</span></a>. The single residual plot example uses the <code>dino</code> dataset from the R package <code>datasauRus</code> <span class="citation" data-cites="datasaurus">(<a href="refs.html#ref-datasaurus" role="doc-biblioref">Davies et al. 2022</a>)</span>. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.</p>
+<p>As shown in <a href="#fig-autovi-web-workflow-example1" class="quarto-xref">Figure&nbsp;<span>4.12</span></a>, to use the lineup example data, click the “Use Lineup Example” button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically (<a href="#fig-autovi-web-workflow-example2" class="quarto-xref">Figure&nbsp;<span>4.13</span></a>). If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.</p>
+<p>Results are provided in multiple panels as displayed in <a href="#fig-autovi-web-workflow-example3" class="quarto-xref">Figure&nbsp;<span>4.14</span></a>, <a href="#fig-autovi-web-workflow-example4" class="quarto-xref">Figure&nbsp;<span>4.15</span></a>, <a href="#fig-autovi-web-workflow-example5" class="quarto-xref">Figure&nbsp;<span>4.16</span></a> and <a href="#fig-autovi-web-workflow-example6" class="quarto-xref">Figure&nbsp;<span>4.17</span></a>. In <a href="#fig-autovi-web-workflow-example3" class="quarto-xref">Figure&nbsp;<span>4.14</span></a>, the first row of the table is the most crucial to check, as it provides the VSS and the rank of the true residual plot among the other plots. The summary text beneath the table provides the <span class="math inline">p</span>-value, which can be used for quick decision-making. In <a href="#fig-autovi-web-workflow-example4" class="quarto-xref">Figure&nbsp;<span>4.15</span></a>, the lineup is for manual inspection, and the user should see if the true residual plot is visually distinguishable from the other plots, to confirm if the model violation is serious. The density plot in <a href="#fig-autovi-web-workflow-example5" class="quarto-xref">Figure&nbsp;<span>4.16</span></a> offers a more robust result, allowing the user to compare the distribution of bootstrapped VSS with the distribution of null VSS. Finally, the grayscale attention map shown in <a href="#fig-autovi-web-workflow-example6" class="quarto-xref">Figure&nbsp;<span>4.17</span></a> can be used to check if the target visual features, like the non-linearity present in the lineup example, are captured by the computer vision model, ensuring the quality of the assessment.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-autovi-web-workflow-example" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example-1.png" class="img-fluid figure-img" style="width:100.0%">
+<div id="fig-autovi-web-workflow-example1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example1-1.png" class="img-fluid figure-img" style="width:80.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.11: The workflow for <code>autovi.web</code> using the lineup example dataset proceeds as follows: (A) To begin, the user clicks the “Use Lineup Example” button to load the example dataset, during which the data status and CSV type will be automatically updated. (B) The target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label. (C) The user initiates the assessment by clicking the run button. (D) The VSS of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the <span class="math inline">p</span>-value to aid in decision-making. The lineup on the right allows for manual inspection. (E) The density plot helps verify if the bootstrapped distribution differs from the null distribution, while the attention map on the right offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.12: To begin the workflow for <code>autovi</code> using the lineup example dataset, the user clicks the “Use Lineup Example” button to load the example dataset, during which the data status and CSV type will be automatically updated.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example2-1.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.13: After clicking the button in <a href="#fig-autovi-web-workflow-example1" class="quarto-xref">Figure&nbsp;<span>4.12</span></a>, the target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example3-1.png" class="img-fluid figure-img" style="width:55.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.14: After finishing the required steps in <a href="#fig-autovi-web-workflow-example1" class="quarto-xref">Figure&nbsp;<span>4.12</span></a> and <a href="#fig-autovi-web-workflow-example2" class="quarto-xref">Figure&nbsp;<span>4.13</span></a>, the user initiates the assessment of the lineup example data by clicking the run button.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example4-1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.15: The VSS of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the <span class="math inline">p</span>-value to aid in decision-making.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example5-1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.16: A lineup of residual plots allows for manual inspection.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example6-1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.17: The density plot helps verify if the bootstrapped distribution differs from the null distribution.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-autovi-web-workflow-example7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-autovi-web-workflow-example7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-chap4_files/figure-html/fig-autovi-web-workflow-example7-1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-autovi-web-workflow-example7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.18: The attention map offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.
 </figcaption></figure>
 </div>
 </div>

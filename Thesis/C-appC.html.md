@@ -16,8 +16,26 @@ In `bandicoot`, a class is declared using the `bandicoot::new_class()` function,
 ```{.r .cell-code}
 library(autovi)
 EXT_AUTO_VI <- bandicoot::new_class(AUTO_VI, class_name = "EXT_AUTO_VI")
-print(EXT_AUTO_VI)
+EXT_AUTO_VI
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+── <EXT_AUTO_VI class> 
+```
+
+
+:::
 :::
 
 
@@ -89,25 +107,25 @@ bandicoot::register_method(
   }
 )
 
-print(EXT_AUTO_VI$null_method(lm(dist ~ speed, data = cars)))
+EXT_AUTO_VI$null_method(lm(dist ~ speed, data = cars))
 ```
 
 ::: {.cell-output .cell-output-stdout}
 
 ```
 # A tibble: 50 × 2
-   .fitted   .resid
-     <dbl>    <dbl>
- 1   -1.85 -33.5   
- 2   -1.85   6.88  
- 3    9.95 -13.0   
- 4    9.95 -28.2   
- 5   13.9   20.4   
- 6   17.8   -0.0108
- 7   21.7    6.38  
- 8   21.7   -5.22  
- 9   21.7   -1.45  
-10   25.7    9.13  
+   .fitted  .resid
+     <dbl>   <dbl>
+ 1   -1.85   3.75 
+ 2   -1.85  -0.432
+ 3    9.95  -2.72 
+ 4    9.95  12.1  
+ 5   13.9    0.920
+ 6   17.8    2.44 
+ 7   21.7    4.17 
+ 8   21.7  -19.1  
+ 9   21.7    2.38 
+10   25.7   -5.69 
 # ℹ 40 more rows
 ```
 
@@ -144,6 +162,6 @@ ext_auto_vi <- function(fitted_model,
                           init_call = init_call)
 }
 
-print(ext_auto_vi(lm(dist ~ speed, data = cars)))
+ext_auto_vi(lm(dist ~ speed, data = cars))
 ```
 :::

@@ -6,10 +6,10 @@ The `bandicoot` R package provides a lightweight object-oriented system with Pyt
 
 In `bandicoot`, a class is declared using the `bandicoot::new_class()` function, where parent classes are provided as positional arguments, and the class name is specified through the `class_name` argument. The output of `bandicoot::new_class()` is an environment with the S3 class `bandicoot_oop`. Printing a `bandicoot` object provides a summary of the object, which can be customized via the `..str..` magic method.
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=TRUE}
 library(autovi)
 EXT_AUTO_VI <- bandicoot::new_class(AUTO_VI, class_name = "EXT_AUTO_VI")
-print(EXT_AUTO_VI)
+EXT_AUTO_VI
 ```
 
 An extended class inherits attributes and methods from its parent class(es), so it will behave similarly to them. This can be verified using the built-in `names()` function.
@@ -33,7 +33,7 @@ bandicoot::register_method(
   }
 )
 
-print(EXT_AUTO_VI$null_method(lm(dist ~ speed, data = cars)))
+EXT_AUTO_VI$null_method(lm(dist ~ speed, data = cars))
 ```
 
 To create an object in `bandicoot`, you need to call the `instantiate()` method of a class. Alternatively, you can build a convenient class constructor for your class. It is recommended to provide the full list of arguments in the class constructor instead of using `...`, as this makes it easier for integrated development environments (IDEs) like RStudio to offer argument completion hints to the user.
@@ -53,5 +53,5 @@ ext_auto_vi <- function(fitted_model,
                           init_call = init_call)
 }
 
-print(ext_auto_vi(lm(dist ~ speed, data = cars)))
+ext_auto_vi(lm(dist ~ speed, data = cars))
 ```

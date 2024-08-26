@@ -400,9 +400,19 @@ In addition to predicting VSS and computing $p$-values, `autovi` offers methods 
 
 The following code example lists the layer names of the currently used Keras model:
 
-```{r echo=TRUE}
+```r
 wrapper <- keras_wrapper(checker$keras_model)
 wrapper$list_layer_name()
+```
+
+```{r}
+if (!file.exists("cached_data/autovi_check_demo_8.rds")) {
+  wrapper <- keras_wrapper(get_keras_model("vss_phn_32"))
+  result <- wrapper$list_layer_name()
+  saveRDS(result, "cached_data/autovi_check_demo_8.rds")
+} else {
+  readRDS("cached_data/autovi_check_demo_8.rds")
+}
 ```
 
 Among these layers, the "global_max_pooling2d" layer is a 2D global max pooling layer that outputs the results from the last convolutional blocks. As @simonyan2014very noted, all preceding convolutional blocks can be viewed as a large feature extractor. Consequently, the output from this layer provides features that can be utilized for various purposes, such as performing transfer learning.
@@ -519,7 +529,7 @@ knitr::include_graphics("figures/autovi_web_result.png")
 knitr::include_graphics("figures/autovi_web_result2.png")
 ```
 
-```{r fig-autovi-web-gradient-hide, out.width = "100%", fig.cap = "The attention map is hidden if the assessment indicates a $p$-value greater than 0.05. A button is available to toggle the display of the attention map."}
+```{r fig-autovi-web-gradient-hide, out.width = "50%", fig.cap = "The attention map is hidden if the assessment indicates a $p$-value greater than 0.05. A button is available to toggle the display of the attention map."}
 knitr::include_graphics("figures/autovi_web_gradient_hide.png")
 ```
 
@@ -538,15 +548,38 @@ Region 9 of @fig-autovi-web-result2 displays an attention map for the true resid
 
 The workflow of `autovi.web` is designed to be straightforward, with numbered steps displayed in each panel shown in @fig-autovi-web. There are two example datasets provided by the web application, as mentioned in @sec-autovi-web-design. The single residual plot example uses the `dino` dataset from the R package `datasauRus` [@datasaurus]. The lineup example uses residuals from a simulated regression model that has a non-linearity issue. We will walk through the lineup example to further demonstrate the workflow of the web application.
 
-As shown in @fig-autovi-web-workflow-example, to use the lineup example data, click the "Use Lineup Example" button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically. If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.
+As shown in @fig-autovi-web-workflow-example1, to use the lineup example data, click the "Use Lineup Example" button. The data status will then update to show the number of rows and columns in the dataset, and the CSV type will automatically be selected to the correct option. Since the example dataset follows the variable naming conventions assumed by the web application, the columns for fitted values, residuals, and labels of residual plots are set automatically (@fig-autovi-web-workflow-example2). If the user is working with a custom dataset, these options must be set accordingly. Regardless of the dataset, the user must manually select the label for the true residual plot, as the web application allows assessments without this label. The next step is to click the play button to start the assessment.
 
-In the result panels shown in [@fig-autovi-web-workflow-example]D, the first row of the table is the most crucial to check, as it provides the VSS and the rank of the true residual plot among the other plots. The summary text beneath the table provides the $p$-value, which can be used for quick decision-making. The lineup is for manual inspection, and the user should see if the true residual plot is visually distinguishable from the other plots, to confirm if the model violation is serious. The density plot in [@fig-autovi-web-workflow-example]E offers a more robust result, allowing the user to compare the distribution of bootstrapped VSS with the distribution of null VSS. Finally, the grayscale attention map can be used to check if the target visual features, like the non-linearity present in the lineup example, are captured by the computer vision model, ensuring the quality of the assessment.
+Results are provided in multiple panels as displayed in @fig-autovi-web-workflow-example3, @fig-autovi-web-workflow-example4, @fig-autovi-web-workflow-example5 and @fig-autovi-web-workflow-example6. In @fig-autovi-web-workflow-example3, the first row of the table is the most crucial to check, as it provides the VSS and the rank of the true residual plot among the other plots. The summary text beneath the table provides the $p$-value, which can be used for quick decision-making. In @fig-autovi-web-workflow-example4, the lineup is for manual inspection, and the user should see if the true residual plot is visually distinguishable from the other plots, to confirm if the model violation is serious. The density plot in @fig-autovi-web-workflow-example5 offers a more robust result, allowing the user to compare the distribution of bootstrapped VSS with the distribution of null VSS. Finally, the grayscale attention map shown in @fig-autovi-web-workflow-example6 can be used to check if the target visual features, like the non-linearity present in the lineup example, are captured by the computer vision model, ensuring the quality of the assessment.
 
-
-```{r fig-autovi-web-workflow-example, out.width = "100%", fig.cap = 'The workflow for `autovi.web` using the lineup example dataset proceeds as follows: (A) To begin, the user clicks the "Use Lineup Example" button to load the example dataset, during which the data status and CSV type will be automatically updated. (B) The target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label. (C) The user initiates the assessment by clicking the run button. (D) The VSS of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the $p$-value to aid in decision-making. The lineup on the right allows for manual inspection. (E) The density plot helps verify if the bootstrapped distribution differs from the null distribution, while the attention map on the right offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.'}
-magick::image_read_pdf("figures/autovi_web_workflow.pdf")
+```{r fig-autovi-web-workflow-example1, out.width = "80%", fig.cap = 'To begin the workflow for `autovi` using the lineup example dataset, the user clicks the "Use Lineup Example" button to load the example dataset, during which the data status and CSV type will be automatically updated.'}
+magick::image_read_pdf("figures/autovi_web_workflow_1.pdf")
 ```
 
+
+```{r fig-autovi-web-workflow-example2, out.width = "80%", fig.cap = 'After clicking the button in @fig-autovi-web-workflow-example1, the target columns are selected automatically, though the user must manually select the label for the true residual plot, as the web application permits assessment without this label.'}
+magick::image_read_pdf("figures/autovi_web_workflow_2.pdf")
+```
+
+```{r fig-autovi-web-workflow-example3, out.width = "55%", fig.cap = 'After finishing the required steps in @fig-autovi-web-workflow-example1 and @fig-autovi-web-workflow-example2, the user initiates the assessment of the lineup example data by clicking the run button.'}
+magick::image_read_pdf("figures/autovi_web_workflow_3.pdf")
+```
+
+```{r fig-autovi-web-workflow-example4, out.width = "100%", fig.cap = 'The VSS of the true residual plot is displayed in the first row of the table, with a summary text beneath the table providing the $p$-value to aid in decision-making.'}
+magick::image_read_pdf("figures/autovi_web_workflow_4.pdf")
+```
+
+```{r fig-autovi-web-workflow-example5, out.width = "100%", fig.cap = 'A lineup of residual plots allows for manual inspection.'}
+magick::image_read_pdf("figures/autovi_web_workflow_5.pdf")
+```
+
+```{r fig-autovi-web-workflow-example6, out.width = "100%", fig.cap = 'The density plot helps verify if the bootstrapped distribution differs from the null distribution.'}
+magick::image_read_pdf("figures/autovi_web_workflow_6.pdf")
+```
+
+```{r fig-autovi-web-workflow-example7, out.width = "100%", fig.cap = 'The attention map offers insights into whether the computer vision model has captured the intended visual features of the true residual plot.'}
+magick::image_read_pdf("figures/autovi_web_workflow_7.pdf")
+```
 
 ## Conclusions {#sec-autovi-conclusion}
 
