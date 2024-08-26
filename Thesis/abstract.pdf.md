@@ -29,6 +29,13 @@ The inclusion of co-authors reflects the fact that the work came from active col
 2 & A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol & Published in the Journal of Computational and Graphical Statistics & 80\%  Concept, Analysis, Software, Writing & D. Cook 10\%,  
  E. Tanaka 5\%, 
  S. VanderPlas 5\% & No\\
+3 & Automated Assessment of Residual Plots with Computer Vision Models & To be submitted & 80\% Concept, Analysis, Software, Writing & D. Cook 10\%,  
+ P. Menéndez 5\%, 
+ U. Laa 2.5\%,  
+ N. Langrené 2.5\% & No\\
+4 & Software for Automated Residual Plot Assessment: autovi and autovi.web & To be submitted & 80\% Concept, Analysis, Software, Writing & D. Cook 10\%,  
+ E. Tanaka 5\%, 
+ S. VanderPlas 2.5\%, K. Ackermann 2.5\% & No\\
 \bottomrule
 \end{tabular}
 \endgroup{}
@@ -43,7 +50,6 @@ The inclusion of co-authors reflects the fact that the work came from active col
 
 
 
-Chapter 3, *Automated Assessment of Residual Plots with Computer Vision Models*, and Chapter 4, *Software for Automated Residual Plot Assessment: autovi and autovi.web*, are planned for submission to peer-reviewed journals in the near future.
 
 <!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 

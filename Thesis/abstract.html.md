@@ -43,6 +43,27 @@ The inclusion of co-authors reflects the fact that the work came from active col
  S. VanderPlas 5% </td>
    <td style="text-align:left;width: 1.3cm; "> No </td>
   </tr>
+  <tr>
+   <td style="text-align:right;width: 1.2cm; "> 3 </td>
+   <td style="text-align:left;width: 3cm; "> Automated Assessment of Residual Plots with Computer Vision Models </td>
+   <td style="text-align:left;width: 3.5cm; "> To be submitted </td>
+   <td style="text-align:left;width: 2.5cm; "> 80% Concept, Analysis, Software, Writing </td>
+   <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
+ P. Menéndez 5%, 
+ U. Laa 2.5%,  
+ N. Langrené 2.5% </td>
+   <td style="text-align:left;width: 1.3cm; "> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 1.2cm; "> 4 </td>
+   <td style="text-align:left;width: 3cm; "> Software for Automated Residual Plot Assessment: autovi and autovi.web </td>
+   <td style="text-align:left;width: 3.5cm; "> To be submitted </td>
+   <td style="text-align:left;width: 2.5cm; "> 80% Concept, Analysis, Software, Writing </td>
+   <td style="text-align:left;width: 2.4cm; "> D. Cook 10%,  
+ E. Tanaka 5%, 
+ S. VanderPlas 2.5%, K. Ackermann 2.5% </td>
+   <td style="text-align:left;width: 1.3cm; "> No </td>
+  </tr>
 </tbody>
 </table>
 
@@ -56,7 +77,6 @@ The inclusion of co-authors reflects the fact that the work came from active col
 
 
 
-Chapter 3, *Automated Assessment of Residual Plots with Computer Vision Models*, and Chapter 4, *Software for Automated Residual Plot Assessment: autovi and autovi.web*, are planned for submission to peer-reviewed journals in the near future.
 
 <!-- **The thesis is written in Australian spelling, except for Chapters 3 and 4, which use American spelling as specified by the publication venue.** -->
 

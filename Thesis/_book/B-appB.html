@@ -308,8 +308,8 @@ window.Quarto = {
 <p><span class="math display">\boldsymbol{O}(i,j) = max\{0, \boldsymbol{I}(i,j)\},</span></p>
 <p>where <span class="math inline">\boldsymbol{O}(i,j)</span> is the <span class="math inline">i</span>th row and <span class="math inline">j</span>th column entry of matrix <span class="math inline">\boldsymbol{O}</span>, and <span class="math inline">\boldsymbol{I}(i,j)</span> is the <span class="math inline">i</span>th row and <span class="math inline">j</span>th column entry of matrix <span class="math inline">\boldsymbol{I}</span>.</p>
 </section>
-<section id="convolutaional-layer" class="level3" data-number="B.1.3">
-<h3 data-number="B.1.3" class="anchored" data-anchor-id="convolutaional-layer"><span class="header-section-number">B.1.3</span> Convolutaional Layer</h3>
+<section id="convolutional-layer" class="level3" data-number="B.1.3">
+<h3 data-number="B.1.3" class="anchored" data-anchor-id="convolutional-layer"><span class="header-section-number">B.1.3</span> Convolutional Layer</h3>
 <p>In Dense layers, matrix multiplication leads to each output unit interacting with every input unit, whereas convolutional layers operate differently with sparse interactions. An output unit in a convolutional layer is connected solely to a subset of input units, and the weight is shared across all input units. Achieving this involves using a kernel, typically a small square matrix, to conduct matrix multiplication across all input units. Precisely, this concept can be formulated as:</p>
 <p><span class="math display">\boldsymbol{O}(i, j) = \sum_m\sum_n\boldsymbol{I}(i - m, j - n)K(m, n),</span></p>
 <p>where <span class="math inline">m</span> and <span class="math inline">n</span> are the row and columns indices of the kernel <span class="math inline">K</span>.</p>
