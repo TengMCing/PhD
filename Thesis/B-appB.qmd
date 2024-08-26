@@ -22,7 +22,7 @@ $$\boldsymbol{O}(i,j) = max\{0, \boldsymbol{I}(i,j)\},$$
 
 where $\boldsymbol{O}(i,j)$ is the $i$th row and $j$th column entry of matrix $\boldsymbol{O}$, and $\boldsymbol{I}(i,j)$ is the $i$th row and $j$th column entry of matrix $\boldsymbol{I}$.
 
-### Convolutaional Layer
+### Convolutional Layer
 
 In Dense layers, matrix multiplication leads to each output unit interacting with every input unit, whereas convolutional layers operate differently with sparse interactions. An output unit in a convolutional layer is connected solely to a subset of input units, and the weight is shared across all input units. Achieving this involves using a kernel, typically a small square matrix, to conduct matrix multiplication across all input units. Precisely, this concept can be formulated as:
 
