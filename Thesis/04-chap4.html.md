@@ -548,7 +548,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpJIeaFB/file3ebd6b08b380.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmpl3ApL4/file784e12f3678d.png"
 ```
 
 
@@ -1075,17 +1075,17 @@ The trained computer vision models described in @sec-second-paper are hosted on 
 ::: {.cell-output .cell-output-stdout}
 
 ```
-# A tibble: 6 × 9
-  model_name  path              volume_path volume_size input_height input_width
-  <chr>       <chr>             <chr>             <int>        <int>       <int>
-1 vss_32      keras_model/vss_… keras_mode…           4           32          32
-2 vss_64      keras_model/vss_… keras_mode…           1           64          64
-3 vss_128     keras_model/vss_… keras_mode…           8          128         128
-4 vss_phn_32  keras_model/vss_… keras_mode…           2           32          32
-5 vss_phn_64  keras_model/vss_… keras_mode…           8           64          64
-6 vss_phn_128 keras_model/vss_… keras_mode…           8          128         128
-# ℹ 3 more variables: input_channels <int>, auxiliary_input_size <int>,
-#   description <chr>
+# A tibble: 6 × 11
+  model_name  path          volume_path volume_size npz_path npz_py input_height
+  <chr>       <chr>         <chr>             <int> <chr>    <chr>         <int>
+1 vss_32      keras_model/… keras_mode…           4 keras_m… keras…           32
+2 vss_64      keras_model/… keras_mode…           1 keras_m… keras…           64
+3 vss_128     keras_model/… keras_mode…           8 keras_m… keras…          128
+4 vss_phn_32  keras_model/… keras_mode…           2 keras_m… keras…           32
+5 vss_phn_64  keras_model/… keras_mode…           8 keras_m… keras…           64
+6 vss_phn_128 keras_model/… keras_mode…           8 keras_m… keras…          128
+# ℹ 4 more variables: input_width <int>, input_channels <int>,
+#   auxiliary_input_size <int>, description <chr>
 ```
 
 

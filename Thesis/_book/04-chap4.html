@@ -579,7 +579,7 @@ Figure&nbsp;4.4: Residual plot of the regression model stored in the checker.
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpJIeaFB/file3ebd6b08b380.png"</code></pre>
+<pre><code>[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmpl3ApL4/file784e12f3678d.png"</code></pre>
 </div>
 </div>
 </section><section id="image-reading-and-resizing" class="level4"><h4 class="anchored" data-anchor-id="image-reading-and-resizing">Image Reading and Resizing</h4>
@@ -823,17 +823,17 @@ Figure&nbsp;4.6: Density plot of the VSS for null plots.
 <p>The trained computer vision models described in <a href="03-chap3.html" class="quarto-xref"><span>Chapter 3</span></a> are hosted on a GitHub repository at <a href="https://github.com/TengMCing/autovi_data">https://github.com/TengMCing/autovi_data</a>. Currently, there are six models available. You can view them by calling <code><a href="https://tengmcing.github.io/autovi/reference/list_keras_model.html">list_keras_model()</a></code>, which will return a <code>tibble</code> showing the input shape and a description of each model.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 9
-  model_name  path              volume_path volume_size input_height input_width
-  &lt;chr&gt;       &lt;chr&gt;             &lt;chr&gt;             &lt;int&gt;        &lt;int&gt;       &lt;int&gt;
-1 vss_32      keras_model/vss_… keras_mode…           4           32          32
-2 vss_64      keras_model/vss_… keras_mode…           1           64          64
-3 vss_128     keras_model/vss_… keras_mode…           8          128         128
-4 vss_phn_32  keras_model/vss_… keras_mode…           2           32          32
-5 vss_phn_64  keras_model/vss_… keras_mode…           8           64          64
-6 vss_phn_128 keras_model/vss_… keras_mode…           8          128         128
-# ℹ 3 more variables: input_channels &lt;int&gt;, auxiliary_input_size &lt;int&gt;,
-#   description &lt;chr&gt;</code></pre>
+<pre><code># A tibble: 6 × 11
+  model_name  path          volume_path volume_size npz_path npz_py input_height
+  &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;int&gt;
+1 vss_32      keras_model/… keras_mode…           4 keras_m… keras…           32
+2 vss_64      keras_model/… keras_mode…           1 keras_m… keras…           64
+3 vss_128     keras_model/… keras_mode…           8 keras_m… keras…          128
+4 vss_phn_32  keras_model/… keras_mode…           2 keras_m… keras…           32
+5 vss_phn_64  keras_model/… keras_mode…           8 keras_m… keras…           64
+6 vss_phn_128 keras_model/… keras_mode…           8 keras_m… keras…          128
+# ℹ 4 more variables: input_width &lt;int&gt;, input_channels &lt;int&gt;,
+#   auxiliary_input_size &lt;int&gt;, description &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>The <code><a href="https://tengmcing.github.io/autovi/reference/get_keras_model.html">get_keras_model()</a></code> function can be used to download a model to a temporary directory and load it into memory using <code>TensorFlow</code>. It requires only the model name, which is the value in the first column of the <code>tibble</code> returned by <code><a href="https://tengmcing.github.io/autovi/reference/list_keras_model.html">list_keras_model()</a></code>.</p>
