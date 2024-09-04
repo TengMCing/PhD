@@ -175,7 +175,7 @@ With the estimated distance $\hat{D}$, we can compare the underlying distributio
 
 It is not expected that $\hat{D}$ will be equal to original distance $D$. This is largely because information contained in a single residual plot is limited and it may not be able to summarize all the important characteristics of the residual distribution. For a given residual distribution $P$, many different residual plots can be simulated, where many will share similar visual patterns, but some of them could be visually very different from the rest, especially for regression models with small $n$. This suggests the error of the estimation will vary depends on whether the input residual plot is representative or not.
 
-## Statistical testing {#sec-model-statistical-testing}
+## Statistical Testing {#sec-model-statistical-testing}
 
 ### Lineup Evaluation {#sec-model-lineup-evaluation}
 
@@ -770,7 +770,7 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 <tbody>
   <tr>
    <td style="text-align:left;"> Number of base filters </td>
-   <td style="text-align:left;"> {4, 8, 16, 32, 64} </td>
+   <td style="text-align:left;"> \{4, 8, 16, 32, 64\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Dropout rate for convolutional blocks </td>
@@ -778,23 +778,23 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
   </tr>
   <tr>
    <td style="text-align:left;"> Batch normalization for convolutional blocks </td>
-   <td style="text-align:left;"> {false, true} </td>
+   <td style="text-align:left;"> \{false, true\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Type of global pooling </td>
-   <td style="text-align:left;"> {max, average} </td>
+   <td style="text-align:left;"> \{max, average\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ignore additional inputs </td>
-   <td style="text-align:left;"> {false, true} </td>
+   <td style="text-align:left;"> \{false, true\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Number of units for the fully-connected layer </td>
-   <td style="text-align:left;"> {128, 256, 512, 1024, 2048} </td>
+   <td style="text-align:left;"> \{128, 256, 512, 1024, 2048\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Batch normalization for the fully-connected layer </td>
-   <td style="text-align:left;"> {false, true} </td>
+   <td style="text-align:left;"> \{false, true\} </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Dropout rate for the fully-connected layer </td>
@@ -1343,7 +1343,7 @@ Based on the model performance metrics, we chose to use the best-performing mode
 
 ### Comparison with Human Visual Inference and Conventional Tests
 
-#### Overview of the Human Subject experiment
+#### Overview of the Human Subject Experiment
 
 In order to check the validity of the proposed computer vision model, residual plots presented in the human subject experiment conducted by @li2024plot will be assessed.
 
@@ -1864,7 +1864,7 @@ The proposed distance measure assumes that the true model is a classical normal 
 There are other types of residual plots commonly used in diagnostics, such as residuals vs. predictor and quantile-quantile plots. In this study, we focused on the most commonly used residual plot as a starting point for exploring the new field of automated visual inference. Similarly, we did not explore other, more sophisticated computer vision model architectures and specifications for the same reason. While the performance of the computer vision model is acceptable, there is still room for improvement to achieve behavior more closely resembling that of humans interpreting residual plots. This may require external survey data or human subject experiment data to understand the fundamental differences between our implementation and human evaluation.
 
 
-## Conclusion
+## Conclusions
 
 In this chapter, we have introduced a distance measure based on Kullback-Leibler divergence to quantify the disparity between the residual distribution of a fitted classical normal linear regression model and the reference residual distribution assumed under correct model specification. This distance measure effectively captures the magnitude of model violations in misspecified models. We propose a computer vision model to estimate this distance, utilizing the residual plot of the fitted model as input. The resulting estimated distance serves as the foundation for constructing a single Model Violations Index (MVI), facilitating the quantification of various model violations.
 
