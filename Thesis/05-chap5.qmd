@@ -14,7 +14,8 @@ The aforementioned R package (and its dependency) is available on CRAN with the 
 
 The Shiny app for `autovi` is available at one of the mirror sites listed at <https://autoviweb.netlify.app/> with the source code available at <https://github.com/TengMCing/autovi_web>.
 
-Principles of transparency and reproducible research have guided the work with all materials related to the thesis at <https://github.com/TengMCing/PhD>.  The thesis is written using Quarto [@Allaire_Quarto_2024] and is available online at <https://patrick-li-thesis.netlify.app>.
+Principles of transparency and reproducible research have guided the work with all materials related to the thesis at <https://github.com/TengMCing/PhD/Thesis>. The thesis is written using Quarto [@Allaire_Quarto_2024] and is available online at <https://patrick-li-thesis.netlify.app>. The R packages used throughout the thesis include `tidyverse` [@tidyverse], `lmtest` [@lmtest], `mpoly` [@mpoly], `ggmosaic` [@ggmosaic], `kableExtra` [@kableextra], `patchwork` [@patchwork], `rcartocolor` [@rcartocolor], `glue` [@glue], `ggpcp` [@ggpcp], `here` [@here], `magick` [@magick], `yardstick` [@yardstick], `reticulate` [@reticulate] and `knitr` [@knitr].
+
 
 
 ## Future work
