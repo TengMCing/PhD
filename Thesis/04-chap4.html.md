@@ -227,13 +227,45 @@ Optionally, the user may specify the node index of the output layer of the train
 After initializing the object, you can print the checker to view its status.
 
 ```r
+print(checker)
+```
+
+
+
+
+
+
+::: {.cell}
+::: {.cell-output .cell-output-stderr}
+
+```
+
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
 ── <AUTO_VI object>
 Status:
  - Fitted model: lm
  - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
     - Output node index: 1
- - Result: UNKNOWN 
+ - Result: UNKNOWN  
 ```
+
+
+:::
+:::
+
+
+
+
+
+
+
 
 The status includes the list of regression model classes (as provided by the built-in `class()` function), the input and output shapes of the Keras model in the standard `Numpy` format [@harris2020array], the output node index being monitored, and the assessment result. If no check has been run yet, the assessment result will display as "UNKNOWN".
 
@@ -501,7 +533,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmp273aZQ/file14f7b6d10b444.png"
+[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//Rtmp7Vrhub/file1612d20be6ea6.png"
 ```
 
 
@@ -1025,6 +1057,11 @@ The trained computer vision models described in @sec-second-paper are hosted on 
 
 
 ::: {.cell}
+
+```{.r .cell-code}
+list_keras_model()
+```
+
 ::: {.cell-output .cell-output-stdout}
 
 ```
