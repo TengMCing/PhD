@@ -54,7 +54,7 @@ In this chapter, we develop computer vision models and integrate them into the r
 
 
 
-## Model Specifications {#sec-model-specifications}
+## Computer Vision Model Specifications {#sec-model-specifications}
 
 There are various specifications of the computer vision model that can be used to assess residual plots. We discuss these specifications below focusing on two key components of the model formula: the input and the output format.
 
@@ -63,7 +63,7 @@ There are various specifications of the computer vision model that can be used t
 
 Deep learning models are in general very sensitive to the input data. The quality and relevance of the input data greatly influence the model's capacity to generate insightful and meaningful results. There are several designs of the input format that can be considered.
 
-A straightforward architecture of the input layer involves feeding a vector of residuals along with a vector of fitted values, essentially providing all the necessary information for creating a residuals vs fitted values plot. However, a drawback of this method is the dynamic input size, which changes based on the number of observations. For modern computer vision models implemented in mainstream software like TensorFlow [@abadi2016tensorflow], the input shape is typically fixed. One solution is to pad the input vectors with leading or trailing zeros when the input tensor expects longer vectors, but it may fail if the input vector surpasses the designed length. 
+A straightforward architecture of the input layer involves feeding a vector of residuals along with a vector of fitted values, essentially providing all the necessary information for creating a residuals vs fitted values plot. However, a drawback of this method is the variable input size, which changes based on the number of observations. For modern computer vision models implemented in mainstream software like TensorFlow [@abadi2016tensorflow], the input shape is typically fixed. One solution is to pad the input vectors with leading or trailing zeros when the input tensor expects longer vectors, but it may fail if the input vector surpasses the designed length. 
 
 Another strategy is to summarize the residuals and fitted values separately using histograms and utilize the counts as the input. By controlling the number of bins in the histograms, it becomes possible to provide fixed-length input vectors. Still, since histograms only capture the marginal distribution of residuals and fitted values respectively, they can not be used to differentiate visual patterns with same marginal distributions but different joint distributions.
 
@@ -561,6 +561,8 @@ Non-normality violations arise from specifying a non-normal distribution for $\b
 @eq-data-sim accommodates the incorporation of the second predictor $\boldsymbol{x}_2$. Introducing it into the data generation process by setting $\beta_1 = 1$ significantly enhances the complexity of the shapes, as illustrated in @fig-different-j-x2. In comparison to @fig-different-j, @fig-different-j-x2 demonstrates that the non-linear shape resembles a surface rather than a single curve. This augmentation can facilitate the computer vision model in learning visual patterns from residual plots of the multiple linear regression model.
 
 In real-world analysis, it is not uncommon to encounter instances where multiple model violations coexist. In such cases, the residual plots often exhibit a mixed pattern of visual anomalies corresponding to different types of model violations. @fig-different-j-heter and @fig-different-e-heter show the visual patterns of models with multiple model violations.
+
+The predictors, $\boldsymbol{x}_1$ and $\boldsymbol{x}_2$, are randomly generated from four distinct distributions, including $U(-1, 1)$ (uniform), $N(0, 0.3^2)$ (normal), $\text{lognormal}(0, 0.6^2)/3$ (skewed) and $U\{-1, 1\}$ (discrete uniform). 
 
 ### Balanced Dataset
 
@@ -1508,7 +1510,7 @@ The attention map at [@fig-false-check]B suggests that the estimation is highly 
 
 The Boston housing dataset, originally published by @harrison1978hedonic, offers insights into housing in the Boston, Massachusetts area. For illustration purposes, we utilize a reduced version from Kaggle, comprising 489 rows and 4 columns: average number of rooms per dwelling (RM), percentage of lower status of the population (LSTAT), pupil-teacher ratio by town (PTRATIO), and median value of owner-occupied homes in $1000's (MEDV). In our analysis, MEDV will serve as the response variable, while the other columns will function as predictors in a linear regression model. Our primary focus is to detect non-linearity, because the relationships between RM and MEDV or LSTAT and MEDV are non-linear.
 
-@fig-boston-check displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a "U" shape is shown in the plot A. Furthermore, the RESET test yields a very small $p$-value. The estimated distance $\hat{D}$ significantly exceeds $Q_{null}(0.95)$, leading to rejection of $H_0$. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the "U" shape. The CPA provided in plot D shows two distinct clusters of data points, further underling the visual differences between bootstrapped plots and null plots. This coincides the findings from @fig-boston-lineup, where the true plot exhibiting a "U" shape is visually distinctive from null plots. If a visual test is conducted by human, $H_0$ will also be rejected.
+@fig-boston-check displays the residual plot and the assessment conducted by the computer vision model. A clear non-linearity pattern resembling a "U" shape is shown in the plot A. Furthermore, the RESET test yields a very small $p$-value. The estimated distance $\hat{D}$ significantly exceeds $Q_{null}(0.95)$, leading to rejection of $H_0$. The bootstrapped distribution also suggests that almost all the bootstrapped fitted models will be rejected, indicating that the fitted model is unlikely to be correctly specified. The attention map in plot B suggests the center of the image has higher leverage than other areas, and it is the turning point of the "U" shape. The PCA provided in plot D shows two distinct clusters of data points, further underling the visual differences between bootstrapped plots and null plots. This coincides the findings from @fig-boston-lineup, where the true plot exhibiting a "U" shape is visually distinctive from null plots. If a visual test is conducted by human, $H_0$ will also be rejected.
 
 
 
@@ -1606,7 +1608,7 @@ In practice, without accessing the residual plot, it would be challenging to ide
 
 
 
-## Limitations and Future Work
+## Limitations and Future Work {#sec-second-paper-limitation}
 
 Despite the computer vision model performing well with general cases under the synthetic data generation scheme and the three examples used in this chapter, this study has several limitations that could guide future work.
 

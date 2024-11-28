@@ -135,13 +135,21 @@ Optionally, the user may specify the node index of the output layer of the train
 After initializing the object, you can print the checker to view its status.
 
 ```r
-── <AUTO_VI object>
+print(checker)
+```
+
+```{r message = TRUE}
+cli::cli_h3("
+<AUTO_VI object>
 Status:
  - Fitted model: lm
  - Keras model: (None, 32, 32, 3) + (None, 5) -> (None, 1)
     - Output node index: 1
  - Result: UNKNOWN 
+    ")
 ```
+
+
 
 The status includes the list of regression model classes (as provided by the built-in `class()` function), the input and output shapes of the Keras model in the standard `Numpy` format [@harris2020array], the output node index being monitored, and the assessment result. If no check has been run yet, the assessment result will display as "UNKNOWN".
 
@@ -467,7 +475,7 @@ The argument `extract_feature_from_layer` is also available in other functions t
 
 The trained computer vision models described in @sec-second-paper are hosted on a GitHub repository at [https://github.com/TengMCing/autovi_data](https://github.com/TengMCing/autovi_data). Currently, there are six models available. You can view them by calling `list_keras_model()`, which will return a `tibble` showing the input shape and a description of each model.
 
-```{r}
+```{r echo = TRUE}
 list_keras_model()
 ```
 
