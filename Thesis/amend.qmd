@@ -1,0 +1,14 @@
+---
+title: "Amendments Summary"
+author: Weihao Li
+Date: "`r Sys.Date()`"
+format: pdf
+---
+
+In this version, I have added a paragraph to acknowledge the extensive literature on regression diagnostics and various types of regression models. I clarified that the thesis focuses specifically on the classical normal linear regression model.
+
+I also improved the language in Chapter 3 for better clarity, such as changing "dynamic input size" to "variable input size." Additionally, I included a sentence to provide more details on how the predictors in the training datasets are generated.
+
+In Chapter 4, I corrected several formatting issues, particularly those related to code chunks not displaying properly.
+
+Overall, the reviewers' comments have been very helpful, though not all could be addressed due to time constraints. However, as we are preparing the journal submission for Chapters 3 and 4, these comments will be carefully considered and properly addressed.
