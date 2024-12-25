@@ -281,31 +281,13 @@ $$ {#eq-mvi}
 ::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violations Index (MVI). The constant $C$ is set to be 10.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Degree of model violations </th>
-   <th style="text-align:center;"> Range ($C$ = 10) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Strong </td>
-   <td style="text-align:center;"> $\text{MVI} > 8$ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Moderate </td>
-   <td style="text-align:center;"> $6 < \text{MVI} < 8$ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Weak </td>
-   <td style="text-align:center;"> $\text{MVI} < 6$ </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Degree of model violations |   Range ($C$ = 10)   |
+|:--------------------------|:--------------------:|
+|Strong                     |   $\text{MVI} > 8$   |
+|Moderate                   | $6 < \text{MVI} < 8$ |
+|Weak                       |   $\text{MVI} < 6$   |
+
 
 :::
 :::
@@ -467,67 +449,22 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 ::: {#tbl-factor .cell tbl-cap='Factors used in the data generating process for synthetic data simulation. Factor $j$ and $a$ controls the non-linearity shape and the heteroskedasticity shape respectively. Factor $b$, $\sigma_\varepsilon$ and $n$ control the signal strength. Factor $\text{dist}_\varepsilon$, $\text{dist}_{x1}$ and $\text{dist}_{x2}$ specifies the distribution of $\varepsilon$, $X_1$ and $X_2$ respectively.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Factor </th>
-   <th style="text-align:left;"> Domain </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> j </td>
-   <td style="text-align:left;"> \{2, 3, ..., 18\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> a </td>
-   <td style="text-align:left;"> [-1, 1] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> b </td>
-   <td style="text-align:left;"> [0, 100] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\beta_1$ </td>
-   <td style="text-align:left;"> \{0, 1\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\beta_2$ </td>
-   <td style="text-align:left;"> \{0, 1\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\text{dist}_\varepsilon$ </td>
-   <td style="text-align:left;"> \{discrete, uniform, normal, lognormal\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\text{dist}_{x1}$ </td>
-   <td style="text-align:left;"> \{discrete, uniform, normal, lognormal\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\text{dist}_{x2}$ </td>
-   <td style="text-align:left;"> \{discrete, uniform, normal, lognormal\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\sigma_{\varepsilon}$ </td>
-   <td style="text-align:left;"> [0.0625, 9] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\sigma_{X1}$ </td>
-   <td style="text-align:left;"> [0.3, 0.6] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\sigma_{X2}$ </td>
-   <td style="text-align:left;"> [0.3, 0.6] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> n </td>
-   <td style="text-align:left;"> [50, 500] </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Factor                    |Domain                                   |
+|:-------------------------|:----------------------------------------|
+|j                         |\{2, 3, ..., 18\}                        |
+|a                         |[-1, 1]                                  |
+|b                         |[0, 100]                                 |
+|$\beta_1$                 |\{0, 1\}                                 |
+|$\beta_2$                 |\{0, 1\}                                 |
+|$\text{dist}_\varepsilon$ |\{discrete, uniform, normal, lognormal\} |
+|$\text{dist}_{x1}$        |\{discrete, uniform, normal, lognormal\} |
+|$\text{dist}_{x2}$        |\{discrete, uniform, normal, lognormal\} |
+|$\sigma_{\varepsilon}$    |[0.0625, 9]                              |
+|$\sigma_{X1}$             |[0.3, 0.6]                               |
+|$\sigma_{X2}$             |[0.3, 0.6]                               |
+|n                         |[50, 500]                                |
+
 
 :::
 :::
@@ -761,55 +698,19 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 ::: {#tbl-hyperparameter .cell tbl-cap='Name of hyperparameters and their correspoding domain for the computer vision model.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Hyperparameter </th>
-   <th style="text-align:left;"> Domain </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Number of base filters </td>
-   <td style="text-align:left;"> \{4, 8, 16, 32, 64\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Dropout rate for convolutional blocks </td>
-   <td style="text-align:left;"> [0.1, 0.6] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Batch normalization for convolutional blocks </td>
-   <td style="text-align:left;"> \{false, true\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Type of global pooling </td>
-   <td style="text-align:left;"> \{max, average\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Ignore additional inputs </td>
-   <td style="text-align:left;"> \{false, true\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Number of units for the fully-connected layer </td>
-   <td style="text-align:left;"> \{128, 256, 512, 1024, 2048\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Batch normalization for the fully-connected layer </td>
-   <td style="text-align:left;"> \{false, true\} </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Dropout rate for the fully-connected layer </td>
-   <td style="text-align:left;"> [0.1, 0.6] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Learning rate </td>
-   <td style="text-align:left;"> [$10^{-8}$, $10^{-1}$] </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Hyperparameter                                    |Domain                        |
+|:-------------------------------------------------|:-----------------------------|
+|Number of base filters                            |\{4, 8, 16, 32, 64\}          |
+|Dropout rate for convolutional blocks             |[0.1, 0.6]                    |
+|Batch normalization for convolutional blocks      |\{false, true\}               |
+|Type of global pooling                            |\{max, average\}              |
+|Ignore additional inputs                          |\{false, true\}               |
+|Number of units for the fully-connected layer     |\{128, 256, 512, 1024, 2048\} |
+|Batch normalization for the fully-connected layer |\{false, true\}               |
+|Dropout rate for the fully-connected layer        |[0.1, 0.6]                    |
+|Learning rate                                     |[$10^{-8}$, $10^{-1}$]        |
+
 
 :::
 :::
@@ -1049,43 +950,13 @@ Based on the model performance metrics, we chose to use the best-performing mode
 ::: {#tbl-performance .cell tbl-cap='The test performance of three optimized models with different input sizes.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:right;"> RMSE </th>
-   <th style="text-align:right;"> $R^2$ </th>
-   <th style="text-align:right;"> MAE </th>
-   <th style="text-align:right;"> Huber loss </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> $32 \times 32$ </td>
-   <td style="text-align:right;"> 0.660 </td>
-   <td style="text-align:right;"> 0.901 </td>
-   <td style="text-align:right;"> 0.434 </td>
-   <td style="text-align:right;"> 0.18 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $64 \times 64$ </td>
-   <td style="text-align:right;"> 0.674 </td>
-   <td style="text-align:right;"> 0.897 </td>
-   <td style="text-align:right;"> 0.438 </td>
-   <td style="text-align:right;"> 0.19 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $128 \times 128$ </td>
-   <td style="text-align:right;"> 0.692 </td>
-   <td style="text-align:right;"> 0.892 </td>
-   <td style="text-align:right;"> 0.460 </td>
-   <td style="text-align:right;"> 0.20 </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|                 |  RMSE| $R^2$|   MAE| Huber loss|
+|:----------------|-----:|-----:|-----:|----------:|
+|$32 \times 32$   | 0.660| 0.901| 0.434|       0.18|
+|$64 \times 64$   | 0.674| 0.897| 0.438|       0.19|
+|$128 \times 128$ | 0.692| 0.892| 0.460|       0.20|
+
 
 :::
 :::
@@ -1273,60 +1144,18 @@ Based on the model performance metrics, we chose to use the best-performing mode
 ::: {#tbl-performance-sub .cell tbl-cap='The training and test performance of the $32 \times 32$ model presented with different model violations.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Violations </th>
-   <th style="text-align:right;"> \#samples </th>
-   <th style="text-align:right;"> RMSE </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> no violations </td>
-   <td style="text-align:right;"> 155 </td>
-   <td style="text-align:right;"> 1.267 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:right;"> 2218 </td>
-   <td style="text-align:right;"> 0.787 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:right;"> 1067 </td>
-   <td style="text-align:right;"> 0.602 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-linearity + heteroskedasticity </td>
-   <td style="text-align:right;"> 985 </td>
-   <td style="text-align:right;"> 0.751 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-normality </td>
-   <td style="text-align:right;"> 1111 </td>
-   <td style="text-align:right;"> 0.320 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-linearity + non-normality </td>
-   <td style="text-align:right;"> 928 </td>
-   <td style="text-align:right;"> 0.600 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> heteroskedasticity + non-normality </td>
-   <td style="text-align:right;"> 819 </td>
-   <td style="text-align:right;"> 0.489 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-linearity + heteroskedasticity + non-normality </td>
-   <td style="text-align:right;"> 717 </td>
-   <td style="text-align:right;"> 0.620 </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Violations                                         | \#samples|  RMSE|
+|:--------------------------------------------------|---------:|-----:|
+|no violations                                      |       155| 1.267|
+|non-linearity                                      |      2218| 0.787|
+|heteroskedasticity                                 |      1067| 0.602|
+|non-linearity + heteroskedasticity                 |       985| 0.751|
+|non-normality                                      |      1111| 0.320|
+|non-linearity + non-normality                      |       928| 0.600|
+|heteroskedasticity + non-normality                 |       819| 0.489|
+|non-linearity + heteroskedasticity + non-normality |       717| 0.620|
+
 
 :::
 :::
@@ -1438,36 +1267,12 @@ In @li2024plot, the residual plots are simulated from a data generating process 
 ::: {#tbl-experiment-performance .cell tbl-cap='The performance of the $32 \times 32$ model on the data used in the human subject experiment.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Violation </th>
-   <th style="text-align:right;"> RMSE </th>
-   <th style="text-align:right;"> $R^2$ </th>
-   <th style="text-align:right;"> MAE </th>
-   <th style="text-align:right;"> Huber loss </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> heteroskedasticity </td>
-   <td style="text-align:right;"> 0.721 </td>
-   <td style="text-align:right;"> 0.852 </td>
-   <td style="text-align:right;"> 0.553 </td>
-   <td style="text-align:right;"> 0.235 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> non-linearity </td>
-   <td style="text-align:right;"> 0.738 </td>
-   <td style="text-align:right;"> 0.770 </td>
-   <td style="text-align:right;"> 0.566 </td>
-   <td style="text-align:right;"> 0.246 </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Violation          |  RMSE| $R^2$|   MAE| Huber loss|
+|:------------------|-----:|-----:|-----:|----------:|
+|heteroskedasticity | 0.721| 0.852| 0.553|      0.235|
+|non-linearity      | 0.738| 0.770| 0.566|      0.246|
+
 
 :::
 :::

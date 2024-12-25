@@ -1,8 +1,8 @@
 # Abstract {-}
 
-This work is motivated by the need for an automated approach to diagnose regression models through residual plots with reliability and consistency. While numerical hypothesis tests are commonly used, residual plots remain essential in regression diagnostics because conventional tests are limited to specific types of model departures and tend to be overly sensitive. Visual inference using the lineup protocol offers a less sensitive and more broadly applicable alternative, yet its dependence on human judgment limits scalability. This research addresses these limitations by automating the assessment process.
+This work is motivated by the need for an automated approach to diagnose regression models through residual plots with reliability and consistency. While numerical hypothesis tests are commonly used, residual plots remain essential in regression diagnostics because conventional tests are limited to specific types of model departures and tend to be overly sensitive. This research builds on a method called the lineup protocol, a statistical visualization approach that embeds a data plot among null plots to compare patterns arising by chance with those observed in the data. This process is part of visual inference, where human judgment is used to make statistical inferences from data visualizations. However, the reliance on human judgment in visual inference poses challenges for scalability and consistency.
 
-This research presents three original contributions. The first contribution provides evidence for the effectiveness of visual inference in regression diagnostics through a human subject experiment, demonstrating the benefits of using the lineup protocol for reliable and consistent reading of residual plots. The second contribution introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitation of the lineup protocol. The third contribution presents an R package and Shiny app, providing a user-friendly interface for analysts to leverage the computer vision model and supporting tools for diagnostic purposes. These contributions advance the field of artificial intelligence for data visualization, enabling more efficient and accurate regression diagnostics.
+To overcome these challenges, this research presents three original contributions. The first contribution provides evidence for the effectiveness of visual inference in regression diagnostics through a human subject experiment, demonstrating the benefits of using the lineup protocol for reliable and consistent reading of residual plots. The second contribution introduces a computer vision model to automate the assessment of residual plots, addressing the scalability limitation of the lineup protocol. The third contribution presents an R package and Shiny app, providing a user-friendly interface for analysts to leverage the computer vision model and supporting tools for diagnostic purposes. These contributions advance the field of artificial intelligence for data visualization, enabling more efficient and accurate regression diagnostics.
 
 # Declaration {-}
 
@@ -19,20 +19,27 @@ The inclusion of co-authors reflects the fact that the work came from active col
 
 ::: {.cell}
 ::: {.cell-output-display}
-\begin{table}[!h]
-\centering\begingroup\fontsize{10}{12}\selectfont
+\begingroup\fontsize{10}{12}\selectfont
 
-\begin{tabular}{>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{1.3cm}}
+\begin{longtable}[t]{>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{1.3cm}}
 \toprule
 \multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3cm}}{\textbf{Publication title}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3.5cm}}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.5cm}}{\textbf{Student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.4cm}}{\textbf{Co-authors contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{1.3cm}}{\textbf{Coauthors are Monash students}}\\
 \midrule
+\endfirsthead
+\multicolumn{6}{@{}l}{\textit{(continued)}}\\
+\toprule
+\multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3cm}}{\textbf{Publication title}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{3.5cm}}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.5cm}}{\textbf{Student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.4cm}}{\textbf{Co-authors contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{1.3cm}}{\textbf{Coauthors are Monash students}}\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
 2 & A Plot is Worth a Thousand Tests: Assessing Residual Diagnostics with the Lineup Protocol & Published in the Journal of Computational and Graphical Statistics & 80\%  Concept, Analysis, Software, Writing & D. Cook 10\%,  
  E. Tanaka 5\%, 
- S. VanderPlas 5\% & No\\
-\bottomrule
-\end{tabular}
+ S. VanderPlas 5 & |No\\*
+\end{longtable}
 \endgroup{}
-\end{table}
 
 
 :::

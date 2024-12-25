@@ -119,50 +119,14 @@ With large sample sizes, hypothesis tests may reject the null hypothesis when th
 ::: {#tbl-example-residual-plot-table .cell layout-align="center" tbl-cap='Statistical significance testing for departures from good residuals for plots in @fig-residual-plot-common-departures. Shown are the $p$-values calculated for the RESET, the BP and the SW tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.'}
 ::: {.cell-output-display}
 
-`````{=html}
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Plot </th>
-   <th style="text-align:left;"> Departures </th>
-   <th style="text-align:right;"> RESET </th>
-   <th style="text-align:right;"> BP </th>
-   <th style="text-align:right;"> SW </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> None </td>
-   <td style="text-align:right;"> <span style="     " >0.779</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.133</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.728</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> Non-linearity </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.039</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> C </td>
-   <td style="text-align:left;"> Heteroskedasticity </td>
-   <td style="text-align:right;"> <span style="     " >0.658</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> D </td>
-   <td style="text-align:left;"> Non-normality </td>
-   <td style="text-align:right;"> <span style="     " >0.863</span> </td>
-   <td style="text-align:right;"> <span style="     " >0.736</span> </td>
-   <td style="text-align:right;"> <span style="  font-style: italic;   " >0.000</span> </td>
-  </tr>
-</tbody>
-</table>
 
-`````
+|Plot |Departures         |                                                RESET|                                                   BP|                                                   SW|
+|:----|:------------------|----------------------------------------------------:|----------------------------------------------------:|----------------------------------------------------:|
+|A    |None               |                    <span style="     " >0.779</span>|                    <span style="     " >0.133</span>|                    <span style="     " >0.728</span>|
+|B    |Non-linearity      | <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.039</span>|
+|C    |Heteroskedasticity |                    <span style="     " >0.658</span>| <span style="  font-style: italic;   " >0.000</span>| <span style="  font-style: italic;   " >0.000</span>|
+|D    |Non-normality      |                    <span style="     " >0.863</span>|                    <span style="     " >0.736</span>| <span style="  font-style: italic;   " >0.000</span>|
+
 
 :::
 :::

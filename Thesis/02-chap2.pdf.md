@@ -119,16 +119,13 @@ With large sample sizes, hypothesis tests may reject the null hypothesis when th
 ::: {#tbl-example-residual-plot-table .cell layout-align="center" tbl-cap='Statistical significance testing for departures from good residuals for plots in @fig-residual-plot-common-departures. Shown are the $p$-values calculated for the RESET, the BP and the SW tests. The good residual plot (A) is judged a good residual plot, as expected, by all tests. The non-linearity (B) is detected by all tests, as might be expected given the extreme structure.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{llrrr}
-\toprule
-Plot & Departures & RESET & BP & SW\\
-\midrule
-A & None & 0.779 & 0.133 & 0.728\\
-B & Non-linearity & \em{0.000} & \em{0.000} & \em{0.039}\\
-C & Heteroskedasticity & 0.658 & \em{0.000} & \em{0.000}\\
-D & Non-normality & 0.863 & 0.736 & \em{0.000}\\
-\bottomrule
-\end{tabular}
+
+|Plot |Departures         |      RESET|         BP|         SW|
+|:----|:------------------|----------:|----------:|----------:|
+|A    |None               |      0.779|      0.133|      0.728|
+|B    |Non-linearity      | \em{0.000}| \em{0.000}| \em{0.039}|
+|C    |Heteroskedasticity |      0.658| \em{0.000}| \em{0.000}|
+|D    |Non-normality      |      0.863|      0.736| \em{0.000}|
 
 
 :::

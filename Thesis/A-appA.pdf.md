@@ -422,7 +422,7 @@ Throughout the study, we have collected 7254 evaluations on 1116 non-null lineup
 ::: {#tbl-count-lineup .cell tbl-cap='Count of lineups, evaluations and participants over departure types and data collection periods.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lrrrrrrr}
+\begin{longtable}[t]{lrrrrrrr}
 \toprule
 \multicolumn{1}{c}{ } & \multicolumn{3}{c}{Non-linearity} & \multicolumn{3}{c}{Heteroskedasticity} & \multicolumn{1}{c}{ } \\
 \cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
@@ -432,7 +432,7 @@ Lineups & 576 & 0 & 144 & 0 & 540 & 135 & 1116\\
 Evaluations & 2880 & 0 & 864 & 0 & 2700 & 810 & 7254\\
 Participants & 160 & 0 & 123 & 0 & 160 & 123 & 443\\
 \bottomrule
-\end{tabular}
+\end{longtable}
 
 
 :::
@@ -454,10 +454,8 @@ It can be observed from the tables that most participants have Diploma or Bachel
 
 ::: {#tbl-pronoun .cell tbl-cap='Summary of pronoun distribution of participants recruited in this study.'}
 ::: {.cell-output-display}
-\begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}{lrrrrrrrr}
+
+\begin{longtable}[t]{lrrrrrrrr}
 \toprule
 Pronoun & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 \midrule
@@ -466,8 +464,7 @@ She & 78 & 17.6 & 77 & 17.4 & 61 & 13.8 & 216 & 48.8\\
 Other & 5 & 1.1 & 4 & 0.9 & 1 & 0.2 & 10 & 2.3\\
  & 160 & 36.1 & 160 & 36.1 & 123 & 27.8 & 443 & 100.0\\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{longtable}
 
 
 :::
@@ -475,10 +472,8 @@ Other & 5 & 1.1 & 4 & 0.9 & 1 & 0.2 & 10 & 2.3\\
 
 ::: {#tbl-age-group .cell tbl-cap='Summary of age distribution of participants recruited in this study.'}
 ::: {.cell-output-display}
-\begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}{lrrrrrrrr}
+
+\begin{longtable}[t]{lrrrrrrrr}
 \toprule
 Age group & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 \midrule
@@ -488,8 +483,7 @@ Age group & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 55-64 & 2 & 0.5 & 3 & 0.7 & 3 & 0.7 & 8 & 1.8\\
  & 160 & 36.1 & 160 & 36.1 & 123 & 27.8 & 443 & 100.0\\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{longtable}
 
 
 :::
@@ -497,10 +491,8 @@ Age group & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 
 ::: {#tbl-education .cell tbl-cap='Summary of education distribution of participants recruited in this study.'}
 ::: {.cell-output-display}
-\begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}{lrrrrrrrr}
+
+\begin{longtable}[t]{lrrrrrrrr}
 \toprule
 Education & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 \midrule
@@ -512,8 +504,7 @@ Doctoral Degree & 0 & 0.0 & 0 & 0.0 & 2 & 0.5 & 2 & 0.5\\
 \addlinespace
  & 160 & 36.1 & 160 & 36.1 & 123 & 27.8 & 443 & 100.0\\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{longtable}
 
 
 :::
@@ -521,10 +512,8 @@ Doctoral Degree & 0 & 0.0 & 0 & 0.0 & 2 & 0.5 & 2 & 0.5\\
 
 ::: {#tbl-experience .cell tbl-cap='Summary of previous experience distribution of participants recruited in this study.'}
 ::: {.cell-output-display}
-\begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}{lrrrrrrrr}
+
+\begin{longtable}[t]{lrrrrrrrr}
 \toprule
 Previous experience & Period I & \% & Period II & \% & Period III & \% & Total & \%\\
 \midrule
@@ -532,8 +521,7 @@ No & 96 & 21.7 & 88 & 19.9 & 67 & 15.1 & 251 & 56.7\\
 Yes & 64 & 14.4 & 72 & 16.3 & 56 & 12.6 & 192 & 43.3\\
  & 160 & 36.1 & 160 & 36.1 & 123 & 27.8 & 443 & 100.0\\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{longtable}
 
 
 :::

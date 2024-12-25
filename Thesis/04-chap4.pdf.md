@@ -425,7 +425,7 @@ checker$auxiliary()
 # A tibble: 1 x 5
   measure_monotonic measure_sparse measure_splines measure_striped     n
               <dbl>          <dbl>           <dbl>           <dbl> <int>
-1            0.0621          0.470          0.0901            0.62    50
+1            0.0585          0.470          0.0901            0.62    50
 ```
 
 
@@ -533,7 +533,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/61/bv7_1qzs20x6fjb2rsv7513r0000gn/T//RtmpBbXjH4/file16151521f785a.png"
+[1] "/var/folders/wz/gmj3w1c56x926crggz2jwbh80000gn/T//RtmpPxJpqC/file52077d210e5e.png"
 ```
 
 

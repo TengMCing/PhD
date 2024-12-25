@@ -59,21 +59,21 @@ names(EXT_AUTO_VI)
 ::: {.cell-output .cell-output-stdout}
 
 ```
- [1] "vss"                  "rotate_resid"         "..init.."            
- [4] "plot_lineup"          "get_data"             "has_attr"            
- [7] "lineup_check"         "null_vss"             "check_result"        
-[10] "summary_plot"         "..str.."              "..new.."             
-[13] "del_attr"             "plot_resid"           "null_method"         
-[16] "..class.."            "..method_env.."       "auxiliary"           
-[19] "summary"              "set_attr"             "get_attr"            
-[22] "summary_density_plot" "get_fitted_and_resid" "..methods.."         
-[25] "..class_tree.."       "..repr.."             "feature_pca"         
-[28] "plot_pair"            "check"                "boot_vss"            
-[31] "feature_pca_plot"     "boot_method"          "save_plot"           
-[34] "summary_rank_plot"    "instantiate"          "p_value"             
-[37] "..instantiated.."     "..type.."             "..dir.."             
-[40] "..len.."              "..bases.."            "..mro.."             
-[43] "likelihood_ratio"    
+ [1] "..dir.."              "instantiate"          "summary_rank_plot"   
+ [4] "del_attr"             "boot_method"          "null_vss"            
+ [7] "..class_tree.."       "..instantiated.."     "summary"             
+[10] "..str.."              "..repr.."             "likelihood_ratio"    
+[13] "plot_resid"           "null_method"          "summary_density_plot"
+[16] "..mro.."              "set_attr"             "..methods.."         
+[19] "p_value"              "check"                "rotate_resid"        
+[22] "lineup_check"         "..method_env.."       "feature_pca_plot"    
+[25] "get_data"             "check_result"         "..new.."             
+[28] "..bases.."            "plot_pair"            "feature_pca"         
+[31] "plot_lineup"          "has_attr"             "summary_plot"        
+[34] "..class.."            "auxiliary"            "get_attr"            
+[37] "..len.."              "..type.."             "..init.."            
+[40] "get_fitted_and_resid" "save_plot"            "boot_vss"            
+[43] "vss"                 
 ```
 
 
@@ -116,16 +116,16 @@ EXT_AUTO_VI$null_method(lm(dist ~ speed, data = cars))
 # A tibble: 50 x 2
    .fitted .resid
      <dbl>  <dbl>
- 1   -1.85 -11.9 
- 2   -1.85   5.19
- 3    9.95   3.49
- 4    9.95  14.6 
- 5   13.9   11.4 
- 6   17.8    5.26
- 7   21.7   -5.15
- 8   21.7   19.5 
- 9   21.7    5.84
-10   25.7    3.00
+ 1   -1.85  26.7 
+ 2   -1.85  -2.81
+ 3    9.95   8.19
+ 4    9.95  37.0 
+ 5   13.9   -1.66
+ 6   17.8  -10.8 
+ 7   21.7   -4.41
+ 8   21.7    1.77
+ 9   21.7    3.11
+10   25.7    2.92
 # i 40 more rows
 ```
 

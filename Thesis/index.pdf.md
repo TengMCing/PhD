@@ -11,7 +11,7 @@ A thesis submitted for the degree of {{< meta degreetype >}} at Monash Universit
 
 
 
-Produced on 29 November 2024.
+Produced on 23 December 2024.
 
 © {{< meta author >}} (2024).
 
@@ -88,13 +88,13 @@ In the case of (??insert chapter numbers) my contribution to the work involved t
 ::: {.cell}
 ::: {.cell-output-display}
 
-\begin{tabular}{r|l|l|l|l|l}
-\hline
+\begin{longtable}[t]{rlllll}
+\toprule
 \multicolumn{1}{l}{Thesis chapter} & \multicolumn{1}{l}{Publication title} & \multicolumn{1}{l}{Status} & \multicolumn{1}{l}{Nature and \% of student contribution} & \multicolumn{1}{l}{Nature and \% of coauthors' contribution} & \multicolumn{1}{l}{Coauthors are Monash students}\\
-\hline
+\midrule
 2 & The life cycle of Mongolian crickets & Submitted & Concept and data analysis, writing first draft: 60\% & Shu Xu, input into manuscript: 25\%; Eddie Betts, input into manuscript: 15\% & Shu Xu: No; Eddie Betts: Yes\\
-\hline
-\end{tabular}
+\bottomrule
+\end{longtable}
 
 
 :::
@@ -118,7 +118,7 @@ In the case of (??insert chapter numbers) my contribution to the work involved t
 ::: {.cell-output-display}
 \begingroup\fontsize{10}{12}\selectfont
 
-\resizebox{\linewidth}{!}{
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabu} to \linewidth {>{\raggedleft\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright}X>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}}
 \toprule
 \multicolumn{1}{>{\raggedright\arraybackslash}p{1.2cm}}{\textbf{Thesis chapter}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Publication title}} & \multicolumn{1}{l}{\textbf{Status}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of student contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Nature and \% of coauthors' contribution}} & \multicolumn{1}{>{\raggedright\arraybackslash}p{2.6cm}}{\textbf{Coauthors are Monash students}}\\

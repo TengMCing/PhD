@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Appendix C — Appendix to “Software for Automated Residual Plot Assessment: autovi and autovi.web” – Advances in Artificial Intelligence for Data Visualization: Developing Computer Vision Models to Automate Reading of Data Plots, with Application to Regression Diagnostics</title>
 <style>
@@ -258,21 +258,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">EXT_AUTO_VI</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "vss"                  "rotate_resid"         "..init.."            
- [4] "plot_lineup"          "get_data"             "has_attr"            
- [7] "lineup_check"         "null_vss"             "check_result"        
-[10] "summary_plot"         "..str.."              "..new.."             
-[13] "del_attr"             "plot_resid"           "null_method"         
-[16] "..class.."            "..method_env.."       "auxiliary"           
-[19] "summary"              "set_attr"             "get_attr"            
-[22] "summary_density_plot" "get_fitted_and_resid" "..methods.."         
-[25] "..class_tree.."       "..repr.."             "feature_pca"         
-[28] "plot_pair"            "check"                "boot_vss"            
-[31] "feature_pca_plot"     "boot_method"          "save_plot"           
-[34] "summary_rank_plot"    "instantiate"          "p_value"             
-[37] "..instantiated.."     "..type.."             "..dir.."             
-[40] "..len.."              "..bases.."            "..mro.."             
-[43] "likelihood_ratio"    </code></pre>
+<pre><code> [1] "..dir.."              "instantiate"          "summary_rank_plot"   
+ [4] "del_attr"             "boot_method"          "null_vss"            
+ [7] "..class_tree.."       "..instantiated.."     "summary"             
+[10] "..str.."              "..repr.."             "likelihood_ratio"    
+[13] "plot_resid"           "null_method"          "summary_density_plot"
+[16] "..mro.."              "set_attr"             "..methods.."         
+[19] "p_value"              "check"                "rotate_resid"        
+[22] "lineup_check"         "..method_env.."       "feature_pca_plot"    
+[25] "get_data"             "check_result"         "..new.."             
+[28] "..bases.."            "plot_pair"            "feature_pca"         
+[31] "plot_lineup"          "has_attr"             "summary_plot"        
+[34] "..class.."            "auxiliary"            "get_attr"            
+[37] "..len.."              "..type.."             "..init.."            
+[40] "get_fitted_and_resid" "save_plot"            "boot_vss"            
+[43] "vss"                 </code></pre>
 </div>
 </div>
 <p>To register a method for an extended class, you need to pass the class as the first argument and the method as a named argument to the <code><a href="https://tengmcing.github.io/bandicoot/reference/register_method.html">bandicoot::register_method()</a></code> function. Within a method, <code>self</code> can be used as a reference to the class or object environment. The following code example overrides the <code>null_method()</code> with a function that simulates null residuals from the corresponding normal distribution. This approach differs from the default null residual simulation scheme described earlier. Although less efficient than the default method for linear regression models, it provides an alternative way to simulate null residuals. This method is particularly useful when the fitted model is unavailable, and only the fitted values and residuals are accessible, as discussed in <a href="04-chap4.html#sec-autovi-web" class="quarto-xref"><span>Section 4.3</span></a>.</p>
@@ -293,16 +293,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 50 × 2
    .fitted  .resid
      &lt;dbl&gt;   &lt;dbl&gt;
- 1   -1.85  -0.389
- 2   -1.85 -10.7  
- 3    9.95   2.84 
- 4    9.95  -7.52 
- 5   13.9   -7.80 
- 6   17.8   22.4  
- 7   21.7    8.92 
- 8   21.7  -10.6  
- 9   21.7  -10.2  
-10   25.7   14.7  
+ 1   -1.85  -0.589
+ 2   -1.85  12.1  
+ 3    9.95 -16.7  
+ 4    9.95   7.29 
+ 5   13.9   -0.753
+ 6   17.8    4.81 
+ 7   21.7  -21.1  
+ 8   21.7  -13.1  
+ 9   21.7   -6.93 
+10   25.7   24.6  
 # ℹ 40 more rows</code></pre>
 </div>
 </div>

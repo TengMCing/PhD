@@ -281,15 +281,12 @@ $$ {#eq-mvi}
 ::: {#tbl-mvi .cell tbl-cap='Degree of model violations or the strength of the visual signals according to the Model Violations Index (MVI). The constant $C$ is set to be 10.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lc}
-\toprule
-Degree of model violations & Range ($C$ = 10)\\
-\midrule
-Strong & $\text{MVI} > 8$\\
-Moderate & $6 < \text{MVI} < 8$\\
-Weak & $\text{MVI} < 6$\\
-\bottomrule
-\end{tabular}
+
+|Degree of model violations |   Range ($C$ = 10)   |
+|:--------------------------|:--------------------:|
+|Strong                     |   $\text{MVI} > 8$   |
+|Moderate                   | $6 < \text{MVI} < 8$ |
+|Weak                       |   $\text{MVI} < 6$   |
 
 
 :::
@@ -452,26 +449,21 @@ $$g(\boldsymbol{x}, k) = 2k \cdot \frac{\boldsymbol{x} - x_{\min}\boldsymbol{1}_
 ::: {#tbl-factor .cell tbl-cap='Factors used in the data generating process for synthetic data simulation. Factor $j$ and $a$ controls the non-linearity shape and the heteroskedasticity shape respectively. Factor $b$, $\sigma_\varepsilon$ and $n$ control the signal strength. Factor $\text{dist}_\varepsilon$, $\text{dist}_{x1}$ and $\text{dist}_{x2}$ specifies the distribution of $\varepsilon$, $X_1$ and $X_2$ respectively.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{ll}
-\toprule
-Factor & Domain\\
-\midrule
-j & \{2, 3, ..., 18\}\\
-a & {}[-1, 1]\\
-b & {}[0, 100]\\
-$\beta_1$ & \{0, 1\}\\
-$\beta_2$ & \{0, 1\}\\
-\addlinespace
-$\text{dist}_\varepsilon$ & \{discrete, uniform, normal, lognormal\}\\
-$\text{dist}_{x1}$ & \{discrete, uniform, normal, lognormal\}\\
-$\text{dist}_{x2}$ & \{discrete, uniform, normal, lognormal\}\\
-$\sigma_{\varepsilon}$ & {}[0.0625, 9]\\
-$\sigma_{X1}$ & {}[0.3, 0.6]\\
-\addlinespace
-$\sigma_{X2}$ & {}[0.3, 0.6]\\
-n & {}[50, 500]\\
-\bottomrule
-\end{tabular}
+
+|Factor                    |Domain                                   |
+|:-------------------------|:----------------------------------------|
+|j                         |\{2, 3, ..., 18\}                        |
+|a                         |[-1, 1]                                  |
+|b                         |[0, 100]                                 |
+|$\beta_1$                 |\{0, 1\}                                 |
+|$\beta_2$                 |\{0, 1\}                                 |
+|$\text{dist}_\varepsilon$ |\{discrete, uniform, normal, lognormal\} |
+|$\text{dist}_{x1}$        |\{discrete, uniform, normal, lognormal\} |
+|$\text{dist}_{x2}$        |\{discrete, uniform, normal, lognormal\} |
+|$\sigma_{\varepsilon}$    |[0.0625, 9]                              |
+|$\sigma_{X1}$             |[0.3, 0.6]                               |
+|$\sigma_{X2}$             |[0.3, 0.6]                               |
+|n                         |[50, 500]                                |
 
 
 :::
@@ -706,22 +698,18 @@ Our model was trained on the MASSIVE M3 high-performance computing platform [@go
 ::: {#tbl-hyperparameter .cell tbl-cap='Name of hyperparameters and their correspoding domain for the computer vision model.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{ll}
-\toprule
-Hyperparameter & Domain\\
-\midrule
-Number of base filters & \{4, 8, 16, 32, 64\}\\
-Dropout rate for convolutional blocks & {}[0.1, 0.6]\\
-Batch normalization for convolutional blocks & \{false, true\}\\
-Type of global pooling & \{max, average\}\\
-Ignore additional inputs & \{false, true\}\\
-\addlinespace
-Number of units for the fully-connected layer & \{128, 256, 512, 1024, 2048\}\\
-Batch normalization for the fully-connected layer & \{false, true\}\\
-Dropout rate for the fully-connected layer & {}[0.1, 0.6]\\
-Learning rate & {}[$10^{-8}$, $10^{-1}$]\\
-\bottomrule
-\end{tabular}
+
+|Hyperparameter                                    |Domain                        |
+|:-------------------------------------------------|:-----------------------------|
+|Number of base filters                            |\{4, 8, 16, 32, 64\}          |
+|Dropout rate for convolutional blocks             |[0.1, 0.6]                    |
+|Batch normalization for convolutional blocks      |\{false, true\}               |
+|Type of global pooling                            |\{max, average\}              |
+|Ignore additional inputs                          |\{false, true\}               |
+|Number of units for the fully-connected layer     |\{128, 256, 512, 1024, 2048\} |
+|Batch normalization for the fully-connected layer |\{false, true\}               |
+|Dropout rate for the fully-connected layer        |[0.1, 0.6]                    |
+|Learning rate                                     |[$10^{-8}$, $10^{-1}$]        |
 
 
 :::
@@ -840,12 +828,10 @@ All optimized models chose to retain the additional inputs, contributing to the 
 
 ::: {#tbl-best-hyperparameter .cell tbl-cap='Hyperparameters values for the optimized computer vision models with different input sizes.'}
 ::: {.cell-output-display}
-\begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}{llll}
+
+\begin{longtable}[t]{llll}
 \toprule
-Hyperparameter & $32 \times 32$ & $64 \times 64$ & $128 \times 128$\\
+Hyperparameter & \$32 \textbackslash{}times 32\$ & \$64 \textbackslash{}times 64\$ & \$128 \textbackslash{}times 128\$\\
 \midrule
 Number of base filters & 32 & 64 & 64\\
 Dropout rate for convolutional blocks & 0.4 & 0.3 & 0.4\\
@@ -858,8 +844,7 @@ Batch normalization for the fully-connected layer & false & true & true\\
 Dropout rate for the fully-connected layer & 0.2 & 0.4 & 0.1\\
 Learning rate & 0.0003 & 0.0006 & 0.0052\\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{longtable}
 
 
 :::
@@ -913,15 +898,12 @@ Based on the model performance metrics, we chose to use the best-performing mode
 ::: {#tbl-performance .cell tbl-cap='The test performance of three optimized models with different input sizes.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lrrrr}
-\toprule
- & RMSE & $R^2$ & MAE & Huber loss\\
-\midrule
-$32 \times 32$ & 0.660 & 0.901 & 0.434 & 0.18\\
-$64 \times 64$ & 0.674 & 0.897 & 0.438 & 0.19\\
-$128 \times 128$ & 0.692 & 0.892 & 0.460 & 0.20\\
-\bottomrule
-\end{tabular}
+
+|                 |  RMSE| $R^2$|   MAE| Huber loss|
+|:----------------|-----:|-----:|-----:|----------:|
+|$32 \times 32$   | 0.660| 0.901| 0.434|       0.18|
+|$64 \times 64$   | 0.674| 0.897| 0.438|       0.19|
+|$128 \times 128$ | 0.692| 0.892| 0.460|       0.20|
 
 
 :::
@@ -1110,20 +1092,17 @@ $128 \times 128$ & 0.692 & 0.892 & 0.460 & 0.20\\
 ::: {#tbl-performance-sub .cell tbl-cap='The training and test performance of the $32 \times 32$ model presented with different model violations.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lrr}
-\toprule
-Violations & \#samples & RMSE\\
-\midrule
-no violations & 155 & 1.267\\
-non-linearity & 2218 & 0.787\\
-heteroskedasticity & 1067 & 0.602\\
-non-linearity + heteroskedasticity & 985 & 0.751\\
-non-normality & 1111 & 0.320\\
-non-linearity + non-normality & 928 & 0.600\\
-heteroskedasticity + non-normality & 819 & 0.489\\
-non-linearity + heteroskedasticity + non-normality & 717 & 0.620\\
-\bottomrule
-\end{tabular}
+
+|Violations                                         | \#samples|  RMSE|
+|:--------------------------------------------------|---------:|-----:|
+|no violations                                      |       155| 1.267|
+|non-linearity                                      |      2218| 0.787|
+|heteroskedasticity                                 |      1067| 0.602|
+|non-linearity + heteroskedasticity                 |       985| 0.751|
+|non-normality                                      |      1111| 0.320|
+|non-linearity + non-normality                      |       928| 0.600|
+|heteroskedasticity + non-normality                 |       819| 0.489|
+|non-linearity + heteroskedasticity + non-normality |       717| 0.620|
 
 
 :::
@@ -1236,14 +1215,11 @@ In @li2024plot, the residual plots are simulated from a data generating process 
 ::: {#tbl-experiment-performance .cell tbl-cap='The performance of the $32 \times 32$ model on the data used in the human subject experiment.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lrrrr}
-\toprule
-Violation & RMSE & $R^2$ & MAE & Huber loss\\
-\midrule
-heteroskedasticity & 0.721 & 0.852 & 0.553 & 0.235\\
-non-linearity & 0.738 & 0.770 & 0.566 & 0.246\\
-\bottomrule
-\end{tabular}
+
+|Violation          |  RMSE| $R^2$|   MAE| Huber loss|
+|:------------------|-----:|-----:|-----:|----------:|
+|heteroskedasticity | 0.721| 0.852| 0.553|      0.235|
+|non-linearity      | 0.738| 0.770| 0.566|      0.246|
 
 
 :::
@@ -1383,9 +1359,9 @@ $$
 ::: {#tbl-human-conv-table .cell tbl-cap='Summary of the comparison of decisions made by computer vision model with decisions made by conventional tests and visual tests conducted by human.'}
 ::: {.cell-output-display}
 
-\begin{tabular}{lrrr}
+\begin{longtable}[t]{lrrr}
 \toprule
-Violations & \#Samples & \#Agreements & Agreement rate\\
+Violations & \textbackslash{}\#Samples & \textbackslash{}\#Agreements & Agreement rate\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{4}{l}{\textbf{Compared with conventional tests}}\\
@@ -1396,7 +1372,7 @@ Violations & \#Samples & \#Agreements & Agreement rate\\
 \hspace{1em}heteroskedasticity & 540 & 367 & 0.6796\\
 \hspace{1em}non-linearity & 576 & 385 & 0.6684\\
 \bottomrule
-\end{tabular}
+\end{longtable}
 
 
 :::
