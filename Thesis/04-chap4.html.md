@@ -533,7 +533,7 @@ checker$plot_resid() |>
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] "/var/folders/wz/gmj3w1c56x926crggz2jwbh80000gn/T//RtmpnqG1qV/file51e33e48d579.png"
+[1] "/var/folders/wz/gmj3w1c56x926crggz2jwbh80000gn/T//RtmpHpixCd/file1495a5c42a99f.png"
 ```
 
 

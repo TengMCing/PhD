@@ -77,9 +77,13 @@ Taking into account the implementation cost and the need for model interpretabil
 
 ### Output Formats
 
-Given that the input is a single residual plot represented as a fixed-resolution image, we can choose the output from the computer vision model to be either binary (classification) or numeric (regression). 
+Given that the input is a single residual plot represented as a fixed-resolution image, the output of the computer vision model can be designed for various tasks: binary classification, categorical classification with multiple classes, or numeric regression.
 
 The binary outcome can represent whether the input image is consistent with a null plot as determined by either (1) the data generating process or (2) the result of a visual test based on human judgement. Training a model following the latter option requires data from prior human subject experiments, presenting difficulties in controlling the quality of data due to variations in experimental settings across different studies. Additionally, some visual inference experiments are unrelated to linear regression models or residual plot diagnostics, resulting in a limited amount of available training data.
+
+For a multi-class outcome, the model could classify images into categories such as "contains outliers" vs. "does not contain outliers" or "is non-linear" vs. "not non-linear," among other diagnostic features. While this approach is appealing in theory, it essentially reverts to the traditional testing framework, where tests focus on detecting specific types of model violations in isolation.
+
+One significant advantage of the lineup protocol for residual diagnostics is its ability to detect multiple model violations simultaneously, provided these violations produce visually distinguishable differences in the plots. In contrast, training a classification model would require explicitly defining and mapping all potential violations of interest, or at least the most common ones, which can be impractical. If the goal is to identify specific cases, conventional statistical tests grounded in regression model assumptions are often more effective. Computer vision models may be less suited to such tasks.
 
 Alternatively, the output could be a meaningful and interpretable numerical measure useful for assessing residual plots, such as the strength of suspicious visual patterns reflecting the extent of model violations, or the difficulty index for identifying whether a residual plot has no issues. However, these numeric measures are often informally used in daily communication but are not typically formalized or rigorously defined. For the purpose of training a model, this numeric measure has to be quantifiable. 
 
