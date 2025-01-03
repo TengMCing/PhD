@@ -28,7 +28,7 @@ I have added a diagram in Chapter 1 to illustrate how the lineup protocol works,
 
 5. *In chapter 2, can you say a bit more about how you recruited your subjects? I am not familiar with the Prolific Crowd Sourcing Platform. Were the subjects technically trained at all in terms of knowing what to look for?*
 
-The recruitment details are provided in the appendix. The subjects received training by reading a webpage with examples. I decided not to modify this chapter further, as it has been submitted published.
+The recruitment details are provided in the appendix. The subjects received training by reading a webpage with examples. I decided not to modify this chapter further, as it has been published.
 
 6. *I was glad to see a reference to Tukey in Chapter 3! He was absolutely one of the pioneers in terms of using visualisations to help interpret model fit etc. You might want to add some additional references earlier on as well. Some of his work was foundational in the field, in my opinion.*
 
@@ -70,7 +70,7 @@ To clarify this, I have added two additional paragraphs in Section 3.2.2.
 
 In Chapter 2, the data plot is compared against 19 null plots, as humans are not well-suited to evaluating lineups with a large number of plots. For reliable results, such a lineup should ideally be evaluated by at least five participants; otherwise, the smallest achievable $p$-value may not be sufficiently small. Additionally, involving multiple participants helps mitigate variability in individuals' abilities to assess residual plots. This approach is discussed in the experimental design and is supported by the cited literature in the chapter, such as Validation of Visual Statistical Inference, Applied to Linear Models by Mahbubul Majumder, Heike Hofmann, and Dianne Cook.
 
-I decided not to modify this chapter further, as it has been submitted published.
+I decided not to modify this chapter further, as it has been published.
 
 3. *In Section 3, the decision to treat this as a computer vision problem (rather than just passing in the vectors required to make a residual plot) was justified by saying that if the sample size is very very large, then it might not be possible to pass in the vectors that form the residual plot. I am a bit skeptical of this argument, since the case of an extremely large sample size, I think that the residuals could be sampled without replacement, with no loss of accuracy or ability to detect model violations. (Furthermore, I believe that ordinary least squares regression settings with such extraordinarily large sample sizes are relatively unusual --- in contemporary settings, if the sample size is huge, then typically more complex models than ordinary least squares are fit.)*
 
