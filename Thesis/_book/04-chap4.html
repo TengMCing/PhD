@@ -331,7 +331,7 @@ We can also apply bootstrapping to obtain a distribution of visual signal streng
 </section><section id="installation" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="installation">
 <span class="header-section-number">4.2.2</span> Installation</h3>
 <p>The <code>autovi</code> package is available on CRAN. It is actively developed and maintained, with the latest updates accessible on GitHub at <a href="https://github.com/TengMCing/autovi">https://github.com/TengMCing/autovi</a>. The code discussed in this chapter is based on <code>autovi</code> version 0.4.1.</p>
-<p>The package includes internal functions to check the current Python environment used by the <code>reticulate</code> package. If the necessary Python packages are not installed in the Python interpreter, an error will be raised. If you want to select a specific Python environment, you can do so by calling the <code><a href="https://rdrr.io/pkg/reticulate/man/use_python.html">reticulate::use_python()</a></code> function before using the <code>autovi</code> package.</p>
+<p>The package includes internal functions to check the current Python environment used by the <code>reticulate</code> package. If the necessary Python packages are not installed in the Python interpreter, an error will be raised. If you want to select a specific Python environment, you can do so by calling the <code><a href="https://rstudio.github.io/reticulate/reference/use_python.html">reticulate::use_python()</a></code> function before using the <code>autovi</code> package.</p>
 </section><section id="sec-autovi-usage" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="sec-autovi-usage">
 <span class="header-section-number">4.2.3</span> Usage</h3>
 <p>To get started quickly, only calls three functions are necessary to obtain a summary of the automated residual assessment:</p>
@@ -563,7 +563,7 @@ Figure&nbsp;4.4: Residual plot of the regression model stored in the checker.
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">checker</span><span class="op">$</span><span class="fu">plot_resid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="va">checker</span><span class="op">$</span><span class="fu">save_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/var/folders/wz/gmj3w1c56x926crggz2jwbh80000gn/T//RtmpHpixCd/file1495a5c42a99f.png"</code></pre>
+<pre><code>[1] "/var/folders/wz/gmj3w1c56x926crggz2jwbh80000gn/T//RtmpzVHmyc/file16cb31a326c8b.png"</code></pre>
 </div>
 </div>
 </section><section id="image-reading-and-resizing" class="level4"><h4 class="anchored" data-anchor-id="image-reading-and-resizing">Image Reading and Resizing</h4>
