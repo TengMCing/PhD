@@ -608,7 +608,7 @@ The framework established by `autovi` and `autovi.web` opens up exciting possibi
 
 ## Availability
 
-The web interface is housed at [autoviweb.netlify.app](autoviweb.netlify.app). 
+The web interface is housed at [autoviweb.netlify.app](https://autoviweb.netlify.app/). 
 
 The the current version of `autovi` can be installed from CRAN, and source code for both packages are available at [https://github.com/TengMCing/](https://github.com/TengMCing/).
 
